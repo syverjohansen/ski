@@ -1,0 +1,265 @@
+bmaleelo_update = bmalebelo_write
+bladyelo_update = bladybelo_write
+names(bmaleelo_update)[1] = "bmalenames"
+names(bladyelo_update)[1] = "bladynames"
+names(bmaleelo_update)[2] = "bmaledate"
+names(bladyelo_update)[2] = "bladydate"
+names(bmaleelo_update)[3] = "bmaledistance"
+names(bladyelo_update)[3] = "bladydistance"
+names(bmaleelo_update)[4] = "bmaleeloscore"
+names(bladyelo_update)[4] = "bladyeloscore"
+bmaleelo_update = bmaleelo_update[which(bmaleelo_update$bmaledate=="20200500"), ]
+bladyelo_update  = bladyelo_update[which(bladyelo_update$bladydate=="20200500"),]
+
+bmaleelo_update$bmaledate = as.character(bmaleelo_update$bmaledate)
+bladyelo_update$bladydate = as.character(bladyelo_update$bladydate)
+
+update_bmenxl <- read_excel("~/ski/elo/biathlon/excel365/all2021.xlsx", 
+                           sheet = "Men", col_names = FALSE, na = "NA")
+update_bladiesxl <- read_excel("~/ski/elo/biathlon/excel365/all2021.xlsx", 
+                              sheet = "Ladies", col_names = FALSE, na = "NA")
+
+
+update_bmenxl = data.frame(update_bmenxl)
+update_bladiesxl = data.frame(update_bladiesxl)
+colnames(update_bmenxl) = c("date", "city", "country", "type", "sex", "distance", "discipline", 
+                           "place", "name", "nationality")
+
+colnames(update_bladiesxl) = c("date", "city", "country", "type", "sex", "distance", "discipline", 
+                              "place", "name", "nationality")
+##Update the races for the gender and calculate their elo score
+
+bmaleelo_update$bmalenames = as.character(bmaleelo_update$bmalenames)
+race_num = c(1)
+race_n = 1
+for(a in 2:length(update_bmenxl[,1])){
+  if(as.double(as.character(update_bmenxl$place[a]))>=as.double(as.character(update_bmenxl$place[a-1]))){
+    race_num = append(race_num, race_n)
+  }
+  else{
+ 
+    race_n = race_n+1
+    race_num = append(race_num, race_n)
+  }
+}
+
+update_bmenxl$race = race_num
+#list the elo scores for each individual before the race (prev_elo)
+#upate the scores with the algorithm
+
+upK=1
+for(i in 1:max(unique(update_bmenxl$race))){
+#To see where they were x races ago
+ # for(i in 1:(max(unique(update_bmenxl$race))-1)){
+  #for(i in 1:3){
+ 
+  cur_race = update_bmenxl[which(update_bmenxl$race==i), ]
+  
+  prev_elo = c()
+  post_elo = c()
+  for(j in 1:length(cur_race[,1])){
+    
+    if(cur_race$name[j]%in%bmaleelo_update$bmalenames){
+      prev_elo = append(prev_elo, bmaleelo_update[which(bmaleelo_update$bmalenames == cur_race$name[j]), 4])
+    }
+    else{
+      prev_elo = append(prev_elo, 1300)
+      
+    }
+  }
+  
+  cur_race$prev_elo = as.double(as.character(prev_elo))
+  #for(j in 1:1){
+  for(j in 1:length(cur_race[,1])){
+
+    win_places = which(as.double(as.character(cur_race$place))>as.double(as.character(cur_race$place[j])))
+
+    draw_places = which(as.double(as.character(cur_race$place))==as.double(as.character(cur_race$place[j])))
+    loss_places = which(as.double(as.character(cur_race$place))<as.double(as.character(cur_race$place[j])))
+    
+    upr1 <- cur_race$prev_elo[j]
+
+    upR1 = 10^(upr1/400)
+    if(length(win_places)>0){
+      
+      upwR2 = sum(10^(cur_race$prev_elo[win_places]/400))/length(win_places)
+      upwE1 = upR1/(upR1+upwR2)
+      upwS1 = length(win_places)
+    }
+    else{
+      upwS1 = 0
+      upwE1 = 0
+    }
+    if(length(draw_places>1)){
+      updR2 = sum(10^(cur_race$prev_elo[draw_places]/400))/length(draw_places)
+      updE1 = upR1/(upR1+updR2)
+      updS1 = length(draw_places)-1
+    }
+    else{
+      updE1 = 0
+      updS1 = 0
+    }
+    if(length(loss_places>0)){
+      uplR2 = sum(10^(cur_race$prev_elo[loss_places]/400))/length(loss_places)
+      uplE1 = upR1/(upR1+uplR2)
+      uplS1 = length(loss_places)
+    }
+    else{
+      uplE1 = 0
+      uplS1 = 0
+    }
+    
+    upr11 = upr1+upwS1*upK*(1-upwE1)+updS1*upK*(.5-updE1)+uplS1*upK*(0-uplE1)
+    post_elo = append(post_elo, upr11)
+    
+    
+  }
+  cur_race$post_elo = as.double(as.character(post_elo))
+  #cur_race$prev_elo = prev_elo
+  for (k in 1:length(cur_race[,1])){
+    name_num=which(bmaleelo_update$bmalenames==cur_race$name[k])
+    if(length(name_num>0)){
+      bmaleelo_update$bmaledate[name_num] = cur_race$date[k]
+      bmaleelo_update$bmaledistance[name_num] = cur_race$distance[k]
+      bmaleelo_update$bmaleeloscore[name_num] = cur_race$post_elo[k]
+    }
+    else{
+      newskier = c(cur_race$name[k], cur_race$date[k], cur_race$distance[k], cur_race$post_elo[k])
+      print(newskier)
+      bmaleelo_update = rbind(bmaleelo_update, newskier)
+    }
+    
+  }
+  
+ # print(cur_race)
+}
+#bmaleelo_update = 
+#  print(prev_elo)
+#cur_race$prev_elo = prev_elo
+
+#print(cur_race)
+
+#}
+
+#cur_race[1:25,]
+
+bladyelo_update$bladynames = as.character(bladyelo_update$bladynames)
+race_num = c(1)
+race_n = 1
+for(a in 2:length(update_bladiesxl[,1])){
+  
+  if(as.double(as.character(update_bladiesxl$place[a]))>=as.double(as.character(update_bladiesxl$place[a-1]))){
+    race_num = append(race_num, race_n)
+  }
+  else{
+  #  print(update_bladiesxl[a,])
+    race_n = race_n+1
+    race_num = append(race_num, race_n)
+  }
+}
+
+update_bladiesxl$race = race_num
+#list the elo scores for each individual before the race (prev_elo)
+#upate the scores with the algorithm
+
+upK=1
+for(i in 1:max(unique(update_bladiesxl$race))){
+#To see what they were x races ago
+  #for(i in 1:(max(unique(update_bladiesxl$race))-1)){
+  #for(i in 1:2){
+  print(i)
+  cur_race = update_bladiesxl[which(update_bladiesxl$race==i), ]
+  #print(cur_race)
+  prev_elo = c()
+  post_elo = c()
+  for(j in 1:length(cur_race[,1])){
+    #print(j)
+    if(cur_race$name[j]%in%bladyelo_update$bladynames){
+      prev_elo = append(prev_elo, bladyelo_update[which(bladyelo_update$bladynames == cur_race$name[j]), 4])
+    }
+    else{
+      prev_elo = append(prev_elo, 1300)
+    }
+  }
+  cur_race$prev_elo = as.double(as.character(prev_elo))
+  
+  
+  #for(j in 1:1){
+  for(j in 1:length(cur_race[,1])){
+    #print(j)
+    win_places = which(as.double(as.character(cur_race$place))>as.double(as.character(cur_race$place[j])))
+    # print(win_places)
+    draw_places = which(as.double(as.character(cur_race$place))==as.double(as.character(cur_race$place[j])))
+    loss_places = which(as.double(as.character(cur_race$place))<as.double(as.character(cur_race$place[j])))
+    
+    upr1 <- as.double(as.character(cur_race$prev_elo[j]))
+    #print(cur_race$prev_elo[j])
+    #print(upr1)
+    upR1 = 10^(upr1/400)
+    if(length(win_places)>0){
+      
+      upwR2 = sum(10^(as.double(as.character(cur_race$prev_elo[win_places]))/400))/length(win_places)
+      upwE1 = upR1/(upR1+upwR2)
+      upwS1 = length(win_places)
+    }
+    else{
+      upwS1 = 0
+      upwE1 = 0
+    }
+    if(length(draw_places>1)){
+      updR2 = sum(10^(cur_race$prev_elo[draw_places]/400))/length(draw_places)
+      updE1 = upR1/(upR1+updR2)
+      updS1 = length(draw_places)-1
+    }
+    else{
+      updE1 = 0
+      updS1 = 0
+    }
+    if(length(loss_places>0)){
+      uplR2 = sum(10^(cur_race$prev_elo[loss_places]/400))/length(loss_places)
+      uplE1 = upR1/(upR1+uplR2)
+      uplS1 = length(loss_places)
+    }
+    else{
+      uplE1 = 0
+      uplS1 = 0
+    }
+    
+    upr11 = upr1+upwS1*upK*(1-upwE1)+updS1*upK*(.5-updE1)+uplS1*upK*(0-uplE1)
+    post_elo = append(post_elo, upr11)
+    
+    
+  }
+  cur_race$post_elo = post_elo
+  #cur_race$prev_elo = prev_elo
+  for (k in 1:length(cur_race[,1])){
+    name_num=which(bladyelo_update$bladynames==cur_race$name[k])
+    if(length(name_num>0)){
+      bladyelo_update$bladydate[name_num] = (cur_race$date[k])
+      bladyelo_update$bladydistance[name_num] = cur_race$distance[k]
+      bladyelo_update$bladyeloscore[name_num] = cur_race$post_elo[k]
+    }
+    else{
+      newskier = c(cur_race$name[k], cur_race$date[k], cur_race$distance[k], cur_race$post_elo[k])
+      print(newskier)
+      bladyelo_update = rbind(bladyelo_update, newskier)
+    }
+  }
+  #print(cur_race)
+  
+}
+
+
+bmaleupdate_standings <- (bmaleelo_update[order(-as.double(as.character(bmaleelo_update$bmaleeloscore))), ])
+row.names(bmaleupdate_standings) = c(1:length(bmaleupdate_standings[,1]))
+bladyupdate_standings <- (bladyelo_update[order(-as.double(as.character(bladyelo_update$bladyeloscore))), ])
+row.names(bladyupdate_standings) = c(1:length(bladyupdate_standings[,1]))
+print(bmaleupdate_standings[1:100,])
+print(bladyupdate_standings[1:100,])
+
+actbmaleupdate_standings <- bmaleupdate_standings[which(bmaleupdate_standings$bmaledate!="20200500"), ]
+row.names(actbmaleupdate_standings) <- c(1:length(actbmaleupdate_standings[,1]))
+actbladyupdate_standings <- bladyupdate_standings[which(bladyupdate_standings$bladydate!="20200500"), ]
+row.names(actbladyupdate_standings) <- c(1:length(actbladyupdate_standings[,1]))
+
+View()

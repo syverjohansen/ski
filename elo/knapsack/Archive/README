@@ -1,0 +1,11 @@
+knapsack-scrape.py is what you use for everything besides the calculation
+knapsack.py is what you use for the knapsack calculation
+
+------------
+
+On knapsack-scrape.py, all of the names and ids at the top are for people who are racing over the weekend, but not in the first race.  You will have to manually enter those numbers below.  It is easiest to just copy and paste the ones who are racing over the into a notes document and enter from there.
+
+Depending on the type of race it is, normal, relay, or team sprints.
+In order to pick the one you want, you have to comment out the others at the very bottom of the document
+
+-------------

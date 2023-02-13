@@ -1,0 +1,59 @@
+library(readxl)
+library(fmsb)
+library(ggplot2)
+
+
+ladies_x <- read_excel("/Users/syverjohansen/ski/elo/python/ski/radar/men_chrono_regress.xlsx", 
+                       sheet = "Sheet1", col_names = TRUE, na = "NA", guess_max = 100000)
+
+
+ladies <- data.frame(ladies_x)
+
+##Optional, but make pelopct the comparise against the alltime maximum
+#max_elo = max(ladies$elo)
+#ladies$pelopct = ladies$pelo/max_elo
+
+ladies <- ladies[which(ladies$pelo>=80), ]
+ladies <- ladies[which(ladies$season>=2018),]
+#ladies <- ladies[which(ladies$ms==1),]
+#ladies <- ladies[which(ladies$pelo!=1300), ]
+#print(sum(ladies$points^(1/exp(1))))
+
+df_cols = names(ladies)
+df_cols = names(ladies[c(15, 17, 19, 21, 23, 25, 27, 29, 31, 36)])
+df_cols
+
+whichcols <- Reduce("c", map(1:length(df_cols), ~lapply(iter(combn(df_cols,.x), by="col"),function(y) c(y))))
+models <- map(1:length(whichcols), ~glm((points)^(1/exp(1)) ~., data=ladies[c(whichcols[[.x]], "points")], family = gaussian))
+bestAIC <- models[[which.min(sapply(1:length(models),function(x)AIC(models[[x]])))]]
+bestBIC <- models[[which.min(sapply(1:length(models),function(x)BIC(models[[x]])))]]
+models[order(sapply(1:length(models),function(x)AIC(models[[x]])), decreasing = TRUE)]
+bestAIC
+bestBIC
+
+ggplot(ladies, aes(x=distance_freestyle_pelo, y=points^(1/exp(1)))) + geom_point()
+#ladies.lm <- lm((points) ~ ((pelopct)), data=ladies)#, family="gaussian")
+#ladies.lm <- lm((points)^(1/3) ~ pelopct, data=ladies, family="gaussian")
+#summary(ladies.lm)
+ladies.lm <- lm((points)^(1/exp(1)) ~ distance_pelo+distance_freestyle_pelo+distance_classic_pelo, data=ladies, family="gaussian")
+
+ladies.lm <- lm((points)^(1/exp(1)) ~ distance_pelo + distance_freestyle_pelo + distance_classic_pelo + sprint_pelo + sprint_freestyle_pelo + 
+                  sprint_classic_pelo + classic_pelo + freestyle_pelo, data=ladies,  na.action = na.omit, family="gaussian")
+
+ladies.lm <- lm((points)^(1/exp(1)) ~ pelo +  distance_freestyle_pelo + distance_classic_pelo + sprint_pelo+sprint_freestyle_pelo + 
+                  sprint_classic_pelo + classic_pelo + freestyle_pelo, data=ladies,  na.action = na.omit, family="gaussian")
+
+#ladies.lm
+summary(ladies.lm)
+confint(ladies.lm)
+
+
+ladies$i
+
+res <- resid(ladies.lm)
+plot(fitted(ladies.lm), res)
+qqnorm(res)
+qqline(res)
+plot(density(res))
+hist(res)
+
