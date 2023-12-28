@@ -278,12 +278,12 @@ def male_elo(varmendf, base_elo=1300, K=1, discount=.85):
 varmendf = mendf
 
 #varmendf = dates(varmendf, 0, 20210128)
-varmendf = distance(varmendf, "Distance")
-#varmendf = discipline(varmendf, "C")
+#varmendf = distance(varmendf, "Distance")
+#varmendf = discipline(varmendf, "F")
 #varmendf = ms(varmendf, "1")
 #varmendf = season(varmendf, 0, 9999)
 varmenelo = male_elo(varmendf)
-varmenelo.to_pickle("~/ski/elo/python/ski/age/relay/excel365/varmen_distance_k.pkl")
-varmenelo.to_excel("~/ski/elo/python/ski/age/relay/excel365/varmen_distance_k.xlsx")
+varmenelo.to_pickle("~/ski/elo/python/ski/age/relay/excel365/varmen_all_k.pkl")
+varmenelo.to_excel("~/ski/elo/python/ski/age/relay/excel365/varmen_all_k.xlsx")
 print(time.time() - start_time)
 

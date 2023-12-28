@@ -19,7 +19,7 @@ linearize_points = function(points){
 }
 
 
-x <- read_excel("/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/ladies_chrono_regress_relay.xlsx", 
+x <- read_excel("/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/men_chrono_regress_relay.xlsx", 
                        sheet = "Sheet1", col_names = TRUE, na = "NA", guess_max = 100000)
 
 ##Optional, but make pelopct the comparise against the alltime maximum

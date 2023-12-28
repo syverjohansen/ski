@@ -25,6 +25,7 @@ start_time = time.time()
 
 men_pkl = pd.read_pickle("~/ski/elo/python/ski/age/relay/excel365/mendf.pkl")
 update_mendf = pd.read_pickle("~/ski/elo/python/ski/age/relay/excel365/menupdate_setup.pkl")
+print(update_mendf)
 
 men_pkl = men_pkl.append(update_mendf, ignore_index=True)
 
@@ -73,8 +74,8 @@ def men_ages(mendf):
 
 	mendf = mendf.loc[mendf['city']!="Summer"]
 
-	big_df = mendf.loc[mendf['season']<2023]
-	mendf = mendf.loc[mendf['season']==2023]
+	big_df = mendf.loc[mendf['season']<2024]
+	mendf = mendf.loc[mendf['season']==2024]
 	
 	mendf['birthday'] =np.nan
 	#mendf['age'] = np.nan
@@ -88,7 +89,7 @@ def men_ages(mendf):
 
 	id_list = list(mendf['id'].unique())
 	big_id_list = list(big_df['id'].unique())
-	id_urls = list(map(lambda x: "https://skisport365.com/ski/utover.php?ID="+str(x), id_list))
+	id_urls = list(map(lambda x: "https://firstskisport.com/cross-country/athlete.php?id="+str(x), id_list))
 	
 	
 	#Webscrape
@@ -110,13 +111,36 @@ def men_ages(mendf):
 	#	id_url_page0 = urlopen(id_urls[a], timeout=10)
 	#for a in range(10):
 		else:
-			id_soup0 = BeautifulSoup(urlopen(id_urls[a]), 'html.parser')
-			born = (id_soup0.body.find_all(text="Born"))
+			#print(mendf.loc[mendf.id==id_list[a], 'id'])
 			mendf.loc[mendf.id==id_list[a], 'exp'] = range(1,1+len(mendf.loc[mendf.id==id_list[a], 'exp']))
-			if(len(born)==0):
+			id_soup0 = BeautifulSoup(urlopen(id_urls[a]), 'html.parser')
+			
+			#print(id_soup0)
+			#born = (id_soup0.body.find_all(text="Born"))
+			born = str(id_soup0.body.find('h2').text)
+			birthday = born.split(", ")[2]
+			birthday = birthday.split(" (")[0]
+			birthday = birthday.split(" ")
+			try:
+				year = birthday[1]
+				day_month = birthday[0]
+				day_month = day_month.split(".")
+				
+				day = day_month[0]
+				month = day_month[1]
+				month = convert_month(month)
+				birthday = year+"-"+month+"-"+day
+				birthdate = datetime.datetime(int(year), int(month), int(day))
+			except:
+				birthdate = ""
+			
+
+
+			
+			'''if(len(born)==0):
 				birthday = datetime.datetime(1000,1,1)
 				continue
-			birthday = str((id_soup0.find("td", text="Born").find_next_sibling("td").text))
+			#birthday = str((id_soup0.find("td", text="Born").find_next_sibling("td").text))
 			#print(birthday)
 			if("(" in birthday):
 				birthday = birthday.split("(")[1]
@@ -133,9 +157,8 @@ def men_ages(mendf):
 			
 			month = birthday[1]
 			month = convert_month(month)
-			year = birthday[2]
-			birthday = year+"-"+month+"-"+day
-			birthdate = datetime.datetime(int(year), int(month), int(day))
+			year = birthday[2]'''
+			
 			
 			mendf.loc[mendf.id==id_list[a], 'birthday'] = birthdate
 			#print(birthdate)
@@ -170,8 +193,8 @@ def ladies_ages(ladiesdf):
 
 	ladiesdf = ladiesdf.loc[ladiesdf['city']!="Summer"]
 
-	big_df = ladiesdf.loc[ladiesdf['season']<2023]
-	ladiesdf = ladiesdf.loc[ladiesdf['season']==2023]
+	big_df = ladiesdf.loc[ladiesdf['season']<2024]
+	ladiesdf = ladiesdf.loc[ladiesdf['season']==2024]
 	
 	ladiesdf['birthday'] =np.nan
 	#ladiesdf['age'] = np.nan
@@ -206,9 +229,39 @@ def ladies_ages(ladiesdf):
 	#	id_url_page0 = urlopen(id_urls[a], timeout=10)
 	#for a in range(10):
 		else:
-			id_soup0 = BeautifulSoup(urlopen(id_urls[a]), 'html.parser')
-			born = (id_soup0.body.find_all(text="Born"))
 			ladiesdf.loc[ladiesdf.id==id_list[a], 'exp'] = range(1,1+len(ladiesdf.loc[ladiesdf.id==id_list[a], 'exp']))
+			id_soup0 = BeautifulSoup(urlopen(id_urls[a]), 'html.parser')
+			
+			#print(id_soup0)
+			#born = (id_soup0.body.find_all(text="Born"))
+			born = str(id_soup0.body.find('h2').text)
+			birthday = born.split(", ")[2]
+			birthday = birthday.split(" (")[0]
+			birthday = birthday.split(" ")
+			try:
+				year = birthday[1]
+				day_month = birthday[0]
+				day_month = day_month.split(".")
+				
+				day = day_month[0]
+				month = day_month[1]
+				month = convert_month(month)
+				birthday = year+"-"+month+"-"+day
+				birthdate = datetime.datetime(int(year), int(month), int(day))
+			except:
+				birthdate = ""
+			#born = (id_soup0.body.find_all(text="Born"))
+			'''born = str(id_soup0.body.find('h2').text)
+			birthday = born.split(", ")[2]
+			birthday = birthday.split(" (")[0]
+			birthday = birthday.split(" ")
+			year = birthday[1]
+			day_month = birthday[0]
+			day_month.split(".")
+			day = day_month[0]
+			month = day_month[1]
+			month = convert_month(month)
+			
 			if(len(born)==0):
 				birthday = datetime.datetime(1000,1,1)
 				continue
@@ -232,7 +285,7 @@ def ladies_ages(ladiesdf):
 			year = birthday[2]
 			birthday = year+"-"+month+"-"+day
 			birthdate = datetime.datetime(int(year), int(month), int(day))
-			
+			'''
 			ladiesdf.loc[ladiesdf.id==id_list[a], 'birthday'] = birthdate
 			#print(birthdate)
 
