@@ -32,6 +32,8 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 import time
 import traceback
+
+
 start_time = time.time()
 
 
@@ -56,8 +58,8 @@ def fis_team_sprint():
 
 	#start with the men
 	#There will be 4 because of the semifinals
-	startlist_list = ["https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=43564",
-	"https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=43561"]
+	startlist_list = ["https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=43589",
+	"https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=43587"]
 	for a in range(len(startlist_list)):
 		startlist = BeautifulSoup(urlopen(startlist_list[a]), 'html.parser')
 	#print(startlist)
@@ -85,13 +87,42 @@ def fis_team_sprint():
 
 		#print(team)
 		count+=1
+	'''for a in range(len(startlist_list)):
+		startlist = BeautifulSoup(urlopen(startlist_list[a]), 'html.parser')
+	#print(startlist)
+		body = startlist.find_all('div', {'class':'pr-1 g-lg-2 g-md-2 g-sm-2 hidden-xs justify-right gray'})
+		nation_body = startlist.find_all('div', {'class':'pr-1 g-lg-2 g-md-2 g-sm-2 hidden-xs justify-right gray'})
+		for b in range(len(body)):
+			#print(b)
+			if(a==0):
+				#print(int(body[b].text.strip()))
+				ids_men.append(int(body[b].text.strip()))
+			else:
+				ids_ladies.append(int(body[b].text.strip()))
 
-	print(ids)
-
+	print(len(ids_men))
 	
+
+	male_team_ids = ["mNORWAY I", "mITALY I", "mSWEDEN I", "mFINLAND I", "mGERMANY I", "mFRANCE I", "mCZECH REPUBLIC I", "mCANADA I", "mUNITED STATES OF AMERICA I", "mGREAT BRITAIN I", "mJAPAN I", "mSWITZERLAND I", "mROMANIA I", "mPOLAND I", "mESTONIA I", "mAUSTRIA I", "mKAZAKHSTAN I", "mBULGARIA I",  "mSLOVENIA I", "mLATVIA I", "mICELAND I", "mAUSTRALIA I", "mUKRAINE I", 'mMACEDONIA I', "mBOSNIA AND HERZEGOVINA I", "mHUNGARY I", "mCROATIA I", "mARGENTINA I", "mLITHUANIA I", "mTURKEY I", "mGREECE I", "mHAITI I", "mCHILE I", "mPORTUGAL I"]
+	print(len(male_team_ids))
+	ladies_team_ids = ["fSWEDEN I", "fNORWAY I", "fUNITED STATES OF AMERICA I", "fFINLAND I", "fGERMANY I", "fSWITZERLAND I", "fSLOVENIA I", "fCZECH REPUBLIC I", "fESTONIA I", "fFRANCE I", "fCANADA I", "fPOLAND I", "fITALY I", "fKAZAKHSTAN I", "fLATVIA I", "fARGENTINA I", "fUKRAINE I", "fCROATIA I", "fAUSTRALIA I", "fICELAND I", "fSLOVAKIA I", "fGREECE I", "fMONGOLIA I", "fLITHUANIA I", "fMACEDONIA I", "fBRAZIL I"]
+	print(len(ladies_team_ids))
+	count = 0
+	male_team_ids2 = male_team_ids+ids_men
+	print(len(male_team_ids2))
+	for a in range(len(male_team_ids)):
+		ids.append(male_team_ids2[a])
+		ids.append(male_team_ids2[a+34])
+		ids.append(male_team_ids2[a+68])
+
+	ladies_team_ids2 = ladies_team_ids+ids_ladies
+	for a in range(len(ladies_team_ids)):
+		ids.append(ladies_team_ids2[a])
+		ids.append(ladies_team_ids2[a+26])
+		ids.append(ladies_team_ids2[a+52])
 
 	#now for the ladies
-	
+	print(ids)'''
 	return ids
 
 def fantasy_team_sprint(startlist):
@@ -142,6 +173,7 @@ def fantasy_team_sprint(startlist):
 			else:
 				country_name = startlist[a]
 				country_name = country_name.split("f")
+				print(country_name)
 				country_name = country_name[1]
 				if(country_name.endswith(" I") or country_name.endswith(" II")):
 					pass
@@ -281,10 +313,11 @@ def elo_team_sprint(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_c
 		df['name']= df['name'].str.replace('Ã¸', 'oe')
 		df['name']= df['name'].str.replace('Ã¤', 'ae')
 		df['name']= df['name'].str.replace('Ã¼', 'ue')
+		df['name']= df['name'].str.replace('Ø', 'Oe')
 		df['name'] = df['name'].str.replace('Ã¶', 'oe')
 		df['name'] = df['name'].str.replace('Ã', 'oe')
-		df['name'] = df['name'].str.replace('Ã¦', 'ae')
-		df['name']= df['name'].str.replace('Ã¥', 'aa')
+		
+
 		df['name'] = df['name'].str.replace('Aleksandr Terentev', 'alexander terentev')
 		df['name'] = df['name'].str.replace('Irineu Esteve Altimiras', 'ireneu esteve altimiras')
 		df['name'] = df['name'].str.replace('Thomas Hjalmar Westgaard', 'thomas maloney westgaard')
@@ -302,17 +335,21 @@ def elo_team_sprint(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_c
 		df['name'] = df['name'].str.replace('Ailja Iksanova', 'alija iksanova')
 		df['name'] = df['name'].str.replace('Eric Silfver', 'erik silfver')
 		df['name'] = df['name'].str.replace('Joni Maeki', 'joni maki')
+		df['name'] = df['name'].str.replace('Emmi Laemsae', 'emmi lamsa')
+		df['name'] = df['name'].str.replace('Anne Kylloenen', 'anne kyllonen')
+		df['name'] = df['name'].str.replace('Finn O\'Connell', 'finn o connell')
+		df['name'] = df['name'].str.replace('Viktoriya Olekh', 'viktoriia olekh')
 
 		teamsdf = fantasydf.iloc[::3, :]
 		print(teamsdf)
 		fantasydf = fantasydf[fantasydf.index % 3 !=0]
 
 		#print(fantasydf)
-
 		fantasy_names = fantasydf['name']
-		print(fantasy_names)
 		fantasy_names = fantasy_names.str.lower()
 		fantasy_names  = fantasy_names.tolist()
+
+
 		count = 0
 		team_elo = 0
 		team_distance_elo = 0
@@ -362,13 +399,14 @@ def elo_team_sprint(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_c
 				exp = skier['exp'].iloc[-1]
 				age = skier['age'].iloc[-1]
 
-				if(skier['nation'].iloc[-1]=="Italy"):
+				if(skier['nation'].iloc[-1]=="Finland"):
 					home = 1
 				else:
 					home = 0
 
 				print(fantasy_names[b], elo)
 				team_elo+=elo/2
+
 
 				team_distance_elo+=distance_elo/2
 				team_distance_classic_elo+=distance_classic_elo/2
@@ -579,9 +617,9 @@ def elo_team_sprint(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_c
 	ladiesdf =ladiesdf.sort_values(by='points', ascending=False)
 	mendf = mendf[mendf['points']>0]
 	ladiesdf = ladiesdf[ladiesdf['points']>0]
-	mendf['place'] = np.arange(1, len(mendf['name'])+1, 1)
-	ladiesdf['place'] = np.arange(1,len(ladiesdf['name'])+1,1)
-	print(list(ladiesdf['name']).sort())
+	mendf['place'] = np.arange(1, len(mendf)+1, 1)
+	ladiesdf['place'] = np.arange(1,len(ladiesdf)+1,1)
+	print(list(ladiesdf).sort())
 	fantasydf = mendf
 	fantasydf = fantasydf.append(ladiesdf)
 
@@ -601,6 +639,8 @@ def fis_mixed_ts():
 	3050267, 9999999999999, 3560145, 3290326, 3550147, 3100412, 3100409, 99999999999]
 	ladies_ids = [3505809, 3426201, 3506105, 3510619, 3195263, 3426200, 3205305, 3185579, 3205407, 3185551, 
 	3050155, 3195205, 3560121, 999999999, 3555052, 3105146, 3105179, 999999999]
+	#men_ids = []
+	#ladies_ids = []
 
 	ids = []
 	'''men_teams = ["mNORWAY I", "mRUSSIA I", "mFINLAND I", "mUNITED STATES OF AMERICA I", "mGERMANY I", "mSWEDEN I", "mSWITZERLAND I", "mCZECH REPUBLIC I", "mCANADA I", "mFRANCE I",
@@ -746,119 +786,662 @@ def fantasy_mixed_ts(startlist):
 	
 	return fantasy_df
 
-def elo_mixed_ts(fantasydf, menpkls, ladiespkls, relaypkls):
+def elo_mixed_ts(fantasydf, mixedpkls, mixed_vars, mixed_chrono):
 	wc = [100, 80, 60, 50, 45, 40, 36, 32, 29, 26, 24, 22, 20, 18, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 	wc = [i*2 for i in wc]
-	
+	mixeddfs = []
+	ladiesdfs = []
+	skier_elo = []
 	team_elos = []
-	fantasydf.loc[:,'points'] =0
+	fantasydf.loc[:, 'points'] = 0
+	mixedrelaypkls = ["~/ski/elo/python/ski/relay/radar/varmixed_sprint_k.pkl"]
+	ladiesrelaypkls = ["~/ski/elo/python/ski/relay/radar/varladies_sprint_k.pkl"]
 
-	for a in range(len(menpkls)):
-		
-		df = pd.read_pickle(menpkls[a])
+
+	for a in range(len(mixedpkls)):
+		skier_elo = []
+		skier_distance_elo = []
+		skier_distance_classic_elo = []
+		skier_distance_freestyle_elo = []
+
+		skier_sprint_elo = []
+		skier_sprint_classic_elo = []
+		skier_sprint_freestyle_elo = []
+		skier_classic_elo = []
+		skier_freestyle_elo = []
+
+		skier_avg_points = []
+		skier_exp = []
+		skier_age = []
+		skier_home = []
+		df = pd.read_pickle(mixedpkls[a])
 		df = df.loc[df['level']=="all"]
-		ladiespkl = pd.read_pickle(ladiespkls[a])
-		ladiespkl = ladiespkl.loc[ladiespkl['level']=="all"]
-		df = df.append(ladiespkl, ignore_index = True)
-
-
-		df['name'] = df['name'].str.replace('ø', 'oe')
-		df['name'] = df['name'].str.replace('ä', 'ae')
-		df['name'] = df['name'].str.replace('æ', 'ae')
-		df['name']= df['name'].str.replace('ö', 'oe')
-		df['name']= df['name'].str.replace('ü', 'ue')
-		df['name']= df['name'].str.replace('å', 'aa')
-		df['name']= df['name'].str.replace('Ã¸', 'oe')
-		df['name']= df['name'].str.replace('Ã¤', 'ae')
-		df['name']= df['name'].str.replace('Ã¼', 'ue')
-		df['name'] = df['name'].str.replace('Ã¶', 'oe')
-		df['name'] = df['name'].str.replace('Ã', 'oe')
-		df['name'] = df['name'].str.replace('Ã¦', 'ae')
-		df['name']= df['name'].str.replace('Ã¥', 'aa')
+		mixedintslope = regress_relay(df, mixed_vars[a])
 		
-		df['name'] = df['name'].str.replace('Aleksandr Terentev', 'alexander terentev')
-		df['name'] = df['name'].str.replace('Irineu Esteve Altimiras', 'ireneu esteve altimiras')
-		df['name'] = df['name'].str.replace('Thomas Hjalmar Westgaard', 'thomas maloney westgaard')
-		df['name'] = df['name'].str.replace('Aleksandr Terentev', 'alexander terentev')
-		df['name'] = df['name'].str.replace('Lauri Lepistoe', 'lauri lepisto')
-		df['name'] = df['name'].str.replace('Philip Bellingham', 'phillip bellingham')
-		df['name'] = df['name'].str.replace('Snorri Einarsson', 'snorri eythor einarsson')
-		df['name'] = df['name'].str.replace('Krista Paermaekoski', 'krista parmakoski')
-		df['name'] = df['name'].str.replace('Jessica Diggins', 'jessie diggins')
-		df['name'] = df['name'].str.replace('Patricijia Eiduka', 'patricija eiduka')
-		df['name'] = df['name'].str.replace('Katri Lylynperae', 'katri lylynpera')
-		df['name'] = df['name'].str.replace('Julia Belger', 'julia preussger')
-		df['name'] = df['name'].str.replace('Perttu Hyvaerinen', 'perttu hyvarinen')
-		df['name'] = df['name'].str.replace('Kathrine Stewart-Jones', 'katherine stewart-jones')
-		df['name'] = df['name'].str.replace('Ailja Iksanova', 'alija iksanova')
-		df['name'] = df['name'].str.replace('Joni Maeki', 'joni maki')
-		df['name'] = df['name'].str.replace('Paal Golberg', 'pal golberg')
+		
+		
+
+		df = mixed_chrono
+		df = df.loc[df['level']=="all"]
+
+
+
+		
+
+		team_elos = []
+		team_distance_elos = []
+		team_distance_classic_elos = []
+		team_distance_freestyle_elos = []
+
+		team_sprint_elos = []
+		team_sprint_classic_elos = []
+		team_sprint_freestyle_elos = []
+
+		team_classic_elos = []
+		team_freestyle_elos = []
+		team_avg_pointss = []
+		team_exps = []
+		team_ages = []
+
+		team_homes = []
+	
+		
+		df = df.str.replace('ø', 'oe')
+		df = df.str.replace('ä', 'ae')
+		df = df.str.replace('æ', 'ae')
+		df= df.str.replace('ö', 'oe')
+		df= df.str.replace('ü', 'ue')
+		df= df.str.replace('å', 'aa')
+		df= df.str.replace('Ã¸', 'oe')
+		df= df.str.replace('Ã¤', 'ae')
+		df= df.str.replace('Ã¼', 'ue')
+		df = df.str.replace('Ã¶', 'oe')
+		df = df.str.replace('Ã', 'oe')
+		df = df.str.replace('Ã¦', 'ae')
+		df= df.str.replace('Ã¥', 'aa')
+		df = df.str.replace('Aleksandr Terentev', 'alexander terentev')
+		df = df.str.replace('Irineu Esteve Altimiras', 'ireneu esteve altimiras')
+		df = df.str.replace('Thomas Hjalmar Westgaard', 'thomas maloney westgaard')
+		df = df.str.replace('Aleksandr Terentev', 'alexander terentev')
+		df = df.str.replace('Lauri Lepistoe', 'lauri lepisto')
+		df = df.str.replace('Philip Bellingham', 'phillip bellingham')
+		df = df.str.replace('Snorri Einarsson', 'snorri eythor einarsson')
+		df = df.str.replace('Krista Paermaekoski', 'krista parmakoski')
+		df = df.str.replace('Jessica Diggins', 'jessie diggins')
+		df = df.str.replace('Patricijia Eiduka', 'patricija eiduka')
+		df = df.str.replace('Katri Lylynperae', 'katri lylynpera')
+		df = df.str.replace('Julia Belger', 'julia preussger')
+		df = df.str.replace('Perttu Hyvaerinen', 'perttu hyvarinen')
+		df = df.str.replace('Kathrine Stewart-Jones', 'katherine stewart-jones')
+		df = df.str.replace('Ailja Iksanova', 'alija iksanova')
+		df = df.str.replace('Eric Silfver', 'erik silfver')
+		df = df.str.replace('Joni Maeki', 'joni maki')
 
 		teamsdf = fantasydf.iloc[::3, :]
-
+		print(teamsdf)
 		fantasydf = fantasydf[fantasydf.index % 3 !=0]
 
 		#print(fantasydf)
-		
 
-		fantasy_names = fantasydf['name']
+		fantasy_names = fantasydf
+		print(fantasy_names)
 		fantasy_names = fantasy_names.str.lower()
 		fantasy_names  = fantasy_names.tolist()
 		count = 0
 		team_elo = 0
+		team_distance_elo = 0
+		team_distance_classic_elo = 0
+		team_distance_freestyle_elo = 0
+
+		team_sprint_elo = 0
+		team_sprint_classic_elo = 0
+		team_sprint_freestyle_elo = 0
+
+		team_classic_elo = 0
+		team_freestyle_elo = 0
+
+		team_avg_points = 0
+
+		team_exp = 0
+		team_age = 0
+		team_home=0
+	
+
+
+
 		for b in range(len(fantasy_names)):
 
-			skier = df.loc[df['name'].str.lower() == fantasy_names[b]]
+			skier = df.loc[df.str.lower() == fantasy_names[b]]
 			if(len(skier['name'])==0):
-				print(fantasy_names[b])
+				print("Name not registered", fantasy_names[b])
 			#print(skier)
 			try:
+				#Make tries and excepts for each of these
 				elo = skier['elo'].iloc[-1]
-				team_elo+=elo
-				#print(team_elo)
-				#skier_elo.append(elo)
-			#elo = (skier.loc[skier['date']==20210500]['elo'])
-			except:
-				print("Name not registered", fantasy_names[b])
-				team_elo+=1300
+				distance_elo = skier['distance_elo'].iloc[-1]
+				distance_classic_elo = skier['distance_classic_elo'].iloc[-1]
+				distance_freestyle_elo = skier['distance_freestyle_elo'].iloc[-1]
+
+				sprint_elo = skier['sprint_elo'].iloc[-1]
+				sprint_classic_elo = skier['sprint_classic_elo'].iloc[-1]
+				sprint_freestyle_elo = skier['sprint_freestyle_elo'].iloc[-1]
+
+
+				classic_elo = skier['classic_elo'].iloc[-1]
+				freestyle_elo = skier['freestyle_elo'].iloc[-1]
+
+				
+				
+				#avg_points = skier['avg_points'].iloc[-1]*.682250876756-.006352194332*skier['avg_points'].iloc[-1]**2+0.000027600716*skier['avg_points'].iloc[-1]**3-0.000000045133*skier['avg_points'].iloc[-1]**4-.958832685276
+				exp = skier['exp'].iloc[-1]
+				age = skier['age'].iloc[-1]
+
+				if(skier['nation'].iloc[-1]=="Finland"):
+					home = 1
+				else:
+					home = 0
+
+				print(fantasy_names[b], elo)
+				team_elo+=elo/2
+
+
+				team_distance_elo+=distance_elo/2
+				team_distance_classic_elo+=distance_classic_elo/2
+				team_distance_freestyle_elo+=distance_freestyle_elo/2
+
+				team_sprint_elo+=sprint_elo/2
+				team_sprint_classic_elo+=sprint_classic_elo/2
+				team_sprint_freestyle_elo+=sprint_freestyle_elo/2
+
+				team_classic_elo+=classic_elo/2
+				team_freestyle_elo+=freestyle_elo/2
+				#team_avg_points+=avg_points
+
+				team_exp+=exp
+				team_age+=age
+
+				team_home = home
+
+
+
+
+
+			except Exception:
+				#print(fantasy_names[b], traceback.print_exc())
+				#print(fantasy_names[b])
+				team_elo+=0
+
+				team_distance_elo+=0
+				team_distance_classic_elo+=0
+				team_distance_freestyle_elo+=0
+
+				team_sprint_elo+=0
+				team_sprint_classic_elo+=0
+				team_sprint_freestyle_elo+=0
+
+				team_classic_elo+=0
+				team_freestyle_elo+=0
+
+				team_exp+=0
+				team_age+=0
+				team_avg_points+=0
+
+				team_home+=0
 
 			if(b%2==1):
 				team_elos.append(team_elo)
+				team_distance_elos.append(team_distance_elo)
+				team_distance_classic_elos.append(team_distance_classic_elo)
+				team_distance_freestyle_elos.append(team_distance_freestyle_elo)
+
+				team_sprint_elos.append(team_sprint_elo)
+				team_sprint_classic_elos.append(team_sprint_classic_elo)
+				team_sprint_freestyle_elos.append(team_sprint_freestyle_elo)
+
+				team_classic_elos.append(team_classic_elo)
+				team_freestyle_elos.append(team_freestyle_elo)
+				team_avg_pointss.append(team_avg_points)
+
+				team_exps.append(team_exp)
+				team_ages.append(team_age)
+
+				team_homes.append(team_home)
+
 				team_elo = 0
+				team_distance_elo = 0
+				team_distance_classic_elo = 0
+				team_distance_freestyle_elo = 0
+
+				team_sprint_elo = 0
+				team_sprint_classic_elo = 0
+				team_sprint_freestyle_elo = 0
+
+				team_classic_elo = 0
+				team_freestyle_elo = 0
+
+				team_avg_points = 0
+
+				team_exp = 0
+				team_age = 0
+				team_home=0
 				#skier_elo.append(1300)
 		
-		teamsdf['team_elo'] = team_elos
+		teamsdf['elo'] = team_elos
+		
+
+		teamsdf['distance_elo'] = team_distance_elos
+		teamsdf['distance_classic_elo'] = team_distance_classic_elos
+		teamsdf['distance_freestyle_elo'] = team_distance_freestyle_elos
+
+		teamsdf['sprint_elo'] = team_sprint_elos
+		teamsdf['sprint_classic_elo'] = team_sprint_classic_elos
+		teamsdf['sprint_freestyle_elo'] = team_sprint_freestyle_elos
+
+		teamsdf['classic_elo'] = team_classic_elos
+		teamsdf['freestyle_elo'] = team_freestyle_elos
+
+		teamsdf['avg_points'] = team_avg_pointss
+		teamsdf['exp'] = team_exps
+		teamsdf['age'] = team_ages
+		teamsdf['home'] = team_homes
+		print("teamsdf", teamsdf)
+
+
 		fantasydf = teamsdf
+		#print(fantasydf)
 		
-		relaypkl = pd.read_pickle(relaypkls[a])
 		
-		relaypkl = relaypkl.loc[relaypkl['level']=="all"]
+		mixeddf = fantasydf
+		mixeddf = dezero(mixeddf)
 		
-		intslope = regress_relay(relaypkl)
-
-		mixeddf = fantasydf.loc[fantasydf['sex']=='mixed']
-		max_elo = max(mixeddf['team_elo'])
-		mixeddf['elopct'] = mixeddf['team_elo'].apply(lambda x: 100*(x/max_elo))
-		mixeddf = mixeddf.sort_values(by='team_elo', ascending = False)
+		mixeddf = mixeddf.sort_values(by='elo', ascending = False)
 		mixeddf = mixeddf.reset_index(drop=True)
-		#Edit out these next three and the ladies three for pursuit.  One for actual
+		mixeddf['points'] = mixedintslope[0]
+		mixed_vars[a] = [m.replace('pelo', 'elo') for m in mixed_vars[a]]
+		mixed_vars[a] = [m.replace('pavg', 'avg') for m in mixed_vars[a]]
+
+
 		
-		#mendf = mendf.sort_values(by='elo', ascending=False)
 		
-		#mendf = mendf[:len(mendf)]
-		mixeddf['points'] = mixeddf['elopct'].apply(lambda x: (intslope[0]+intslope[1]*x)**np.exp(1))
+
+		for b in range(len(mixed_vars[a])):
+			print(mixedintslope[b])
+			mixeddf['points'] = mixeddf['points']+mixedintslope[b+1]*mixeddf[mixed_vars[a][b]]
+
+			
 		mixeddf['points'] = mixeddf['points'].fillna(0)
+		
+		
+		mixeddf['points'].loc[mixeddf['points']<0] = 0
+
+		#For normal WCP
+		#mixeddf['points'] = .030964*mixeddf['points']**2+.263557*mixeddf['points']+3.196429
+
+		#for TDS
+		#mixeddf['points'] = 0.093193*mixeddf['points']**2+0.787371*mixeddf['points']+9.215816 
+
+		#For Relay
+		mixeddf['points'] = 0.0015396*mixeddf['points']**4-0.0737648*mixeddf['points']**3+1.1908351*mixeddf['points']**2-4.9454726*mixeddf['points']+10.2055212
+
+			
+		mixeddfs.append(mixeddf)
+		
+
+		#Next block is ladies non-regression
+		'''
+		ladies_wc_scores = ladiesdf['points'].tolist()
+		ladies_wc_scores = ladies_wc_scores[:30]
+		ladies_wc_scores = np.add(ladies_wc_scores, wc)
+		ladies_wc_scores = pd.Series(ladies_wc_scores)
+		ladiesdf.loc[:30, 'points'] = ladies_wc_scores
+		'''
+		
+
+		mixeddf = fantasydf
+		mixeddf = mixeddf.sort_values(by='id')
+		mixeddf = mixeddf.reset_index(drop=True)
+		
 
 
-		#ladiesdf = ladiesdf.sort_values(by='elo', ascending=False)
-		#ladiesdf = ladiesdf[:len(team_elos)]
+	for a in range(len(mixeddfs)):
+		mixeddfs[a] = mixeddfs[a].sort_values(by='id')
+		mixeddfs[a] = mixeddfs[a].reset_index(drop=True)
+		elo_name = "elo"+str(a+1)
+		race_name = "race"+str(a+1)
+		mixeddf[elo_name] = mixeddfs[a]['elo']
+		mixeddf[race_name] = mixeddfs[a]['points']
+		mixeddf['points'] = mixeddf['points'] + mixeddf[race_name]
 		
-		mixeddf['place'] = np.arange(1, len(mixeddf['name'])+1, 1)
+
+
+
+
+
+
+
+	
+	#ladiesdf = ladiesdf[:30]
+	#ladiesdf[:30, 'points'] += wc
+	mixeddf=mixeddf.sort_values(by='points', ascending=False)
+	
+	mixeddf = mixeddf[mixeddf['points']>0]
+	
+	mixeddf['place'] = np.arange(1, len(mixeddf)+1, 1)
+	
+	print(list(ladiesdf).sort())
+	fantasydf = mixeddf
+	fantasydf = fantasydf.append(ladiesdf)
+
+	fantasydf = fantasydf[['name', 'id', 'price', 'sex','points', 'race1', 'place']]
+	return fantasydf
+
+def country_code_to_country(country_codes):
+	cc = country_codes
+	rl = []
+	for a in range(len(country_codes)):
+		if(cc[a]=="FRA"):
+			rl.append("France")
+		elif(cc[a]=="AUS"):
+			rl.append("Australia")
+		elif(cc[a]=="AUT"):
+			rl.append("Austria")
+		elif(cc[a]=="BGR"):
+			rl.append("Bulgaria")
+		elif(cc[a]=="BIH"):
+			rl.append("Bosnia and Herzegovina")
+		elif(cc[a]=="BRA"):
+			rl.append("Brazil")
+		elif(cc[a]=="CAN"):
+			rl.append("Canada")
+		elif(cc[a]=="CHE"):
+			rl.append("Switzerland")
+		elif(cc[a]=="CZE"):
+			rl.append("Czech Republic")
+		elif(cc[a]=="DEU"):
+			rl.append("Germany")
+		elif(cc[a]=="DNK"):
+			rl.append("Denmark")
+		elif(cc[a]=="ESP"):
+			rl.append("Spain")
+		elif(cc[a]=="EST"):
+			rl.append("Estonia")
+		elif(cc[a]=="FIN"):
+			rl.append("Finland")
+		elif(cc[a]=="GBR"):
+			rl.append("Great Britain")
+		elif(cc[a]=="GRC"):
+			rl.append("Greece")
+		elif(cc[a]=="HUN"):
+			rl.append("Hungary")
+		elif(cc[a]=="ISL"):
+			rl.append("Iceland")
+		elif(cc[a]=="ITA"):
+			rl.append("Italy")
+		elif(cc[a]=="KAZ"):
+			rl.append("Kazakhstan")
+		elif(cc[a]=="KOR"):
+			rl.append("South Korea")
+		elif(cc[a]=="LTU"):
+			rl.append("Lithuania")
+		elif(cc[a]=="LVA"):
+			rl.append("Latvia")
+		elif(cc[a]=="MNG"):
+			rl.append("Mongolia")
+		elif(cc[a]=="NOR"):
+			rl.append("Norway")
+		elif(cc[a]=="POL"):
+			rl.append("Poland")
+		elif(cc[a]=="ROU"):
+			rl.append("Romania")
+		elif(cc[a]=="SVK"):
+			rl.append("Slovakia")
+		elif(cc[a]=="SVN"):
+			rl.append("Slovenia")
+		elif(cc[a]=="SWE"):
+			rl.append("Sweden")
+		elif(cc[a]=="USA"):
+			rl.append("USA")
+		elif(cc[a]=="JPN"):
+			rl.append("Japan")
+		elif(cc[a]=="UKR"):
+			rl.append("Ukraine")
+		elif(cc[a]=="CHN"):
+			rl.append("China")
+		elif(cc[a]=="TUR"):
+			rl.append("Turkey")
+		elif(cc[a]=="HRV"):
+			rl.append("Croatia")
+		elif(cc[a]=="BEL"):
+			rl.append("Belgium")
+	return rl
+
+def country_to_team(team_list):
+	cc = team_list
+	rl = []
+	for a in range(len(team_list)):
+		if(cc[a]=="France"):
+			rl.append("FRANCE I")
+		elif(cc[a]=="Australia"):
+			rl.append("AUSTRALIA I")
+		elif(cc[a]=="Austria"):
+			rl.append("AUSTRIA I")
+		elif(cc[a]=="Bulgaria"):
+			rl.append("BULGARIA I")
+		elif(cc[a]=="Bostnia and Herzegovina"):
+			rl.append("BOSNIA AND HERZEGOVINA I")
+		elif(cc[a]=="Brazil"):
+			rl.append("BRAZIL I")
+		elif(cc[a]=="Canada"):
+			rl.append("CANADA I")
+		elif(cc[a]=="Switzerland"):
+			rl.append("SWITZERLAND I")
+		elif(cc[a]=="Czech Republic"):
+			rl.append("CZECHIA I")
+		elif(cc[a]=="Germany"):
+			rl.append("GERMANY I")
+		elif(cc[a]=="Denmark"):
+			rl.append("DENMARK I")
+		elif(cc[a]=="Spain"):
+			rl.append("SPAIN I")
+		elif(cc[a]=="Estonia"):
+			rl.append("ESTONIA I")
+		elif(cc[a]=="Finland"):
+			rl.append("FINLAND I")
+		elif(cc[a]=="Great Britain"):
+			rl.append("GREAT BRITAIN I")
+		elif(cc[a]=="Greece"):
+			rl.append("GREECE I")
+		elif(cc[a]=="Hungary"):
+			rl.append("HUNGARY I")
+		elif(cc[a]=="Iceland"):
+			rl.append("ICELAND I")
+		elif(cc[a]=="Italy"):
+			rl.append("ITALY I")
+		elif(cc[a]=="Kazakhstan"):
+			rl.append("KAZAKHSTAN I")
+		elif(cc[a]=="South Korea"):
+			rl.append("KOREA I")
+		elif(cc[a]=="Lithuania"):
+			rl.append("LITHUANIA I")
+		elif(cc[a]=="Latvia"):
+			rl.append("LATVIA I")
+		elif(cc[a]=="Mongolia"):
+			rl.append("MONGOLIA I")
+		elif(cc[a]=="Norway"):
+			rl.append("NORWAY I")
+		elif(cc[a]=="Poland"):
+			rl.append("POLAND I")
+		elif(cc[a]=="Romania"):
+			rl.append("ROMANIA I")
+		elif(cc[a]=="Slovakia"):
+			rl.append("SLOVAKIA I")
+		elif(cc[a]=="Slovenia"):
+			rl.append("SLOVENIA I")
+		elif(cc[a]=="Sweden"):
+			rl.append("SWEDEN I")
+		elif(cc[a]=="USA"):
+			rl.append("UNITED STATES OF AMERICA I")
+		elif(cc[a]=="Japan"):
+			rl.append("JAPAN I")
+		elif(cc[a]=="Ukraine"):
+			rl.append("UKRAINE I")
+		elif(cc[a]=="China"):
+			rl.append("PEOPLES REPUBLIC OF CHINA I")
+		elif(cc[a]=="Turkey"):
+			rl.append("TURKEY I")
+		elif(cc[a]=="Croatia"):
+			rl.append("CROATIA I")
+		elif(cc[a]=="Belgium"):
+			rl.append("BELGIUM I")
 		
-		fantasydf = mixeddf
+	return rl
+
+def df_to_name(name_list):
+	print(name_list)
+	name_list['name'] = name_list['name'].str.replace('ø', 'oe')
+	name_list['name'] = name_list['name'].str.replace('ä', 'ae')
+	name_list['name'] = name_list['name'].str.replace('æ', 'ae')
+	name_list['name']= name_list['name'].str.replace('ö', 'oe')
+	name_list['name']= name_list['name'].str.replace('ü', 'ue')
+	name_list['name']= name_list['name'].str.replace('å', 'aa')
+	name_list['name']= name_list['name'].str.replace('Ã¸', 'oe')
+	name_list['name']= name_list['name'].str.replace('Ã¤', 'ae')
+	name_list['name']= name_list['name'].str.replace('Ã¼', 'ue')
+	name_list['name']= name_list['name'].str.replace('Ã¥', 'aa')
+	name_list['name']= name_list['name'].str.replace('Ã¦', 'ae')
+	name_list['name']= name_list['name'].str.replace('Ø', 'Oe')
+	name_list['name'] = name_list['name'].str.replace('Ã¶', 'oe')
+	name_list['name'] = name_list['name'].str.replace('Ã', 'oe')
+	
+	
 	
 
-	return fantasydf
+	name_list['name'] = name_list['name'].str.replace('Aleksandr Terentev', 'alexander terentev')
+	name_list['name'] = name_list['name'].str.replace('Irineu Esteve Altimiras', 'ireneu esteve altimiras')
+	name_list['name'] = name_list['name'].str.replace('Thomas Hjalmar Westgaard', 'thomas maloney westgaard')
+	name_list['name'] = name_list['name'].str.replace('Aleksandr Terentev', 'alexander terentev')
+	name_list['name'] = name_list['name'].str.replace('Lauri Lepistoe', 'lauri lepisto')
+	name_list['name'] = name_list['name'].str.replace('Philip Bellingham', 'phillip bellingham')
+	name_list['name'] = name_list['name'].str.replace('Snorri Einarsson', 'snorri eythor einarsson')
+	name_list['name'] = name_list['name'].str.replace('Krista Paermaekoski', 'krista parmakoski')
+	name_list['name'] = name_list['name'].str.replace('Jessica Diggins', 'jessie diggins')
+	name_list['name'] = name_list['name'].str.replace('Patricijia Eiduka', 'patricija eiduka')
+	name_list['name'] = name_list['name'].str.replace('Katri Lylynperae', 'katri lylynpera')
+	name_list['name'] = name_list['name'].str.replace('Julia Belger', 'julia preussger')
+	name_list['name'] = name_list['name'].str.replace('Perttu Hyvaerinen', 'perttu hyvarinen')
+	name_list['name'] = name_list['name'].str.replace('Kathrine Stewart-Jones', 'katherine stewart-jones')
+	name_list['name'] = name_list['name'].str.replace('Ailja Iksanova', 'alija iksanova')
+	name_list['name'] = name_list['name'].str.replace('Eric Silfver', 'erik silfver')
+	name_list['name'] = name_list['name'].str.replace('Joni Maeki', 'joni maki')
+	name_list['name'] = name_list['name'].str.replace('Emmi Laemsae', 'emmi lamsa')
+	name_list['name'] = name_list['name'].str.replace('Anne Kylloenen', 'anne kyllonen')
+	name_list['name'] = name_list['name'].str.replace('Finn O\'Connell', 'finn o connell')
+	name_list['name'] = name_list['name'].str.replace('Viktoriya Olekh', 'viktoriia olekh')
+	name_list['name'] = name_list['name'].str.lower()
+	return name_list
+
+	
+
+
+
+def invent_relay():
+	
+	all_men = pd.read_pickle("~/ski/elo/python/ski/age/relay/excel365/varmen_distance_k.pkl")
+	#print(all_men['date'])
+	all_men = all_men.loc[all_men['date']==20230500]
+	
+	all_men = all_men.sort_values(by=['pelo'], ascending=False)
+	all_men = df_to_name(all_men)
+	#print(all_men)
+
+	
+
+	everyteam = pd.read_excel("~/ski/elo/knapsack/fantasy_api.xlsx")
+	everyteam= everyteam.loc[everyteam['is_team']==True]
+	everyteam= everyteam.loc[everyteam['country']!="RUS"]
+	everyteam = everyteam.loc[everyteam['gender']=='m']
+	
+	country_codes = everyteam['country'].unique()
+	df_countries = country_code_to_country(country_codes)
+	men_teammates = []
+	team_list = []
+	for a in range(len(df_countries)):
+		try:
+			nat = all_men.loc[all_men['nation']==df_countries[a]]
+			top4 = nat['name']
+			top4 = top4[0:4]
+			if(len(top4)<4):
+				continue
+			print(top4)
+			men_teammates.append(top4)
+			team_list.append(df_countries[a])
+		except:
+			print(df_countries[a])
+			continue
+	team_list = country_to_team(team_list)
+	print(team_list)
+	men_teams = []
+	for a in range(len(team_list)):
+		print(team_list[a])
+		men_teams.append('m'+team_list[a])
+
+	#men_teammates = df_to_name(men_teammates)
+
+
+	men_ids = []
+
+	everyman = pd.read_excel("~/ski/elo/knapsack/fantasy_api.xlsx")
+	everyman = everyman.loc[everyman['is_team']==False]
+	everyman = everyman.loc[everyman['country']!='RUS']
+	everyman = everyman.loc[everyman['gender']=='m']
+
+	
+	everyman_name = []
+	for a in range(len(everyman['name'])):
+		first_name = []
+		last_name = []
+		test_name = everyman['name'].iloc[a]
+		test_name = test_name.split(" ")
+		for word in test_name:
+			if word.isupper():
+				last_name.append(word)
+			else:
+				first_name.append(word)
+		first_name = ' '.join(first_name)
+		last_name = ' '.join(last_name)
+		test_name = first_name + " " + last_name
+		test_name = test_name.lower()
+		everyman_name.append(test_name)
+	everyman['name'] = everyman_name
+	men_teammates = [item for sublist in men_teammates for item in sublist]
+	print(men_teammates)
+
+	for a in range(len(men_teammates)):
+		#print(men_teammates[a])
+		skier = everyman.loc[everyman['name']==men_teammates[a]]
+		#print(skier)
+		skier_id = skier['athlete_id']
+		#print(skier_id)
+		try:
+			skier_id = skier_id.iloc[0]
+		except:
+			print(men_teammates[a])
+			skier_id = 3040101
+		men_ids.append(skier_id)
+	#ids2 = men_teams+men_ids
+	print(len(men_teams))
+	print(len(men_ids))
+	ids = []
+	for a in range(len(men_teams)):
+		ids.append(men_teams[a])
+		index = a*4
+		ids.append(men_ids[index])
+		ids.append(men_ids[index+1])
+		ids.append(men_ids[index+2])
+		ids.append(men_ids[index+3])
+	print(ids)
+	return ids
+
 
 def fis_relay():
 	'''men_ids = [3420909, 3420605, 3420586, 3422819, 34819883, 3482119, 3482280, 3482277, 3180535, 3180861,
@@ -877,11 +1460,14 @@ def fis_relay():
 	teams = []
 	sex = []
 	count = 0
+	#men_ids = invent_relay()
+	#ids = men_ids
+	ids = []
 	#start with the men
-	startlist_list = ['https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=41609',
-'https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=41608']
+	startlist_list = ['https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44147',
+'https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44146']
 	for a in range(len(startlist_list)):
-
+	#for a in range(1,2):
 		startlist = BeautifulSoup(urlopen(startlist_list[a]), 'html.parser')
 		'''if(a==0):
 			count = 0
@@ -917,7 +1503,7 @@ def fis_relay():
 
 		#print(team)
 		#count+=1
-
+	print("IDs")
 	print(ids)
 
 	
@@ -935,6 +1521,7 @@ def fantasy_relay(startlist):
 	ski_id = []
 	price =[]
 	sex = []
+
 	#sex = startlist['sex']
 	#startlist = startlist['id']
 	#print(sex)
@@ -947,6 +1534,7 @@ def fantasy_relay(startlist):
 		soup = BeautifulSoup(r.content, 'html5lib')
 	API_json = json.loads(soup.get_text())
 	API_df = pd.DataFrame.from_dict(pd.json_normalize(API_json), orient='columns')
+	API_df['name'] = API_df['name'].str.replace("CZECH REPUBLIC", "CZECHIA")
 
 	##Change to locate for increased speed
 	for a in range(len(startlist)):
@@ -961,7 +1549,9 @@ def fantasy_relay(startlist):
 					pass
 				else:
 					country_name = country_name + " I"
-
+				#print(country_name)
+				#print(API_df['name'])
+				#print(API_df)
 				nation= API_df.loc[API_df['name']==country_name]
 				nation = nation.loc[nation['gender']=='m']
 				sex.append('m')
@@ -984,7 +1574,7 @@ def fantasy_relay(startlist):
 				price.append(nation['price'].iloc[0])
 				#sex.append(nation['gender'].iloc[0])
 			except:
-				print(country_name)
+				print("except" + country_name)
 				ski_id.append(999999)
 				price.append(23096)
 
@@ -1110,10 +1700,15 @@ def elo_relay(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_chrono,
 		df['name']= df['name'].str.replace('Ã¸', 'oe')
 		df['name']= df['name'].str.replace('Ã¤', 'ae')
 		df['name']= df['name'].str.replace('Ã¼', 'ue')
+		df['name']= df['name'].str.replace('Ã¥', 'aa')
+		df['name']= df['name'].str.replace('Ã¦', 'ae')
+		df['name']= df['name'].str.replace('Ø', 'Oe')
 		df['name'] = df['name'].str.replace('Ã¶', 'oe')
 		df['name'] = df['name'].str.replace('Ã', 'oe')
-		df['name'] = df['name'].str.replace('Ã¦', 'ae')
-		df['name']= df['name'].str.replace('Ã¥', 'aa')
+		
+		
+		
+
 		df['name'] = df['name'].str.replace('Aleksandr Terentev', 'alexander terentev')
 		df['name'] = df['name'].str.replace('Irineu Esteve Altimiras', 'ireneu esteve altimiras')
 		df['name'] = df['name'].str.replace('Thomas Hjalmar Westgaard', 'thomas maloney westgaard')
@@ -1142,9 +1737,9 @@ def elo_relay(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_chrono,
 
 		#print(fantasydf)
 
-		fantasy_names = fantasydf['name']
+		fantasy_names = fantasydf
 		print(fantasy_names)
-		fantasy_names = fantasy_names.str.lower()
+		fantasy_names = fantasy_names['name'].str.lower()
 		fantasy_names  = fantasy_names.tolist()
 		count = 0
 		team_elo = 0
@@ -1310,6 +1905,7 @@ def elo_relay(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_chrono,
 		
 		
 		mendf = fantasydf.loc[fantasydf['sex']=='m']
+		print(mendf)
 		mendf = dezero(mendf)
 		
 		mendf = mendf.sort_values(by='elo', ascending = False)
@@ -1412,9 +2008,9 @@ def elo_relay(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_chrono,
 	ladiesdf =ladiesdf.sort_values(by='points', ascending=False)
 	mendf = mendf[mendf['points']>0]
 	ladiesdf = ladiesdf[ladiesdf['points']>0]
-	mendf['place'] = np.arange(1, len(mendf['name'])+1, 1)
-	ladiesdf['place'] = np.arange(1,len(ladiesdf['name'])+1,1)
-	print(list(ladiesdf['name']).sort())
+	mendf['place'] = np.arange(1, len(mendf)+1, 1)
+	ladiesdf['place'] = np.arange(1,len(ladiesdf)+1,1)
+	print(list(ladiesdf).sort())
 	fantasydf = mendf
 	fantasydf = fantasydf.append(ladiesdf)
 
@@ -1439,7 +2035,7 @@ def fis_mixed_relay():
 	sex = []
 	count = 0
 	#start with the men
-	startlist_list = ['https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=39241']
+	startlist_list = ['https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=41622']
 	for a in range(len(startlist_list)):
 
 		startlist = BeautifulSoup(urlopen(startlist_list[a]), 'html.parser')
@@ -1511,7 +2107,7 @@ def fantasy_mixed_relay(startlist):
 				pass
 			else:
 				country_name = country_name + " I"
-
+			
 			nation= API_df.loc[API_df['name']==country_name]
 			nation = nation.loc[nation['gender']=='mixed']
 			sex.append('mixed')
@@ -1569,22 +2165,63 @@ def fantasy_mixed_relay(startlist):
 	
 	return fantasy_df
 
-def elo_mixed_relay(fantasydf, menpkls, ladiespkls, relaypkls):
+def elo_mixed_relay(fantasydf, mixedpkls,  mixed_vars,  mixed_chrono):
 	wc = [100, 80, 60, 50, 45, 40, 36, 32, 29, 26, 24, 22, 20, 18, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 	wc = [i*2 for i in wc]
-	
+	mixeddfs = []
+	skier_elo = []
 	team_elos = []
-	fantasydf.loc[:,'points'] =0
+	fantasydf.loc[:, 'points'] = 0
+	menrelaypkls = ["~/ski/elo/python/ski/relay/radar/varmen_sprint_k.pkl"]
+	ladiesrelaypkls = ["~/ski/elo/python/ski/relay/radar/varladies_sprint_k.pkl"]
 
-	for a in range(len(menpkls)):
-		print(menpkls[a])
-		df = pd.read_pickle(menpkls[a])
+
+	for a in range(len(mixedpkls)):
+		skier_elo = []
+		skier_distance_elo = []
+		skier_distance_classic_elo = []
+		skier_distance_freestyle_elo = []
+
+		skier_sprint_elo = []
+		skier_sprint_classic_elo = []
+		skier_sprint_freestyle_elo = []
+		skier_classic_elo = []
+		skier_freestyle_elo = []
+
+		skier_avg_points = []
+		skier_exp = []
+		skier_age = []
+		skier_home = []
+		df = pd.read_pickle(mixedpkls[a])
 		df = df.loc[df['level']=="all"]
-		ladiespkl = pd.read_pickle(ladiespkls[a])
-		ladiespkl = ladiespkl.loc[ladiespkl['level']=="all"]
-		df = df.append(ladiespkl, ignore_index = True)
+		mixedintslope = regress_relay(df, mixed_vars[a])
+
+		df = mixed_chrono
+		df = df.loc[df['level']=="all"]
+
+		
 
 
+		
+
+		team_elos = []
+		team_distance_elos = []
+		team_distance_classic_elos = []
+		team_distance_freestyle_elos = []
+
+		team_sprint_elos = []
+		team_sprint_classic_elos = []
+		team_sprint_freestyle_elos = []
+
+		team_classic_elos = []
+		team_freestyle_elos = []
+		team_avg_pointss = []
+		team_exps = []
+		team_ages = []
+
+		team_homes = []
+	
+		
 		df['name'] = df['name'].str.replace('ø', 'oe')
 		df['name'] = df['name'].str.replace('ä', 'ae')
 		df['name'] = df['name'].str.replace('æ', 'ae')
@@ -1594,10 +2231,15 @@ def elo_mixed_relay(fantasydf, menpkls, ladiespkls, relaypkls):
 		df['name']= df['name'].str.replace('Ã¸', 'oe')
 		df['name']= df['name'].str.replace('Ã¤', 'ae')
 		df['name']= df['name'].str.replace('Ã¼', 'ue')
+		df['name']= df['name'].str.replace('Ã¥', 'aa')
+		df['name']= df['name'].str.replace('Ã¦', 'ae')
+		df['name']= df['name'].str.replace('Ø', 'Oe')
 		df['name'] = df['name'].str.replace('Ã¶', 'oe')
 		df['name'] = df['name'].str.replace('Ã', 'oe')
 		
 		
+		
+
 		df['name'] = df['name'].str.replace('Aleksandr Terentev', 'alexander terentev')
 		df['name'] = df['name'].str.replace('Irineu Esteve Altimiras', 'ireneu esteve altimiras')
 		df['name'] = df['name'].str.replace('Thomas Hjalmar Westgaard', 'thomas maloney westgaard')
@@ -1613,72 +2255,255 @@ def elo_mixed_relay(fantasydf, menpkls, ladiespkls, relaypkls):
 		df['name'] = df['name'].str.replace('Perttu Hyvaerinen', 'perttu hyvarinen')
 		df['name'] = df['name'].str.replace('Kathrine Stewart-Jones', 'katherine stewart-jones')
 		df['name'] = df['name'].str.replace('Ailja Iksanova', 'alija iksanova')
+		df['name'] = df['name'].str.replace('Eric Silfver', 'erik silfver')
 		df['name'] = df['name'].str.replace('Joni Maeki', 'joni maki')
-		
+		df['name'] = df['name'].str.replace('Emmi Laemsae', 'emmi lamsa')
+		df['name'] = df['name'].str.replace('Anne Kylloenen', 'anne kyllonen')
+		df['name'] = df['name'].str.replace('Finn O\'Connell', 'finn o connell')
+		df['name'] = df['name'].str.replace('Viktoriya Olekh', 'viktoriia olekh')
 
 		teamsdf = fantasydf.iloc[::5, :]
-
+		print(teamsdf)
 		fantasydf = fantasydf[fantasydf.index % 5 !=0]
 
 		#print(fantasydf)
-		
 
-		fantasy_names = fantasydf['name']
-		fantasy_names = fantasy_names.str.lower()
+		fantasy_names = fantasydf
+		print(fantasy_names)
+		fantasy_names = fantasy_names['name'].str.lower()
 		fantasy_names  = fantasy_names.tolist()
 		count = 0
 		team_elo = 0
+		team_distance_elo = 0
+		team_distance_classic_elo = 0
+		team_distance_freestyle_elo = 0
+
+		team_sprint_elo = 0
+		team_sprint_classic_elo = 0
+		team_sprint_freestyle_elo = 0
+
+		team_classic_elo = 0
+		team_freestyle_elo = 0
+
+		team_avg_points = 0
+
+		team_exp = 0
+		team_age = 0
+		team_home=0
+	
+
+
+
 		for b in range(len(fantasy_names)):
 
 			skier = df.loc[df['name'].str.lower() == fantasy_names[b]]
 			if(len(skier['name'])==0):
-				print(fantasy_names[b])
+				print("Name not registered", fantasy_names[b])
 			#print(skier)
 			try:
+				#Make tries and excepts for each of these
 				elo = skier['elo'].iloc[-1]
-				team_elo+=elo
-				#print(team_elo)
-				#skier_elo.append(elo)
-			#elo = (skier.loc[skier['date']==20210500]['elo'])
-			except:
-				print("Name not registered", fantasy_names[b])
-				team_elo+=1300
+				distance_elo = skier['distance_elo'].iloc[-1]
+				distance_classic_elo = skier['distance_classic_elo'].iloc[-1]
+				distance_freestyle_elo = skier['distance_freestyle_elo'].iloc[-1]
+
+				sprint_elo = skier['sprint_elo'].iloc[-1]
+				sprint_classic_elo = skier['sprint_classic_elo'].iloc[-1]
+				sprint_freestyle_elo = skier['sprint_freestyle_elo'].iloc[-1]
+
+
+				classic_elo = skier['classic_elo'].iloc[-1]
+				freestyle_elo = skier['freestyle_elo'].iloc[-1]
+
+				
+				
+				#avg_points = skier['avg_points'].iloc[-1]*.682250876756-.006352194332*skier['avg_points'].iloc[-1]**2+0.000027600716*skier['avg_points'].iloc[-1]**3-0.000000045133*skier['avg_points'].iloc[-1]**4-.958832685276
+				exp = skier['exp'].iloc[-1]
+				age = skier['age'].iloc[-1]
+
+				if(skier['nation'].iloc[-1]=="Italy"):
+					home = 1
+				else:
+					home = 0
+
+				print(fantasy_names[b], elo)
+				team_elo+=elo/4
+
+				team_distance_elo+=distance_elo/4
+				team_distance_classic_elo+=distance_classic_elo/4
+				team_distance_freestyle_elo+=distance_freestyle_elo/4
+
+				team_sprint_elo+=sprint_elo/4
+				team_sprint_classic_elo+=sprint_classic_elo/4
+				team_sprint_freestyle_elo+=sprint_freestyle_elo/4
+
+				team_classic_elo+=classic_elo/4
+				team_freestyle_elo+=freestyle_elo/4
+				#team_avg_points+=avg_points
+
+				team_exp+=exp
+				team_age+=age
+
+				team_home = home
+
+
+
+
+
+			except Exception:
+				#print(fantasy_names[b], traceback.print_exc())
+				#print(fantasy_names[b])
+				team_elo+=0
+
+				team_distance_elo+=0
+				team_distance_classic_elo+=0
+				team_distance_freestyle_elo+=0
+
+				team_sprint_elo+=0
+				team_sprint_classic_elo+=0
+				team_sprint_freestyle_elo+=0
+
+				team_classic_elo+=0
+				team_freestyle_elo+=0
+
+				team_exp+=0
+				team_age+=0
+				team_avg_points+=0
+
+				team_home+=0
 
 			if(b%4==3):
 				team_elos.append(team_elo)
+				team_distance_elos.append(team_distance_elo)
+				team_distance_classic_elos.append(team_distance_classic_elo)
+				team_distance_freestyle_elos.append(team_distance_freestyle_elo)
+
+				team_sprint_elos.append(team_sprint_elo)
+				team_sprint_classic_elos.append(team_sprint_classic_elo)
+				team_sprint_freestyle_elos.append(team_sprint_freestyle_elo)
+
+				team_classic_elos.append(team_classic_elo)
+				team_freestyle_elos.append(team_freestyle_elo)
+				team_avg_pointss.append(team_avg_points)
+
+				team_exps.append(team_exp)
+				team_ages.append(team_age)
+
+				team_homes.append(team_home)
+
 				team_elo = 0
+				team_distance_elo = 0
+				team_distance_classic_elo = 0
+				team_distance_freestyle_elo = 0
+
+				team_sprint_elo = 0
+				team_sprint_classic_elo = 0
+				team_sprint_freestyle_elo = 0
+
+				team_classic_elo = 0
+				team_freestyle_elo = 0
+
+				team_avg_points = 0
+
+				team_exp = 0
+				team_age = 0
+				team_home=0
 				#skier_elo.append(1300)
 		
-		teamsdf['team_elo'] = team_elos
+		teamsdf['elo'] = team_elos
+		
+
+		teamsdf['distance_elo'] = team_distance_elos
+		teamsdf['distance_classic_elo'] = team_distance_classic_elos
+		teamsdf['distance_freestyle_elo'] = team_distance_freestyle_elos
+
+		teamsdf['sprint_elo'] = team_sprint_elos
+		teamsdf['sprint_classic_elo'] = team_sprint_classic_elos
+		teamsdf['sprint_freestyle_elo'] = team_sprint_freestyle_elos
+
+		teamsdf['classic_elo'] = team_classic_elos
+		teamsdf['freestyle_elo'] = team_freestyle_elos
+
+		teamsdf['avg_points'] = team_avg_pointss
+		teamsdf['exp'] = team_exps
+		teamsdf['age'] = team_ages
+		teamsdf['home'] = team_homes
+		print("teamsdf", teamsdf)
+
+
 		fantasydf = teamsdf
+		#print(fantasydf)
 		
-		relaypkl = pd.read_pickle(relaypkls[a])
-		relaypkl = relaypkl.loc[relaypkl['level']=="all"]
 		
-		intslope = regress_relay(relaypkl)
-
-		mixeddf = fantasydf.loc[fantasydf['sex']=='mixed']
-		max_elo = max(mixeddf['team_elo'])
-		mixeddf['elopct'] = mixeddf['team_elo'].apply(lambda x: 100*(x/max_elo))
-		mixeddf = mixeddf.sort_values(by='team_elo', ascending = False)
+		mixeddf = fantasydf
+		mixeddf = dezero(mixeddf)
+		
+		mixeddf = mixeddf.sort_values(by='elo', ascending = False)
 		mixeddf = mixeddf.reset_index(drop=True)
-		#Edit out these next three and the ladies three for pursuit.  One for actual
+		mixeddf['points'] = mixedintslope[0]
+		mixed_vars[a] = [m.replace('pelo', 'elo') for m in mixed_vars[a]]
+		mixed_vars[a] = [m.replace('pavg', 'avg') for m in mixed_vars[a]]
+
+
+	
 		
-		#mendf = mendf.sort_values(by='elo', ascending=False)
-		
-		#mendf = mendf[:len(mendf)]
-		mixeddf['points'] = mixeddf['elopct'].apply(lambda x: (intslope[0]+intslope[1]*x)**np.exp(1))
+
+		for b in range(len(mixed_vars[a])):
+			
+			mixeddf['points'] = mixeddf['points']+mixedintslope[b+1]*mixeddf[mixed_vars[a][b]]
+
+			
 		mixeddf['points'] = mixeddf['points'].fillna(0)
+		
+		
+		mixeddf['points'].loc[mixeddf['points']<0] = 0
+
+		#For normal WCP
+		#mendf['points'] = .030964*mendf['points']**2+.263557*mendf['points']+3.196429
+
+		#for TDS
+		#mendf['points'] = 0.093193*mendf['points']**2+0.787371*mendf['points']+9.215816 
+
+		#For Relay
+		mixeddf['points'] = 0.0015396*mixeddf['points']**4-0.0737648*mixeddf['points']**3+1.1908351*mixeddf['points']**2-4.9454726*mixeddf['points']+10.2055212
+
+			
+		mixeddfs.append(mixeddf)
+		
+		
+
+		mixeddf = fantasydf
+		mixeddf = mixeddf.sort_values(by='id')
+		mixeddf = mixeddf.reset_index(drop=True)
+		
 
 
-		#ladiesdf = ladiesdf.sort_values(by='elo', ascending=False)
-		#ladiesdf = ladiesdf[:len(team_elos)]
+	for a in range(len(mixeddfs)):
+		mixeddfs[a] = mixeddfs[a].sort_values(by='id')
+		mixeddfs[a] = mixeddfs[a].reset_index(drop=True)
+		elo_name = "elo"+str(a+1)
+		race_name = "race"+str(a+1)
+		mixeddf[elo_name] = mixeddfs[a]['elo']
+		mixeddf[race_name] = mixeddfs[a]['points']
+		mixeddf['points'] = mixeddf['points'] + mixeddf[race_name]
 		
-		mixeddf['place'] = np.arange(1, len(mixeddf['name'])+1, 1)
-		
-		fantasydf = mixeddf
+
+
+
+
+
+
+
+	
+	#ladiesdf = ladiesdf[:30]
+	#ladiesdf[:30, 'points'] += wc
+	mixeddf=mixeddf.sort_values(by='points', ascending=False)
+	mixeddf = mixeddf[mixeddf['points']>0]
+	mixeddf['place'] = np.arange(1, len(mixeddf)+1, 1)
+	fantasydf = mixeddf
 	
 
+	fantasydf = fantasydf[['name', 'id', 'price', 'sex','points', 'race1', 'place']]
 	return fantasydf
 
 def fis():
@@ -1691,6 +2516,18 @@ def fis():
 	3430249, 3490145, 3500664, 3501223, 3501741, 3501010, 3501255, 3510479, 3510342, 3510351,
 	3510361, 3510023, 3530882, 3530532]'''
 
+	everyone = pd.read_excel("~/ski/elo/knapsack/fantasy_api.xlsx")
+	print(everyone)
+	everyone = everyone.loc[everyone['active']==True]
+	everyone = everyone.loc[everyone['is_team']==False]
+	everyone = everyone.loc[everyone['country']!='RUS']
+	all_ladies = everyone.loc[everyone['gender']=='f']
+	all_ladies_ids = all_ladies['athlete_id'].tolist()
+	all_men = everyone.loc[everyone['gender']=='m']
+	all_men_ids = all_men['athlete_id'].tolist()
+
+
+
 	fuzz = pd.read_excel("~/ski/elo/knapsack/excel365/fuzzy_match.xlsx")
 	men = fuzz.loc[fuzz['gender']=='m']
 	ids_men = list((men['athlete_id']))
@@ -1699,11 +2536,15 @@ def fis():
 	#print(ids_men)
 	#ids_men = []
 	#ids_ladies = []
+	#ids_men =all_men_ids
+	#ids_ladies=all_ladies_ids
+
+	print(ids_ladies)
 
 	count = 0
 	#start with the men
-	startlist_list = ['https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=41603',
-	'https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=41602']
+	startlist_list = ['https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44155',
+	'https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44154']
 	for a in startlist_list:
 		startlist = BeautifulSoup(urlopen(a), 'html.parser')
 	#print(startlist)
@@ -1784,7 +2625,7 @@ def fantasy(startlist):
 		
 	d = {'name':name, 'id':ski_id, 'price':price, 'sex':sex}
 	fantasy_df = pd.DataFrame(data=d)
-	#print(fantasy_df)
+	print(fantasy_df)
 	return fantasy_df
 
 def pursuit(fantasydf):
@@ -1794,19 +2635,19 @@ def pursuit(fantasydf):
 
 	mendf = fantasydf.loc[fantasydf['sex']=='m']
 	mendf = mendf.sort_values(by='elo', ascending=False)
-	mendf['pursuit'] = np.arange(1, len(mendf['name'])+1, 1)
+	mendf['pursuit'] = np.arange(1, len(mendf)+1, 1)
 	mendf['pursuit'] = .3*mendf['pursuit'] + .7*mendf['place']
 	mendf = mendf.sort_values(by='pursuit', ascending=True)
-	mendf['pursuit'] = np.arange(1, len(mendf['name'])+1, 1)
+	mendf['pursuit'] = np.arange(1, len(mendf)+1, 1)
 	mendf = mendf[:30]
 	mendf['points'] = tour
 
 	ladiesdf = fantasydf.loc[fantasydf['sex']=='f']
 	ladiesdf = ladiesdf.sort_values(by='elo', ascending=False)
-	ladiesdf['pursuit'] = np.arange(1,len(ladiesdf['name'])+1,1)
+	ladiesdf['pursuit'] = np.arange(1,len(ladiesdf)+1,1)
 	ladiesdf['pursuit'] = .3*ladiesdf['pursuit'] + .7*ladiesdf['place']
 	ladiesdf = ladiesdf.sort_values(by='pursuit', ascending=True)
-	ladiesdf['pursuit'] = np.arange(1,len(ladiesdf['name'])+1,1)
+	ladiesdf['pursuit'] = np.arange(1,len(ladiesdf)+1,1)
 	ladiesdf = ladiesdf[:30]
 	ladiesdf['points'] = tour
 
@@ -1937,7 +2778,7 @@ def elo(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_chrono, ladie
 		df_pkl['name'] = df_pkl['name'].str.replace('Anne Kylloenen', 'anne kyllonen')
 		df_pkl['name'] = df_pkl['name'].str.replace('Finn O\'Connell', 'finn o connell')
 		df_pkl['name'] = df_pkl['name'].str.replace('Viktoriya Olekh', 'viktoriia olekh')
-		#df['name'] = df['name'].str.replace('H', 'ailja iksanova')
+		#df = df.str.replace('H', 'ailja iksanova')
 
 
 
@@ -1946,7 +2787,7 @@ def elo(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_chrono, ladie
 		fantasy_names  = fantasy_names.tolist()
 		
 		
-		#print(df.loc[df['name'].str.lower()=='kristine stavaas skistad'])
+		#print(df.loc[df.str.lower()=='kristine stavaas skistad'])
 
 
 		for b in range(len(fantasy_names)):
@@ -2006,13 +2847,13 @@ def elo(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_chrono, ladie
 				#NEED TO CHANGE AVERAGE POINTS AS IT LOOKS AT ALL
 
 				#Individual
-				avg_points = skier_pkl['avg_points'].iloc[-1]*.896294-0.0042397*skier_pkl['avg_points'].iloc[-1]**2+1.5865602
+				#avg_points = skier_pkl['avg_points'].iloc[-1]*.896294-0.0042397*skier_pkl['avg_points'].iloc[-1]**2+1.5865602
 
 				#Stage
 				#avg_points = skier_pkl['avg_points'].iloc[-1]*1.0801595-0.0100871*skier_pkl['avg_points'].iloc[-1]**2+0.1584908
 				
 				#Tour de Ski
-				#avg_points = skier['avg_points'].iloc[-1]*0.29674200-0.00046598*skier['avg_points'].iloc[-1]**2+1.76564661
+				avg_points = skier['avg_points'].iloc[-1]*0.29674200-0.00046598*skier['avg_points'].iloc[-1]**2+1.76564661
 				skier_avg_points.append(avg_points)
 			except Exception:
 				#print(fantasy_names[b])
@@ -2029,7 +2870,7 @@ def elo(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_chrono, ladie
 			except:
 				skier_age.append(0)
 			try:
-				if(skier['nation'].iloc[-1]=="Italy"):
+				if(skier['nation'].iloc[-1]=="Finland"):
 					#home = "TRUE"
 					home = 1
 				else:
@@ -2096,11 +2937,11 @@ def elo(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_chrono, ladie
 		
 		mendf['points'].loc[mendf['points']<0] = 0
 
-		#For normal WCP
-		mendf['points'] = .030964*mendf['points']**2+.263557*mendf['points']+3.196429
+		#Individual
+		#mendf['points'] = .030964*mendf['points']**2+.263557*mendf['points']+3.196429
 
-		#for TDS
-		#mendf['points'] = 0.093193*mendf['points']**2+0.787371*mendf['points']+9.215816 
+		#Tour de Ski
+		mendf['points'] = 0.093193*mendf['points']**2+0.787371*mendf['points']+9.215816 
 
 		#For Stages
 		#mendf['points'] = 0.045676*mendf['points']**2+0.178935*mendf['points']+2.531034
@@ -2126,10 +2967,10 @@ def elo(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_chrono, ladie
 		ladiesdf['points'].loc[ladiesdf['points']<0] = 0
 
 		#Individual
-		ladiesdf['points'] = .263557*ladiesdf['points']+.030964*ladiesdf['points']**2+3.196429
+		#ladiesdf['points'] = .263557*ladiesdf['points']+.030964*ladiesdf['points']**2+3.196429
 		
-		#TDS
-		#ladiesdf['points'] = 0.787371 *ladiesdf['points']+0.093193*ladiesdf['points']**2+9.215816
+		#Tour de Ski
+		ladiesdf['points'] = 0.787371 *ladiesdf['points']+0.093193*ladiesdf['points']**2+9.215816
 
 		#Stages
 		#ladiesdf['points'] = 0.045676*ladiesdf['points']**2+0.178935*ladiesdf['points']+2.531034
@@ -2179,13 +3020,13 @@ def elo(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_chrono, ladie
 	ladiesdf =ladiesdf.sort_values(by='points', ascending=False)
 	mendf = mendf[mendf['points']>0]
 	ladiesdf = ladiesdf[ladiesdf['points']>0]
-	mendf['place'] = np.arange(1, len(mendf['name'])+1, 1)
-	ladiesdf['place'] = np.arange(1,len(ladiesdf['name'])+1,1)
-	print(list(ladiesdf['name']).sort())
+	mendf['place'] = np.arange(1, len(mendf)+1, 1)
+	ladiesdf['place'] = np.arange(1,len(ladiesdf)+1,1)
+	print(list(ladiesdf).sort())
 	fantasydf = mendf
 	fantasydf = fantasydf.append(ladiesdf)
 
-	fantasydf = fantasydf[['name', 'id', 'price', 'sex','points', 'race1', 'race2',  'place']]
+	fantasydf = fantasydf[['name', 'id', 'price', 'sex','points', 'race1',  'race2','race3', 'place']]
 	return fantasydf
 			
 
@@ -2264,8 +3105,8 @@ def regress(df, vars_list):#, pkl):
 	points = wc
 	df = df.loc[df['level']=="all"]
 	max_elo = max(df['elo'])
-	df = df.loc[df['season']>=2018]
-	#print(df['name'])
+	df = df.loc[df['season']>=2019]
+	#print(df)
 	#df = df.loc[df['total_pelo']!=1300]
 	df2 = pd.DataFrame()
 	seasons = pd.unique(df['season'])
@@ -2276,10 +3117,10 @@ def regress(df, vars_list):#, pkl):
 	df.loc[df['home']=="FALSE"] = 0
 	
 	#Individual
-	df['points'] = df['points'].apply(lambda x: 1.5865602+.896294*x-0.0042397*x**2)
+	#df['points'] = df['points'].apply(lambda x: 1.5865602+.896294*x-0.0042397*x**2)
 
 	#Tour de Ski
-	#df['points'] = df['points'].apply(lambda x: 1.76564661+.296742*x-0.0046598*x**2)
+	df['points'] = df['points'].apply(lambda x: 1.76564661+.296742*x-0.0046598*x**2)
 
 	#Stage races
 	#df['points'] = df['points'].apply(lambda x: 0.1584908+1.0801595*x-0.0100871*x**2)
@@ -2290,12 +3131,13 @@ def regress(df, vars_list):#, pkl):
 	df[vars_list] = df[vars_list]
 	df = df.fillna(0)
 	if('pavg_points' in vars_list):
-		#Stage races
-		df['pavg_points'] = df['pavg_points'].apply(lambda x: 1.5865602+.896294*x-0.0042397*x**2)
+		#Individual
+		#df['pavg_points'] = df['pavg_points'].apply(lambda x: 1.5865602+.896294*x-0.0042397*x**2)
 		
 		#Tour de Ski
-		#df['points'] = df['points'].apply(lambda x: 1.76564661+.296742*x-0.0046598*x**2)
+		df['points'] = df['points'].apply(lambda x: 1.76564661+.296742*x-0.0046598*x**2)
 
+		#Stage
 		#df['pavg_points'] = df['pavg_points'].apply(lambda x: 0.1584908+0.29674200*x-0.00046598*x**2)
 	
 	
@@ -2399,22 +3241,44 @@ def dezero(df):
 	#	"//div[@class='js-off-canvas-overlay is-overlay-fixed']")))
 
 
-#menpkls = ["~/ski/elo/python/ski/excel365/varmen_sprint_classic_k.pkl",
-#"~/ski/elo/python/ski/excel365/varmen_distance_freestyle_k.pkl"]
-'''menpkls = ["/Users/syverjohansen/ski/elo/python/ski/age/excel365/men_chrono_regress_sprint_freestyle.pkl",
-"/Users/syverjohansen/ski/elo/python/ski/age/excel365/men_chrono_regress_distance_freestyle.pkl"] '''
-menpkls = ["/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/men_chrono_regress_relay.pkl"]
+
+
+#menpkls = ["/Users/syverjohansen/ski/elo/python/ski/age/excel365/men_chrono_regress_sprint_freestyle.pkl",
+#"/Users/syverjohansen/ski/elo/python/ski/age/excel365/men_chrono_regress_distance.pkl",
+#"/Users/syverjohansen/ski/elo/python/ski/age/excel365/men_chrono_regress_distance_classic.pkl"]
+#"/Users/syverjohansen/ski/elo/python/ski/age/excel365/men_chrono_regress_distance_classic.pkl",
+
+
+menpkls = ["/Users/syverjohansen/ski/elo/python/ski/age/excel365/men_chrono_regress_tds.pkl"]
+
+#menpkls = ["/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/men_chrono_regress_relay.pkl"]
 
 
 
-men_AIC = [['age', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'home']]
 
 
-men_BIC = [['pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'home']]
+#men_AIC = [['age', 'exp', 'pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'home', 'pavg_points'],
+#['age', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points'],
+#['age', 'pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points']]
+#['exp', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'home', 'pavg_points'],
+#['exp', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points']]
+men_AIC = [['age', 'exp', 'pelo', 'distance_freestyle_pelo', 'sprint_classic_pelo', 'classic_pelo', 'freestyle_pelo']]
 
 
+#men_BIC = [['age', 'exp', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'home', 'pavg_points'],
+#['age', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points'],
+#['age', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'pavg_points']]
+#['exp', 'pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points'],
+#['pelo', 'distance_pelo', 'distance_classic_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points']]
+men_BIC = [['pelo', 'distance_freestyle_pelo', 'sprint_classic_pelo', 'classic_pelo', 'freestyle_pelo']]
 
-men_R2 = [['age', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'home']]
+
+#men_R2 = [['age', 'exp', 'pelo', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'classic_pelo', 'freestyle_pelo', 'home', 'pavg_points'],
+#['exp', 'pelo', 'distance_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'classic_pelo', 'freestyle_pelo', 'home', 'pavg_points'],
+#['age', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points']]
+#['age', 'exp', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'home', 'pavg_points'],
+#['age', 'exp', 'pelo', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points']]
+men_R2 = [['age', 'exp', 'pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo']]
 
 
 men_sprint = [['age', 'exp', 'pelo', 'distance_freestyle_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'home', 'pavg_points']]
@@ -2429,17 +3293,36 @@ men_vars = men_AIC
 	#"~/ski/elo/python/ski/men/varmen_sprint_classic.pkl"]
 
 
-'''ladiespkls = ["/Users/syverjohansen/ski/elo/python/ski/age/excel365/ladies_chrono_regress_sprint_freestyle.pkl",
-"/Users/syverjohansen/ski/elo/python/ski/age/excel365/ladies_chrono_regress_distance_freestyle.pkl"]'''
-ladiespkls = ["/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/ladies_chrono_regress_relay.pkl"]
+
+#ladiespkls = ["/Users/syverjohansen/ski/elo/python/ski/age/excel365/ladies_chrono_regress_sprint_freestyle.pkl",
+#"/Users/syverjohansen/ski/elo/python/ski/age/excel365/ladies_chrono_regress_distance.pkl",
+#"/Users/syverjohansen/ski/elo/python/ski/age/excel365/ladies_chrono_regress_distance_freestyle.pkl"]
+
+ladiespkls = ["/Users/syverjohansen/ski/elo/python/ski/age/excel365/ladies_chrono_regress_tds.pkl"]
+
+#ladiespkls = ["/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/ladies_chrono_regress_relay.pkl"]
 
 
-ladies_AIC = [['age', 'exp', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo']]
+#ladies_AIC = [['age', 'exp', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'home', 'pavg_points'],
+#['age', 'exp', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'home', 'pavg_points'],
+#['age', 'exp', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points']]
+#['age', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'home', 'pavg_points']]
+ladies_AIC = [['pelo', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'freestyle_pelo', 'pavg_points']]
 
-ladies_BIC = [['age', 'pelo', 'distance_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo']]
+
+#ladies_BIC = [['age', 'exp', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points'],
+#['age', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'pavg_points'],
+#['age', 'exp', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'pavg_points']]
+#['age', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'pavg_points']]
+ladies_BIC = [['pelo', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'freestyle_pelo']]
 
 
-ladies_R2 = [['exp', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'home']]
+#ladies_R2 = [['age', 'exp', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'home', 'pavg_points'],
+#['exp', 'pelo', 'distance_pelo', 'sprint_pelo', 'classic_pelo', 'home', 'pavg_points'],
+#['exp', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'sprint_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points']]
+#['exp', 'pelo', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'classic_pelo', 'home', 'pavg_points']]
+ladies_R2 = [['pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points']]
+
 
 
 ladies_sprint = [['age', 'pelo', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'classic_pelo', 'pavg_points']]
@@ -2448,28 +3331,35 @@ ladies_distance = [['age', 'distance_pelo', 'distance_classic_pelo', 'sprint_pel
 
 ladies_vars = ladies_AIC
 
+mixedpkls = ["/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/mixed_chrono_regress_relay.pkl"]
+mixed_AIC = [['age', 'exp', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo']]
+mixed_BIC = [['age', 'exp', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo']]
+mixed_R2 = [['age', 'exp', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'home']]
+mixed_vars = mixed_R2
+
 
 	#"~/ski/elo/python/ski/excel365/varladies_distance_freestyle_k.pkl"]
 #relaypkls = ["~/ski/elo/python/ski/relay/radar/varmen_distance_k.pkl"]
 #tspkls = ["~/ski/elo/python/ski/relay/radar/varmen_sprint_k.pkl"]
 
-#men_chrono = pd.read_pickle("/Users/syverjohansen/ski/elo/python/ski/age/excel365/men_chrono_regress.pkl")
-#ladies_chrono = pd.read_pickle("/Users/syverjohansen/ski/elo/python/ski/age/excel365/ladies_chrono_regress.pkl")
+men_chrono = pd.read_pickle("/Users/syverjohansen/ski/elo/python/ski/age/excel365/men_chrono_regress.pkl")
+ladies_chrono = pd.read_pickle("/Users/syverjohansen/ski/elo/python/ski/age/excel365/ladies_chrono_regress.pkl")
 
-men_chrono = pd.read_pickle("/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/men_chrono_regress.pkl")
-ladies_chrono = pd.read_pickle("/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/ladies_chrono_regress.pkl")
 
+#men_chrono = pd.read_pickle("/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/men_chrono_regress.pkl")
+#ladies_chrono = pd.read_pickle("/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/ladies_chrono_regress.pkl")
+#mixed_chrono = pd.read_pickle("/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/mixed_chrono_regress.pkl")
 
 #df = pd.read_pickle(ladiespkls[0])
 #regress(df)
 
-#startlist = fis()
-startlist = fis_relay()
+startlist = fis()
+#startlist = fis_relay()
 #startlist = fis_mixed_relay()
 #startlist = fis_team_sprint()
 
-#fantasydf = (fantasy(startlist))
-fantasydf = fantasy_relay(startlist)
+fantasydf = (fantasy(startlist))
+#fantasydf = fantasy_relay(startlist)
 #fantasydf = fantasy_mixed_relay(startlist)
 #fantasydf = fantasy_team_sprint(startlist)
 #with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
@@ -2479,10 +3369,10 @@ fantasydf = fantasy_relay(startlist)
 
 
 
-#fantasydf = elo(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_chrono, ladies_chrono)
+fantasydf = elo(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_chrono, ladies_chrono)
 #fantasydf = pursuit(fantasydf)
-fantasydf = elo_relay(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_chrono, ladies_chrono)
-#fantasydf = elo_mixed_relay(fantasydf, menpkls, ladiespkls, relaypkls)
+#fantasydf = elo_relay(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_chrono, ladies_chrono)
+#fantasydf = elo_mixed_relay(fantasydf, mixedpkls,  mixed_vars,  mixed_chrono)
 #print(fantasydf)
 #fantasydf = elo_team_sprint(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_chrono, ladies_chrono)
 #print(fantasydf)
@@ -2502,8 +3392,8 @@ mixed_ts_fantasydf = elo_mixed_ts(mixed_ts_fantasydf, men_ts_skier_pkls, ladies_
 fantasydf = mixed_combo(mixed_relay_fantasydf, mixed_ts_fantasydf)
 print(fantasydf)'''
 
-fantasydf.to_pickle("~/ski/elo/knapsack/excel365/fantasydf_toblach_relay_BIC.pkl")
-fantasydf.to_excel("~/ski/elo/knapsack/excel365/fantasydf_toblach_relay_BIC.xlsx")
+fantasydf.to_pickle("~/ski/elo/knapsack/excel365/fantasydf_trondheim_BIC.pkl")
+fantasydf.to_excel("~/ski/elo/knapsack/excel365/fantasydf_trondheim_BIC.xlsx")
 
 
 print(time.time() - start_time)

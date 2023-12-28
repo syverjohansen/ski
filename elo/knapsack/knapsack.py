@@ -22,7 +22,7 @@ df = df[(df.active == True) & (df.is_team == False) & (df.score > 0)]
 df = df.reset_index(drop=True)
 
 #df = pd.read_pickle("~/ski/elo/knapsack/fantasydf_spec.pkl")
-df = pd.read_excel("~/ski/elo/knapsack/excel365/fantasydf_toblach_relay.xlsx")
+df = pd.read_excel("~/ski/elo/knapsack/excel365/fantasydf_trondheim.xlsx")
 df = df.drop_duplicates(subset=['id'])
 
 #print(df)#, drop=True)
@@ -60,26 +60,28 @@ def knapsack(data):
   
   ## Amount Constraint (16 selections):
   constraint_expr = [x[j] for j in range(data.shape[0])]
-  solver.Add(sum(constraint_expr) <= 12)
+  solver.Add(sum(constraint_expr) <= 16)
   #solver.Add(sum(constraint_expr) <= 6)
 
   men, women = [], []
   #mixed = []
   for j in range(data.shape[0]):
-   # if (data["sex"].iloc[j] == "mixed"):
-    #  mixed.append(x[j])
+    '''if data["sex"].iloc[j] == "mixed":
+      mixed.append(x[j])'''
+     
     if data["sex"].iloc[j] == "m":
       men.append(x[j])
     elif data["sex"].iloc[j] == "f":
       women.append(x[j])
+    
     else:
       print("ERROR: Gender is either m or f.")
       return None
-  
+
   ## Composition Constraint (8 men & 8 women):
-  solver.Add(sum(men) <= 6)
-  solver.Add(sum(women) <= 6)
-  #solver.Add(sum(mixed) <= 6)
+  solver.Add(sum(men) <= 8)
+  solver.Add(sum(women) <= 8)
+  #solver.Add(sum(mixed) <= 8)
   ## Objective:
   objective = solver.Objective()
   for j in range(L):
