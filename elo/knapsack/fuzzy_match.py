@@ -38,8 +38,8 @@ tweets_dict = tweets.json()
 tweets_data = tweets_dict['data']
 df = pd.json_normalize(tweets_data)
 print(df)
-start_time = '2023-01-30T02:07:21.000Z'
-end_time = '2023-02-02T23:52:04.000Z '
+start_time = '2023-11-19T01:01:01.000Z'
+end_time = '2023-11-24T23:52:04.000Z '
 df['text'] = df['text'].str.lower()
 df['text'] = df['text'].str.replace('ø', 'oe')
 df['text'] = df['text'].str.replace('ä', 'ae')

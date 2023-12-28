@@ -189,11 +189,13 @@ def fis_team_sprint():
 	teams = []
 	sex = []
 	count = 0
+	ids_men = []
+	ids_ladies =[]
 
 	#start with the men
 	#There will be 4 because of the semifinals
-	startlist_list = ["https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=43564",
-	"https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=43561"]
+	startlist_list = ["https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=43589",
+	"https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=43587"]
 	for a in range(len(startlist_list)):
 		startlist = BeautifulSoup(urlopen(startlist_list[a]), 'html.parser')
 	#print(startlist)
@@ -221,9 +223,47 @@ def fis_team_sprint():
 
 		#print(team)
 		count+=1
+		
 
+	#print(ids)
+
+	'''for a in range(len(startlist_list)):
+		startlist = BeautifulSoup(urlopen(startlist_list[a]), 'html.parser')
+	#print(startlist)
+		body = startlist.find_all('div', {'class':'pr-1 g-lg-2 g-md-2 g-sm-2 hidden-xs justify-right gray'})
+		#print(body)
+		for b in range(len(body)):
+			#print(b)
+			if(a==0):
+				#print(int(body[b].text.strip()))
+				ids_men.append(int(body[b].text.strip()))
+			else:
+				ids_ladies.append(int(body[b].text.strip()))
+
+	print(len(ids_men))
+	
+
+	male_team_ids = ["mNORWAY I", "mITALY I", "mSWEDEN I", "mFINLAND I", "mGERMANY I", "mFRANCE I", "mCZECH REPUBLIC I", "mCANADA I", "mUNITED STATES OF AMERICA I", "mGREAT BRITAIN I", "mJAPAN I", "mSWITZERLAND I", "mROMANIA I", "mPOLAND I", "mESTONIA I", "mAUSTRIA I", "mKAZAKHSTAN I", "mBULGARIA I",  "mSLOVENIA I", "mLATVIA I", "mICELAND I", "mAUSTRALIA I", "mUKRAINE I", 'mMACEDONIA I', "mBOSNIA AND HERZEGOVINA I", "mHUNGARY I", "mCROATIA I", "mARGENTINA I", "mLITHUANIA I", "mTURKEY I", "mGREECE I", "mHAITI I", "mCHILE I", "mPORTUGAL I"]
+	print(len(male_team_ids))
+	ladies_team_ids = ["fSWEDEN I", "fNORWAY I", "fUNITED STATES OF AMERICA I", "fFINLAND I", "fGERMANY I", "fSWITZERLAND I", "fSLOVENIA I", "fCZECH REPUBLIC I", "fESTONIA I", "fFRANCE I", "fCANADA I", "fPOLAND I", "fITALY I", "fKAZAKHSTAN I", "fLATVIA I", "fARGENTINA I", "fUKRAINE I", "fCROATIA I", "fAUSTRALIA I", "fICELAND I", "fSLOVAKIA I", "fGREECE I", "fMONGOLIA I", "fLITHUANIA I", "fMACEDONIA I", "fBRAZIL I"]
+	print(len(ladies_team_ids))
+	count = 0
+	male_team_ids2 = male_team_ids+ids_men
+	print(len(male_team_ids2))
+	for a in range(len(male_team_ids)):
+		ids.append(male_team_ids2[a])
+		ids.append(male_team_ids2[a+34])
+		ids.append(male_team_ids2[a+68])
+
+	ladies_team_ids2 = ladies_team_ids+ids_ladies
+	for a in range(len(ladies_team_ids)):
+		ids.append(ladies_team_ids2[a])
+		ids.append(ladies_team_ids2[a+26])
+		ids.append(ladies_team_ids2[a+52])
+
+	#now for the ladies
 	print(ids)
-
+	return ids'''
 	
 
 	#now for the ladies
@@ -743,6 +783,309 @@ def elo_mixed_ts(fantasydf, menpkls, ladiespkls, relaypkls):
 
 	return fantasydf
 
+
+def country_code_to_country(country_codes):
+	cc = country_codes
+	rl = []
+	for a in range(len(country_codes)):
+		if(cc[a]=="FRA"):
+			rl.append("France")
+		elif(cc[a]=="AUS"):
+			rl.append("Australia")
+		elif(cc[a]=="AUT"):
+			rl.append("Austria")
+		elif(cc[a]=="BGR"):
+			rl.append("Bulgaria")
+		elif(cc[a]=="BIH"):
+			rl.append("Bosnia and Herzegovina")
+		elif(cc[a]=="BRA"):
+			rl.append("Brazil")
+		elif(cc[a]=="CAN"):
+			rl.append("Canada")
+		elif(cc[a]=="CHE"):
+			rl.append("Switzerland")
+		elif(cc[a]=="CZE"):
+			rl.append("Czech Republic")
+		elif(cc[a]=="DEU"):
+			rl.append("Germany")
+		elif(cc[a]=="DNK"):
+			rl.append("Denmark")
+		elif(cc[a]=="ESP"):
+			rl.append("Spain")
+		elif(cc[a]=="EST"):
+			rl.append("Estonia")
+		elif(cc[a]=="FIN"):
+			rl.append("Finland")
+		elif(cc[a]=="GBR"):
+			rl.append("Great Britain")
+		elif(cc[a]=="GRC"):
+			rl.append("Greece")
+		elif(cc[a]=="HUN"):
+			rl.append("Hungary")
+		elif(cc[a]=="ISL"):
+			rl.append("Iceland")
+		elif(cc[a]=="ITA"):
+			rl.append("Italy")
+		elif(cc[a]=="KAZ"):
+			rl.append("Kazakhstan")
+		elif(cc[a]=="KOR"):
+			rl.append("South Korea")
+		elif(cc[a]=="LTU"):
+			rl.append("Lithuania")
+		elif(cc[a]=="LVA"):
+			rl.append("Latvia")
+		elif(cc[a]=="MNG"):
+			rl.append("Mongolia")
+		elif(cc[a]=="NOR"):
+			rl.append("Norway")
+		elif(cc[a]=="POL"):
+			rl.append("Poland")
+		elif(cc[a]=="ROU"):
+			rl.append("Romania")
+		elif(cc[a]=="SVK"):
+			rl.append("Slovakia")
+		elif(cc[a]=="SVN"):
+			rl.append("Slovenia")
+		elif(cc[a]=="SWE"):
+			rl.append("Sweden")
+		elif(cc[a]=="USA"):
+			rl.append("USA")
+		elif(cc[a]=="JPN"):
+			rl.append("Japan")
+		elif(cc[a]=="UKR"):
+			rl.append("Ukraine")
+		elif(cc[a]=="CHN"):
+			rl.append("China")
+		elif(cc[a]=="TUR"):
+			rl.append("Turkey")
+		elif(cc[a]=="HRV"):
+			rl.append("Croatia")
+		elif(cc[a]=="BEL"):
+			rl.append("Belgium")
+	return rl
+
+def country_to_team(team_list):
+	cc = team_list
+	rl = []
+	for a in range(len(team_list)):
+		if(cc[a]=="France"):
+			rl.append("FRANCE I")
+		elif(cc[a]=="Australia"):
+			rl.append("AUSTRALIA I")
+		elif(cc[a]=="Austria"):
+			rl.append("AUSTRIA I")
+		elif(cc[a]=="Bulgaria"):
+			rl.append("BULGARIA I")
+		elif(cc[a]=="Bostnia and Herzegovina"):
+			rl.append("BOSNIA AND HERZEGOVINA I")
+		elif(cc[a]=="Brazil"):
+			rl.append("BRAZIL I")
+		elif(cc[a]=="Canada"):
+			rl.append("CANADA I")
+		elif(cc[a]=="Switzerland"):
+			rl.append("SWITZERLAND I")
+		elif(cc[a]=="Czech Republic"):
+			rl.append("CZECHIA I")
+		elif(cc[a]=="Germany"):
+			rl.append("GERMANY I")
+		elif(cc[a]=="Denmark"):
+			rl.append("DENMARK I")
+		elif(cc[a]=="Spain"):
+			rl.append("SPAIN I")
+		elif(cc[a]=="Estonia"):
+			rl.append("ESTONIA I")
+		elif(cc[a]=="Finland"):
+			rl.append("FINLAND I")
+		elif(cc[a]=="Great Britain"):
+			rl.append("GREAT BRITAIN I")
+		elif(cc[a]=="Greece"):
+			rl.append("GREECE I")
+		elif(cc[a]=="Hungary"):
+			rl.append("HUNGARY I")
+		elif(cc[a]=="Iceland"):
+			rl.append("ICELAND I")
+		elif(cc[a]=="Italy"):
+			rl.append("ITALY I")
+		elif(cc[a]=="Kazakhstan"):
+			rl.append("KAZAKHSTAN I")
+		elif(cc[a]=="South Korea"):
+			rl.append("KOREA I")
+		elif(cc[a]=="Lithuania"):
+			rl.append("LITHUANIA I")
+		elif(cc[a]=="Latvia"):
+			rl.append("LATVIA I")
+		elif(cc[a]=="Mongolia"):
+			rl.append("MONGOLIA I")
+		elif(cc[a]=="Norway"):
+			rl.append("NORWAY I")
+		elif(cc[a]=="Poland"):
+			rl.append("POLAND I")
+		elif(cc[a]=="Romania"):
+			rl.append("ROMANIA I")
+		elif(cc[a]=="Slovakia"):
+			rl.append("SLOVAKIA I")
+		elif(cc[a]=="Slovenia"):
+			rl.append("SLOVENIA I")
+		elif(cc[a]=="Sweden"):
+			rl.append("SWEDEN I")
+		elif(cc[a]=="USA"):
+			rl.append("UNITED STATES OF AMERICA I")
+		elif(cc[a]=="Japan"):
+			rl.append("JAPAN I")
+		elif(cc[a]=="Ukraine"):
+			rl.append("UKRAINE I")
+		elif(cc[a]=="China"):
+			rl.append("PEOPLES REPUBLIC OF CHINA I")
+		elif(cc[a]=="Turkey"):
+			rl.append("TURKEY I")
+		elif(cc[a]=="Croatia"):
+			rl.append("CROATIA I")
+		elif(cc[a]=="Belgium"):
+			rl.append("BELGIUM I")
+		
+	return rl
+
+def df_to_name(name_list):
+	print(name_list)
+	name_list['name'] = name_list['name'].str.replace('ø', 'oe')
+	name_list['name'] = name_list['name'].str.replace('ä', 'ae')
+	name_list['name'] = name_list['name'].str.replace('æ', 'ae')
+	name_list['name']= name_list['name'].str.replace('ö', 'oe')
+	name_list['name']= name_list['name'].str.replace('ü', 'ue')
+	name_list['name']= name_list['name'].str.replace('å', 'aa')
+	name_list['name']= name_list['name'].str.replace('Ã¸', 'oe')
+	name_list['name']= name_list['name'].str.replace('Ã¤', 'ae')
+	name_list['name']= name_list['name'].str.replace('Ã¼', 'ue')
+	name_list['name']= name_list['name'].str.replace('Ã¥', 'aa')
+	name_list['name']= name_list['name'].str.replace('Ã¦', 'ae')
+	name_list['name']= name_list['name'].str.replace('Ø', 'Oe')
+	name_list['name'] = name_list['name'].str.replace('Ã¶', 'oe')
+	name_list['name'] = name_list['name'].str.replace('Ã', 'oe')
+	
+	
+	
+
+	name_list['name'] = name_list['name'].str.replace('Aleksandr Terentev', 'alexander terentev')
+	name_list['name'] = name_list['name'].str.replace('Irineu Esteve Altimiras', 'ireneu esteve altimiras')
+	name_list['name'] = name_list['name'].str.replace('Thomas Hjalmar Westgaard', 'thomas maloney westgaard')
+	name_list['name'] = name_list['name'].str.replace('Aleksandr Terentev', 'alexander terentev')
+	name_list['name'] = name_list['name'].str.replace('Lauri Lepistoe', 'lauri lepisto')
+	name_list['name'] = name_list['name'].str.replace('Philip Bellingham', 'phillip bellingham')
+	name_list['name'] = name_list['name'].str.replace('Snorri Einarsson', 'snorri eythor einarsson')
+	name_list['name'] = name_list['name'].str.replace('Krista Paermaekoski', 'krista parmakoski')
+	name_list['name'] = name_list['name'].str.replace('Jessica Diggins', 'jessie diggins')
+	name_list['name'] = name_list['name'].str.replace('Patricijia Eiduka', 'patricija eiduka')
+	name_list['name'] = name_list['name'].str.replace('Katri Lylynperae', 'katri lylynpera')
+	name_list['name'] = name_list['name'].str.replace('Julia Belger', 'julia preussger')
+	name_list['name'] = name_list['name'].str.replace('Perttu Hyvaerinen', 'perttu hyvarinen')
+	name_list['name'] = name_list['name'].str.replace('Kathrine Stewart-Jones', 'katherine stewart-jones')
+	name_list['name'] = name_list['name'].str.replace('Ailja Iksanova', 'alija iksanova')
+	name_list['name'] = name_list['name'].str.replace('Eric Silfver', 'erik silfver')
+	name_list['name'] = name_list['name'].str.replace('Joni Maeki', 'joni maki')
+	name_list['name'] = name_list['name'].str.replace('Emmi Laemsae', 'emmi lamsa')
+	name_list['name'] = name_list['name'].str.replace('Anne Kylloenen', 'anne kyllonen')
+	name_list['name'] = name_list['name'].str.replace('Finn O\'Connell', 'finn o connell')
+	name_list['name'] = name_list['name'].str.replace('Viktoriya Olekh', 'viktoriia olekh')
+	name_list['name'] = name_list['name'].str.lower()
+	return name_list
+
+def invent_relay():
+	
+	all_men = pd.read_pickle("~/ski/elo/python/ski/age/relay/excel365/varmen_distance_k.pkl")
+	#print(all_men['date'])
+	all_men = all_men.loc[all_men['date']==20230500]
+	
+	all_men = all_men.sort_values(by=['pelo'], ascending=False)
+	all_men = df_to_name(all_men)
+	#print(all_men)
+
+	
+
+	everyteam = pd.read_excel("~/ski/elo/knapsack/fantasy_api.xlsx")
+	everyteam= everyteam.loc[everyteam['is_team']==True]
+	everyteam= everyteam.loc[everyteam['country']!="RUS"]
+	everyteam = everyteam.loc[everyteam['gender']=='m']
+	
+	country_codes = everyteam['country'].unique()
+	df_countries = country_code_to_country(country_codes)
+	men_teammates = []
+	team_list = []
+	for a in range(len(df_countries)):
+		try:
+			nat = all_men.loc[all_men['nation']==df_countries[a]]
+			top4 = nat['name']
+			top4 = top4[0:4]
+			if(len(top4)<4):
+				continue
+			men_teammates.append(top4)
+			team_list.append(df_countries[a])
+		except:
+			print(df_countries[a])
+			continue
+	team_list = country_to_team(team_list)
+	print(team_list)
+	men_teams = []
+	for a in range(len(team_list)):
+		print(team_list[a])
+		men_teams.append('m'+team_list[a])
+
+	#men_teammates = df_to_name(men_teammates)
+
+
+	men_ids = []
+
+	everyman = pd.read_excel("~/ski/elo/knapsack/fantasy_api.xlsx")
+	everyman = everyman.loc[everyman['is_team']==False]
+	everyman = everyman.loc[everyman['country']!='RUS']
+	everyman = everyman.loc[everyman['gender']=='m']
+
+	
+	everyman_name = []
+	for a in range(len(everyman['name'])):
+		first_name = []
+		last_name = []
+		test_name = everyman['name'].iloc[a]
+		test_name = test_name.split(" ")
+		for word in test_name:
+			if word.isupper():
+				last_name.append(word)
+			else:
+				first_name.append(word)
+		first_name = ' '.join(first_name)
+		last_name = ' '.join(last_name)
+		test_name = first_name + " " + last_name
+		test_name = test_name.lower()
+		everyman_name.append(test_name)
+	everyman['name'] = everyman_name
+	men_teammates = [item for sublist in men_teammates for item in sublist]
+	print(men_teammates)
+
+	for a in range(len(men_teammates)):
+		#print(men_teammates[a])
+		skier = everyman.loc[everyman['name']==men_teammates[a]]
+		#print(skier)
+		skier_id = skier['athlete_id']
+		#print(skier_id)
+		try:
+			skier_id = skier_id.iloc[0]
+		except:
+			print(men_teammates[a])
+			skier_id = 3040101
+		men_ids.append(skier_id)
+	#ids2 = men_teams+men_ids
+	print(len(men_teams))
+	print(len(men_ids))
+	ids = []
+	for a in range(len(men_teams)):
+		ids.append(men_teams[a])
+		index = a*4
+		ids.append(men_ids[index])
+		ids.append(men_ids[index+1])
+		ids.append(men_ids[index+2])
+		ids.append(men_ids[index+3])
+	print(ids)
+	return ids
+
 def fis_relay():
 	'''men_ids = [3420909, 3420605, 3420586, 3422819, 34819883, 3482119, 3482280, 3482277, 3180535, 3180861,
 	3180557, 3180508, 3530882, 3530532, 3530902, 3530911, 3200802, 3200205, 3200356, 3200676,
@@ -760,9 +1103,11 @@ def fis_relay():
 	teams = []
 	sex = []
 	count = 0
+	#ids = invent_relay()
+	ids = []
 	#start with the men
-	startlist_list = ['https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=41609',
-'https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=41608']
+	startlist_list = ['https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44147',
+'https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44146']
 	for a in range(len(startlist_list)):
 
 		startlist = BeautifulSoup(urlopen(startlist_list[a]), 'html.parser')
@@ -830,6 +1175,7 @@ def fantasy_relay(startlist):
 		soup = BeautifulSoup(r.content, 'html5lib')
 	API_json = json.loads(soup.get_text())
 	API_df = pd.DataFrame.from_dict(pd.json_normalize(API_json), orient='columns')
+	API_df['name'] = API_df['name'].str.replace("CZECH REPUBLIC", "CZECHIA")
 
 	##Change to locate for increased speed
 	for a in range(len(startlist)):
@@ -1062,7 +1408,7 @@ def fis_mixed_relay():
 	sex = []
 	count = 0
 	#start with the men
-	startlist_list = ['https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=41557']
+	startlist_list = ['https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=41622']
 	for a in range(len(startlist_list)):
 
 		startlist = BeautifulSoup(urlopen(startlist_list[a]), 'html.parser')
@@ -1315,6 +1661,15 @@ def fis():
 	3430249, 3490145, 3500664, 3501223, 3501741, 3501010, 3501255, 3510479, 3510342, 3510351,
 	3510361, 3510023, 3530882, 3530532]'''
 
+	everyone = pd.read_excel("~/ski/elo/knapsack/fantasy_api.xlsx")
+	everyone = everyone.loc[everyone['is_team']==False]
+	everyone = everyone.loc[everyone['active']==True]
+	everyone = everyone.loc[everyone['country']!="RUS"]
+	all_ladies = everyone.loc[everyone['gender']=='f']
+	all_ladies_ids = all_ladies['athlete_id'].tolist()
+	all_men = everyone.loc[everyone['gender']=='m']
+	all_men_ids = all_men['athlete_id'].tolist()
+
 	fuzz = pd.read_excel("~/ski/elo/knapsack/excel365/fuzzy_match.xlsx")
 	men = fuzz.loc[fuzz['gender']=='m']
 	ids_men = list((men['athlete_id']))
@@ -1323,11 +1678,13 @@ def fis():
 	print(ids_men)
 	#ids_men = []
 	#ids_ladies = []
+	#ids_men =all_men_ids
+	#ids_ladies=all_ladies_ids
 
 	count = 0
 	#start with the men
-	startlist_list = ['https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=41603',
-	'https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=41602']
+	startlist_list = ['https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44155',
+	'https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44154']
 	for a in startlist_list:
 		startlist = BeautifulSoup(urlopen(a), 'html.parser')
 	#print(startlist)
@@ -1705,7 +2062,7 @@ def regress(df):#, pkl):
 	points = wc
 	df = df.loc[df['level']=="all"]
 	max_elo = max(df['elo'])
-	df = df.loc[df['season']>=2018]
+	df = df.loc[df['season']>=2019]
 	df = df.loc[df['pelo']!=1300]
 	df2 = pd.DataFrame()
 	seasons = pd.unique(df['season'])
@@ -1782,28 +2139,32 @@ def mixed_combo(relaydf, tsdf):
 	#	"//div[@class='js-off-canvas-overlay is-overlay-fixed']")))
 
 
-menpkls = ["~/ski/elo/python/ski/age/relay/excel365/varmen_distance_k.pkl"]
-#menpkls = ["~/ski/elo/python/ski/age/excel365/varmen_distance_k.pkl"]#,
-	#"~/ski/elo/python/ski/excel365/varmen_distance_freestyle_k.pkl"]
-	#"~/ski/elo/python/ski/men/varmen_sprint_classic.pkl"]
+#menpkls = ["~/ski/elo/python/ski/age/relay/excel365/varmen_distance_k.pkl"]
+menpkls = ["~/ski/elo/python/ski/age/excel365/varmen_sprint_freestyle_k.pkl",
+	"~/ski/elo/python/ski/age/excel365/varmen_distance_k.pkl",
+	"~/ski/elo/python/ski/age/excel365/varmen_distance_classic_k.pkl"]
+#	"~/ski/elo/python/ski/age/excel365/varmen_distance_freestyle_k.pkl"]
 
-#ladiespkls = ["~/ski/elo/python/ski/excel365/varladies_sprint_classic_k.pkl",
-#"~/ski/elo/python/ski/excel365/varladies_distance_freestyle_k.pkl"]
-ladiespkls = ["~/ski/elo/python/ski/age/relay/excel365/varladies_distance_k.pkl"]
-#relaypkls = ["~/ski/elo/python/ski/relay/radar/varmen_distance_k.pkl"]
+#ladiespkls = ["~/ski/elo/python/ski/age/relay/excel365/varladies_distance_k.pkl"]
+ladiespkls = ["~/ski/elo/python/ski/age/excel365/varladies_sprint_freestyle_k.pkl",
+"~/ski/elo/python/ski/age/excel365/varladies_distance_k.pkl",
+"~/ski/elo/python/ski/age/excel365/varladies_distance_classic_k.pkl"]
+#"~/ski/elo/python/ski/age/excel365/varladies_distance_freestyle_k.pkl"]
+#ladiespkls = ["~/ski/elo/python/ski/age/excel365/varladies_sprint_freestyle_k.pkl"]
+#relaypkls = ["~/ski/elo/python/ski/age/relay/excel365/varmen_sprint_freestyle_k.pkl"]
 #tspkls = ["~/ski/elo/python/ski/relay/radar/varmen_sprint_k.pkl"]
 
 
 #df = pd.read_pickle(ladiespkls[0])
 #regress(df)
 
-#startlist = fis()
-startlist = fis_relay()
+startlist = fis()
+#startlist = fis_relay()
 #startlist = fis_mixed_relay()
 #startlist = fis_team_sprint()
 
-#fantasydf = (fantasy(startlist))
-fantasydf = fantasy_relay(startlist)
+fantasydf = (fantasy(startlist))
+#fantasydf = fantasy_relay(startlist)
 #fantasydf = fantasy_mixed_relay(startlist)
 #fantasydf = fantasy_team_sprint(startlist)
 #with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
@@ -1811,9 +2172,9 @@ fantasydf = fantasy_relay(startlist)
 #print(fantasydf)
 #print(fantasydf)
 
-#fantasydf = elo(fantasydf, menpkls, ladiespkls)
+fantasydf = elo(fantasydf, menpkls, ladiespkls)
 #fantasydf = pursuit(fantasydf)
-fantasydf = elo_relay(fantasydf, menpkls, ladiespkls)
+#fantasydf = elo_relay(fantasydf, menpkls, ladiespkls)
 #fantasydf = elo_mixed_relay(fantasydf, menpkls, ladiespkls, relaypkls)
 #print(fantasydf)
 #fantasydf = elo_team_sprint(fantasydf, menpkls, ladiespkls)
@@ -1835,8 +2196,8 @@ mixed_ts_fantasydf = elo_mixed_ts(mixed_ts_fantasydf, men_ts_skier_pkls, ladies_
 fantasydf = mixed_combo(mixed_relay_fantasydf, mixed_ts_fantasydf)
 print(fantasydf)'''
 
-fantasydf.to_pickle("~/ski/elo/knapsack/excel365/fantasydf_toblach_relay.pkl")
-fantasydf.to_excel("~/ski/elo/knapsack/excel365/fantasydf_toblach_relay.xlsx")
+fantasydf.to_pickle("~/ski/elo/knapsack/excel365/fantasydf_trondheim.pkl")
+fantasydf.to_excel("~/ski/elo/knapsack/excel365/fantasydf_trondheim.xlsx")
 
 
 print(time.time() - start_time)
