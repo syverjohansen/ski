@@ -204,16 +204,16 @@ def pts_avg(df):
 
 
 
-df = pd.read_pickle('~/ski/elo/python/ski/age/relay/excel365/men_chrono.pkl')
+df = pd.read_pickle('~/ski/elo/python/ski/age/relay/excel365/ladies_chrono.pkl')
 
 df = dena(df)
-#df = season(df, 2002, 2023)
 
+#df = season(df, 2002, 2023)
 #df = city(df, ["Tour de Ski"])
+
 
 #df = distance(df, "Rel")
 #df = discipline(df, "F")
-
 #df = race(df, "Rel")
 
 df = pct(df)
@@ -222,7 +222,7 @@ df = pts_avg(df)
 
 
 
-df.to_pickle("/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/men_chrono_regress.pkl")
-df.to_excel("/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/men_chrono_regress.xlsx")
+df.to_pickle("/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/ladies_chrono_regress.pkl")
+df.to_excel("/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/ladies_chrono_regress.xlsx")
 print(time.time() - start_time)
 

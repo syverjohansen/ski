@@ -34,8 +34,8 @@ def setup():
 	df = pd.read_excel(xlsx, sheet_name = "Ladies", header=None)
 	df.columns = ['date', 'city', 'country', 'level', 'sex', 'distance','ms', 'discipline', 'place', 'name', 'nation', 'id']
 	df['nation'] = df['nation'].str.lstrip()
-	df['id'] = df['id'].str.split("&")
-	df['id'] = df['id'].str[0]
+	'''df['id'] = df['id'].str.split("&")
+	df['id'] = df['id'].str[0]'''
 	df['id'] = df['id'].astype(int)
 	
 

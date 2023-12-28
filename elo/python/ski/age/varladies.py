@@ -263,12 +263,12 @@ def male_elo(varladiesdf, base_elo=1300, K=1, discount=.85):
 
 varladiesdf = ladiesdf
 #varladiesdf = dates(varladiesdf, 0, 20210128)
-#varladiesdf = distance(varladiesdf, "Distance")
+varladiesdf = distance(varladiesdf, "Sprint")
 #varladiesdf = discipline(varladiesdf, "F")
 #varladiesdf = ms(varladiesdf, "1")
 #varladiesdf = season(varladiesdf, 0, 9999)
 varladieselo = male_elo(varladiesdf)
-varladieselo.to_pickle("~/ski/elo/python/ski/age/excel365/varladies_all_k.pkl")
-varladieselo.to_excel("~/ski/elo/python/ski/age/excel365/varladies_all_k.xlsx")
+varladieselo.to_pickle("~/ski/elo/python/ski/age/excel365/varladies_sprint_k.pkl")
+varladieselo.to_excel("~/ski/elo/python/ski/age/excel365/varladies_sprint_k.xlsx")
 print(time.time() - start_time)
 

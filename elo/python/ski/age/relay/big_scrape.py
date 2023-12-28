@@ -62,7 +62,6 @@ def get_date(worldcup_page):
 
 
 def get_table(worldcup_page):
-	#print(worldcup_page)
 	w0 = 0
 	to_worldcup_page = []
 	to_worldcup_page.append(worldcup_page)
@@ -77,12 +76,38 @@ def get_table(worldcup_page):
 			pass
 
 	worldcup_soup = BeautifulSoup(worldcup_page, 'html.parser')
-	#print(worldcup_soup)
+	race_city = worldcup_soup.body.find('h1').text
+	date_country = worldcup_soup.body.find('h2').text
+	date_country = date_country.split(", ")
+	date = str(date_country[2])
+	date = date.split(" ")
 	try:
-		body = worldcup_soup.body.find_all('table', {'class':'tablesorter'})
-	except: 
-		print(worldcup_page)
-		return -1
+		year = date[2]
+	except:
+		print("No date")
+		return ["19800101", "Örnsköldsvik", "Sweden", "5", 0, "N/A"]
+	date = date[1].split(".")
+	day = date[0]
+	day = str(day.zfill(2))
+	month = date[1]
+	month = convert_month(month)
+	date = (year+month+day)
+	country = date_country[3]
+
+	race_cty = str(race_city)
+	race_city = race_city.split("- ")
+	race = race_city[0]
+	
+	city = race_city[1]
+
+	distance = race.split(" ")[0]
+	if(("Mass" in race) and ("Start" in distance)):
+		ms=1
+	else:
+		ms=0
+
+
+	'''body = worldcup_soup.body.find_all('table', {'class':'tablesorter'})
 	body = body[1]
 	body = body.find_all('td')
 	try:
@@ -114,7 +139,7 @@ def get_table(worldcup_page):
 	else:
 		ms=0
 
-	distance = distance[0]
+	distance = distance[0]'''
 	if(distance.startswith("4x") or distance.startswith("3x")):
 		distance = "Rel"
 	if(distance=="Team"):
@@ -124,14 +149,14 @@ def get_table(worldcup_page):
 		table = [date, city, country, distance, 1, technique]
 		return table
 	if(distance=="Sprint"):
-			technique = body[3].text.split(" ")
-			technique = technique[1]
+			technique = race.split(" ")
+			technique = technique[1][0]
 			table = [date, city, country, distance, ms, technique]
 			return table
 	if(int(year)>1985 and distance!="Rel"):
 		try:
-			technique = body[3].text.split(" ")
-			technique = technique[2]
+			technique =race.split(" ")
+			technique = technique[2][0]
 			table = [date, city, country, distance, ms, technique]
 			return table
 		except:
@@ -170,11 +195,12 @@ def get_skier(worldcup_page, distance):
 				and str(body[a].text)!="DNQ" and str(body[a].text)!="OOT"):
 				places.append(body[a].text)
 				ski_id = str(body[a+2])
-				ski_id = ski_id.split("ID=")[1]
-				ski_id = str(ski_id.split("\"")[0])
+				ski_id = ski_id.split("id=")[1]
+				ski_id = str(ski_id.split("&")[0])
 				ski_ids.append(ski_id)
-				skier.append(body[a+2].text.strip('\n'))
-				nation.append(body[a+4].text)
+				skier_name = str(body[a+2])			
+				skier.append((skier_name.split("title=\"")[1]).split("\"><span")[0])		
+				nation.append(body[a+4].text.strip())
 			else:
 				break
 
@@ -213,10 +239,10 @@ def get_worldcup():
 	ladies_worldcup_page1 = []
 	
 	
-	for a in range(1924, 2023):
+	for a in range(1924, 2024):
 		print(a)
-		men_worldcup_page0 = "https://skisport365.com/ski/rennkalender.php?aar="+str(a)
-		ladies_worldcup_page0 = "https://skisport365.com/ski/rennkalender.php?aar="+str(a)+"&k=F"
+		men_worldcup_page0 = "https://firstskisport.com/cross-country/calendar.php?y="+str(a)
+		ladies_worldcup_page0 = "https://firstskisport.com/cross-country/calendar.php?y="+str(a)+"&g=w"
 		
 
 		try:
@@ -256,14 +282,18 @@ def get_worldcup():
 		#ladies_worldcup_page0 = urlopen(ladies_worldcup_page0)
 		men_worldcup_soup0 = BeautifulSoup(men_worldcup_page0, 'html.parser')
 		ladies_worldcup_soup0 = BeautifulSoup(ladies_worldcup_page0, 'html.parser')
-		
+		title_results_count = 0		
 
-		for b in men_worldcup_soup0.find_all('a', {'class':'ablue'}, href = True):
-			men_worldcup_page1.append('https://skisport365.com/ski/'+b['href'])
+		for b in men_worldcup_soup0.find_all('a', {'title':'Results'}, href = True):
+			if(title_results_count%2==0):
+				men_worldcup_page1.append('https://firstskisport.com/cross-country/'+b['href'])
+			title_results_count+=1
 		
-
-		for b in ladies_worldcup_soup0.find_all('a', {'class':'ablue'}, href=True):
-			ladies_worldcup_page1.append('https://skisport365.com/ski/'+b['href'])
+		title_results_count = 0
+		for b in ladies_worldcup_soup0.find_all('a', {'title':'Results'}, href=True):
+			if(title_results_count%2==0):
+				ladies_worldcup_page1.append('https://firstskisport.com/cross-country/'+b['href'])
+			title_results_count+=1
 	
 
 	
@@ -278,8 +308,6 @@ def get_worldcup():
 	
 
 		table = get_table(men_worldcup_page1[a])
-		if(table==-1):
-			continue
 		date = table[0]
 		print(date)
 		city = table[1]
@@ -385,8 +413,8 @@ for g in range(len(worldcup)):
 
 
 workbook.close()
-print(time.time() - start_time)
 
+print(time.time() - start_time)
 
 
 
