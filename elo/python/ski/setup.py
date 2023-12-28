@@ -60,8 +60,8 @@ def ladies_setup():
 		#Else it is the same race
 		else:
 			ladies_race.append(race)
-	ladiesdf['id'] = ladiesdf['id'].str.split("&")
-	ladiesdf['id'] = ladiesdf['id'].str[0]
+	'''ladiesdf['id'] = ladiesdf['id'].str.split("&")
+	ladiesdf['id'] = ladiesdf['id'].str[0]'''
 	ladiesdf['id'] = ladiesdf['id'].astype(int)
 
 	#ladiesdf['name'][24330] = "Tatjana Kuznetsova2"

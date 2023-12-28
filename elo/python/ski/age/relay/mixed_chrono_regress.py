@@ -67,10 +67,37 @@ def nation (ladiesdf, nations):
     return ladiesdf
 
 
+def race(df, rel):
+	df2 = pd.DataFrame()
+	cols_list = ['age', 'exp', 'pelo', 'elo', 'distance_pelo', 'distance_elo', 'distance_classic_pelo', 'distance_classic_elo', 'distance_freestyle_pelo', 'distance_freestyle_elo', 'sprint_pelo', 'sprint_elo', 'sprint_classic_pelo', 'sprint_classic_elo', 'sprint_freestyle_pelo', 'sprint_freestyle_elo', 'classic_pelo', 'classic_elo', 'freestyle_pelo', 'freestyle_elo']
+	if(rel=="Ts"):
+		df2 = df.iloc[::2, :]
+
+		for a in range(len(cols_list)):
+			temp_list = list(df[cols_list[a]])
+			new_list = [sum(temp_list[b:b+2]) for b in range(0, len(temp_list), 2)]
+			df2[cols_list[a]] = new_list
+		return df2
+	elif(rel=="Rel"):
+		df2 = df.iloc[::4, :]
+
+		for a in range(len(cols_list)):
+			temp_list = list(df[cols_list[a]])
+			new_list = [sum(temp_list[b:b+4]) for b in range(0, len(temp_list), 4)]
+			df2[cols_list[a]] = new_list
+		return df2
+
+		
+
+def dena(df):
+	values = {"pelo":1300, "elo":1300, "distance_pelo":1300, "distance_elo":1300, "distance_classic_pelo":1300, "distance_classic_elo":1300, "distance_freestyle_pelo":1300, "distance_freestyle_elo":1300, "sprint_pelo":1300, "sprint_elo":1300, "sprint_classic_pelo":1300, "sprint_classic_elo":1300, "sprint_freestyle_pelo":1300, "sprint_freestyle_elo":1300, "classic_pelo":1300, "classic_elo":1300, "freestyle_pelo":1300, "freestyle_elo":1300}
+	df = df.fillna(value=values)
+	return df
 def pct(df):
-	points = [100,95,90,85,80,75,72,69,66,63,60,58,56,54,52,50,48,46,44,42,40, 38, 36, 34, 32, 30, 28, 26, 24, 22, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+	#points = [100,95,90,85,80,75,72,69,66,63,60,58,56,54,52,50,48,46,44,42,40, 38, 36, 34, 32, 30, 28, 26, 24, 22, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 	#points = [50, 47, 44, 41, 38, 35, 32, 30, 28, 26, 24, 22, 20, 18, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 	#points = [300, 285, 270, 255, 240, 216, 207, 198, 189, 180, 174, 168, 162, 156, 150, 144, 138, 132, 126, 120, 114, 108, 102, 96, 90, 84, 78, 72, 66, 60, 57, 54, 51, 48, 45, 42, 39, 36, 33, 30, 27, 24, 21, 18, 15, 12, 9, 6, 3]
+	points = [200, 160, 120, 100, 90, 80, 72, 64, 58, 52, 48, 44, 40, 36, 32, 30, 28, 26, 24, 22, 20, 18, 16, 14, 12, 10, 8, 6, 4, 2]
 	df = df.loc[df['level']=="all"]
 	df2 = pd.DataFrame()
 	seasons = pd.unique(df['season'])
@@ -90,7 +117,7 @@ def pct(df):
 				continue
 			else:
 				racedf = seasondf.loc[seasondf['race']==races[race]]
-				if(len(racedf['place'])>50):
+				if(len(racedf['place'])>30):
 					#print(len(racedf['place']))
 					#print([0]*(len(racedf['place'])-len(points)))
 					points_list = points_list + ([0]*(len(racedf['place'])-len(points)))
@@ -177,18 +204,34 @@ def pts_avg(df):
 
 
 
-df = pd.read_pickle('~/ski/elo/python/ski/age/excel365/ladies_chrono.pkl')
 
-df = city(df, ["Tour de Ski"])
+df = pd.read_pickle('~/ski/elo/python/ski/age/relay/excel365/men_chrono.pkl')
+df = dena(df)
 
-#df = distance(df, "Distance")
+'''df = season(df, 2002, 2023)
+df = distance(df, "Rel")
 #df = discipline(df, "F")
+df = race(df, "Rel")'''
 
 df = pct(df)
-
 df = pts_avg(df)
 
-df.to_pickle("/Users/syverjohansen/ski/elo/python/ski/age/excel365/ladies_chrono_regress_tds.pkl")
-df.to_excel("/Users/syverjohansen/ski/elo/python/ski/age/excel365/ladies_chrono_regresss_tds.xlsx")
+df2 = pd.read_pickle('~/ski/elo/python/ski/age/relay/excel365/ladies_chrono.pkl')
+df2 = dena(df2)
+
+'''df2 = season(df2, 2002, 2023)
+df2 = distance(df2, "Rel")
+#df2 = discipline(df2, "F")
+df2 = race(df, "Rel")'''
+
+df2 = pct(df2)
+df2 = pts_avg(df2)
+
+df = df.append(df2, ignore_index=True)
+
+
+
+df.to_pickle("/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/mixed_chrono_regress.pkl")
+df.to_excel("/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/mixed_chrono_regress.xlsx")
 print(time.time() - start_time)
 

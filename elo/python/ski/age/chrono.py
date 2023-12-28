@@ -65,7 +65,7 @@ def ladies():
 	"freestyle_pelo", "freestyle_elo"]]
 
 	lady_all_k1 = lady_all_k.merge(lady_distance_k, on=["Unnamed: 0","date", 'city', 'country', 'level', 'sex', 'discipline', 'place', 'name', 'nation', 'id', 'season', 'race', 'age', 'exp'], how="left")
-	lady_all_k2 = lady_all_k1.merge(lady_distance_classic_k, on=["Unnamed: 0","date", 'city', 'country', 'level', 'sex', 'discipline', 'place', 'name', 'nation', 'id', 'season', 'race','age', 'exp'], how="left")
+	lady_all_k2 = lady_all_k1.merge(lady_distance_classic_k, on=["Unnamed: 0","date", 'city', 'country', 'level', 'sex', 'discipline', 'place', 'name', 'nation', 'id', 'season', 'race', 'age', 'exp'], how="left")
 	lady_all_k3 = lady_all_k2.merge(lady_distance_freestyle_k, on=["Unnamed: 0","date", 'city', 'country', 'level', 'sex', 'discipline', 'place', 'name', 'nation', 'id', 'season', 'race', 'age', 'exp'], how="left")
 	lady_all_k4 = lady_all_k3.merge(lady_sprint_k, on=["Unnamed: 0","date", 'city', 'country', 'level', 'sex', 'discipline', 'place', 'name', 'nation', 'id', 'season', 'race', 'age', 'exp'], how="left")
 	lady_all_k5 = lady_all_k4.merge(lady_sprint_classic_k, on=["Unnamed: 0","date", 'city', 'country', 'level', 'sex', 'discipline', 'place', 'name', 'nation', 'id', 'season', 'race', 'age', 'exp'], how="left")
@@ -166,14 +166,14 @@ def men():
 	man_freestyle_k = man_freestyle_k[['Unnamed: 0', 'date', 'city', 'country', 'level', 'sex', 'discipline', 'place', 'name', 'nation', 'id', 'season', 'race', 'age','exp',
 	"freestyle_pelo", "freestyle_elo"]]
 
-	man_all_k1 = man_all_k.merge(man_distance_k, on=["Unnamed: 0","date", 'city', 'country', 'level', 'sex', 'discipline', 'place', 'name', 'nation', 'id', 'season', 'race', "age", "exp"], how="left")
-	man_all_k2 = man_all_k1.merge(man_distance_classic_k, on=["Unnamed: 0","date", 'city', 'country', 'level', 'sex', 'discipline', 'place', 'name', 'nation', 'id', 'season', 'race', "age", "exp"], how="left")
-	man_all_k3 = man_all_k2.merge(man_distance_freestyle_k, on=["Unnamed: 0","date", 'city', 'country', 'level', 'sex', 'discipline', 'place', 'name', 'nation', 'id', 'season', 'race', "age", "exp"], how="left")
-	man_all_k4 = man_all_k3.merge(man_sprint_k, on=["Unnamed: 0","date", 'city', 'country', 'level', 'sex', 'discipline', 'place', 'name', 'nation', 'id', 'season', 'race', "age", "exp"], how="left")
-	man_all_k5 = man_all_k4.merge(man_sprint_classic_k, on=["Unnamed: 0","date", 'city', 'country', 'level', 'sex', 'discipline', 'place', 'name', 'nation', 'id', 'season', 'race', "age", "exp"], how="left")
-	man_all_k6 = man_all_k5.merge(man_sprint_freestyle_k, on=["Unnamed: 0","date", 'city', 'country', 'level', 'sex', 'discipline', 'place', 'name', 'nation', 'id', 'season', 'race', "age", "exp"], how="left")
-	man_all_k7 = man_all_k6.merge(man_classic_k, on=["Unnamed: 0","date", 'city', 'country', 'level', 'sex', 'discipline', 'place', 'name', 'nation', 'id', 'season', 'race', "age", "exp"], how="left")
-	man_all_k8 = man_all_k7.merge(man_freestyle_k, on=["Unnamed: 0","date", 'city', 'country', 'level', 'sex', 'discipline', 'place', 'name', 'nation', 'id', 'season', 'race', "age", "exp"], how="left")
+	man_all_k1 = man_all_k.merge(man_distance_k, on=["Unnamed: 0","date", 'city', 'country', 'level', 'sex', 'discipline', 'place', 'name', 'nation', 'id', 'season', 'race', 'age', 'exp'], how="left")
+	man_all_k2 = man_all_k1.merge(man_distance_classic_k, on=["Unnamed: 0","date", 'city', 'country', 'level', 'sex', 'discipline', 'place', 'name', 'nation', 'id', 'season', 'race', 'age', 'exp'], how="left")
+	man_all_k3 = man_all_k2.merge(man_distance_freestyle_k, on=["Unnamed: 0","date", 'city', 'country', 'level', 'sex', 'discipline', 'place', 'name', 'nation', 'id', 'season', 'race', 'age', 'exp'], how="left")
+	man_all_k4 = man_all_k3.merge(man_sprint_k, on=["Unnamed: 0","date", 'city', 'country', 'level', 'sex', 'discipline', 'place', 'name', 'nation', 'id', 'season', 'race', 'age', 'exp'], how="left")
+	man_all_k5 = man_all_k4.merge(man_sprint_classic_k, on=["Unnamed: 0","date", 'city', 'country', 'level', 'sex', 'discipline', 'place', 'name', 'nation', 'id', 'season', 'race', 'age', 'exp'], how="left")
+	man_all_k6 = man_all_k5.merge(man_sprint_freestyle_k, on=["Unnamed: 0","date", 'city', 'country', 'level', 'sex', 'discipline', 'place', 'name', 'nation', 'id', 'season', 'race', 'age', 'exp'], how="left")
+	man_all_k7 = man_all_k6.merge(man_classic_k, on=["Unnamed: 0","date", 'city', 'country', 'level', 'sex', 'discipline', 'place', 'name', 'nation', 'id', 'season', 'race', 'age', 'exp'], how="left")
+	man_all_k8 = man_all_k7.merge(man_freestyle_k, on=["Unnamed: 0","date", 'city', 'country', 'level', 'sex', 'discipline', 'place', 'name', 'nation', 'id', 'season', 'race', 'age', 'exp'], how="left")
 	print("Men files merged")
 
 	man_all_k8['distance'] = distance_col
