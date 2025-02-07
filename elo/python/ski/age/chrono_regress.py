@@ -91,6 +91,7 @@ def pct(df):
 			else:
 				racedf = seasondf.loc[seasondf['race']==races[race]]
 				if(len(racedf['place'])>50):
+				#if(len(racedf['place'])>50):
 					#print(len(racedf['place']))
 					#print([0]*(len(racedf['place'])-len(points)))
 					points_list = points_list + ([0]*(len(racedf['place'])-len(points)))
@@ -177,18 +178,18 @@ def pts_avg(df):
 
 
 
-df = pd.read_pickle('~/ski/elo/python/ski/age/excel365/ladies_chrono.pkl')
+df = pd.read_pickle('~/ski/elo/python/ski/age/excel365/men_chrono.pkl')
 
-df = city(df, ["Tour de Ski"])
+#df = city(df, ["Tour de Ski"])
 
-#df = distance(df, "Distance")
-#df = discipline(df, "F")
+df = distance(df, "Sprint")
+df = discipline(df, "C")
 
 df = pct(df)
 
 df = pts_avg(df)
 
-df.to_pickle("/Users/syverjohansen/ski/elo/python/ski/age/excel365/ladies_chrono_regress_tds.pkl")
-df.to_excel("/Users/syverjohansen/ski/elo/python/ski/age/excel365/ladies_chrono_regresss_tds.xlsx")
+df.to_pickle("/Users/syverjohansen/ski/elo/python/ski/age/excel365/men_chrono_regress_sprint_classic.pkl")
+df.to_excel("/Users/syverjohansen/ski/elo/python/ski/age/excel365/men_chrono_regress_sprint_classic.xlsx")
 print(time.time() - start_time)
 

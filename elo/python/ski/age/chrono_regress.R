@@ -20,7 +20,7 @@ linearize_points = function(points){
 }
 
 
-x <- read_excel("/Users/syverjohansen/ski/elo/python/ski/age/excel365/ladies_chrono_regress_tds.xlsx", 
+x <- read_excel("/Users/syverjohansen/ski/elo/python/ski/age/excel365/men_chrono_regress_sprint_classic.xlsx", 
                        sheet = "Sheet1", col_names = TRUE, na = "NA", guess_max = 100000)
 
 ##Optional, but make pelopct the comparise against the alltime maximum
@@ -70,8 +70,8 @@ summary(fit5)$adj.r.squared
 summary(fit2)
 
 #Individual
-#df$points =   1.5865602+.896294*df$points-0.0042397*df$points^2
-#df$pavg_points =   1.5865602+.896294*df$pavg_points-0.0042397*df$pavg_points^2
+df$points =   1.5865602+.896294*df$points-0.0042397*df$points^2
+df$pavg_points =   1.5865602+.896294*df$pavg_points-0.0042397*df$pavg_points^2
 
 df20 <- df[which(df$season>=2003),]
 df15 <- df[which(df$season>=2008),]
@@ -89,9 +89,8 @@ df <- df[which(df$season>=2019),]
 #df$pavg_points =   0.1584908+1.0801595*df$pavg_points-0.0100871*df$pavg_points^2
 
 #Tour de Ski
-df$points = df$points*3
-df$points = 1.76564661 + 0.29674200*df$points-0.00046598*df$points^2
-df$pavg_points = 1.76564661 + 0.29674200*df$pavg_points-0.00046598*df$pavg_points^2
+#df$points = 1.76564661 + 0.29674200*df$points-0.00046598*df$points^2
+#df$pavg_points = 1.76564661 + 0.29674200*df$pavg_points-0.00046598*df$pavg_points^2
 
 
 
@@ -150,10 +149,10 @@ paste(names(bestR2$coefficients[2:length(names(bestR2$coefficients))]), collapse
 
 #Change it back to points
 #df_curve = data.frame(y=50:1, x=c(100,95,90,85,80,75,72,69,66,63,60,58,56,54,52,50,48,46,44,42,40, 38, 36, 34, 32, 30, 28, 26, 24, 22, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1))
-df_curve = data.frame(x=50:1, y=c(100,95,90,85,80,75,72,69,66,63,60,58,56,54,52,50,48,46,44,42,40, 38, 36, 34, 32, 30, 28, 26, 24, 22, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1))
+#df_curve = data.frame(x=50:1, y=c(100,95,90,85,80,75,72,69,66,63,60,58,56,54,52,50,48,46,44,42,40, 38, 36, 34, 32, 30, 28, 26, 24, 22, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1))
 
 #df_curve = data.frame(x=50:1, y=c(300, 285, 270, 255, 240, 225, 216, 207, 198, 189, 180, 174, 168, 162, 156, 150, 144, 138, 132, 126, 120, 114, 108, 102, 96, 90, 84, 78, 72, 66, 60, 57, 54, 51, 48, 45, 42, 29, 36, 33, 30, 27, 24, 21, 18, 15, 12, 9, 6, 3))
-#df_curve = data.frame(x=30:1, y=c(50, 47, 44, 41, 38, 35, 32, 30, 28, 26, 24, 22, 20, 18, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1))
+df_curve = data.frame(x=30:1, y=c(50, 47, 44, 41, 38, 35, 32, 30, 28, 26, 24, 22, 20, 18, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1))
 
 
 plot(df_curve$x, df_curve$y)

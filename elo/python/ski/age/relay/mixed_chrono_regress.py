@@ -208,10 +208,10 @@ def pts_avg(df):
 df = pd.read_pickle('~/ski/elo/python/ski/age/relay/excel365/men_chrono.pkl')
 df = dena(df)
 
-'''df = season(df, 2002, 2023)
+#df = season(df, 2002, 2023)
 df = distance(df, "Rel")
 #df = discipline(df, "F")
-df = race(df, "Rel")'''
+df = race(df, "Rel")
 
 df = pct(df)
 df = pts_avg(df)
@@ -219,10 +219,10 @@ df = pts_avg(df)
 df2 = pd.read_pickle('~/ski/elo/python/ski/age/relay/excel365/ladies_chrono.pkl')
 df2 = dena(df2)
 
-'''df2 = season(df2, 2002, 2023)
+#df2 = season(df2, 2002, 2023)
 df2 = distance(df2, "Rel")
 #df2 = discipline(df2, "F")
-df2 = race(df, "Rel")'''
+df2 = race(df2, "Rel")
 
 df2 = pct(df2)
 df2 = pts_avg(df2)
@@ -231,7 +231,7 @@ df = df.append(df2, ignore_index=True)
 
 
 
-df.to_pickle("/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/mixed_chrono_regress.pkl")
-df.to_excel("/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/mixed_chrono_regress.xlsx")
+df.to_pickle("/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/mixed_chrono_regress_relay.pkl")
+df.to_excel("/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/mixed_chrono_regress_relay.xlsx")
 print(time.time() - start_time)
 

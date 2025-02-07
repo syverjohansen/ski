@@ -166,7 +166,10 @@ def men_ages(mendf):
 			
 			#mendf.loc[mendf.id==id_list[a], 'date']
 			#print(type(mendf.loc[mendf.id==id_list[a], 'birthday']))
-			mendf['birthday'] = pd.to_datetime(mendf['birthday'])
+			try:
+				mendf['birthday'] = pd.to_datetime(mendf['birthday'])
+			except Exception as e:
+				print("Error", e)
 
 			mendf.loc[mendf.id==id_list[a], 'birthday'] = pd.to_datetime(mendf.loc[mendf.id==id_list[a], 'birthday'])
 
