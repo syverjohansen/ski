@@ -18,6 +18,11 @@ import pandas as pd
 import numpy as np
 import time
 import datetime
+import warnings
+from pandas.core.common import SettingWithCopyWarning
+
+    
+
 headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
 }
@@ -110,7 +115,6 @@ def men_ages(mendf):
 	#	id_url_page0 = urlopen(id_urls[a], timeout=10)
 	#for a in range(10):
 		else:
-			#print(mendf.loc[mendf.id==id_list[a], 'id'])
 			mendf.loc[mendf.id==id_list[a], 'exp'] = range(1,1+len(mendf.loc[mendf.id==id_list[a], 'exp']))
 			id_soup0 = BeautifulSoup(urlopen(id_urls[a]), 'html.parser')
 			
@@ -120,6 +124,7 @@ def men_ages(mendf):
 			birthday = born.split(", ")[2]
 			birthday = birthday.split(" (")[0]
 			birthday = birthday.split(" ")
+
 			try:
 				year = birthday[1]
 				day_month = birthday[0]
@@ -133,30 +138,6 @@ def men_ages(mendf):
 			except:
 				birthdate = ""
 			
-
-
-			
-			'''if(len(born)==0):
-				birthday = datetime.datetime(1000,1,1)
-				continue
-			#birthday = str((id_soup0.find("td", text="Born").find_next_sibling("td").text))
-			#print(birthday)
-			if("(" in birthday):
-				birthday = birthday.split("(")[1]
-				if(birthday==')'):
-					continue
-				else:
-					birthday = birthday.split(")")[0]
-					print(birthday)
-			birthday = birthday.replace(".", " ")
-			birthday = birthday.split(" ")
-			day = birthday[0]
-			if(day == "0"):
-				day = "1"
-			
-			month = birthday[1]
-			month = convert_month(month)
-			year = birthday[2]'''
 			
 			
 			mendf.loc[mendf.id==id_list[a], 'birthday'] = birthdate
@@ -165,8 +146,13 @@ def men_ages(mendf):
 			
 			#mendf.loc[mendf.id==id_list[a], 'date']
 			#print(type(mendf.loc[mendf.id==id_list[a], 'birthday']))
-			mendf['birthday'] = pd.to_datetime(mendf['birthday'])
-
+			#print(mendf['birthday'].head())
+			
+			#mendf['birthday'] = mendf['birthday'].drop_duplicates()
+			try:
+				mendf['birthday'] = pd.to_datetime(mendf['birthday'])
+			except Exception as e:
+				print("Error", e)
 			mendf.loc[mendf.id==id_list[a], 'birthday'] = pd.to_datetime(mendf.loc[mendf.id==id_list[a], 'birthday'])
 
 			
@@ -249,42 +235,8 @@ def ladies_ages(ladiesdf):
 				birthdate = datetime.datetime(int(year), int(month), int(day))
 			except:
 				birthdate = ""
-			#born = (id_soup0.body.find_all(text="Born"))
-			'''born = str(id_soup0.body.find('h2').text)
-			birthday = born.split(", ")[2]
-			birthday = birthday.split(" (")[0]
-			birthday = birthday.split(" ")
-			year = birthday[1]
-			day_month = birthday[0]
-			day_month.split(".")
-			day = day_month[0]
-			month = day_month[1]
-			month = convert_month(month)
 			
-			if(len(born)==0):
-				birthday = datetime.datetime(1000,1,1)
-				continue
-			birthday = str((id_soup0.find("td", text="Born").find_next_sibling("td").text))
-			#print(birthday)
-			if("(" in birthday):
-				birthday = birthday.split("(")[1]
-				if(birthday==')'):
-					continue
-				else:
-					birthday = birthday.split(")")[0]
-					print(birthday)
-			birthday = birthday.replace(".", " ")
-			birthday = birthday.split(" ")
-			day = birthday[0]
-			if(day == "0"):
-				day = "1"
-			
-			month = birthday[1]
-			month = convert_month(month)
-			year = birthday[2]
-			birthday = year+"-"+month+"-"+day
-			birthdate = datetime.datetime(int(year), int(month), int(day))
-			'''
+			ladiesdf.reset_index(drop=True, inplace=True)
 			ladiesdf.loc[ladiesdf.id==id_list[a], 'birthday'] = birthdate
 			#print(birthdate)
 

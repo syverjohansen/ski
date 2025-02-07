@@ -1,4 +1,4 @@
-#rework elo so each id has an elo that is updated for each race.  
+ #rework elo so each id has an elo that is updated for each race.  
 #at the end of the season the whole vector is multiplied by .85 + 1300*.15
 
 import pandas as pd
@@ -205,7 +205,6 @@ def male_elo(varmendf, base_elo=1300, K=1, discount=.85):
     id_dict = {k:1300 for k in id_dict_list}
    # print(id_dict)
 
-    id_pool = []
     max_races = max(varmendf['race'])
     
     #Print the unique seasons
@@ -269,12 +268,12 @@ varmendf = mendf
 
 
 #varmendf = dates(varmendf, 0, 20210128)
-varmendf = distance(varmendf, "Sprint")
-#varmendf = discipline(varmendf, "F")
+#varmendf = distance(varmendf, "Distance")
+varmendf = discipline(varmendf, "F")
 #varmendf = ms(varmendf, "1")
 #varmendf = season(varmendf, 0, 9999)
 varmenelo = male_elo(varmendf)
-varmenelo.to_pickle("~/ski/elo/python/ski/age/excel365/varmen_sprint_k.pkl")
-varmenelo.to_excel("~/ski/elo/python/ski/age/excel365/varmen_sprint_k.xlsx")
+varmenelo.to_pickle("~/ski/elo/python/ski/age/excel365/varmen_freestyle_k.pkl")
+varmenelo.to_excel("~/ski/elo/python/ski/age/excel365/varmen_freestyle_k.xlsx")
 print(time.time() - start_time)
 
