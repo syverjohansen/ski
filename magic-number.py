@@ -14,7 +14,7 @@ pd.options.mode.chained_assignment = None
 
 import time
 start_time = time.time()
-wc = 7
+wc = 1
 stage_races = 0
 relay = 0
 stage =0
@@ -29,7 +29,7 @@ def ladies_magic():
 	magic_numbers = []
 	magic_avg = []
 	ppr = []
-	url = 'https://www.fis-ski.com/DB/cross-country/cup-standings.html?sectorcode=CC&seasoncode=2023&cupcode=WC&disciplinecode=ALL&gendercode=W&nationcode='
+	url = 'https://www.fis-ski.com/DB/cross-country/cup-standings.html?sectorcode=CC&seasoncode=2024&cupcode=WC&disciplinecode=ALL&gendercode=W&nationcode='
 	standings = BeautifulSoup(urlopen(url), 'html.parser')
 	namessoup = standings.find_all('div', {'g-xs-10 g-sm-9 g-md-4 g-lg-4 justify-left bold align-xs-top'})
 	pointssoup = standings.find_all('div', {'pl-xs-1 pl-sm-1 g-xs-10 g-sm-7 g-md-9 g-lg-8 justify-right bold'})
@@ -59,6 +59,7 @@ def ladies_magic():
 	magicdf = pd.DataFrame(list(zip(names, points, ppr, magic_numbers, magic_avg)),
 		columns=["name", "points", "ppr", "magic number", "magic avg"])
 	print(magicdf)
+	return magicdf
 
 
 def men_magic():
@@ -68,7 +69,7 @@ def men_magic():
 	magic_numbers = []
 	magic_avg = []
 	ppr = []
-	url = 'https://www.fis-ski.com/DB/cross-country/cup-standings.html?sectorcode=CC&seasoncode=2023&cupcode=WC&disciplinecode=ALL&gendercode=M&nationcode='
+	url = 'https://www.fis-ski.com/DB/cross-country/cup-standings.html?sectorcode=CC&seasoncode=2024&cupcode=WC&disciplinecode=ALL&gendercode=M&nationcode='
 	standings = BeautifulSoup(urlopen(url), 'html.parser')
 	namessoup = standings.find_all('div', {'g-xs-10 g-sm-9 g-md-4 g-lg-4 justify-left bold align-xs-top'})
 	pointssoup = standings.find_all('div', {'pl-xs-1 pl-sm-1 g-xs-10 g-sm-7 g-md-9 g-lg-8 justify-right bold'})
@@ -98,9 +99,12 @@ def men_magic():
 	magicdf = pd.DataFrame(list(zip(names, points, ppr, magic_numbers, magic_avg)), 
 		columns=["name", "points", "ppr", "magic number", "magic avg"])
 	print(magicdf)
+	return magicdf
 
 
-ladies_magic()
-men_magic()
+ladies = ladies_magic()
+men = men_magic()
 
+ladies.to_excel("~/ski/excel365/magicladies20240316.xlsx")
+men.to_excel("~/ski/excel365/magicmen20240316.xlsx")
 

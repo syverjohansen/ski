@@ -16,9 +16,9 @@ start_time = time.time()
 def get_active(df, sex):
 	df = pd.read_pickle(df)
 	if(sex=="men"):
-		all_skiers = pd.read_pickle('/Users/syverjohansen/ski/elo/python/alpine/excel365/varmen_all_k.pkl')
+		all_skiers = pd.read_pickle('/Users/syverjohansen/ski/elo/python/alpine/age/excel365/varmen_all_k.pkl')
 	else:
-		all_skiers = pd.read_pickle('/Users/syverjohansen/ski/elo/python/alpine/excel365/varladies_all_k.pkl')
+		all_skiers = pd.read_pickle('/Users/syverjohansen/ski/elo/python/alpine/age/excel365/varladies_all_k.pkl')
 	ids = list(df['id'].unique())
 	df['career'] = ''
 	for a in range(len(ids)):

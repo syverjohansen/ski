@@ -8,8 +8,8 @@ start_time = time.time()
 
 
 ladiesdf = pd.read_pickle("~/ski/elo/python/alpine/excel365/ladiesdf.pkl")
-update_ladiesdf = pd.read_pickle("~/ski/elo/python/alpine/excel365/ladiesupdate_setup.pkl")
-ladiesdf = ladiesdf.append(update_ladiesdf, ignore_index=True)
+#update_ladiesdf = pd.read_pickle("~/ski/elo/python/alpine/excel365/ladiesupdate_setup.pkl")
+#ladiesdf = ladiesdf.append(update_ladiesdf, ignore_index=True)
 
 
 pd.options.mode.chained_assignment = None

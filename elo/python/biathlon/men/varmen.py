@@ -9,8 +9,8 @@ start_time = time.time()
 
 mendf = pd.read_pickle("~/ski/elo/python/biathlon/excel365/mendf.pkl")
 #print(mendf)
-update_mendf = pd.read_pickle("~/ski/elo/python/biathlon/excel365/menupdate_setup.pkl")
-mendf = mendf.append(update_mendf, ignore_index=True)
+#update_mendf = pd.read_pickle("~/ski/elo/python/biathlon/excel365/menupdate_setup.pkl")
+#mendf = mendf.append(update_mendf, ignore_index=True)
 pd.options.mode.chained_assignment = None
 
 
@@ -41,14 +41,14 @@ def distance(mendf, distances):
     return mendf
 
 def discipline(mendf, discipline):
-    if(discipline == "Mass"):
-        mendf = mendf.loc[mendf['discipline']=="Mass"]
-    elif(discipline =="P"):
-        mendf = mendf.loc[mendf['discipline']=="P"]
+    if(discipline == "Mass Start"):
+        mendf = mendf.loc[mendf['discipline']=="Mass Start"]
+    elif(discipline =="Pursuit"):
+        mendf = mendf.loc[mendf['discipline']=="Pursuit"]
     elif(discipline == "Sprint"):
         mendf = mendf.loc[mendf['discipline']=="Sprint"]
     else:
-        mendf = mendf.loc[mendf['discipline']!="P"]
+        mendf = mendf.loc[mendf['discipline']!="Pursuit"]
         mendf = mendf.loc[mendf['discipline']!="Mass"]
         mendf = mendf.loc[mendf['discipline']!="Sprint"]
     return mendf
@@ -244,10 +244,10 @@ def male_elo(mendf, base_elo=1300, K=1, discount=.85):
 varmendf = mendf
 #varmendf = dates(varmendf, 0, 20210216)
 #varmendf = distance(varmendf, )
-#varmendf = discipline(varmendf, "Mass")
+varmendf = discipline(varmendf, "Individual")
 #varmendf = season(varmendf, 0, 9999)
 varmenelo = male_elo(varmendf)
-varmenelo.to_pickle("~/ski/elo/python/biathlon/excel365/varmen_all_k.pkl")
-varmenelo.to_excel("~/ski/elo/python/biathlon/excel365/varmen_all_k.xlsx")
+varmenelo.to_pickle("~/ski/elo/python/biathlon/excel365/varmen_individual_k.pkl")
+varmenelo.to_excel("~/ski/elo/python/biathlon/excel365/varmen_individual_k.xlsx")
 print(time.time() - start_time)
 

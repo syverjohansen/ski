@@ -19,8 +19,8 @@ headers = {
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
     # Add more headers as needed
 }
-
-url = ["https://nitter.net/FantasyXC"]
+#"https://nitter.no-logs.com/fantasyxc"
+url = ["https://nitter.privacydev.net/fantasyxc"]
 
 text = []
 skiers = []
@@ -46,8 +46,8 @@ for a in range(len(url)):
 	            tweet_datetime = datetime.strptime(tweet_date, "%b %d, %Y · %I:%M %p %Z")
 
 	            # Check if the tweet falls between November 19, 2023, and November 23, 2023
-	            start_date = datetime(2023, 12, 12)
-	            end_date = datetime(2023, 12, 14)
+	            start_date = datetime(2024, 3, 12)
+	            end_date = datetime(2024, 3, 15)
 
 	            if start_date <= tweet_datetime <= end_date:
 	                print(f"Tweet Date: {tweet_date}")

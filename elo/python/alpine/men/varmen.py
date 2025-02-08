@@ -9,8 +9,8 @@ start_time = time.time()
 
 mendf = pd.read_pickle("~/ski/elo/python/alpine/excel365/mendf.pkl")
 
-update_mendf = pd.read_pickle("~/ski/elo/python/alpine/excel365/menupdate_setup.pkl")
-mendf = mendf.append(update_mendf, ignore_index=True)
+#update_mendf = pd.read_pickle("~/ski/elo/python/alpine/excel365/menupdate_setup.pkl")
+#mendf = mendf.append(update_mendf, ignore_index=True)
 #print(mendf)
 pd.options.mode.chained_assignment = None
 

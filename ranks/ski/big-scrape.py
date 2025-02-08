@@ -75,30 +75,47 @@ def get_standings(standings_page, year):
 	body = body[0]
 	
 	body = body.find_all("td")
-	if(year<=2006):
+	if(year<=2003):
 		#people = 1
-		for a in range(0, len(body), 13):
-			#people+=1
+		for a in range(0, len(body), 10):
+			
 			ski_id = str(body[a])
-			ski_id = ski_id.split("ID=")[1]
-			ski_id = str(ski_id.split("\"")[0])
+			
+			ski_id = ski_id.split("id=")[1]
+			ski_id = str(ski_id.split("&")[0])
+			ski_id = str(ski_id.split("\" title")[0])
 			ski_ids.append(ski_id)
-			place.append(body[a+3].text)
-			name.append(body[a].text.strip('\n'))
-			nation.append(body[a+2].text.strip('\n'))
+
+			skier_name = str(body[a])
+
+			
+			name.append((skier_name.split("title=\"")[1]).split("\">")[0])
+
+
+			place.append(body[a+2].text)
+			nation.append(body[a+1].text.strip())
 
 
 	else:	
 		#people = 1		
-		for a in range(0, len(body), 14):
-			#people+=1
+		for a in range(0, len(body), 10):
+			#print(str(body[a]))
 			ski_id = str(body[a])
-			ski_id = ski_id.split("ID=")[1]
-			ski_id = str(ski_id.split("\"")[0])
+			
+			ski_id = ski_id.split("id=")[1]
+			ski_id = str(ski_id.split("&")[0])
+			ski_id = str(ski_id.split("\" title")[0])
 			ski_ids.append(ski_id)
-			place.append(body[a+3].text)
-			name.append(body[a].text.strip('\n'))
-			nation.append(body[a+2].text.strip('\n'))
+
+			skier_name = str(body[a])
+
+			
+			name.append((skier_name.split("title=\"")[1]).split("\">")[0])
+
+
+			place.append(body[a+2].text)
+			nation.append(body[a+1].text.strip())
+			
 			#if(people>10):
 			#	break
 		
@@ -124,25 +141,94 @@ def get_table(worldcup_page):
 			pass
 
 	worldcup_soup = BeautifulSoup(worldcup_page, 'html.parser')
-	try:
-		body = worldcup_soup.body.find_all('table', {'class':'tablesorter'})
-	except:
-		return -1
-	body = body[1]
+	race_city = worldcup_soup.body.find('h1').text
+	date_country = worldcup_soup.body.find('h2').text
+	date_country = date_country.split(", ")
+	category = date_country[1]
+
+	
 	
 	#Finding the category.  Olympics, World Cup, World Championship, Tour de Ski
-	body = body.find_all('td')
-	if(body[1].text.startswith("Olympic")):
+	
+	if(category.startswith("Olympic")):
 		category="Olympics"
-	elif(body[1].text.startswith("WSC")):
+	elif(category.startswith("World Championship")):
 		category="WSC"
-	elif(body[1].text.startswith("Tour de Ski")):
-		if(body[3].text.startswith("Stage Race")):
+	elif(category.startswith("Tour de Ski")):
+		'''tour_city = str(race_city)
+		tour_city = race_city.split("- ")
+		tour_city = tour_city[1]'''
+		if(date_country[3]=="FIS"):
+			print("Tour")
 			category = "Tour"
 		else:
 			category = "WC"
 	else:
 		category = "WC"
+
+	date = str(date_country[2])
+	date = date.split(" ")
+	try:
+		year = date[2]
+	except:
+		print("No date")
+		return ["19800101", "Örnsköldsvik", "Sweden","WC", "5", 0, "N/A"]
+	date = date[1].split(".")
+	day = date[0]
+	day = str(day.zfill(2))
+	
+	month = date[1]
+	month = convert_month(month)
+	date = (year+month+day)
+	country = date_country[3]
+
+	race_cty = str(race_city)
+	race_city = race_city.split("- ")
+	race = race_city[0]
+	
+	city = race_city[1]
+
+	distance = race.split(" ")[0]
+
+
+	if(("Mass" in race) and ("Start" in distance)):
+		ms=1
+	else:
+		ms=0
+
+
+	
+	if(distance.startswith("4x") or distance.startswith("3x")):
+		distance = "Rel"
+	if(distance=="Team"):
+		distance = "Ts"
+	if(distance=="Duathlon"):
+		technique = "P"
+		table = [date, city, country, category, distance, 1, technique]
+		return table
+	if(distance=="Sprint"):
+			#technique = body[3].text.split(" ")
+			technique = race.split(" ")
+			technique = technique[1][0]
+			table = [date, city, country, category, distance, ms, technique]
+			
+			return table
+	if(int(year)>1985 and distance!="Rel"):
+		try:
+			technique =race.split(" ")
+			technique = technique[2][0]
+			table = [date, city, country, category, distance, ms, technique]
+			
+			return table
+		except:
+			table = [date, city, country, category, distance, ms, "N/A"]
+			return table
+	else:
+		table = [date, city, country, category, distance, ms, "N/A"]
+		
+		return table
+
+'''
 	try:
 		date = (body[-3].text)
 		date = str(date)
@@ -197,7 +283,7 @@ def get_table(worldcup_page):
 			return table
 	else:
 		table = [date, city, country, category, distance, ms, "N/A"]
-		return table
+		return table'''
 	#return worldcup_date
 def get_skier(worldcup_page, distance):
 	w0 = 0
@@ -222,17 +308,17 @@ def get_skier(worldcup_page, distance):
 	ski_ids = []
 	people = 1
 	for a in range(len(body)):
-		
 		if(a%7==0):
 			if(str(body[a].text)!="DNF" and str(body[a].text)!="DSQ" and str(body[a].text)!="DNS"
 				and str(body[a].text)!="DNQ" and str(body[a].text)!="OOT"):
 				places.append(body[a].text)
 				ski_id = str(body[a+2])
-				ski_id = ski_id.split("ID=")[1]
-				ski_id = str(ski_id.split("\"")[0])
+				ski_id = ski_id.split("id=")[1]
+				ski_id = str(ski_id.split("&")[0])
 				ski_ids.append(ski_id)
-				skier.append(body[a+2].text.strip('\n'))
-				nation.append(body[a+4].text)
+				skier_name = str(body[a+2])			
+				skier.append((skier_name.split("title=\"")[1]).split("\"><span")[0])		
+				nation.append(body[a+4].text.strip())
 			else:
 				break
 
@@ -271,11 +357,11 @@ def get_worldcup():
 	ladies_worldcup_page1 = []
 	menwc_standings = []
 	ladieswc_standings = []
-	#for a in range(2009, 2010):
-	for a in range(1924, 2023):
+	
+	for a in range(1924, 2024):
 		print(a)
-		men_worldcup_page0 = "https://skisport365.com/ski/rennkalender.php?aar="+str(a)
-		ladies_worldcup_page0 = "https://skisport365.com/ski/rennkalender.php?aar="+str(a)+"&k=F"
+		men_worldcup_page0 = "https://firstskisport.com/cross-country/calendar.php?y="+str(a)
+		ladies_worldcup_page0 = "https://firstskisport.com/cross-country/calendar.php?y="+str(a)+"&g=w"
 		
 
 		try:
@@ -315,18 +401,23 @@ def get_worldcup():
 		#ladies_worldcup_page0 = urlopen(ladies_worldcup_page0)
 		men_worldcup_soup0 = BeautifulSoup(men_worldcup_page0, 'html.parser')
 		ladies_worldcup_soup0 = BeautifulSoup(ladies_worldcup_page0, 'html.parser')
+		title_results_count=0
 		
 
-		for b in men_worldcup_soup0.find_all('a', {'class':'ablue'}, href = True):
-			men_worldcup_page1.append('https://skisport365.com/ski/'+b['href'])
+		for b in men_worldcup_soup0.find_all('a', {'title':'Results'}, href = True):
+			if(title_results_count%2==0):
+				men_worldcup_page1.append('https://firstskisport.com/cross-country/'+b['href'])
+			title_results_count+=1
 		
-
-		for b in ladies_worldcup_soup0.find_all('a', {'class':'ablue'}, href=True):
-			ladies_worldcup_page1.append('https://skisport365.com/ski/'+b['href'])
+		title_results_count = 0
+		for b in ladies_worldcup_soup0.find_all('a', {'title':'Results'}, href=True):
+			if(title_results_count%2==0):
+				ladies_worldcup_page1.append('https://firstskisport.com/cross-country/'+b['href'])
+			title_results_count+=1
 	
 
-		men_standings_page0 = "https://skisport365.com/ski/ranking.php?aar="+str(a)
-		ladies_standings_page0 = "https://skisport365.com/ski/ranking.php?aar="+str(a)+"&hva=&k=F"
+		men_standings_page0 = "https://firstskisport.com/cross-country/ranking.php?y="+str(a)
+		ladies_standings_page0 = "https://firstskisport.com/cross-country/ranking.php?y="+str(a)+"&hva=&g=w"
 
 		if(a>=1982):
 			men_standings = get_standings(men_standings_page0, a)
@@ -348,8 +439,6 @@ def get_worldcup():
 	
 
 		table = get_table(men_worldcup_page1[a])
-		if (table==-1):
-			continue
 		date = table[0]
 		print(date)
 		city = table[1]

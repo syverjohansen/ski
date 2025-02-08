@@ -77,47 +77,43 @@ def get_table(worldcup_page):
 
 	worldcup_soup = BeautifulSoup(worldcup_page, 'html.parser')
 	body = worldcup_soup.body.find_all('table', {'class':'tablesorter'})
+	race_city = worldcup_soup.body.find('h1').text
+	date_country = worldcup_soup.body.find('h2').text
+	date_country = date_country.split(", ")
+	
 
-	body = body[1]
-	body = body.find_all('td')
 	try:
-		date = (body[-3].text)
-
-		date = str(date)
+		date = str(date_country[2])
 		date = date.split(" ")
-		
 		year = date[2]
-		date = "".join(date[1])
-		date = date.split(".")
-		month = date[1]
-		month = month.split(",")[0]
-		
-		month = convert_month(month)
-		
+		date = date[1].split(".")
 		day = date[0]
-		day = day.zfill(2)
+		day = str(day.zfill(2))		
+		month = date[1]
+		month = convert_month(month)
 		date = (year+month+day)
 	except:
-		date = (body[-1].text)
-		date = str(date).split("/")
-		year = date[1]
+		date = str(date_country[2])
+		date = date.split(" ")
+		year = date[2]
 		date = year+"0101"
-		
+		print("--------No date---------")
+	country = date_country[3]
 
-	city = body[5].text
+	race_cty = str(race_city)
+	race_city = race_city.split(" - ")
+	hill = race_city[0]
+	city = race_city[1]
 
-	country = body[7].text.strip()
-
-	distance = body[3].text#.split(" ")
 	
-	if(distance=="Team"):
+	
+	if("Team" in hill):
 		return -1
 	
-	hill = distance.split(" ")
 	
 	
-	if(hill[0]=="Team" or distance[0]=="\tTeam"):
-		return -1
+	
+	
 	
 	#elif(distance[0]=="Mass" or distance[0]=="Hurricane" or distance[0]=="Compact" or distance[0]=="Penalty"):
 
@@ -125,18 +121,7 @@ def get_table(worldcup_page):
 
 	#distance = distance[1]
 	
-	hill = hill[0]
-
-	hill = hill.split("HS")
 	
-	if(len(hill)==1):
-		hill = hill[0]
-		hill = hill.split("K")[1]
-		
-	else:
-		hill = hill[1]
-
-	hill = float(hill[1])
 	
 
 	'''distance = distance.split("km")
@@ -153,14 +138,14 @@ def get_table(worldcup_page):
 
 	#distance = distance[0]
 
-	if(hill >= 185):
+	'''if(hill >= 185):
 		hill = "Ski Flying"
 	elif(hill >= 110):
 		hill = "Large"
 	elif(hill>=85):
 		hill = "Normal"
 	else:
-		hill = "Small"
+		hill = "Small"'''
 
 
 		
@@ -195,25 +180,22 @@ def get_skier(worldcup_page, distance):
 		for a in range(len(body)):
 			
 			
-			if(a%8==0):
+			if(a%9==0):
 
 				if(str(body[a].text)!="DNS"
 					and str(body[a].text)!="DNQ" and str(body[a].text)!="DSQ" and str(body[a].text)!="OOT" and ("DNF" not in str(body[a].text))):
-					places.append(body[a].text)
-					
+					places.append(body[a].text)							
 					ski_id = str(body[a+2])
-					#print(ski_id)
-					
-					ski_id = ski_id.split("td>")[1]
-					ski_id = ski_id.split("</td")[0]
-
-					ski_id = ski_id.split("ID=")#[1]
-					ski_id = ski_id[1]
-					
-					ski_id = str(ski_id.split("\"")[0])
+					ski_id = ski_id.split("id=")[1]
+					ski_id = str(ski_id.split("&")[0])
+					ski_id = str(ski_id.split("\" title")[0])
 					ski_ids.append(ski_id)
-					skier.append(body[a+2].text.strip('\n'))
-					nation.append(body[a+4].text)
+					skier_name = str(body[a+2])
+					skier_name = skier_name.split("title=\"")[1]
+					skier_name = skier_name.split("\"><span")[0]	
+					
+					skier.append(skier_name)	
+					nation.append(body[a+4].text.strip())
 				else:
 					break
 
@@ -223,27 +205,24 @@ def get_skier(worldcup_page, distance):
 		nation = []
 		ski_ids = []
 		for a in range(len(body)):
-			if(a%10==0):
+			if(a%11==0):
 				if(str(body[a].text)!="DNS"
 					and str(body[a].text)!="DNQ" and str(body[a].text)!="DSQ" and str(body[a].text)!="OOT" and ("DNF" not in str(body[a].text))):
-					places.append(body[a].text)
-					
-					
+					places.append(body[a].text)	
 					ski_id = str(body[a+2])
-					
-					
-					ski_id = ski_id.split("td>")[1]
-					ski_id = ski_id.split("</td")[0]
-
-					ski_id = ski_id.split("ID=")#[1]
-					ski_id = ski_id[1]
-					
-					ski_id = str(ski_id.split("\"")[0])
+					ski_id = ski_id.split("id=")[1]
+					ski_id = str(ski_id.split("&")[0])
+					ski_id = str(ski_id.split("\" title")[0])
 					ski_ids.append(ski_id)
-					skier.append(body[a+2].text.strip('\n'))
-					nation.append(body[a+4].text)
+					skier_name = str(body[a+2])
+					skier_name = skier_name.split("title=\"")[1]
+					skier_name = skier_name.split("\"><span")[0]	
+					
+					skier.append(skier_name)	
+					nation.append(body[a+4].text.strip())
 				else:
 					break
+				
 
 			
 	
@@ -276,11 +255,11 @@ def get_worldcup():
 	men_worldcup_page1 = []
 	ladies_worldcup_page1 = []
 	
-	
-	for a in range(1924, 2023):
+	#for a in range(1972, 1973):
+	for a in range(1924, 2024):
 		print(a)
-		men_worldcup_page0 = "https://skisport365.com/hopp/rennkalender.php?aar="+str(a)
-		ladies_worldcup_page0 = "https://skisport365.com/hopp/rennkalender.php?aar="+str(a)+"&k=F"
+		men_worldcup_page0 = "https://firstskisport.com/ski-jumping/calendar.php?y="+str(a)
+		ladies_worldcup_page0 = "https://firstskisport.com/ski-jumping/calendar.php?y="+str(a)+"&g=w"
 		
 
 		try:
@@ -322,12 +301,17 @@ def get_worldcup():
 		ladies_worldcup_soup0 = BeautifulSoup(ladies_worldcup_page0, 'html.parser')
 		
 
-		for b in men_worldcup_soup0.find_all('a', {'class':'ablue'}, href = True):
-			men_worldcup_page1.append('https://skisport365.com/hopp/'+b['href'])
+		title_results_count=0
+		for b in men_worldcup_soup0.find_all('a', {'title':'Results'}, href = True):
+			if(title_results_count%2==0):
+				men_worldcup_page1.append('https://firstskisport.com/ski-jumping/'+b['href'])
+			title_results_count+=1
 		
-
-		for b in ladies_worldcup_soup0.find_all('a', {'class':'ablue'}, href=True):
-			ladies_worldcup_page1.append('https://skisport365.com/hopp/'+b['href'])
+		title_results_count = 0
+		for b in ladies_worldcup_soup0.find_all('a', {'title':'Results'}, href=True):
+			if(title_results_count%2==0):
+				ladies_worldcup_page1.append('https://firstskisport.com/ski-jumping/'+b['href'])
+			title_results_count+=1
 	
 
 	

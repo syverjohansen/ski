@@ -194,8 +194,8 @@ def fis_team_sprint():
 
 	#start with the men
 	#There will be 4 because of the semifinals
-	startlist_list = ["https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=43589",
-	"https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=43587"]
+	startlist_list = ["https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44216",
+	"https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44215"]
 	for a in range(len(startlist_list)):
 		startlist = BeautifulSoup(urlopen(startlist_list[a]), 'html.parser')
 	#print(startlist)
@@ -487,6 +487,7 @@ def elo_team_sprint(fantasydf, menpkls, ladiespkls):
 	#mendf = mendf[:len(mendf)]
 	mendf['points'] = mendf['elopct'].apply(lambda x: (menintslope[0]+menintslope[1]*x)**np.exp(1))
 	mendf['points'] = mendf['points'].fillna(0)
+	mendf['points'] = mendf['points']/max(mendf['points'])
 	mendf['place'] = np.arange(1, len(mendf['name'])+1, 1)
 	ladiesrelaypkl = pd.read_pickle(ladiesrelaypkls[a])
 	ladiesrelaypkl = ladiesrelaypkl.loc[ladiesrelaypkl['level']=="all"]
@@ -503,6 +504,7 @@ def elo_team_sprint(fantasydf, menpkls, ladiespkls):
 	#ladiesdf = ladiesdf[:len(ladiesdf)]
 	ladiesdf['points'] = ladiesdf['elopct'].apply(lambda x: (ladiesintslope[0]+ladiesintslope[1]*x)**np.exp(1))
 	ladiesdf['points'] = ladiesdf['points'].fillna(0)
+	ladiesdf['points'] = ladiesdf['points']/max(ladiesdf['points'])
 	ladiesdf['place'] = np.arange(1, len(ladiesdf['name'])+1, 1)
 	fantasydf = mendf
 	fantasydf = fantasydf.append(ladiesdf)
@@ -1106,8 +1108,8 @@ def fis_relay():
 	#ids = invent_relay()
 	ids = []
 	#start with the men
-	startlist_list = ['https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44147',
-'https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44146']
+	startlist_list = ['https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44189',
+'https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44188']
 	for a in range(len(startlist_list)):
 
 		startlist = BeautifulSoup(urlopen(startlist_list[a]), 'html.parser')
@@ -1408,7 +1410,7 @@ def fis_mixed_relay():
 	sex = []
 	count = 0
 	#start with the men
-	startlist_list = ['https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=41622']
+	startlist_list = ['https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44190']
 	for a in range(len(startlist_list)):
 
 		startlist = BeautifulSoup(urlopen(startlist_list[a]), 'html.parser')
@@ -1683,8 +1685,8 @@ def fis():
 
 	count = 0
 	#start with the men
-	startlist_list = ['https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44155',
-	'https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44154']
+	startlist_list = ['https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44233',
+	'https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44232']
 	for a in startlist_list:
 		startlist = BeautifulSoup(urlopen(a), 'html.parser')
 	#print(startlist)
@@ -2055,7 +2057,8 @@ def regress(df):#, pkl):
 
 	stage = [50, 47, 44, 41, 38, 35, 32, 30, 28, 26, 24, 22, 20, 18, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 	wc = [100,95,90,85,80,75,72,69,66,63,60,58,56,54,52,50,48,46,44,42,40, 38, 36, 34, 32, 30, 28, 26, 24, 22, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
-	tour = [300, 285, 270, 255, 240, 216, 207, 198, 189, 180, 174, 168, 162, 156, 150, 144, 138, 132, 126, 120, 114, 108, 102, 96, 90, 84, 78, 72, 66, 60, 57, 54, 51, 48, 45, 42, 39, 36, 33, 30, 27, 24, 21, 18, 15, 12, 9, 6, 3]
+	tour = [300, 285, 270, 255, 240, 225, 216, 207, 198, 189, 180, 174, 168, 162, 156, 150, 144, 138, 132, 126, 120, 114, 108, 102, 96, 90, 84, 78, 72, 66, 60, 57, 54, 51, 48, 45, 42, 39, 36, 33, 30, 27, 24, 21, 18, 15, 12, 9, 6, 3]
+
 	#points = [100, 80, 60, 50, 45, 40, 36, 32, 29, 26, 24, 22, 20, 18, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 	
 	#Set what type of race it is
@@ -2083,6 +2086,7 @@ def regress(df):#, pkl):
 		#else:
 			racedf = seasondf.loc[seasondf['race']==races[race]]
 			if(len(racedf['place'])>50):
+#			if(len(racedf['place'])>50):
 				#print(len(racedf['place']))
 				#print([0]*(len(racedf['place'])-len(points)))
 				points_list = points_list + ([0]*(len(racedf['place'])-len(points)))
@@ -2139,19 +2143,23 @@ def mixed_combo(relaydf, tsdf):
 	#	"//div[@class='js-off-canvas-overlay is-overlay-fixed']")))
 
 
-#menpkls = ["~/ski/elo/python/ski/age/relay/excel365/varmen_distance_k.pkl"]
-menpkls = ["~/ski/elo/python/ski/age/excel365/varmen_sprint_freestyle_k.pkl",
-	"~/ski/elo/python/ski/age/excel365/varmen_distance_k.pkl",
-	"~/ski/elo/python/ski/age/excel365/varmen_distance_classic_k.pkl"]
+#menpkls = ["~/ski/elo/python/ski/age/relay/excel365/varmen_sprint_classic_k.pkl"]
+menpkls = ["~/ski/elo/python/ski/age/excel365/varmen_sprint_classic_k.pkl",
+"~/ski/elo/python/ski/age/excel365/varmen_distance_classic_k.pkl",
+"~/ski/elo/python/ski/age/excel365/varmen_distance_freestyle_k.pkl"]
+	#"~/ski/elo/python/ski/age/excel365/varmen_distance_classic_k.pkl",
+	#"~/ski/elo/python/ski/age/excel365/varmen_sprint_classic_k.pkl"]
 #	"~/ski/elo/python/ski/age/excel365/varmen_distance_freestyle_k.pkl"]
 
-#ladiespkls = ["~/ski/elo/python/ski/age/relay/excel365/varladies_distance_k.pkl"]
-ladiespkls = ["~/ski/elo/python/ski/age/excel365/varladies_sprint_freestyle_k.pkl",
-"~/ski/elo/python/ski/age/excel365/varladies_distance_k.pkl",
-"~/ski/elo/python/ski/age/excel365/varladies_distance_classic_k.pkl"]
+#ladiespkls = ["~/ski/elo/python/ski/age/relay/excel365/varladies_sprint_classic_k.pkl"]
+ladiespkls = ["~/ski/elo/python/ski/age/excel365/varladies_sprint_classic_k.pkl",
+"~/ski/elo/python/ski/age/excel365/varladies_distance_classic_k.pkl",
+"~/ski/elo/python/ski/age/excel365/varladies_distance_freestyle_k.pkl"]
+#"~/ski/elo/python/ski/age/excel365/varladies_distance_classic_k.pkl",
+#"~/ski/elo/python/ski/age/excel365/varladies_sprint_classic_k.pkl"]
 #"~/ski/elo/python/ski/age/excel365/varladies_distance_freestyle_k.pkl"]
 #ladiespkls = ["~/ski/elo/python/ski/age/excel365/varladies_sprint_freestyle_k.pkl"]
-#relaypkls = ["~/ski/elo/python/ski/age/relay/excel365/varmen_sprint_freestyle_k.pkl"]
+relaypkls = ["~/ski/elo/python/ski/age/relay/excel365/varmen_distance_k.pkl"]
 #tspkls = ["~/ski/elo/python/ski/relay/radar/varmen_sprint_k.pkl"]
 
 
@@ -2196,8 +2204,8 @@ mixed_ts_fantasydf = elo_mixed_ts(mixed_ts_fantasydf, men_ts_skier_pkls, ladies_
 fantasydf = mixed_combo(mixed_relay_fantasydf, mixed_ts_fantasydf)
 print(fantasydf)'''
 
-fantasydf.to_pickle("~/ski/elo/knapsack/excel365/fantasydf_trondheim.pkl")
-fantasydf.to_excel("~/ski/elo/knapsack/excel365/fantasydf_trondheim.xlsx")
+fantasydf.to_pickle("~/ski/elo/knapsack/excel365/fantasydf_falun.pkl")
+fantasydf.to_excel("~/ski/elo/knapsack/excel365/fantasydf_falun.xlsx")
 
 
 print(time.time() - start_time)

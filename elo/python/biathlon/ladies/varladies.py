@@ -9,8 +9,8 @@ start_time = time.time()
 
 ladiesdf = pd.read_pickle("~/ski/elo/python/biathlon/excel365/ladiesdf.pkl")
 #print(ladiesdf)
-update_ladiesdf = pd.read_pickle("~/ski/elo/python/biathlon/excel365/ladiesupdate_setup.pkl")
-ladiesdf = ladiesdf.append(update_ladiesdf, ignore_index=True)
+#update_ladiesdf = pd.read_pickle("~/ski/elo/python/biathlon/excel365/ladiesupdate_setup.pkl")
+#ladiesdf = ladiesdf.append(update_ladiesdf, ignore_index=True)
 pd.options.mode.chained_assignment = None
 
 
@@ -41,14 +41,14 @@ def distance(ladiesdf, distances):
     return ladiesdf
 
 def discipline(ladiesdf, discipline):
-    if(discipline == "Mass"):
-        ladiesdf = ladiesdf.loc[ladiesdf['discipline']=="Mass"]
-    elif(discipline =="P"):
-        ladiesdf = ladiesdf.loc[ladiesdf['discipline']=="P"]
+    if(discipline == "Mass Start"):
+        ladiesdf = ladiesdf.loc[ladiesdf['discipline']=="Mass Start"]
+    elif(discipline =="Pursuit"):
+        ladiesdf = ladiesdf.loc[ladiesdf['discipline']=="Pursuit"]
     elif(discipline == "Sprint"):
         ladiesdf = ladiesdf.loc[ladiesdf['discipline']=="Sprint"]
     else:
-        ladiesdf = ladiesdf.loc[ladiesdf['discipline']!="P"]
+        ladiesdf = ladiesdf.loc[ladiesdf['discipline']!="Pursuit"]
         ladiesdf = ladiesdf.loc[ladiesdf['discipline']!="Mass"]
         ladiesdf = ladiesdf.loc[ladiesdf['discipline']!="Sprint"]
     return ladiesdf
@@ -241,10 +241,10 @@ def male_elo(ladiesdf, base_elo=1300, K=1, discount=.85):
 varladiesdf = ladiesdf
 #varladiesdf = dates(varladiesdf, 0, 20210212)
 #varladiesdf = distance(varladiesdf, 15)
-#varladiesdf = discipline(varladiesdf, "Indiv")
+varladiesdf = discipline(varladiesdf, "Mass Start")
 #varladiesdf = season(varladiesdf, 0, 9999)
 varladieselo = male_elo(varladiesdf)
-varladieselo.to_pickle("~/ski/elo/python/biathlon/excel365/varladies_all_k.pkl")
-varladieselo.to_excel("~/ski/elo/python/biathlon/excel365/varladies_all_k.xlsx")
+varladieselo.to_pickle("~/ski/elo/python/biathlon/excel365/varladies_mass_k.pkl")
+varladieselo.to_excel("~/ski/elo/python/biathlon/excel365/varladies_mass_k.xlsx")
 print(time.time() - start_time)
 

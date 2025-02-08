@@ -9,8 +9,8 @@ start_time = time.time()
 
 mendf = pd.read_pickle("~/ski/elo/python/skijump/excel365/mendf.pkl")
 
-update_mendf = pd.read_pickle("~/ski/elo/python/skijump/excel365/menupdate_setup.pkl")
-mendf = mendf.append(update_mendf, ignore_index=True)
+#update_mendf = pd.read_pickle("~/ski/elo/python/skijump/excel365/menupdate_setup.pkl")
+#mendf = mendf.append(update_mendf, ignore_index=True)
 #print(mendf)
 pd.options.mode.chained_assignment = None
 
@@ -182,7 +182,7 @@ def male_elo(varmendf, base_elo=1300, K=1, discount=.85):
     for season in range(len(seasons)):
         #K = k_finder(mendf, varmendf, seasons[season])
         K = k_finder(mendf, varmendf, seasons[season], max_var_length)
-        #print(K)
+        print(K)
 
     
         print(seasons[season])

@@ -41,21 +41,31 @@ def top10(df):
 	df['name'] = df['name'].str.replace('Ü', 'U')
 
 	ret_df = pd.DataFrame()
-	for a in range(2023, 2024):
-		df_small = df.loc[df['season']==a]
-		df_small = df_small.sort_values(by='elo', ascending=False)
-		df_small = df_small.head(50)
-		rank = range(1,51)
-		df_small.insert(0, 'rank', rank)
-		df_small = df_small[["rank", "name", "nation"]]
-		ret_df = ret_df.append(df_small)
+	for a in range(2024, 2025):
+		print(a)
+		try:
+			df_small = df.loc[df['season']==a]
+			df_small = df_small.sort_values(by='elo', ascending=False)
+			df_small = df_small.head(50)
+			rank = range(1,51)
+			df_small.insert(0, 'rank', rank)
+			df_small = df_small[["rank", "name", "nation"]]
+			ret_df = ret_df.append(df_small)
+		except:
+			df_small = df.loc[df['season']==a]
+			df_small = df_small.sort_values(by='elo', ascending=False)
+			df_small = df_small.head(len(df_small['pelo']))
+			rank = range(1,len(df_small['pelo'])+1)
+			df_small.insert(0, 'rank', rank)
+			df_small = df_small[["rank", "name", "nation"]]
+			ret_df = ret_df.append(df_small)
 		
 	print(ret_df)
 	return ret_df
 
 
-dfs = ['/Users/syverjohansen/ski/elo/python/nc/excel365/varmen_all_k.pkl',
-'/Users/syverjohansen/ski/elo/python/nc/excel365/varladies_all_k.pkl']
+dfs = ['/Users/syverjohansen/ski/elo/python/nc/age/excel365/varmen_all_k.pkl',
+'/Users/syverjohansen/ski/elo/python/nc/age/excel365/varladies_all_k.pkl']
 for a in range(len(dfs)):
 	df = top10(dfs[a])
 	filepath = dfs[a]

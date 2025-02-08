@@ -47,8 +47,8 @@ def top10(df):
 	return ret_df
 
 
-dfs = ['/Users/syverjohansen/ski/elo/python/skijump/excel365/varmen_all_k.pkl',
-'/Users/syverjohansen/ski/elo/python/skijump/excel365/varladies_all_k.pkl']
+dfs = ['/Users/syverjohansen/ski/elo/python/skijump/age/excel365/varmen_all_k.pkl',
+'/Users/syverjohansen/ski/elo/python/skijump/age/excel365/varladies_all_k.pkl']
 for a in range(len(dfs)):
 	df = top10(dfs[a])
 	filepath = dfs[a]
