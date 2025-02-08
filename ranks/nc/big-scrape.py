@@ -79,26 +79,23 @@ def get_standings(standings_page, year):
 	#print(body[13])
 	
 
-	if(year>=2002):
-		for a in range(0, len(body), 17):
-			#people+=1
-			ski_id = str(body[a])
-			ski_id = ski_id.split("ID=")[1]
-			ski_id = str(ski_id.split("\"")[0])
-			ski_ids.append(ski_id)
-			place.append(body[a+3].text)
-			name.append(body[a].text.strip('\n'))
-			nation.append(body[a+2].text.strip('\n'))
-	else:
-		for a in range(0, len(body), 11):
-			#people+=1
-			ski_id = str(body[a])
-			ski_id = ski_id.split("ID=")[1]
-			ski_id = str(ski_id.split("\"")[0])
-			ski_ids.append(ski_id)
-			place.append(body[a+3].text)
-			name.append(body[a].text.strip('\n'))
-			nation.append(body[a+2].text.strip('\n'))
+	for a in range(0, len(body), 6):
+		#people+=1
+		ski_id = str(body[a])
+		ski_id = ski_id.split("id=")[1]
+		ski_id = str(ski_id.split("&")[0])
+		ski_id = str(ski_id.split("\"")[0])
+		ski_ids.append(ski_id)
+		skier_name = str(body[a])
+		first_name = skier_name.split("/span> ")[1]
+		first_name = first_name.split("</a")[0]
+		last_name = skier_name.split("case;\">")[1]
+		last_name = last_name.split("</span")[0]
+		skier_name = first_name + " " + last_name		
+		name.append(skier_name)
+		#name.append((skier_name.split("title=\"")[1]).split("\">")[0])
+		place.append(body[a+2].text)
+		nation.append(body[a+1].text.strip())
 			#if(people>10):
 			#	break
 		
@@ -107,6 +104,9 @@ def get_standings(standings_page, year):
 	temp = [place, name, nation, ski_ids]
 	
 	return temp
+			#if(people>10):
+			#	break
+
 
 
 def get_table(worldcup_page):
@@ -125,118 +125,75 @@ def get_table(worldcup_page):
 
 	worldcup_soup = BeautifulSoup(worldcup_page, 'html.parser')
 	body = worldcup_soup.body.find_all('table', {'class':'tablesorter'})
+	race_city = worldcup_soup.body.find('h1').text
+	date_country = worldcup_soup.body.find('h2').text
+	date_country = date_country.split(", ")
 
-	body = body[1]
-	body = body.find_all('td')
-	if(body[1].text.startswith("Olympic")):
+
+	if("Olympic" in date_country[0]):
 		category="Olympics"
-	elif(body[1].text.startswith("WSC")):
+	elif("World Championship" in date_country[0]):
 		category="WSC"
 	else:
 		category = "WC"
 	try:
-		date = (body[-3].text)
-
-		date = str(date)
+		date = str(date_country[1])
 		date = date.split(" ")
-		
 		year = date[2]
-		date = "".join(date[1])
-		date = date.split(".")
-		month = date[1]
-		month = month.split(",")[0]
-		
-		month = convert_month(month)
-		
+		date = date[1].split(".")
 		day = date[0]
-		day = day.zfill(2)
+		day = str(day.zfill(2))		
+		month = date[1]
+		month = convert_month(month)
 		date = (year+month+day)
 	except:
-		date = (body[-1].text)
-		date = str(date).split("/")
-		year = date[1]
+		date = str(date_country[1])
+		date = date.split(" ")
+		year = date[2]
 		date = year+"0101"
-		
+		print("No date")
+	country = date_country[2]
 
-	city = body[5].text
-
-	country = body[7].text.strip()
-
-	distance = body[3].text#.split(" ")
-	if(distance=="Nordic Combined"):
-		distance = "Gundersen K90/10km"
-	elif(distance=="Team"):
-		distance = "Team K105/4x5km"
-	elif(distance=="Team Sprint"):
-		distance = "Team K105/2x7.5km"
-	elif(distance=="Individual"):
-		distance = "Gundersen K90/15km"
-	elif(distance=="Sprint"):
-		distance = "Sprint K90/7.5km"
-	elif(distance == "Team Mass Start K90/3x5km"):
-		distance = "Team K90/3x5km"
-	distance = distance.split(" ")
+	race_cty = str(race_city)
+	race_city = race_city.split(" - ")
+	race = race_city[0]
+	city = race_city[1]
+	event = ''
 	
-	if(distance[0]=="Team" and distance[1]=="Sprint"):
-		distance = ' '.join(distance[2:])
-		distance = "TS " + distance
-		distance = distance.split(" ")
-	elif(distance[0]=="Team" or distance[0]=="\tTeam"):
-		distance = "Team " + " ".join(distance[1:])
-		distance = distance.split(" ")
-	elif(distance[0]=="Mass" or distance[0]=="Hurricane" or distance[0]=="Compact" or distance[0]=="Penalty"):
-
-		distance = distance[1:]
-	
-	distance = distance[1]
-	distance = distance.split("/")
-	hill = distance[0]
-	
-	distance = distance[1]
-
-
-	hill = hill.split("HS")
-	
-	if(len(hill)==1):
-		hill = hill[0]
-		hill = hill.split("K")[1]
-		
+	if(race=="Nordic Combined"):
+		hill = "N/A"
+		distance = "15km"
+	elif(race=="Individual" or race=="Team" or race=="Sprint" or race.startswith("Individual")):
+		print("----NO HILL SIZE-----")
+		hill="N/A"
+		distance = race
 	else:
-		hill = hill[1]
+		distance = race.split("/")
+		hill = distance[0]
+		hill = hill.split(" ")
+		event = ' '.join(hill[0:-1])
+		hill = hill[-1]
+		if(distance[0]=="Team Sprint"):
+			hill = "N/A"
+			distance = "Ts"
+
+		else:
+			distance = distance[1]
+		
+		
 	
-	hill = int(hill)
-	
-	
-
-	distance = distance.split("km")
-	if(len(distance)<2):
-		distance = distance[0]
-		distance = distance.split("Km")
-
-
-
-	if(distance[0].startswith("2x")):
-		distance = "TS"
-	elif(distance[0].startswith("3x") or distance[0].startswith("4x")):
+	if(distance.startswith("4x") or distance.startswith("3x") or distance=="Team"):
 		distance = "Rel"
-	else:
-		distance = float(distance[0])
+	if(distance.startswith("2x") or "Team Sprint" in event):
+		distance = "Ts"
 
-	#distance = distance[0]
-
-	
-
-	#distance = distance[0]
-
-	if(hill >= 110):
-		hill = "Large"
-	else:
-		hill = "Small"
-
-
-		
 	table = [date, city, country, category, hill, distance]
 	return table
+	
+
+
+
+		
 	
 		
 	#return worldcup_date
@@ -268,27 +225,26 @@ def get_skier(worldcup_page, distance):
 
 			if(str(body[a].text)!="DNS"
 				and str(body[a].text)!="DNQ" and str(body[a].text)!="DSQ" and str(body[a].text)!="OOT" and ("DNF" not in str(body[a].text))):
-				places.append(body[a].text)
-				
+				places.append(body[a].text)	
+						
 				ski_id = str(body[a+3])
-				
-				ski_id = ski_id.split("td>")[1]
-				ski_id = ski_id.split("</td")[0]
-
-				ski_id = ski_id.split("ID=")#[1]
-				ski_id = ski_id[1]
-				
-				ski_id = str(ski_id.split("\"")[0])
+				ski_id = ski_id.split("id=")[1]
+				ski_id = str(ski_id.split("&")[0])
+				ski_id = str(ski_id.split("\" title")[0])
 				ski_ids.append(ski_id)
-				skier.append(body[a+3].text.strip('\n'))
-				nation.append(body[a+5].text)
+				skier_name = str(body[a+3])
+				skier_name = skier_name.split("title=\"")[1]
+				skier_name = skier_name.split("\"><span")[0]	
+				
+				skier.append(skier_name)	
+				nation.append(body[a+5].text.strip())
 			else:
 				break
 
-		if(distance=="Rel" and people>12):
-			break
-		elif(distance!="Rel" and people>10):
-			break
+		#if(distance=="Rel" and people>12):
+	#		break
+#		elif(distance!="Rel" and people>10):
+#			break
 	
 	
 	return [places, skier, nation, ski_ids]
@@ -321,11 +277,11 @@ def get_worldcup():
 	menwc_standings = []
 	ladieswc_standings = []
 	
-	
-	for a in range(1924, 2023):
+	#for a in range(1988,1989):
+	for a in range(1924, 2025):
 		print(a)
-		men_worldcup_page0 = "https://skisport365.com/kombinert/rennkalender.php?aar="+str(a)
-		ladies_worldcup_page0 = "https://skisport365.com/kombinert/rennkalender.php?aar="+str(a)+"&k=F"
+		men_worldcup_page0 = "https://firstskisport.com/nordic-combined/calendar.php?y="+str(a)
+		ladies_worldcup_page0 = "https://firstskisport.com/nordic-combined/calendar.php?y="+str(a)+"&g=w"
 		
 
 		try:
@@ -367,14 +323,19 @@ def get_worldcup():
 		ladies_worldcup_soup0 = BeautifulSoup(ladies_worldcup_page0, 'html.parser')
 		
 
-		for b in men_worldcup_soup0.find_all('a', {'class':'ablue'}, href = True):
-			men_worldcup_page1.append('https://skisport365.com/kombinert/'+b['href'])
+		title_results_count=0
+		for b in men_worldcup_soup0.find_all('a', {'title':'Results'}, href = True):
+			if(title_results_count%2==0):
+				men_worldcup_page1.append('https://firstskisport.com/nordic-combined/'+b['href'])
+			title_results_count+=1
 		
-
-		for b in ladies_worldcup_soup0.find_all('a', {'class':'ablue'}, href=True):
-			ladies_worldcup_page1.append('https://skisport365.com/kombinert/'+b['href'])
-		men_standings_page0 = "https://skisport365.com/kombinert/ranking.php?aar="+str(a)
-		ladies_standings_page0 = "https://skisport365.com/kombinert/ranking.php?aar="+str(a)+"&&k=F"
+		title_results_count = 0
+		for b in ladies_worldcup_soup0.find_all('a', {'title':'Results'}, href=True):
+			if(title_results_count%2==0):
+				ladies_worldcup_page1.append('https://firstskisport.com/nordic-combined/'+b['href'])
+			title_results_count+=1
+		men_standings_page0 = "https://firstskisport.com/nordic-combined/ranking.php?y="+str(a)
+		ladies_standings_page0 = "https://firstskisport.com/nordic-combined/ranking.php?y="+str(a)+"&hva=&g=w"
 		if(a>=2021):
 			men_standings = get_standings(men_standings_page0, a)
 			len(men_standings[0])

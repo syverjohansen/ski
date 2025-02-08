@@ -15,8 +15,8 @@ def ladies_setup():
 
 	#This is to get rid of the space before the nations
 	ladiesdf['nation'] = ladiesdf['nation'].str.lstrip()
-	ladiesdf['id'] = ladiesdf['id'].str.split("&")
-	ladiesdf['id'] = ladiesdf['id'].str[0].astype(int)
+	#ladiesdf['id'] = ladiesdf['id'].str.split("&")
+	#ladiesdf['id'] = ladiesdf['id'].str[0].astype(int)
 	#print(ladiesdf['id'])
 		#print(ladiesdf['id'])
 
@@ -85,10 +85,12 @@ def men_setup():
 		date = str(mendf['date'][a])
 		year = date[0:4]
 		day = date[4:8]
+		
 		if(day>'0800'):
 			season = int(year)+1
 		else:
 			season = int(year)
+
 		male_seasons.append(season)
 
 	mendf['season'] = male_seasons

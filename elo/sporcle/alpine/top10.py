@@ -44,27 +44,41 @@ def top10(df):
 	return ret_df
 
 
-dfs = ['/Users/syverjohansen/ski/elo/python/alpine/excel365/varmen_all_k.pkl',
-'/Users/syverjohansen/ski/elo/python/alpine/excel365/varmen_downhill_k.pkl',
-'/Users/syverjohansen/ski/elo/python/alpine/excel365/varmen_superg_k.pkl',
-'/Users/syverjohansen/ski/elo/python/alpine/excel365/varmen_gs_k.pkl',
-'/Users/syverjohansen/ski/elo/python/alpine/excel365/varmen_slalom_k.pkl',
-'/Users/syverjohansen/ski/elo/python/alpine/excel365/varmen_combined_k.pkl',
-'/Users/syverjohansen/ski/elo/python/alpine/excel365/varmen_speed_k.pkl',
-'/Users/syverjohansen/ski/elo/python/alpine/excel365/varmen_tech_k.pkl',
-'/Users/syverjohansen/ski/elo/python/alpine/excel365/varladies_all_k.pkl',
-'/Users/syverjohansen/ski/elo/python/alpine/excel365/varladies_downhill_k.pkl',
-'/Users/syverjohansen/ski/elo/python/alpine/excel365/varladies_superg_k.pkl',
-'/Users/syverjohansen/ski/elo/python/alpine/excel365/varladies_gs_k.pkl',
-'/Users/syverjohansen/ski/elo/python/alpine/excel365/varladies_slalom_k.pkl',
-'/Users/syverjohansen/ski/elo/python/alpine/excel365/varladies_combined_k.pkl',
-'/Users/syverjohansen/ski/elo/python/alpine/excel365/varladies_speed_k.pkl',
-'/Users/syverjohansen/ski/elo/python/alpine/excel365/varladies_tech_k.pkl']
+dfs = ['/Users/syverjohansen/ski/elo/python/alpine/age/excel365/varmen_all_k.pkl',
+'/Users/syverjohansen/ski/elo/python/alpine/age/excel365/varmen_downhill_k.pkl',
+'/Users/syverjohansen/ski/elo/python/alpine/age/excel365/varmen_superg_k.pkl',
+'/Users/syverjohansen/ski/elo/python/alpine/age/excel365/varmen_gs_k.pkl',
+'/Users/syverjohansen/ski/elo/python/alpine/age/excel365/varmen_slalom_k.pkl',
+'/Users/syverjohansen/ski/elo/python/alpine/age/excel365/varmen_combined_k.pkl',
+'/Users/syverjohansen/ski/elo/python/alpine/age/excel365/varmen_speed_k.pkl',
+'/Users/syverjohansen/ski/elo/python/alpine/age/excel365/varmen_tech_k.pkl',
+'/Users/syverjohansen/ski/elo/python/alpine/age/excel365/varladies_all_k.pkl',
+'/Users/syverjohansen/ski/elo/python/alpine/age/excel365/varladies_downhill_k.pkl',
+'/Users/syverjohansen/ski/elo/python/alpine/age/excel365/varladies_superg_k.pkl',
+'/Users/syverjohansen/ski/elo/python/alpine/age/excel365/varladies_gs_k.pkl',
+'/Users/syverjohansen/ski/elo/python/alpine/age/excel365/varladies_slalom_k.pkl',
+'/Users/syverjohansen/ski/elo/python/alpine/age/excel365/varladies_combined_k.pkl',
+'/Users/syverjohansen/ski/elo/python/alpine/age/excel365/varladies_speed_k.pkl',
+'/Users/syverjohansen/ski/elo/python/alpine/age/excel365/varladies_tech_k.pkl']
 for a in range(len(dfs)):
 	df = top10(dfs[a])
-	filepath = dfs[a]
-	filepath = filepath.split('/')[-1]
-	filepath = filepath.split('.')[0]
-	filepath = '/Users/syverjohansen/ski/elo/sporcle/alpine/excel365/top10_'+filepath+'_sporcle.xlsx'
-	df.to_excel(filepath, index=False, header=False)
+	if(len(df)>500):
+		df1 = df.loc[df['season']<=2000]
+		df2 = df.loc[df['season']>2000]
+		filepath = dfs[a]
+		filepath = filepath.split('/')[-1]
+		filepath = filepath.split('.')[0]
+		filepath1 = '/Users/syverjohansen/ski/elo/sporcle/alpine/excel365/top101_'+filepath+'_sporcle.xlsx'
+		df1.to_excel(filepath1, index=False, header=False)
+		filepath2 = '/Users/syverjohansen/ski/elo/sporcle/alpine/excel365/top102_'+filepath+'_sporcle.xlsx'
+		df2.to_excel(filepath2, index=False, header=False)
+
+	else:
+		filepath = dfs[a]
+		filepath = filepath.split('/')[-1]
+		filepath = filepath.split('.')[0]
+		filepath = '/Users/syverjohansen/ski/elo/sporcle/alpine/excel365/top10_'+filepath+'_sporcle.xlsx'
+		df.to_excel(filepath, index=False, header=False)
+	
+
 

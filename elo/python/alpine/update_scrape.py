@@ -10,6 +10,7 @@ from bs4 import BeautifulSoup
 import xlsxwriter
 import requests
 import time
+import pandas as pd
 start_time = time.time()
 headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
@@ -76,55 +77,56 @@ def get_table(worldcup_page):
 			pass
 
 	worldcup_soup = BeautifulSoup(worldcup_page, 'html.parser')
-	body = worldcup_soup.body.find_all('table', {'class':'tablesorter'})
-
-	body = body[1]
-	body = body.find_all('td')
+	race_city = worldcup_soup.body.find('h1').text
+	date_country = worldcup_soup.body.find('h2').text
+	date_country = date_country.split(", ")
+	date = str(date_country[2])
+	date = date.split(" ")
 	try:
-		date = (body[-3].text)
-
-		date = str(date)
-		date = date.split(" ")
-		
 		year = date[2]
-		date = "".join(date[1])
-		date = date.split(".")
-		month = date[1]
-		month = month.split(",")[0]
-		
-		month = convert_month(month)
-		
+		date = date[1].split(".")
 		day = date[0]
-		day = day.zfill(2)
-		date = (year+month+day)
-	except:
-		date = (body[-1].text)
-		date = str(date).split("/")
-		year = date[1]
-		date = year+"0101"
+		day = str(day.zfill(2))
 		
+		month = date[1]
+		month = convert_month(month)
+		date = (year+month+day)
 
-	city = body[5].text
+	except:
+		year = date[2]
+		date = date[1].split(".")
+		date = year+"0101"
+	country = date_country[3]
+	race_cty = str(race_city)
+	race_city = race_city.split(" - ")
+	race = race_city[0]	
+	city = race_city[1]		
+	
+	distance = race.split(" ")
+	enddistance = distance[-1]
+	distance = distance[0]
 
-	country = body[7].text.strip()
 
-	distance = body[3].text#.split(" ")
+
+
 	#distance = distance[0]
 
 	
 
 	#distance = distance[0]
 
-	if(distance == "Downhill"):
+	if(race == "Downhill"):
 		distance = "Downhill"
-	elif("Combined" in distance):
+	elif("Combined" in race):
 		distance = "Combined"
-	elif("Giant Slalom" in distance):
+	elif("Parallel" in race):
+		distance = "Parallel"
+	elif("Giant Slalom" in race):
 		distance = "Giant Slalom"
-	elif (distance == "Super G"):
+	elif (race == "Super G"):
 		distance = "Super G"
 
-	elif(("Slalom" in distance)  or (distance=="City Event")):
+	elif(("Slalom" in race)  or (race=="City Event")):
 		distance = "Slalom"
 	
 	else:
@@ -158,26 +160,63 @@ def get_skier(worldcup_page, distance):
 	nation = []
 	ski_ids = []
 	people = 1
-	if(body[7].text=="1" or body[7].text=="2"):
+	highest_place = 0
+	OOT_places = []
+	OOT_skier = []
+	OOT_nation = []
+	OOT_ski_ids = []
+	OOT_time = []
+	if(len(body)<=10):
+		print("-----------TOO SMALL TO CONTINUE---------------")
+		return -1
+	if(body[10].text=="1" or body[10].text=="2"):
 	
 		for a in range(len(body)):
 			
-			if(a%7==0):
+			if(a%10==0):
 				if(str(body[a].text)!="DNS"
 					and str(body[a].text)!="DNQ" and str(body[a].text)!="DSQ" and str(body[a].text)!="OOT" and ("DNF" not in str(body[a].text))):
 					places.append(body[a].text)
-					
+
 					ski_id = str(body[a+2])
 					
-					ski_id = ski_id.split("ID=")#[1]
-					ski_id = ski_id[1]
-					
-					ski_id = str(ski_id.split("\"")[0])
+					ski_id = ski_id.split("id=")[1]
+					ski_id = str(ski_id.split("&")[0])
 					ski_ids.append(ski_id)
-					skier.append(body[a+2].text.strip('\n'))
-					nation.append(body[a+4].text)
+					skier_name = str(body[a+2])
+					first_name = skier_name.split("/span> ")[1]
+					first_name = first_name.split("</a")[0]
+					last_name = skier_name.split("case;\">")[1]
+					last_name = last_name.split("</span")[0]
+					skier_name = first_name + " " + last_name		
+					skier.append(skier_name)		
+					
+					#skier.append((skier_name.split("title=\"")[1]).split("\"><span")[0])		
+					nation.append(body[a+4].text.strip())
+					
+				elif(str(body[a].text)=="OOT"):
+					
+					highest_place+=1
+					OOT_places.append(highest_place)
+					OOT_ski_id = str(body[a+2])
+					OOT_ski_id = OOT_ski_id.split("id=")[1]
+					OOT_ski_id = str(OOT_ski_id.split("&")[0])
+					OOT_ski_ids.append(OOT_ski_id)
+					#OOT_ski_id = OOT_ski_id[1]
+					
+					OOT_skier_name = str(body[a+2])	
+					first_name = OOT_skier_name.split("/span> ")[1]
+					first_name = first_name.split("</a")[0]
+					last_name = OOT_skier_name.split("case;\">")[1]
+					last_name = last_name.split("</span")[0]
+					OOT_skier_name = first_name + " " + last_name
+					OOT_skier.append(OOT_skier_name)					
+					#OOT_skier.append((skier_name.split("title=\"")[1]).split("\"><span")[0])		
+					OOT_nation.append(body[a+4].text.strip())
+					
+					OOT_time.append(body[a+6].text)
 				else:
-					break
+					continue
 
 			if(distance=="Rel" and people>12):
 				break
@@ -186,27 +225,74 @@ def get_skier(worldcup_page, distance):
 	else:
 	
 		for a in range(len(body)):
-			if(a%9==0):
+			if(a%8==0):
 				if(str(body[a].text)!="DNS"
 					and str(body[a].text)!="DNQ" and str(body[a].text)!="DSQ" and str(body[a].text)!="OOT" and ("DNF" not in str(body[a].text))):
 					places.append(body[a].text)
-					
+
 					ski_id = str(body[a+2])
 					
-					ski_id = ski_id.split("ID=")#[1]
-					ski_id = ski_id[1]
-					
-					ski_id = str(ski_id.split("\"")[0])
+					ski_id = ski_id.split("id=")[1]
+					ski_id = str(ski_id.split("&")[0])
 					ski_ids.append(ski_id)
-					skier.append(body[a+2].text.strip('\n'))
-					nation.append(body[a+4].text)
+					skier_name = str(body[a+2])
+					first_name = skier_name.split("/span> ")[1]
+					first_name = first_name.split("</a")[0]
+					last_name = skier_name.split("case;\">")[1]
+					last_name = last_name.split("</span")[0]
+					skier_name = first_name + " " + last_name		
+					skier.append(skier_name)		
+					
+					#skier.append((skier_name.split("title=\"")[1]).split("\"><span")[0])		
+					nation.append(body[a+4].text.strip())
+				elif(str(body[a].text)=="OOT"):
+					
+					#highest_place+=1
+					#OOT_places.append(highest_place)
+					highest_place+=1
+					OOT_places.append(highest_place)
+					OOT_ski_id = str(body[a+2])
+					OOT_ski_id = OOT_ski_id.split("id=")[1]
+					OOT_ski_id = str(OOT_ski_id.split("&")[0])
+					OOT_ski_ids.append(OOT_ski_id)
+					#OOT_ski_id = OOT_ski_id[1]
+					
+					OOT_skier_name = str(body[a+2])	
+					first_name = OOT_skier_name.split("/span> ")[1]
+					first_name = first_name.split("</a")[0]
+					last_name = OOT_skier_name.split("case;\">")[1]
+					last_name = last_name.split("</span")[0]
+					OOT_skier_name = first_name + " " + last_name
+					OOT_skier.append(OOT_skier_name)					
+					#OOT_skier.append((skier_name.split("title=\"")[1]).split("\"><span")[0])		
+					OOT_nation.append(body[a+4].text.strip())
+					
+					OOT_time.append(body[a+6].text)
 				else:
-					break
+					continue
 
 			if(distance=="Rel" and people>12):
 				break
 			elif(distance!="Rel" and people>10):
 				break
+	OOT = pd.DataFrame()
+	OOT['ski_ids'] = OOT_ski_ids
+	OOT['skier'] = OOT_skier
+	OOT['nation'] = OOT_nation
+	highest_place = int(places[len(places)-1])+1
+	highest_highest_place = highest_place+len(OOT_ski_ids)
+	OOT['time'] = OOT_time
+	OOT = OOT.sort_values('time')
+	OOT['places'] = list(range(highest_place,highest_highest_place))
+	#print(OOT)
+	OOT_ski_ids = OOT['ski_ids'].values.tolist()
+	OOT_skier = OOT['skier'].values.tolist()
+	OOT_nation = OOT['nation'].values.tolist()
+	OOT_places = OOT['places'].values.tolist()
+	places = places+OOT_places
+	skier = skier+OOT_skier
+	nation = nation+OOT_nation
+	ski_ids=ski_ids+OOT_ski_ids
 	
 	
 	return [places, skier, nation, ski_ids]
@@ -238,10 +324,10 @@ def get_worldcup():
 	ladies_worldcup_page1 = []
 	
 	
-	for a in range(2023, 2024):
+	for a in range(2024, 2025):
 		print(a)
-		men_worldcup_page0 = "https://skisport365.com/alpint/rennkalender.php?aar="+str(a)
-		ladies_worldcup_page0 = "https://skisport365.com/alpint/rennkalender.php?aar="+str(a)+"&k=F"
+		men_worldcup_page0 = "https://firstskisport.com/alpine/calendar.php?y="+str(a)
+		ladies_worldcup_page0 = "https://firstskisport.com/alpine/calendar.php?y="+str(a)+"&g=w"
 		
 
 		try:
@@ -283,12 +369,17 @@ def get_worldcup():
 		ladies_worldcup_soup0 = BeautifulSoup(ladies_worldcup_page0, 'html.parser')
 		
 
-		for b in men_worldcup_soup0.find_all('a', {'class':'ablue'}, href = True):
-			men_worldcup_page1.append('https://skisport365.com/alpint/'+b['href'])
+		title_results_count=0
+		for b in men_worldcup_soup0.find_all('a', {'title':'Results'}, href = True):
+			if(title_results_count%2==0):
+				men_worldcup_page1.append('https://firstskisport.com/alpine/'+b['href'])
+			title_results_count+=1
 		
-
-		for b in ladies_worldcup_soup0.find_all('a', {'class':'ablue'}, href=True):
-			ladies_worldcup_page1.append('https://skisport365.com/alpint/'+b['href'])
+		title_results_count = 0
+		for b in ladies_worldcup_soup0.find_all('a', {'title':'Results'}, href=True):
+			if(title_results_count%2==0):
+				ladies_worldcup_page1.append('https://firstskisport.com/alpine/'+b['href'])
+			title_results_count+=1
 	
 
 	
@@ -314,6 +405,9 @@ def get_worldcup():
 		
 		
 		skiers = get_skier(men_worldcup_page1[a], distance)
+		if(skiers==-1):
+			continue
+
 		places = skiers[0]
 		ski = skiers[1]
 		nation = skiers[2]
@@ -335,6 +429,8 @@ def get_worldcup():
 		
 		
 		skiers = get_skier(ladies_worldcup_page1[a], distance)
+		if(skiers==-1):
+			continue
 		places = skiers[0]
 		ski = skiers[1]
 		nation = skiers[2]

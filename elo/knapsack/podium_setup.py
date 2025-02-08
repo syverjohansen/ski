@@ -166,11 +166,11 @@ startlists = get_startlist(namelist, ids, men_chrono, ladies_chrono, men_pkl, la
 startlist_men = startlists[0]
 startlist_ladies = startlists[1]
 
-startlist_men.to_pickle("~/ski/elo/knapsack/excel365/startlist_men_distance.pkl")
-startlist_men.to_excel("~/ski/elo/knapsack/excel365/startlist_men_distance.xlsx")
+startlist_men.to_pickle("~/ski/elo/knapsack/excel365/startlist_men.pkl")
+startlist_men.to_excel("~/ski/elo/knapsack/excel365/startlist_men.xlsx")
 
-startlist_ladies.to_pickle("~/ski/elo/knapsack/excel365/startlist_ladies_distance.pkl")
-startlist_ladies.to_excel("~/ski/elo/knapsack/excel365/startlist_ladies_distance.xlsx")
+startlist_ladies.to_pickle("~/ski/elo/knapsack/excel365/startlist_ladies.pkl")
+startlist_ladies.to_excel("~/ski/elo/knapsack/excel365/startlist_ladies.xlsx")
 
 
 print(time.time() - start_time)

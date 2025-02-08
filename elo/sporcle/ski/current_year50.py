@@ -41,7 +41,7 @@ def top10(df):
 	df['name'] = df['name'].str.replace('Ü', 'U')
 
 	ret_df = pd.DataFrame()
-	for a in range(2023, 2024):
+	for a in range(2024, 2025):
 		df_small = df.loc[df['season']==a]
 		df_small = df_small.sort_values(by='elo', ascending=False)
 		df_small = df_small.head(50)

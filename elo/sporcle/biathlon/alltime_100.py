@@ -33,7 +33,7 @@ def get_active(df, sex):
 		except:
 			start = "0"
 			end="0"
-		if(int(end)>=2022):
+		if(int(end)>=2023):
 			end="Present"
 		career = "("+start+"-"+end+")"
 		df.loc[df['id']==ids[a], 'career'] = career

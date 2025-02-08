@@ -22,7 +22,7 @@ df = df[(df.active == True) & (df.is_team == False) & (df.score > 0)]
 df = df.reset_index(drop=True)
 
 #df = pd.read_pickle("~/ski/elo/knapsack/fantasydf_spec.pkl")
-df = pd.read_excel("~/ski/elo/knapsack/excel365/fantasydf_trondheim.xlsx")
+df = pd.read_excel("~/ski/elo/knapsack/excel365/fantasydf_falun_R2.xlsx")
 df = df.drop_duplicates(subset=['id'])
 
 #print(df)#, drop=True)
@@ -60,8 +60,8 @@ def knapsack(data):
   
   ## Amount Constraint (16 selections):
   constraint_expr = [x[j] for j in range(data.shape[0])]
+  #solver.Add(sum(constraint_expr) <= 8)
   solver.Add(sum(constraint_expr) <= 16)
-  #solver.Add(sum(constraint_expr) <= 6)
 
   men, women = [], []
   #mixed = []
@@ -73,7 +73,6 @@ def knapsack(data):
       men.append(x[j])
     elif data["sex"].iloc[j] == "f":
       women.append(x[j])
-    
     else:
       print("ERROR: Gender is either m or f.")
       return None

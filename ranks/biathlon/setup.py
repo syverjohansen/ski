@@ -12,9 +12,9 @@ def ladies_setup():
 	#Step 1 is to read the sheet and assign column names
 	ladiesdf = pd.read_excel(xlsx, sheet_name="Ladies", header=None)
 	ladies_updatedf = pd.read_excel(update, sheet_name="Ladies", header=None)
-	#mendf = pd.read_excel(xlsx, sheet_name="Men", header=None)
-	#men_updatedf = pd.read_excel(update, sheet_name="Men", header=None)
-	#ladiesdf = ladiesdf.append(mendf, ignore_index=True)
+	mendf = pd.read_excel(xlsx, sheet_name="Men", header=None)
+	men_updatedf = pd.read_excel(update, sheet_name="Men", header=None)
+	ladiesdf = ladiesdf.append(mendf, ignore_index=True)
 
 	ladiesdf = ladiesdf.append(ladies_updatedf, ignore_index=True)
 	
@@ -155,8 +155,8 @@ def ladies_setup():
 
 
 
-	ladiesdf['id'] = ladiesdf['id'].str.split("&")
-	ladiesdf['id'] = ladiesdf['id'].str[0]
+	#ladiesdf['id'] = ladiesdf['id'].str.split("&")
+	#ladiesdf['id'] = ladiesdf['id'].str[0]
 	ladiesdf['id'] = ladiesdf['id'].astype(int)
 
 	#ladiesdf['name'][24330] = "Tatjana Kuznetsova2"

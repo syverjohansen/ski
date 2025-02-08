@@ -58,8 +58,8 @@ def fis_team_sprint():
 
 	#start with the men
 	#There will be 4 because of the semifinals
-	startlist_list = ["https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=43589",
-	"https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=43587"]
+	startlist_list = ["https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44216",
+	"https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44215"]
 	for a in range(len(startlist_list)):
 		startlist = BeautifulSoup(urlopen(startlist_list[a]), 'html.parser')
 	#print(startlist)
@@ -546,7 +546,8 @@ def elo_team_sprint(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_c
 
 		#For Relay
 		mendf['points'] = 0.0015396*mendf['points']**4-0.0737648*mendf['points']**3+1.1908351*mendf['points']**2-4.9454726*mendf['points']+10.2055212
-
+		max_mendf = max(mendf['points'])
+		mendf['points'] = mendf['points']/max_mendf
 			
 		mendfs.append(mendf)
 		
@@ -571,7 +572,8 @@ def elo_team_sprint(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_c
 
 		#Relay
 		ladiesdf['points'] = 0.0015396*ladiesdf['points']**4-0.0737648*ladiesdf['points']**3+1.1908351*ladiesdf['points']**2-4.9454726*ladiesdf['points']+10.2055212
-
+		max_ladiesdf = max(ladiesdf['points'])
+		ladiesdf['points'] = ladiesdf['points']/max_ladiesdf
 		#Next block is ladies non-regression
 		'''
 		ladies_wc_scores = ladiesdf['points'].tolist()
@@ -619,7 +621,6 @@ def elo_team_sprint(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_c
 	ladiesdf = ladiesdf[ladiesdf['points']>0]
 	mendf['place'] = np.arange(1, len(mendf)+1, 1)
 	ladiesdf['place'] = np.arange(1,len(ladiesdf)+1,1)
-	print(list(ladiesdf).sort())
 	fantasydf = mendf
 	fantasydf = fantasydf.append(ladiesdf)
 
@@ -1464,8 +1465,8 @@ def fis_relay():
 	#ids = men_ids
 	ids = []
 	#start with the men
-	startlist_list = ['https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44147',
-'https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44146']
+	startlist_list = ['https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44189',
+'https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44188']
 	for a in range(len(startlist_list)):
 	#for a in range(1,2):
 		startlist = BeautifulSoup(urlopen(startlist_list[a]), 'html.parser')
@@ -1766,6 +1767,7 @@ def elo_relay(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_chrono,
 		for b in range(len(fantasy_names)):
 
 			skier = df.loc[df['name'].str.lower() == fantasy_names[b]]
+			
 			if(len(skier['name'])==0):
 				print("Name not registered", fantasy_names[b])
 			#print(skier)
@@ -1790,7 +1792,7 @@ def elo_relay(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_chrono,
 				exp = skier['exp'].iloc[-1]
 				age = skier['age'].iloc[-1]
 
-				if(skier['nation'].iloc[-1]=="Italy"):
+				if(skier['nation'].iloc[-1]=="Germany"):
 					home = 1
 				else:
 					home = 0
@@ -2035,7 +2037,7 @@ def fis_mixed_relay():
 	sex = []
 	count = 0
 	#start with the men
-	startlist_list = ['https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=41622']
+	startlist_list = ['https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44190']
 	for a in range(len(startlist_list)):
 
 		startlist = BeautifulSoup(urlopen(startlist_list[a]), 'html.parser')
@@ -2321,7 +2323,7 @@ def elo_mixed_relay(fantasydf, mixedpkls,  mixed_vars,  mixed_chrono):
 				exp = skier['exp'].iloc[-1]
 				age = skier['age'].iloc[-1]
 
-				if(skier['nation'].iloc[-1]=="Italy"):
+				if(skier['nation'].iloc[-1]=="Switzerland"):
 					home = 1
 				else:
 					home = 0
@@ -2543,8 +2545,8 @@ def fis():
 
 	count = 0
 	#start with the men
-	startlist_list = ['https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44155',
-	'https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44154']
+	startlist_list = ['https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44233',
+	'https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=44232']
 	for a in startlist_list:
 		startlist = BeautifulSoup(urlopen(a), 'html.parser')
 	#print(startlist)
@@ -2629,6 +2631,7 @@ def fantasy(startlist):
 	return fantasy_df
 
 def pursuit(fantasydf):
+
 	stage = [50, 46, 43, 40, 37, 34, 32, 30, 28, 26, 24, 22, 20, 18, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 	wc = [100, 80, 60, 50, 45, 40, 36, 32, 29, 26, 24, 22, 20, 18, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 	tour = [400, 320, 240, 200, 180, 160, 144, 128, 116, 104, 96, 88, 80, 72, 64, 60, 56, 52, 48, 44, 40, 36, 32, 28, 24, 20,20, 20, 20, 20]
@@ -2640,7 +2643,7 @@ def pursuit(fantasydf):
 	mendf = mendf.sort_values(by='pursuit', ascending=True)
 	mendf['pursuit'] = np.arange(1, len(mendf)+1, 1)
 	mendf = mendf[:30]
-	mendf['points'] = tour
+	mendf['points'] = stage
 
 	ladiesdf = fantasydf.loc[fantasydf['sex']=='f']
 	ladiesdf = ladiesdf.sort_values(by='elo', ascending=False)
@@ -2649,7 +2652,7 @@ def pursuit(fantasydf):
 	ladiesdf = ladiesdf.sort_values(by='pursuit', ascending=True)
 	ladiesdf['pursuit'] = np.arange(1,len(ladiesdf)+1,1)
 	ladiesdf = ladiesdf[:30]
-	ladiesdf['points'] = tour
+	ladiesdf['points'] = stage
 
 	fantasydf = mendf
 	fantasydf = fantasydf.append(ladiesdf)
@@ -2659,7 +2662,7 @@ def pursuit(fantasydf):
 def elo(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_chrono, ladies_chrono):
 	stage = [50, 47, 44, 41, 38, 35, 32, 30, 28, 26, 24, 22, 20, 18, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 	wc = [100,95,90,85,80,75,72,69,66,63,60,58,56,54,52,50,48,46,44,42,40, 38, 36, 34, 32, 30, 28, 26, 24, 22, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
-	tour = [300, 285, 270, 255, 240, 216, 207, 198, 189, 180, 174, 168, 162, 156, 150, 144, 138, 132, 126, 120, 114, 108, 102, 96, 90, 84, 78, 72, 66, 60, 57, 54, 51, 48, 45, 42, 39, 36, 33, 30, 27, 24, 21, 18, 15, 12, 9, 6, 3]
+	tour = [300, 285, 270, 255, 240, 225, 216, 207, 198, 189, 180, 174, 168, 162, 156, 150, 144, 138, 132, 126, 120, 114, 108, 102, 96, 90, 84, 78, 72, 66, 60, 57, 54, 51, 48, 45, 42, 39, 36, 33, 30, 27, 24, 21, 18, 15, 12, 9, 6, 3]
 	mendfs = []
 	ladiesdfs = []
 	fantasydf.loc[:,'points'] =0
@@ -2847,13 +2850,13 @@ def elo(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_chrono, ladie
 				#NEED TO CHANGE AVERAGE POINTS AS IT LOOKS AT ALL
 
 				#Individual
-				#avg_points = skier_pkl['avg_points'].iloc[-1]*.896294-0.0042397*skier_pkl['avg_points'].iloc[-1]**2+1.5865602
+				avg_points = skier_pkl['avg_points'].iloc[-1]*.896294-0.0042397*skier_pkl['avg_points'].iloc[-1]**2+1.5865602
 
 				#Stage
 				#avg_points = skier_pkl['avg_points'].iloc[-1]*1.0801595-0.0100871*skier_pkl['avg_points'].iloc[-1]**2+0.1584908
 				
 				#Tour de Ski
-				avg_points = skier['avg_points'].iloc[-1]*0.29674200-0.00046598*skier['avg_points'].iloc[-1]**2+1.76564661
+				#avg_points = skier['avg_points'].iloc[-1]*0.29674200-0.00046598*skier['avg_points'].iloc[-1]**2+1.76564661
 				skier_avg_points.append(avg_points)
 			except Exception:
 				#print(fantasy_names[b])
@@ -2870,7 +2873,7 @@ def elo(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_chrono, ladie
 			except:
 				skier_age.append(0)
 			try:
-				if(skier['nation'].iloc[-1]=="Finland"):
+				if(skier['nation'].iloc[-1]=="Sweden"):
 					#home = "TRUE"
 					home = 1
 				else:
@@ -2938,10 +2941,15 @@ def elo(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_chrono, ladie
 		mendf['points'].loc[mendf['points']<0] = 0
 
 		#Individual
-		#mendf['points'] = .030964*mendf['points']**2+.263557*mendf['points']+3.196429
+		mendf['points'] = .030964*mendf['points']**2+.263557*mendf['points']+3.196429
 
-		#Tour de Ski
-		mendf['points'] = 0.093193*mendf['points']**2+0.787371*mendf['points']+9.215816 
+		#New Tour de Ski Method (don't forget to change numbers on chrono_regress.py)
+		#mendf['points'] = 0.093193*mendf['points']**2+0.787371*mendf['points']+9.215816 
+
+
+		#Old Tour de Ski Method
+		#mendf['points'] = .030964*mendf['points']**2+.263557*mendf['points']+3.196429
+		#mendf['points'] = mendf['points'] * 3
 
 		#For Stages
 		#mendf['points'] = 0.045676*mendf['points']**2+0.178935*mendf['points']+2.531034
@@ -2967,10 +2975,14 @@ def elo(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_chrono, ladie
 		ladiesdf['points'].loc[ladiesdf['points']<0] = 0
 
 		#Individual
-		#ladiesdf['points'] = .263557*ladiesdf['points']+.030964*ladiesdf['points']**2+3.196429
+		ladiesdf['points'] = .263557*ladiesdf['points']+.030964*ladiesdf['points']**2+3.196429
 		
-		#Tour de Ski
-		ladiesdf['points'] = 0.787371 *ladiesdf['points']+0.093193*ladiesdf['points']**2+9.215816
+		#New Tour de Ski
+		#ladiesdf['points'] = 0.787371 *ladiesdf['points']+0.093193*ladiesdf['points']**2+9.215816
+
+		#Old Tour de Ski
+		#ladiesdf['points'] = .263557*ladiesdf['points']+.030964*ladiesdf['points']**2+3.196429
+		#ladiesdf['points'] = ladiesdf['points'] * 3
 
 		#Stages
 		#ladiesdf['points'] = 0.045676*ladiesdf['points']**2+0.178935*ladiesdf['points']+2.531034
@@ -3026,7 +3038,7 @@ def elo(fantasydf, menpkls, ladiespkls, men_vars, ladies_vars, men_chrono, ladie
 	fantasydf = mendf
 	fantasydf = fantasydf.append(ladiesdf)
 
-	fantasydf = fantasydf[['name', 'id', 'price', 'sex','points', 'race1',  'race2','race3', 'place']]
+	fantasydf = fantasydf[['name', 'id', 'price', 'sex','points', 'race1', 'race2','race3', 'place']]
 	return fantasydf
 			
 
@@ -3069,8 +3081,12 @@ def regress_relay(df, vars_list):#, pkl):
 	df[vars_list] = df[vars_list]
 	df = df.fillna(0)
 	if('pavg_points' in vars_list):
-		#Stage races
 		df['pavg_points'] = df['pavg_points'].apply(lambda x: -.958832685276+.682250876756*x-.006352194332*x**2+0.000027600716*x**3-0.000000045133*x**4)
+		#Individual
+	 	#df['pavg_points'] = df['pavg_points'].apply(lambda x: 1.5865602+.896294*x-0.0042397*x**2)		
+		
+		#Stage races
+		#df['pavg_points'] = df['pavg_points'].apply(lambda x: -.958832685276+.682250876756*x-.006352194332*x**2+0.000027600716*x**3-0.000000045133*x**4)
 		
 		#Tour de Ski
 		#df['points'] = df['points'].apply(lambda x: 1.76564661+.296742*x-0.0046598*x**2)
@@ -3102,7 +3118,7 @@ def regress(df, vars_list):#, pkl):
 	#points = [100, 80, 60, 50, 45, 40, 36, 32, 29, 26, 24, 22, 20, 18, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 	
 	#Set what type of race it is
-	points = wc
+	points = stage
 	df = df.loc[df['level']=="all"]
 	max_elo = max(df['elo'])
 	df = df.loc[df['season']>=2019]
@@ -3115,12 +3131,16 @@ def regress(df, vars_list):#, pkl):
 	
 	df.loc[df['home']=="TRUE"] = 1
 	df.loc[df['home']=="FALSE"] = 0
-	
 	#Individual
+	df['points'] = df['points'].apply(lambda x: 1.5865602+.896294*x-0.0042397*x**2)
+	
+	#New Tour de Ski
+#	print(df[['name', 'points']])
+#	df['points'] = df['points'].apply(lambda x: 1.76564661+.296742*x-0.00046598*x**2)
+#	print(df[['name', 'points']])
+	
+	#Old Tour de Ski
 	#df['points'] = df['points'].apply(lambda x: 1.5865602+.896294*x-0.0042397*x**2)
-
-	#Tour de Ski
-	df['points'] = df['points'].apply(lambda x: 1.76564661+.296742*x-0.0046598*x**2)
 
 	#Stage races
 	#df['points'] = df['points'].apply(lambda x: 0.1584908+1.0801595*x-0.0100871*x**2)
@@ -3132,13 +3152,16 @@ def regress(df, vars_list):#, pkl):
 	df = df.fillna(0)
 	if('pavg_points' in vars_list):
 		#Individual
-		#df['pavg_points'] = df['pavg_points'].apply(lambda x: 1.5865602+.896294*x-0.0042397*x**2)
+	 	df['pavg_points'] = df['pavg_points'].apply(lambda x: 1.5865602+.896294*x-0.0042397*x**2)
 		
-		#Tour de Ski
-		df['points'] = df['points'].apply(lambda x: 1.76564661+.296742*x-0.0046598*x**2)
+		#New Tour de Ski
+		#df['pavg_points'] = df['pavg_points'].apply(lambda x: 1.76564661+.296742*x-0.0046598*x**2)
+
+		#Old Tour de Ski
+	 	#df['pavg_points'] = df['pavg_points'].apply(lambda x: 1.5865602+.896294*x-0.0042397*x**2)
 
 		#Stage
-		#df['pavg_points'] = df['pavg_points'].apply(lambda x: 0.1584908+0.29674200*x-0.00046598*x**2)
+		#df['pavg_points'] = df['pavg_points'].apply(lambda x: 0.1584908+1.0801595*x-0.0100871*x**2)
 	
 	
 	y = df['points']
@@ -3149,6 +3172,7 @@ def regress(df, vars_list):#, pkl):
 	coefs = [lm.intercept_]
 	for a in range(len(vars_list)):
 		coefs.append(lm.coef_[a])
+	print("these are the coefficients")
 	print(coefs)
 	return coefs
 
@@ -3243,42 +3267,55 @@ def dezero(df):
 
 
 
-#menpkls = ["/Users/syverjohansen/ski/elo/python/ski/age/excel365/men_chrono_regress_sprint_freestyle.pkl",
-#"/Users/syverjohansen/ski/elo/python/ski/age/excel365/men_chrono_regress_distance.pkl",
-#"/Users/syverjohansen/ski/elo/python/ski/age/excel365/men_chrono_regress_distance_classic.pkl"]
+#menpkls = ["/Users/syverjohansen/ski/elo/python/ski/age/excel365/men_chrono_regress_distance_classic.pkl",
+#"/Users/syverjohansen/ski/elo/python/ski/age/excel365/men_chrono_regress_sprint_freestyle.pkl"]
 #"/Users/syverjohansen/ski/elo/python/ski/age/excel365/men_chrono_regress_distance_classic.pkl",
+#"/Users/syverjohansen/ski/elo/python/ski/age/excel365/men_chrono_regress_sprint_classic.pkl"]
+
+menpkls = ["/Users/syverjohansen/ski/elo/python/ski/age/excel365/men_chrono_regress_sprint_classic.pkl",
+"/Users/syverjohansen/ski/elo/python/ski/age/excel365/men_chrono_regress_distance_classic.pkl",
+"/Users/syverjohansen/ski/elo/python/ski/age/excel365/men_chrono_regress_distance_freestyle.pkl"]
+#menpkls = ["/Users/syverjohansen/ski/elo/python/ski/age/excel365/men_chrono_regress_tds.pkl"]
+
+#menpkls = ["/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/men_chrono_regress_ts_classic.pkl"]
 
 
-menpkls = ["/Users/syverjohansen/ski/elo/python/ski/age/excel365/men_chrono_regress_tds.pkl"]
-
-#menpkls = ["/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/men_chrono_regress_relay.pkl"]
 
 
 
-
-
-#men_AIC = [['age', 'exp', 'pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'home', 'pavg_points'],
+#men_AIC = [['age', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points'],
+#['age', 'exp', 'pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'classic_pelo', 'freestyle_pelo', 'home', 'pavg_points'],
 #['age', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points'],
-#['age', 'pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points']]
-#['exp', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'home', 'pavg_points'],
+#['age', 'exp', 'pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'home', 'pavg_points']]
 #['exp', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points']]
-men_AIC = [['age', 'exp', 'pelo', 'distance_freestyle_pelo', 'sprint_classic_pelo', 'classic_pelo', 'freestyle_pelo']]
+men_AIC = [['age', 'exp', 'pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'home', 'pavg_points'],
+['age', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points'],
+['age', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points']]
+#mtds_AIC = [['age', 'pelo', 'distance_freestyle_pelo', 'sprint_classic_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points']]
+#men_AIC = [['age', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points']]
 
-
-#men_BIC = [['age', 'exp', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'home', 'pavg_points'],
-#['age', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points'],
-#['age', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'pavg_points']]
-#['exp', 'pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points'],
+#men_BIC = [['age', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points'],
+#['age', 'exp', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'home', 'pavg_points'],
+#['age', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'pavg_points'],
+#['age', 'exp', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'home', 'pavg_points']]
 #['pelo', 'distance_pelo', 'distance_classic_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points']]
-men_BIC = [['pelo', 'distance_freestyle_pelo', 'sprint_classic_pelo', 'classic_pelo', 'freestyle_pelo']]
+men_BIC = [['age', 'exp', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'home', 'pavg_points'],
+['age', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'pavg_points'],
+['age', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points']]
+#men_BIC = [['age', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'pavg_points']]
+#mtds_BIC = [['age', 'pelo', 'distance_freestyle_pelo', 'sprint_classic_pelo', 'classic_pelo', 'freestyle_pelo']]
 
 
-#men_R2 = [['age', 'exp', 'pelo', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'classic_pelo', 'freestyle_pelo', 'home', 'pavg_points'],
-#['exp', 'pelo', 'distance_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'classic_pelo', 'freestyle_pelo', 'home', 'pavg_points'],
-#['age', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points']]
-#['age', 'exp', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'home', 'pavg_points'],
+#men_R2 = [['exp', 'pelo', 'distance_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points'],
+#['age', 'exp', 'pelo', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'classic_pelo', 'freestyle_pelo', 'home', 'pavg_points'],
+#['age', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'sprint_classic_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points'],
+#['exp', 'pelo', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'freestyle_pelo', 'home', 'pavg_points']]
 #['age', 'exp', 'pelo', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points']]
-men_R2 = [['age', 'exp', 'pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo']]
+men_R2 = [['exp', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'classic_pelo', 'freestyle_pelo', 'home', 'pavg_points'],
+['age', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points'],
+['exp', 'pelo', 'distance_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points']]
+#men_R2 = [['age', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points']]
+#mtds_R2 = [['age', 'pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points']]
 
 
 men_sprint = [['age', 'exp', 'pelo', 'distance_freestyle_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'home', 'pavg_points']]
@@ -3286,7 +3323,7 @@ men_sprint = [['age', 'exp', 'pelo', 'distance_freestyle_pelo', 'sprint_classic_
 men_distance = [['exp', 'pelo',  'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_classic_pelo',  'classic_pelo', 'freestyle_pelo',  'pavg_points']]
 
 
-men_vars = men_AIC
+men_vars = men_R2
 
 #,
 	#"~/ski/elo/python/ski/excel365/varmen_distance_freestyle_k.pkl"]
@@ -3294,34 +3331,49 @@ men_vars = men_AIC
 
 
 
-#ladiespkls = ["/Users/syverjohansen/ski/elo/python/ski/age/excel365/ladies_chrono_regress_sprint_freestyle.pkl",
-#"/Users/syverjohansen/ski/elo/python/ski/age/excel365/ladies_chrono_regress_distance.pkl",
-#"/Users/syverjohansen/ski/elo/python/ski/age/excel365/ladies_chrono_regress_distance_freestyle.pkl"]
+#ladiespkls = ["/Users/syverjohansen/ski/elo/python/ski/age/excel365/ladies_chrono_regress_distance_classic.pkl",
+#"/Users/syverjohansen/ski/elo/python/ski/age/excel365/ladies_chrono_regress_sprint_freestyle.pkl"]
 
-ladiespkls = ["/Users/syverjohansen/ski/elo/python/ski/age/excel365/ladies_chrono_regress_tds.pkl"]
+ladiespkls = ["/Users/syverjohansen/ski/elo/python/ski/age/excel365/ladies_chrono_regress_sprint_classic.pkl",
+"/Users/syverjohansen/ski/elo/python/ski/age/excel365/ladies_chrono_regress_distance_classic.pkl",
+"/Users/syverjohansen/ski/elo/python/ski/age/excel365/ladies_chrono_regress_distance_freestyle.pkl"]
+#ladiespkls = ["/Users/syverjohansen/ski/elo/python/ski/age/excel365/ladies_chrono_regress_tds.pkl"]
 
-#ladiespkls = ["/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/ladies_chrono_regress_relay.pkl"]
+#ladiespkls = ["/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/ladies_chrono_regress_ts_classic.pkl"]
 
 
-#ladies_AIC = [['age', 'exp', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'home', 'pavg_points'],
+#ladies_AIC = [['age', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'home', 'pavg_points'],
 #['age', 'exp', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'home', 'pavg_points'],
-#['age', 'exp', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points']]
-#['age', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'home', 'pavg_points']]
-ladies_AIC = [['pelo', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'freestyle_pelo', 'pavg_points']]
+#['age', 'exp', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'pavg_points'],
+#['age', 'exp', 'pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'home', 'pavg_points']]
+ladies_AIC = [['age', 'exp', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'home', 'pavg_points'],
+['age', 'exp', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'pavg_points'],
+['age', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'home', 'pavg_points']]
+#ladies_AIC = [['age', 'exp', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'pavg_points']]
+#ltds_AIC = [['pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'classic_pelo', 'freestyle_pelo']]
 
 
-#ladies_BIC = [['age', 'exp', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points'],
-#['age', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'pavg_points'],
-#['age', 'exp', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'pavg_points']]
-#['age', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'pavg_points']]
-ladies_BIC = [['pelo', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'freestyle_pelo']]
+#ladies_BIC = [['age', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'pavg_points'],
+#['age', 'exp', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points'],
+#['age', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'pavg_points'],
+#['age', 'exp', 'pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'pavg_points']]
+ladies_BIC = [['age', 'pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'pavg_points'],
+['age', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'pavg_points'],
+['age', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'pavg_points']]
+#ladies_BIC = [['age', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'pavg_points']]
+#ltds_BIC = [['pelo', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_classic_pelo', 'freestyle_pelo']]
 
 
-#ladies_R2 = [['age', 'exp', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'home', 'pavg_points'],
-#['exp', 'pelo', 'distance_pelo', 'sprint_pelo', 'classic_pelo', 'home', 'pavg_points'],
-#['exp', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'sprint_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points']]
-#['exp', 'pelo', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'classic_pelo', 'home', 'pavg_points']]
-ladies_R2 = [['pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points']]
+#ladies_R2 = [['exp', 'pelo', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'classic_pelo', 'freestyle_pelo', 'home', 'pavg_points'],
+#['age', 'exp', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'home', 'pavg_points'],
+#['exp', 'distance_pelo', 'sprint_pelo', 'classic_pelo', 'pavg_points'],
+#['exp', 'pelo', 'sprint_pelo', 'sprint_classic_pelo', 'classic_pelo', 'home', 'pavg_points']]
+ladies_R2 = [['exp', 'pelo', 'sprint_pelo', 'sprint_classic_pelo', 'classic_pelo', 'home', 'pavg_points'],
+['exp', 'distance_pelo', 'sprint_pelo', 'classic_pelo', 'pavg_points'],
+['exp', 'pelo', 'distance_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'classic_pelo', 'home', 'pavg_points']]
+#ladies_R2 = [['exp', 'distance_pelo', 'sprint_pelo', 'classic_pelo', 'pavg_points']]
+
+#ltds_R2 = [['pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'pavg_points']]
 
 
 
@@ -3329,12 +3381,12 @@ ladies_sprint = [['age', 'pelo', 'distance_pelo', 'distance_freestyle_pelo', 'sp
 
 ladies_distance = [['age', 'distance_pelo', 'distance_classic_pelo', 'sprint_pelo', 'freestyle_pelo', 'pavg_points']]
 
-ladies_vars = ladies_AIC
+ladies_vars = ladies_R2
 
 mixedpkls = ["/Users/syverjohansen/ski/elo/python/ski/age/relay/excel365/mixed_chrono_regress_relay.pkl"]
-mixed_AIC = [['age', 'exp', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo']]
-mixed_BIC = [['age', 'exp', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo']]
-mixed_R2 = [['age', 'exp', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'distance_freestyle_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'home']]
+mixed_AIC = [['age', 'distance_classic_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'home']]
+mixed_BIC = [['age', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'freestyle_pelo']]
+mixed_R2 = [['age', 'pelo', 'distance_pelo', 'distance_classic_pelo', 'sprint_pelo', 'sprint_classic_pelo', 'sprint_freestyle_pelo', 'classic_pelo', 'freestyle_pelo', 'home']]
 mixed_vars = mixed_R2
 
 
@@ -3392,8 +3444,8 @@ mixed_ts_fantasydf = elo_mixed_ts(mixed_ts_fantasydf, men_ts_skier_pkls, ladies_
 fantasydf = mixed_combo(mixed_relay_fantasydf, mixed_ts_fantasydf)
 print(fantasydf)'''
 
-fantasydf.to_pickle("~/ski/elo/knapsack/excel365/fantasydf_trondheim_BIC.pkl")
-fantasydf.to_excel("~/ski/elo/knapsack/excel365/fantasydf_trondheim_BIC.xlsx")
+fantasydf.to_pickle("~/ski/elo/knapsack/excel365/fantasydf_falun_R2.pkl")
+fantasydf.to_excel("~/ski/elo/knapsack/excel365/fantasydf_falun_R2.xlsx")
 
 
 print(time.time() - start_time)

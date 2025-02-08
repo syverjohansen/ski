@@ -153,8 +153,8 @@ def ladies_setup():
 
 
 
-	ladiesdf['id'] = ladiesdf['id'].str.split("&")
-	ladiesdf['id'] = ladiesdf['id'].str[0]
+	#ladiesdf['id'] = ladiesdf['id'].str.split("&")
+	#ladiesdf['id'] = ladiesdf['id'].str[0]
 	ladiesdf['id'] = ladiesdf['id'].astype(int)
 
 	#ladiesdf['name'][24330] = "Tatjana Kuznetsova2"
