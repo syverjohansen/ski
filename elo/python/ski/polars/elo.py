@@ -17,58 +17,33 @@ warnings.filterwarnings('ignore')
 pl.Config.set_tbl_cols(100)
 start_time = time.time()
 
+# Modify the sex function in elo.py to use the updated scrape files:
 def sex(df, sex):
-    dtypes = {
-        "Distance": pl.Utf8  # Assuming Distance should be read as a string
-    }
     if(sex=="M"):
-        df = pl.read_ipc("~/ski/elo/python/ski/polars/excel365/men_setup.feather") # Cast Distance column to string
-        df = df.with_columns([
-            pl.col("Date").cast(pl.Utf8),
-            pl.col("City").cast(pl.Utf8),
-            pl.col("Country").cast(pl.Utf8),
-            pl.col("Sex").cast(pl.Utf8),
-            pl.col("Distance").cast(pl.Utf8),
-            pl.col("Event").cast(pl.Utf8),
-            pl.col("MS").cast(pl.Int64),
-            pl.col("Technique").cast(pl.Utf8),
-            pl.col("Place").cast(pl.Int64),
-            pl.col("Skier").cast(pl.Utf8),
-            pl.col("Nation").cast(pl.Utf8),
-            pl.col("ID").cast(pl.Int64),
-            pl.col("Season").cast(pl.Int64),
-            pl.col("Race").cast(pl.Int64),
-            pl.col("Birthday").cast(pl.Utf8),
-            pl.col("Age").cast(pl.Utf8),
-            pl.col("Exp").cast(pl.Int64)
-            
-        ])
-        
-
-        
-
+        df = pl.read_ipc("~/ski/elo/python/ski/polars/excel365/men_scrape_update.feather")
     else:
-        df = pl.read_ipc("~/ski/elo/python/ski/polars/excel365/ladies_setup.feather")
-        df = df.with_columns([
-            pl.col("Date").cast(pl.Utf8),
-            pl.col("City").cast(pl.Utf8),
-            pl.col("Country").cast(pl.Utf8),
-            pl.col("Sex").cast(pl.Utf8),
-            pl.col("Distance").cast(pl.Utf8),
-            pl.col("Event").cast(pl.Utf8),
-            pl.col("MS").cast(pl.Int64),
-            pl.col("Technique").cast(pl.Utf8),
-            pl.col("Place").cast(pl.Int64),
-            pl.col("Skier").cast(pl.Utf8),
-            pl.col("Nation").cast(pl.Utf8),
-            pl.col("ID").cast(pl.Int64),
-            pl.col("Season").cast(pl.Int64),
-            pl.col("Race").cast(pl.Int64),
-            pl.col("Birthday").cast(pl.Utf8),
-            pl.col("Age").cast(pl.Utf8),
-            pl.col("Exp").cast(pl.Int64)
-        ])
-    print(df.dtypes)
+        df = pl.read_ipc("~/ski/elo/python/ski/polars/excel365/ladies_scrape_update.feather")
+    
+    # Cast columns to appropriate types
+    df = df.with_columns([
+        pl.col("Date").cast(pl.Utf8),
+        pl.col("City").cast(pl.Utf8),
+        pl.col("Country").cast(pl.Utf8),
+        pl.col("Sex").cast(pl.Utf8),
+        pl.col("Distance").cast(pl.Utf8),
+        pl.col("Event").cast(pl.Utf8),
+        pl.col("MS").cast(pl.Int64),
+        pl.col("Technique").cast(pl.Utf8),
+        pl.col("Place").cast(pl.Int64),
+        pl.col("Skier").cast(pl.Utf8),
+        pl.col("Nation").cast(pl.Utf8),
+        pl.col("ID").cast(pl.Int64),
+        pl.col("Season").cast(pl.Int64),
+        pl.col("Race").cast(pl.Int64),
+        pl.col("Birthday").cast(pl.Utf8),
+        pl.col("Age").cast(pl.Utf8),
+        pl.col("Exp").cast(pl.Int64)
+    ])
     return df
 
 def relay(df, relay):
@@ -307,6 +282,31 @@ def k_finder(season_df, max_var_length):
     print(k)
     return k
 
+def init_elo_df():
+    return pl.DataFrame(
+        schema={
+            "Date": pl.Utf8,
+            "City": pl.Utf8,
+            "Country": pl.Utf8,
+            "Sex": pl.Utf8,
+            "Distance": pl.Utf8,
+            "Event": pl.Utf8,
+            "MS": pl.Int64,
+            "Technique": pl.Utf8,
+            "Place": pl.Int64,
+            "Skier": pl.Utf8,
+            "Nation": pl.Utf8,
+            "ID": pl.Int64,
+            "Season": pl.Int64,
+            "Race": pl.Int64,
+            "Birthday": pl.Utf8,
+            "Age": pl.Utf8,
+            "Exp": pl.Int64,
+            "Pelo": pl.Float64,
+            "Elo": pl.Float64
+        }
+    )
+
 
 def process_skier(idd, season_df, id_dict, discount, base_elo, seasons, season, sex, elo_df_columns):
     endseasondate = str(datetime(seasons[season], 5, 1))
@@ -318,11 +318,12 @@ def process_skier(idd, season_df, id_dict, discount, base_elo, seasons, season, 
     endbirthday = str(endskier['Birthday'][-1])
     endage = str(endskier['Age'][-1])
     endexp = endskier['Exp'][-1]
+    
+    # Create DataFrame with all columns in the correct order
     endf = pl.DataFrame({
         "Date": [endseasondate],
         "City": ["Summer"],
         "Country": ["Break"],
-        "Event": ["End"],
         "Sex": [sex],
         "Distance": ["0"],
         "Event": ["Offseason"],
@@ -340,168 +341,153 @@ def process_skier(idd, season_df, id_dict, discount, base_elo, seasons, season, 
         "Pelo": [endpelo],
         "Elo": [endelo]
     })
+    
+    # Ensure column order matches main DataFrame
+    if elo_df_columns:
+        endf = endf.select(elo_df_columns)
+    
     id_dict[idd] = endelo
     return endf
 
 def parallel_process_skiers(season_df, id_dict, discount, base_elo, seasons, season, sex, elo_df):
     ski_ids_s = season_df['ID'].unique().to_list()
     
+    # Get column names from main DataFrame if it exists
+    elo_df_columns = elo_df.columns if not elo_df.is_empty() else None
+    
     results = []
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        futures = {executor.submit(process_skier, idd, season_df, id_dict, discount, base_elo, seasons, season, sex, elo_df.columns): idd for idd in ski_ids_s}
+        futures = {
+            executor.submit(
+                process_skier, 
+                idd, 
+                season_df, 
+                id_dict, 
+                discount, 
+                base_elo, 
+                seasons, 
+                season, 
+                sex, 
+                elo_df_columns
+            ): idd for idd in ski_ids_s
+        }
+        
         for future in concurrent.futures.as_completed(futures):
             results.append(future.result())
     
     # Concatenate all the DataFrames returned by the parallel processing
     new_rows = pl.concat(results)
-
-    elo_df = pl.concat([elo_df, new_rows])
-    return elo_df, id_dict
+    
+    # If elo_df is empty, return new_rows directly
+    if elo_df.is_empty():
+        return new_rows, id_dict
+    
+    # Ensure both DataFrames have the same column order before concatenation
+    new_rows = new_rows.select(elo_df.columns)
+    return pl.concat([elo_df, new_rows]), id_dict
 
 #Creating the elo function
 #The initial score we are setting is 1300, arbitrary number that is subject to change from testing
 #K score is 1 by default, we will change this, and I want to do testing to determine the best overall K eventually
 #Discount is .85.  This is how much we will reduce an athletes elo by at the end of a season.  Again to be tested
+# Modify the elo function to include place sorting
 def elo(df, base_elo=1300, K=1, discount=.85):
-    #Get the sex
+    # Get the sex
     sex = df['Sex'][0]
     
+    # Create an empty DataFrame with the correct schema
+    elo_df = init_elo_df()
     
-    #Create an empty DataFrame
-    elo_df = pl.DataFrame()
+    # Get column order from the initialized DataFrame
+    column_order = elo_df.columns
     
-    #Create a list of the IDs in the df
+    # Sort the entire dataframe by Season, Race, and Place
+    df = df.sort(['Season', 'Race', 'Place'])
+    
+    # Create a list of the IDs in the df
     id_dict_list = df['ID'].unique().to_list()
     
-    #Assign everyone a value of 1300 to start out with
+    # Assign everyone a value of 1300 to start out with
     id_dict = {k:1300.0 for k in id_dict_list}
     
-
-    
-
     # Getting the maximum number of races in the df
     max_races = df['Race'].max()
     
-    # Getting a list of all the seasons in the df. Can't assume 1924 to present
+    # Getting a list of all the seasons in the df
     seasons = df['Season'].unique().to_list()
     max_var_length = 0
     for season in seasons:
         season_df = df.filter(pl.col('Season') == season)
         max_var_length = max(max_var_length, season_df['Race'].unique().shape[0])
 
-    k_total = 0
-    evec_total = 0
-    svec_total = 0
-    summer_total = 0
-    update_total = 0
-    elo_list_total = 0
-    elo_series_total = 0
-    race_df_total = 0
-    elo_df_total = 0
-    id_dict_total = 0
-
     for season in range(len(seasons)):
-        #Creating a season df
-        season_df = df.filter(pl.col('Season')==seasons[season])
+        # Creating a season df and sorting by Race and Place
+        season_df = df.filter(pl.col('Season')==seasons[season]).sort(['Race', 'Place'])
         
-        
-        #Get the K value. K-value will be it's own write up and will do testing to find the optimal solution
-        #Doesn't seem like too much open source research has been done on the topic
-        k_time = time.time()
+        # Get the K value
         K = k_finder(season_df, max_var_length)
-        k_total = k_total + time.time() - k_time
-
         print(seasons[season])
 
-        season_elo_df = pl.DataFrame()
+        # Initialize season_elo_df with the same schema
+        season_elo_df = init_elo_df()
         
         races = season_df['Race'].unique().to_list()
-        #Now we get to the calculating elo part for each race
         for race in range(len(races)):
-            #Isolate the race into a df
-            race_df = season_df.filter(pl.col('Race')==races[race])
+            # Isolate the race into a df and sort by Place
+            race_df = season_df.filter(pl.col('Race')==races[race]).sort('Place')
             
-            
-            #Create a list of all the IDs in that race
+            # Create a list of all the IDs in that race
             ski_ids_r = race_df['ID'].to_list()
-            #Get the most recent elo score for each skier in the race
+            
+            # Get the most recent elo score for each skier in the race
             pelo_list = [id_dict[idd] for idd in ski_ids_r]
             
-            #Get a list of all the places in the race
+            # Get a list of all the places in the race
             places_list = race_df['Place'].to_list()
             
-            #Create a column called Pelo that has all the previous elo values
-            race_df = race_df.with_columns(pl.Series(name="Pelo", values=pelo_list))
+            # Create a column called Pelo that has all the previous elo values
+            race_df = race_df.with_columns([
+                pl.Series(name="Pelo", values=pelo_list)
+            ])
 
-            if(race_df.select(pl.col("Distance")).row(0)[0] == "Ts"):
-                print("TS")
+            # Calculate elo values based on race type
+            if race_df.select(pl.col("Distance")).row(0)[0] == "Ts":
                 K1 = K/2
                 E = calc_Evec(pelo_list)
                 S = calc_Svec(places_list)
                 elo_list = np.array(pelo_list) + K1 * (S-E)
-
-            elif(race_df.select(pl.col("Distance")).row(0)[0] == "Rel"):
-                print("Rel")
+            elif race_df.select(pl.col("Distance")).row(0)[0] == "Rel":
                 K2 = K/4
                 E = calc_Evec(pelo_list)
                 S = calc_Svec(places_list)
                 elo_list = np.array(pelo_list) + K2 * (S-E)
-
             else:            
-            
-            #Get the expected elos based on everyone's previous elo
-                evec_time = time.time()
                 E = calc_Evec(pelo_list)
-                evec_total = evec_total + time.time() - evec_time
-
-
-                svec_time = time.time()
                 S = calc_Svec(places_list)
-                svec_total = svec_total + time.time() - svec_time
-            
-            #The new elo scores
-                update_time = time.time()
-
-                elo_list_time = time.time()
                 elo_list = np.array(pelo_list) + K * (S - E)
-                elo_list_total = elo_list_total+time.time()-elo_list_time
-            # Putting the elo_list into the race_df and adding race_df to the elo_df
 
-            elo_series_time = time.time()
-            elo_series = pl.Series("Elo", elo_list)
-            elo_series_total = elo_series_total+time.time()-elo_series_time
+            # Add Elo column
+            race_df = race_df.with_columns([
+                pl.Series(name="Elo", values=elo_list)
+            ])
 
-            race_df_time = time.time()
-            race_df = race_df.with_columns(elo_series)
-            race_df_total = race_df_total + time.time()-race_df_time
-
-            elo_df_time = time.time()
-            season_elo_df = pl.concat([season_elo_df, race_df])
-            elo_df_total = elo_df_total + time.time()-elo_df_time
-
+            # Ensure race_df has all required columns in correct order
+            race_df = race_df.select(column_order)
             
-            # Updating the most recent elos for each id
-            id_dict_time = time.time()
+            # Concatenate to season_elo_df
+            season_elo_df = pl.concat([season_elo_df, race_df])
+            
+            # Update id_dict with new elo values
             id_dict.update({idd: elo_list[i] for i, idd in enumerate(ski_ids_r)})
-            id_dict_total = id_dict_total+time.time()-id_dict_time
 
+        # Concatenate season results to main DataFrame
         elo_df = pl.concat([elo_df, season_elo_df])
-        update_total = update_total + time.time() - update_time
-        #Making the end season date May 1st 
-        summer_time = time.time()
-        # Making the end season date May 1st    
+        
+        # Add end of season records
         elo_df, id_dict = parallel_process_skiers(season_df, id_dict, discount, base_elo, seasons, season, sex, elo_df)
-        summer_total = summer_total + time.time() - summer_time
-    print("K-score calculation: " + str(k_total))
-    print("evec calculation: " + str(evec_total))
-    print("svec calculation: " + str(svec_total))
-    print("Update calculation: " + str(update_total))
-    print("summer calculation: " + str(summer_total))
-    print("Elo list time: " + str(elo_list_total))
-    print("Elo series time: " + str(elo_series_total))
-    print("Race df time: " + str(race_df_total))
-    print("Elo df time: " + str(elo_df_total))
-    print("ID Dict time: " + str(id_dict_total))
+    
+    # Final sort of the entire DataFrame
+    elo_df = elo_df.sort(['Date','Season', 'Race', 'Place'])
     return elo_df
 
 df = pl.DataFrame()
@@ -510,23 +496,34 @@ json_str = sys.argv[1]
 data = json.loads(json_str)
 print(data)
 
+# File string creation code remains the same
 file_string = ""
 for key, value in data.items():
-    if key=="relay":
-        if value==1:
-            file_string = file_string+"rel_"
+    if key == "relay":
+        if value == 1:
+            file_string = file_string + "rel_"
         else:
             df = handle_value(key, 0, df)
-    elif value is not None:
-        file_string = file_string+value+"_"
+    elif value is not None and value != "null":  # Skip null values
+        file_string = file_string + value + "_"
         df = handle_value(key, value, df)
-file_string = file_string[:-1]
+
+# Remove trailing underscore if it exists
+file_string = file_string[:-1] if file_string.endswith('_') else file_string
+
+# If file_string is empty, use just the sex value
+if not file_string:
+    file_string = data.get('sex', '')
+
 print(file_string)
 elo_df = elo(df)
 print(elo_df)
 
-#elo_df.to_pickle("~/ski/elo/python/ski/excel365/"+file_string+".pkl")
-elo_df.write_ipc("~/ski/elo/python/ski/polars/excel365/"+file_string+".feather")
-print(time.time() - start_time)
+# Base path for output files
+base_path = "~/ski/elo/python/ski/polars/excel365"
 
+# Save both feather and CSV formats
+elo_df.write_ipc(f"{base_path}/{file_string}.feather")
+elo_df.write_csv(f"{base_path}/{file_string}.csv")
+print(time.time() - start_time)
 
