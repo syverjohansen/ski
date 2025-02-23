@@ -324,8 +324,8 @@ def process_skier(idd, season_df, id_dict, discount, base_elo, seasons, season, 
     # Create DataFrame with all columns in the correct order
     endf = pl.DataFrame({
         "Date": [endseasondate],
-        "City": ["Summer"],
-        "Country": ["Break"],
+        "City": ["Post"],
+        "Country": ["Season"],
         "Sex": [sex],
         "Distance": ["0"],
         "Event": ["Offseason"],

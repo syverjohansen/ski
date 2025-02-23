@@ -294,9 +294,17 @@ def parse_race_info(race_text, year):
         return "Duathlon", 1, "P"
     if any(x in race_text for x in ["4x", "3x", "Relay"]):
         return "Rel", 0, "N/A"
-    if "Team" in race_text:
-        return "Ts", 0, "N/A"
         
+    # Handle Team Sprint
+    if "Team Sprint" in race_text:
+        # Extract technique for team sprint
+        if "Classical" in race_text or "Classic" in race_text or " C" in race_text:
+            return "Ts", 0, "C"
+        elif "Freestyle" in race_text or " F" in race_text:
+            return "Ts", 0, "F"
+        else:
+            return "Ts", 0, "N/A"
+    
     # Extract distance
     distance_match = re.search(r'^(\d+)', race_text)
     if distance_match:
