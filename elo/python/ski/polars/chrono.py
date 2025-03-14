@@ -5,6 +5,9 @@ pl.Config.set_tbl_cols(100)
 start_time = time.time()
 
 def fill_nulls_forward(df):
+    """
+    Fill null values forward for Elo columns within each ID group
+    """
     # Modify to use agg instead of apply
     elo_cols = ["Elo", "Distance_Elo", "Distance_C_Elo", "Distance_F_Elo", 
                 "Sprint_Elo", "Sprint_C_Elo", "Sprint_F_Elo", 
@@ -13,7 +16,7 @@ def fill_nulls_forward(df):
     # Create a list of expressions for forward fill
     exprs = [
         pl.col(col).fill_null(strategy="forward").alias(col)
-        for col in elo_cols
+        for col in elo_cols if col in df.columns
     ]
     
     # Add all other columns to preserve them
@@ -21,6 +24,44 @@ def fill_nulls_forward(df):
     exprs.extend([pl.col(col) for col in other_cols])
     
     return df.select(exprs)
+
+def apply_offseason_rules(df):
+    """
+    Apply special rules for offseason rows:
+    1. For max Season, set Elo = Pelo
+    2. For other seasons, apply discount formula: Elo = Pelo * 0.85 + 1300 * 0.15
+    """
+    # Get the maximum season
+    max_season = df['Season'].max()
+    
+    # List of all Elo and Pelo column pairs
+    elo_pelo_pairs = [
+        ("Elo", "Pelo"),
+        ("Distance_Elo", "Distance_Pelo"),
+        ("Distance_C_Elo", "Distance_C_Pelo"),
+        ("Distance_F_Elo", "Distance_F_Pelo"),
+        ("Sprint_Elo", "Sprint_Pelo"),
+        ("Sprint_C_Elo", "Sprint_C_Pelo"),
+        ("Sprint_F_Elo", "Sprint_F_Pelo"),
+        ("Classic_Elo", "Classic_Pelo"),
+        ("Freestyle_Elo", "Freestyle_Pelo")
+    ]
+    
+    # For each Elo-Pelo pair, apply the rules
+    for elo_col, pelo_col in elo_pelo_pairs:
+        # Only proceed if both columns exist in the DataFrame
+        if elo_col in df.columns and pelo_col in df.columns:
+            # Apply the rules based on whether it's max season or not
+            df = df.with_columns([
+                pl.when((pl.col("Event") == "Offseason") & (pl.col("Season") == max_season))
+                .then(pl.col(pelo_col))  # For max season, use Pelo value
+                .when(pl.col("Event") == "Offseason")
+                .then(pl.col(pelo_col) * 0.85 + 1300 * 0.15)  # For other seasons, apply discount
+                .otherwise(pl.col(elo_col))
+                .alias(elo_col)
+            ])
+    
+    return df
 
 def ladies():
     # Read all ladies files with consistent path
@@ -64,10 +105,9 @@ def ladies():
     for df in dfs[1:]:
         merged_df = merged_df.join(df, on=common_columns, how="left")
 
-
     # Fill nulls forward within each ID group
     merged_df = (
-        merged_df.sort(['ID', 'Season', 'Race', 'Place'])  # Sort first to ensure correct forward fill
+        merged_df.sort(['ID', 'Date', 'Race', 'Place'])  # Sort first to ensure correct forward fill
         .group_by('ID')
         .map_groups(fill_nulls_forward)
     )
@@ -81,15 +121,19 @@ def ladies():
                  "Classic_Pelo", "Freestyle_Pelo"]
 
     for a in range(len(elo_cols)):
-        merged_df = merged_df.with_columns(
-            pl.when(pl.col(pelo_cols[a]).is_null())
-            .then(pl.col(elo_cols[a]))
-            .otherwise(pl.col(pelo_cols[a]))
-            .alias(pelo_cols[a])
-        )
+        if elo_cols[a] in merged_df.columns and pelo_cols[a] in merged_df.columns:
+            merged_df = merged_df.with_columns(
+                pl.when(pl.col(pelo_cols[a]).is_null())
+                .then(pl.col(elo_cols[a]))
+                .otherwise(pl.col(pelo_cols[a]))
+                .alias(pelo_cols[a])
+            )
 
+    # Apply offseason rules
+    merged_df = apply_offseason_rules(merged_df)
+    
     # Sort the final DataFrame
-    merged_df = merged_df.sort(['Season', 'Race', 'Place'])
+    merged_df = merged_df.sort(['Date', 'Race', 'Place'])
     return merged_df
 
 def men():
@@ -134,11 +178,9 @@ def men():
     for df in dfs[1:]:
         merged_df = merged_df.join(df, on=common_columns, how="left")
 
-
-
     # Fill nulls forward within each ID group
     merged_df = (
-        merged_df.sort(['ID', 'Season', 'Race', 'Place'])  # Sort first to ensure correct forward fill
+        merged_df.sort(['ID', 'Date', 'Race', 'Place'])  # Sort first to ensure correct forward fill
         .group_by('ID')
         .map_groups(fill_nulls_forward)
     )
@@ -152,15 +194,19 @@ def men():
                  "Classic_Pelo", "Freestyle_Pelo"]
 
     for a in range(len(elo_cols)):
-        merged_df = merged_df.with_columns(
-            pl.when(pl.col(pelo_cols[a]).is_null())
-            .then(pl.col(elo_cols[a]))
-            .otherwise(pl.col(pelo_cols[a]))
-            .alias(pelo_cols[a])
-        )
+        if elo_cols[a] in merged_df.columns and pelo_cols[a] in merged_df.columns:
+            merged_df = merged_df.with_columns(
+                pl.when(pl.col(pelo_cols[a]).is_null())
+                .then(pl.col(elo_cols[a]))
+                .otherwise(pl.col(pelo_cols[a]))
+                .alias(pelo_cols[a])
+            )
 
+    # Apply offseason rules
+    merged_df = apply_offseason_rules(merged_df)
+    
     # Sort the final DataFrame
-    merged_df = merged_df.sort(['Season', 'Race', 'Place'])
+    merged_df = merged_df.sort(['Date', 'Race', 'Place'])
     return merged_df
 
 # Main execution

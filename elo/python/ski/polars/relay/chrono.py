@@ -89,7 +89,7 @@ def ladies():
         )
 
     # Sort the final DataFrame
-    merged_df = merged_df.sort(['Season', 'Race', 'Place', 'Leg'])
+    merged_df = merged_df.sort(['Date', 'Race', 'Place', 'Leg'])
     return merged_df
 
 def men():
@@ -160,7 +160,7 @@ def men():
         )
 
     # Sort the final DataFrame
-    merged_df = merged_df.sort(['Season', 'Race', 'Place', 'Leg'])
+    merged_df = merged_df.sort(['Date', 'Race', 'Place', 'Leg'])
     return merged_df
 
 # Main execution
