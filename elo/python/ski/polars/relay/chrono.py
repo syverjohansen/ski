@@ -22,6 +22,45 @@ def fill_nulls_forward(df):
     
     return df.select(exprs)
 
+
+def apply_offseason_rules(df):
+    """
+    Apply special rules for offseason rows:
+    1. For max Season, set Elo = Pelo
+    2. For other seasons, apply discount formula: Elo = Pelo * 0.85 + 1300 * 0.15
+    """
+    # Get the maximum season
+    max_season = df['Season'].max()
+    
+    # List of all Elo and Pelo column pairs
+    elo_pelo_pairs = [
+        ("Elo", "Pelo"),
+        ("Distance_Elo", "Distance_Pelo"),
+        ("Distance_C_Elo", "Distance_C_Pelo"),
+        ("Distance_F_Elo", "Distance_F_Pelo"),
+        ("Sprint_Elo", "Sprint_Pelo"),
+        ("Sprint_C_Elo", "Sprint_C_Pelo"),
+        ("Sprint_F_Elo", "Sprint_F_Pelo"),
+        ("Classic_Elo", "Classic_Pelo"),
+        ("Freestyle_Elo", "Freestyle_Pelo")
+    ]
+    
+    # For each Elo-Pelo pair, apply the rules
+    for elo_col, pelo_col in elo_pelo_pairs:
+        # Only proceed if both columns exist in the DataFrame
+        if elo_col in df.columns and pelo_col in df.columns:
+            # Apply the rules based on whether it's max season or not
+            df = df.with_columns([
+                pl.when((pl.col("Event") == "Offseason") & (pl.col("Season") == max_season))
+                .then(pl.col(pelo_col))  # For max season, use Pelo value
+                .when(pl.col("Event") == "Offseason")
+                .then(pl.col(pelo_col) * 0.85 + 1300 * 0.15)  # For other seasons, apply discount
+                .otherwise(pl.col(elo_col))
+                .alias(elo_col)
+            ])
+    
+    return df
+
 def ladies():
     # Read all ladies files with consistent path
     base_path = '~/ski/elo/python/ski/polars/relay/excel365'
@@ -67,7 +106,7 @@ def ladies():
 
     # Fill nulls forward within each ID group
     merged_df = (
-        merged_df.sort(['ID', 'Season', 'Race', 'Place'])  # Sort first to ensure correct forward fill
+        merged_df.sort(['ID', 'Date', 'Race', 'Place'])  # Sort first to ensure correct forward fill
         .group_by('ID')
         .map_groups(fill_nulls_forward)
     )
@@ -87,7 +126,7 @@ def ladies():
             .otherwise(pl.col(pelo_cols[a]))
             .alias(pelo_cols[a])
         )
-
+    merged_df = apply_offseason_rules(merged_df)
     # Sort the final DataFrame
     merged_df = merged_df.sort(['Date', 'Race', 'Place', 'Leg'])
     return merged_df
@@ -138,7 +177,7 @@ def men():
 
     # Fill nulls forward within each ID group
     merged_df = (
-        merged_df.sort(['ID', 'Season', 'Race', 'Place'])  # Sort first to ensure correct forward fill
+        merged_df.sort(['ID', 'Date', 'Race', 'Place', 'Leg'])  # Sort first to ensure correct forward fill
         .group_by('ID')
         .map_groups(fill_nulls_forward)
     )
@@ -159,6 +198,7 @@ def men():
             .alias(pelo_cols[a])
         )
 
+    merged_df = apply_offseason_rules(merged_df)
     # Sort the final DataFrame
     merged_df = merged_df.sort(['Date', 'Race', 'Place', 'Leg'])
     return merged_df

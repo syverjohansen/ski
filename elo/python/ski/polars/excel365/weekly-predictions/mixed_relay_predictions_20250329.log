@@ -1,0 +1,539 @@
+INFO [2025-03-29 14:50:16] Starting mixed relay predictions process
+INFO [2025-03-29 14:50:16] Loading weekend race data
+INFO [2025-03-29 14:50:16] Tomorrow's date: 2025-03-29
+INFO [2025-03-29 14:50:16] Found 1 mixed relay races
+INFO [2025-03-29 14:50:16] Loading chrono data
+INFO [2025-03-29 14:50:22] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-03-29 14:50:22] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-03-29 14:50:22] Created combined chrono with 183828 rows
+INFO [2025-03-29 14:50:22] Created relay df with 17707 rows
+INFO [2025-03-29 14:50:22] Created individual df with 160396 rows
+INFO [2025-03-29 14:50:27] Leg 1 dataset contains 357 rows
+INFO [2025-03-29 14:50:27] Leg 2 dataset contains 356 rows
+INFO [2025-03-29 14:50:27] Leg 3 dataset contains 355 rows
+INFO [2025-03-29 14:50:27] Leg 4 dataset contains 354 rows
+INFO [2025-03-29 14:50:27] Training models for Leg 1
+INFO [2025-03-29 14:50:27] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-29 14:50:27] Training podium model using glm
+INFO [2025-03-29 14:50:27] Training win model using glm
+INFO [2025-03-29 14:50:27] Training top5 model using glm
+INFO [2025-03-29 14:50:27] Training top10 model using glm
+INFO [2025-03-29 14:50:27] Top features for Leg 1 podium prediction:
+INFO [2025-03-29 14:50:27] Training models for Leg 2
+INFO [2025-03-29 14:50:27] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-29 14:50:27] Training podium model using glm
+INFO [2025-03-29 14:50:27] Training win model using glm
+INFO [2025-03-29 14:50:27] Training top5 model using glm
+INFO [2025-03-29 14:50:28] Training top10 model using glm
+INFO [2025-03-29 14:50:28] Top features for Leg 2 podium prediction:
+INFO [2025-03-29 14:50:28] Training models for Leg 3
+INFO [2025-03-29 14:50:28] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-29 14:50:28] Training podium model using glm
+INFO [2025-03-29 14:50:28] Training win model using glm
+INFO [2025-03-29 14:50:28] Training top5 model using glm
+INFO [2025-03-29 14:50:28] Training top10 model using glm
+INFO [2025-03-29 14:50:28] Top features for Leg 3 podium prediction:
+INFO [2025-03-29 14:50:28] Training models for Leg 4
+INFO [2025-03-29 14:50:28] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-29 14:50:28] Training podium model using glm
+INFO [2025-03-29 14:50:28] Training win model using glm
+INFO [2025-03-29 14:50:28] Training top5 model using glm
+INFO [2025-03-29 14:50:28] Training top10 model using glm
+INFO [2025-03-29 14:50:28] Top features for Leg 4 podium prediction:
+INFO [2025-03-29 14:50:28] Processing mixed relay predictions
+INFO [2025-03-29 14:50:28] Loaded mixed relay teams startlist with 19 rows
+INFO [2025-03-29 14:50:28] Loaded mixed relay individuals startlist with 76 rows
+INFO [2025-03-29 14:50:28] Preparing current skier data for mixed relay
+INFO [2025-03-29 14:50:30] Replaced NAs in Distance_Elo with first quartile: 1224.11463402647
+INFO [2025-03-29 14:50:30] Replaced NAs in Distance_C_Elo with first quartile: 1237.1587778373
+INFO [2025-03-29 14:50:30] Replaced NAs in Distance_F_Elo with first quartile: 1243.23228391106
+INFO [2025-03-29 14:50:30] Replaced NAs in Sprint_Elo with first quartile: 1231.4308090998
+INFO [2025-03-29 14:50:30] Replaced NAs in Sprint_C_Elo with first quartile: 1248.96250847029
+INFO [2025-03-29 14:50:30] Replaced NAs in Sprint_F_Elo with first quartile: 1239.52210961878
+INFO [2025-03-29 14:50:30] Replaced NAs in Classic_Elo with first quartile: 1244.84838324405
+INFO [2025-03-29 14:50:30] Replaced NAs in Freestyle_Elo with first quartile: 1236.77643159176
+INFO [2025-03-29 14:50:30] Replaced NAs in Distance_Pelo with first quartile: 1226.15392446525
+INFO [2025-03-29 14:50:30] Replaced NAs in Distance_C_Pelo with first quartile: 1238.61066409828
+INFO [2025-03-29 14:50:30] Replaced NAs in Distance_F_Pelo with first quartile: 1244.90662376968
+INFO [2025-03-29 14:50:30] Replaced NAs in Sprint_Pelo with first quartile: 1246.25257877833
+INFO [2025-03-29 14:50:30] Replaced NAs in Sprint_C_Pelo with first quartile: 1248.96250847029
+INFO [2025-03-29 14:50:30] Replaced NAs in Sprint_F_Pelo with first quartile: 1256.18779364329
+INFO [2025-03-29 14:50:30] Replaced NAs in Classic_Pelo with first quartile: 1246.94372210137
+INFO [2025-03-29 14:50:30] Replaced NAs in Freestyle_Pelo with first quartile: 1254.13981644678
+INFO [2025-03-29 14:50:30] Replaced NAs in Classic_Last_5 with first quartile: 0
+INFO [2025-03-29 14:50:30] Replaced NAs in Freestyle_Last_5 with first quartile: 0
+INFO [2025-03-29 14:50:30] Created Pelo_Pct from Elo with max value: 1946.6211651574
+INFO [2025-03-29 14:50:30] Created Distance_Pelo_Pct from Distance_Elo with max value: 1889.46974050597
+INFO [2025-03-29 14:50:30] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1777.16297253153
+INFO [2025-03-29 14:50:30] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1695.2053212904
+INFO [2025-03-29 14:50:30] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1886.80363942481
+INFO [2025-03-29 14:50:30] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.08486899169
+INFO [2025-03-29 14:50:30] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1792.65157560707
+INFO [2025-03-29 14:50:30] Created Classic_Pelo_Pct from Classic_Elo with max value: 1807.56773496777
+INFO [2025-03-29 14:50:30] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1814.60460629541
+INFO [2025-03-29 14:50:30] Prepared data for 636 skiers with 33 features
+INFO [2025-03-29 14:50:30] Using FIS startlist for mixed relay leg predictions
+INFO [2025-03-29 14:50:30] Using FIS startlist for mixed relay teams
+INFO [2025-03-29 14:50:30] Attempting Option 1: Team model coefficients
+INFO [2025-03-29 14:50:30] Option 1 failed: No team_podium model found
+INFO [2025-03-29 14:50:30] Option 1 failed: No team model
+INFO [2025-03-29 14:50:30] Attempting Option 2: Individual model accuracy
+INFO [2025-03-29 14:50:30] Leg 1 accuracy: 0.8570813771518
+INFO [2025-03-29 14:50:30] Leg 2 accuracy: 0.854029733959311
+INFO [2025-03-29 14:50:30] Leg 3 accuracy: 0.859052090319696
+INFO [2025-03-29 14:50:30] Leg 4 accuracy: 0.889979879275654
+INFO [2025-03-29 14:50:30] Option 2 succeeded: Using model accuracy weights
+INFO [2025-03-29 14:50:30] Leg importance weights: Leg 1: 0.25, Leg 2: 0.25, Leg 3: 0.25, Leg 4: 0.26
+INFO [2025-03-29 14:50:30] Found probabilities for Jens Burman in leg 1 - Podium: 0.154746193017541
+INFO [2025-03-29 14:50:30] Found probabilities for Emma Ribom in leg 2 - Podium: 0.294136786203521
+INFO [2025-03-29 14:50:30] Found probabilities for Edvin Anger in leg 3 - Podium: 0.690510069257694
+INFO [2025-03-29 14:50:30] Found probabilities for Moa Ilar in leg 4 - Podium: 0.259133287557887
+INFO [2025-03-29 14:50:30] Found probabilities for Pål Golberg in leg 1 - Podium: 0.667877837513962
+INFO [2025-03-29 14:50:30] Found probabilities for Nora Sanness in leg 2 - Podium: 0.316326657564105
+INFO [2025-03-29 14:50:30] Found probabilities for Iver Tildheim Andersen in leg 3 - Podium: 0.68306400693546
+INFO [2025-03-29 14:50:30] Found probabilities for Kristin Austgulen Fosnæs in leg 4 - Podium: 0.164423786754169
+INFO [2025-03-29 14:50:30] Found probabilities for Jonas Baumann in leg 1 - Podium: 0.15943198040891
+INFO [2025-03-29 14:50:30] Found probabilities for Anja Weber in leg 2 - Podium: 0.05093149088866
+INFO [2025-03-29 14:50:30] Found probabilities for Jason Rüesch in leg 3 - Podium: 0.0600634837748253
+INFO [2025-03-29 14:50:30] Found probabilities for Nadine Fähndrich in leg 4 - Podium: 0.298969069165847
+INFO [2025-03-29 14:50:30] Found probabilities for Martin Kirkeberg Mørk in leg 1 - Podium: 0.187948481139211
+INFO [2025-03-29 14:50:30] Found probabilities for Johanne Hauge Harviken in leg 2 - Podium: 0.0185945724517046
+INFO [2025-03-29 14:50:30] Found probabilities for Andreas Fjorden Ree in leg 3 - Podium: 0.469594166924606
+INFO [2025-03-29 14:50:30] Found probabilities for Anne Kjersti Kalvå in leg 4 - Podium: 0.292140770077345
+INFO [2025-03-29 14:50:30] Found probabilities for Iivo Niskanen in leg 1 - Podium: 0.757219551178995
+INFO [2025-03-29 14:50:30] Found probabilities for Jasmi Joensuu in leg 2 - Podium: 0.149094831080868
+INFO [2025-03-29 14:50:30] Found probabilities for Remi Lindholm in leg 3 - Podium: 0.113332414014424
+INFO [2025-03-29 14:50:30] Found probabilities for Vilma Ryytty in leg 4 - Podium: 0.012895860472617
+INFO [2025-03-29 14:50:30] Found probabilities for Antoine Cyr in leg 1 - Podium: 0.158365261514414
+INFO [2025-03-29 14:50:30] Found probabilities for Kathrine Stewart-Jones in leg 2 - Podium: 0.0512102415937209
+INFO [2025-03-29 14:50:30] Found probabilities for Olivier Leveille in leg 3 - Podium: 0.0625789267563016
+INFO [2025-03-29 14:50:30] Found probabilities for Liliane Gagnon in leg 4 - Podium: 0.0243469922780842
+INFO [2025-03-29 14:50:30] Found probabilities for Cyril Fähndrich in leg 1 - Podium: 0.0525460913692343
+INFO [2025-03-29 14:50:30] Found probabilities for Nadja Kälin in leg 2 - Podium: 0.121171285526896
+INFO [2025-03-29 14:50:30] Found probabilities for Valerio Grond in leg 3 - Podium: 0.215198653532019
+INFO [2025-03-29 14:50:30] Found probabilities for Marina Kälin in leg 4 - Podium: 0.0141548905919694
+INFO [2025-03-29 14:50:30] Found probabilities for Mika Vermeulen in leg 1 - Podium: 0.805136655804289
+INFO [2025-03-29 14:50:30] Found probabilities for Teresa Stadlober in leg 2 - Podium: 0.390592802668179
+INFO [2025-03-29 14:50:30] Found probabilities for Benjamin Moser in leg 3 - Podium: 0.0546790774706905
+INFO [2025-03-29 14:50:30] Found probabilities for Katharina Brudermann in leg 4 - Podium: 0.00728464122452106
+INFO [2025-03-29 14:50:30] Found probabilities for Lucas Bögl in leg 1 - Podium: 0.0341952982672124
+INFO [2025-03-29 14:50:30] Found probabilities for Katherine Sauerbrey in leg 2 - Podium: 0.0600672381526116
+WARN [2025-03-29 14:50:30] No match found for Jan Stoelben in leg 3
+INFO [2025-03-29 14:50:30] Found probabilities for Anna-Maria Dietze in leg 4 - Podium: 0.0119477340450937
+INFO [2025-03-29 14:50:30] Found probabilities for Calle Halfvarsson in leg 1 - Podium: 0.307647307440639
+INFO [2025-03-29 14:50:30] Found probabilities for Moa Lundgren in leg 2 - Podium: 0.048450563776855
+INFO [2025-03-29 14:50:30] Found probabilities for Gustaf Berglund in leg 3 - Podium: 0.20203188227122
+INFO [2025-03-29 14:50:30] Found probabilities for Maja Dahlqvist in leg 4 - Podium: 0.381432607484476
+INFO [2025-03-29 14:50:30] Found probabilities for Remi Drolet in leg 1 - Podium: 0.0213880954539884
+INFO [2025-03-29 14:50:30] Found probabilities for Alison Mackie in leg 2 - Podium: 0.0211765977055819
+INFO [2025-03-29 14:50:30] Found probabilities for Thomas Stephen in leg 3 - Podium: 0.0117133807959909
+INFO [2025-03-29 14:50:30] Found probabilities for Sonjaa Schmidt in leg 4 - Podium: 0.012409932892994
+INFO [2025-03-29 14:50:30] Found probabilities for Michal Novak in leg 1 - Podium: 0.435562209055214
+INFO [2025-03-29 14:50:30] Found probabilities for Katerina Janatova in leg 2 - Podium: 0.237931410726221
+INFO [2025-03-29 14:50:30] Found probabilities for Matyas Bauer in leg 3 - Podium: 0.00928153055855831
+INFO [2025-03-29 14:50:30] Found probabilities for Barbora Havlickova in leg 4 - Podium: 0.0033400982833798
+INFO [2025-03-29 14:50:30] Found probabilities for Martino Carollo in leg 1 - Podium: 0.0687345872267178
+INFO [2025-03-29 14:50:30] Found probabilities for Martina di Centa in leg 2 - Podium: 0.0246340011778959
+INFO [2025-03-29 14:50:30] Found probabilities for Paolo Ventura in leg 3 - Podium: 0.0319698088573161
+INFO [2025-03-29 14:50:30] Found probabilities for Maria Gismondi in leg 4 - Podium: 0.0171734642169696
+INFO [2025-03-29 14:50:30] Found probabilities for Zanden McMullen in leg 1 - Podium: 0.0462908144326997
+INFO [2025-03-29 14:50:30] Found probabilities for Julia Kern in leg 2 - Podium: 0.13230080095297
+INFO [2025-03-29 14:50:30] Found probabilities for Ben Ogden in leg 3 - Podium: 0.41636666117081
+INFO [2025-03-29 14:50:30] Found probabilities for Sophia Laukli in leg 4 - Podium: 0.0959990026618273
+INFO [2025-03-29 14:50:30] Found probabilities for Nejc Stern in leg 1 - Podium: 0.0121459431598794
+INFO [2025-03-29 14:50:30] Found probabilities for Anja Mandeljc in leg 2 - Podium: 0.0445069626139399
+INFO [2025-03-29 14:50:30] Found probabilities for Miha Licef in leg 3 - Podium: 0.00659714624542224
+INFO [2025-03-29 14:50:30] Found probabilities for Eva Urevc in leg 4 - Podium: 0.00822417744808303
+INFO [2025-03-29 14:50:30] Found probabilities for Luke Jager in leg 1 - Podium: 0.00930159895792917
+INFO [2025-03-29 14:50:30] Found probabilities for Kendall Kramer in leg 2 - Podium: 0.0135118213789805
+INFO [2025-03-29 14:50:30] Found probabilities for James Clinton Schoonmaker in leg 3 - Podium: 0.0691326270454658
+INFO [2025-03-29 14:50:30] Found probabilities for Sammy Smith in leg 4 - Podium: 0.00716376544386226
+INFO [2025-03-29 14:50:30] Found probabilities for Hugo Hinckfuss in leg 1 - Podium: 0.0116956976150231
+INFO [2025-03-29 14:50:30] Found probabilities for Tuva Bygrave in leg 2 - Podium: 0.00268155933681457
+INFO [2025-03-29 14:50:30] Found probabilities for Seve De Campo in leg 3 - Podium: 0.00337776893248728
+INFO [2025-03-29 14:50:30] Found probabilities for Rosie Fordham in leg 4 - Podium: 0.00473350330614625
+INFO [2025-03-29 14:50:30] Found probabilities for Oleksandr Lisohor in leg 1 - Podium: 0.00441948361035243
+INFO [2025-03-29 14:50:30] Found probabilities for Anastasiia Nikon in leg 2 - Podium: 0.00458031600816047
+INFO [2025-03-29 14:50:30] Found probabilities for Dmytro Drahun in leg 3 - Podium: 0.00521842675229561
+INFO [2025-03-29 14:50:30] Found probabilities for Viktoriya Olekh in leg 4 - Podium: 0.000581254054715287
+INFO [2025-03-29 14:50:30] Found probabilities for Yernur Bexultan in leg 1 - Podium: 0.00967646282744373
+INFO [2025-03-29 14:50:30] Found probabilities for Yelizaveta Tolmachyova in leg 2 - Podium: 0.0170069464314184
+INFO [2025-03-29 14:50:30] Found probabilities for Didar Kassenov in leg 3 - Podium: 0.00623765085292516
+INFO [2025-03-29 14:50:30] Found probabilities for Laura Kinybaeyeva in leg 4 - Podium: 0.00263103705207177
+INFO [2025-03-29 14:50:30] Resetting probabilities at or below the mode to zero
+INFO [2025-03-29 14:50:30] No values appear more than twice for Win_Prob
+INFO [2025-03-29 14:50:30] No values appear more than twice for Podium_Prob
+INFO [2025-03-29 14:50:30] No values appear more than twice for Top5_Prob
+INFO [2025-03-29 14:50:30] No values appear more than twice for Top10_Prob
+INFO [2025-03-29 14:50:30] Normalizing team probabilities
+INFO [2025-03-29 14:50:30] Normalized Win_Prob from sum of 0.4 to 1
+INFO [2025-03-29 14:50:30] Normalized Podium_Prob from sum of 2.65 to 3
+INFO [2025-03-29 14:50:30] Normalized Top5_Prob from sum of 4.69 to 5
+INFO [2025-03-29 14:50:30] Normalized Top10_Prob from sum of 10.95 to 10
+INFO [2025-03-29 14:50:30] Recalculated Expected_Points based on normalized probabilities
+INFO [2025-03-29 14:50:30] Optimizing fantasy mixed relay team
+INFO [2025-03-29 14:50:30] Fantasy team optimization complete. Selected 12 teams.
+INFO [2025-03-29 14:50:30] Total price: 98626 of max 1e+05
+INFO [2025-03-29 14:50:30] Expected total points: 762.4
+INFO [2025-03-29 14:50:30] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250329/mixed_relay_points.xlsx
+INFO [2025-03-29 14:50:30] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250329/mixed_relay_probabilities.xlsx
+INFO [2025-03-29 14:50:30] Saved fantasy team results to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250329/fantasy_mixed_relay_team.xlsx
+INFO [2025-03-29 14:50:30] Mixed relay predictions completed successfully
+INFO [2025-03-29 15:06:26] Starting mixed relay predictions process
+INFO [2025-03-29 15:06:26] Loading weekend race data
+INFO [2025-03-29 15:06:26] Tomorrow's date: 2025-03-29
+INFO [2025-03-29 15:06:26] Found 1 mixed relay races
+INFO [2025-03-29 15:06:26] Loading chrono data
+INFO [2025-03-29 15:06:32] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-03-29 15:06:32] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-03-29 15:06:32] Created combined chrono with 183828 rows
+INFO [2025-03-29 15:06:32] Created relay df with 17707 rows
+INFO [2025-03-29 15:06:32] Created individual df with 160396 rows
+INFO [2025-03-29 15:06:37] Leg 1 dataset contains 357 rows
+INFO [2025-03-29 15:06:37] Leg 2 dataset contains 356 rows
+INFO [2025-03-29 15:06:37] Leg 3 dataset contains 355 rows
+INFO [2025-03-29 15:06:37] Leg 4 dataset contains 354 rows
+INFO [2025-03-29 15:06:37] Training models for Leg 1
+INFO [2025-03-29 15:06:37] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-29 15:06:37] Training podium model using glm
+INFO [2025-03-29 15:06:37] Training win model using glm
+INFO [2025-03-29 15:06:37] Training top5 model using glm
+INFO [2025-03-29 15:06:37] Training top10 model using glm
+INFO [2025-03-29 15:06:38] Top features for Leg 1 podium prediction:
+INFO [2025-03-29 15:06:38] Training models for Leg 2
+INFO [2025-03-29 15:06:38] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-29 15:06:38] Training podium model using glm
+INFO [2025-03-29 15:06:38] Training win model using glm
+INFO [2025-03-29 15:06:38] Training top5 model using glm
+INFO [2025-03-29 15:06:38] Training top10 model using glm
+INFO [2025-03-29 15:06:38] Top features for Leg 2 podium prediction:
+INFO [2025-03-29 15:06:38] Training models for Leg 3
+INFO [2025-03-29 15:06:38] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-29 15:06:38] Training podium model using glm
+INFO [2025-03-29 15:06:38] Training win model using glm
+INFO [2025-03-29 15:06:38] Training top5 model using glm
+INFO [2025-03-29 15:06:38] Training top10 model using glm
+INFO [2025-03-29 15:06:38] Top features for Leg 3 podium prediction:
+INFO [2025-03-29 15:06:38] Training models for Leg 4
+INFO [2025-03-29 15:06:38] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-29 15:06:38] Training podium model using glm
+INFO [2025-03-29 15:06:38] Training win model using glm
+INFO [2025-03-29 15:06:38] Training top5 model using glm
+INFO [2025-03-29 15:06:38] Training top10 model using glm
+INFO [2025-03-29 15:06:38] Top features for Leg 4 podium prediction:
+INFO [2025-03-29 15:06:38] Processing mixed relay predictions
+INFO [2025-03-29 15:06:38] Loaded mixed relay teams startlist with 19 rows
+INFO [2025-03-29 15:06:38] Loaded mixed relay individuals startlist with 76 rows
+INFO [2025-03-29 15:06:39] Preparing current skier data for mixed relay
+INFO [2025-03-29 15:06:40] Replaced NAs in Distance_Elo with first quartile: 1224.11463402647
+INFO [2025-03-29 15:06:40] Replaced NAs in Distance_C_Elo with first quartile: 1237.1587778373
+INFO [2025-03-29 15:06:40] Replaced NAs in Distance_F_Elo with first quartile: 1243.23228391106
+INFO [2025-03-29 15:06:40] Replaced NAs in Sprint_Elo with first quartile: 1231.4308090998
+INFO [2025-03-29 15:06:40] Replaced NAs in Sprint_C_Elo with first quartile: 1248.96250847029
+INFO [2025-03-29 15:06:40] Replaced NAs in Sprint_F_Elo with first quartile: 1239.52210961878
+INFO [2025-03-29 15:06:40] Replaced NAs in Classic_Elo with first quartile: 1244.84838324405
+INFO [2025-03-29 15:06:40] Replaced NAs in Freestyle_Elo with first quartile: 1236.77643159176
+INFO [2025-03-29 15:06:40] Replaced NAs in Distance_Pelo with first quartile: 1226.15392446525
+INFO [2025-03-29 15:06:40] Replaced NAs in Distance_C_Pelo with first quartile: 1238.61066409828
+INFO [2025-03-29 15:06:40] Replaced NAs in Distance_F_Pelo with first quartile: 1244.90662376968
+INFO [2025-03-29 15:06:40] Replaced NAs in Sprint_Pelo with first quartile: 1246.25257877833
+INFO [2025-03-29 15:06:40] Replaced NAs in Sprint_C_Pelo with first quartile: 1248.96250847029
+INFO [2025-03-29 15:06:40] Replaced NAs in Sprint_F_Pelo with first quartile: 1256.18779364329
+INFO [2025-03-29 15:06:40] Replaced NAs in Classic_Pelo with first quartile: 1246.94372210137
+INFO [2025-03-29 15:06:40] Replaced NAs in Freestyle_Pelo with first quartile: 1254.13981644678
+INFO [2025-03-29 15:06:40] Replaced NAs in Classic_Last_5 with first quartile: 0
+INFO [2025-03-29 15:06:40] Replaced NAs in Freestyle_Last_5 with first quartile: 0
+INFO [2025-03-29 15:06:40] Created Pelo_Pct from Elo with max value: 1946.6211651574
+INFO [2025-03-29 15:06:40] Created Distance_Pelo_Pct from Distance_Elo with max value: 1889.46974050597
+INFO [2025-03-29 15:06:40] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1777.16297253153
+INFO [2025-03-29 15:06:40] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1695.2053212904
+INFO [2025-03-29 15:06:40] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1886.80363942481
+INFO [2025-03-29 15:06:40] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.08486899169
+INFO [2025-03-29 15:06:40] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1792.65157560707
+INFO [2025-03-29 15:06:40] Created Classic_Pelo_Pct from Classic_Elo with max value: 1807.56773496777
+INFO [2025-03-29 15:06:40] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1814.60460629541
+INFO [2025-03-29 15:06:40] Prepared data for 636 skiers with 33 features
+INFO [2025-03-29 15:06:40] Using FIS startlist for mixed relay leg predictions
+INFO [2025-03-29 15:06:40] Using FIS startlist for mixed relay teams
+INFO [2025-03-29 15:06:40] Attempting Option 1: Team model coefficients
+INFO [2025-03-29 15:06:40] Option 1 failed: No team_podium model found
+INFO [2025-03-29 15:06:40] Option 1 failed: No team model
+INFO [2025-03-29 15:06:40] Attempting Option 2: Individual model accuracy
+INFO [2025-03-29 15:06:40] Leg 1 accuracy: 0.848748043818466
+INFO [2025-03-29 15:06:40] Leg 2 accuracy: 0.845500782472614
+INFO [2025-03-29 15:06:40] Leg 3 accuracy: 0.859106863402638
+INFO [2025-03-29 15:06:40] Leg 4 accuracy: 0.873095238095238
+INFO [2025-03-29 15:06:40] Option 2 succeeded: Using model accuracy weights
+INFO [2025-03-29 15:06:40] Leg importance weights: Leg 1: 0.25, Leg 2: 0.25, Leg 3: 0.25, Leg 4: 0.25
+INFO [2025-03-29 15:06:40] Found probabilities for Jens Burman in leg 1 - Podium: 0.154746193017541
+INFO [2025-03-29 15:06:40] Found probabilities for Emma Ribom in leg 2 - Podium: 0.294136786203521
+INFO [2025-03-29 15:06:40] Found probabilities for Edvin Anger in leg 3 - Podium: 0.690510069257694
+INFO [2025-03-29 15:06:40] Found probabilities for Moa Ilar in leg 4 - Podium: 0.259133287557887
+INFO [2025-03-29 15:06:40] Found probabilities for Pål Golberg in leg 1 - Podium: 0.667877837513962
+INFO [2025-03-29 15:06:40] Found probabilities for Nora Sanness in leg 2 - Podium: 0.316326657564105
+INFO [2025-03-29 15:06:40] Found probabilities for Iver Tildheim Andersen in leg 3 - Podium: 0.68306400693546
+INFO [2025-03-29 15:06:40] Found probabilities for Kristin Austgulen Fosnæs in leg 4 - Podium: 0.164423786754169
+INFO [2025-03-29 15:06:40] Found probabilities for Jonas Baumann in leg 1 - Podium: 0.15943198040891
+INFO [2025-03-29 15:06:40] Found probabilities for Anja Weber in leg 2 - Podium: 0.05093149088866
+INFO [2025-03-29 15:06:40] Found probabilities for Jason Rüesch in leg 3 - Podium: 0.0600634837748253
+INFO [2025-03-29 15:06:40] Found probabilities for Nadine Fähndrich in leg 4 - Podium: 0.298969069165847
+INFO [2025-03-29 15:06:40] Found probabilities for Martin Kirkeberg Mørk in leg 1 - Podium: 0.187948481139211
+INFO [2025-03-29 15:06:40] Found probabilities for Johanne Hauge Harviken in leg 2 - Podium: 0.0185945724517046
+INFO [2025-03-29 15:06:40] Found probabilities for Andreas Fjorden Ree in leg 3 - Podium: 0.469594166924606
+INFO [2025-03-29 15:06:40] Found probabilities for Anne Kjersti Kalvå in leg 4 - Podium: 0.292140770077345
+INFO [2025-03-29 15:06:40] Found probabilities for Iivo Niskanen in leg 1 - Podium: 0.757219551178995
+INFO [2025-03-29 15:06:40] Found probabilities for Jasmi Joensuu in leg 2 - Podium: 0.149094831080868
+INFO [2025-03-29 15:06:40] Found probabilities for Remi Lindholm in leg 3 - Podium: 0.113332414014424
+INFO [2025-03-29 15:06:40] Found probabilities for Vilma Ryytty in leg 4 - Podium: 0.012895860472617
+INFO [2025-03-29 15:06:40] Found probabilities for Antoine Cyr in leg 1 - Podium: 0.158365261514414
+INFO [2025-03-29 15:06:40] Found probabilities for Kathrine Stewart-Jones in leg 2 - Podium: 0.0512102415937209
+INFO [2025-03-29 15:06:40] Found probabilities for Olivier Leveille in leg 3 - Podium: 0.0625789267563016
+INFO [2025-03-29 15:06:40] Found probabilities for Liliane Gagnon in leg 4 - Podium: 0.0243469922780842
+INFO [2025-03-29 15:06:40] Found probabilities for Cyril Fähndrich in leg 1 - Podium: 0.0525460913692343
+INFO [2025-03-29 15:06:40] Found probabilities for Nadja Kälin in leg 2 - Podium: 0.121171285526896
+INFO [2025-03-29 15:06:40] Found probabilities for Valerio Grond in leg 3 - Podium: 0.215198653532019
+INFO [2025-03-29 15:06:40] Found probabilities for Marina Kälin in leg 4 - Podium: 0.0141548905919694
+INFO [2025-03-29 15:06:40] Found probabilities for Mika Vermeulen in leg 1 - Podium: 0.805136655804289
+INFO [2025-03-29 15:06:40] Found probabilities for Teresa Stadlober in leg 2 - Podium: 0.390592802668179
+INFO [2025-03-29 15:06:40] Found probabilities for Benjamin Moser in leg 3 - Podium: 0.0546790774706905
+INFO [2025-03-29 15:06:40] Found probabilities for Katharina Brudermann in leg 4 - Podium: 0.00728464122452106
+INFO [2025-03-29 15:06:40] Found probabilities for Lucas Bögl in leg 1 - Podium: 0.0341952982672124
+INFO [2025-03-29 15:06:40] Found probabilities for Katherine Sauerbrey in leg 2 - Podium: 0.0600672381526116
+WARN [2025-03-29 15:06:40] No match found for Jan Stoelben in leg 3
+INFO [2025-03-29 15:06:40] Found probabilities for Anna-Maria Dietze in leg 4 - Podium: 0.0119477340450937
+INFO [2025-03-29 15:06:40] Found probabilities for Calle Halfvarsson in leg 1 - Podium: 0.307647307440639
+INFO [2025-03-29 15:06:40] Found probabilities for Moa Lundgren in leg 2 - Podium: 0.048450563776855
+INFO [2025-03-29 15:06:40] Found probabilities for Gustaf Berglund in leg 3 - Podium: 0.20203188227122
+INFO [2025-03-29 15:06:40] Found probabilities for Maja Dahlqvist in leg 4 - Podium: 0.381432607484476
+INFO [2025-03-29 15:06:40] Found probabilities for Remi Drolet in leg 1 - Podium: 0.0213880954539884
+INFO [2025-03-29 15:06:40] Found probabilities for Alison Mackie in leg 2 - Podium: 0.0211765977055819
+INFO [2025-03-29 15:06:40] Found probabilities for Thomas Stephen in leg 3 - Podium: 0.0117133807959909
+INFO [2025-03-29 15:06:40] Found probabilities for Sonjaa Schmidt in leg 4 - Podium: 0.012409932892994
+INFO [2025-03-29 15:06:40] Found probabilities for Michal Novak in leg 1 - Podium: 0.435562209055214
+INFO [2025-03-29 15:06:40] Found probabilities for Katerina Janatova in leg 2 - Podium: 0.237931410726221
+INFO [2025-03-29 15:06:40] Found probabilities for Matyas Bauer in leg 3 - Podium: 0.00928153055855831
+INFO [2025-03-29 15:06:40] Found probabilities for Barbora Havlickova in leg 4 - Podium: 0.0033400982833798
+INFO [2025-03-29 15:06:40] Found probabilities for Martino Carollo in leg 1 - Podium: 0.0687345872267178
+INFO [2025-03-29 15:06:40] Found probabilities for Martina di Centa in leg 2 - Podium: 0.0246340011778959
+INFO [2025-03-29 15:06:40] Found probabilities for Paolo Ventura in leg 3 - Podium: 0.0319698088573161
+INFO [2025-03-29 15:06:40] Found probabilities for Maria Gismondi in leg 4 - Podium: 0.0171734642169696
+INFO [2025-03-29 15:06:40] Found probabilities for Zanden McMullen in leg 1 - Podium: 0.0462908144326997
+INFO [2025-03-29 15:06:40] Found probabilities for Julia Kern in leg 2 - Podium: 0.13230080095297
+INFO [2025-03-29 15:06:40] Found probabilities for Ben Ogden in leg 3 - Podium: 0.41636666117081
+INFO [2025-03-29 15:06:40] Found probabilities for Sophia Laukli in leg 4 - Podium: 0.0959990026618273
+INFO [2025-03-29 15:06:40] Found probabilities for Nejc Stern in leg 1 - Podium: 0.0121459431598794
+INFO [2025-03-29 15:06:40] Found probabilities for Anja Mandeljc in leg 2 - Podium: 0.0445069626139399
+INFO [2025-03-29 15:06:40] Found probabilities for Miha Licef in leg 3 - Podium: 0.00659714624542224
+INFO [2025-03-29 15:06:40] Found probabilities for Eva Urevc in leg 4 - Podium: 0.00822417744808303
+INFO [2025-03-29 15:06:40] Found probabilities for Luke Jager in leg 1 - Podium: 0.00930159895792917
+INFO [2025-03-29 15:06:40] Found probabilities for Kendall Kramer in leg 2 - Podium: 0.0135118213789805
+INFO [2025-03-29 15:06:40] Found probabilities for James Clinton Schoonmaker in leg 3 - Podium: 0.0691326270454658
+INFO [2025-03-29 15:06:40] Found probabilities for Sammy Smith in leg 4 - Podium: 0.00716376544386226
+INFO [2025-03-29 15:06:40] Found probabilities for Hugo Hinckfuss in leg 1 - Podium: 0.0116956976150231
+INFO [2025-03-29 15:06:40] Found probabilities for Tuva Bygrave in leg 2 - Podium: 0.00268155933681457
+INFO [2025-03-29 15:06:40] Found probabilities for Seve De Campo in leg 3 - Podium: 0.00337776893248728
+INFO [2025-03-29 15:06:40] Found probabilities for Rosie Fordham in leg 4 - Podium: 0.00473350330614625
+INFO [2025-03-29 15:06:40] Found probabilities for Oleksandr Lisohor in leg 1 - Podium: 0.00441948361035243
+INFO [2025-03-29 15:06:40] Found probabilities for Anastasiia Nikon in leg 2 - Podium: 0.00458031600816047
+INFO [2025-03-29 15:06:40] Found probabilities for Dmytro Drahun in leg 3 - Podium: 0.00521842675229561
+INFO [2025-03-29 15:06:40] Found probabilities for Viktoriya Olekh in leg 4 - Podium: 0.000581254054715287
+INFO [2025-03-29 15:06:40] Found probabilities for Yernur Bexultan in leg 1 - Podium: 0.00967646282744373
+INFO [2025-03-29 15:06:40] Found probabilities for Yelizaveta Tolmachyova in leg 2 - Podium: 0.0170069464314184
+INFO [2025-03-29 15:06:40] Found probabilities for Didar Kassenov in leg 3 - Podium: 0.00623765085292516
+INFO [2025-03-29 15:06:40] Found probabilities for Laura Kinybaeyeva in leg 4 - Podium: 0.00263103705207177
+INFO [2025-03-29 15:06:40] Resetting probabilities at or below the mode to zero
+INFO [2025-03-29 15:06:40] No values appear more than twice for Win_Prob
+INFO [2025-03-29 15:06:40] No values appear more than twice for Podium_Prob
+INFO [2025-03-29 15:06:40] No values appear more than twice for Top5_Prob
+INFO [2025-03-29 15:06:40] No values appear more than twice for Top10_Prob
+INFO [2025-03-29 15:06:40] Normalizing team probabilities
+INFO [2025-03-29 15:06:40] Normalized Win_Prob from sum of 0.4 to 1
+INFO [2025-03-29 15:06:40] Normalized Podium_Prob from sum of 2.65 to 3
+INFO [2025-03-29 15:06:40] Normalized Top5_Prob from sum of 4.69 to 5
+INFO [2025-03-29 15:06:40] Normalized Top10_Prob from sum of 10.94 to 10
+INFO [2025-03-29 15:06:40] Recalculated Expected_Points based on normalized probabilities
+INFO [2025-03-29 15:06:40] Optimizing fantasy mixed relay team
+INFO [2025-03-29 15:06:40] Fantasy team optimization complete. Selected 12 teams.
+INFO [2025-03-29 15:06:40] Total price: 98626 of max 1e+05
+INFO [2025-03-29 15:06:40] Expected total points: 762.5
+INFO [2025-03-29 15:06:40] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250329/mixed_relay_points.xlsx
+INFO [2025-03-29 15:06:40] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250329/mixed_relay_probabilities.xlsx
+INFO [2025-03-29 20:41:36] Starting mixed relay predictions process
+INFO [2025-03-29 20:41:36] Loading weekend race data
+INFO [2025-03-29 20:41:36] Tomorrow's date: 2025-03-29
+INFO [2025-03-29 20:41:36] Found 1 mixed relay races
+INFO [2025-03-29 20:41:36] Loading chrono data
+INFO [2025-03-29 20:41:42] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-03-29 20:41:42] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-03-29 20:41:42] Created combined chrono with 183828 rows
+INFO [2025-03-29 20:41:42] Created relay df with 17707 rows
+INFO [2025-03-29 20:41:42] Created individual df with 160396 rows
+INFO [2025-03-29 20:41:47] Leg 1 dataset contains 357 rows
+INFO [2025-03-29 20:41:47] Leg 2 dataset contains 356 rows
+INFO [2025-03-29 20:41:47] Leg 3 dataset contains 355 rows
+INFO [2025-03-29 20:41:47] Leg 4 dataset contains 354 rows
+INFO [2025-03-29 20:41:47] Training models for Leg 1
+INFO [2025-03-29 20:41:47] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-29 20:41:47] Training podium model using glm
+INFO [2025-03-29 20:41:47] Training win model using glm
+INFO [2025-03-29 20:41:47] Training top5 model using glm
+INFO [2025-03-29 20:41:47] Training top10 model using glm
+INFO [2025-03-29 20:41:47] Top features for Leg 1 podium prediction:
+INFO [2025-03-29 20:41:47] Training models for Leg 2
+INFO [2025-03-29 20:41:47] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-29 20:41:47] Training podium model using glm
+INFO [2025-03-29 20:41:47] Training win model using glm
+INFO [2025-03-29 20:41:47] Training top5 model using glm
+INFO [2025-03-29 20:41:48] Training top10 model using glm
+INFO [2025-03-29 20:41:48] Top features for Leg 2 podium prediction:
+INFO [2025-03-29 20:41:48] Training models for Leg 3
+INFO [2025-03-29 20:41:48] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-29 20:41:48] Training podium model using glm
+INFO [2025-03-29 20:41:48] Training win model using glm
+INFO [2025-03-29 20:41:48] Training top5 model using glm
+INFO [2025-03-29 20:41:48] Training top10 model using glm
+INFO [2025-03-29 20:41:48] Top features for Leg 3 podium prediction:
+INFO [2025-03-29 20:41:48] Training models for Leg 4
+INFO [2025-03-29 20:41:48] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-29 20:41:48] Training podium model using glm
+INFO [2025-03-29 20:41:48] Training win model using glm
+INFO [2025-03-29 20:41:48] Training top5 model using glm
+INFO [2025-03-29 20:41:48] Training top10 model using glm
+INFO [2025-03-29 20:41:48] Top features for Leg 4 podium prediction:
+INFO [2025-03-29 20:41:48] Processing mixed relay predictions
+INFO [2025-03-29 20:41:48] Loaded mixed relay teams startlist with 19 rows
+INFO [2025-03-29 20:41:48] Loaded mixed relay individuals startlist with 76 rows
+INFO [2025-03-29 20:41:48] Preparing current skier data for mixed relay
+INFO [2025-03-29 20:41:50] Replaced NAs in Distance_Elo with first quartile: 1224.11463402647
+INFO [2025-03-29 20:41:50] Replaced NAs in Distance_C_Elo with first quartile: 1237.1587778373
+INFO [2025-03-29 20:41:50] Replaced NAs in Distance_F_Elo with first quartile: 1243.23228391106
+INFO [2025-03-29 20:41:50] Replaced NAs in Sprint_Elo with first quartile: 1231.4308090998
+INFO [2025-03-29 20:41:50] Replaced NAs in Sprint_C_Elo with first quartile: 1248.96250847029
+INFO [2025-03-29 20:41:50] Replaced NAs in Sprint_F_Elo with first quartile: 1239.52210961878
+INFO [2025-03-29 20:41:50] Replaced NAs in Classic_Elo with first quartile: 1244.8489858956
+INFO [2025-03-29 20:41:50] Replaced NAs in Freestyle_Elo with first quartile: 1236.77643159176
+INFO [2025-03-29 20:41:50] Replaced NAs in Distance_Pelo with first quartile: 1226.15392446525
+INFO [2025-03-29 20:41:50] Replaced NAs in Distance_C_Pelo with first quartile: 1238.61066409828
+INFO [2025-03-29 20:41:50] Replaced NAs in Distance_F_Pelo with first quartile: 1244.90662376968
+INFO [2025-03-29 20:41:50] Replaced NAs in Sprint_Pelo with first quartile: 1246.25257877833
+INFO [2025-03-29 20:41:50] Replaced NAs in Sprint_C_Pelo with first quartile: 1248.96250847029
+INFO [2025-03-29 20:41:50] Replaced NAs in Sprint_F_Pelo with first quartile: 1256.18779364329
+INFO [2025-03-29 20:41:50] Replaced NAs in Classic_Pelo with first quartile: 1246.86752224771
+INFO [2025-03-29 20:41:50] Replaced NAs in Freestyle_Pelo with first quartile: 1254.13981644678
+INFO [2025-03-29 20:41:50] Replaced NAs in Classic_Last_5 with first quartile: 0
+INFO [2025-03-29 20:41:50] Replaced NAs in Freestyle_Last_5 with first quartile: 0
+INFO [2025-03-29 20:41:50] Created Pelo_Pct from Elo with max value: 1946.6211651574
+INFO [2025-03-29 20:41:50] Created Distance_Pelo_Pct from Distance_Elo with max value: 1889.46974050597
+INFO [2025-03-29 20:41:50] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1777.16297253153
+INFO [2025-03-29 20:41:50] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1695.2053212904
+INFO [2025-03-29 20:41:50] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1886.80363942481
+INFO [2025-03-29 20:41:50] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.08486899169
+INFO [2025-03-29 20:41:50] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1792.65157560707
+INFO [2025-03-29 20:41:50] Created Classic_Pelo_Pct from Classic_Elo with max value: 1807.56773496777
+INFO [2025-03-29 20:41:50] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1814.60460629541
+INFO [2025-03-29 20:41:50] Prepared data for 636 skiers with 33 features
+INFO [2025-03-29 20:41:50] Using FIS startlist for mixed relay leg predictions
+INFO [2025-03-29 20:41:50] Using FIS startlist for mixed relay teams
+INFO [2025-03-29 20:41:50] Attempting Option 1: Team model coefficients
+INFO [2025-03-29 20:41:50] Option 1 failed: No team_podium model found
+INFO [2025-03-29 20:41:50] Option 1 failed: No team model
+INFO [2025-03-29 20:41:50] Attempting Option 2: Individual model accuracy
+INFO [2025-03-29 20:41:50] Leg 1 accuracy: 0.857159624413146
+INFO [2025-03-29 20:41:50] Leg 2 accuracy: 0.85387323943662
+INFO [2025-03-29 20:41:50] Leg 3 accuracy: 0.859064386317907
+INFO [2025-03-29 20:41:50] Leg 4 accuracy: 0.870012295998212
+INFO [2025-03-29 20:41:50] Option 2 succeeded: Using model accuracy weights
+INFO [2025-03-29 20:41:50] Leg importance weights: Leg 1: 0.25, Leg 2: 0.25, Leg 3: 0.25, Leg 4: 0.25
+INFO [2025-03-29 20:41:50] Found probabilities for Jens Burman in leg 1 - Podium: 0.154746855885601
+INFO [2025-03-29 20:41:50] Found probabilities for Emma Ribom in leg 2 - Podium: 0.294113579143486
+INFO [2025-03-29 20:41:50] Found probabilities for Edvin Anger in leg 3 - Podium: 0.690524807739875
+INFO [2025-03-29 20:41:50] Found probabilities for Moa Ilar in leg 4 - Podium: 0.259105879713935
+INFO [2025-03-29 20:41:50] Found probabilities for Pål Golberg in leg 1 - Podium: 0.667878793946436
+INFO [2025-03-29 20:41:50] Found probabilities for Nora Sanness in leg 2 - Podium: 0.316314777533398
+INFO [2025-03-29 20:41:50] Found probabilities for Iver Tildheim Andersen in leg 3 - Podium: 0.683073956208602
+INFO [2025-03-29 20:41:50] Found probabilities for Kristin Austgulen Fosnæs in leg 4 - Podium: 0.164398881246217
+INFO [2025-03-29 20:41:50] Found probabilities for Jonas Baumann in leg 1 - Podium: 0.159432493926213
+INFO [2025-03-29 20:41:50] Found probabilities for Anja Weber in leg 2 - Podium: 0.050928635845836
+INFO [2025-03-29 20:41:50] Found probabilities for Jason Rüesch in leg 3 - Podium: 0.0600638645557776
+INFO [2025-03-29 20:41:50] Found probabilities for Nadine Fähndrich in leg 4 - Podium: 0.298977444339269
+INFO [2025-03-29 20:41:50] Found probabilities for Martin Kirkeberg Mørk in leg 1 - Podium: 0.1879488462692
+INFO [2025-03-29 20:41:50] Found probabilities for Johanne Hauge Harviken in leg 2 - Podium: 0.018595021679907
+INFO [2025-03-29 20:41:50] Found probabilities for Andreas Fjorden Ree in leg 3 - Podium: 0.469596767234262
+INFO [2025-03-29 20:41:50] Found probabilities for Anne Kjersti Kalvå in leg 4 - Podium: 0.292128254598449
+INFO [2025-03-29 20:41:50] Found probabilities for Iivo Niskanen in leg 1 - Podium: 0.757220292656336
+INFO [2025-03-29 20:41:50] Found probabilities for Jasmi Joensuu in leg 2 - Podium: 0.149101099839171
+INFO [2025-03-29 20:41:50] Found probabilities for Remi Lindholm in leg 3 - Podium: 0.113333010971029
+INFO [2025-03-29 20:41:50] Found probabilities for Vilma Ryytty in leg 4 - Podium: 0.0128923718789263
+INFO [2025-03-29 20:41:50] Found probabilities for Antoine Cyr in leg 1 - Podium: 0.158365950112036
+INFO [2025-03-29 20:41:50] Found probabilities for Kathrine Stewart-Jones in leg 2 - Podium: 0.0512041652035469
+INFO [2025-03-29 20:41:50] Found probabilities for Olivier Leveille in leg 3 - Podium: 0.0625790226610212
+INFO [2025-03-29 20:41:50] Found probabilities for Liliane Gagnon in leg 4 - Podium: 0.0243439523421785
+INFO [2025-03-29 20:41:50] Found probabilities for Cyril Fähndrich in leg 1 - Podium: 0.0525462441461955
+INFO [2025-03-29 20:41:50] Found probabilities for Nadja Kälin in leg 2 - Podium: 0.12117500047634
+INFO [2025-03-29 20:41:50] Found probabilities for Valerio Grond in leg 3 - Podium: 0.215194431498764
+INFO [2025-03-29 20:41:50] Found probabilities for Marina Kälin in leg 4 - Podium: 0.014153157831753
+INFO [2025-03-29 20:41:50] Found probabilities for Mika Vermeulen in leg 1 - Podium: 0.805137333946478
+INFO [2025-03-29 20:41:50] Found probabilities for Teresa Stadlober in leg 2 - Podium: 0.390601512570936
+INFO [2025-03-29 20:41:50] Found probabilities for Benjamin Moser in leg 3 - Podium: 0.054676834877014
+INFO [2025-03-29 20:41:50] Found probabilities for Katharina Brudermann in leg 4 - Podium: 0.00728503887991413
+INFO [2025-03-29 20:41:50] Found probabilities for Lucas Bögl in leg 1 - Podium: 0.0341954290165402
+INFO [2025-03-29 20:41:50] Found probabilities for Katherine Sauerbrey in leg 2 - Podium: 0.0600693958944939
+WARN [2025-03-29 20:41:50] No match found for Jan Stoelben in leg 3
+INFO [2025-03-29 20:41:50] Found probabilities for Anna-Maria Dietze in leg 4 - Podium: 0.0119479195462281
+INFO [2025-03-29 20:41:50] Found probabilities for Calle Halfvarsson in leg 1 - Podium: 0.307648181830159
+INFO [2025-03-29 20:41:50] Found probabilities for Moa Lundgren in leg 2 - Podium: 0.0484522971402035
+INFO [2025-03-29 20:41:50] Found probabilities for Gustaf Berglund in leg 3 - Podium: 0.202036320243858
+INFO [2025-03-29 20:41:50] Found probabilities for Maja Dahlqvist in leg 4 - Podium: 0.381450220052064
+INFO [2025-03-29 20:41:50] Found probabilities for Remi Drolet in leg 1 - Podium: 0.0213881640821743
+INFO [2025-03-29 20:41:50] Found probabilities for Alison Mackie in leg 2 - Podium: 0.0211760251671559
+INFO [2025-03-29 20:41:50] Found probabilities for Thomas Stephen in leg 3 - Podium: 0.0117134801804598
+INFO [2025-03-29 20:41:50] Found probabilities for Sonjaa Schmidt in leg 4 - Podium: 0.0124079767221362
+INFO [2025-03-29 20:41:50] Found probabilities for Michal Novak in leg 1 - Podium: 0.435562652101743
+INFO [2025-03-29 20:41:50] Found probabilities for Katerina Janatova in leg 2 - Podium: 0.237920440350071
+INFO [2025-03-29 20:41:50] Found probabilities for Matyas Bauer in leg 3 - Podium: 0.00928165868366952
+INFO [2025-03-29 20:41:50] Found probabilities for Barbora Havlickova in leg 4 - Podium: 0.00333884228508562
+INFO [2025-03-29 20:41:50] Found probabilities for Martino Carollo in leg 1 - Podium: 0.0687345987081795
+INFO [2025-03-29 20:41:50] Found probabilities for Martina di Centa in leg 2 - Podium: 0.0246318848357818
+INFO [2025-03-29 20:41:50] Found probabilities for Paolo Ventura in leg 3 - Podium: 0.0319693532728805
+INFO [2025-03-29 20:41:50] Found probabilities for Maria Gismondi in leg 4 - Podium: 0.0171690970158538
+INFO [2025-03-29 20:41:50] Found probabilities for Zanden McMullen in leg 1 - Podium: 0.0462910587246182
+INFO [2025-03-29 20:41:50] Found probabilities for Julia Kern in leg 2 - Podium: 0.132304567831807
+INFO [2025-03-29 20:41:50] Found probabilities for Ben Ogden in leg 3 - Podium: 0.4163861862289
+INFO [2025-03-29 20:41:50] Found probabilities for Sophia Laukli in leg 4 - Podium: 0.0959988154028483
+INFO [2025-03-29 20:41:50] Found probabilities for Nejc Stern in leg 1 - Podium: 0.0121459345035904
+INFO [2025-03-29 20:41:50] Found probabilities for Anja Mandeljc in leg 2 - Podium: 0.0445058326645017
+INFO [2025-03-29 20:41:50] Found probabilities for Miha Licef in leg 3 - Podium: 0.00659712988118393
+INFO [2025-03-29 20:41:50] Found probabilities for Eva Urevc in leg 4 - Podium: 0.00822537171965462
+INFO [2025-03-29 20:41:50] Found probabilities for Luke Jager in leg 1 - Podium: 0.00930162237075312
+INFO [2025-03-29 20:41:50] Found probabilities for Kendall Kramer in leg 2 - Podium: 0.0135117272377437
+INFO [2025-03-29 20:41:50] Found probabilities for James Clinton Schoonmaker in leg 3 - Podium: 0.0691320310136067
+INFO [2025-03-29 20:41:50] Found probabilities for Sammy Smith in leg 4 - Podium: 0.00671788077875307
+INFO [2025-03-29 20:41:50] Found probabilities for Hugo Hinckfuss in leg 1 - Podium: 0.011695735788906
+INFO [2025-03-29 20:41:50] Found probabilities for Tuva Bygrave in leg 2 - Podium: 0.00268181612053768
+INFO [2025-03-29 20:41:50] Found probabilities for Seve De Campo in leg 3 - Podium: 0.0033777466281229
+INFO [2025-03-29 20:41:50] Found probabilities for Rosie Fordham in leg 4 - Podium: 0.00473286899114634
+INFO [2025-03-29 20:41:50] Found probabilities for Oleksandr Lisohor in leg 1 - Podium: 0.00441950526080489
+INFO [2025-03-29 20:41:50] Found probabilities for Anastasiia Nikon in leg 2 - Podium: 0.004580655944673
+INFO [2025-03-29 20:41:50] Found probabilities for Dmytro Drahun in leg 3 - Podium: 0.00521835812026796
+INFO [2025-03-29 20:41:50] Found probabilities for Viktoriya Olekh in leg 4 - Podium: 0.000581265791125894
+INFO [2025-03-29 20:41:50] Found probabilities for Yernur Bexultan in leg 1 - Podium: 0.00967652266329806
+INFO [2025-03-29 20:41:50] Found probabilities for Yelizaveta Tolmachyova in leg 2 - Podium: 0.017006647435092
+INFO [2025-03-29 20:41:50] Found probabilities for Didar Kassenov in leg 3 - Podium: 0.00623787285838888
+INFO [2025-03-29 20:41:50] Found probabilities for Laura Kinybaeyeva in leg 4 - Podium: 0.00263109799202643
+INFO [2025-03-29 20:41:50] Resetting probabilities at or below the mode to zero
+INFO [2025-03-29 20:41:50] No values appear more than twice for Win_Prob
+INFO [2025-03-29 20:41:50] No values appear more than twice for Podium_Prob
+INFO [2025-03-29 20:41:50] No values appear more than twice for Top5_Prob
+INFO [2025-03-29 20:41:50] No values appear more than twice for Top10_Prob
+INFO [2025-03-29 20:41:50] Normalizing team probabilities
+INFO [2025-03-29 20:41:50] Normalized Win_Prob from sum of 0.4 to 1
+INFO [2025-03-29 20:41:50] Normalized Podium_Prob from sum of 2.66 to 3
+INFO [2025-03-29 20:41:50] Normalized Top5_Prob from sum of 4.69 to 5
+INFO [2025-03-29 20:41:50] Normalized Top10_Prob from sum of 10.94 to 10
+INFO [2025-03-29 20:41:50] Recalculated Expected_Points based on normalized probabilities
+INFO [2025-03-29 20:41:50] Optimizing fantasy mixed relay team
+INFO [2025-03-29 20:41:50] Fantasy team optimization complete. Selected 12 teams.
+INFO [2025-03-29 20:41:50] Total price: 98626 of max 1e+05
+INFO [2025-03-29 20:41:50] Expected total points: 762.7
+INFO [2025-03-29 20:41:50] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250329/mixed_relay_points.xlsx
+INFO [2025-03-29 20:41:50] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250329/mixed_relay_probabilities.xlsx

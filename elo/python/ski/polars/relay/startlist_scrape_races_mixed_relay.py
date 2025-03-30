@@ -13,15 +13,85 @@ warnings.filterwarnings('ignore')
 # Import common utility functions
 from startlist_common import *
 
-def process_mixed_relay_races(races_file: str = None, gender: str = None) -> None:
+def call_r_script(script_type: str, race_type: str = None, gender: str = None) -> None:
+    """
+    Call the appropriate R script after processing race data
+    
+    Args:
+        script_type: 'weekend' or 'races' (determines weekly picks or race picks)
+        race_type: 'standard', 'team_sprint', 'relay', or 'mixed_relay'
+        gender: 'men', 'ladies', or None for mixed events
+    """
+    import subprocess
+    import os
+    
+    # Set the base path to the R scripts
+    r_script_base_path = "~/blog/daehl-e/content/post/cross-country/drafts"
+    
+    # Determine which R script to call based on script type and race type
+    if script_type == 'weekend':
+        # Weekly picks scripts
+        if race_type == 'standard':
+            r_script = "weekly-picks2.R"
+        elif race_type == 'team_sprint':
+            r_script = "weekly-picks-team-sprint.R"
+        elif race_type == 'relay':
+            r_script = "weekly-picks-relay.R"
+        elif race_type == 'mixed_relay':
+            r_script = "weekly-picks-mixed-relay.R"
+        else:
+            print(f"Unknown race type: {race_type}")
+            return
+    elif script_type == 'races':
+        # Race picks scripts
+        if race_type == 'standard':
+            r_script = "race-picks.R"
+        elif race_type == 'team_sprint':
+            r_script = "race-picks-team-sprint.R"
+        elif race_type == 'relay':
+            r_script = "race-picks-relay.R"
+        elif race_type == 'mixed_relay':
+            r_script = "race-picks-mixed-relay.R"
+        else:
+            print(f"Unknown race type: {race_type}")
+            return
+    else:
+        print(f"Unknown script type: {script_type}")
+        return
+    
+    # Full path to the R script
+    r_script_path = os.path.expanduser(f"{r_script_base_path}/{r_script}")
+    
+    # Command to execute the R script
+    command = ["Rscript", r_script_path]
+    
+    # Add gender parameter if specified
+    if gender:
+        command.append(gender)
+    
+    print(f"Calling R script: {' '.join(command)}")
+    
+    try:
+        # Call the R script
+        result = subprocess.run(command, check=True, capture_output=True, text=True)
+        print(f"R script output:\n{result.stdout}")
+        if result.stderr:
+            print(f"R script error:\n{result.stderr}")
+    except subprocess.CalledProcessError as e:
+        print(f"Error calling R script: {e}")
+        print(f"Script output: {e.stdout}")
+        print(f"Script error: {e.stderr}")
+    except FileNotFoundError:
+        print(f"R script not found: {r_script_path}")
+
+def process_mixed_relay_races(races_file: str = None) -> None:
     """
     Main function to process mixed relay races
     
     Args:
         races_file: Optional path to a CSV containing specific races to process
-        gender: Optional gender filter ('men' or 'ladies')
     """
-    print(f"Processing mixed relay races{' for ' + gender if gender else ''}")
+    print(f"Processing mixed relay races")
     
     # Load races from file if provided, otherwise from standard location
     if races_file and os.path.exists(races_file):
@@ -40,8 +110,10 @@ def process_mixed_relay_races(races_file: str = None, gender: str = None) -> Non
             races_df = pd.read_csv(races_path)
             print(f"Loaded {len(races_df)} races from {races_path}")
             
-            # Filter to only mixed relay races
-            races_df = races_df[races_df['Distance'] == 'Mix']
+            # Filter to only mixed relay races (Rel with gender code 'X' or mixed events)
+            races_df = races_df[(races_df['Distance'] == 'Rel') & 
+                                ((races_df['Sex'] == 'X') | 
+                                 (races_df['Event'].str.contains('mixed', case=False, na=False)))]
             print(f"Filtered to {len(races_df)} mixed relay races")
             
             # Find next race date
@@ -56,11 +128,9 @@ def process_mixed_relay_races(races_file: str = None, gender: str = None) -> Non
             traceback.print_exc()
             return
     
-    # Initialize data collections for all races by gender
-    all_men_teams_data = []
-    all_men_individuals_data = []
-    all_women_teams_data = []
-    all_women_individuals_data = []
+    # Initialize data collections for all races
+    all_teams_data = []
+    all_individuals_data = []
     
     # Process each mixed relay race
     for idx, (_, race) in enumerate(races_df.iterrows()):
@@ -72,63 +142,39 @@ def process_mixed_relay_races(races_file: str = None, gender: str = None) -> Non
         print(f"Processing mixed relay race {idx+1}: {race['City']} ({race['Date']})")
         
         # Get teams from the FIS startlist
-        # Get fantasy athlete data for gender determination
-        fantasy_athlete_data = get_fantasy_prices(get_full_athlete_data=True)
-        teams = get_mixed_relay_teams(startlist_url, fantasy_athlete_data)
-        
+        teams = get_mixed_relay_teams(startlist_url)
         if not teams:
             print(f"No teams found for race {idx+1}, skipping")
             continue
         
-        # Process the teams and create team and individual data by gender
-        men_team_data, women_team_data, men_individual_data, women_individual_data = process_mixed_relay_teams(
-            teams, race
-        )
+        # Process the teams and create team and individual data
+        teams_data, individuals_data = process_mixed_relay_teams(teams, race)
         
-        # Add to respective gender collections
-        if men_team_data and (not gender or gender == 'men'):
-            all_men_teams_data.extend(men_team_data)
-        if men_individual_data and (not gender or gender == 'men'):
-            all_men_individuals_data.extend(men_individual_data)
-        if women_team_data and (not gender or gender == 'ladies'):
-            all_women_teams_data.extend(women_team_data)
-        if women_individual_data and (not gender or gender == 'ladies'):
-            all_women_individuals_data.extend(women_individual_data)
+        # Add the data to our collections
+        all_teams_data.extend(teams_data)
+        all_individuals_data.extend(individuals_data)
     
-    # Save collected data by gender
-    # Men's data
-    if all_men_teams_data and (not gender or gender == 'men'):
-        men_team_df = pd.DataFrame(all_men_teams_data)
-        save_mixed_relay_team_data(men_team_df, 'men')
+    # Save team data
+    if all_teams_data:
+        team_df = pd.DataFrame(all_teams_data)
+        save_mixed_relay_team_data(team_df)
     else:
-        if not gender or gender == 'men':
-            print("No men's team data generated")
+        print(f"No team data generated")
     
-    if all_men_individuals_data and (not gender or gender == 'men'):
-        men_individual_df = pd.DataFrame(all_men_individuals_data)
-        save_mixed_relay_individual_data(men_individual_df, 'men')
+    # Save individual data
+    if all_individuals_data:
+        individual_df = pd.DataFrame(all_individuals_data)
+        save_mixed_relay_individual_data(individual_df)
     else:
-        if not gender or gender == 'men':
-            print("No men's individual data generated")
-    
-    # Women's data
-    if all_women_teams_data and (not gender or gender == 'ladies'):
-        women_team_df = pd.DataFrame(all_women_teams_data)
-        save_mixed_relay_team_data(women_team_df, 'ladies')
-    else:
-        if not gender or gender == 'ladies':
-            print("No ladies' team data generated")
-    
-    if all_women_individuals_data and (not gender or gender == 'ladies'):
-        women_individual_df = pd.DataFrame(all_women_individuals_data)
-        save_mixed_relay_individual_data(women_individual_df, 'ladies')
-    else:
-        if not gender or gender == 'ladies':
-            print("No ladies' individual data generated")
+        print(f"No individual data generated")
 
-def get_mixed_relay_teams(url: str, fantasy_prices: Dict = None) -> List[Dict]:
+def get_mixed_relay_teams(url: str, fantasy_prices: Dict[str, Dict] = None) -> List[Dict]:
     """
-    Get teams from FIS mixed relay startlist with improved gender determination
+    Get teams from FIS mixed relay startlist
+    
+    Args:
+        url: The URL of the FIS mixed relay startlist
+        fantasy_prices: Optional dictionary of fantasy prices for athletes
     
     Returns list of teams with structure:
     [
@@ -138,8 +184,8 @@ def get_mixed_relay_teams(url: str, fantasy_prices: Dict = None) -> List[Dict]:
             'team_rank': 1,
             'team_time': '54:45.3',
             'members': [
-                {'name': 'ATHLETE NAME', 'nation': 'XXX', 'year': '1994', 'bib': '1-1', 'sex': 'M'},
-                {'name': 'ATHLETE NAME', 'nation': 'XXX', 'year': '1997', 'bib': '1-2', 'sex': 'F'},
+                {'name': 'ATHLETE NAME', 'nation': 'XXX', 'year': '1994', 'bib': '2-1', 'sex': 'M'},
+                {'name': 'ATHLETE NAME', 'nation': 'XXX', 'year': '1997', 'bib': '2-2', 'sex': 'F'},
                 ...
             ]
         },
@@ -153,6 +199,9 @@ def get_mixed_relay_teams(url: str, fantasy_prices: Dict = None) -> List[Dict]:
         soup = BeautifulSoup(response.text, 'html.parser')
         teams = []
         
+        # Track team numbers by nation
+        nation_team_counts = {}
+        
         # Find all team rows (main rows)
         team_rows = soup.select('.table-row_theme_main')
         
@@ -161,11 +210,25 @@ def get_mixed_relay_teams(url: str, fantasy_prices: Dict = None) -> List[Dict]:
             if not team_name_elem:
                 continue
                 
+            # Get nation code
+            nation_elem = team_row.select_one('.country__name-short')
+            nation = nation_elem.text.strip() if nation_elem else ""
+            
+            # Update team counter for this nation
+            if nation not in nation_team_counts:
+                nation_team_counts[nation] = 1
+            else:
+                nation_team_counts[nation] += 1
+            
+            # Get team number for this nation
+            team_number = nation_team_counts[nation]
+            
             team_data = {
                 'team_name': team_name_elem.text.strip(),
-                'nation': team_row.select_one('.country__name-short').text.strip(),
+                'nation': nation,
                 'team_rank': team_row.select_one('.g-lg-1.g-md-1.g-sm-1.g-xs-2.justify-right.bold').text.strip(),
                 'team_time': '',
+                'team_number': team_number,  # Add team number
                 'members': []
             }
             
@@ -193,14 +256,28 @@ def get_mixed_relay_teams(url: str, fantasy_prices: Dict = None) -> List[Dict]:
                         bib_elem = current_element.select_one('.bib')
                         bib = bib_elem.text.strip() if bib_elem else ''
                         
-                        # Determine athlete sex using API data when available
-                        sex = determine_athlete_sex(
-                            athlete_name, 
-                            bib, 
-                            team_data['members'], 
-                            fantasy_prices
-                        )
+                        # For mixed relay, we need to determine gender
+                        # This is a bit tricky without explicit gender in the FIS data
+                        # We'll use the position in the team as a hint
+                        # Typically in mixed relay: positions 1/3 are men, 2/4 are women
+                        try:
+                            leg_position = int(bib.split('-')[1]) if '-' in bib else 0
+                            sex = 'M' if leg_position % 2 == 1 else 'F'  # Odd positions: men, Even positions: women
+                        except (ValueError, IndexError):
+                            # If we can't parse the bib, make a guess based on position in team
+                            sex = 'M' if len(team_data['members']) % 2 == 0 else 'F'  # First and third: men, second and fourth: women
                         
+                        # If we have fantasy prices, we could try to verify gender
+                        if fantasy_prices:
+                            for athlete_id, athlete_data in fantasy_prices.items():
+                                if isinstance(athlete_data, dict) and athlete_data.get('name', '').lower() == athlete_name.lower():
+                                    gender_code = athlete_data.get('gender')
+                                    if gender_code == 'm':
+                                        sex = 'M'
+                                    elif gender_code == 'f':
+                                        sex = 'F'
+                                    break
+                                    
                         team_data['members'].append({
                             'name': athlete_name,
                             'nation': team_data['nation'],
@@ -219,140 +296,31 @@ def get_mixed_relay_teams(url: str, fantasy_prices: Dict = None) -> List[Dict]:
         traceback.print_exc()
         return []
 
-def get_fantasy_prices(get_full_athlete_data: bool = False) -> Dict:
+def process_mixed_relay_teams(teams: List[Dict], race: pd.Series) -> Tuple[List[Dict], List[Dict]]:
     """
-    Get prices from Fantasy XC API
-    
-    Args:
-        get_full_athlete_data: If True, returns full athlete data including gender info
-                              If False, returns only prices keyed by athlete name
-    
-    Returns:
-        Dictionary of prices keyed by athlete name or full athlete data dictionary
-    """
-    try:
-        response = requests.get('https://www.fantasyxc.se/api/athletes')
-        response.raise_for_status()
-        
-        athletes = response.json()
-        
-        if get_full_athlete_data:
-            # Return full athlete data keyed by athlete ID and including gender info
-            athlete_data = {
-                athlete['athlete_id']: {
-                    'name': athlete['name'],
-                    'price': athlete['price'],
-                    'gender': athlete['gender'],
-                    'country': athlete.get('country', ''),
-                    'is_team': athlete.get('is_team', False)
-                }
-                for athlete in athletes
-                if not athlete.get('is_team', False)  # Filter out teams
-            }
-            print(f"Got data for {len(athlete_data)} athletes from Fantasy XC")
-            return athlete_data
-        else:
-            # Return just prices keyed by name for backward compatibility
-            prices = {
-                athlete['name']: athlete['price'] 
-                for athlete in athletes 
-                if not athlete.get('is_team', False)  # Filter out teams
-            }
-            print(f"Got prices for {len(prices)} athletes from Fantasy XC")
-            return prices
-        
-    except Exception as e:
-        print(f"Error getting Fantasy XC prices: {e}")
-        return {}
-
-def determine_athlete_sex(
-    name: str, 
-    bib: str, 
-    existing_members: List[Dict], 
-    fantasy_prices: Dict = None
-) -> str:
-    """
-    Determine athlete sex based on fantasy API data, bib positioning, name pattern, or existing team members
-    
-    Args:
-        name: Athlete name
-        bib: Athlete bib
-        existing_members: List of team members already processed
-        fantasy_prices: Dictionary of fantasy API data with gender information
-    
-    Returns:
-        'M' for male, 'F' for female
-    """
-    # PREFERRED METHOD: Check fantasy API data
-    if fantasy_prices:
-        # Try to find athlete in fantasy data - first try exact match
-        for athlete_id, athlete_data in fantasy_prices.items():
-            if name.lower() == athlete_data.get('name', '').lower():
-                # Return gender from API data
-                gender = athlete_data.get('gender', '').lower()
-                return 'M' if gender == 'm' else 'F' if gender == 'f' else None
-        
-        # If no exact match, try partial match on lastname
-        last_name = name.split()[-1] if ' ' in name else name
-        for athlete_id, athlete_data in fantasy_prices.items():
-            api_name = athlete_data.get('name', '')
-            if ' ' in api_name and last_name.lower() in api_name.lower():
-                # Return gender from API data
-                gender = athlete_data.get('gender', '').lower()
-                return 'M' if gender == 'm' else 'F' if gender == 'f' else None
-    
-    # FALLBACK 1: Check bib position if available
-    if '-' in bib:
-        position = int(bib.split('-')[-1])
-        # In mixed relays, positions 1,3 are typically men and 2,4 are women
-        if position in [1, 3]:
-            return 'M'
-        elif position in [2, 4]:
-            return 'F'
-    
-    # FALLBACK 2: If we already have team members, alternate sex
-    if existing_members:
-        last_member = existing_members[-1]
-        return 'F' if last_member.get('sex') == 'M' else 'M'
-    
-    # FALLBACK 3: Try to determine from name (least reliable)
-    # Common female name endings in various languages
-    female_patterns = ['ova', 'ina', 'eva', 'aia', 'aya', 'kyte', 'iene', 'ienė', 'ová', 'ska']
-    if any(name.lower().endswith(pattern) for pattern in female_patterns):
-        return 'F'
-    
-    # Default to male if we can't determine
-    print(f"Warning: Could not reliably determine gender for {name}, defaulting to 'M'")
-    return 'M'
-
-def process_mixed_relay_teams(teams: List[Dict], race: pd.Series) -> Tuple[List[Dict], List[Dict], List[Dict], List[Dict]]:
-    """
-    Process mixed relay teams and create separate team and individual data by gender
+    Process mixed relay teams and create team and individual data
     
     Args:
         teams: List of teams with members
         race: Race information
         
     Returns:
-        tuple: (men_team_data, women_team_data, men_individual_data, women_individual_data)
+        tuple: (team_data, individual_data)
     """
-    # Initialize data for men and women
-    men_team_data = []
-    women_team_data = []
-    men_individual_data = []
-    women_individual_data = []
+    # Initialize data for teams and individual athletes
+    team_data = []
+    individual_data = []
     
-    # Get the ELO scores for both genders
+    # Get the ELO scores for men and women
     men_elo_path = "~/ski/elo/python/ski/polars/excel365/men_chrono_elevation.csv"
     women_elo_path = "~/ski/elo/python/ski/polars/excel365/ladies_chrono_elevation.csv"
     
     men_elo_scores = get_latest_elo_scores(men_elo_path)
     women_elo_scores = get_latest_elo_scores(women_elo_path)
     
-    # Get fantasy prices and team prices
+    # Get fantasy prices including team prices
     fantasy_prices = get_fantasy_prices()
-    men_fantasy_teams = get_fantasy_teams('men')
-    women_fantasy_teams = get_fantasy_teams('ladies')
+    mixed_fantasy_teams = get_fantasy_teams('mixed')
     
     # Define Elo columns to work with
     elo_columns = [
@@ -361,7 +329,7 @@ def process_mixed_relay_teams(teams: List[Dict], race: pd.Series) -> Tuple[List[
         'Classic_Elo', 'Freestyle_Elo'
     ]
     
-    # Calculate quartiles for each gender
+    # Calculate first quartile for each Elo column for imputation - separately for men and women
     men_quartiles = {}
     women_quartiles = {}
     
@@ -370,20 +338,39 @@ def process_mixed_relay_teams(teams: List[Dict], race: pd.Series) -> Tuple[List[
         if col in men_elo_scores.columns:
             numeric_values = pd.to_numeric(men_elo_scores[col], errors='coerce')
             men_quartiles[col] = numeric_values.quantile(0.25)
+            print(f"Men first quartile for {col}: {men_quartiles[col]}")
         else:
+            # If column doesn't exist, use default value
             men_quartiles[col] = 1000
+            print(f"Men column {col} not found, using default quartile value: 1000")
             
         # Women's quartiles
         if col in women_elo_scores.columns:
             numeric_values = pd.to_numeric(women_elo_scores[col], errors='coerce')
             women_quartiles[col] = numeric_values.quantile(0.25)
+            print(f"Women first quartile for {col}: {women_quartiles[col]}")
         else:
+            # If column doesn't exist, use default value
             women_quartiles[col] = 1000
+            print(f"Women column {col} not found, using default quartile value: 1000")
     
     # Process each team
     for team in teams:
         # Map to standardized country name
         nation = team['nation']
+        
+        # Get original team name from FIS data and extract suffix if present
+        fis_team_name = team['team_name'].strip()
+        team_suffix = " I"  # Default suffix
+        
+        # Determine if this is a secondary team (II, III, etc.)
+        if " II" in fis_team_name:
+            team_suffix = " II"
+        elif " III" in fis_team_name:
+            team_suffix = " III"
+        elif " IV" in fis_team_name:
+            team_suffix = " IV"
+        
         team_name_part = map_country_to_team_name(nation)
         
         # Skip teams that don't have a match in the team spreadsheet
@@ -391,24 +378,12 @@ def process_mixed_relay_teams(teams: List[Dict], race: pd.Series) -> Tuple[List[
             print(f"Skipping team from {nation} - no matching country in team list")
             continue
             
-        # Use exact format from team spreadsheet
-        team_name = f"{team_name_part} I"
+        # Use exact format from team spreadsheet WITH the correct suffix
+        team_name = f"{team_name_part}{team_suffix}"
         print(f"Processing team from {nation} as {team_name}")
         
-        # Initialize team info for both genders
-        men_team_info = {
-            'Team_Name': team_name,
-            'Nation': team_name_part,  # Use the standardized country name
-            'Team_Rank': team['team_rank'],
-            'Race_Date': race['Date'],
-            'City': race['City'],
-            'Country': race['Country'],
-            'Price': 0,
-            'Is_Present': True,  # This team is in the actual startlist
-            'Race_Type': 'Mixed Relay'
-        }
-        
-        women_team_info = {
+        # Initialize team info with default values for all Elo types
+        team_info = {
             'Team_Name': team_name,
             'Nation': team_name_part,  # Use the standardized country name
             'Team_Rank': team['team_rank'],
@@ -422,42 +397,35 @@ def process_mixed_relay_teams(teams: List[Dict], race: pd.Series) -> Tuple[List[
         
         # Initialize all Elo sums to 0
         for col in elo_columns:
-            men_team_info[col] = 0
-            women_team_info[col] = 0
+            team_info[col] = 0
         
         # Get team price from fantasy API if available
-        for api_team_name, api_team_info in men_fantasy_teams.items():
+        for api_team_name, api_team_info in mixed_fantasy_teams.items():
             if team_name.lower() == api_team_name.lower():
-                men_team_info['Price'] = api_team_info['price']
-                men_team_info['Team_API_ID'] = api_team_info['athlete_id']
-                break
-                
-        for api_team_name, api_team_info in women_fantasy_teams.items():
-            if team_name.lower() == api_team_name.lower():
-                women_team_info['Price'] = api_team_info['price']
-                women_team_info['Team_API_ID'] = api_team_info['athlete_id']
+                team_info['Price'] = api_team_info['price']
+                team_info['Team_API_ID'] = api_team_info['athlete_id']
                 break
         
-        men_team_members = []
-        women_team_members = []
-        men_team_elos = {}
-        women_team_elos = {}
+        team_members = []
+        team_elos = {}
         
         # Initialize Elo sums for each type
         for col in elo_columns:
-            men_team_elos[col] = []
-            women_team_elos[col] = []
+            team_elos[col] = []
         
-        # Track position numbers by gender to avoid duplicates
-        men_position_counter = 0
-        women_position_counter = 0
-        men_position_numbers_used = set()
-        women_position_numbers_used = set()
+        # Track position numbers to avoid duplicates in case of malformed bibs
+        position_counter = 0
+        position_numbers_used = set()
         
         # Process each member
         for member in team['members']:
-            # Determine if male or female
+            # Determine gender from the member data
             is_male = member.get('sex', 'M') == 'M'
+            gender = 'men' if is_male else 'ladies'
+            
+            # Select the appropriate ELO scores and quartiles based on gender
+            elo_scores = men_elo_scores if is_male else women_elo_scores
+            quartiles = men_quartiles if is_male else women_quartiles
             
             # Handle the bib parsing more safely to deal with incomplete bib formats
             bib = member.get('bib', '')
@@ -468,32 +436,22 @@ def process_mixed_relay_teams(teams: List[Dict], race: pd.Series) -> Tuple[List[
                     position_number = int(bib_parts[1])
                 else:
                     # If bib is malformed (like "0-"), assign sequential position
-                    if is_male:
-                        men_position_counter += 1
-                        position_number = men_position_counter
-                    else:
-                        women_position_counter += 1
-                        position_number = women_position_counter
+                    position_counter += 1
+                    position_number = position_counter
                     print(f"Warning: Malformed bib '{bib}' for {member.get('name', 'Unknown')}. Assigning position {position_number}.")
             except (ValueError, IndexError):
                 # Handle any parsing errors by assigning sequential position
-                if is_male:
-                    men_position_counter += 1
-                    position_number = men_position_counter
-                else:
-                    women_position_counter += 1
-                    position_number = women_position_counter
+                position_counter += 1
+                position_number = position_counter
                 print(f"Warning: Invalid bib format '{bib}' for {member.get('name', 'Unknown')}. Assigning position {position_number}.")
             
-            # Ensure no duplicate position numbers within gender
-            if is_male:
-                while position_number in men_position_numbers_used:
-                    position_number += 1
-                men_position_numbers_used.add(position_number)
-            else:
-                while position_number in women_position_numbers_used:
-                    position_number += 1
-                women_position_numbers_used.add(position_number)
+            # Ensure no duplicate position numbers
+            while position_number in position_numbers_used:
+                position_number += 1
+            position_numbers_used.add(position_number)
+            
+            # Extract just the leg number from the bib
+            leg_number = str(position_number)
             
             # Prepare the base row data
             row_data = {
@@ -505,101 +463,60 @@ def process_mixed_relay_teams(teams: List[Dict], race: pd.Series) -> Tuple[List[
                 'Team_Name': team_name,  # Use exact format from team spreadsheet
                 'Team_Rank': team['team_rank'],
                 'Team_Time': team.get('team_time', ''),
-                'Team_Position': bib,  # Keep original bib for reference
-                'Race_Type': 'Mixed Relay',
-                'Sex': 'M' if is_male else 'F'
+                'Team_Position': leg_number,  # Just the leg number
+                'Sex': member.get('sex', 'M'),  # Add sex to individual data
+                'Race_Type': 'Mixed Relay'
             }
             
-            # Process based on gender
-            if is_male:
-                # Process male athlete
-                processed_data = process_mixed_relay_athlete(
-                    row_data, 
-                    men_elo_scores, 
-                    fantasy_prices, 
-                    'men',
-                    men_quartiles
-                )
-                
-                # Add race information
-                processed_data['Race_Date'] = race['Date']
-                processed_data['City'] = race['City']
-                processed_data['Country'] = race['Country']
-                
-                # Add to individual data
-                men_individual_data.append(processed_data)
-                
-                # Extract member info for team record
-                men_team_members.append(processed_data['Skier'])
-                
-                # Set member in team info
-                men_team_info[f'Member_{position_number}'] = processed_data['Skier']
-                men_team_info[f'Member_{position_number}_ID'] = processed_data.get('ID', None)
-                
-                # Add all Elo values to team sums
-                for col in elo_columns:
-                    if col in processed_data and processed_data[col] is not None:
-                        member_elo = float(processed_data[col])
-                        men_team_info[f'Member_{position_number}_{col}'] = member_elo
-                        men_team_elos[col].append(member_elo)
-                    else:
-                        # Use quartile value if Elo is missing
-                        men_team_info[f'Member_{position_number}_{col}'] = men_quartiles[col]
-                        men_team_elos[col].append(men_quartiles[col])
-            else:
-                # Process female athlete
-                processed_data = process_mixed_relay_athlete(
-                    row_data, 
-                    women_elo_scores, 
-                    fantasy_prices, 
-                    'ladies',
-                    women_quartiles
-                )
-                
-                # Add race information
-                processed_data['Race_Date'] = race['Date']
-                processed_data['City'] = race['City']
-                processed_data['Country'] = race['Country']
-                
-                # Add to individual data
-                women_individual_data.append(processed_data)
-                
-                # Extract member info for team record
-                women_team_members.append(processed_data['Skier'])
-                
-                # Set member in team info
-                women_team_info[f'Member_{position_number}'] = processed_data['Skier']
-                women_team_info[f'Member_{position_number}_ID'] = processed_data.get('ID', None)
-                
-                # Add all Elo values to team sums
-                for col in elo_columns:
-                    if col in processed_data and processed_data[col] is not None:
-                        member_elo = float(processed_data[col])
-                        women_team_info[f'Member_{position_number}_{col}'] = member_elo
-                        women_team_elos[col].append(member_elo)
-                    else:
-                        # Use quartile value if Elo is missing
-                        women_team_info[f'Member_{position_number}_{col}'] = women_quartiles[col]
-                        women_team_elos[col].append(women_quartiles[col])
+            # Process the athlete to match with ELO scores and prices
+            processed_data = process_mixed_relay_athlete(
+                row_data, 
+                elo_scores, 
+                fantasy_prices,
+                gender,
+                quartiles
+            )
+            
+            # Add race information
+            processed_data['Race_Date'] = race['Date']
+            processed_data['City'] = race['City']
+            processed_data['Country'] = race['Country']
+            
+            # Add to individual data
+            individual_data.append(processed_data)
+            
+            # Extract member info for team record
+            team_members.append(processed_data['Skier'])
+            
+            # Set member in team info
+            team_info[f'Member_{position_number}'] = processed_data['Skier']
+            team_info[f'Member_{position_number}_ID'] = processed_data.get('ID', None)
+            team_info[f'Member_{position_number}_Sex'] = processed_data['Sex']
+            
+            # Add all Elo values to team sums
+            for col in elo_columns:
+                if col in processed_data and processed_data[col] is not None:
+                    member_elo = float(processed_data[col])
+                    team_info[f'Member_{position_number}_{col}'] = member_elo
+                    team_elos[col].append(member_elo)
+                else:
+                    # Use quartile value if Elo is missing
+                    team_info[f'Member_{position_number}_{col}'] = quartiles[col]
+                    team_elos[col].append(quartiles[col])
         
         # Calculate combined Elo for each type
         for col in elo_columns:
-            men_team_info[col] = sum(men_team_elos[col])
-            women_team_info[col] = sum(women_team_elos[col])
+            team_info[col] = sum(team_elos[col])
         
-        # Add team records if they have members
-        if men_team_members:
-            men_team_data.append(men_team_info)
-        
-        if women_team_members:
-            women_team_data.append(women_team_info)
+        # Add team record
+        team_data.append(team_info)
     
-    return men_team_data, women_team_data, men_individual_data, women_individual_data
+    return team_data, individual_data
 
 def process_mixed_relay_athlete(
     row_data: Dict, 
     elo_scores: pd.DataFrame, 
-    fantasy_prices: Dict[str, int],
+    fantasy_prices: Dict[str, Dict],
     gender: str,
     quartiles: Dict[str, float] = None
 ) -> Dict:
@@ -628,10 +545,6 @@ def process_mixed_relay_athlete(
         # Map country to team name format from team spreadsheet
         team_name_part = map_country_to_team_name(nation)
         
-        # Update team name if we have a mapping, otherwise keep the original
-        if team_name_part:
-            row_data['Team_Name'] = f"{team_name_part} I"
-        
         # STEP 1: Name Processing
         # Check manual mappings first
         if fis_name in MANUAL_NAME_MAPPINGS:
@@ -648,11 +561,22 @@ def process_mixed_relay_athlete(
                 print(f"Using converted name: {processed_name}")
         
         # STEP 2: Get Fantasy Price
-        # Try with original FIS name first
-        price = get_fantasy_price(fis_name, fantasy_prices)
-        if price == 0:
-            # If no price found, try with processed name
-            price = get_fantasy_price(processed_name, fantasy_prices)
+        # Try extracting price from fantasy data
+        price = 0
+        for athlete_id, athlete_data in fantasy_prices.items():
+            # Skip if athlete_data is not a dictionary
+            if not isinstance(athlete_data, dict):
+                continue
+                
+            # Try exact match first
+            if processed_name.lower() == athlete_data.get('name', '').lower():
+                price = athlete_data.get('price', 0)
+                break
+            
+            # Try alternate name formats if needed
+            if fis_name.lower() == athlete_data.get('name', '').lower():
+                price = athlete_data.get('price', 0)
+                break
         
         # Update row data with price
         row_data['Price'] = price
@@ -695,39 +619,39 @@ def process_mixed_relay_athlete(
         traceback.print_exc()
         return row_data  # Return original data if processing fails
 
-def save_mixed_relay_individual_data(df: pd.DataFrame, gender: str) -> None:
+def save_mixed_relay_individual_data(df: pd.DataFrame) -> None:
     """Save processed mixed relay individual data to a CSV file"""
     try:
         # Sort by team rank and position
         df = df.sort_values(['Team_Rank', 'Team_Position'])
         
         # Save to CSV
-        output_path = f"~/ski/elo/python/ski/polars/relay/excel365/startlist_relay_mixed_races_individuals_{gender}.csv"
+        output_path = "~/ski/elo/python/ski/polars/relay/excel365/startlist_mixed_relay_races_individuals.csv"
         
         # Create directory if it doesn't exist
         os.makedirs(os.path.dirname(os.path.expanduser(output_path)), exist_ok=True)
         
         df.to_csv(os.path.expanduser(output_path), index=False)
-        print(f"Saved {len(df)} {gender} individual athletes to {output_path}")
+        print(f"Saved {len(df)} mixed relay individual athletes to {output_path}")
     
     except Exception as e:
         print(f"Error saving mixed relay individual data: {e}")
         traceback.print_exc()
 
-def save_mixed_relay_team_data(df: pd.DataFrame, gender: str) -> None:
+def save_mixed_relay_team_data(df: pd.DataFrame) -> None:
     """Save processed mixed relay team data to a CSV file"""
     try:
         # Sort by team rank
         df = df.sort_values(['Team_Rank'])
         
         # Save to CSV
-        output_path = f"~/ski/elo/python/ski/polars/relay/excel365/startlist_relay_mixed_races_teams_{gender}.csv"
+        output_path = "~/ski/elo/python/ski/polars/relay/excel365/startlist_mixed_relay_races_teams.csv"
         
         # Create directory if it doesn't exist
         os.makedirs(os.path.dirname(os.path.expanduser(output_path)), exist_ok=True)
         
         df.to_csv(os.path.expanduser(output_path), index=False)
-        print(f"Saved {len(df)} {gender} teams to {output_path}")
+        print(f"Saved {len(df)} mixed relay teams to {output_path}")
     
     except Exception as e:
         print(f"Error saving mixed relay team data: {e}")
@@ -742,7 +666,7 @@ def get_fantasy_teams(gender: str) -> Dict[str, Dict]:
         athletes = response.json()
         
         # Filter for teams (is_team=true) and the specified gender
-        gender_code = 'm' if gender == 'men' else 'f'
+        gender_code = 'm' if gender == 'men' else 'f' if gender == 'ladies' else 'mixed'
         teams = {
             athlete['name']: athlete 
             for athlete in athletes 
@@ -762,6 +686,7 @@ def map_country_to_team_name(country: str) -> str:
     Returns empty string if no match found
     """
     # Direct mapping from individual country names AND codes to team names (without "I" suffix)
+# Direct mapping from individual country names AND codes to team names (without "I" suffix)
     country_to_team = {
         # Full country names mapping
         "Andorra": "",  # Not in team list
@@ -870,6 +795,72 @@ def map_country_to_team_name(country: str) -> str:
     # Get mapped team name
     return country_to_team.get(country, "")
 
+def reverse_map_country_code(code: str) -> str:
+    """
+    Map country codes to full country names
+    
+    Args:
+        code: The country code (e.g., 'NOR', 'SWE')
+    
+    Returns:
+        The full country name or the original code if not found
+    """
+    # Dictionary mapping country codes to full names
+    code_to_country = {
+        # 3-letter country codes
+        "AND": "Andorra",
+        "ARG": "Argentina",
+        "ARM": "Armenia",
+        "AUS": "Australia",
+        "AUT": "Austria",
+        "BIH": "Bosnia & Herzegovina",
+        "BLR": "Belarus",
+        "BRA": "Brazil",
+        "BUL": "Bulgaria",
+        "CAN": "Canada",
+        "CHI": "Chile",
+        "CHN": "China",
+        "CRO": "Croatia",
+        "CZE": "Czech Republic",
+        "EST": "Estonia",
+        "FIN": "Finland",
+        "FRA": "France",
+        "GBR": "Great Britain",
+        "GER": "Germany",
+        "GRE": "Greece",
+        "HUN": "Hungary",
+        "ISL": "Iceland",
+        "IND": "India",
+        "IRI": "Iran",
+        "ITA": "Italy",
+        "JPN": "Japan",
+        "KAZ": "Kazakhstan",
+        "KOR": "South Korea",
+        "LAT": "Latvia",
+        "LBN": "Lebanon",
+        "LTU": "Lithuania",
+        "MAS": "Malaysia",
+        "MEX": "Mexico",
+        "MGL": "Mongolia",
+        "MKD": "North Macedonia",
+        "NOR": "Norway",
+        "POL": "Poland",
+        "ROU": "Romania",
+        "RUS": "Russia",
+        "SRB": "Serbia",
+        "SVK": "Slovakia",
+        "SLO": "Slovenia",
+        "SWE": "Sweden",
+        "SUI": "Switzerland",
+        "TPE": "Taiwan",
+        "TUR": "Turkey",
+        "USA": "United States of America",
+        "UKR": "Ukraine"
+    }
+    
+    # Return the full country name or the original code if not found
+    return code_to_country.get(code, code)
+
 def format_team_name(name: str) -> str:
     """
     Format team name to match API format.
@@ -881,6 +872,10 @@ def format_team_name(name: str) -> str:
         return name
     elif ' II ' in name or name.endswith(' II'):
         return name
+    elif ' III ' in name or name.endswith(' III'):
+        return name
+    elif ' IV ' in name or name.endswith(' IV'):
+        return name
     else:
         return f"{name} I"
 
@@ -888,8 +883,7 @@ if __name__ == "__main__":
     # Check if a specific races file was provided
     races_file = sys.argv[1] if len(sys.argv) > 1 else None
     
-    # Check if gender was specified
-    gender = sys.argv[2] if len(sys.argv) > 2 else None
-    
     # Process mixed relay races
-    process_mixed_relay_races(races_file, gender)
+    process_mixed_relay_races(races_file)
+    call_r_script('races', 'mixed_relay')
+        # Full country names
