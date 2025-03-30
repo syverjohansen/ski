@@ -1,0 +1,984 @@
+INFO [2025-03-30 13:40:08] Starting mixed relay race day predictions process
+INFO [2025-03-30 13:40:09] Loading race data for today
+INFO [2025-03-30 13:40:09] Today's date: 2025-03-30
+INFO [2025-03-30 13:40:09] Found 1 mixed relay races
+INFO [2025-03-30 13:40:09] Loading chrono data
+INFO [2025-03-30 13:40:15] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-03-30 13:40:15] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-03-30 13:40:15] Created combined chrono with 183828 rows
+INFO [2025-03-30 13:40:15] Created relay df with 17707 rows
+INFO [2025-03-30 13:40:15] Created individual df with 160396 rows
+INFO [2025-03-30 13:40:19] Leg 1 dataset contains 61 rows
+INFO [2025-03-30 13:40:19] Leg 2 dataset contains 296 rows
+INFO [2025-03-30 13:40:19] Leg 3 dataset contains 61 rows
+INFO [2025-03-30 13:40:19] Leg 4 dataset contains 295 rows
+INFO [2025-03-30 13:40:19] Training models for Leg 1
+INFO [2025-03-30 13:40:19] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 13:40:19] Training podium model using glm
+INFO [2025-03-30 13:40:19] Training win model using glm
+INFO [2025-03-30 13:40:19] Training top5 model using glm
+INFO [2025-03-30 13:40:19] Training top10 model using glm
+INFO [2025-03-30 13:40:20] Training models for Leg 2
+INFO [2025-03-30 13:40:20] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 13:40:20] Training podium model using glm
+INFO [2025-03-30 13:40:20] Training win model using glm
+INFO [2025-03-30 13:40:20] Training top5 model using glm
+INFO [2025-03-30 13:40:20] Training top10 model using glm
+INFO [2025-03-30 13:40:20] Training models for Leg 3
+INFO [2025-03-30 13:40:20] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 13:40:20] Training podium model using glm
+INFO [2025-03-30 13:40:20] Training win model using glm
+INFO [2025-03-30 13:40:20] Training top5 model using glm
+INFO [2025-03-30 13:40:20] Training top10 model using glm
+INFO [2025-03-30 13:40:20] Training models for Leg 4
+INFO [2025-03-30 13:40:20] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 13:40:20] Training podium model using glm
+INFO [2025-03-30 13:40:20] Training win model using glm
+INFO [2025-03-30 13:40:20] Training top5 model using glm
+INFO [2025-03-30 13:40:20] Training top10 model using glm
+INFO [2025-03-30 13:40:20] Processing mixed relay predictions
+INFO [2025-03-30 13:40:21] Loaded mixed relay teams startlist with 19 rows
+INFO [2025-03-30 13:40:21] Loaded mixed relay individuals startlist with 76 rows
+INFO [2025-03-30 13:40:21] Preparing current skier data for mixed relay
+INFO [2025-03-30 13:40:22] Replaced NAs in Distance_Elo with first quartile: 1224.11463402647
+INFO [2025-03-30 13:40:22] Replaced NAs in Distance_C_Elo with first quartile: 1237.1587778373
+INFO [2025-03-30 13:40:22] Replaced NAs in Distance_F_Elo with first quartile: 1243.23228391106
+INFO [2025-03-30 13:40:22] Replaced NAs in Sprint_Elo with first quartile: 1231.4308090998
+INFO [2025-03-30 13:40:22] Replaced NAs in Sprint_C_Elo with first quartile: 1248.96250847029
+INFO [2025-03-30 13:40:22] Replaced NAs in Sprint_F_Elo with first quartile: 1239.52210961878
+INFO [2025-03-30 13:40:22] Replaced NAs in Classic_Elo with first quartile: 1244.8489858956
+INFO [2025-03-30 13:40:22] Replaced NAs in Freestyle_Elo with first quartile: 1236.77643159176
+INFO [2025-03-30 13:40:22] Replaced NAs in Distance_Pelo with first quartile: 1226.15392446525
+INFO [2025-03-30 13:40:22] Replaced NAs in Distance_C_Pelo with first quartile: 1238.61066409828
+INFO [2025-03-30 13:40:22] Replaced NAs in Distance_F_Pelo with first quartile: 1244.90662376968
+INFO [2025-03-30 13:40:22] Replaced NAs in Sprint_Pelo with first quartile: 1246.25257877833
+INFO [2025-03-30 13:40:22] Replaced NAs in Sprint_C_Pelo with first quartile: 1248.96250847029
+INFO [2025-03-30 13:40:22] Replaced NAs in Sprint_F_Pelo with first quartile: 1256.18779364329
+INFO [2025-03-30 13:40:22] Replaced NAs in Classic_Pelo with first quartile: 1246.86752224771
+INFO [2025-03-30 13:40:22] Replaced NAs in Freestyle_Pelo with first quartile: 1254.13981644678
+INFO [2025-03-30 13:40:22] Replaced NAs in Classic_Last_5 with first quartile: 0
+INFO [2025-03-30 13:40:22] Replaced NAs in Freestyle_Last_5 with first quartile: 0
+INFO [2025-03-30 13:40:22] Created Pelo_Pct from Elo with max value: 1946.6211651574
+INFO [2025-03-30 13:40:22] Created Distance_Pelo_Pct from Distance_Elo with max value: 1889.46974050597
+INFO [2025-03-30 13:40:22] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1777.16297253153
+INFO [2025-03-30 13:40:22] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1695.2053212904
+INFO [2025-03-30 13:40:22] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1886.80363942481
+INFO [2025-03-30 13:40:22] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.08486899169
+INFO [2025-03-30 13:40:22] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1792.65157560707
+INFO [2025-03-30 13:40:22] Created Classic_Pelo_Pct from Classic_Elo with max value: 1807.56773496777
+INFO [2025-03-30 13:40:22] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1814.60460629541
+INFO [2025-03-30 13:40:22] Prepared data for 636 skiers with 33 features
+WARN [2025-03-30 13:40:22] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 13:40:22] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 13:40:22] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 13:40:22] Prediction error: Argument eta must be a nonempty numeric vector
+INFO [2025-03-30 13:42:01] Starting mixed relay race day predictions process
+INFO [2025-03-30 13:42:01] Loading race data for today
+INFO [2025-03-30 13:42:01] Today's date: 2025-03-30
+INFO [2025-03-30 13:42:01] No mixed relay races found today
+INFO [2025-03-30 13:42:01] No mixed relay races today. Exiting.
+INFO [2025-03-30 13:48:22] Starting mixed relay race day predictions process
+INFO [2025-03-30 13:48:22] Loading race data for today
+INFO [2025-03-30 13:48:22] Today's date: 2025-03-30
+INFO [2025-03-30 13:48:22] Found 1 mixed relay races
+INFO [2025-03-30 13:48:22] Loading chrono data
+INFO [2025-03-30 13:48:28] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-03-30 13:48:28] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-03-30 13:48:28] Created combined chrono with 183828 rows
+INFO [2025-03-30 13:48:29] Created relay df with 17707 rows
+INFO [2025-03-30 13:48:29] Created individual df with 160396 rows
+INFO [2025-03-30 13:48:33] Leg 1 dataset contains 61 rows
+INFO [2025-03-30 13:48:33] Leg 2 dataset contains 296 rows
+INFO [2025-03-30 13:48:33] Leg 3 dataset contains 61 rows
+INFO [2025-03-30 13:48:33] Leg 4 dataset contains 295 rows
+INFO [2025-03-30 13:48:33] Training models for Leg 1
+INFO [2025-03-30 13:48:33] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 13:48:33] Training podium model using glm
+INFO [2025-03-30 13:48:33] Training win model using glm
+INFO [2025-03-30 13:48:33] Training top5 model using glm
+INFO [2025-03-30 13:48:33] Training top10 model using glm
+INFO [2025-03-30 13:48:34] Training models for Leg 2
+INFO [2025-03-30 13:48:34] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 13:48:34] Training podium model using glm
+INFO [2025-03-30 13:48:34] Training win model using glm
+INFO [2025-03-30 13:48:34] Training top5 model using glm
+INFO [2025-03-30 13:48:34] Training top10 model using glm
+INFO [2025-03-30 13:48:34] Training models for Leg 3
+INFO [2025-03-30 13:48:34] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 13:48:34] Training podium model using glm
+INFO [2025-03-30 13:48:34] Training win model using glm
+INFO [2025-03-30 13:48:34] Training top5 model using glm
+INFO [2025-03-30 13:48:34] Training top10 model using glm
+INFO [2025-03-30 13:48:34] Training models for Leg 4
+INFO [2025-03-30 13:48:34] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 13:48:34] Training podium model using glm
+INFO [2025-03-30 13:48:34] Training win model using glm
+INFO [2025-03-30 13:48:34] Training top5 model using glm
+INFO [2025-03-30 13:48:34] Training top10 model using glm
+INFO [2025-03-30 13:48:34] Processing mixed relay predictions
+INFO [2025-03-30 13:48:34] Loaded mixed relay teams startlist with 19 rows
+INFO [2025-03-30 13:48:34] Loaded mixed relay individuals startlist with 76 rows
+INFO [2025-03-30 13:48:34] Preparing current skier data for mixed relay
+INFO [2025-03-30 13:48:36] Replaced NAs in Distance_Elo with first quartile: 1224.11463402647
+INFO [2025-03-30 13:48:36] Replaced NAs in Distance_C_Elo with first quartile: 1237.1587778373
+INFO [2025-03-30 13:48:36] Replaced NAs in Distance_F_Elo with first quartile: 1243.23228391106
+INFO [2025-03-30 13:48:36] Replaced NAs in Sprint_Elo with first quartile: 1231.4308090998
+INFO [2025-03-30 13:48:36] Replaced NAs in Sprint_C_Elo with first quartile: 1248.96250847029
+INFO [2025-03-30 13:48:36] Replaced NAs in Sprint_F_Elo with first quartile: 1239.52210961878
+INFO [2025-03-30 13:48:36] Replaced NAs in Classic_Elo with first quartile: 1244.8489858956
+INFO [2025-03-30 13:48:36] Replaced NAs in Freestyle_Elo with first quartile: 1236.77643159176
+INFO [2025-03-30 13:48:36] Replaced NAs in Distance_Pelo with first quartile: 1226.15392446525
+INFO [2025-03-30 13:48:36] Replaced NAs in Distance_C_Pelo with first quartile: 1238.61066409828
+INFO [2025-03-30 13:48:36] Replaced NAs in Distance_F_Pelo with first quartile: 1244.90662376968
+INFO [2025-03-30 13:48:36] Replaced NAs in Sprint_Pelo with first quartile: 1246.25257877833
+INFO [2025-03-30 13:48:36] Replaced NAs in Sprint_C_Pelo with first quartile: 1248.96250847029
+INFO [2025-03-30 13:48:36] Replaced NAs in Sprint_F_Pelo with first quartile: 1256.18779364329
+INFO [2025-03-30 13:48:36] Replaced NAs in Classic_Pelo with first quartile: 1246.86752224771
+INFO [2025-03-30 13:48:36] Replaced NAs in Freestyle_Pelo with first quartile: 1254.13981644678
+INFO [2025-03-30 13:48:36] Replaced NAs in Classic_Last_5 with first quartile: 0
+INFO [2025-03-30 13:48:36] Replaced NAs in Freestyle_Last_5 with first quartile: 0
+INFO [2025-03-30 13:48:36] Created Pelo_Pct from Elo with max value: 1946.6211651574
+INFO [2025-03-30 13:48:36] Created Distance_Pelo_Pct from Distance_Elo with max value: 1889.46974050597
+INFO [2025-03-30 13:48:36] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1777.16297253153
+INFO [2025-03-30 13:48:36] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1695.2053212904
+INFO [2025-03-30 13:48:36] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1886.80363942481
+INFO [2025-03-30 13:48:36] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.08486899169
+INFO [2025-03-30 13:48:36] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1792.65157560707
+INFO [2025-03-30 13:48:36] Created Classic_Pelo_Pct from Classic_Elo with max value: 1807.56773496777
+INFO [2025-03-30 13:48:36] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1814.60460629541
+INFO [2025-03-30 13:48:36] Prepared data for 636 skiers with 33 features
+WARN [2025-03-30 13:48:36] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 13:48:36] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 13:48:36] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 13:48:36] Prediction error: Argument eta must be a nonempty numeric vector
+INFO [2025-03-30 13:49:10] Starting mixed relay race day predictions process
+INFO [2025-03-30 13:49:11] Loading race data for today
+INFO [2025-03-30 13:49:11] Today's date: 2025-03-30
+INFO [2025-03-30 13:49:11] Found 1 mixed relay races
+INFO [2025-03-30 13:49:11] Loading chrono data
+INFO [2025-03-30 13:49:17] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-03-30 13:49:17] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-03-30 13:49:17] Created combined chrono with 183828 rows
+INFO [2025-03-30 13:49:17] Created relay df with 17707 rows
+INFO [2025-03-30 13:49:17] Created individual df with 160396 rows
+INFO [2025-03-30 13:49:21] Leg 1 dataset contains 61 rows
+INFO [2025-03-30 13:49:21] Leg 2 dataset contains 296 rows
+INFO [2025-03-30 13:49:21] Leg 3 dataset contains 61 rows
+INFO [2025-03-30 13:49:21] Leg 4 dataset contains 295 rows
+INFO [2025-03-30 13:49:21] Training models for Leg 1
+INFO [2025-03-30 13:49:21] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 13:49:21] Training podium model using glm
+INFO [2025-03-30 13:49:21] Training win model using glm
+INFO [2025-03-30 13:49:22] Training top5 model using glm
+INFO [2025-03-30 13:49:22] Training top10 model using glm
+INFO [2025-03-30 13:49:22] Training models for Leg 2
+INFO [2025-03-30 13:49:22] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 13:49:22] Training podium model using glm
+INFO [2025-03-30 13:49:22] Training win model using glm
+INFO [2025-03-30 13:49:22] Training top5 model using glm
+INFO [2025-03-30 13:49:22] Training top10 model using glm
+INFO [2025-03-30 13:49:22] Training models for Leg 3
+INFO [2025-03-30 13:49:22] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 13:49:22] Training podium model using glm
+INFO [2025-03-30 13:49:22] Training win model using glm
+INFO [2025-03-30 13:49:22] Training top5 model using glm
+INFO [2025-03-30 13:49:22] Training top10 model using glm
+INFO [2025-03-30 13:49:22] Training models for Leg 4
+INFO [2025-03-30 13:49:22] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 13:49:22] Training podium model using glm
+INFO [2025-03-30 13:49:22] Training win model using glm
+INFO [2025-03-30 13:49:23] Training top5 model using glm
+INFO [2025-03-30 13:49:23] Training top10 model using glm
+INFO [2025-03-30 13:49:23] Processing mixed relay predictions
+INFO [2025-03-30 13:49:23] Loaded mixed relay teams startlist with 19 rows
+INFO [2025-03-30 13:49:23] Loaded mixed relay individuals startlist with 76 rows
+INFO [2025-03-30 13:49:23] Preparing current skier data for mixed relay
+INFO [2025-03-30 13:49:24] Replaced NAs in Distance_Elo with first quartile: 1224.11463402647
+INFO [2025-03-30 13:49:24] Replaced NAs in Distance_C_Elo with first quartile: 1237.1587778373
+INFO [2025-03-30 13:49:24] Replaced NAs in Distance_F_Elo with first quartile: 1243.23228391106
+INFO [2025-03-30 13:49:24] Replaced NAs in Sprint_Elo with first quartile: 1231.4308090998
+INFO [2025-03-30 13:49:24] Replaced NAs in Sprint_C_Elo with first quartile: 1248.96250847029
+INFO [2025-03-30 13:49:24] Replaced NAs in Sprint_F_Elo with first quartile: 1239.52210961878
+INFO [2025-03-30 13:49:24] Replaced NAs in Classic_Elo with first quartile: 1244.8489858956
+INFO [2025-03-30 13:49:24] Replaced NAs in Freestyle_Elo with first quartile: 1236.77643159176
+INFO [2025-03-30 13:49:24] Replaced NAs in Distance_Pelo with first quartile: 1226.15392446525
+INFO [2025-03-30 13:49:24] Replaced NAs in Distance_C_Pelo with first quartile: 1238.61066409828
+INFO [2025-03-30 13:49:24] Replaced NAs in Distance_F_Pelo with first quartile: 1244.90662376968
+INFO [2025-03-30 13:49:24] Replaced NAs in Sprint_Pelo with first quartile: 1246.25257877833
+INFO [2025-03-30 13:49:24] Replaced NAs in Sprint_C_Pelo with first quartile: 1248.96250847029
+INFO [2025-03-30 13:49:24] Replaced NAs in Sprint_F_Pelo with first quartile: 1256.18779364329
+INFO [2025-03-30 13:49:24] Replaced NAs in Classic_Pelo with first quartile: 1246.86752224771
+INFO [2025-03-30 13:49:24] Replaced NAs in Freestyle_Pelo with first quartile: 1254.13981644678
+INFO [2025-03-30 13:49:24] Replaced NAs in Classic_Last_5 with first quartile: 0
+INFO [2025-03-30 13:49:24] Replaced NAs in Freestyle_Last_5 with first quartile: 0
+INFO [2025-03-30 13:49:24] Created Pelo_Pct from Elo with max value: 1946.6211651574
+INFO [2025-03-30 13:49:24] Created Distance_Pelo_Pct from Distance_Elo with max value: 1889.46974050597
+INFO [2025-03-30 13:49:24] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1777.16297253153
+INFO [2025-03-30 13:49:24] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1695.2053212904
+INFO [2025-03-30 13:49:24] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1886.80363942481
+INFO [2025-03-30 13:49:24] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.08486899169
+INFO [2025-03-30 13:49:24] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1792.65157560707
+INFO [2025-03-30 13:49:24] Created Classic_Pelo_Pct from Classic_Elo with max value: 1807.56773496777
+INFO [2025-03-30 13:49:24] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1814.60460629541
+INFO [2025-03-30 13:49:24] Prepared data for 636 skiers with 33 features
+WARN [2025-03-30 13:49:24] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 13:49:24] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 13:49:24] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 13:49:24] Prediction error: Argument eta must be a nonempty numeric vector
+INFO [2025-03-30 13:55:54] Starting mixed relay race day predictions process
+INFO [2025-03-30 13:55:54] Loading race data for today
+INFO [2025-03-30 13:55:54] Today's date: 2025-03-30
+INFO [2025-03-30 13:55:54] Found 1 mixed relay races
+INFO [2025-03-30 13:55:54] Loading chrono data
+INFO [2025-03-30 13:56:00] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-03-30 13:56:00] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-03-30 13:56:00] Created combined chrono with 183828 rows
+INFO [2025-03-30 13:56:00] Created relay df with 17707 rows
+INFO [2025-03-30 13:56:00] Created individual df with 160396 rows
+INFO [2025-03-30 13:56:04] Leg 1 dataset contains 61 rows
+INFO [2025-03-30 13:56:04] Leg 2 dataset contains 296 rows
+INFO [2025-03-30 13:56:04] Leg 3 dataset contains 61 rows
+INFO [2025-03-30 13:56:04] Leg 4 dataset contains 295 rows
+INFO [2025-03-30 13:56:04] Training models for Leg 1
+INFO [2025-03-30 13:56:04] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 13:56:04] Training podium model using glm
+INFO [2025-03-30 13:56:05] Training win model using glm
+INFO [2025-03-30 13:56:05] Training top5 model using glm
+INFO [2025-03-30 13:56:05] Training top10 model using glm
+INFO [2025-03-30 13:56:05] Training models for Leg 2
+INFO [2025-03-30 13:56:05] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 13:56:05] Training podium model using glm
+INFO [2025-03-30 13:56:05] Training win model using glm
+INFO [2025-03-30 13:56:05] Training top5 model using glm
+INFO [2025-03-30 13:56:05] Training top10 model using glm
+INFO [2025-03-30 13:56:05] Training models for Leg 3
+INFO [2025-03-30 13:56:05] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 13:56:05] Training podium model using glm
+INFO [2025-03-30 13:56:05] Training win model using glm
+INFO [2025-03-30 13:56:05] Training top5 model using glm
+INFO [2025-03-30 13:56:05] Training top10 model using glm
+INFO [2025-03-30 13:56:05] Training models for Leg 4
+INFO [2025-03-30 13:56:05] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 13:56:05] Training podium model using glm
+INFO [2025-03-30 13:56:06] Training win model using glm
+INFO [2025-03-30 13:56:06] Training top5 model using glm
+INFO [2025-03-30 13:56:06] Training top10 model using glm
+INFO [2025-03-30 13:56:06] Processing mixed relay predictions
+INFO [2025-03-30 13:56:06] Loaded mixed relay teams startlist with 19 rows
+INFO [2025-03-30 13:56:06] Loaded mixed relay individuals startlist with 76 rows
+INFO [2025-03-30 13:56:06] Preparing current skier data for mixed relay
+INFO [2025-03-30 13:56:07] Replaced NAs in Distance_Elo with first quartile: 1224.11463402647
+INFO [2025-03-30 13:56:07] Replaced NAs in Distance_C_Elo with first quartile: 1237.1587778373
+INFO [2025-03-30 13:56:07] Replaced NAs in Distance_F_Elo with first quartile: 1243.23228391106
+INFO [2025-03-30 13:56:07] Replaced NAs in Sprint_Elo with first quartile: 1231.4308090998
+INFO [2025-03-30 13:56:07] Replaced NAs in Sprint_C_Elo with first quartile: 1248.96250847029
+INFO [2025-03-30 13:56:07] Replaced NAs in Sprint_F_Elo with first quartile: 1239.52210961878
+INFO [2025-03-30 13:56:07] Replaced NAs in Classic_Elo with first quartile: 1244.8489858956
+INFO [2025-03-30 13:56:07] Replaced NAs in Freestyle_Elo with first quartile: 1236.77643159176
+INFO [2025-03-30 13:56:07] Replaced NAs in Distance_Pelo with first quartile: 1226.15392446525
+INFO [2025-03-30 13:56:07] Replaced NAs in Distance_C_Pelo with first quartile: 1238.61066409828
+INFO [2025-03-30 13:56:07] Replaced NAs in Distance_F_Pelo with first quartile: 1244.90662376968
+INFO [2025-03-30 13:56:07] Replaced NAs in Sprint_Pelo with first quartile: 1246.25257877833
+INFO [2025-03-30 13:56:07] Replaced NAs in Sprint_C_Pelo with first quartile: 1248.96250847029
+INFO [2025-03-30 13:56:07] Replaced NAs in Sprint_F_Pelo with first quartile: 1256.18779364329
+INFO [2025-03-30 13:56:07] Replaced NAs in Classic_Pelo with first quartile: 1246.86752224771
+INFO [2025-03-30 13:56:07] Replaced NAs in Freestyle_Pelo with first quartile: 1254.13981644678
+INFO [2025-03-30 13:56:07] Replaced NAs in Classic_Last_5 with first quartile: 0
+INFO [2025-03-30 13:56:07] Replaced NAs in Freestyle_Last_5 with first quartile: 0
+INFO [2025-03-30 13:56:07] Created Pelo_Pct from Elo with max value: 1946.6211651574
+INFO [2025-03-30 13:56:07] Created Distance_Pelo_Pct from Distance_Elo with max value: 1889.46974050597
+INFO [2025-03-30 13:56:07] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1777.16297253153
+INFO [2025-03-30 13:56:07] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1695.2053212904
+INFO [2025-03-30 13:56:07] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1886.80363942481
+INFO [2025-03-30 13:56:07] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.08486899169
+INFO [2025-03-30 13:56:07] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1792.65157560707
+INFO [2025-03-30 13:56:07] Created Classic_Pelo_Pct from Classic_Elo with max value: 1807.56773496777
+INFO [2025-03-30 13:56:07] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1814.60460629541
+INFO [2025-03-30 13:56:07] Prepared data for 636 skiers with 33 features
+WARN [2025-03-30 13:56:07] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 13:56:07] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 13:56:07] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 13:56:07] Prediction error: Argument eta must be a nonempty numeric vector
+INFO [2025-03-30 13:57:51] Starting mixed relay race day predictions process
+INFO [2025-03-30 13:57:51] Loading race data for today
+INFO [2025-03-30 13:57:51] Today's date: 2025-03-30
+INFO [2025-03-30 13:57:51] Found 1 mixed relay races
+INFO [2025-03-30 13:57:51] Loading chrono data
+INFO [2025-03-30 13:57:57] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-03-30 13:57:57] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-03-30 13:57:57] Created combined chrono with 183828 rows
+INFO [2025-03-30 13:57:57] Created relay df with 17707 rows
+INFO [2025-03-30 13:57:57] Created individual df with 160396 rows
+INFO [2025-03-30 13:58:02] Leg 1 dataset contains 61 rows
+INFO [2025-03-30 13:58:02] Leg 2 dataset contains 296 rows
+INFO [2025-03-30 13:58:02] Leg 3 dataset contains 61 rows
+INFO [2025-03-30 13:58:02] Leg 4 dataset contains 295 rows
+INFO [2025-03-30 13:58:02] Training models for Leg 1
+INFO [2025-03-30 13:58:02] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 13:58:02] Training podium model using glm
+INFO [2025-03-30 13:58:02] Training win model using glm
+INFO [2025-03-30 13:58:02] Training top5 model using glm
+INFO [2025-03-30 13:58:02] Training top10 model using glm
+INFO [2025-03-30 13:58:02] Training models for Leg 2
+INFO [2025-03-30 13:58:02] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 13:58:02] Training podium model using glm
+INFO [2025-03-30 13:58:02] Training win model using glm
+INFO [2025-03-30 13:58:02] Training top5 model using glm
+INFO [2025-03-30 13:58:02] Training top10 model using glm
+INFO [2025-03-30 13:58:03] Training models for Leg 3
+INFO [2025-03-30 13:58:03] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 13:58:03] Training podium model using glm
+INFO [2025-03-30 13:58:03] Training win model using glm
+INFO [2025-03-30 13:58:03] Training top5 model using glm
+INFO [2025-03-30 13:58:03] Training top10 model using glm
+INFO [2025-03-30 13:58:03] Training models for Leg 4
+INFO [2025-03-30 13:58:03] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 13:58:03] Training podium model using glm
+INFO [2025-03-30 13:58:03] Training win model using glm
+INFO [2025-03-30 13:58:03] Training top5 model using glm
+INFO [2025-03-30 13:58:03] Training top10 model using glm
+INFO [2025-03-30 13:58:03] Processing mixed relay predictions
+INFO [2025-03-30 13:58:03] Loaded mixed relay teams startlist with 19 rows
+INFO [2025-03-30 13:58:03] Loaded mixed relay individuals startlist with 76 rows
+INFO [2025-03-30 13:58:03] Preparing current skier data for mixed relay
+INFO [2025-03-30 13:58:05] Replaced NAs in Distance_Elo with first quartile: 1224.11463402647
+INFO [2025-03-30 13:58:05] Replaced NAs in Distance_C_Elo with first quartile: 1237.1587778373
+INFO [2025-03-30 13:58:05] Replaced NAs in Distance_F_Elo with first quartile: 1243.23228391106
+INFO [2025-03-30 13:58:05] Replaced NAs in Sprint_Elo with first quartile: 1231.4308090998
+INFO [2025-03-30 13:58:05] Replaced NAs in Sprint_C_Elo with first quartile: 1248.96250847029
+INFO [2025-03-30 13:58:05] Replaced NAs in Sprint_F_Elo with first quartile: 1239.52210961878
+INFO [2025-03-30 13:58:05] Replaced NAs in Classic_Elo with first quartile: 1244.8489858956
+INFO [2025-03-30 13:58:05] Replaced NAs in Freestyle_Elo with first quartile: 1236.77643159176
+INFO [2025-03-30 13:58:05] Replaced NAs in Distance_Pelo with first quartile: 1226.15392446525
+INFO [2025-03-30 13:58:05] Replaced NAs in Distance_C_Pelo with first quartile: 1238.61066409828
+INFO [2025-03-30 13:58:05] Replaced NAs in Distance_F_Pelo with first quartile: 1244.90662376968
+INFO [2025-03-30 13:58:05] Replaced NAs in Sprint_Pelo with first quartile: 1246.25257877833
+INFO [2025-03-30 13:58:05] Replaced NAs in Sprint_C_Pelo with first quartile: 1248.96250847029
+INFO [2025-03-30 13:58:05] Replaced NAs in Sprint_F_Pelo with first quartile: 1256.18779364329
+INFO [2025-03-30 13:58:05] Replaced NAs in Classic_Pelo with first quartile: 1246.86752224771
+INFO [2025-03-30 13:58:05] Replaced NAs in Freestyle_Pelo with first quartile: 1254.13981644678
+INFO [2025-03-30 13:58:05] Replaced NAs in Classic_Last_5 with first quartile: 0
+INFO [2025-03-30 13:58:05] Replaced NAs in Freestyle_Last_5 with first quartile: 0
+INFO [2025-03-30 13:58:05] Created Pelo_Pct from Elo with max value: 1946.6211651574
+INFO [2025-03-30 13:58:05] Created Distance_Pelo_Pct from Distance_Elo with max value: 1889.46974050597
+INFO [2025-03-30 13:58:05] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1777.16297253153
+INFO [2025-03-30 13:58:05] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1695.2053212904
+INFO [2025-03-30 13:58:05] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1886.80363942481
+INFO [2025-03-30 13:58:05] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.08486899169
+INFO [2025-03-30 13:58:05] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1792.65157560707
+INFO [2025-03-30 13:58:05] Created Classic_Pelo_Pct from Classic_Elo with max value: 1807.56773496777
+INFO [2025-03-30 13:58:05] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1814.60460629541
+INFO [2025-03-30 13:58:05] Prepared data for 636 skiers with 33 features
+WARN [2025-03-30 13:58:05] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 13:58:05] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 13:58:05] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 13:58:05] Prediction error: Argument eta must be a nonempty numeric vector
+INFO [2025-03-30 13:59:04] Starting mixed relay race day predictions process
+INFO [2025-03-30 13:59:04] Loading race data for today
+INFO [2025-03-30 13:59:04] Today's date: 2025-03-30
+INFO [2025-03-30 13:59:04] Found 1 mixed relay races
+INFO [2025-03-30 13:59:04] Loading chrono data
+INFO [2025-03-30 13:59:10] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-03-30 13:59:10] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-03-30 13:59:10] Created combined chrono with 183828 rows
+INFO [2025-03-30 13:59:10] Created relay df with 17707 rows
+INFO [2025-03-30 13:59:10] Created individual df with 160396 rows
+INFO [2025-03-30 13:59:15] Leg 1 dataset contains 61 rows
+INFO [2025-03-30 13:59:15] Leg 2 dataset contains 296 rows
+INFO [2025-03-30 13:59:15] Leg 3 dataset contains 61 rows
+INFO [2025-03-30 13:59:15] Leg 4 dataset contains 295 rows
+INFO [2025-03-30 13:59:15] Training models for Leg 1
+INFO [2025-03-30 13:59:15] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 13:59:15] Training podium model using glm
+INFO [2025-03-30 13:59:15] Training win model using glm
+INFO [2025-03-30 13:59:15] Training top5 model using glm
+INFO [2025-03-30 13:59:15] Training top10 model using glm
+INFO [2025-03-30 13:59:15] Training models for Leg 2
+INFO [2025-03-30 13:59:15] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 13:59:15] Training podium model using glm
+INFO [2025-03-30 13:59:15] Training win model using glm
+INFO [2025-03-30 13:59:15] Training top5 model using glm
+INFO [2025-03-30 13:59:15] Training top10 model using glm
+INFO [2025-03-30 13:59:16] Training models for Leg 3
+INFO [2025-03-30 13:59:16] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 13:59:16] Training podium model using glm
+INFO [2025-03-30 13:59:16] Training win model using glm
+INFO [2025-03-30 13:59:16] Training top5 model using glm
+INFO [2025-03-30 13:59:16] Training top10 model using glm
+INFO [2025-03-30 13:59:16] Training models for Leg 4
+INFO [2025-03-30 13:59:16] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 13:59:16] Training podium model using glm
+INFO [2025-03-30 13:59:16] Training win model using glm
+INFO [2025-03-30 13:59:16] Training top5 model using glm
+INFO [2025-03-30 13:59:16] Training top10 model using glm
+INFO [2025-03-30 13:59:16] Processing mixed relay predictions
+INFO [2025-03-30 13:59:16] Loaded mixed relay teams startlist with 19 rows
+INFO [2025-03-30 13:59:16] Loaded mixed relay individuals startlist with 76 rows
+INFO [2025-03-30 13:59:16] Preparing current skier data for mixed relay
+INFO [2025-03-30 13:59:17] Replaced NAs in Distance_Elo with first quartile: 1224.11463402647
+INFO [2025-03-30 13:59:17] Replaced NAs in Distance_C_Elo with first quartile: 1237.1587778373
+INFO [2025-03-30 13:59:17] Replaced NAs in Distance_F_Elo with first quartile: 1243.23228391106
+INFO [2025-03-30 13:59:17] Replaced NAs in Sprint_Elo with first quartile: 1231.4308090998
+INFO [2025-03-30 13:59:17] Replaced NAs in Sprint_C_Elo with first quartile: 1248.96250847029
+INFO [2025-03-30 13:59:17] Replaced NAs in Sprint_F_Elo with first quartile: 1239.52210961878
+INFO [2025-03-30 13:59:17] Replaced NAs in Classic_Elo with first quartile: 1244.8489858956
+INFO [2025-03-30 13:59:17] Replaced NAs in Freestyle_Elo with first quartile: 1236.77643159176
+INFO [2025-03-30 13:59:17] Replaced NAs in Distance_Pelo with first quartile: 1226.15392446525
+INFO [2025-03-30 13:59:17] Replaced NAs in Distance_C_Pelo with first quartile: 1238.61066409828
+INFO [2025-03-30 13:59:17] Replaced NAs in Distance_F_Pelo with first quartile: 1244.90662376968
+INFO [2025-03-30 13:59:17] Replaced NAs in Sprint_Pelo with first quartile: 1246.25257877833
+INFO [2025-03-30 13:59:17] Replaced NAs in Sprint_C_Pelo with first quartile: 1248.96250847029
+INFO [2025-03-30 13:59:17] Replaced NAs in Sprint_F_Pelo with first quartile: 1256.18779364329
+INFO [2025-03-30 13:59:17] Replaced NAs in Classic_Pelo with first quartile: 1246.86752224771
+INFO [2025-03-30 13:59:17] Replaced NAs in Freestyle_Pelo with first quartile: 1254.13981644678
+INFO [2025-03-30 13:59:17] Replaced NAs in Classic_Last_5 with first quartile: 0
+INFO [2025-03-30 13:59:17] Replaced NAs in Freestyle_Last_5 with first quartile: 0
+INFO [2025-03-30 13:59:17] Created Pelo_Pct from Elo with max value: 1946.6211651574
+INFO [2025-03-30 13:59:17] Created Distance_Pelo_Pct from Distance_Elo with max value: 1889.46974050597
+INFO [2025-03-30 13:59:17] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1777.16297253153
+INFO [2025-03-30 13:59:17] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1695.2053212904
+INFO [2025-03-30 13:59:17] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1886.80363942481
+INFO [2025-03-30 13:59:17] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.08486899169
+INFO [2025-03-30 13:59:17] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1792.65157560707
+INFO [2025-03-30 13:59:17] Created Classic_Pelo_Pct from Classic_Elo with max value: 1807.56773496777
+INFO [2025-03-30 13:59:17] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1814.60460629541
+INFO [2025-03-30 13:59:17] Prepared data for 636 skiers with 33 features
+WARN [2025-03-30 13:59:18] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 13:59:18] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 13:59:18] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 13:59:18] Prediction error: Argument eta must be a nonempty numeric vector
+INFO [2025-03-30 14:00:56] Starting mixed relay race day predictions process
+INFO [2025-03-30 14:00:56] Loading race data for today
+INFO [2025-03-30 14:00:56] Today's date: 2025-03-30
+INFO [2025-03-30 14:00:56] Found 1 mixed relay races
+INFO [2025-03-30 14:00:56] Loading chrono data
+INFO [2025-03-30 14:01:02] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-03-30 14:01:02] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-03-30 14:01:02] Created combined chrono with 183828 rows
+INFO [2025-03-30 14:01:02] Created relay df with 17707 rows
+INFO [2025-03-30 14:01:02] Created individual df with 160396 rows
+INFO [2025-03-30 14:01:07] Leg 1 dataset contains 61 rows
+INFO [2025-03-30 14:01:07] Leg 2 dataset contains 296 rows
+INFO [2025-03-30 14:01:07] Leg 3 dataset contains 61 rows
+INFO [2025-03-30 14:01:07] Leg 4 dataset contains 295 rows
+INFO [2025-03-30 14:01:07] Training models for Leg 1
+INFO [2025-03-30 14:01:07] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:01:07] Training podium model using glm
+INFO [2025-03-30 14:01:07] Training win model using glm
+INFO [2025-03-30 14:01:07] Training top5 model using glm
+INFO [2025-03-30 14:01:07] Training top10 model using glm
+INFO [2025-03-30 14:01:07] Training models for Leg 2
+INFO [2025-03-30 14:01:07] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:01:07] Training podium model using glm
+INFO [2025-03-30 14:01:08] Training win model using glm
+INFO [2025-03-30 14:01:08] Training top5 model using glm
+INFO [2025-03-30 14:01:08] Training top10 model using glm
+INFO [2025-03-30 14:01:08] Training models for Leg 3
+INFO [2025-03-30 14:01:08] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:01:08] Training podium model using glm
+INFO [2025-03-30 14:01:08] Training win model using glm
+INFO [2025-03-30 14:01:08] Training top5 model using glm
+INFO [2025-03-30 14:01:08] Training top10 model using glm
+INFO [2025-03-30 14:01:08] Training models for Leg 4
+INFO [2025-03-30 14:01:08] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:01:08] Training podium model using glm
+INFO [2025-03-30 14:01:08] Training win model using glm
+INFO [2025-03-30 14:01:08] Training top5 model using glm
+INFO [2025-03-30 14:01:08] Training top10 model using glm
+INFO [2025-03-30 14:01:09] Processing mixed relay predictions
+INFO [2025-03-30 14:01:09] Loaded mixed relay teams startlist with 19 rows
+INFO [2025-03-30 14:01:09] Loaded mixed relay individuals startlist with 76 rows
+INFO [2025-03-30 14:01:09] Preparing current skier data for mixed relay
+INFO [2025-03-30 14:01:10] Replaced NAs in Distance_Elo with first quartile: 1224.11463402647
+INFO [2025-03-30 14:01:10] Replaced NAs in Distance_C_Elo with first quartile: 1237.1587778373
+INFO [2025-03-30 14:01:10] Replaced NAs in Distance_F_Elo with first quartile: 1243.23228391106
+INFO [2025-03-30 14:01:10] Replaced NAs in Sprint_Elo with first quartile: 1231.4308090998
+INFO [2025-03-30 14:01:10] Replaced NAs in Sprint_C_Elo with first quartile: 1248.96250847029
+INFO [2025-03-30 14:01:10] Replaced NAs in Sprint_F_Elo with first quartile: 1239.52210961878
+INFO [2025-03-30 14:01:10] Replaced NAs in Classic_Elo with first quartile: 1244.8489858956
+INFO [2025-03-30 14:01:10] Replaced NAs in Freestyle_Elo with first quartile: 1236.77643159176
+INFO [2025-03-30 14:01:10] Replaced NAs in Distance_Pelo with first quartile: 1226.15392446525
+INFO [2025-03-30 14:01:10] Replaced NAs in Distance_C_Pelo with first quartile: 1238.61066409828
+INFO [2025-03-30 14:01:10] Replaced NAs in Distance_F_Pelo with first quartile: 1244.90662376968
+INFO [2025-03-30 14:01:10] Replaced NAs in Sprint_Pelo with first quartile: 1246.25257877833
+INFO [2025-03-30 14:01:10] Replaced NAs in Sprint_C_Pelo with first quartile: 1248.96250847029
+INFO [2025-03-30 14:01:10] Replaced NAs in Sprint_F_Pelo with first quartile: 1256.18779364329
+INFO [2025-03-30 14:01:10] Replaced NAs in Classic_Pelo with first quartile: 1246.86752224771
+INFO [2025-03-30 14:01:10] Replaced NAs in Freestyle_Pelo with first quartile: 1254.13981644678
+INFO [2025-03-30 14:01:10] Replaced NAs in Classic_Last_5 with first quartile: 0
+INFO [2025-03-30 14:01:10] Replaced NAs in Freestyle_Last_5 with first quartile: 0
+INFO [2025-03-30 14:01:10] Created Pelo_Pct from Elo with max value: 1946.6211651574
+INFO [2025-03-30 14:01:10] Created Distance_Pelo_Pct from Distance_Elo with max value: 1889.46974050597
+INFO [2025-03-30 14:01:10] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1777.16297253153
+INFO [2025-03-30 14:01:10] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1695.2053212904
+INFO [2025-03-30 14:01:10] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1886.80363942481
+INFO [2025-03-30 14:01:10] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.08486899169
+INFO [2025-03-30 14:01:10] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1792.65157560707
+INFO [2025-03-30 14:01:10] Created Classic_Pelo_Pct from Classic_Elo with max value: 1807.56773496777
+INFO [2025-03-30 14:01:10] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1814.60460629541
+INFO [2025-03-30 14:01:10] Prepared data for 636 skiers with 33 features
+WARN [2025-03-30 14:01:10] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 14:01:10] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 14:01:10] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 14:01:10] Prediction error: Argument eta must be a nonempty numeric vector
+INFO [2025-03-30 14:01:48] Starting mixed relay race day predictions process
+INFO [2025-03-30 14:01:48] Loading race data for today
+INFO [2025-03-30 14:01:48] Today's date: 2025-03-30
+INFO [2025-03-30 14:01:48] Found 1 mixed relay races
+INFO [2025-03-30 14:01:48] Loading chrono data
+INFO [2025-03-30 14:01:53] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-03-30 14:01:53] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-03-30 14:01:54] Created combined chrono with 183828 rows
+INFO [2025-03-30 14:01:54] Created relay df with 17707 rows
+INFO [2025-03-30 14:01:54] Created individual df with 160396 rows
+INFO [2025-03-30 14:01:59] Leg 1 dataset contains 61 rows
+INFO [2025-03-30 14:01:59] Leg 2 dataset contains 296 rows
+INFO [2025-03-30 14:01:59] Leg 3 dataset contains 61 rows
+INFO [2025-03-30 14:01:59] Leg 4 dataset contains 295 rows
+INFO [2025-03-30 14:01:59] Training models for Leg 1
+INFO [2025-03-30 14:01:59] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:01:59] Training podium model using glm
+INFO [2025-03-30 14:01:59] Training win model using glm
+INFO [2025-03-30 14:01:59] Training top5 model using glm
+INFO [2025-03-30 14:01:59] Training top10 model using glm
+INFO [2025-03-30 14:01:59] Training models for Leg 2
+INFO [2025-03-30 14:01:59] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:01:59] Training podium model using glm
+INFO [2025-03-30 14:01:59] Training win model using glm
+INFO [2025-03-30 14:01:59] Training top5 model using glm
+INFO [2025-03-30 14:01:59] Training top10 model using glm
+INFO [2025-03-30 14:01:59] Training models for Leg 3
+INFO [2025-03-30 14:01:59] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:01:59] Training podium model using glm
+INFO [2025-03-30 14:01:59] Training win model using glm
+INFO [2025-03-30 14:01:59] Training top5 model using glm
+INFO [2025-03-30 14:01:59] Training top10 model using glm
+INFO [2025-03-30 14:02:00] Training models for Leg 4
+INFO [2025-03-30 14:02:00] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:02:00] Training podium model using glm
+INFO [2025-03-30 14:02:00] Training win model using glm
+INFO [2025-03-30 14:02:00] Training top5 model using glm
+INFO [2025-03-30 14:02:00] Training top10 model using glm
+INFO [2025-03-30 14:02:00] Processing mixed relay predictions
+INFO [2025-03-30 14:02:00] Loaded mixed relay teams startlist with 19 rows
+INFO [2025-03-30 14:02:00] Loaded mixed relay individuals startlist with 76 rows
+INFO [2025-03-30 14:02:00] Preparing current skier data for mixed relay
+INFO [2025-03-30 14:02:01] Replaced NAs in Distance_Elo with first quartile: 1224.11463402647
+INFO [2025-03-30 14:02:01] Replaced NAs in Distance_C_Elo with first quartile: 1237.1587778373
+INFO [2025-03-30 14:02:01] Replaced NAs in Distance_F_Elo with first quartile: 1243.23228391106
+INFO [2025-03-30 14:02:01] Replaced NAs in Sprint_Elo with first quartile: 1231.4308090998
+INFO [2025-03-30 14:02:01] Replaced NAs in Sprint_C_Elo with first quartile: 1248.96250847029
+INFO [2025-03-30 14:02:01] Replaced NAs in Sprint_F_Elo with first quartile: 1239.52210961878
+INFO [2025-03-30 14:02:01] Replaced NAs in Classic_Elo with first quartile: 1244.8489858956
+INFO [2025-03-30 14:02:01] Replaced NAs in Freestyle_Elo with first quartile: 1236.77643159176
+INFO [2025-03-30 14:02:01] Replaced NAs in Distance_Pelo with first quartile: 1226.15392446525
+INFO [2025-03-30 14:02:01] Replaced NAs in Distance_C_Pelo with first quartile: 1238.61066409828
+INFO [2025-03-30 14:02:01] Replaced NAs in Distance_F_Pelo with first quartile: 1244.90662376968
+INFO [2025-03-30 14:02:01] Replaced NAs in Sprint_Pelo with first quartile: 1246.25257877833
+INFO [2025-03-30 14:02:01] Replaced NAs in Sprint_C_Pelo with first quartile: 1248.96250847029
+INFO [2025-03-30 14:02:01] Replaced NAs in Sprint_F_Pelo with first quartile: 1256.18779364329
+INFO [2025-03-30 14:02:01] Replaced NAs in Classic_Pelo with first quartile: 1246.86752224771
+INFO [2025-03-30 14:02:01] Replaced NAs in Freestyle_Pelo with first quartile: 1254.13981644678
+INFO [2025-03-30 14:02:01] Replaced NAs in Classic_Last_5 with first quartile: 0
+INFO [2025-03-30 14:02:01] Replaced NAs in Freestyle_Last_5 with first quartile: 0
+INFO [2025-03-30 14:02:01] Created Pelo_Pct from Elo with max value: 1946.6211651574
+INFO [2025-03-30 14:02:01] Created Distance_Pelo_Pct from Distance_Elo with max value: 1889.46974050597
+INFO [2025-03-30 14:02:01] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1777.16297253153
+INFO [2025-03-30 14:02:01] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1695.2053212904
+INFO [2025-03-30 14:02:01] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1886.80363942481
+INFO [2025-03-30 14:02:01] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.08486899169
+INFO [2025-03-30 14:02:01] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1792.65157560707
+INFO [2025-03-30 14:02:01] Created Classic_Pelo_Pct from Classic_Elo with max value: 1807.56773496777
+INFO [2025-03-30 14:02:01] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1814.60460629541
+INFO [2025-03-30 14:02:01] Prepared data for 636 skiers with 33 features
+WARN [2025-03-30 14:02:02] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 14:02:02] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 14:02:02] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 14:02:02] Prediction error: Argument eta must be a nonempty numeric vector
+INFO [2025-03-30 14:02:29] Starting mixed relay race day predictions process
+INFO [2025-03-30 14:02:29] Loading race data for today
+INFO [2025-03-30 14:02:29] Today's date: 2025-03-30
+INFO [2025-03-30 14:02:29] Found 1 mixed relay races
+INFO [2025-03-30 14:02:29] Loading chrono data
+INFO [2025-03-30 14:02:35] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-03-30 14:02:35] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-03-30 14:02:35] Created combined chrono with 183828 rows
+INFO [2025-03-30 14:02:35] Created relay df with 17707 rows
+INFO [2025-03-30 14:02:35] Created individual df with 160396 rows
+INFO [2025-03-30 14:02:40] Leg 1 dataset contains 61 rows
+INFO [2025-03-30 14:02:40] Leg 2 dataset contains 296 rows
+INFO [2025-03-30 14:02:40] Leg 3 dataset contains 61 rows
+INFO [2025-03-30 14:02:40] Leg 4 dataset contains 295 rows
+INFO [2025-03-30 14:02:40] Training models for Leg 1
+INFO [2025-03-30 14:02:40] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:02:40] Training podium model using glm
+INFO [2025-03-30 14:02:40] Training win model using glm
+INFO [2025-03-30 14:02:40] Training top5 model using glm
+INFO [2025-03-30 14:02:40] Training top10 model using glm
+INFO [2025-03-30 14:02:40] Training models for Leg 2
+INFO [2025-03-30 14:02:40] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:02:40] Training podium model using glm
+INFO [2025-03-30 14:02:40] Training win model using glm
+INFO [2025-03-30 14:02:40] Training top5 model using glm
+INFO [2025-03-30 14:02:40] Training top10 model using glm
+INFO [2025-03-30 14:02:41] Training models for Leg 3
+INFO [2025-03-30 14:02:41] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:02:41] Training podium model using glm
+INFO [2025-03-30 14:02:41] Training win model using glm
+INFO [2025-03-30 14:02:41] Training top5 model using glm
+INFO [2025-03-30 14:02:41] Training top10 model using glm
+INFO [2025-03-30 14:02:41] Training models for Leg 4
+INFO [2025-03-30 14:02:41] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:02:41] Training podium model using glm
+INFO [2025-03-30 14:02:41] Training win model using glm
+INFO [2025-03-30 14:02:41] Training top5 model using glm
+INFO [2025-03-30 14:02:41] Training top10 model using glm
+INFO [2025-03-30 14:02:41] Processing mixed relay predictions
+INFO [2025-03-30 14:02:41] Loaded mixed relay teams startlist with 19 rows
+INFO [2025-03-30 14:02:41] Loaded mixed relay individuals startlist with 76 rows
+INFO [2025-03-30 14:02:41] Preparing current skier data for mixed relay
+INFO [2025-03-30 14:02:43] Replaced NAs in Distance_Elo with first quartile: 1224.11463402647
+INFO [2025-03-30 14:02:43] Replaced NAs in Distance_C_Elo with first quartile: 1237.1587778373
+INFO [2025-03-30 14:02:43] Replaced NAs in Distance_F_Elo with first quartile: 1243.23228391106
+INFO [2025-03-30 14:02:43] Replaced NAs in Sprint_Elo with first quartile: 1231.4308090998
+INFO [2025-03-30 14:02:43] Replaced NAs in Sprint_C_Elo with first quartile: 1248.96250847029
+INFO [2025-03-30 14:02:43] Replaced NAs in Sprint_F_Elo with first quartile: 1239.52210961878
+INFO [2025-03-30 14:02:43] Replaced NAs in Classic_Elo with first quartile: 1244.8489858956
+INFO [2025-03-30 14:02:43] Replaced NAs in Freestyle_Elo with first quartile: 1236.77643159176
+INFO [2025-03-30 14:02:43] Replaced NAs in Distance_Pelo with first quartile: 1226.15392446525
+INFO [2025-03-30 14:02:43] Replaced NAs in Distance_C_Pelo with first quartile: 1238.61066409828
+INFO [2025-03-30 14:02:43] Replaced NAs in Distance_F_Pelo with first quartile: 1244.90662376968
+INFO [2025-03-30 14:02:43] Replaced NAs in Sprint_Pelo with first quartile: 1246.25257877833
+INFO [2025-03-30 14:02:43] Replaced NAs in Sprint_C_Pelo with first quartile: 1248.96250847029
+INFO [2025-03-30 14:02:43] Replaced NAs in Sprint_F_Pelo with first quartile: 1256.18779364329
+INFO [2025-03-30 14:02:43] Replaced NAs in Classic_Pelo with first quartile: 1246.86752224771
+INFO [2025-03-30 14:02:43] Replaced NAs in Freestyle_Pelo with first quartile: 1254.13981644678
+INFO [2025-03-30 14:02:43] Replaced NAs in Classic_Last_5 with first quartile: 0
+INFO [2025-03-30 14:02:43] Replaced NAs in Freestyle_Last_5 with first quartile: 0
+INFO [2025-03-30 14:02:43] Created Pelo_Pct from Elo with max value: 1946.6211651574
+INFO [2025-03-30 14:02:43] Created Distance_Pelo_Pct from Distance_Elo with max value: 1889.46974050597
+INFO [2025-03-30 14:02:43] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1777.16297253153
+INFO [2025-03-30 14:02:43] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1695.2053212904
+INFO [2025-03-30 14:02:43] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1886.80363942481
+INFO [2025-03-30 14:02:43] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.08486899169
+INFO [2025-03-30 14:02:43] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1792.65157560707
+INFO [2025-03-30 14:02:43] Created Classic_Pelo_Pct from Classic_Elo with max value: 1807.56773496777
+INFO [2025-03-30 14:02:43] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1814.60460629541
+INFO [2025-03-30 14:02:43] Prepared data for 636 skiers with 33 features
+WARN [2025-03-30 14:02:43] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 14:02:43] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 14:02:43] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 14:02:43] Prediction error: Argument eta must be a nonempty numeric vector
+INFO [2025-03-30 14:03:22] Starting mixed relay race day predictions process
+INFO [2025-03-30 14:03:22] Loading race data for today
+INFO [2025-03-30 14:03:22] Today's date: 2025-03-30
+INFO [2025-03-30 14:03:22] Found 1 mixed relay races
+INFO [2025-03-30 14:03:22] Loading chrono data
+INFO [2025-03-30 14:03:27] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-03-30 14:03:27] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-03-30 14:03:27] Created combined chrono with 183828 rows
+INFO [2025-03-30 14:03:27] Created relay df with 17707 rows
+INFO [2025-03-30 14:03:27] Created individual df with 160396 rows
+INFO [2025-03-30 14:03:33] Leg 1 dataset contains 61 rows
+INFO [2025-03-30 14:03:33] Leg 2 dataset contains 296 rows
+INFO [2025-03-30 14:03:33] Leg 3 dataset contains 61 rows
+INFO [2025-03-30 14:03:33] Leg 4 dataset contains 295 rows
+INFO [2025-03-30 14:03:33] Training models for Leg 1
+INFO [2025-03-30 14:03:33] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:03:33] Training podium model using glm
+INFO [2025-03-30 14:03:33] Training win model using glm
+INFO [2025-03-30 14:03:33] Training top5 model using glm
+INFO [2025-03-30 14:03:33] Training top10 model using glm
+INFO [2025-03-30 14:03:33] Training models for Leg 2
+INFO [2025-03-30 14:03:33] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:03:33] Training podium model using glm
+INFO [2025-03-30 14:03:33] Training win model using glm
+INFO [2025-03-30 14:03:33] Training top5 model using glm
+INFO [2025-03-30 14:03:33] Training top10 model using glm
+INFO [2025-03-30 14:03:33] Training models for Leg 3
+INFO [2025-03-30 14:03:33] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:03:33] Training podium model using glm
+INFO [2025-03-30 14:03:33] Training win model using glm
+INFO [2025-03-30 14:03:34] Training top5 model using glm
+INFO [2025-03-30 14:03:34] Training top10 model using glm
+INFO [2025-03-30 14:03:34] Training models for Leg 4
+INFO [2025-03-30 14:03:34] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:03:34] Training podium model using glm
+INFO [2025-03-30 14:03:34] Training win model using glm
+INFO [2025-03-30 14:03:34] Training top5 model using glm
+INFO [2025-03-30 14:03:34] Training top10 model using glm
+INFO [2025-03-30 14:03:34] Processing mixed relay predictions
+INFO [2025-03-30 14:03:34] Loaded mixed relay teams startlist with 19 rows
+INFO [2025-03-30 14:03:34] Loaded mixed relay individuals startlist with 76 rows
+INFO [2025-03-30 14:03:34] Preparing current skier data for mixed relay
+INFO [2025-03-30 14:03:36] Replaced NAs in Distance_Elo with first quartile: 1224.11463402647
+INFO [2025-03-30 14:03:36] Replaced NAs in Distance_C_Elo with first quartile: 1237.1587778373
+INFO [2025-03-30 14:03:36] Replaced NAs in Distance_F_Elo with first quartile: 1243.23228391106
+INFO [2025-03-30 14:03:36] Replaced NAs in Sprint_Elo with first quartile: 1231.4308090998
+INFO [2025-03-30 14:03:36] Replaced NAs in Sprint_C_Elo with first quartile: 1248.96250847029
+INFO [2025-03-30 14:03:36] Replaced NAs in Sprint_F_Elo with first quartile: 1239.52210961878
+INFO [2025-03-30 14:03:36] Replaced NAs in Classic_Elo with first quartile: 1244.8489858956
+INFO [2025-03-30 14:03:36] Replaced NAs in Freestyle_Elo with first quartile: 1236.77643159176
+INFO [2025-03-30 14:03:36] Replaced NAs in Distance_Pelo with first quartile: 1226.15392446525
+INFO [2025-03-30 14:03:36] Replaced NAs in Distance_C_Pelo with first quartile: 1238.61066409828
+INFO [2025-03-30 14:03:36] Replaced NAs in Distance_F_Pelo with first quartile: 1244.90662376968
+INFO [2025-03-30 14:03:36] Replaced NAs in Sprint_Pelo with first quartile: 1246.25257877833
+INFO [2025-03-30 14:03:36] Replaced NAs in Sprint_C_Pelo with first quartile: 1248.96250847029
+INFO [2025-03-30 14:03:36] Replaced NAs in Sprint_F_Pelo with first quartile: 1256.18779364329
+INFO [2025-03-30 14:03:36] Replaced NAs in Classic_Pelo with first quartile: 1246.86752224771
+INFO [2025-03-30 14:03:36] Replaced NAs in Freestyle_Pelo with first quartile: 1254.13981644678
+INFO [2025-03-30 14:03:36] Replaced NAs in Classic_Last_5 with first quartile: 0
+INFO [2025-03-30 14:03:36] Replaced NAs in Freestyle_Last_5 with first quartile: 0
+INFO [2025-03-30 14:03:36] Created Pelo_Pct from Elo with max value: 1946.6211651574
+INFO [2025-03-30 14:03:36] Created Distance_Pelo_Pct from Distance_Elo with max value: 1889.46974050597
+INFO [2025-03-30 14:03:36] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1777.16297253153
+INFO [2025-03-30 14:03:36] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1695.2053212904
+INFO [2025-03-30 14:03:36] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1886.80363942481
+INFO [2025-03-30 14:03:36] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.08486899169
+INFO [2025-03-30 14:03:36] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1792.65157560707
+INFO [2025-03-30 14:03:36] Created Classic_Pelo_Pct from Classic_Elo with max value: 1807.56773496777
+INFO [2025-03-30 14:03:36] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1814.60460629541
+INFO [2025-03-30 14:03:36] Prepared data for 636 skiers with 33 features
+WARN [2025-03-30 14:03:36] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 14:03:36] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 14:03:36] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 14:03:36] Prediction error: Argument eta must be a nonempty numeric vector
+INFO [2025-03-30 14:05:27] Starting mixed relay race day predictions process
+INFO [2025-03-30 14:05:27] Loading race data for today
+INFO [2025-03-30 14:05:27] Today's date: 2025-03-30
+INFO [2025-03-30 14:05:27] Found 1 mixed relay races
+INFO [2025-03-30 14:05:27] Loading chrono data
+INFO [2025-03-30 14:05:33] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-03-30 14:05:33] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-03-30 14:05:33] Created combined chrono with 183828 rows
+INFO [2025-03-30 14:05:33] Created relay df with 17707 rows
+INFO [2025-03-30 14:05:33] Created individual df with 160396 rows
+INFO [2025-03-30 14:05:38] Leg 1 dataset contains 61 rows
+INFO [2025-03-30 14:05:38] Leg 2 dataset contains 296 rows
+INFO [2025-03-30 14:05:38] Leg 3 dataset contains 61 rows
+INFO [2025-03-30 14:05:38] Leg 4 dataset contains 295 rows
+INFO [2025-03-30 14:05:38] Training models for Leg 1
+INFO [2025-03-30 14:05:38] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:05:38] Training podium model using glm
+INFO [2025-03-30 14:05:38] Training win model using glm
+INFO [2025-03-30 14:05:38] Training top5 model using glm
+INFO [2025-03-30 14:05:38] Training top10 model using glm
+INFO [2025-03-30 14:05:38] Training models for Leg 2
+INFO [2025-03-30 14:05:38] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:05:38] Training podium model using glm
+INFO [2025-03-30 14:05:38] Training win model using glm
+INFO [2025-03-30 14:05:38] Training top5 model using glm
+INFO [2025-03-30 14:05:38] Training top10 model using glm
+INFO [2025-03-30 14:05:38] Training models for Leg 3
+INFO [2025-03-30 14:05:38] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:05:38] Training podium model using glm
+INFO [2025-03-30 14:05:39] Training win model using glm
+INFO [2025-03-30 14:05:39] Training top5 model using glm
+INFO [2025-03-30 14:05:39] Training top10 model using glm
+INFO [2025-03-30 14:05:39] Training models for Leg 4
+INFO [2025-03-30 14:05:39] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:05:39] Training podium model using glm
+INFO [2025-03-30 14:05:39] Training win model using glm
+INFO [2025-03-30 14:05:39] Training top5 model using glm
+INFO [2025-03-30 14:05:39] Training top10 model using glm
+INFO [2025-03-30 14:05:39] Processing mixed relay predictions
+INFO [2025-03-30 14:05:39] Loaded mixed relay teams startlist with 19 rows
+INFO [2025-03-30 14:05:39] Loaded mixed relay individuals startlist with 76 rows
+INFO [2025-03-30 14:05:39] Preparing current skier data for mixed relay
+INFO [2025-03-30 14:05:41] Replaced NAs in Distance_Elo with first quartile: 1224.11463402647
+INFO [2025-03-30 14:05:41] Replaced NAs in Distance_C_Elo with first quartile: 1237.1587778373
+INFO [2025-03-30 14:05:41] Replaced NAs in Distance_F_Elo with first quartile: 1243.23228391106
+INFO [2025-03-30 14:05:41] Replaced NAs in Sprint_Elo with first quartile: 1231.4308090998
+INFO [2025-03-30 14:05:41] Replaced NAs in Sprint_C_Elo with first quartile: 1248.96250847029
+INFO [2025-03-30 14:05:41] Replaced NAs in Sprint_F_Elo with first quartile: 1239.52210961878
+INFO [2025-03-30 14:05:41] Replaced NAs in Classic_Elo with first quartile: 1244.8489858956
+INFO [2025-03-30 14:05:41] Replaced NAs in Freestyle_Elo with first quartile: 1236.77643159176
+INFO [2025-03-30 14:05:41] Replaced NAs in Distance_Pelo with first quartile: 1226.15392446525
+INFO [2025-03-30 14:05:41] Replaced NAs in Distance_C_Pelo with first quartile: 1238.61066409828
+INFO [2025-03-30 14:05:41] Replaced NAs in Distance_F_Pelo with first quartile: 1244.90662376968
+INFO [2025-03-30 14:05:41] Replaced NAs in Sprint_Pelo with first quartile: 1246.25257877833
+INFO [2025-03-30 14:05:41] Replaced NAs in Sprint_C_Pelo with first quartile: 1248.96250847029
+INFO [2025-03-30 14:05:41] Replaced NAs in Sprint_F_Pelo with first quartile: 1256.18779364329
+INFO [2025-03-30 14:05:41] Replaced NAs in Classic_Pelo with first quartile: 1246.86752224771
+INFO [2025-03-30 14:05:41] Replaced NAs in Freestyle_Pelo with first quartile: 1254.13981644678
+INFO [2025-03-30 14:05:41] Replaced NAs in Classic_Last_5 with first quartile: 0
+INFO [2025-03-30 14:05:41] Replaced NAs in Freestyle_Last_5 with first quartile: 0
+INFO [2025-03-30 14:05:41] Created Pelo_Pct from Elo with max value: 1946.6211651574
+INFO [2025-03-30 14:05:41] Created Distance_Pelo_Pct from Distance_Elo with max value: 1889.46974050597
+INFO [2025-03-30 14:05:41] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1777.16297253153
+INFO [2025-03-30 14:05:41] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1695.2053212904
+INFO [2025-03-30 14:05:41] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1886.80363942481
+INFO [2025-03-30 14:05:41] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.08486899169
+INFO [2025-03-30 14:05:41] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1792.65157560707
+INFO [2025-03-30 14:05:41] Created Classic_Pelo_Pct from Classic_Elo with max value: 1807.56773496777
+INFO [2025-03-30 14:05:41] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1814.60460629541
+INFO [2025-03-30 14:05:41] Prepared data for 636 skiers with 33 features
+WARN [2025-03-30 14:05:41] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 14:05:41] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 14:05:41] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 14:05:41] Prediction error: Argument eta must be a nonempty numeric vector
+INFO [2025-03-30 14:06:16] Starting mixed relay race day predictions process
+INFO [2025-03-30 14:06:16] Loading race data for today
+INFO [2025-03-30 14:06:16] Today's date: 2025-03-30
+INFO [2025-03-30 14:06:16] Found 1 mixed relay races
+INFO [2025-03-30 14:06:16] Loading chrono data
+INFO [2025-03-30 14:06:21] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-03-30 14:06:21] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-03-30 14:06:22] Created combined chrono with 183828 rows
+INFO [2025-03-30 14:06:22] Created relay df with 17707 rows
+INFO [2025-03-30 14:06:22] Created individual df with 160396 rows
+INFO [2025-03-30 14:06:27] Leg 1 dataset contains 61 rows
+INFO [2025-03-30 14:06:27] Leg 2 dataset contains 296 rows
+INFO [2025-03-30 14:06:27] Leg 3 dataset contains 61 rows
+INFO [2025-03-30 14:06:27] Leg 4 dataset contains 295 rows
+INFO [2025-03-30 14:06:27] Training models for Leg 1
+INFO [2025-03-30 14:06:27] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:06:27] Training podium model using glm
+INFO [2025-03-30 14:06:27] Training win model using glm
+INFO [2025-03-30 14:06:27] Training top5 model using glm
+INFO [2025-03-30 14:06:27] Training top10 model using glm
+INFO [2025-03-30 14:06:27] Training models for Leg 2
+INFO [2025-03-30 14:06:27] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:06:27] Training podium model using glm
+INFO [2025-03-30 14:06:27] Training win model using glm
+INFO [2025-03-30 14:06:27] Training top5 model using glm
+INFO [2025-03-30 14:06:27] Training top10 model using glm
+INFO [2025-03-30 14:06:27] Training models for Leg 3
+INFO [2025-03-30 14:06:27] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:06:27] Training podium model using glm
+INFO [2025-03-30 14:06:27] Training win model using glm
+INFO [2025-03-30 14:06:27] Training top5 model using glm
+INFO [2025-03-30 14:06:28] Training top10 model using glm
+INFO [2025-03-30 14:06:28] Training models for Leg 4
+INFO [2025-03-30 14:06:28] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:06:28] Training podium model using glm
+INFO [2025-03-30 14:06:28] Training win model using glm
+INFO [2025-03-30 14:06:28] Training top5 model using glm
+INFO [2025-03-30 14:06:28] Training top10 model using glm
+INFO [2025-03-30 14:06:28] Processing mixed relay predictions
+INFO [2025-03-30 14:06:28] Loaded mixed relay teams startlist with 19 rows
+INFO [2025-03-30 14:06:28] Loaded mixed relay individuals startlist with 76 rows
+INFO [2025-03-30 14:06:28] Preparing current skier data for mixed relay
+INFO [2025-03-30 14:06:29] Replaced NAs in Distance_Elo with first quartile: 1224.11463402647
+INFO [2025-03-30 14:06:29] Replaced NAs in Distance_C_Elo with first quartile: 1237.1587778373
+INFO [2025-03-30 14:06:29] Replaced NAs in Distance_F_Elo with first quartile: 1243.23228391106
+INFO [2025-03-30 14:06:29] Replaced NAs in Sprint_Elo with first quartile: 1231.4308090998
+INFO [2025-03-30 14:06:29] Replaced NAs in Sprint_C_Elo with first quartile: 1248.96250847029
+INFO [2025-03-30 14:06:29] Replaced NAs in Sprint_F_Elo with first quartile: 1239.52210961878
+INFO [2025-03-30 14:06:29] Replaced NAs in Classic_Elo with first quartile: 1244.8489858956
+INFO [2025-03-30 14:06:29] Replaced NAs in Freestyle_Elo with first quartile: 1236.77643159176
+INFO [2025-03-30 14:06:29] Replaced NAs in Distance_Pelo with first quartile: 1226.15392446525
+INFO [2025-03-30 14:06:29] Replaced NAs in Distance_C_Pelo with first quartile: 1238.61066409828
+INFO [2025-03-30 14:06:29] Replaced NAs in Distance_F_Pelo with first quartile: 1244.90662376968
+INFO [2025-03-30 14:06:29] Replaced NAs in Sprint_Pelo with first quartile: 1246.25257877833
+INFO [2025-03-30 14:06:29] Replaced NAs in Sprint_C_Pelo with first quartile: 1248.96250847029
+INFO [2025-03-30 14:06:29] Replaced NAs in Sprint_F_Pelo with first quartile: 1256.18779364329
+INFO [2025-03-30 14:06:29] Replaced NAs in Classic_Pelo with first quartile: 1246.86752224771
+INFO [2025-03-30 14:06:29] Replaced NAs in Freestyle_Pelo with first quartile: 1254.13981644678
+INFO [2025-03-30 14:06:29] Replaced NAs in Classic_Last_5 with first quartile: 0
+INFO [2025-03-30 14:06:29] Replaced NAs in Freestyle_Last_5 with first quartile: 0
+INFO [2025-03-30 14:06:29] Created Pelo_Pct from Elo with max value: 1946.6211651574
+INFO [2025-03-30 14:06:29] Created Distance_Pelo_Pct from Distance_Elo with max value: 1889.46974050597
+INFO [2025-03-30 14:06:29] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1777.16297253153
+INFO [2025-03-30 14:06:29] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1695.2053212904
+INFO [2025-03-30 14:06:29] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1886.80363942481
+INFO [2025-03-30 14:06:29] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.08486899169
+INFO [2025-03-30 14:06:29] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1792.65157560707
+INFO [2025-03-30 14:06:29] Created Classic_Pelo_Pct from Classic_Elo with max value: 1807.56773496777
+INFO [2025-03-30 14:06:29] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1814.60460629541
+INFO [2025-03-30 14:06:29] Prepared data for 636 skiers with 33 features
+WARN [2025-03-30 14:06:29] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 14:06:29] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 14:06:29] Prediction error: Argument eta must be a nonempty numeric vector
+WARN [2025-03-30 14:06:29] Prediction error: Argument eta must be a nonempty numeric vector
+INFO [2025-03-30 14:07:51] Starting mixed relay race day predictions process
+INFO [2025-03-30 14:07:51] Loading race data for today
+INFO [2025-03-30 14:07:51] Today's date: 2025-03-30
+INFO [2025-03-30 14:07:51] Found 1 mixed relay races
+INFO [2025-03-30 14:07:51] Loading chrono data
+INFO [2025-03-30 14:07:56] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-03-30 14:07:56] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-03-30 14:07:56] Created combined chrono with 183828 rows
+INFO [2025-03-30 14:07:56] Created relay df with 17707 rows
+INFO [2025-03-30 14:07:56] Created individual df with 160396 rows
+INFO [2025-03-30 14:07:58] Starting mixed relay race day predictions process
+INFO [2025-03-30 14:07:58] Loading race data for today
+INFO [2025-03-30 14:07:58] Today's date: 2025-03-30
+INFO [2025-03-30 14:07:58] Found 1 mixed relay races
+INFO [2025-03-30 14:07:58] Loading chrono data
+INFO [2025-03-30 14:08:04] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-03-30 14:08:04] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-03-30 14:08:04] Created combined chrono with 183828 rows
+INFO [2025-03-30 14:08:04] Created relay df with 17707 rows
+INFO [2025-03-30 14:08:04] Created individual df with 160396 rows
+INFO [2025-03-30 14:08:09] Leg 1 dataset contains 61 rows
+INFO [2025-03-30 14:08:09] Leg 2 dataset contains 296 rows
+INFO [2025-03-30 14:08:09] Leg 3 dataset contains 61 rows
+INFO [2025-03-30 14:08:09] Leg 4 dataset contains 295 rows
+INFO [2025-03-30 14:08:09] Training models for Leg 1
+INFO [2025-03-30 14:08:09] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:08:09] Training podium model using glm
+INFO [2025-03-30 14:08:09] Training win model using glm
+INFO [2025-03-30 14:08:09] Training top5 model using glm
+INFO [2025-03-30 14:08:10] Training top10 model using glm
+INFO [2025-03-30 14:08:10] Training models for Leg 2
+INFO [2025-03-30 14:08:10] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:08:10] Training podium model using glm
+INFO [2025-03-30 14:08:10] Training win model using glm
+INFO [2025-03-30 14:08:10] Training top5 model using glm
+INFO [2025-03-30 14:08:10] Training top10 model using glm
+INFO [2025-03-30 14:08:10] Training models for Leg 3
+INFO [2025-03-30 14:08:10] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:08:10] Training podium model using glm
+INFO [2025-03-30 14:08:10] Training win model using glm
+INFO [2025-03-30 14:08:10] Training top5 model using glm
+INFO [2025-03-30 14:08:10] Training top10 model using glm
+INFO [2025-03-30 14:08:10] Training models for Leg 4
+INFO [2025-03-30 14:08:10] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-03-30 14:08:10] Training podium model using glm
+INFO [2025-03-30 14:08:10] Training win model using glm
+INFO [2025-03-30 14:08:10] Training top5 model using glm
+INFO [2025-03-30 14:08:11] Training top10 model using glm
+INFO [2025-03-30 14:08:11] Processing mixed relay predictions
+INFO [2025-03-30 14:08:11] Loaded mixed relay teams startlist with 19 rows
+INFO [2025-03-30 14:08:11] Loaded mixed relay individuals startlist with 76 rows
+INFO [2025-03-30 14:08:11] Preparing current skier data for mixed relay
+INFO [2025-03-30 14:08:12] Replaced NAs in Distance_Elo with first quartile: 1224.11463402647
+INFO [2025-03-30 14:08:12] Replaced NAs in Distance_C_Elo with first quartile: 1237.1587778373
+INFO [2025-03-30 14:08:12] Replaced NAs in Distance_F_Elo with first quartile: 1243.23228391106
+INFO [2025-03-30 14:08:12] Replaced NAs in Sprint_Elo with first quartile: 1231.4308090998
+INFO [2025-03-30 14:08:12] Replaced NAs in Sprint_C_Elo with first quartile: 1248.96250847029
+INFO [2025-03-30 14:08:12] Replaced NAs in Sprint_F_Elo with first quartile: 1239.52210961878
+INFO [2025-03-30 14:08:12] Replaced NAs in Classic_Elo with first quartile: 1244.8489858956
+INFO [2025-03-30 14:08:12] Replaced NAs in Freestyle_Elo with first quartile: 1236.77643159176
+INFO [2025-03-30 14:08:12] Replaced NAs in Distance_Pelo with first quartile: 1226.15392446525
+INFO [2025-03-30 14:08:12] Replaced NAs in Distance_C_Pelo with first quartile: 1238.61066409828
+INFO [2025-03-30 14:08:12] Replaced NAs in Distance_F_Pelo with first quartile: 1244.90662376968
+INFO [2025-03-30 14:08:12] Replaced NAs in Sprint_Pelo with first quartile: 1246.25257877833
+INFO [2025-03-30 14:08:12] Replaced NAs in Sprint_C_Pelo with first quartile: 1248.96250847029
+INFO [2025-03-30 14:08:12] Replaced NAs in Sprint_F_Pelo with first quartile: 1256.18779364329
+INFO [2025-03-30 14:08:12] Replaced NAs in Classic_Pelo with first quartile: 1246.86752224771
+INFO [2025-03-30 14:08:12] Replaced NAs in Freestyle_Pelo with first quartile: 1254.13981644678
+INFO [2025-03-30 14:08:12] Replaced NAs in Classic_Last_5 with first quartile: 0
+INFO [2025-03-30 14:08:12] Replaced NAs in Freestyle_Last_5 with first quartile: 0
+INFO [2025-03-30 14:08:12] Created Pelo_Pct from Elo with max value: 1946.6211651574
+INFO [2025-03-30 14:08:12] Created Distance_Pelo_Pct from Distance_Elo with max value: 1889.46974050597
+INFO [2025-03-30 14:08:12] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1777.16297253153
+INFO [2025-03-30 14:08:12] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1695.2053212904
+INFO [2025-03-30 14:08:12] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1886.80363942481
+INFO [2025-03-30 14:08:12] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.08486899169
+INFO [2025-03-30 14:08:12] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1792.65157560707
+INFO [2025-03-30 14:08:12] Created Classic_Pelo_Pct from Classic_Elo with max value: 1807.56773496777
+INFO [2025-03-30 14:08:12] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1814.60460629541
+INFO [2025-03-30 14:08:12] Prepared data for 636 skiers with 33 features
+INFO [2025-03-30 14:08:12] Generating team predictions
+INFO [2025-03-30 14:08:12] Leg importance weights: Leg 1: 0.20, Leg 2: 0.25, Leg 3: 0.25, Leg 4: 0.30
+INFO [2025-03-30 14:08:12] Normalizing team probabilities
+INFO [2025-03-30 14:08:12] Normalized Win_Prob from sum of 0.08 to 1
+INFO [2025-03-30 14:08:12] Normalized Podium_Prob from sum of 1.92 to 3
+INFO [2025-03-30 14:08:12] Normalized Top5_Prob from sum of 4.24 to 5
+INFO [2025-03-30 14:08:12] Normalized Top10_Prob from sum of 10.55 to 10
+INFO [2025-03-30 14:08:12] Recalculated Expected_Points based on normalized probabilities
+INFO [2025-03-30 14:08:12] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/race-picks/20250330/mixed_relay_points.xlsx
+INFO [2025-03-30 14:08:12] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/race-picks/20250330/mixed_relay_probabilities.xlsx
+INFO [2025-03-30 14:08:12] Mixed relay predictions completed successfully

@@ -469,25 +469,28 @@ def parse_fis_race_id(url: str) -> Optional[int]:
     return None
 
 def find_next_race_date(df: pd.DataFrame) -> str:
-    """Find the next race date from today in the dataframe"""
-    today = datetime.now().strftime('%Y-%m-%d')
+    """Find the next race date from today (inclusive) in the dataframe using UTC timezone"""
+
+    
+    # Get current date in UTC timezone
+    today_utc = datetime.now(timezone.utc).strftime('%Y-%m-%d')
     
     # Convert dates to datetime objects for comparison
     df['DateObj'] = pd.to_datetime(df['Date'], errors='coerce')
-    today_dt = pd.to_datetime(today)
+    today_dt = pd.to_datetime(today_utc)
     
     # Sort the dataframe by date
     df = df.sort_values('DateObj')
     
-    # Filter future races (strictly after today)
-    future_races = df[df['DateObj'] > today_dt]
+    # Filter races starting from today (inclusive)
+    current_and_future_races = df[df['DateObj'] >= today_dt]
     
-    if future_races.empty:
-        print("No future races found, using the latest race date")
+    if current_and_future_races.empty:
+        print("No current or future races found, using the latest race date")
         return df['Date'].iloc[-1]
     
-    # Get the closest future date
-    next_date = future_races.iloc[0]['Date']
+    # Get the closest current or future date
+    next_date = current_and_future_races.iloc[0]['Date']
     print(f"Next race date: {next_date}")
     
     return next_date

@@ -16,6 +16,77 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from startlist_common import *
 
+def call_r_script(script_type: str, race_type: str = None, gender: str = None) -> None:
+    """
+    Call the appropriate R script after processing race data
+    
+    Args:
+        script_type: 'weekend' or 'races' (determines weekly picks or race picks)
+        race_type: 'standard', 'team_sprint', 'relay', or 'mixed_relay'
+        gender: 'men', 'ladies', or None for mixed events
+    """
+    import subprocess
+    import os
+    
+    # Set the base path to the R scripts
+    r_script_base_path = "~/blog/daehl-e/content/post/cross-country/drafts"
+    
+    # Determine which R script to call based on script type and race type
+    if script_type == 'weekend':
+        # Weekly picks scripts
+        if race_type == 'standard':
+            r_script = "weekly-picks2.R"
+        elif race_type == 'team_sprint':
+            r_script = "weekly-picks-team-sprint.R"
+        elif race_type == 'relay':
+            r_script = "weekly-picks-relay.R"
+        elif race_type == 'mixed_relay':
+            r_script = "weekly-picks-mixed-relay.R"
+        else:
+            print(f"Unknown race type: {race_type}")
+            return
+    elif script_type == 'races':
+        # Race picks scripts
+        if race_type == 'standard':
+            r_script = "race-picks.R"
+        elif race_type == 'team_sprint':
+            r_script = "race-picks-team-sprint.R"
+        elif race_type == 'relay':
+            r_script = "race-picks-relay.R"
+        elif race_type == 'mixed_relay':
+            r_script = "race-picks-mixed-relay.R"
+        else:
+            print(f"Unknown race type: {race_type}")
+            return
+    else:
+        print(f"Unknown script type: {script_type}")
+        return
+    
+    # Full path to the R script
+    r_script_path = os.path.expanduser(f"{r_script_base_path}/{r_script}")
+    
+    # Command to execute the R script
+    command = ["Rscript", r_script_path]
+    
+    # Add gender parameter if specified
+    if gender:
+        command.append(gender)
+    
+    print(f"Calling R script: {' '.join(command)}")
+    
+    try:
+        # Call the R script
+        result = subprocess.run(command, check=True, capture_output=True, text=True)
+        print(f"R script output:\n{result.stdout}")
+        if result.stderr:
+            print(f"R script error:\n{result.stderr}")
+    except subprocess.CalledProcessError as e:
+        print(f"Error calling R script: {e}")
+        print(f"Script output: {e.stdout}")
+        print(f"Script error: {e.stderr}")
+    except FileNotFoundError:
+        print(f"R script not found: {r_script_path}")
+
 def process_relay_races(races_file: str = None, gender: str = None) -> None:
     """
     Main function to process standard relay races
@@ -322,7 +393,7 @@ def process_relay_teams(teams: List[Dict], race: pd.Series, gender: str) -> Tupl
                 'Team_Name': team_name,  # Use exact format from team spreadsheet
                 'Team_Rank': team['team_rank'],
                 'Team_Time': team.get('team_time', ''),
-                'Team_Position': bib,  # Keep original bib for reference
+                'Team_Position': position_number,  # Keep original bib for reference
                 'Race_Type': 'Relay'
             }
             
@@ -645,3 +716,4 @@ if __name__ == "__main__":
     
     # Process relay races
     process_relay_races(races_file, gender)
+    call_r_script('races', 'relay')

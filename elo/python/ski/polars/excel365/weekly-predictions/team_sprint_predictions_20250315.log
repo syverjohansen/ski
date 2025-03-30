@@ -1,0 +1,105 @@
+INFO [2025-03-15 19:31:51] Starting team sprint predictions process
+INFO [2025-03-15 19:32:25] Starting team sprint predictions process
+INFO [2025-03-15 19:35:31] Starting team sprint predictions process
+INFO [2025-03-15 19:35:33] Loading weekend race data
+INFO [2025-03-15 19:35:33] Tomorrow's date: 2025-03-16
+INFO [2025-03-15 19:35:33] No team sprint races found for tomorrow, finding next team sprint race
+INFO [2025-03-15 19:35:33] Next team sprint race found on: 2025-03-22
+INFO [2025-03-15 19:35:33] Found 1 men's team sprint races and 1 ladies' team sprint races
+INFO [2025-03-15 19:35:33] Loading chrono data
+INFO [2025-03-15 19:35:38] Loaded men's chrono with 88656 rows and 35 columns
+INFO [2025-03-15 19:35:38] Loaded ladies' chrono with 65562 rows and 35 columns
+INFO [2025-03-15 19:35:38] Created men's team sprint df with 0 rows
+INFO [2025-03-15 19:35:38] Created men's individual df with 88656 rows
+INFO [2025-03-15 19:35:38] Created ladies' team sprint df with 0 rows
+INFO [2025-03-15 19:35:38] Created ladies' individual df with 65562 rows
+INFO [2025-03-15 22:20:33] Loading weekend race data
+INFO [2025-03-15 22:20:33] Tomorrow's date: 2025-03-16
+INFO [2025-03-15 22:20:33] No team sprint races found for tomorrow, finding next team sprint race
+INFO [2025-03-15 22:20:33] Next team sprint race found on: 2025-03-22
+INFO [2025-03-15 22:20:33] Found 1 men's team sprint races and 1 ladies' team sprint races
+INFO [2025-03-15 22:20:33] Men's team sprint technique: F
+INFO [2025-03-15 22:20:33] Ladies' team sprint technique: F
+INFO [2025-03-15 22:20:33] Loading chrono data
+INFO [2025-03-15 22:20:38] Loaded men's chrono with 88656 rows and 35 columns
+INFO [2025-03-15 22:20:38] Loaded ladies' chrono with 65562 rows and 35 columns
+INFO [2025-03-15 22:20:38] Created men's team sprint df with 0 rows
+INFO [2025-03-15 22:20:38] Created men's individual df with 88656 rows
+INFO [2025-03-15 22:20:38] Created ladies' team sprint df with 0 rows
+INFO [2025-03-15 22:20:38] Created ladies' individual df with 65562 rows
+INFO [2025-03-15 22:24:04] Loading weekend race data
+INFO [2025-03-15 22:24:04] Tomorrow's date: 2025-03-16
+INFO [2025-03-15 22:24:04] Found 1 men's team sprint races and 1 ladies' team sprint races
+INFO [2025-03-15 22:24:04] Men's team sprint technique: C
+INFO [2025-03-15 22:24:04] Ladies' team sprint technique: C
+INFO [2025-03-15 22:24:04] Loading chrono data
+INFO [2025-03-15 22:24:09] Loaded men's chrono with 88656 rows and 35 columns
+INFO [2025-03-15 22:24:09] Loaded ladies' chrono with 65562 rows and 35 columns
+INFO [2025-03-15 22:24:09] Created men's team sprint df with 0 rows
+INFO [2025-03-15 22:24:09] Created men's individual df with 88656 rows
+INFO [2025-03-15 22:24:09] Created ladies' team sprint df with 0 rows
+INFO [2025-03-15 22:24:09] Created ladies' individual df with 65562 rows
+INFO [2025-03-15 22:25:25] Loading weekend race data
+INFO [2025-03-15 22:25:25] Tomorrow's date: 2025-03-16
+INFO [2025-03-15 22:25:25] Found 1 men's team sprint races and 1 ladies' team sprint races
+INFO [2025-03-15 22:25:25] Men's team sprint technique: C
+INFO [2025-03-15 22:25:25] Ladies' team sprint technique: C
+INFO [2025-03-15 22:25:25] Loading chrono data
+INFO [2025-03-15 22:25:30] Loaded men's chrono with 88656 rows and 35 columns
+INFO [2025-03-15 22:25:30] Loaded ladies' chrono with 65562 rows and 35 columns
+INFO [2025-03-15 22:25:30] Created men's team sprint df with 0 rows
+INFO [2025-03-15 22:25:30] Created men's individual df with 88656 rows
+INFO [2025-03-15 22:25:30] Created ladies' team sprint df with 0 rows
+INFO [2025-03-15 22:25:30] Created ladies' individual df with 65562 rows
+INFO [2025-03-15 22:25:37] Loading weekend race data
+INFO [2025-03-15 22:25:37] Tomorrow's date: 2025-03-16
+INFO [2025-03-15 22:25:37] Found 1 men's team sprint races and 1 ladies' team sprint races
+INFO [2025-03-15 22:25:37] Men's team sprint technique: C
+INFO [2025-03-15 22:25:37] Ladies' team sprint technique: C
+INFO [2025-03-15 22:25:37] Loading chrono data
+INFO [2025-03-15 22:25:42] Loaded men's chrono with 88656 rows and 35 columns
+INFO [2025-03-15 22:25:42] Loaded ladies' chrono with 65562 rows and 35 columns
+INFO [2025-03-15 22:25:42] Created men's team sprint df with 0 rows
+INFO [2025-03-15 22:25:42] Created men's individual df with 88656 rows
+INFO [2025-03-15 22:25:42] Created ladies' team sprint df with 0 rows
+INFO [2025-03-15 22:25:42] Created ladies' individual df with 65562 rows
+INFO [2025-03-15 22:25:48] Loading weekend race data
+INFO [2025-03-15 22:25:48] Tomorrow's date: 2025-03-16
+INFO [2025-03-15 22:25:48] Found 1 men's team sprint races and 1 ladies' team sprint races
+INFO [2025-03-15 22:25:48] Men's team sprint technique: C
+INFO [2025-03-15 22:25:48] Ladies' team sprint technique: C
+INFO [2025-03-15 22:25:48] Loading chrono data
+INFO [2025-03-15 22:25:54] Loaded men's chrono with 88656 rows and 35 columns
+INFO [2025-03-15 22:25:54] Loaded ladies' chrono with 65562 rows and 35 columns
+INFO [2025-03-15 22:25:54] Created men's team sprint df with 0 rows
+INFO [2025-03-15 22:25:54] Created men's individual df with 88656 rows
+INFO [2025-03-15 22:25:54] Created ladies' team sprint df with 0 rows
+INFO [2025-03-15 22:25:54] Created ladies' individual df with 65562 rows
+INFO [2025-03-15 22:27:54] Loading weekend race data
+INFO [2025-03-15 22:27:54] Tomorrow's date: 2025-03-16
+INFO [2025-03-15 22:27:54] Found 1 men's team sprint races and 1 ladies' team sprint races
+INFO [2025-03-15 22:27:54] Men's team sprint technique: C
+INFO [2025-03-15 22:27:54] Ladies' team sprint technique: C
+INFO [2025-03-15 22:27:55] Loading chrono data
+INFO [2025-03-15 22:28:00] Loaded men's chrono with 104709 rows and 36 columns
+INFO [2025-03-15 22:28:00] Loaded ladies' chrono with 78415 rows and 36 columns
+INFO [2025-03-15 22:28:00] Created men's team sprint df with 3225 rows
+INFO [2025-03-15 22:28:00] Created men's individual df with 91796 rows
+INFO [2025-03-15 22:28:00] Created ladies' team sprint df with 2388 rows
+INFO [2025-03-15 22:28:00] Created ladies' individual df with 68008 rows
+INFO [2025-03-15 22:31:49] Loading weekend race data
+INFO [2025-03-15 22:31:49] Tomorrow's date: 2025-03-16
+INFO [2025-03-15 22:31:49] Found 1 men's team sprint races and 1 ladies' team sprint races
+INFO [2025-03-15 22:31:49] Men's team sprint technique: C
+INFO [2025-03-15 22:31:49] Ladies' team sprint technique: C
+INFO [2025-03-15 22:31:49] Men's team sprint technique: C
+INFO [2025-03-15 22:31:49] Ladies' team sprint technique: C
+INFO [2025-03-15 22:31:49] Loading chrono data
+INFO [2025-03-15 22:31:54] Loaded men's chrono with 104709 rows and 36 columns
+INFO [2025-03-15 22:31:54] Loaded ladies' chrono with 78415 rows and 36 columns
+INFO [2025-03-15 22:31:54] Created men's team sprint df with 3225 rows
+INFO [2025-03-15 22:31:54] Created men's individual df with 91796 rows
+INFO [2025-03-15 22:31:54] Created ladies' team sprint df with 2388 rows
+INFO [2025-03-15 22:31:54] Created ladies' individual df with 68008 rows
+INFO [2025-03-15 22:31:56] Filtered men's team sprint data by technique C - kept 997 of 3225 records
+INFO [2025-03-15 22:31:56] Filtered ladies' team sprint data by technique C - kept 700 of 2388 records

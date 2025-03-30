@@ -44,15 +44,18 @@ def sex(df, sex):
         pl.col("Age").cast(pl.Utf8),
         pl.col("Exp").cast(pl.Int64)
     ])
+
     return df
 
 def relay(df, relay):
+  
     if(relay==1):
         return df
     else:
         print("hello")
         df = df.filter(pl.col("Distance")!="Rel")
         df = df.filter(pl.col("Distance")!="Ts")
+
         return df
 
 
@@ -90,6 +93,7 @@ def distance(df, distances):
     return df
 
 def technique(df, technique):
+
     if(technique == "F"):
         #df = df.loc[(df['Technique']=="F") | (df['City']=="Tour de Ski")]
         df = df.filter(pl.col('Technique')=="F") 
@@ -98,6 +102,7 @@ def technique(df, technique):
     else:
         print(df['Technique'].unique())
         df = df.filter((pl.col('Technique')=="N/A") | (pl.col("Technique")=="C") & (pl.col("Distance")!="Rel"))
+        df = df.filter(pl.col("Distance")!="0")
         #df = df.filter(pl.col('Technique')!="F")
         df = df.filter((pl.col('Distance')!="Stage") & (pl.col('Distance')!="Etappeløp"))
         print(df)
@@ -176,6 +181,7 @@ def handle_value(key, value, df):
         df = sex(df, value)
     elif key == "date1":
         df = date1(df, value)
+
     elif key == "date2":
         df = date2(df, value)
     elif key == "city":
@@ -187,7 +193,7 @@ def handle_value(key, value, df):
     elif key == "ms":
         df = ms(df, value)
     elif key == "technique":
-        df = technique(df, value)
+        df = technique(df, value)     
     elif key == "place1":
         df = place1(df, value)
     elif key == "place2":
@@ -203,9 +209,10 @@ def handle_value(key, value, df):
     elif key == "race1":
         df = race1(df, value)
     elif key == "race2":
-        df = race2(df, value)
-    elif key == "relay":
+        df = race2(df, value)     
+    elif key == "relay":   
         df = relay(df, value)
+
     return df
 
 
@@ -397,6 +404,7 @@ def elo(df, base_elo=1300, K=1, discount=.85):
     
     # Create an empty DataFrame with the correct schema
     elo_df = init_elo_df()
+
     
     # Get column order from the initialized DataFrame
     column_order = elo_df.columns
@@ -494,7 +502,7 @@ df = pl.DataFrame()
 
 json_str = sys.argv[1]
 data = json.loads(json_str)
-print(data)
+#print(data)
 
 # File string creation code remains the same
 file_string = ""
@@ -515,9 +523,11 @@ file_string = file_string[:-1] if file_string.endswith('_') else file_string
 if not file_string:
     file_string = data.get('sex', '')
 
-print(file_string)
+
+
+#print(file_string)
 elo_df = elo(df)
-print(elo_df)
+#print(elo_df.filter(pl.col("City") == "Tour de Ski"))
 
 # Base path for output files
 base_path = "~/ski/elo/python/ski/polars/excel365"

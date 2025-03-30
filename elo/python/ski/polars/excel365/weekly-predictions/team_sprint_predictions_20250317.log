@@ -1,0 +1,893 @@
+INFO [2025-03-17 08:17:51] Starting team sprint predictions process
+INFO [2025-03-17 08:17:52] Loading weekend race data
+INFO [2025-03-17 08:17:52] Tomorrow's date: 2025-03-18
+INFO [2025-03-17 08:17:52] No team sprint races found for tomorrow, finding next team sprint race
+INFO [2025-03-17 08:17:52] Next team sprint race found on: 2025-03-22
+INFO [2025-03-17 08:17:52] Found 1 men's team sprint races and 1 ladies' team sprint races
+INFO [2025-03-17 08:17:52] Men's team sprint technique: F
+INFO [2025-03-17 08:17:52] Ladies' team sprint technique: F
+INFO [2025-03-17 08:17:52] Men's team sprint technique: F
+INFO [2025-03-17 08:17:52] Ladies' team sprint technique: F
+INFO [2025-03-17 08:17:52] Loading chrono data
+INFO [2025-03-17 08:17:59] Loaded men's chrono with 104709 rows and 36 columns
+INFO [2025-03-17 08:17:59] Loaded ladies' chrono with 78415 rows and 36 columns
+INFO [2025-03-17 08:17:59] Created men's team sprint df with 3225 rows
+INFO [2025-03-17 08:17:59] Created men's individual df with 91796 rows
+INFO [2025-03-17 08:17:59] Created ladies' team sprint df with 2388 rows
+INFO [2025-03-17 08:17:59] Created ladies' individual df with 68008 rows
+INFO [2025-03-17 08:18:03] Filtered men's team sprint data by technique F - kept 2228 of 3225 records
+INFO [2025-03-17 08:18:03] Filtered ladies' team sprint data by technique F - kept 1688 of 2388 records
+INFO [2025-03-17 08:18:04] Training models for Leg 1
+INFO [2025-03-17 08:18:04] Determined technique from leg data: F
+INFO [2025-03-17 08:18:04] Race is freestyle technique - using freestyle-specific predictors
+INFO [2025-03-17 08:18:04] Selected predictors for leg 1 : Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:18:04] Using predictors: Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:18:04] Training podium model using glm
+INFO [2025-03-17 08:18:04] Training win model using glm
+INFO [2025-03-17 08:18:04] Training top5 model using glm
+INFO [2025-03-17 08:18:04] Training top10 model using glm
+INFO [2025-03-17 08:18:04] Top features for Leg 1 podium prediction:
+INFO [2025-03-17 08:18:04] Training models for Leg 2
+INFO [2025-03-17 08:18:04] Determined technique from leg data: F
+INFO [2025-03-17 08:18:04] Race is freestyle technique - using freestyle-specific predictors
+INFO [2025-03-17 08:18:04] Selected predictors for leg 2 : Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:18:04] Using predictors: Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:18:04] Training podium model using glm
+INFO [2025-03-17 08:18:05] Training win model using glm
+INFO [2025-03-17 08:18:05] Training top5 model using glm
+INFO [2025-03-17 08:18:05] Training top10 model using glm
+INFO [2025-03-17 08:18:05] Top features for Leg 2 podium prediction:
+INFO [2025-03-17 08:18:05] Training models for Leg 1
+INFO [2025-03-17 08:18:05] Determined technique from leg data: F
+INFO [2025-03-17 08:18:05] Race is freestyle technique - using freestyle-specific predictors
+INFO [2025-03-17 08:18:05] Selected predictors for leg 1 : Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:18:05] Using predictors: Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:18:05] Training podium model using glm
+INFO [2025-03-17 08:18:05] Training win model using glm
+INFO [2025-03-17 08:18:05] Training top5 model using glm
+INFO [2025-03-17 08:18:05] Training top10 model using glm
+INFO [2025-03-17 08:18:05] Top features for Leg 1 podium prediction:
+INFO [2025-03-17 08:18:05] Training models for Leg 2
+INFO [2025-03-17 08:18:05] Determined technique from leg data: F
+INFO [2025-03-17 08:18:05] Race is freestyle technique - using freestyle-specific predictors
+INFO [2025-03-17 08:18:05] Selected predictors for leg 2 : Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:18:05] Using predictors: Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:18:05] Training podium model using glm
+INFO [2025-03-17 08:18:05] Training win model using glm
+INFO [2025-03-17 08:18:06] Training top5 model using glm
+INFO [2025-03-17 08:18:06] Training top10 model using glm
+INFO [2025-03-17 08:18:06] Top features for Leg 2 podium prediction:
+INFO [2025-03-17 08:18:06] Processing men's team sprint predictions
+INFO [2025-03-17 08:18:06] Loaded men team sprint teams startlist with 35 rows
+INFO [2025-03-17 08:18:06] Loaded men team sprint individuals startlist with 288 rows
+INFO [2025-03-17 08:18:06] Preparing current men skier data
+INFO [2025-03-17 08:19:53] Loading weekend race data
+INFO [2025-03-17 08:19:53] Tomorrow's date: 2025-03-18
+INFO [2025-03-17 08:19:53] No team sprint races found for tomorrow, finding next team sprint race
+INFO [2025-03-17 08:19:53] Next team sprint race found on: 2025-03-22
+INFO [2025-03-17 08:19:53] Found 1 men's team sprint races and 1 ladies' team sprint races
+INFO [2025-03-17 08:19:53] Men's team sprint technique: F
+INFO [2025-03-17 08:19:53] Ladies' team sprint technique: F
+INFO [2025-03-17 08:19:53] Men's team sprint technique: F
+INFO [2025-03-17 08:19:53] Ladies' team sprint technique: F
+INFO [2025-03-17 08:19:53] Loading chrono data
+INFO [2025-03-17 08:19:59] Loaded men's chrono with 104709 rows and 36 columns
+INFO [2025-03-17 08:19:59] Loaded ladies' chrono with 78415 rows and 36 columns
+INFO [2025-03-17 08:19:59] Created men's team sprint df with 3225 rows
+INFO [2025-03-17 08:19:59] Created men's individual df with 91796 rows
+INFO [2025-03-17 08:19:59] Created ladies' team sprint df with 2388 rows
+INFO [2025-03-17 08:19:59] Created ladies' individual df with 68008 rows
+INFO [2025-03-17 08:20:03] Filtered men's team sprint data by technique F - kept 2228 of 3225 records
+INFO [2025-03-17 08:20:03] Filtered ladies' team sprint data by technique F - kept 1688 of 2388 records
+INFO [2025-03-17 08:20:03] Training models for Leg 1
+INFO [2025-03-17 08:20:03] Determined technique from leg data: F
+INFO [2025-03-17 08:20:03] Race is freestyle technique - using freestyle-specific predictors
+INFO [2025-03-17 08:20:03] Selected predictors for leg 1 : Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:20:03] Using predictors: Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:20:03] Training podium model using glm
+INFO [2025-03-17 08:20:03] Training win model using glm
+INFO [2025-03-17 08:20:03] Training top5 model using glm
+INFO [2025-03-17 08:20:03] Training top10 model using glm
+INFO [2025-03-17 08:20:03] Top features for Leg 1 podium prediction:
+INFO [2025-03-17 08:20:03] Training models for Leg 2
+INFO [2025-03-17 08:20:03] Determined technique from leg data: F
+INFO [2025-03-17 08:20:03] Race is freestyle technique - using freestyle-specific predictors
+INFO [2025-03-17 08:20:03] Selected predictors for leg 2 : Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:20:03] Using predictors: Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:20:03] Training podium model using glm
+INFO [2025-03-17 08:20:04] Training win model using glm
+INFO [2025-03-17 08:20:04] Training top5 model using glm
+INFO [2025-03-17 08:20:04] Training top10 model using glm
+INFO [2025-03-17 08:20:04] Top features for Leg 2 podium prediction:
+INFO [2025-03-17 08:20:04] Training models for Leg 1
+INFO [2025-03-17 08:20:04] Determined technique from leg data: F
+INFO [2025-03-17 08:20:04] Race is freestyle technique - using freestyle-specific predictors
+INFO [2025-03-17 08:20:04] Selected predictors for leg 1 : Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:20:04] Using predictors: Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:20:04] Training podium model using glm
+INFO [2025-03-17 08:20:04] Training win model using glm
+INFO [2025-03-17 08:20:04] Training top5 model using glm
+INFO [2025-03-17 08:20:04] Training top10 model using glm
+INFO [2025-03-17 08:20:04] Top features for Leg 1 podium prediction:
+INFO [2025-03-17 08:20:04] Training models for Leg 2
+INFO [2025-03-17 08:20:04] Determined technique from leg data: F
+INFO [2025-03-17 08:20:04] Race is freestyle technique - using freestyle-specific predictors
+INFO [2025-03-17 08:20:04] Selected predictors for leg 2 : Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:20:04] Using predictors: Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:20:04] Training podium model using glm
+INFO [2025-03-17 08:20:04] Training win model using glm
+INFO [2025-03-17 08:20:04] Training top5 model using glm
+INFO [2025-03-17 08:20:04] Training top10 model using glm
+INFO [2025-03-17 08:20:04] Top features for Leg 2 podium prediction:
+INFO [2025-03-17 08:20:04] Processing men's team sprint predictions
+INFO [2025-03-17 08:20:04] Loaded men team sprint teams startlist with 35 rows
+INFO [2025-03-17 08:20:04] Loaded men team sprint individuals startlist with 288 rows
+INFO [2025-03-17 08:20:05] Preparing current men skier data
+INFO [2025-03-17 08:20:05] Replaced NAs in Distance_Elo with first quartile: 1210.34903070123
+INFO [2025-03-17 08:20:05] Replaced NAs in Distance_C_Elo with first quartile: 1228.28491180132
+INFO [2025-03-17 08:20:05] Replaced NAs in Distance_F_Elo with first quartile: 1232.92687393963
+INFO [2025-03-17 08:20:05] Replaced NAs in Sprint_Elo with first quartile: 1219.23085164112
+INFO [2025-03-17 08:20:05] Replaced NAs in Sprint_C_Elo with first quartile: 1241.15705230634
+INFO [2025-03-17 08:20:05] Replaced NAs in Sprint_F_Elo with first quartile: 1226.75938562454
+INFO [2025-03-17 08:20:05] Replaced NAs in Classic_Elo with first quartile: 1240.75537238594
+INFO [2025-03-17 08:20:05] Replaced NAs in Freestyle_Elo with first quartile: 1222.10670066235
+INFO [2025-03-17 08:20:05] Replaced NAs in Distance_Pelo with first quartile: 1210.74873863424
+INFO [2025-03-17 08:20:05] Replaced NAs in Distance_C_Pelo with first quartile: 1229.99748531218
+INFO [2025-03-17 08:20:05] Replaced NAs in Distance_F_Pelo with first quartile: 1236.69249039986
+INFO [2025-03-17 08:20:05] Replaced NAs in Sprint_Pelo with first quartile: 1237.59624724894
+INFO [2025-03-17 08:20:05] Replaced NAs in Sprint_C_Pelo with first quartile: 1241.15705230634
+INFO [2025-03-17 08:20:05] Replaced NAs in Sprint_F_Pelo with first quartile: 1254.21391795859
+INFO [2025-03-17 08:20:05] Replaced NAs in Classic_Pelo with first quartile: 1243.28733690217
+INFO [2025-03-17 08:20:05] Replaced NAs in Freestyle_Pelo with first quartile: 1242.67538984024
+INFO [2025-03-17 08:20:05] Replaced NAs in Sprint_Last_5 with first quartile: 0
+INFO [2025-03-17 08:20:05] Created Pelo_Pct from Elo with max value: 1936.67566595139
+INFO [2025-03-17 08:20:05] Created Distance_Pelo_Pct from Distance_Elo with max value: 1844.07614946524
+INFO [2025-03-17 08:20:05] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1772.68700688686
+INFO [2025-03-17 08:20:05] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1704.82115321538
+INFO [2025-03-17 08:20:05] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1882.4487927528
+INFO [2025-03-17 08:20:05] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.09106628928
+INFO [2025-03-17 08:20:05] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1797.07396691951
+INFO [2025-03-17 08:20:05] Created Classic_Pelo_Pct from Classic_Elo with max value: 1803.94978393517
+INFO [2025-03-17 08:20:05] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1804.47493286592
+INFO [2025-03-17 08:20:05] Prepared data for 365 men skiers with 31 features
+INFO [2025-03-17 08:20:05] No FIS startlist, predicting for all skiers in all legs
+INFO [2025-03-17 08:20:05] No valid FIS startlist for men, building optimized teams
+INFO [2025-03-17 08:20:05] Attempting Option 1: Team model coefficients
+INFO [2025-03-17 08:20:05] Option 1 failed: No team_podium model found
+INFO [2025-03-17 08:20:05] Option 1 failed: No team model
+INFO [2025-03-17 08:20:05] Attempting Option 2: Individual model accuracy
+INFO [2025-03-17 08:20:05] Leg 1 accuracy: 0.894221724524076
+INFO [2025-03-17 08:20:05] Leg 2 accuracy: 0.902951661067563
+INFO [2025-03-17 08:20:05] Option 2 succeeded: Using model accuracy weights
+INFO [2025-03-17 08:20:05] Using leg importance weights for team optimization: Leg 1: 0.50, Leg 2: 0.50
+INFO [2025-03-17 08:20:05] Optimizing team for Finland
+INFO [2025-03-17 08:20:05] Optimizing team for Norway
+INFO [2025-03-17 08:20:05] Optimizing team for Sweden
+INFO [2025-03-17 08:20:05] Optimizing team for Ireland
+INFO [2025-03-17 08:20:05] Optimizing team for Austria
+INFO [2025-03-17 08:20:05] Optimizing team for France
+INFO [2025-03-17 08:20:05] Optimizing team for Germany
+INFO [2025-03-17 08:20:05] Optimizing team for Italy
+INFO [2025-03-17 08:20:05] Optimizing team for Switzerland
+INFO [2025-03-17 08:20:05] Optimizing team for USA
+INFO [2025-03-17 08:20:05] Optimizing team for Canada
+INFO [2025-03-17 08:20:05] Optimizing team for Estonia
+INFO [2025-03-17 08:20:05] Optimizing team for Andorra
+INFO [2025-03-17 08:20:05] Optimizing team for Czechia
+INFO [2025-03-17 08:20:05] Optimizing team for Great Britain
+INFO [2025-03-17 08:20:05] Optimizing team for Bulgaria
+INFO [2025-03-17 08:20:05] Optimizing team for Armenia
+INFO [2025-03-17 08:20:05] Optimizing team for Slovenia
+INFO [2025-03-17 08:20:05] Optimizing team for Australia
+INFO [2025-03-17 08:20:05] Optimizing team for Kazakhstan
+INFO [2025-03-17 08:20:05] Optimizing team for Spain
+INFO [2025-03-17 08:20:05] Optimizing team for Ukraine
+INFO [2025-03-17 08:20:05] Optimizing team for Slovakia
+INFO [2025-03-17 08:20:05] Optimizing team for Latvia
+INFO [2025-03-17 08:20:05] Optimizing team for Hungary
+INFO [2025-03-17 08:20:05] Optimizing team for Japan
+INFO [2025-03-17 08:20:05] Optimizing team for Poland
+INFO [2025-03-17 08:20:05] Optimizing team for Colombia
+INFO [2025-03-17 08:20:05] Optimizing team for South Korea
+INFO [2025-03-17 08:20:05] Optimizing team for China
+INFO [2025-03-17 08:20:05] Optimizing team for Chile
+INFO [2025-03-17 08:20:05] Optimizing team for Argentina
+INFO [2025-03-17 08:20:05] Optimizing team for Croatia
+INFO [2025-03-17 08:20:05] Optimizing team for Liechtenstein
+INFO [2025-03-17 08:20:05] Optimizing team for Romania
+INFO [2025-03-17 08:20:05] Optimizing team for Serbia
+INFO [2025-03-17 08:20:05] Optimizing team for Thailand
+INFO [2025-03-17 08:20:05] Optimizing team for Mongolia
+INFO [2025-03-17 08:20:05] Optimizing team for North Macedonia
+INFO [2025-03-17 08:20:05] Optimizing team for Belgium
+INFO [2025-03-17 08:20:05] Optimizing team for Lithuania
+INFO [2025-03-17 08:20:05] Optimizing team for Haiti
+INFO [2025-03-17 08:20:05] Optimizing team for Bosnia&Herzegovina
+INFO [2025-03-17 08:20:05] Optimizing team for Turkey
+INFO [2025-03-17 08:20:05] Optimizing team for Denmark
+INFO [2025-03-17 08:20:05] Optimizing team for Brazil
+INFO [2025-03-17 08:20:05] Optimizing team for Iceland
+INFO [2025-03-17 08:20:05] Optimizing team for Greece
+INFO [2025-03-17 08:20:05] Optimizing team for Nigeria
+INFO [2025-03-17 08:20:05] Optimizing team for Montenegro
+INFO [2025-03-17 08:20:05] Optimizing team for Kyrgyzstan
+INFO [2025-03-17 08:20:05] Optimizing team for India
+INFO [2025-03-17 08:20:05] Optimizing team for Bolivia
+INFO [2025-03-17 08:20:05] Optimizing team for Portugal
+INFO [2025-03-17 08:20:05] Optimizing team for Lebanon
+INFO [2025-03-17 08:20:05] Optimizing team for Iran
+INFO [2025-03-17 08:20:05] Optimizing team for Mexico
+INFO [2025-03-17 08:20:05] Optimizing team for Taiwan
+INFO [2025-03-17 08:20:05] Optimizing team for Saudi Arabia
+INFO [2025-03-17 08:20:05] Optimizing team for Peru
+INFO [2025-03-17 08:20:05] Optimizing team for South Africa
+INFO [2025-03-17 08:20:05] Optimizing team for San Marino
+INFO [2025-03-17 08:20:05] Optimizing team for Israel
+INFO [2025-03-17 08:20:06] Optimizing team for Ecuador
+INFO [2025-03-17 08:20:06] Optimizing team for Venezuela
+INFO [2025-03-17 08:20:06] Optimizing team for Trinidad & Tobago
+INFO [2025-03-17 08:20:06] Optimizing team for Malta
+INFO [2025-03-17 08:20:06] Matching optimized teams with startlist team names and prices
+INFO [2025-03-17 08:20:06] Processing ladies' team sprint predictions
+INFO [2025-03-17 08:20:06] Loaded ladies team sprint teams startlist with 21 rows
+INFO [2025-03-17 08:20:06] Loaded ladies team sprint individuals startlist with 42 rows
+INFO [2025-03-17 08:20:06] Preparing current ladies skier data
+INFO [2025-03-17 08:20:06] Replaced NAs in Distance_Elo with first quartile: 1237.24135379294
+INFO [2025-03-17 08:20:06] Replaced NAs in Distance_C_Elo with first quartile: 1242.00162117671
+INFO [2025-03-17 08:20:06] Replaced NAs in Distance_F_Elo with first quartile: 1257.26031057313
+INFO [2025-03-17 08:20:06] Replaced NAs in Sprint_Elo with first quartile: 1238.78920518219
+INFO [2025-03-17 08:20:06] Replaced NAs in Sprint_C_Elo with first quartile: 1257.67866787334
+INFO [2025-03-17 08:20:06] Replaced NAs in Sprint_F_Elo with first quartile: 1237.87670663998
+INFO [2025-03-17 08:20:06] Replaced NAs in Classic_Elo with first quartile: 1250.26853632078
+INFO [2025-03-17 08:20:06] Replaced NAs in Freestyle_Elo with first quartile: 1236.42030772967
+INFO [2025-03-17 08:20:06] Replaced NAs in Distance_Pelo with first quartile: 1242.1169240887
+INFO [2025-03-17 08:20:06] Replaced NAs in Distance_C_Pelo with first quartile: 1243.5007326682
+INFO [2025-03-17 08:20:06] Replaced NAs in Distance_F_Pelo with first quartile: 1259.23240340024
+INFO [2025-03-17 08:20:06] Replaced NAs in Sprint_Pelo with first quartile: 1254.15703318668
+INFO [2025-03-17 08:20:06] Replaced NAs in Sprint_C_Pelo with first quartile: 1257.58302026178
+INFO [2025-03-17 08:20:06] Replaced NAs in Sprint_F_Pelo with first quartile: 1255.58157573541
+INFO [2025-03-17 08:20:06] Replaced NAs in Classic_Pelo with first quartile: 1255.39340994292
+INFO [2025-03-17 08:20:06] Replaced NAs in Freestyle_Pelo with first quartile: 1253.82185786105
+INFO [2025-03-17 08:20:06] Replaced NAs in Sprint_Last_5 with first quartile: 0
+INFO [2025-03-17 08:20:06] Created Pelo_Pct from Elo with max value: 1838.94642582206
+INFO [2025-03-17 08:20:06] Created Distance_Pelo_Pct from Distance_Elo with max value: 1864.8112847824
+INFO [2025-03-17 08:20:06] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1760.04499166882
+INFO [2025-03-17 08:20:06] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1692.68476450479
+INFO [2025-03-17 08:20:06] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1754.8999437313
+INFO [2025-03-17 08:20:06] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1601.5820663103
+INFO [2025-03-17 08:20:06] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1706.06395983697
+INFO [2025-03-17 08:20:06] Created Classic_Pelo_Pct from Classic_Elo with max value: 1693.23571740607
+INFO [2025-03-17 08:20:06] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1720.26593995458
+INFO [2025-03-17 08:20:06] Prepared data for 242 ladies skiers with 31 features
+INFO [2025-03-17 08:20:06] Using FIS startlist for ladies' leg predictions
+INFO [2025-03-17 08:20:06] Using FIS startlist for ladies
+INFO [2025-03-17 08:20:06] Attempting Option 1: Team model coefficients
+INFO [2025-03-17 08:20:06] Option 1 failed: No team_podium model found
+INFO [2025-03-17 08:20:06] Option 1 failed: No team model
+INFO [2025-03-17 08:20:06] Attempting Option 2: Individual model accuracy
+INFO [2025-03-17 08:20:06] Leg 1 accuracy: 0.906666666666667
+INFO [2025-03-17 08:20:06] Leg 2 accuracy: 0.8825
+INFO [2025-03-17 08:20:06] Option 2 succeeded: Using model accuracy weights
+INFO [2025-03-17 08:20:06] Leg importance weights: Leg 1: 0.51, Leg 2: 0.49
+INFO [2025-03-17 08:20:06] Resetting men's probabilities at or below the mode to zero
+INFO [2025-03-17 08:20:06] Reset 41 values to 0 for Win_Prob (repeated values or values <  0.0011 )
+INFO [2025-03-17 08:20:06] Repeated values: 0.0011
+INFO [2025-03-17 08:20:06] No values appear more than twice for Podium_Prob
+INFO [2025-03-17 08:20:06] No values appear more than twice for Top5_Prob
+INFO [2025-03-17 08:20:06] No values appear more than twice for Top10_Prob
+INFO [2025-03-17 08:20:06] Resetting ladies' probabilities at or below the mode to zero
+INFO [2025-03-17 08:20:06] Reset 19 values to 0 for Win_Prob (repeated values or values <  0 )
+INFO [2025-03-17 08:20:06] Repeated values: 0
+INFO [2025-03-17 08:20:06] No values appear more than twice for Podium_Prob
+INFO [2025-03-17 08:20:06] No values appear more than twice for Top5_Prob
+INFO [2025-03-17 08:20:06] No values appear more than twice for Top10_Prob
+INFO [2025-03-17 08:20:06] Normalizing men's team probabilities
+INFO [2025-03-17 08:20:06] Normalized Win_Prob from sum of 0.83 to 1
+INFO [2025-03-17 08:20:06] Normalized Podium_Prob from sum of 3.23 to 3
+INFO [2025-03-17 08:20:06] Normalized Top5_Prob from sum of 4.79 to 5
+INFO [2025-03-17 08:20:06] Normalized Top10_Prob from sum of 9.01 to 10
+INFO [2025-03-17 08:20:06] Recalculated Expected_Points based on normalized probabilities
+INFO [2025-03-17 08:20:06] Normalizing ladies' team probabilities
+INFO [2025-03-17 08:20:06] Normalized Win_Prob from sum of 0.7 to 1
+INFO [2025-03-17 08:20:06] Normalized Podium_Prob from sum of 2.31 to 3
+INFO [2025-03-17 08:20:06] Normalized Top5_Prob from sum of 3.29 to 5
+INFO [2025-03-17 08:20:06] Normalized Top10_Prob from sum of 9.7 to 10
+INFO [2025-03-17 08:20:06] Recalculated Expected_Points based on normalized probabilities
+INFO [2025-03-17 08:20:06] Optimizing fantasy team sprint team
+INFO [2025-03-17 08:20:06] Fantasy team optimization complete. Selected 12 teams.
+INFO [2025-03-17 08:20:06] Total price: 99862 of max 1e+05
+INFO [2025-03-17 08:20:06] Expected total points: 816.2
+INFO [2025-03-17 08:20:06] Men's teams: 6 ( 6 )
+INFO [2025-03-17 08:20:06] Ladies' teams: 6 ( 6 )
+INFO [2025-03-17 08:20:06] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250322/men_team_sprint_points.xlsx
+INFO [2025-03-17 08:20:06] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250322/men_team_sprint_probabilities.xlsx
+INFO [2025-03-17 08:20:06] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250322/ladies_team_sprint_points.xlsx
+INFO [2025-03-17 08:20:06] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250322/ladies_team_sprint_probabilities.xlsx
+INFO [2025-03-17 08:20:06] Saved fantasy team results to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250322/fantasy_team_sprint_team.xlsx
+INFO [2025-03-17 08:20:06] Team sprint predictions completed successfully
+INFO [2025-03-17 08:22:33] Starting team sprint predictions process
+INFO [2025-03-17 08:22:34] Loading weekend race data
+INFO [2025-03-17 08:22:34] Tomorrow's date: 2025-03-18
+INFO [2025-03-17 08:22:34] No team sprint races found for tomorrow, finding next team sprint race
+INFO [2025-03-17 08:22:34] Next team sprint race found on: 2025-03-22
+INFO [2025-03-17 08:22:34] Found 1 men's team sprint races and 1 ladies' team sprint races
+INFO [2025-03-17 08:22:34] Men's team sprint technique: F
+INFO [2025-03-17 08:22:34] Ladies' team sprint technique: F
+INFO [2025-03-17 08:22:34] Men's team sprint technique: F
+INFO [2025-03-17 08:22:34] Ladies' team sprint technique: F
+INFO [2025-03-17 08:22:34] Loading chrono data
+INFO [2025-03-17 08:22:41] Loaded men's chrono with 104709 rows and 36 columns
+INFO [2025-03-17 08:22:41] Loaded ladies' chrono with 78415 rows and 36 columns
+INFO [2025-03-17 08:22:41] Created men's team sprint df with 3225 rows
+INFO [2025-03-17 08:22:41] Created men's individual df with 91796 rows
+INFO [2025-03-17 08:22:41] Created ladies' team sprint df with 2388 rows
+INFO [2025-03-17 08:22:41] Created ladies' individual df with 68008 rows
+INFO [2025-03-17 08:22:45] Filtered men's team sprint data by technique F - kept 2228 of 3225 records
+INFO [2025-03-17 08:22:45] Filtered ladies' team sprint data by technique F - kept 1688 of 2388 records
+INFO [2025-03-17 08:22:46] Training models for Leg 1
+INFO [2025-03-17 08:22:46] Determined technique from leg data: F
+INFO [2025-03-17 08:22:46] Race is freestyle technique - using freestyle-specific predictors
+INFO [2025-03-17 08:22:46] Selected predictors for leg 1 : Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:22:46] Using predictors: Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:22:46] Training podium model using glm
+INFO [2025-03-17 08:22:46] Training win model using glm
+INFO [2025-03-17 08:22:46] Training top5 model using glm
+INFO [2025-03-17 08:22:46] Training top10 model using glm
+INFO [2025-03-17 08:22:46] Top features for Leg 1 podium prediction:
+INFO [2025-03-17 08:22:46] Training models for Leg 2
+INFO [2025-03-17 08:22:46] Determined technique from leg data: F
+INFO [2025-03-17 08:22:46] Race is freestyle technique - using freestyle-specific predictors
+INFO [2025-03-17 08:22:46] Selected predictors for leg 2 : Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:22:46] Using predictors: Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:22:46] Training podium model using glm
+INFO [2025-03-17 08:22:46] Training win model using glm
+INFO [2025-03-17 08:22:46] Training top5 model using glm
+INFO [2025-03-17 08:22:46] Training top10 model using glm
+INFO [2025-03-17 08:22:47] Top features for Leg 2 podium prediction:
+INFO [2025-03-17 08:22:47] Training models for Leg 1
+INFO [2025-03-17 08:22:47] Determined technique from leg data: F
+INFO [2025-03-17 08:22:47] Race is freestyle technique - using freestyle-specific predictors
+INFO [2025-03-17 08:22:47] Selected predictors for leg 1 : Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:22:47] Using predictors: Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:22:47] Training podium model using glm
+INFO [2025-03-17 08:22:47] Training win model using glm
+INFO [2025-03-17 08:22:47] Training top5 model using glm
+INFO [2025-03-17 08:22:47] Training top10 model using glm
+INFO [2025-03-17 08:22:47] Top features for Leg 1 podium prediction:
+INFO [2025-03-17 08:22:47] Training models for Leg 2
+INFO [2025-03-17 08:22:47] Determined technique from leg data: F
+INFO [2025-03-17 08:22:47] Race is freestyle technique - using freestyle-specific predictors
+INFO [2025-03-17 08:22:47] Selected predictors for leg 2 : Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:22:47] Using predictors: Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:22:47] Training podium model using glm
+INFO [2025-03-17 08:22:47] Training win model using glm
+INFO [2025-03-17 08:22:47] Training top5 model using glm
+INFO [2025-03-17 08:22:47] Training top10 model using glm
+INFO [2025-03-17 08:22:47] Top features for Leg 2 podium prediction:
+INFO [2025-03-17 08:22:47] Processing men's team sprint predictions
+INFO [2025-03-17 08:22:47] Loaded men team sprint teams startlist with 35 rows
+INFO [2025-03-17 08:22:47] Loaded men team sprint individuals startlist with 288 rows
+INFO [2025-03-17 08:22:47] Preparing current men skier data
+INFO [2025-03-17 08:22:47] Replaced NAs in Distance_Elo with first quartile: 1210.34903070123
+INFO [2025-03-17 08:22:47] Replaced NAs in Distance_C_Elo with first quartile: 1228.28491180132
+INFO [2025-03-17 08:22:47] Replaced NAs in Distance_F_Elo with first quartile: 1232.92687393963
+INFO [2025-03-17 08:22:47] Replaced NAs in Sprint_Elo with first quartile: 1219.23085164112
+INFO [2025-03-17 08:22:47] Replaced NAs in Sprint_C_Elo with first quartile: 1241.15705230634
+INFO [2025-03-17 08:22:47] Replaced NAs in Sprint_F_Elo with first quartile: 1226.75938562454
+INFO [2025-03-17 08:22:47] Replaced NAs in Classic_Elo with first quartile: 1240.75537238594
+INFO [2025-03-17 08:22:47] Replaced NAs in Freestyle_Elo with first quartile: 1222.10670066235
+INFO [2025-03-17 08:22:47] Replaced NAs in Distance_Pelo with first quartile: 1210.74873863424
+INFO [2025-03-17 08:22:47] Replaced NAs in Distance_C_Pelo with first quartile: 1229.99748531218
+INFO [2025-03-17 08:22:47] Replaced NAs in Distance_F_Pelo with first quartile: 1236.69249039986
+INFO [2025-03-17 08:22:47] Replaced NAs in Sprint_Pelo with first quartile: 1237.59624724894
+INFO [2025-03-17 08:22:47] Replaced NAs in Sprint_C_Pelo with first quartile: 1241.15705230634
+INFO [2025-03-17 08:22:47] Replaced NAs in Sprint_F_Pelo with first quartile: 1254.21391795859
+INFO [2025-03-17 08:22:47] Replaced NAs in Classic_Pelo with first quartile: 1243.28733690217
+INFO [2025-03-17 08:22:47] Replaced NAs in Freestyle_Pelo with first quartile: 1242.67538984024
+INFO [2025-03-17 08:22:47] Replaced NAs in Sprint_Last_5 with first quartile: 0
+INFO [2025-03-17 08:22:47] Created Pelo_Pct from Elo with max value: 1936.67566595139
+INFO [2025-03-17 08:22:47] Created Distance_Pelo_Pct from Distance_Elo with max value: 1844.07614946524
+INFO [2025-03-17 08:22:47] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1772.68700688686
+INFO [2025-03-17 08:22:47] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1704.82115321538
+INFO [2025-03-17 08:22:47] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1882.4487927528
+INFO [2025-03-17 08:22:47] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.09106628928
+INFO [2025-03-17 08:22:47] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1797.07396691951
+INFO [2025-03-17 08:22:47] Created Classic_Pelo_Pct from Classic_Elo with max value: 1803.94978393517
+INFO [2025-03-17 08:22:47] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1804.47493286592
+INFO [2025-03-17 08:22:47] Prepared data for 365 men skiers with 31 features
+INFO [2025-03-17 08:22:47] No FIS startlist, predicting for all skiers in all legs
+INFO [2025-03-17 08:22:48] No valid FIS startlist for men, building optimized teams
+INFO [2025-03-17 08:22:48] Attempting Option 1: Team model coefficients
+INFO [2025-03-17 08:22:48] Option 1 failed: No team_podium model found
+INFO [2025-03-17 08:22:48] Option 1 failed: No team model
+INFO [2025-03-17 08:22:48] Attempting Option 2: Individual model accuracy
+INFO [2025-03-17 08:22:48] Leg 1 accuracy: 0.887878872713699
+INFO [2025-03-17 08:22:48] Leg 2 accuracy: 0.905034994400896
+INFO [2025-03-17 08:22:48] Option 2 succeeded: Using model accuracy weights
+INFO [2025-03-17 08:22:48] Using leg importance weights for team optimization: Leg 1: 0.50, Leg 2: 0.50
+INFO [2025-03-17 08:22:48] Optimizing team for Finland
+INFO [2025-03-17 08:22:48] Optimizing team for Norway
+INFO [2025-03-17 08:22:48] Optimizing team for Sweden
+INFO [2025-03-17 08:22:48] Optimizing team for Ireland
+INFO [2025-03-17 08:22:48] Optimizing team for Austria
+INFO [2025-03-17 08:22:48] Optimizing team for France
+INFO [2025-03-17 08:22:48] Optimizing team for Germany
+INFO [2025-03-17 08:22:48] Optimizing team for Italy
+INFO [2025-03-17 08:22:48] Optimizing team for Switzerland
+INFO [2025-03-17 08:22:48] Optimizing team for USA
+INFO [2025-03-17 08:22:48] Optimizing team for Canada
+INFO [2025-03-17 08:22:48] Optimizing team for Estonia
+INFO [2025-03-17 08:22:48] Optimizing team for Andorra
+INFO [2025-03-17 08:22:48] Optimizing team for Czechia
+INFO [2025-03-17 08:22:48] Optimizing team for Great Britain
+INFO [2025-03-17 08:22:48] Optimizing team for Bulgaria
+INFO [2025-03-17 08:22:48] Optimizing team for Armenia
+INFO [2025-03-17 08:22:48] Optimizing team for Slovenia
+INFO [2025-03-17 08:22:48] Optimizing team for Australia
+INFO [2025-03-17 08:22:48] Optimizing team for Kazakhstan
+INFO [2025-03-17 08:22:48] Optimizing team for Spain
+INFO [2025-03-17 08:22:48] Optimizing team for Ukraine
+INFO [2025-03-17 08:22:48] Optimizing team for Slovakia
+INFO [2025-03-17 08:22:48] Optimizing team for Latvia
+INFO [2025-03-17 08:22:48] Optimizing team for Hungary
+INFO [2025-03-17 08:22:48] Optimizing team for Japan
+INFO [2025-03-17 08:22:48] Optimizing team for Poland
+INFO [2025-03-17 08:22:48] Optimizing team for Colombia
+INFO [2025-03-17 08:22:48] Optimizing team for South Korea
+INFO [2025-03-17 08:22:48] Optimizing team for China
+INFO [2025-03-17 08:22:48] Optimizing team for Chile
+INFO [2025-03-17 08:22:48] Optimizing team for Argentina
+INFO [2025-03-17 08:22:48] Optimizing team for Croatia
+INFO [2025-03-17 08:22:48] Optimizing team for Liechtenstein
+INFO [2025-03-17 08:22:48] Optimizing team for Romania
+INFO [2025-03-17 08:22:48] Optimizing team for Serbia
+INFO [2025-03-17 08:22:48] Optimizing team for Thailand
+INFO [2025-03-17 08:22:48] Optimizing team for Mongolia
+INFO [2025-03-17 08:22:48] Optimizing team for North Macedonia
+INFO [2025-03-17 08:22:48] Optimizing team for Belgium
+INFO [2025-03-17 08:22:48] Optimizing team for Lithuania
+INFO [2025-03-17 08:22:48] Optimizing team for Haiti
+INFO [2025-03-17 08:22:48] Optimizing team for Bosnia&Herzegovina
+INFO [2025-03-17 08:22:48] Optimizing team for Turkey
+INFO [2025-03-17 08:22:48] Optimizing team for Denmark
+INFO [2025-03-17 08:22:48] Optimizing team for Brazil
+INFO [2025-03-17 08:22:48] Optimizing team for Iceland
+INFO [2025-03-17 08:22:48] Optimizing team for Greece
+INFO [2025-03-17 08:22:48] Optimizing team for Nigeria
+INFO [2025-03-17 08:22:48] Optimizing team for Montenegro
+INFO [2025-03-17 08:22:48] Optimizing team for Kyrgyzstan
+INFO [2025-03-17 08:22:48] Optimizing team for India
+INFO [2025-03-17 08:22:48] Optimizing team for Bolivia
+INFO [2025-03-17 08:22:48] Optimizing team for Portugal
+INFO [2025-03-17 08:22:48] Optimizing team for Lebanon
+INFO [2025-03-17 08:22:48] Optimizing team for Iran
+INFO [2025-03-17 08:22:48] Optimizing team for Mexico
+INFO [2025-03-17 08:22:48] Optimizing team for Taiwan
+INFO [2025-03-17 08:22:48] Optimizing team for Saudi Arabia
+INFO [2025-03-17 08:22:48] Optimizing team for Peru
+INFO [2025-03-17 08:22:48] Optimizing team for South Africa
+INFO [2025-03-17 08:22:48] Optimizing team for San Marino
+INFO [2025-03-17 08:22:48] Optimizing team for Israel
+INFO [2025-03-17 08:22:48] Optimizing team for Ecuador
+INFO [2025-03-17 08:22:48] Optimizing team for Venezuela
+INFO [2025-03-17 08:22:48] Optimizing team for Trinidad & Tobago
+INFO [2025-03-17 08:22:48] Optimizing team for Malta
+INFO [2025-03-17 08:22:49] Matching optimized teams with startlist team names and prices
+INFO [2025-03-17 08:22:49] Processing ladies' team sprint predictions
+INFO [2025-03-17 08:22:49] Loaded ladies team sprint teams startlist with 35 rows
+INFO [2025-03-17 08:22:49] Loaded ladies team sprint individuals startlist with 217 rows
+INFO [2025-03-17 08:22:49] Preparing current ladies skier data
+INFO [2025-03-17 08:22:49] Replaced NAs in Distance_Elo with first quartile: 1237.24135379294
+INFO [2025-03-17 08:22:49] Replaced NAs in Distance_C_Elo with first quartile: 1242.00162117671
+INFO [2025-03-17 08:22:49] Replaced NAs in Distance_F_Elo with first quartile: 1257.26031057313
+INFO [2025-03-17 08:22:49] Replaced NAs in Sprint_Elo with first quartile: 1238.78920518219
+INFO [2025-03-17 08:22:49] Replaced NAs in Sprint_C_Elo with first quartile: 1257.67866787334
+INFO [2025-03-17 08:22:49] Replaced NAs in Sprint_F_Elo with first quartile: 1237.87670663998
+INFO [2025-03-17 08:22:49] Replaced NAs in Classic_Elo with first quartile: 1250.26853632078
+INFO [2025-03-17 08:22:49] Replaced NAs in Freestyle_Elo with first quartile: 1236.42030772967
+INFO [2025-03-17 08:22:49] Replaced NAs in Distance_Pelo with first quartile: 1242.1169240887
+INFO [2025-03-17 08:22:49] Replaced NAs in Distance_C_Pelo with first quartile: 1243.5007326682
+INFO [2025-03-17 08:22:49] Replaced NAs in Distance_F_Pelo with first quartile: 1259.23240340024
+INFO [2025-03-17 08:22:49] Replaced NAs in Sprint_Pelo with first quartile: 1254.15703318668
+INFO [2025-03-17 08:22:49] Replaced NAs in Sprint_C_Pelo with first quartile: 1257.58302026178
+INFO [2025-03-17 08:22:49] Replaced NAs in Sprint_F_Pelo with first quartile: 1255.58157573541
+INFO [2025-03-17 08:22:49] Replaced NAs in Classic_Pelo with first quartile: 1255.39340994292
+INFO [2025-03-17 08:22:49] Replaced NAs in Freestyle_Pelo with first quartile: 1253.82185786105
+INFO [2025-03-17 08:22:49] Replaced NAs in Sprint_Last_5 with first quartile: 0
+INFO [2025-03-17 08:22:49] Created Pelo_Pct from Elo with max value: 1838.94642582206
+INFO [2025-03-17 08:22:49] Created Distance_Pelo_Pct from Distance_Elo with max value: 1864.8112847824
+INFO [2025-03-17 08:22:49] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1760.04499166882
+INFO [2025-03-17 08:22:49] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1692.68476450479
+INFO [2025-03-17 08:22:49] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1754.8999437313
+INFO [2025-03-17 08:22:49] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1601.5820663103
+INFO [2025-03-17 08:22:49] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1706.06395983697
+INFO [2025-03-17 08:22:49] Created Classic_Pelo_Pct from Classic_Elo with max value: 1693.23571740607
+INFO [2025-03-17 08:22:49] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1720.26593995458
+INFO [2025-03-17 08:22:49] Prepared data for 242 ladies skiers with 31 features
+INFO [2025-03-17 08:22:49] No FIS startlist, predicting for all skiers in all legs
+INFO [2025-03-17 08:22:49] No valid FIS startlist for ladies, building optimized teams
+INFO [2025-03-17 08:22:49] Attempting Option 1: Team model coefficients
+INFO [2025-03-17 08:22:49] Option 1 failed: No team_podium model found
+INFO [2025-03-17 08:22:49] Option 1 failed: No team model
+INFO [2025-03-17 08:22:49] Attempting Option 2: Individual model accuracy
+INFO [2025-03-17 08:22:49] Leg 1 accuracy: 0.893333333333333
+INFO [2025-03-17 08:22:49] Leg 2 accuracy: 0.881428571428571
+INFO [2025-03-17 08:22:49] Option 2 succeeded: Using model accuracy weights
+INFO [2025-03-17 08:22:49] Using leg importance weights for team optimization: Leg 1: 0.50, Leg 2: 0.50
+INFO [2025-03-17 08:22:49] Optimizing team for Sweden
+INFO [2025-03-17 08:22:49] Optimizing team for Norway
+INFO [2025-03-17 08:22:49] Optimizing team for Germany
+INFO [2025-03-17 08:22:49] Optimizing team for USA
+INFO [2025-03-17 08:22:49] Optimizing team for Austria
+INFO [2025-03-17 08:22:49] Optimizing team for Finland
+INFO [2025-03-17 08:22:49] Optimizing team for Czechia
+INFO [2025-03-17 08:22:49] Optimizing team for Switzerland
+INFO [2025-03-17 08:22:49] Optimizing team for Italy
+INFO [2025-03-17 08:22:49] Optimizing team for France
+INFO [2025-03-17 08:22:49] Optimizing team for Canada
+INFO [2025-03-17 08:22:49] Optimizing team for Slovenia
+INFO [2025-03-17 08:22:49] Optimizing team for Estonia
+INFO [2025-03-17 08:22:49] Optimizing team for Australia
+INFO [2025-03-17 08:22:49] Optimizing team for Ukraine
+INFO [2025-03-17 08:22:49] Optimizing team for Kazakhstan
+INFO [2025-03-17 08:22:49] Optimizing team for Armenia
+INFO [2025-03-17 08:22:49] Optimizing team for Latvia
+INFO [2025-03-17 08:22:49] Optimizing team for Japan
+INFO [2025-03-17 08:22:49] Optimizing team for Poland
+INFO [2025-03-17 08:22:49] Optimizing team for South Korea
+INFO [2025-03-17 08:22:49] Optimizing team for Andorra
+INFO [2025-03-17 08:22:49] Optimizing team for Taiwan
+INFO [2025-03-17 08:22:49] Optimizing team for China
+INFO [2025-03-17 08:22:49] Optimizing team for Croatia
+INFO [2025-03-17 08:22:49] Optimizing team for Slovakia
+INFO [2025-03-17 08:22:49] Optimizing team for Argentina
+INFO [2025-03-17 08:22:49] Optimizing team for Mongolia
+INFO [2025-03-17 08:22:49] Optimizing team for Brazil
+INFO [2025-03-17 08:22:49] Optimizing team for Lithuania
+INFO [2025-03-17 08:22:49] Optimizing team for Greece
+INFO [2025-03-17 08:22:49] Optimizing team for Iceland
+INFO [2025-03-17 08:22:49] Optimizing team for Bulgaria
+INFO [2025-03-17 08:22:49] Optimizing team for Serbia
+INFO [2025-03-17 08:22:49] Optimizing team for Hungary
+INFO [2025-03-17 08:22:49] Optimizing team for Turkey
+INFO [2025-03-17 08:22:49] Optimizing team for North Macedonia
+INFO [2025-03-17 08:22:49] Optimizing team for Romania
+INFO [2025-03-17 08:22:49] Optimizing team for Bosnia&Herzegovina
+INFO [2025-03-17 08:22:49] Optimizing team for Mexico
+INFO [2025-03-17 08:22:49] Optimizing team for Iran
+INFO [2025-03-17 08:22:49] Optimizing team for Chile
+INFO [2025-03-17 08:22:49] Optimizing team for India
+INFO [2025-03-17 08:22:49] Optimizing team for Malaysia
+INFO [2025-03-17 08:22:49] Optimizing team for Haiti
+INFO [2025-03-17 08:22:49] Optimizing team for Lebanon
+INFO [2025-03-17 08:22:49] Optimizing team for Liechtenstein
+INFO [2025-03-17 08:22:50] Matching optimized teams with startlist team names and prices
+INFO [2025-03-17 08:22:50] Resetting men's probabilities at or below the mode to zero
+INFO [2025-03-17 08:22:50] Reset 41 values to 0 for Win_Prob (repeated values or values <  0.0011 )
+INFO [2025-03-17 08:22:50] Repeated values: 0.0011
+INFO [2025-03-17 08:22:50] No values appear more than twice for Podium_Prob
+INFO [2025-03-17 08:22:50] No values appear more than twice for Top5_Prob
+INFO [2025-03-17 08:22:50] No values appear more than twice for Top10_Prob
+INFO [2025-03-17 08:22:50] Resetting ladies' probabilities at or below the mode to zero
+INFO [2025-03-17 08:22:50] Reset 44 values to 0 for Win_Prob (repeated values or values <  0 )
+INFO [2025-03-17 08:22:50] Repeated values: 0
+INFO [2025-03-17 08:22:50] No values appear more than twice for Podium_Prob
+INFO [2025-03-17 08:22:50] No values appear more than twice for Top5_Prob
+INFO [2025-03-17 08:22:50] No values appear more than twice for Top10_Prob
+INFO [2025-03-17 08:22:50] Normalizing men's team probabilities
+INFO [2025-03-17 08:22:50] Normalized Win_Prob from sum of 0.83 to 1
+INFO [2025-03-17 08:22:50] Normalized Podium_Prob from sum of 3.22 to 3
+INFO [2025-03-17 08:22:50] Normalized Top5_Prob from sum of 4.78 to 5
+INFO [2025-03-17 08:22:50] Normalized Top10_Prob from sum of 9 to 10
+INFO [2025-03-17 08:22:50] Recalculated Expected_Points based on normalized probabilities
+INFO [2025-03-17 08:22:50] Normalizing ladies' team probabilities
+INFO [2025-03-17 08:22:50] Normalized Win_Prob from sum of 1.52 to 1
+INFO [2025-03-17 08:22:50] Normalized Podium_Prob from sum of 5.56 to 3
+INFO [2025-03-17 08:22:50] Normalized Top5_Prob from sum of 6.3 to 5
+INFO [2025-03-17 08:22:50] Normalized Top10_Prob from sum of 11.4 to 10
+INFO [2025-03-17 08:22:50] Recalculated Expected_Points based on normalized probabilities
+INFO [2025-03-17 08:22:50] Optimizing fantasy team sprint team
+INFO [2025-03-17 08:22:50] Fantasy team optimization complete. Selected 12 teams.
+INFO [2025-03-17 08:22:50] Total price: 99721 of max 1e+05
+INFO [2025-03-17 08:22:50] Expected total points: 769.3
+INFO [2025-03-17 08:22:50] Men's teams: 6 ( 6 )
+INFO [2025-03-17 08:22:50] Ladies' teams: 6 ( 6 )
+INFO [2025-03-17 08:22:50] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250322/men_team_sprint_points.xlsx
+INFO [2025-03-17 08:22:50] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250322/men_team_sprint_probabilities.xlsx
+INFO [2025-03-17 08:22:50] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250322/ladies_team_sprint_points.xlsx
+INFO [2025-03-17 08:22:50] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250322/ladies_team_sprint_probabilities.xlsx
+INFO [2025-03-17 08:22:50] Saved fantasy team results to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250322/fantasy_team_sprint_team.xlsx
+INFO [2025-03-17 08:22:50] Team sprint predictions completed successfully
+INFO [2025-03-17 08:23:14] Loading weekend race data
+INFO [2025-03-17 08:23:14] Tomorrow's date: 2025-03-18
+INFO [2025-03-17 08:23:14] No team sprint races found for tomorrow, finding next team sprint race
+INFO [2025-03-17 08:23:14] Next team sprint race found on: 2025-03-22
+INFO [2025-03-17 08:23:14] Found 1 men's team sprint races and 1 ladies' team sprint races
+INFO [2025-03-17 08:23:14] Men's team sprint technique: F
+INFO [2025-03-17 08:23:14] Ladies' team sprint technique: F
+INFO [2025-03-17 08:23:14] Men's team sprint technique: F
+INFO [2025-03-17 08:23:14] Ladies' team sprint technique: F
+INFO [2025-03-17 08:23:14] Loading chrono data
+INFO [2025-03-17 08:23:20] Loaded men's chrono with 104709 rows and 36 columns
+INFO [2025-03-17 08:23:20] Loaded ladies' chrono with 78415 rows and 36 columns
+INFO [2025-03-17 08:23:20] Created men's team sprint df with 3225 rows
+INFO [2025-03-17 08:23:20] Created men's individual df with 91796 rows
+INFO [2025-03-17 08:23:20] Created ladies' team sprint df with 2388 rows
+INFO [2025-03-17 08:23:20] Created ladies' individual df with 68008 rows
+INFO [2025-03-17 08:23:23] Filtered men's team sprint data by technique F - kept 2228 of 3225 records
+INFO [2025-03-17 08:23:23] Filtered ladies' team sprint data by technique F - kept 1688 of 2388 records
+INFO [2025-03-17 08:23:24] Training models for Leg 1
+INFO [2025-03-17 08:23:24] Determined technique from leg data: F
+INFO [2025-03-17 08:23:24] Race is freestyle technique - using freestyle-specific predictors
+INFO [2025-03-17 08:23:24] Selected predictors for leg 1 : Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:23:24] Using predictors: Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:23:24] Training podium model using glm
+INFO [2025-03-17 08:23:24] Training win model using glm
+INFO [2025-03-17 08:23:24] Training top5 model using glm
+INFO [2025-03-17 08:23:24] Training top10 model using glm
+INFO [2025-03-17 08:23:24] Top features for Leg 1 podium prediction:
+INFO [2025-03-17 08:23:24] Training models for Leg 2
+INFO [2025-03-17 08:23:24] Determined technique from leg data: F
+INFO [2025-03-17 08:23:24] Race is freestyle technique - using freestyle-specific predictors
+INFO [2025-03-17 08:23:24] Selected predictors for leg 2 : Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:23:24] Using predictors: Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:23:24] Training podium model using glm
+INFO [2025-03-17 08:23:24] Training win model using glm
+INFO [2025-03-17 08:23:25] Training top5 model using glm
+INFO [2025-03-17 08:23:25] Training top10 model using glm
+INFO [2025-03-17 08:23:25] Top features for Leg 2 podium prediction:
+INFO [2025-03-17 08:23:25] Training models for Leg 1
+INFO [2025-03-17 08:23:25] Determined technique from leg data: F
+INFO [2025-03-17 08:23:25] Race is freestyle technique - using freestyle-specific predictors
+INFO [2025-03-17 08:23:25] Selected predictors for leg 1 : Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:23:25] Using predictors: Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:23:25] Training podium model using glm
+INFO [2025-03-17 08:23:25] Training win model using glm
+INFO [2025-03-17 08:23:25] Training top5 model using glm
+INFO [2025-03-17 08:23:25] Training top10 model using glm
+INFO [2025-03-17 08:23:25] Top features for Leg 1 podium prediction:
+INFO [2025-03-17 08:23:25] Training models for Leg 2
+INFO [2025-03-17 08:23:25] Determined technique from leg data: F
+INFO [2025-03-17 08:23:25] Race is freestyle technique - using freestyle-specific predictors
+INFO [2025-03-17 08:23:25] Selected predictors for leg 2 : Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:23:25] Using predictors: Pelo_Pct, Weighted_Last_5, Sprint_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Sprint_C_Pelo_Pct
+INFO [2025-03-17 08:23:25] Training podium model using glm
+INFO [2025-03-17 08:23:25] Training win model using glm
+INFO [2025-03-17 08:23:25] Training top5 model using glm
+INFO [2025-03-17 08:23:25] Training top10 model using glm
+INFO [2025-03-17 08:23:25] Top features for Leg 2 podium prediction:
+INFO [2025-03-17 08:23:25] Processing men's team sprint predictions
+INFO [2025-03-17 08:23:25] Loaded men team sprint teams startlist with 35 rows
+INFO [2025-03-17 08:23:25] Loaded men team sprint individuals startlist with 288 rows
+INFO [2025-03-17 08:23:25] Preparing current men skier data
+INFO [2025-03-17 08:23:25] Replaced NAs in Distance_Elo with first quartile: 1210.34903070123
+INFO [2025-03-17 08:23:25] Replaced NAs in Distance_C_Elo with first quartile: 1228.28491180132
+INFO [2025-03-17 08:23:25] Replaced NAs in Distance_F_Elo with first quartile: 1232.92687393963
+INFO [2025-03-17 08:23:25] Replaced NAs in Sprint_Elo with first quartile: 1219.23085164112
+INFO [2025-03-17 08:23:25] Replaced NAs in Sprint_C_Elo with first quartile: 1241.15705230634
+INFO [2025-03-17 08:23:25] Replaced NAs in Sprint_F_Elo with first quartile: 1226.75938562454
+INFO [2025-03-17 08:23:25] Replaced NAs in Classic_Elo with first quartile: 1240.75537238594
+INFO [2025-03-17 08:23:25] Replaced NAs in Freestyle_Elo with first quartile: 1222.10670066235
+INFO [2025-03-17 08:23:25] Replaced NAs in Distance_Pelo with first quartile: 1210.74873863424
+INFO [2025-03-17 08:23:25] Replaced NAs in Distance_C_Pelo with first quartile: 1229.99748531218
+INFO [2025-03-17 08:23:25] Replaced NAs in Distance_F_Pelo with first quartile: 1236.69249039986
+INFO [2025-03-17 08:23:25] Replaced NAs in Sprint_Pelo with first quartile: 1237.59624724894
+INFO [2025-03-17 08:23:25] Replaced NAs in Sprint_C_Pelo with first quartile: 1241.15705230634
+INFO [2025-03-17 08:23:25] Replaced NAs in Sprint_F_Pelo with first quartile: 1254.21391795859
+INFO [2025-03-17 08:23:25] Replaced NAs in Classic_Pelo with first quartile: 1243.28733690217
+INFO [2025-03-17 08:23:25] Replaced NAs in Freestyle_Pelo with first quartile: 1242.67538984024
+INFO [2025-03-17 08:23:25] Replaced NAs in Sprint_Last_5 with first quartile: 0
+INFO [2025-03-17 08:23:25] Created Pelo_Pct from Elo with max value: 1936.67566595139
+INFO [2025-03-17 08:23:25] Created Distance_Pelo_Pct from Distance_Elo with max value: 1844.07614946524
+INFO [2025-03-17 08:23:25] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1772.68700688686
+INFO [2025-03-17 08:23:25] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1704.82115321538
+INFO [2025-03-17 08:23:25] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1882.4487927528
+INFO [2025-03-17 08:23:25] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.09106628928
+INFO [2025-03-17 08:23:25] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1797.07396691951
+INFO [2025-03-17 08:23:25] Created Classic_Pelo_Pct from Classic_Elo with max value: 1803.94978393517
+INFO [2025-03-17 08:23:25] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1804.47493286592
+INFO [2025-03-17 08:23:25] Prepared data for 365 men skiers with 31 features
+INFO [2025-03-17 08:23:25] No FIS startlist, predicting for all skiers in all legs
+INFO [2025-03-17 08:23:26] No valid FIS startlist for men, building optimized teams
+INFO [2025-03-17 08:23:26] Attempting Option 1: Team model coefficients
+INFO [2025-03-17 08:23:26] Option 1 failed: No team_podium model found
+INFO [2025-03-17 08:23:26] Option 1 failed: No team model
+INFO [2025-03-17 08:23:26] Attempting Option 2: Individual model accuracy
+INFO [2025-03-17 08:23:26] Leg 1 accuracy: 0.881740388204554
+INFO [2025-03-17 08:23:26] Leg 2 accuracy: 0.905061590145577
+INFO [2025-03-17 08:23:26] Option 2 succeeded: Using model accuracy weights
+INFO [2025-03-17 08:23:26] Using leg importance weights for team optimization: Leg 1: 0.49, Leg 2: 0.51
+INFO [2025-03-17 08:23:26] Optimizing team for Finland
+INFO [2025-03-17 08:23:26] Optimizing team for Norway
+INFO [2025-03-17 08:23:26] Optimizing team for Sweden
+INFO [2025-03-17 08:23:26] Optimizing team for Ireland
+INFO [2025-03-17 08:23:26] Optimizing team for Austria
+INFO [2025-03-17 08:23:26] Optimizing team for France
+INFO [2025-03-17 08:23:26] Optimizing team for Germany
+INFO [2025-03-17 08:23:26] Optimizing team for Italy
+INFO [2025-03-17 08:23:26] Optimizing team for Switzerland
+INFO [2025-03-17 08:23:26] Optimizing team for USA
+INFO [2025-03-17 08:23:26] Optimizing team for Canada
+INFO [2025-03-17 08:23:26] Optimizing team for Estonia
+INFO [2025-03-17 08:23:26] Optimizing team for Andorra
+INFO [2025-03-17 08:23:26] Optimizing team for Czechia
+INFO [2025-03-17 08:23:26] Optimizing team for Great Britain
+INFO [2025-03-17 08:23:26] Optimizing team for Bulgaria
+INFO [2025-03-17 08:23:26] Optimizing team for Armenia
+INFO [2025-03-17 08:23:26] Optimizing team for Slovenia
+INFO [2025-03-17 08:23:26] Optimizing team for Australia
+INFO [2025-03-17 08:23:26] Optimizing team for Kazakhstan
+INFO [2025-03-17 08:23:26] Optimizing team for Spain
+INFO [2025-03-17 08:23:26] Optimizing team for Ukraine
+INFO [2025-03-17 08:23:26] Optimizing team for Slovakia
+INFO [2025-03-17 08:23:26] Optimizing team for Latvia
+INFO [2025-03-17 08:23:26] Optimizing team for Hungary
+INFO [2025-03-17 08:23:26] Optimizing team for Japan
+INFO [2025-03-17 08:23:26] Optimizing team for Poland
+INFO [2025-03-17 08:23:26] Optimizing team for Colombia
+INFO [2025-03-17 08:23:26] Optimizing team for South Korea
+INFO [2025-03-17 08:23:26] Optimizing team for China
+INFO [2025-03-17 08:23:26] Optimizing team for Chile
+INFO [2025-03-17 08:23:26] Optimizing team for Argentina
+INFO [2025-03-17 08:23:26] Optimizing team for Croatia
+INFO [2025-03-17 08:23:26] Optimizing team for Liechtenstein
+INFO [2025-03-17 08:23:26] Optimizing team for Romania
+INFO [2025-03-17 08:23:26] Optimizing team for Serbia
+INFO [2025-03-17 08:23:26] Optimizing team for Thailand
+INFO [2025-03-17 08:23:26] Optimizing team for Mongolia
+INFO [2025-03-17 08:23:26] Optimizing team for North Macedonia
+INFO [2025-03-17 08:23:26] Optimizing team for Belgium
+INFO [2025-03-17 08:23:26] Optimizing team for Lithuania
+INFO [2025-03-17 08:23:26] Optimizing team for Haiti
+INFO [2025-03-17 08:23:26] Optimizing team for Bosnia&Herzegovina
+INFO [2025-03-17 08:23:26] Optimizing team for Turkey
+INFO [2025-03-17 08:23:26] Optimizing team for Denmark
+INFO [2025-03-17 08:23:26] Optimizing team for Brazil
+INFO [2025-03-17 08:23:26] Optimizing team for Iceland
+INFO [2025-03-17 08:23:26] Optimizing team for Greece
+INFO [2025-03-17 08:23:26] Optimizing team for Nigeria
+INFO [2025-03-17 08:23:26] Optimizing team for Montenegro
+INFO [2025-03-17 08:23:26] Optimizing team for Kyrgyzstan
+INFO [2025-03-17 08:23:26] Optimizing team for India
+INFO [2025-03-17 08:23:26] Optimizing team for Bolivia
+INFO [2025-03-17 08:23:26] Optimizing team for Portugal
+INFO [2025-03-17 08:23:26] Optimizing team for Lebanon
+INFO [2025-03-17 08:23:26] Optimizing team for Iran
+INFO [2025-03-17 08:23:26] Optimizing team for Mexico
+INFO [2025-03-17 08:23:26] Optimizing team for Taiwan
+INFO [2025-03-17 08:23:26] Optimizing team for Saudi Arabia
+INFO [2025-03-17 08:23:26] Optimizing team for Peru
+INFO [2025-03-17 08:23:26] Optimizing team for South Africa
+INFO [2025-03-17 08:23:26] Optimizing team for San Marino
+INFO [2025-03-17 08:23:26] Optimizing team for Israel
+INFO [2025-03-17 08:23:26] Optimizing team for Ecuador
+INFO [2025-03-17 08:23:26] Optimizing team for Venezuela
+INFO [2025-03-17 08:23:26] Optimizing team for Trinidad & Tobago
+INFO [2025-03-17 08:23:26] Optimizing team for Malta
+INFO [2025-03-17 08:23:26] Matching optimized teams with startlist team names and prices
+INFO [2025-03-17 08:23:26] Processing ladies' team sprint predictions
+INFO [2025-03-17 08:23:26] Loaded ladies team sprint teams startlist with 35 rows
+INFO [2025-03-17 08:23:26] Loaded ladies team sprint individuals startlist with 217 rows
+INFO [2025-03-17 08:23:26] Preparing current ladies skier data
+INFO [2025-03-17 08:23:27] Replaced NAs in Distance_Elo with first quartile: 1237.24135379294
+INFO [2025-03-17 08:23:27] Replaced NAs in Distance_C_Elo with first quartile: 1242.00162117671
+INFO [2025-03-17 08:23:27] Replaced NAs in Distance_F_Elo with first quartile: 1257.26031057313
+INFO [2025-03-17 08:23:27] Replaced NAs in Sprint_Elo with first quartile: 1238.78920518219
+INFO [2025-03-17 08:23:27] Replaced NAs in Sprint_C_Elo with first quartile: 1257.67866787334
+INFO [2025-03-17 08:23:27] Replaced NAs in Sprint_F_Elo with first quartile: 1237.87670663998
+INFO [2025-03-17 08:23:27] Replaced NAs in Classic_Elo with first quartile: 1250.26853632078
+INFO [2025-03-17 08:23:27] Replaced NAs in Freestyle_Elo with first quartile: 1236.42030772967
+INFO [2025-03-17 08:23:27] Replaced NAs in Distance_Pelo with first quartile: 1242.1169240887
+INFO [2025-03-17 08:23:27] Replaced NAs in Distance_C_Pelo with first quartile: 1243.5007326682
+INFO [2025-03-17 08:23:27] Replaced NAs in Distance_F_Pelo with first quartile: 1259.23240340024
+INFO [2025-03-17 08:23:27] Replaced NAs in Sprint_Pelo with first quartile: 1254.15703318668
+INFO [2025-03-17 08:23:27] Replaced NAs in Sprint_C_Pelo with first quartile: 1257.58302026178
+INFO [2025-03-17 08:23:27] Replaced NAs in Sprint_F_Pelo with first quartile: 1255.58157573541
+INFO [2025-03-17 08:23:27] Replaced NAs in Classic_Pelo with first quartile: 1255.39340994292
+INFO [2025-03-17 08:23:27] Replaced NAs in Freestyle_Pelo with first quartile: 1253.82185786105
+INFO [2025-03-17 08:23:27] Replaced NAs in Sprint_Last_5 with first quartile: 0
+INFO [2025-03-17 08:23:27] Created Pelo_Pct from Elo with max value: 1838.94642582206
+INFO [2025-03-17 08:23:27] Created Distance_Pelo_Pct from Distance_Elo with max value: 1864.8112847824
+INFO [2025-03-17 08:23:27] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1760.04499166882
+INFO [2025-03-17 08:23:27] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1692.68476450479
+INFO [2025-03-17 08:23:27] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1754.8999437313
+INFO [2025-03-17 08:23:27] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1601.5820663103
+INFO [2025-03-17 08:23:27] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1706.06395983697
+INFO [2025-03-17 08:23:27] Created Classic_Pelo_Pct from Classic_Elo with max value: 1693.23571740607
+INFO [2025-03-17 08:23:27] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1720.26593995458
+INFO [2025-03-17 08:23:27] Prepared data for 242 ladies skiers with 31 features
+INFO [2025-03-17 08:23:27] No FIS startlist, predicting for all skiers in all legs
+INFO [2025-03-17 08:23:27] No valid FIS startlist for ladies, building optimized teams
+INFO [2025-03-17 08:23:27] Attempting Option 1: Team model coefficients
+INFO [2025-03-17 08:23:27] Option 1 failed: No team_podium model found
+INFO [2025-03-17 08:23:27] Option 1 failed: No team model
+INFO [2025-03-17 08:23:27] Attempting Option 2: Individual model accuracy
+INFO [2025-03-17 08:23:27] Leg 1 accuracy: 0.869166666666667
+INFO [2025-03-17 08:23:27] Leg 2 accuracy: 0.881666666666667
+INFO [2025-03-17 08:23:27] Option 2 succeeded: Using model accuracy weights
+INFO [2025-03-17 08:23:27] Using leg importance weights for team optimization: Leg 1: 0.50, Leg 2: 0.50
+INFO [2025-03-17 08:23:27] Optimizing team for Sweden
+INFO [2025-03-17 08:23:27] Optimizing team for Norway
+INFO [2025-03-17 08:23:27] Optimizing team for Germany
+INFO [2025-03-17 08:23:27] Optimizing team for USA
+INFO [2025-03-17 08:23:27] Optimizing team for Austria
+INFO [2025-03-17 08:23:27] Optimizing team for Finland
+INFO [2025-03-17 08:23:27] Optimizing team for Czechia
+INFO [2025-03-17 08:23:27] Optimizing team for Switzerland
+INFO [2025-03-17 08:23:27] Optimizing team for Italy
+INFO [2025-03-17 08:23:27] Optimizing team for France
+INFO [2025-03-17 08:23:27] Optimizing team for Canada
+INFO [2025-03-17 08:23:27] Optimizing team for Slovenia
+INFO [2025-03-17 08:23:27] Optimizing team for Estonia
+INFO [2025-03-17 08:23:27] Optimizing team for Australia
+INFO [2025-03-17 08:23:27] Optimizing team for Ukraine
+INFO [2025-03-17 08:23:27] Optimizing team for Kazakhstan
+INFO [2025-03-17 08:23:27] Optimizing team for Armenia
+INFO [2025-03-17 08:23:27] Optimizing team for Latvia
+INFO [2025-03-17 08:23:27] Optimizing team for Japan
+INFO [2025-03-17 08:23:27] Optimizing team for Poland
+INFO [2025-03-17 08:23:27] Optimizing team for South Korea
+INFO [2025-03-17 08:23:27] Optimizing team for Andorra
+INFO [2025-03-17 08:23:27] Optimizing team for Taiwan
+INFO [2025-03-17 08:23:27] Optimizing team for China
+INFO [2025-03-17 08:23:27] Optimizing team for Croatia
+INFO [2025-03-17 08:23:27] Optimizing team for Slovakia
+INFO [2025-03-17 08:23:27] Optimizing team for Argentina
+INFO [2025-03-17 08:23:27] Optimizing team for Mongolia
+INFO [2025-03-17 08:23:27] Optimizing team for Brazil
+INFO [2025-03-17 08:23:27] Optimizing team for Lithuania
+INFO [2025-03-17 08:23:27] Optimizing team for Greece
+INFO [2025-03-17 08:23:27] Optimizing team for Iceland
+INFO [2025-03-17 08:23:27] Optimizing team for Bulgaria
+INFO [2025-03-17 08:23:27] Optimizing team for Serbia
+INFO [2025-03-17 08:23:27] Optimizing team for Hungary
+INFO [2025-03-17 08:23:27] Optimizing team for Turkey
+INFO [2025-03-17 08:23:27] Optimizing team for North Macedonia
+INFO [2025-03-17 08:23:27] Optimizing team for Romania
+INFO [2025-03-17 08:23:27] Optimizing team for Bosnia&Herzegovina
+INFO [2025-03-17 08:23:27] Optimizing team for Mexico
+INFO [2025-03-17 08:23:27] Optimizing team for Iran
+INFO [2025-03-17 08:23:27] Optimizing team for Chile
+INFO [2025-03-17 08:23:27] Optimizing team for India
+INFO [2025-03-17 08:23:27] Optimizing team for Malaysia
+INFO [2025-03-17 08:23:27] Optimizing team for Haiti
+INFO [2025-03-17 08:23:27] Optimizing team for Lebanon
+INFO [2025-03-17 08:23:27] Optimizing team for Liechtenstein
+INFO [2025-03-17 08:23:27] Matching optimized teams with startlist team names and prices
+INFO [2025-03-17 08:23:27] Resetting men's probabilities at or below the mode to zero
+INFO [2025-03-17 08:23:27] Reset 41 values to 0 for Win_Prob (repeated values or values <  0.0011 )
+INFO [2025-03-17 08:23:27] Repeated values: 0.0011, 0.0011
+INFO [2025-03-17 08:23:27] No values appear more than twice for Podium_Prob
+INFO [2025-03-17 08:23:27] No values appear more than twice for Top5_Prob
+INFO [2025-03-17 08:23:27] No values appear more than twice for Top10_Prob
+INFO [2025-03-17 08:23:27] Resetting ladies' probabilities at or below the mode to zero
+INFO [2025-03-17 08:23:27] Reset 44 values to 0 for Win_Prob (repeated values or values <  0 )
+INFO [2025-03-17 08:23:27] Repeated values: 0
+INFO [2025-03-17 08:23:27] No values appear more than twice for Podium_Prob
+INFO [2025-03-17 08:23:27] Reset 15 values to 0 for Top5_Prob (repeated values or values <  0.002 )
+INFO [2025-03-17 08:23:27] Repeated values: 0.002
+INFO [2025-03-17 08:23:27] No values appear more than twice for Top10_Prob
+INFO [2025-03-17 08:23:27] Normalizing men's team probabilities
+INFO [2025-03-17 08:23:27] Normalized Win_Prob from sum of 0.83 to 1
+INFO [2025-03-17 08:23:27] Normalized Podium_Prob from sum of 3.21 to 3
+INFO [2025-03-17 08:23:27] Normalized Top5_Prob from sum of 4.78 to 5
+INFO [2025-03-17 08:23:27] Normalized Top10_Prob from sum of 8.99 to 10
+INFO [2025-03-17 08:23:27] Recalculated Expected_Points based on normalized probabilities
+INFO [2025-03-17 08:23:27] Normalizing ladies' team probabilities
+INFO [2025-03-17 08:23:27] Normalized Win_Prob from sum of 1.5 to 1
+INFO [2025-03-17 08:23:27] Normalized Podium_Prob from sum of 5.59 to 3
+INFO [2025-03-17 08:23:27] Normalized Top5_Prob from sum of 6.3 to 5
+INFO [2025-03-17 08:23:27] Normalized Top10_Prob from sum of 11.39 to 10
+INFO [2025-03-17 08:23:27] Recalculated Expected_Points based on normalized probabilities
+INFO [2025-03-17 08:23:27] Optimizing fantasy team sprint team
+INFO [2025-03-17 08:23:27] Fantasy team optimization complete. Selected 12 teams.
+INFO [2025-03-17 08:23:27] Total price: 99721 of max 1e+05
+INFO [2025-03-17 08:23:27] Expected total points: 769.9
+INFO [2025-03-17 08:23:27] Men's teams: 6 ( 6 )
+INFO [2025-03-17 08:23:27] Ladies' teams: 6 ( 6 )
+INFO [2025-03-17 08:23:27] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250322/men_team_sprint_points.xlsx
+INFO [2025-03-17 08:23:27] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250322/men_team_sprint_probabilities.xlsx
+INFO [2025-03-17 08:23:27] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250322/ladies_team_sprint_points.xlsx
+INFO [2025-03-17 08:23:27] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250322/ladies_team_sprint_probabilities.xlsx
+INFO [2025-03-17 08:23:27] Saved fantasy team results to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250322/fantasy_team_sprint_team.xlsx
+INFO [2025-03-17 08:23:27] Team sprint predictions completed successfully

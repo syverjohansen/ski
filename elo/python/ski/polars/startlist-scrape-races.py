@@ -12,6 +12,78 @@ warnings.filterwarnings('ignore')
 # Import common utility functions
 from startlist_common import *
 
+# Add this function to each main script file to call the appropriate R script
+def call_r_script(script_type: str, race_type: str = None, gender: str = None) -> None:
+    """
+    Call the appropriate R script after processing race data
+    
+    Args:
+        script_type: 'weekend' or 'races' (determines weekly picks or race picks)
+        race_type: 'standard', 'team_sprint', 'relay', or 'mixed_relay'
+        gender: 'men', 'ladies', or None for mixed events
+    """
+    import subprocess
+    import os
+    
+    # Set the base path to the R scripts
+    r_script_base_path = "~/blog/daehl-e/content/post/cross-country/drafts"
+    
+    # Determine which R script to call based on script type and race type
+    if script_type == 'weekend':
+        # Weekly picks scripts
+        if race_type == 'standard':
+            r_script = "weekly-picks2.R"
+        elif race_type == 'team_sprint':
+            r_script = "weekly-picks-team-sprint.R"
+        elif race_type == 'relay':
+            r_script = "weekly-picks-relay.R"
+        elif race_type == 'mixed_relay':
+            r_script = "weekly-picks-mixed-relay.R"
+        else:
+            print(f"Unknown race type: {race_type}")
+            return
+    elif script_type == 'races':
+        # Race picks scripts
+        if race_type == 'standard':
+            r_script = "race-picks.R"
+        elif race_type == 'team_sprint':
+            r_script = "race-picks-team-sprint.R"
+        elif race_type == 'relay':
+            r_script = "race-picks-relay.R"
+        elif race_type == 'mixed_relay':
+            r_script = "race-picks-mixed-relay.R"
+        else:
+            print(f"Unknown race type: {race_type}")
+            return
+    else:
+        print(f"Unknown script type: {script_type}")
+        return
+    
+    # Full path to the R script
+    r_script_path = os.path.expanduser(f"{r_script_base_path}/{r_script}")
+    
+    # Command to execute the R script
+    command = ["Rscript", r_script_path]
+    
+    # Add gender parameter if specified
+    if gender:
+        command.append(gender)
+    
+    print(f"Calling R script: {' '.join(command)}")
+    
+    try:
+        # Call the R script
+        result = subprocess.run(command, check=True, capture_output=True, text=True)
+        print(f"R script output:\n{result.stdout}")
+        if result.stderr:
+            print(f"R script error:\n{result.stderr}")
+    except subprocess.CalledProcessError as e:
+        print(f"Error calling R script: {e}")
+        print(f"Script output: {e.stdout}")
+        print(f"Script error: {e.stderr}")
+    except FileNotFoundError:
+        print(f"R script not found: {r_script_path}")
+
 def is_relay_event(race: pd.Series) -> bool:
     """
     Determine if a race is a relay event
@@ -25,14 +97,18 @@ def get_relay_type(race: pd.Series) -> str:
     distance = str(race['Distance']).strip() if 'Distance' in race else ""
     sex = str(race['Sex']).strip() if 'Sex' in race else ""
     
-    if distance == 'Rel' and sex != "Mixed":
-        return 'relay'
-    elif distance == 'Ts' and sex != "Mixed":
-        return 'team_sprint'
-    elif distance == 'Mix' or (distance == 'Rel' and sex == "Mixed"):
+    # Check for mixed relay (Rel with Mixed sex)
+    if distance == 'Rel' and (sex == "Mixed" or sex == "Mix"):
         return 'mixed_relay'
-    elif distance == 'Ts' and sex == "Mixed":
-        return 'mixed_ts'
+    # Check for standard relay (Rel with M or L sex)
+    elif distance == 'Rel':
+        return 'relay'
+    # Check for team sprint
+    elif distance == 'Ts':
+        return 'team_sprint'
+    # Legacy format (not used anymore)
+    elif distance == 'Mix':
+        return 'mixed_relay'
     else:
         return 'unknown'
 
@@ -63,14 +139,26 @@ def handle_relay_races(races_df: pd.DataFrame) -> bool:
         if relay_type != 'unknown':
             relay_script_path = f"relay/startlist_scrape_races_{relay_type}.py"
             
-            # Filter races for this relay type
-            relay_distance = {
-                'relay': 'Rel', 
-                'team_sprint': 'Ts', 
-                'mixed_relay': 'Mix'
-            }[relay_type]
+            # Determine which distance value corresponds to this relay type
+            relay_distance = None
+            if relay_type == 'relay' or relay_type == 'mixed_relay':
+                relay_distance = 'Rel'
+            elif relay_type == 'team_sprint':
+                relay_distance = 'Ts'
             
-            relay_specific_races = races_df[races_df['Distance'] == relay_distance]
+            if relay_distance:
+                # For mixed relay, filter by both Distance and Sex
+                if relay_type == 'mixed_relay':
+                    relay_specific_races = races_df[
+                        (races_df['Distance'] == relay_distance) & 
+                        (races_df['Sex'].isin(['Mixed', 'Mix']))
+                    ]
+                else:
+                    # For standard relay, filter just by Distance
+                    relay_specific_races = races_df[
+                        (races_df['Distance'] == relay_distance) &
+                        (~races_df['Sex'].isin(['Mixed', 'Mix']))
+                    ]
             
             # Save to temporary CSV for the relay script to use
             temp_csv_path = f"/tmp/weekend_relay_{relay_type}_races.csv"
@@ -118,12 +206,34 @@ def process_races() -> None:
             traceback.print_exc()
             return
     
+    # Check for mixed gender events first
+    mixed_races = races_df[races_df['Sex'].isin(['Mixed', 'Mix'])]
+    if not mixed_races.empty:
+        next_date = find_next_race_date(mixed_races)
+        if next_date:
+            mixed_next_races = filter_races_by_date(mixed_races, next_date)
+            if not mixed_next_races.empty:
+                print(f"Found {len(mixed_next_races)} mixed gender races on {next_date}")
+                # Process mixed gender races
+                if handle_relay_races(mixed_next_races):
+                    print("Mixed relay races successfully handled")
+    
+    # Track if we have any standard races that need processing
+    has_standard_races = False
+    
     # Find next race dates for each gender separately
-    process_gender_specific_races(races_df, 'men')
-    process_gender_specific_races(races_df, 'ladies')
+    men_standard = process_gender_specific_races(races_df, 'men')
+    ladies_standard = process_gender_specific_races(races_df, 'ladies')
+    
+    # Only call the standard race picks script if we have standard races
+    if men_standard or ladies_standard:
+        call_r_script('races', 'standard')
 
-def process_gender_specific_races(races_df: pd.DataFrame, target_gender: str) -> None:
-    """Process races for a specific gender, finding the next available race for that gender"""
+def process_gender_specific_races(races_df: pd.DataFrame, target_gender: str) -> bool:
+    """
+    Process races for a specific gender, finding the next available race for that gender
+    Returns True if standard races were processed, False otherwise
+    """
     print(f"\n===== Processing {target_gender.upper()} races =====")
     
     # Standardize gender values
@@ -136,7 +246,7 @@ def process_gender_specific_races(races_df: pd.DataFrame, target_gender: str) ->
     gender_races = races_df[races_df['Sex'].isin(gender_map[target_gender])]
     if gender_races.empty:
         print(f"No {target_gender} races found in the data")
-        return
+        return False
     
     # Find next race date for this gender
     next_date = find_next_race_date(gender_races)
@@ -169,14 +279,14 @@ def process_gender_specific_races(races_df: pd.DataFrame, target_gender: str) ->
         
         if not found_race:
             print(f"No upcoming {target_gender} races found within the next {look_ahead_days} days")
-            return
+            return False
     
     # Check if all next races are relay events
     if all(is_relay_event(race) for _, race in next_races.iterrows()):
         print(f"All next {target_gender} races are relay events.")
         if handle_relay_races(next_races):
             print(f"Relay races successfully handled by relay scripts.")
-            return
+            return False  # No standard races to process
         else:
             print(f"Failed to handle relay races with relay scripts, continuing with standard processing...")
     
@@ -186,14 +296,16 @@ def process_gender_specific_races(races_df: pd.DataFrame, target_gender: str) ->
     
     if valid_races.empty:
         print(f"No valid individual {target_gender} races found for the next date")
-        return
+        return False
     
     # Process the races for this gender
     try:
         process_gender_races(valid_races, target_gender)
+        return True  # Successfully processed standard races
     except Exception as e:
         print(f"Error processing {target_gender} races: {e}")
         traceback.print_exc()
+        return False  # Failed to process races
 
 def should_look_ahead(date_str: str) -> bool:
     """Determine if we should look ahead to the next day based on current time"""
@@ -206,9 +318,9 @@ def should_look_ahead(date_str: str) -> bool:
         current_hour = datetime.now().hour
         
         # If the race date is today and it's after noon, look ahead
-        if race_date == today and current_hour >= 12:
-            print(f"Current time ({current_hour}:00) is after noon, looking ahead to next day's races")
-            return True
+        #if race_date == today and current_hour >= 12:
+         #   print(f"Current time ({current_hour}:00) is after noon, looking ahead to next day's races")
+          #  return True
             
         # If the race date is in the past, look ahead
         if race_date < today:

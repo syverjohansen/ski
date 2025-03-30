@@ -99,6 +99,7 @@ def technique(df, technique):
     else:
         print(df['Technique'].unique())
         df = df.filter((pl.col('Technique')=="N/A") | (pl.col("Technique")=="C") & (pl.col("Distance")!="Rel"))
+        df = df.filter(pl.col("Distance")!="0")
         #df = df.filter(pl.col('Technique')!="F")
         df = df.filter((pl.col('Distance')!="Stage") & (pl.col('Distance')!="Etappeløp"))
         print(df)

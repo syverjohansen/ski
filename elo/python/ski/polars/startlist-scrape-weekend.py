@@ -15,13 +15,86 @@ from startlist_common import *
 # Import config for nation quotas
 from config import get_nation_quota, get_additional_skiers
 
+
+# Add this function to each main script file to call the appropriate R script
+def call_r_script(script_type: str, race_type: str = None, gender: str = None) -> None:
+    """
+    Call the appropriate R script after processing race data
+    
+    Args:
+        script_type: 'weekend' or 'races' (determines weekly picks or race picks)
+        race_type: 'standard', 'team_sprint', 'relay', or 'mixed_relay'
+        gender: 'men', 'ladies', or None for mixed events
+    """
+    import subprocess
+    import os
+    
+    # Set the base path to the R scripts
+    r_script_base_path = "~/blog/daehl-e/content/post/cross-country/drafts"
+    
+    # Determine which R script to call based on script type and race type
+    if script_type == 'weekend':
+        # Weekly picks scripts
+        if race_type == 'standard':
+            r_script = "weekly-picks2.R"
+        elif race_type == 'team_sprint':
+            r_script = "weekly-picks-team-sprint.R"
+        elif race_type == 'relay':
+            r_script = "weekly-picks-relay.R"
+        elif race_type == 'mixed_relay':
+            r_script = "weekly-picks-mixed-relay.R"
+        else:
+            print(f"Unknown race type: {race_type}")
+            return
+    elif script_type == 'races':
+        # Race picks scripts
+        if race_type == 'standard':
+            r_script = "race-picks.R"
+        elif race_type == 'team_sprint':
+            r_script = "race-picks-team-sprint.R"
+        elif race_type == 'relay':
+            r_script = "race-picks-relay.R"
+        elif race_type == 'mixed_relay':
+            r_script = "race-picks-mixed-relay.R"
+        else:
+            print(f"Unknown race type: {race_type}")
+            return
+    else:
+        print(f"Unknown script type: {script_type}")
+        return
+    
+    # Full path to the R script
+    r_script_path = os.path.expanduser(f"{r_script_base_path}/{r_script}")
+    
+    # Command to execute the R script
+    command = ["Rscript", r_script_path]
+    
+    # Add gender parameter if specified
+    if gender:
+        command.append(gender)
+    
+    print(f"Calling R script: {' '.join(command)}")
+    
+    try:
+        # Call the R script
+        result = subprocess.run(command, check=True, capture_output=True, text=True)
+        print(f"R script output:\n{result.stdout}")
+        if result.stderr:
+            print(f"R script error:\n{result.stderr}")
+    except subprocess.CalledProcessError as e:
+        print(f"Error calling R script: {e}")
+        print(f"Script output: {e.stdout}")
+        print(f"Script error: {e.stderr}")
+    except FileNotFoundError:
+        print(f"R script not found: {r_script_path}")
+
 def is_relay_event(race: pd.Series) -> bool:
     """
     Determine if a race is a relay event
     Relay types: 'Rel' (standard relay), 'Ts' (team sprint), 'Mix' (mixed relay)
     """
     distance = str(race['Distance']).strip() if 'Distance' in race else ""
-    return distance in ['Rel', 'Ts', 'Mix']
+    return distance in ['Rel', 'Ts']
 
 def get_relay_type(race: pd.Series) -> str:
     """Return the type of relay based on race data"""
@@ -35,7 +108,7 @@ def get_relay_type(race: pd.Series) -> str:
     elif distance == 'Rel' and sex == "Mixed":
         return 'mixed_relay'
     elif distance == 'Ts' and sex == "Mixed":
-        return 'mixed_ts'
+        return 'mixed_team_sprint'
     else:
         return 'unknown'
 
@@ -70,10 +143,17 @@ def handle_relay_races(races_df: pd.DataFrame) -> bool:
             relay_distance = {
                 'relay': 'Rel', 
                 'team_sprint': 'Ts', 
-                'mixed_relay': 'Mix'
+                'mixed_relay': 'Rel',
+                'mixed_team_sprint': 'Ts'
             }[relay_type]
             
-            relay_specific_races = races_df[races_df['Distance'] == relay_distance]
+            # Additional filtering for mixed events
+            if relay_type in ['mixed_relay', 'mixed_team_sprint']:
+                relay_specific_races = races_df[(races_df['Distance'] == relay_distance) & 
+                                              (races_df['Sex'] == 'Mixed')]
+            else:
+                relay_specific_races = races_df[(races_df['Distance'] == relay_distance) & 
+                                              (races_df['Sex'] != 'Mixed')]
             
             # Save to temporary CSV for the relay script to use
             temp_csv_path = f"/tmp/weekend_relay_{relay_type}_races.csv"
@@ -133,26 +213,27 @@ def process_weekend_races() -> None:
     
     # Filter out relays and team sprints for normal processing
     valid_races = next_races[(next_races['Distance'] != 'Rel') & 
-                             (next_races['Distance'] != 'Ts') & 
-                             (next_races['Distance'] != 'Mix')]
+                             (next_races['Distance'] != 'Ts')] 
     print(f"Found {len(valid_races)} individual races after filtering out relays and team sprints")
     
     if valid_races.empty:
         print("No valid individual races found for the next date")
         return
     
-    # Sort races by race ID (lowest first)
+    # Sort races by Race_Date (earliest first)
     try:
-        sorted_races = sort_races_by_id(valid_races)
-        print(f"Sorted races by ID, first race ID: {sorted_races['RaceID'].iloc[0]}")
+        # Convert Race_Date to datetime for proper sorting
+        valid_races['Race_Date'] = pd.to_datetime(valid_races['Race_Date'])
+        sorted_races = valid_races.sort_values('Race_Date')
+        print(f"Sorted races by Race_Date, first race date: {sorted_races['Race_Date'].iloc[0]}")
         
         # Determine host nation from the Country column
         host_nation = sorted_races.iloc[0]['Country']
         print(f"Host nation for this weekend: {host_nation}")
         
-        # Select up to two races to scrape (prioritizing lowest race IDs)
+        # Select up to two races to scrape (prioritizing earliest race dates)
         races_to_process = sorted_races.head(2)
-        print(f"Processing {len(races_to_process)} races with lowest IDs")
+        print(f"Processing {len(races_to_process)} races with earliest dates")
         
     except Exception as e:
         print(f"Error sorting races: {e}")
@@ -169,7 +250,6 @@ def process_weekend_races() -> None:
     print(f"Found {len(men_races)} men's races and {len(ladies_races)} ladies' races to process")
     
     # Process men's races
-# Process men's races
     if not men_races.empty:
         try:
             process_gender_races(men_races, gender_mapping['M'], host_nation, next_races)
@@ -184,6 +264,7 @@ def process_weekend_races() -> None:
         except Exception as e:
             print(f"Error processing ladies' races: {e}")
             traceback.print_exc()
+    call_r_script('weekend', 'standard')
 
 def process_gender_races(races_df: pd.DataFrame, gender: str, host_nation: str, all_next_races: pd.DataFrame) -> None:
     """Process races for a specific gender"""
@@ -246,6 +327,7 @@ def process_gender_races(races_df: pd.DataFrame, gender: str, host_nation: str, 
         print(f"Saving consolidated {gender} startlist to {output_path}")
         consolidated_df.to_csv(output_path, index=False)
         print(f"Saved {len(consolidated_df)} {gender} athletes")
+        #call_r_script('weekend', 'standard', gender)
 
 def create_weekend_startlist(fis_url: str, elo_path: str, gender: str, 
                            host_nation: str, prob_column: str) -> Optional[pd.DataFrame]:
@@ -436,7 +518,6 @@ def create_weekend_startlist(fis_url: str, elo_path: str, gender: str,
                 processed_names.add(original_name)
         
         # Add processing for additional skiers from chronos data
-# Add processing for additional skiers from chronos data
         try:
             # Get chronos data for finding additional national skiers
             # Use more robust options for reading the CSV
@@ -654,6 +735,8 @@ def create_fallback_startlist(elo_path: str, gender: str, host_nation: str,
                 'In_Config': False,
                 'Price': price,
                 'Elo': elo_data.get('Elo', None),
+                'Distance':elo_data.get('Distance_Elo', None),
+                # Continuing from where we left off
                 'Distance_Elo': elo_data.get('Distance_Elo', None),
                 'Distance_C_Elo': elo_data.get('Distance_C_Elo', None),
                 'Distance_F_Elo': elo_data.get('Distance_F_Elo', None),

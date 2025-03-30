@@ -43,14 +43,14 @@ def merge_elevation_data(chrono_df, elevation_df):
         logging.warning(f"Cities in chronological data without elevation info: {len(missing_cities)}")
         logging.warning(f"First 10 missing cities: {list(missing_cities)[:10]}")
     
-    # Add elevation column using the mapping
-    chrono_df['Elevation'] = chrono_df['City'].map(city_to_elevation)
+    # Add elevation column using the mapping, with default of 0 for missing values
+    chrono_df['Elevation'] = chrono_df['City'].map(city_to_elevation).fillna(0)
     
-    # Log the number of rows with missing elevation data
-    missing_elevation_count = chrono_df['Elevation'].isna().sum()
+    # Log the number of rows where default elevation was applied
+    default_elevation_count = (chrono_df['Elevation'] == 0).sum()
     total_rows = len(chrono_df)
     
-    logging.info(f"Rows with missing elevation data: {missing_elevation_count} ({missing_elevation_count/total_rows*100:.2f}%)")
+    logging.info(f"Rows with default elevation (0): {default_elevation_count} ({default_elevation_count/total_rows*100:.2f}%)")
     
     return chrono_df
 

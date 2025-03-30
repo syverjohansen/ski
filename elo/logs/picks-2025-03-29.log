@@ -1,0 +1,1221 @@
+[2025-03-29 20:39:02 UTC] ===== CHECKING FOR RACES TODAY =====
+[2025-03-29 20:39:02 UTC] Current date (UTC): 2025-03-29
+[2025-03-29 20:39:02 UTC] No weekend races scheduled for today in weekends.csv
+[2025-03-29 20:39:03 UTC] No single races scheduled for today in races.csv
+[2025-03-29 20:39:03 UTC] ===== PICKS PROCESSING COMPLETED =====
+[2025-03-29 20:41:28 UTC] ===== CHECKING FOR RACES TODAY =====
+[2025-03-29 20:41:28 UTC] Current date (UTC): 03/29/25 (normalized: 3/29/25)
+[2025-03-29 20:41:28 UTC] Found weekend races scheduled for today in weekends.csv
+[2025-03-29 20:41:28 UTC] Running: cd ~/ski/elo/python/ski/polars && python3 startlist-scrape-weekend.py
+Reading weekends.csv...
+Successfully read weekends.csv with 79 rows
+Next race date: 3/29/25
+Next race date is 3/29/25
+Found 1 races on 3/29/25
+All races for next date are relay events.
+Relay events detected: {'mixed_relay'}
+Calling relay script for mixed_relay: relay/startlist_scrape_weekend_mixed_relay.py
+Relay script output:
+Processing weekend mixed relay races with team and individual output
+Loaded 1 races from /tmp/weekend_relay_mixed_relay_races.csv
+
+Processing mixed relay races
+Reading ELO scores from: ~/ski/elo/python/ski/polars/excel365/men_chrono_elevation.csv
+Successfully read ELO file with pandas: 91655 rows
+First quartile value for Elo: 1214.8304528074564
+First quartile value for Distance_Elo: 1215.4050959590427
+First quartile value for Distance_C_Elo: 1237.0691809545465
+First quartile value for Distance_F_Elo: 1236.1831168910508
+First quartile value for Sprint_Elo: 1235.4921985793294
+First quartile value for Sprint_C_Elo: 1233.6665042972922
+First quartile value for Sprint_F_Elo: 1235.5639889927345
+First quartile value for Classic_Elo: 1224.3703005198981
+First quartile value for Freestyle_Elo: 1223.248277540316
+Returning ELO data with 3771 rows and columns: ['ID', 'Skier', 'Nation', 'Elo', 'Distance_Elo', 'Distance_C_Elo', 'Distance_F_Elo', 'Sprint_Elo', 'Sprint_C_Elo', 'Sprint_F_Elo', 'Classic_Elo', 'Freestyle_Elo']
+Reading ELO scores from: ~/ski/elo/python/ski/polars/excel365/ladies_chrono_elevation.csv
+Successfully read ELO file with pandas: 68004 rows
+First quartile value for Elo: 1216.9748762103477
+First quartile value for Distance_Elo: 1220.2955903420338
+First quartile value for Distance_C_Elo: 1234.601187428449
+First quartile value for Distance_F_Elo: 1241.11862928866
+First quartile value for Sprint_Elo: 1243.9623774115403
+First quartile value for Sprint_C_Elo: 1242.574866305937
+First quartile value for Sprint_F_Elo: 1240.462938899013
+First quartile value for Classic_Elo: 1226.8962281995523
+First quartile value for Freestyle_Elo: 1229.6219324173094
+Returning ELO data with 2117 rows and columns: ['ID', 'Skier', 'Nation', 'Elo', 'Distance_Elo', 'Distance_C_Elo', 'Distance_F_Elo', 'Sprint_Elo', 'Sprint_C_Elo', 'Sprint_F_Elo', 'Classic_Elo', 'Freestyle_Elo']
+Found 50 mixed teams in Fantasy XC API
+Found 65 men teams in Fantasy XC API
+Found 55 ladies teams in Fantasy XC API
+Processing mixed relay race 1: Engadin (3/29/25)
+Found 19 teams with 76 athletes
+Men first quartile for Elo: 1214.8304528074564
+Ladies first quartile for Elo: 1216.9748762103477
+Men first quartile for Distance_Elo: 1215.4050959590427
+Ladies first quartile for Distance_Elo: 1220.2955903420338
+Men first quartile for Distance_C_Elo: 1237.0691809545465
+Ladies first quartile for Distance_C_Elo: 1234.601187428449
+Men first quartile for Distance_F_Elo: 1236.1831168910508
+Ladies first quartile for Distance_F_Elo: 1241.11862928866
+Men first quartile for Sprint_Elo: 1235.4921985793294
+Ladies first quartile for Sprint_Elo: 1243.9623774115403
+Men first quartile for Sprint_C_Elo: 1233.6665042972922
+Ladies first quartile for Sprint_C_Elo: 1242.574866305937
+Men first quartile for Sprint_F_Elo: 1235.5639889927345
+Ladies first quartile for Sprint_F_Elo: 1240.462938899013
+Men first quartile for Classic_Elo: 1224.3703005198981
+Ladies first quartile for Classic_Elo: 1226.8962281995523
+Men first quartile for Freestyle_Elo: 1223.248277540316
+Ladies first quartile for Freestyle_Elo: 1229.6219324173094
+Processing team from SWE as SWEDEN I
+Using converted name: Jens BURMAN
+Found fuzzy ELO match: Jens BURMAN -> Jens Burman
+Using converted name: Emma RIBOM
+Found fuzzy ELO match: Emma RIBOM -> Emma Ribom
+Using converted name: Edvin ANGER
+Found fuzzy ELO match: Edvin ANGER -> Edvin Anger
+Using converted name: Moa ILAR
+Found fuzzy ELO match: Moa ILAR -> Moa Ilar
+Processing team from NOR as NORWAY I
+Using converted name: Paal GOLBERG
+Found fuzzy ELO match: Paal GOLBERG -> Pål Golberg
+Using converted name: Nora SANNESS
+Found fuzzy ELO match: Nora SANNESS -> Nora Sanness
+Using converted name: Iver Tildheim ANDERSEN
+Found fuzzy ELO match: Iver Tildheim ANDERSEN -> Iver Tildheim Andersen
+Using converted name: Kristin Austgulen FOSNAES
+Found fuzzy ELO match: Kristin Austgulen FOSNAES -> Kristin Austgulen Fosnæs
+Processing team from SUI as SWITZERLAND I
+Using converted name: Jonas BAUMANN
+Found fuzzy ELO match: Jonas BAUMANN -> Jonas Baumann
+Using converted name: Anja WEBER
+Found fuzzy ELO match: Anja WEBER -> Anja Weber
+Using converted name: Jason RUEESCH
+Found fuzzy ELO match: Jason RUEESCH -> Jason Rüesch
+Using converted name: Nadine FAEHNDRICH
+Found fuzzy ELO match: Nadine FAEHNDRICH -> Nadine Fähndrich
+Processing team from NOR as NORWAY II
+Using converted name: Martin Kirkeberg MOERK
+Found fuzzy ELO match: Martin Kirkeberg MOERK -> Martin Kirkeberg Mørk
+Using converted name: Johanne Hauge HARVIKEN
+Found fuzzy ELO match: Johanne Hauge HARVIKEN -> Johanne Hauge Harviken
+Using converted name: Andreas Fjorden REE
+Found fuzzy ELO match: Andreas Fjorden REE -> Andreas Fjorden Ree
+Using converted name: Anne Kjersti KALVAA
+Found fuzzy ELO match: Anne Kjersti KALVAA -> Anne Kjersti Kalvå
+Processing team from FIN as FINLAND I
+Using converted name: Iivo NISKANEN
+Found fuzzy ELO match: Iivo NISKANEN -> Iivo Niskanen
+Using converted name: Jasmi JOENSUU
+Found fuzzy ELO match: Jasmi JOENSUU -> Jasmi Joensuu
+Using converted name: Remi LINDHOLM
+Found fuzzy ELO match: Remi LINDHOLM -> Remi Lindholm
+Using converted name: Vilma RYYTTY
+Found fuzzy ELO match: Vilma RYYTTY -> Vilma Ryytty
+Processing team from CAN as CANADA I
+Using converted name: Antoine CYR
+Found fuzzy ELO match: Antoine CYR -> Antoine Cyr
+Using converted name: Katherine STEWART-JONES
+Found fuzzy ELO match: Katherine STEWART-JONES -> Kathrine Stewart-Jones
+Using converted name: Olivier LEVEILLE
+Found fuzzy ELO match: Olivier LEVEILLE -> Olivier Leveille
+Using converted name: Liliane GAGNON
+Found fuzzy ELO match: Liliane GAGNON -> Liliane Gagnon
+Processing team from SUI as SWITZERLAND II
+Using converted name: Cyril FAEHNDRICH
+Found fuzzy ELO match: Cyril FAEHNDRICH -> Cyril Fähndrich
+Using converted name: Nadja KAELIN
+Found fuzzy ELO match: Nadja KAELIN -> Nadja Kälin
+Using converted name: Valerio GROND
+Found fuzzy ELO match: Valerio GROND -> Valerio Grond
+Using converted name: Marina KAELIN
+Found fuzzy ELO match: Marina KAELIN -> Marina Kälin
+Processing team from AUT as AUSTRIA I
+Using converted name: Mika VERMEULEN
+Found fuzzy ELO match: Mika VERMEULEN -> Mika Vermeulen
+Using converted name: Teresa STADLOBER
+Found fuzzy ELO match: Teresa STADLOBER -> Teresa Stadlober
+Using converted name: Benjamin MOSER
+Found fuzzy ELO match: Benjamin MOSER -> Benjamin Moser
+Using converted name: Katharina BRUDERMANN
+Found fuzzy ELO match: Katharina BRUDERMANN -> Katharina Brudermann
+Processing team from GER as GERMANY I
+Using converted name: Lucas BOEGL
+Found fuzzy ELO match: Lucas BOEGL -> Lucas Bögl
+Using converted name: Katherine SAUERBREY
+Found fuzzy ELO match: Katherine SAUERBREY -> Katherine Sauerbrey
+Using converted name: Jan STOELBEN
+Found fuzzy ELO match: Jan STOELBEN -> Jan Stoelben
+Using converted name: Anna-Maria DIETZE
+Found fuzzy ELO match: Anna-Maria DIETZE -> Anna-Maria Dietze
+Processing team from SWE as SWEDEN II
+Using converted name: Calle HALFVARSSON
+Found fuzzy ELO match: Calle HALFVARSSON -> Calle Halfvarsson
+Using converted name: Moa LUNDGREN
+Found fuzzy ELO match: Moa LUNDGREN -> Moa Lundgren
+Using converted name: Gustaf BERGLUND
+Found fuzzy ELO match: Gustaf BERGLUND -> Gustaf Berglund
+Using converted name: Maja DAHLQVIST
+Found fuzzy ELO match: Maja DAHLQVIST -> Maja Dahlqvist
+Processing team from CAN as CANADA II
+Using converted name: Remi DROLET
+Found fuzzy ELO match: Remi DROLET -> Remi Drolet
+Using converted name: Alison MACKIE
+Found fuzzy ELO match: Alison MACKIE -> Alison Mackie
+Using converted name: Thomas STEPHEN
+Found fuzzy ELO match: Thomas STEPHEN -> Thomas Stephen
+Using converted name: Sonjaa SCHMIDT
+Found fuzzy ELO match: Sonjaa SCHMIDT -> Sonjaa Schmidt
+Processing team from CZE as CZECH REPUBLIC I
+Using converted name: Michal NOVAK
+Found fuzzy ELO match: Michal NOVAK -> Michal Novak
+Using converted name: Katerina JANATOVA
+Found fuzzy ELO match: Katerina JANATOVA -> Katerina Janatova
+Using converted name: Matyas BAUER
+Found fuzzy ELO match: Matyas BAUER -> Matyas Bauer
+Using converted name: Barbora HAVLICKOVA
+Found fuzzy ELO match: Barbora HAVLICKOVA -> Barbora Havlickova
+Processing team from ITA as ITALY I
+Using converted name: Martino CAROLLO
+Found fuzzy ELO match: Martino CAROLLO -> Martino Carollo
+Using converted name: Martina DI CENTA
+Found fuzzy ELO match: Martina DI CENTA -> Martina di Centa
+Using converted name: Paolo VENTURA
+Found fuzzy ELO match: Paolo VENTURA -> Paolo Ventura
+Using converted name: Maria GISMONDI
+Found fuzzy ELO match: Maria GISMONDI -> Maria Gismondi
+Processing team from USA as UNITED STATES OF AMERICA I
+Using converted name: Zanden MCMULLEN
+Found fuzzy ELO match: Zanden MCMULLEN -> Zanden McMullen
+Using converted name: Julia KERN
+Found fuzzy ELO match: Julia KERN -> Julia Kern
+Using converted name: Ben OGDEN
+Found fuzzy ELO match: Ben OGDEN -> Ben Ogden
+Using converted name: Sophia LAUKLI
+Found fuzzy ELO match: Sophia LAUKLI -> Sophia Laukli
+Processing team from SLO as SLOVENIA I
+Using converted name: Nejc STERN
+Found fuzzy ELO match: Nejc STERN -> Nejc Stern
+Using converted name: Anja MANDELJC
+Found fuzzy ELO match: Anja MANDELJC -> Anja Mandeljc
+Using converted name: Miha LICEF
+Found fuzzy ELO match: Miha LICEF -> Miha Licef
+Using converted name: Eva UREVC
+Found fuzzy ELO match: Eva UREVC -> Eva Urevc
+Processing team from USA as UNITED STATES OF AMERICA II
+Using converted name: Luke JAGER
+Found fuzzy ELO match: Luke JAGER -> Luke Jager
+Using converted name: Kendall KRAMER
+Found fuzzy ELO match: Kendall KRAMER -> Kendall Kramer
+Found manual mapping after conversion: JC SCHOONMAKER -> James Clinton Schoonmaker
+Found exact ELO match for: James Clinton Schoonmaker
+Using converted name: Sammy SMITH
+Found fuzzy ELO match: Sammy SMITH -> Sammy Smith
+Processing team from AUS as AUSTRALIA I
+Using converted name: Hugo HINCKFUSS
+Found fuzzy ELO match: Hugo HINCKFUSS -> Hugo Hinckfuss
+Using converted name: Tuva BYGRAVE
+Found fuzzy ELO match: Tuva BYGRAVE -> Tuva Bygrave
+Using converted name: Seve DE CAMPO
+Found fuzzy ELO match: Seve DE CAMPO -> Seve De Campo
+Using converted name: Rosie FORDHAM
+Found fuzzy ELO match: Rosie FORDHAM -> Rosie Fordham
+Processing team from UKR as UKRAINE I
+Using converted name: Oleksandr LISOHOR
+Found fuzzy ELO match: Oleksandr LISOHOR -> Oleksandr Lisohor
+Using converted name: Anastasiia NIKON
+Found fuzzy ELO match: Anastasiia NIKON -> Anastasiia Nikon
+Using converted name: Dmytro DRAHUN
+Found fuzzy ELO match: Dmytro DRAHUN -> Dmytro Drahun
+Using converted name: Viktoriia OLEKH
+Found fuzzy ELO match: Viktoriia OLEKH -> Viktoriya Olekh
+Processing team from KAZ as KAZAKHSTAN I
+Using converted name: Yernur BEXULTAN
+Found fuzzy ELO match: Yernur BEXULTAN -> Yernur Bexultan
+Using converted name: Yelizaveta TOLMACHYOVA
+Found fuzzy ELO match: Yelizaveta TOLMACHYOVA -> Yelizaveta Tolmachyova
+Using converted name: Didar KASSENOV
+Found fuzzy ELO match: Didar KASSENOV -> Didar Kassenov
+Using converted name: Laura KINYBAEYEVA
+Found fuzzy ELO match: Laura KINYBAEYEVA -> Laura Kinybaeyeva
+Saved 19 mixed relay teams to ~/ski/elo/python/ski/polars/relay/excel365/startlist_mixed_relay_teams.csv
+Saved 76 individual mixed relay athletes to ~/ski/elo/python/ski/polars/relay/excel365/startlist_mixed_relay_individuals.csv
+
+Finished processing mixed relay races
+Calling R script: Rscript /Users/syverjohansen/blog/daehl-e/content/post/cross-country/drafts/weekly-picks-mixed-relay.R
+Error calling R script: Command '['Rscript', '/Users/syverjohansen/blog/daehl-e/content/post/cross-country/drafts/weekly-picks-mixed-relay.R']' returned non-zero exit status 1.
+Script output:                       Overall
+Weighted_Last_5     100.00000
+Distance_Pelo_Pct    66.66897
+Distance_C_Pelo_Pct  44.95179
+Pelo_Pct             33.07661
+Classic_Pelo_Pct      0.00000
+                      Overall
+Weighted_Last_5     100.00000
+Distance_Pelo_Pct    87.27535
+Distance_C_Pelo_Pct  74.91834
+Classic_Pelo_Pct     38.98087
+Pelo_Pct              0.00000
+                      Overall
+Weighted_Last_5     100.00000
+Freestyle_Pelo_Pct   42.00514
+Distance_F_Pelo_Pct  37.95630
+Distance_Pelo_Pct    15.23010
+Pelo_Pct              0.00000
+                        Overall
+Pelo_Pct            100.0000000
+Weighted_Last_5      57.5106081
+Distance_Pelo_Pct    51.7966058
+Distance_F_Pelo_Pct  50.8975713
+Sprint_Pelo_Pct       0.3937711
+[[1]]
+      ID                 Skier      Nation Sex Leg     Win_Prob Podium_Prob
+1   1470         Iivo Niskanen     Finland   M   1 3.016368e-01 0.757220293
+2   2811           Jens Burman      Sweden   M   1 7.729707e-03 0.154746856
+3  12673        Mika Vermeulen     Austria   M   1 3.011751e-01 0.805137334
+4     88           Pål Golberg      Norway   M   1 2.018779e-01 0.667878794
+5     73     Calle Halfvarsson      Sweden   M   1 3.567823e-02 0.307648182
+6   9975       Cyril Fähndrich Switzerland   M   1 1.439136e-03 0.052546244
+7  12698       Zanden McMullen         USA   M   1 9.855867e-04 0.046291059
+8   1540            Lucas Bögl     Germany   M   1 7.912834e-04 0.034195429
+9  18932            Nejc Stern    Slovenia   M   1 3.189660e-04 0.012145935
+10  9225           Antoine Cyr      Canada   M   1 7.341901e-03 0.158365950
+11 13173     Oleksandr Lisohor     Ukraine   M   1 2.829893e-05 0.004419505
+12  3655          Michal Novak     Czechia   M   1 4.016912e-02 0.435562652
+13 19980       Martino Carollo       Italy   M   1 1.624113e-03 0.068734599
+14  1534         Jonas Baumann Switzerland   M   1 7.719882e-03 0.159432494
+15  8051           Remi Drolet      Canada   M   1 2.809633e-04 0.021388164
+16 12412        Hugo Hinckfuss   Australia   M   1 1.391906e-04 0.011695736
+17  9176            Luke Jager         USA   M   1 1.329540e-04 0.009301622
+18 13128       Yernur Bexultan  Kazakhstan   M   1 9.888358e-05 0.009676523
+19 12331 Martin Kirkeberg Mørk      Norway   M   1 8.585995e-03 0.187948846
+    Top5_Prob Top10_Prob
+1  0.87592332  0.9854415
+2  0.38615756  0.8661325
+3  0.86661287  0.9769323
+4  0.82960834  0.9743982
+5  0.57640569  0.9214195
+6  0.15517444  0.6161233
+7  0.12966905  0.5388293
+8  0.10819629  0.5120253
+9  0.05331170  0.3291437
+10 0.37457173  0.8591195
+11 0.01780863  0.1666293
+12 0.59700305  0.9076565
+13 0.15165346  0.5398084
+14 0.34064332  0.8107882
+15 0.06095603  0.3529998
+16 0.03515213  0.2198025
+17 0.03595996  0.2659838
+18 0.03713638  0.2760741
+19 0.32115527  0.7668647
+
+[[2]]
+       ID                  Skier      Nation Sex Leg     Win_Prob Podium_Prob
+1  100529       Teresa Stadlober     Austria   F   2 3.089907e-02 0.390601513
+2  101844             Emma Ribom      Sweden   F   2 3.071297e-02 0.294113579
+3  101675          Jasmi Joensuu     Finland   F   2 1.397394e-02 0.149101100
+4  101727    Katherine Sauerbrey     Germany   F   2 1.866087e-03 0.060069396
+5  103198      Katerina Janatova     Czechia   F   2 2.186622e-02 0.237920440
+6  106338             Anja Weber Switzerland   F   2 2.946108e-03 0.050928636
+7  106639            Nadja Kälin Switzerland   F   2 4.676832e-03 0.121175000
+8  101676 Kathrine Stewart-Jones      Canada   F   2 1.309204e-03 0.051204165
+9  101868          Anja Mandeljc    Slovenia   F   2 1.207426e-03 0.044505833
+10 101846             Julia Kern         USA   F   2 1.578713e-02 0.132304568
+11 106954       Anastasiia Nikon     Ukraine   F   2 4.240089e-05 0.004580656
+12 106324           Nora Sanness      Norway   F   2 2.502262e-02 0.316314778
+13 102345 Johanne Hauge Harviken      Norway   F   2 5.591196e-04 0.018595022
+14 103211           Moa Lundgren      Sweden   F   2 3.045823e-03 0.048452297
+15 110185          Alison Mackie      Canada   F   2 4.286350e-04 0.021176025
+16 106448           Tuva Bygrave   Australia   F   2 2.485826e-05 0.002681816
+17 109084       Martina di Centa       Italy   F   2 6.496749e-04 0.024631885
+18 106650         Kendall Kramer         USA   F   2 3.448594e-04 0.013511727
+19 109324 Yelizaveta Tolmachyova  Kazakhstan   F   2 4.261323e-04 0.017006647
+     Top5_Prob Top10_Prob
+1  0.724967155 0.91547513
+2  0.493395806 0.88766998
+3  0.513766665 0.83883784
+4  0.149880194 0.53817572
+5  0.417194685 0.79446682
+6  0.163044711 0.55530705
+7  0.199194545 0.53955235
+8  0.097244815 0.41420264
+9  0.056746893 0.27676302
+10 0.160791785 0.72284571
+11 0.005374275 0.05214005
+12 0.443345101 0.76881349
+13 0.049452677 0.28700818
+14 0.118648866 0.60028153
+15 0.039745295 0.23064081
+16 0.007797424 0.05618353
+17 0.041763164 0.26281640
+18 0.025295960 0.27408004
+19 0.016036710 0.23438342
+
+[[3]]
+      ID                     Skier      Nation Sex Leg     Win_Prob Podium_Prob
+1   8678       Andreas Fjorden Ree      Norway   M   3 9.081462e-02 0.469596767
+2  14039               Edvin Anger      Sweden   M   3 1.563093e-01 0.690524808
+3   9179                 Ben Ogden         USA   M   3 3.703240e-02 0.416386186
+4   5702             Remi Lindholm     Finland   M   3 8.228421e-03 0.113333011
+5  18927              Matyas Bauer     Czechia   M   3 3.555997e-04 0.009281659
+6   6009             Paolo Ventura       Italy   M   3 2.343671e-03 0.031969353
+7   8036             Seve De Campo   Australia   M   3 5.764212e-05 0.003377747
+8  14108          Olivier Leveille      Canada   M   3 4.255375e-03 0.062579023
+9   8058             Dmytro Drahun     Ukraine   M   3 9.794402e-05 0.005218358
+10  5911                Miha Licef    Slovenia   M   3 2.223442e-04 0.006597130
+11  5989            Benjamin Moser     Austria   M   3 1.780524e-03 0.054676835
+12 12164             Valerio Grond Switzerland   M   3 8.374064e-03 0.215194431
+13 14033               Jan Stölben     Germany   M   3 3.623646e-03 0.114395957
+14  9201 James Clinton Schoonmaker         USA   M   3 2.086542e-03 0.069132031
+15  8590    Iver Tildheim Andersen      Norway   M   3 1.655530e-01 0.683073956
+16  2732              Jason Rüesch Switzerland   M   3 3.908512e-03 0.060063865
+17 12178           Gustaf Berglund      Sweden   M   3 1.289946e-02 0.202036320
+18 12419            Didar Kassenov  Kazakhstan   M   3 2.138287e-04 0.006237873
+19 12678            Thomas Stephen      Canada   M   3 4.397145e-04 0.011713480
+    Top5_Prob Top10_Prob
+1  0.75116370 0.97208788
+2  0.75844596 0.96661300
+3  0.48505974 0.89008101
+4  0.34697613 0.87924577
+5  0.03979138 0.28395687
+6  0.15447107 0.70926552
+7  0.01330903 0.07066709
+8  0.21652520 0.74875353
+9  0.01979770 0.12017634
+10 0.03033080 0.22642306
+11 0.14039656 0.47947074
+12 0.30281533 0.67404862
+13 0.18669005 0.54680883
+14 0.11995748 0.41680042
+15 0.85206166 0.98866769
+16 0.20112731 0.74825784
+17 0.41378956 0.88242439
+18 0.02587662 0.23596032
+19 0.04771098 0.32687348
+
+[[4]]
+       ID                    Skier      Nation Sex Leg     Win_Prob
+1  104268 Kristin Austgulen Fosnæs      Norway   F   4 4.585692e-03
+2  107369            Sophia Laukli         USA   F   4 2.703224e-04
+3  103216       Barbora Havlickova     Czechia   F   4 2.952722e-05
+4  107427           Liliane Gagnon      Canada   F   4 1.610694e-04
+5  103192                Eva Urevc    Slovenia   F   4 5.537625e-05
+6  106450            Rosie Fordham   Australia   F   4 2.130079e-05
+7  100540          Viktoriya Olekh     Ukraine   F   4 1.360011e-06
+8  101673           Maja Dahlqvist      Sweden   F   4 8.508353e-03
+9  101590         Nadine Fähndrich Switzerland   F   4 1.384823e-02
+10 101866                 Moa Ilar      Sweden   F   4 7.812130e-03
+11 105040     Katharina Brudermann     Austria   F   4 3.579355e-05
+12 107874           Sonjaa Schmidt      Canada   F   4 4.979316e-05
+13 103214        Anna-Maria Dietze     Germany   F   4 7.618736e-05
+14 107433             Marina Kälin Switzerland   F   4 1.700238e-04
+15 106607             Vilma Ryytty     Finland   F   4 4.459898e-05
+16 110228              Sammy Smith         USA   F   4 3.223965e-05
+17 106958        Laura Kinybaeyeva  Kazakhstan   F   4 2.153508e-05
+18 101498       Anne Kjersti Kalvå      Norway   F   4 4.388022e-03
+19 110867           Maria Gismondi       Italy   F   4 9.729446e-05
+    Podium_Prob  Top5_Prob Top10_Prob
+1  0.1643988812 0.55421433 0.98695042
+2  0.0959988154 0.49493088 0.95337374
+3  0.0033388423 0.01471143 0.33284116
+4  0.0243439523 0.10055339 0.76739910
+5  0.0082253717 0.03269847 0.42228108
+6  0.0047328690 0.02150180 0.33682190
+7  0.0005812658 0.00262032 0.04283164
+8  0.3814502201 0.63774796 0.97172867
+9  0.2989774443 0.56388379 0.97724184
+10 0.2591058797 0.66599297 0.99385943
+11 0.0072850389 0.03459978 0.45473839
+12 0.0124079767 0.05256400 0.53666806
+13 0.0119479195 0.05349703 0.59199008
+14 0.0141531578 0.06852669 0.67652325
+15 0.0128923719 0.06302914 0.67374019
+16 0.0067178808 0.02585486 0.26455566
+17 0.0026310980 0.01424488 0.20928821
+18 0.2921282546 0.70418520 0.99176827
+19 0.0171690970 0.07456826 0.79251338
+
+                     Team_Name                   Nation Team_Rank Price
+1                     SWEDEN I                   SWEDEN         1 18981
+2                     NORWAY I                   NORWAY         2 20624
+3                SWITZERLAND I              SWITZERLAND         3 14266
+4                    NORWAY II                   NORWAY         4  7561
+5                    FINLAND I                  FINLAND         5 13960
+6                     CANADA I                   CANADA         6  7639
+7               SWITZERLAND II              SWITZERLAND         7  2958
+8                    AUSTRIA I                  AUSTRIA         8  3002
+9                    GERMANY I                  GERMANY         9 12379
+10                   SWEDEN II                   SWEDEN        10  6178
+11                   CANADA II                   CANADA        11  2068
+12            CZECH REPUBLIC I           CZECH REPUBLIC        12  7211
+13                     ITALY I                    ITALY        13 10678
+14  UNITED STATES OF AMERICA I UNITED STATES OF AMERICA        14 14293
+15                  SLOVENIA I                 SLOVENIA        15  7146
+16 UNITED STATES OF AMERICA II UNITED STATES OF AMERICA        16  2933
+17                 AUSTRALIA I                AUSTRALIA        17   895
+18                   UKRAINE I                  UKRAINE        18  2168
+19                KAZAKHSTAN I               KAZAKHSTAN        19   895
+   Is_Present              Member_1               Member_2
+1        True           Jens Burman             Emma Ribom
+2        True           Pål Golberg           Nora Sanness
+3        True         Jonas Baumann             Anja Weber
+4        True Martin Kirkeberg Mørk Johanne Hauge Harviken
+5        True         Iivo Niskanen          Jasmi Joensuu
+6        True           Antoine Cyr Kathrine Stewart-Jones
+7        True       Cyril Fähndrich            Nadja Kälin
+8        True        Mika Vermeulen       Teresa Stadlober
+9        True            Lucas Bögl    Katherine Sauerbrey
+10       True     Calle Halfvarsson           Moa Lundgren
+11       True           Remi Drolet          Alison Mackie
+12       True          Michal Novak      Katerina Janatova
+13       True       Martino Carollo       Martina di Centa
+14       True       Zanden McMullen             Julia Kern
+15       True            Nejc Stern          Anja Mandeljc
+16       True            Luke Jager         Kendall Kramer
+17       True        Hugo Hinckfuss           Tuva Bygrave
+18       True     Oleksandr Lisohor       Anastasiia Nikon
+19       True       Yernur Bexultan Yelizaveta Tolmachyova
+                    Member_3                 Member_4 Podium_Prob     Win_Prob
+1                Edvin Anger                 Moa Ilar 0.349526382 5.055857e-02
+2     Iver Tildheim Andersen Kristin Austgulen Fosnæs 0.457079926 9.901371e-02
+3               Jason Rüesch         Nadine Fähndrich 0.142977562 7.133078e-03
+4        Andreas Fjorden Ree       Anne Kjersti Kalvå 0.242593724 2.606610e-02
+5              Remi Lindholm             Vilma Ryytty 0.257244418 8.069232e-02
+6           Olivier Leveille           Liliane Gagnon 0.073952794 3.257701e-03
+7              Valerio Grond             Marina Kälin 0.100487469 3.653597e-03
+8             Benjamin Moser     Katharina Brudermann 0.313061074 8.316589e-02
+9               Jan Stoelben        Anna-Maria Dietze 0.026451898 6.796127e-04
+10           Gustaf Berglund           Maja Dahlqvist 0.235604215 1.501886e-02
+11            Thomas Stephen           Sonjaa Schmidt 0.016648434 2.987969e-04
+12              Matyas Bauer       Barbora Havlickova 0.170744270 1.553250e-02
+13             Paolo Ventura           Maria Gismondi 0.035565754 1.175799e-03
+14                 Ben Ogden            Sophia Laukli 0.172631959 1.348021e-02
+15                Miha Licef                Eva Urevc 0.017800851 4.487008e-04
+16 James Clinton Schoonmaker              Sammy Smith 0.024634036 6.479305e-04
+17             Seve De Campo            Rosie Fordham 0.005620286 6.063312e-05
+18             Dmytro Drahun          Viktoriya Olekh 0.003688294 4.237805e-05
+19            Didar Kassenov        Laura Kinybaeyeva 0.008855435 1.892528e-04
+    Top5_Prob Top10_Prob Expected_Points
+1  0.57651424 0.92887281        96.50483
+2  0.66969274 0.93010766       107.10928
+3  0.31817951 0.77385641        66.79916
+4  0.45796664 0.75588601        75.41186
+5  0.44836034 0.84370362        84.78815
+6  0.19696881 0.69792931        54.89800
+7  0.18105618 0.62685795        51.00776
+8  0.43968586 0.70538768        78.17162
+9  0.07769033 0.41087641        30.33543
+10 0.43769049 0.84469495        79.62061
+11 0.05026137 0.36255484        25.90347
+12 0.26596269 0.57843902        54.25535
+13 0.10558605 0.57728248        42.45629
+14 0.31851787 0.77705813        68.73327
+15 0.04321242 0.31404551        22.59146
+16 0.05173330 0.30529412        22.59424
+17 0.01945553 0.17154286        12.02092
+18 0.01137784 0.09530283         6.72132
+19 0.02329810 0.23881849        16.67510
+
+Script error: 
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+Warning message:
+package ‘openxlsx’ was built under R version 4.3.3 
+
+Attaching package: ‘lubridate’
+
+The following objects are masked from ‘package:base’:
+
+    date, intersect, setdiff, union
+
+Warning message:
+package ‘lubridate’ was built under R version 4.3.3 
+Loading required package: ggplot2
+Loading required package: lattice
+Warning message:
+package ‘caret’ was built under R version 4.3.3 
+Loading required package: nlme
+
+Attaching package: ‘nlme’
+
+The following object is masked from ‘package:dplyr’:
+
+    collapse
+
+This is mgcv 1.9-0. For overview type 'help("mgcv-package")'.
+Warning message:
+package ‘leaps’ was built under R version 4.3.3 
+Warning message:
+package ‘logger’ was built under R version 4.3.3 
+
+Attaching package: ‘purrr’
+
+The following object is masked from ‘package:caret’:
+
+    lift
+
+
+Attaching package: ‘xgboost’
+
+The following object is masked from ‘package:dplyr’:
+
+    slice
+
+Warning message:
+package ‘xgboost’ was built under R version 4.3.3 
+ROI: R Optimization Infrastructure
+Registered solver plugins: nlminb, glpk.
+Default solver: auto.
+Registered S3 methods overwritten by 'proxy':
+  method               from    
+  print.registry_field registry
+  print.registry_entry registry
+Error in list(Team = fantasy_df, ) : argument 2 is empty
+Calls: run_mixed_relay_predictions -> save_fantasy_results -> write.xlsx -> %in%
+In addition: Warning message:
+In any(individuals_df$In_FIS_List, na.rm = TRUE) :
+  coercing argument of type 'character' to logical
+Execution halted
+
+
+Relay races successfully handled by relay scripts.
+[2025-03-29 20:41:50 UTC] ✓ Successfully completed: cd ~/ski/elo/python/ski/polars && python3 startlist-scrape-weekend.py
+[2025-03-29 20:41:50 UTC] Found single races scheduled for today in races.csv
+[2025-03-29 20:41:50 UTC] Running: cd ~/ski/elo/python/ski/polars && python startlist-scrape-races.py
+Reading races.csv...
+Successfully read races.csv with 79 rows
+
+===== Processing MEN races =====
+Next race date: 3/29/25
+Next men race date is 3/29/25
+Found 1 men races on 3/29/25
+Current time (20:00) is after noon, looking ahead to next day's races
+Looking ahead to find next available men race
+Checking for men races on 2025-03-30...
+Checking for men races on 2025-03-31...
+Checking for men races on 2025-04-01...
+Checking for men races on 2025-04-02...
+Checking for men races on 2025-04-03...
+Checking for men races on 2025-04-04...
+Checking for men races on 2025-04-05...
+No upcoming men races found within the next 7 days
+
+===== Processing LADIES races =====
+No current or future races found, using the latest race date
+Next ladies race date is 2/29/25
+Found 1 ladies races on 2/29/25
+Error in should_look_ahead: day is out of range for month: 2/29/25, at position 0
+Found 1 individual ladies races after filtering out relays and team sprints
+
+Processing ladies races...
+Using ELO path: ~/ski/elo/python/ski/polars/excel365/ladies_chrono_elevation.csv
+Processing race 1 from URL: https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=46935
+Race details: 20km nan in Trondheim, Norway
+Found 61 athlete rows in HTML
+Could not find country div in row
+Added athlete: ANDERSSON Ebba (SWE)
+Added athlete: JOHAUG Therese (NOR)
+Added athlete: SUNDLING Jonna (SWE)
+Added athlete: KARLSSON Frida (SWE)
+Added athlete: WENG Heidi (NOR)
+Added athlete: KAELIN Nadja (SUI)
+Added athlete: PARMAKOSKI Krista (FIN)
+Added athlete: SLIND Astrid Oeyre (NOR)
+Added athlete: CARL Victoria (GER)
+Added athlete: FOSNAES Kristin Austgulen (NOR)
+Added athlete: RIBOM Emma (SWE)
+Added athlete: HOFFMANN Helen (GER)
+Added athlete: DIGGINS Jessie (USA)
+Added athlete: FAEHNDRICH Nadine (SUI)
+Added athlete: DOLCI Flora (FRA)
+Added athlete: STADLOBER Teresa (AUT)
+Added athlete: ILAR Moa (SWE)
+Added athlete: JANATOVA Katerina (CZE)
+Added athlete: WEBER Anja (SUI)
+Added athlete: FINK Pia (GER)
+Added athlete: SAUERBREY Katherine (GER)
+Added athlete: COMARELLA Anna (ITA)
+Added athlete: LAUKLI Sophia (USA)
+Added athlete: MANDELJC Anja (SLO)
+Added athlete: TSUCHIYA Masae (JPN)
+Added athlete: KERN Julia (USA)
+Added athlete: KAHARA Jasmin (FIN)
+Added athlete: RYYTTY Vilma (FIN)
+Added athlete: DI CENTA Martina (ITA)
+Added athlete: GAGNON Liliane (CAN)
+Added athlete: KAASIKU Keidy (EST)
+Added athlete: GISMONDI Maria (ITA)
+Added athlete: KAELIN Marina (SUI)
+Added athlete: BRUDERMANN Katharina (AUT)
+Added athlete: KAASIKU Kaidy (EST)
+Added athlete: GANZ Caterina (ITA)
+Added athlete: KOBAYASHI Chika (JPN)
+Added athlete: FORDHAM Rosie (AUS)
+Added athlete: DEL RIO Gina (AND)
+Added athlete: SONNESYN Alayna (USA)
+Added athlete: LYLYNPERA Katri (FIN)
+Added athlete: MARCISZ Izabela (POL)
+Added athlete: HONDA Chika (JPN)
+Added athlete: MACKIE Alison (CAN)
+Added athlete: HAVLICKOVA Barbora (CZE)
+Added athlete: YOKOHAMA Shiori (JPN)
+Added athlete: STEWART-JONES Katherine (CAN)
+Added athlete: VELICER Sophia Tsu (TPE)
+Added athlete: SCHMIDT Sonjaa (CAN)
+Added athlete: STEPASHKINA Nadezhda (KAZ)
+Added athlete: BYGRAVE Tuva (AUS)
+Added athlete: TUUL Teesi (EST)
+Added athlete: SHALYGINA Kseniya (KAZ)
+Added athlete: KOLODZIEJ Aleksandra (POL)
+Added athlete: GALSTYAN Katya (ARM)
+Added athlete: LACZKO Lara Vanda (HUN)
+Added athlete: NOPRIIENKO Yelizaveta (UKR)
+Added athlete: PONYA Sara (HUN)
+Added athlete: LIE Ellen Soehol (AUS)
+Added athlete: ENKHBAYAR Ariuntungalag (MGL)
+Processed 60 athletes from FIS startlist
+Found 60 athletes in FIS startlist
+Reading ELO scores from: ~/ski/elo/python/ski/polars/excel365/ladies_chrono_elevation.csv
+Successfully read ELO file with pandas: 68004 rows
+First quartile value for Elo: 1216.9748762103477
+First quartile value for Distance_Elo: 1220.2955903420338
+First quartile value for Distance_C_Elo: 1234.601187428449
+First quartile value for Distance_F_Elo: 1241.11862928866
+First quartile value for Sprint_Elo: 1243.9623774115403
+First quartile value for Sprint_C_Elo: 1242.574866305937
+First quartile value for Sprint_F_Elo: 1240.462938899013
+First quartile value for Classic_Elo: 1226.8962281995523
+First quartile value for Freestyle_Elo: 1229.6219324173094
+Returning ELO data with 2117 rows and columns: ['ID', 'Skier', 'Nation', 'Elo', 'Distance_Elo', 'Distance_C_Elo', 'Distance_F_Elo', 'Sprint_Elo', 'Sprint_C_Elo', 'Sprint_F_Elo', 'Classic_Elo', 'Freestyle_Elo']
+
+Processing FIS athlete: ANDERSSON Ebba
+Using converted name: Ebba ANDERSSON
+
+Trying to find price for: ANDERSSON Ebba
+Found exact match: ANDERSSON Ebba -> 9719
+Found fuzzy ELO match: Ebba ANDERSSON -> Ebba Andersson
+
+Processing FIS athlete: JOHAUG Therese
+Using converted name: Therese JOHAUG
+
+Trying to find price for: JOHAUG Therese
+Found exact match: JOHAUG Therese -> 12064
+Found fuzzy ELO match: Therese JOHAUG -> Therese Johaug
+
+Processing FIS athlete: SUNDLING Jonna
+Using converted name: Jonna SUNDLING
+
+Trying to find price for: SUNDLING Jonna
+Found exact match: SUNDLING Jonna -> 12545
+Found fuzzy ELO match: Jonna SUNDLING -> Jonna Sundling
+
+Processing FIS athlete: KARLSSON Frida
+Using converted name: Frida KARLSSON
+
+Trying to find price for: KARLSSON Frida
+Found exact match: KARLSSON Frida -> 8412
+Found fuzzy ELO match: Frida KARLSSON -> Frida Karlsson
+
+Processing FIS athlete: WENG Heidi
+Using converted name: Heidi WENG
+
+Trying to find price for: WENG Heidi
+Found exact match: WENG Heidi -> 9371
+Found fuzzy ELO match: Heidi WENG -> Heidi Weng
+
+Processing FIS athlete: KAELIN Nadja
+Using converted name: Nadja KAELIN
+
+Trying to find price for: KAELIN Nadja
+Found exact match: KAELIN Nadja -> 854
+Found fuzzy ELO match: Nadja KAELIN -> Nadja Kälin
+
+Processing FIS athlete: PARMAKOSKI Krista
+Using converted name: Krista PARMAKOSKI
+
+Trying to find price for: PARMAKOSKI Krista
+Found exact match: PARMAKOSKI Krista -> 3433
+Found fuzzy ELO match: Krista PARMAKOSKI -> Krista Pärmäkoski
+
+Processing FIS athlete: SLIND Astrid Oeyre
+Using converted name: Astrid Oeyre SLIND
+
+Trying to find price for: SLIND Astrid Oeyre
+Found exact match: SLIND Astrid Oeyre -> 9559
+Found fuzzy ELO match: Astrid Oeyre SLIND -> Astrid Øyre Slind
+
+Processing FIS athlete: CARL Victoria
+Using converted name: Victoria CARL
+
+Trying to find price for: CARL Victoria
+Found exact match: CARL Victoria -> 9438
+Found fuzzy ELO match: Victoria CARL -> Victoria Carl
+
+Processing FIS athlete: FOSNAES Kristin Austgulen
+Using converted name: Kristin Austgulen FOSNAES
+
+Trying to find price for: FOSNAES Kristin Austgulen
+Found exact match: FOSNAES Kristin Austgulen -> 3310
+Found fuzzy ELO match: Kristin Austgulen FOSNAES -> Kristin Austgulen Fosnæs
+
+Processing FIS athlete: RIBOM Emma
+Using converted name: Emma RIBOM
+
+Trying to find price for: RIBOM Emma
+Found exact match: RIBOM Emma -> 4250
+Found fuzzy ELO match: Emma RIBOM -> Emma Ribom
+
+Processing FIS athlete: HOFFMANN Helen
+Using converted name: Helen HOFFMANN
+
+Trying to find price for: HOFFMANN Helen
+Found exact match: HOFFMANN Helen -> 476
+Found fuzzy ELO match: Helen HOFFMANN -> Helen Hoffmann
+
+Processing FIS athlete: DIGGINS Jessie
+Using converted name: Jessie DIGGINS
+
+Trying to find price for: DIGGINS Jessie
+Found exact match: DIGGINS Jessie -> 14457
+Found fuzzy ELO match: Jessie DIGGINS -> Jessie Diggins
+
+Processing FIS athlete: FAEHNDRICH Nadine
+Using converted name: Nadine FAEHNDRICH
+
+Trying to find price for: FAEHNDRICH Nadine
+Found exact match: FAEHNDRICH Nadine -> 4352
+Found fuzzy ELO match: Nadine FAEHNDRICH -> Nadine Fähndrich
+
+Processing FIS athlete: DOLCI Flora
+Using converted name: Flora DOLCI
+
+Trying to find price for: DOLCI Flora
+Found exact match: DOLCI Flora -> 762
+Found fuzzy ELO match: Flora DOLCI -> Flora Dolci
+
+Processing FIS athlete: STADLOBER Teresa
+Using converted name: Teresa STADLOBER
+
+Trying to find price for: STADLOBER Teresa
+Found exact match: STADLOBER Teresa -> 5411
+Found fuzzy ELO match: Teresa STADLOBER -> Teresa Stadlober
+
+Processing FIS athlete: ILAR Moa
+Using converted name: Moa ILAR
+
+Trying to find price for: ILAR Moa
+Found exact match: ILAR Moa -> 2017
+Found fuzzy ELO match: Moa ILAR -> Moa Ilar
+
+Processing FIS athlete: JANATOVA Katerina
+Using converted name: Katerina JANATOVA
+
+Trying to find price for: JANATOVA Katerina
+Found exact match: JANATOVA Katerina -> 2445
+Found fuzzy ELO match: Katerina JANATOVA -> Katerina Janatova
+
+Processing FIS athlete: WEBER Anja
+Using converted name: Anja WEBER
+
+Trying to find price for: WEBER Anja
+Found exact match: WEBER Anja -> 515
+Found fuzzy ELO match: Anja WEBER -> Anja Weber
+
+Processing FIS athlete: FINK Pia
+Using converted name: Pia FINK
+
+Trying to find price for: FINK Pia
+Found exact match: FINK Pia -> 1995
+Found fuzzy ELO match: Pia FINK -> Pia Fink
+
+Processing FIS athlete: SAUERBREY Katherine
+Using converted name: Katherine SAUERBREY
+
+Trying to find price for: SAUERBREY Katherine
+Found exact match: SAUERBREY Katherine -> 358
+Found fuzzy ELO match: Katherine SAUERBREY -> Katherine Sauerbrey
+
+Processing FIS athlete: COMARELLA Anna
+Using converted name: Anna COMARELLA
+
+Trying to find price for: COMARELLA Anna
+Found exact match: COMARELLA Anna -> 290
+Found fuzzy ELO match: Anna COMARELLA -> Anna Comarella
+
+Processing FIS athlete: LAUKLI Sophia
+Using converted name: Sophia LAUKLI
+
+Trying to find price for: LAUKLI Sophia
+Found exact match: LAUKLI Sophia -> 1773
+Found fuzzy ELO match: Sophia LAUKLI -> Sophia Laukli
+
+Processing FIS athlete: MANDELJC Anja
+Using converted name: Anja MANDELJC
+
+Trying to find price for: MANDELJC Anja
+Found exact match: MANDELJC Anja -> 253
+Found fuzzy ELO match: Anja MANDELJC -> Anja Mandeljc
+
+Processing FIS athlete: TSUCHIYA Masae
+Using converted name: Masae TSUCHIYA
+
+Trying to find price for: TSUCHIYA Masae
+Found exact match: TSUCHIYA Masae -> 221
+Found fuzzy ELO match: Masae TSUCHIYA -> Masae Tsuchiya
+
+Processing FIS athlete: KERN Julia
+Using converted name: Julia KERN
+
+Trying to find price for: KERN Julia
+Found exact match: KERN Julia -> 1824
+Found fuzzy ELO match: Julia KERN -> Julia Kern
+
+Processing FIS athlete: KAHARA Jasmin
+Using converted name: Jasmin KAHARA
+
+Trying to find price for: KAHARA Jasmin
+Found exact match: KAHARA Jasmin -> 558
+Found fuzzy ELO match: Jasmin KAHARA -> Jasmin Kähärä
+
+Processing FIS athlete: RYYTTY Vilma
+Using converted name: Vilma RYYTTY
+
+Trying to find price for: RYYTTY Vilma
+Found exact match: RYYTTY Vilma -> 214
+Found fuzzy ELO match: Vilma RYYTTY -> Vilma Ryytty
+
+Processing FIS athlete: DI CENTA Martina
+Using converted name: Martina DI CENTA
+
+Trying to find price for: DI CENTA Martina
+Found exact match: DI CENTA Martina -> 215
+Found fuzzy ELO match: Martina DI CENTA -> Martina di Centa
+
+Processing FIS athlete: GAGNON Liliane
+Using converted name: Liliane GAGNON
+
+Trying to find price for: GAGNON Liliane
+Found exact match: GAGNON Liliane -> 301
+Found fuzzy ELO match: Liliane GAGNON -> Liliane Gagnon
+
+Processing FIS athlete: KAASIKU Keidy
+Using converted name: Keidy KAASIKU
+
+Trying to find price for: KAASIKU Keidy
+Found exact match: KAASIKU Keidy -> 220
+Found fuzzy ELO match: Keidy KAASIKU -> Keidy Kaasiku
+
+Processing FIS athlete: GISMONDI Maria
+Using converted name: Maria GISMONDI
+
+Trying to find price for: GISMONDI Maria
+Found exact match: GISMONDI Maria -> 230
+Found fuzzy ELO match: Maria GISMONDI -> Maria Gismondi
+
+Processing FIS athlete: KAELIN Marina
+Using converted name: Marina KAELIN
+
+Trying to find price for: KAELIN Marina
+Found exact match: KAELIN Marina -> 220
+Found fuzzy ELO match: Marina KAELIN -> Marina Kälin
+
+Processing FIS athlete: BRUDERMANN Katharina
+Using converted name: Katharina BRUDERMANN
+
+Trying to find price for: BRUDERMANN Katharina
+Found exact match: BRUDERMANN Katharina -> 227
+Found fuzzy ELO match: Katharina BRUDERMANN -> Katharina Brudermann
+
+Processing FIS athlete: KAASIKU Kaidy
+Using converted name: Kaidy KAASIKU
+
+Trying to find price for: KAASIKU Kaidy
+Found exact match: KAASIKU Kaidy -> 226
+Found fuzzy ELO match: Kaidy KAASIKU -> Kaidy Kaasiku
+
+Processing FIS athlete: GANZ Caterina
+Using converted name: Caterina GANZ
+
+Trying to find price for: GANZ Caterina
+Found exact match: GANZ Caterina -> 569
+Found fuzzy ELO match: Caterina GANZ -> Caterina Ganz
+
+Processing FIS athlete: KOBAYASHI Chika
+Using converted name: Chika KOBAYASHI
+
+Trying to find price for: KOBAYASHI Chika
+Found exact match: KOBAYASHI Chika -> 228
+Found fuzzy ELO match: Chika KOBAYASHI -> Chika Kobayashi
+
+Processing FIS athlete: FORDHAM Rosie
+Using converted name: Rosie FORDHAM
+
+Trying to find price for: FORDHAM Rosie
+Found exact match: FORDHAM Rosie -> 227
+Found fuzzy ELO match: Rosie FORDHAM -> Rosie Fordham
+
+Processing FIS athlete: DEL RIO Gina
+Using converted name: Gina DEL RIO
+
+Trying to find price for: DEL RIO Gina
+Found exact match: DEL RIO Gina -> 235
+Found fuzzy ELO match: Gina DEL RIO -> Gina del Rio
+
+Processing FIS athlete: SONNESYN Alayna
+Using converted name: Alayna SONNESYN
+
+Trying to find price for: SONNESYN Alayna
+Found exact match: SONNESYN Alayna -> 223
+Found fuzzy ELO match: Alayna SONNESYN -> Alayna Sonnesyn
+
+Processing FIS athlete: LYLYNPERA Katri
+Using converted name: Katri LYLYNPERA
+
+Trying to find price for: LYLYNPERA Katri
+Found exact match: LYLYNPERA Katri -> 444
+Found fuzzy ELO match: Katri LYLYNPERA -> Katri Lylynperä
+
+Processing FIS athlete: MARCISZ Izabela
+Using converted name: Izabela MARCISZ
+
+Trying to find price for: MARCISZ Izabela
+Found exact match: MARCISZ Izabela -> 230
+Found fuzzy ELO match: Izabela MARCISZ -> Izabela Marcisz
+
+Processing FIS athlete: HONDA Chika
+Using converted name: Chika HONDA
+
+Trying to find price for: HONDA Chika
+Found exact match: HONDA Chika -> 223
+Found fuzzy ELO match: Chika HONDA -> Chika Honda
+
+Processing FIS athlete: MACKIE Alison
+Using converted name: Alison MACKIE
+
+Trying to find price for: MACKIE Alison
+Found exact match: MACKIE Alison -> 225
+Found fuzzy ELO match: Alison MACKIE -> Alison Mackie
+
+Processing FIS athlete: HAVLICKOVA Barbora
+Using converted name: Barbora HAVLICKOVA
+
+Trying to find price for: HAVLICKOVA Barbora
+Found exact match: HAVLICKOVA Barbora -> 232
+Found fuzzy ELO match: Barbora HAVLICKOVA -> Barbora Havlickova
+
+Processing FIS athlete: YOKOHAMA Shiori
+Using converted name: Shiori YOKOHAMA
+
+Trying to find price for: YOKOHAMA Shiori
+Found exact match: YOKOHAMA Shiori -> 231
+Found fuzzy ELO match: Shiori YOKOHAMA -> Shiori Yokohama
+
+Processing FIS athlete: STEWART-JONES Katherine
+Using converted name: Katherine STEWART-JONES
+
+Trying to find price for: STEWART-JONES Katherine
+Found exact match: STEWART-JONES Katherine -> 534
+Found fuzzy ELO match: Katherine STEWART-JONES -> Kathrine Stewart-Jones
+
+Processing FIS athlete: VELICER Sophia Tsu
+Using converted name: Sophia Tsu VELICER
+
+Trying to find price for: VELICER Sophia Tsu
+Found exact match: VELICER Sophia Tsu -> 227
+Found fuzzy ELO match: Sophia Tsu VELICER -> Sophia Tsu Velicer
+
+Processing FIS athlete: SCHMIDT Sonjaa
+Using converted name: Sonjaa SCHMIDT
+
+Trying to find price for: SCHMIDT Sonjaa
+Found exact match: SCHMIDT Sonjaa -> 230
+Found fuzzy ELO match: Sonjaa SCHMIDT -> Sonjaa Schmidt
+
+Processing FIS athlete: STEPASHKINA Nadezhda
+Using converted name: Nadezhda STEPASHKINA
+
+Trying to find price for: STEPASHKINA Nadezhda
+Found exact match: STEPASHKINA Nadezhda -> 227
+Found fuzzy ELO match: Nadezhda STEPASHKINA -> Nadezhda Stepashkina
+
+Processing FIS athlete: BYGRAVE Tuva
+Using converted name: Tuva BYGRAVE
+
+Trying to find price for: BYGRAVE Tuva
+Found exact match: BYGRAVE Tuva -> 222
+Found fuzzy ELO match: Tuva BYGRAVE -> Tuva Bygrave
+
+Processing FIS athlete: TUUL Teesi
+Using converted name: Teesi TUUL
+
+Trying to find price for: TUUL Teesi
+Found exact match: TUUL Teesi -> 228
+Found fuzzy ELO match: Teesi TUUL -> Teesi Tuul
+
+Processing FIS athlete: SHALYGINA Kseniya
+Using converted name: Kseniya SHALYGINA
+
+Trying to find price for: SHALYGINA Kseniya
+Found exact match: SHALYGINA Kseniya -> 229
+Found fuzzy ELO match: Kseniya SHALYGINA -> Kseniya Shalygina
+
+Processing FIS athlete: KOLODZIEJ Aleksandra
+Using converted name: Aleksandra KOLODZIEJ
+
+Trying to find price for: KOLODZIEJ Aleksandra
+Found exact match: KOLODZIEJ Aleksandra -> 212
+Found fuzzy ELO match: Aleksandra KOLODZIEJ -> Aleksandra Kolodziej
+
+Processing FIS athlete: GALSTYAN Katya
+Using converted name: Katya GALSTYAN
+
+Trying to find price for: GALSTYAN Katya
+Found exact match: GALSTYAN Katya -> 222
+Found fuzzy ELO match: Katya GALSTYAN -> Katya Galstyan
+
+Processing FIS athlete: LACZKO Lara Vanda
+Using converted name: Lara Vanda LACZKO
+
+Trying to find price for: LACZKO Lara Vanda
+Found exact match: LACZKO Lara Vanda -> 233
+No ELO match found for: Lara Vanda LACZKO
+
+Processing FIS athlete: NOPRIIENKO Yelizaveta
+Using converted name: Yelizaveta NOPRIIENKO
+
+Trying to find price for: NOPRIIENKO Yelizaveta
+Trying FIS formats: ['YELIZAVETA NOPRIIENKO']
+No price found for: NOPRIIENKO Yelizaveta
+Available names in fantasy prices (first 5): ['KLAEBO Johannes Hoesflot', 'DIGGINS Jessie', 'CARL Victoria', 'ANGER Edvin', 'SLIND Astrid Oeyre']
+
+Trying to find price for: Yelizaveta NOPRIIENKO
+Trying FIS formats: ['NOPRIIENKO Yelizaveta']
+No price found for: Yelizaveta NOPRIIENKO
+Available names in fantasy prices (first 5): ['KLAEBO Johannes Hoesflot', 'DIGGINS Jessie', 'CARL Victoria', 'ANGER Edvin', 'SLIND Astrid Oeyre']
+Found fuzzy ELO match: Yelizaveta NOPRIIENKO -> Yelizaveta Nopriienko
+
+Processing FIS athlete: PONYA Sara
+Using converted name: Sara PONYA
+
+Trying to find price for: PONYA Sara
+Found exact match: PONYA Sara -> 225
+Found fuzzy ELO match: Sara PONYA -> Sara Ponya
+
+Processing FIS athlete: LIE Ellen Soehol
+Using converted name: Ellen Soehol LIE
+
+Trying to find price for: LIE Ellen Soehol
+Found exact match: LIE Ellen Soehol -> 216
+Found fuzzy ELO match: Ellen Soehol LIE -> Ellen Søhol Lie
+
+Processing FIS athlete: ENKHBAYAR Ariuntungalag
+Using converted name: Ariuntungalag ENKHBAYAR
+
+Trying to find price for: ENKHBAYAR Ariuntungalag
+Trying FIS formats: ['ARIUNTUNGALAG ENKHBAYAR']
+No price found for: ENKHBAYAR Ariuntungalag
+Available names in fantasy prices (first 5): ['KLAEBO Johannes Hoesflot', 'DIGGINS Jessie', 'CARL Victoria', 'ANGER Edvin', 'SLIND Astrid Oeyre']
+
+Trying to find price for: Ariuntungalag ENKHBAYAR
+Trying FIS formats: ['ENKHBAYAR Ariuntungalag']
+No price found for: Ariuntungalag ENKHBAYAR
+Available names in fantasy prices (first 5): ['KLAEBO Johannes Hoesflot', 'DIGGINS Jessie', 'CARL Victoria', 'ANGER Edvin', 'SLIND Astrid Oeyre']
+Found fuzzy ELO match: Ariuntungalag ENKHBAYAR -> Ariuntungalag Enkhbayar
+Processed startlist with 60 athletes
+Saving consolidated ladies startlist to ~/ski/elo/python/ski/polars/excel365/startlist_races_ladies.csv
+Saved 60 ladies athletes
+Calling R script: Rscript /Users/syverjohansen/blog/daehl-e/content/post/cross-country/drafts/race-picks.R
+R script output:
+
+
+=== Top 1 Position Probabilities and Adjustments ===
+
+
+=== Top 3 Position Probabilities and Adjustments ===
+
+
+=== Top 5 Position Probabilities and Adjustments ===
+
+
+=== Top 10 Position Probabilities and Adjustments ===
+
+
+=== Top 30 Position Probabilities and Adjustments ===
+
+R script error:
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+Warning message:
+package ‘openxlsx’ was built under R version 4.3.3 
+Warning:
+  It appears that you are running R and Arrow in emulation (i.e. you're
+  running an Intel version of R on a non-Intel mac). This configuration is
+  not supported by arrow, you should install a native (arm64) build of R
+  and use arrow with that. See https://cran.r-project.org/bin/macosx/
+
+
+Attaching package: ‘arrow’
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+Warning message:
+package ‘arrow’ was built under R version 4.3.3 
+Loading required package: nlme
+
+Attaching package: ‘nlme’
+
+The following object is masked from ‘package:dplyr’:
+
+    collapse
+
+This is mgcv 1.9-0. For overview type 'help("mgcv-package")'.
+Warning message:
+package ‘leaps’ was built under R version 4.3.3 
+Warning message:
+package ‘logger’ was built under R version 4.3.3 
+
+Attaching package: ‘lubridate’
+
+The following object is masked from ‘package:arrow’:
+
+    duration
+
+The following objects are masked from ‘package:base’:
+
+    date, intersect, setdiff, union
+
+Warning message:
+package ‘lubridate’ was built under R version 4.3.3 
+Warning message:
+Using an external vector in selections was deprecated in tidyselect 1.1.0.
+ℹ Please use `all_of()` or `any_of()` instead.
+  # Was:
+  data %>% select(race_prob_col)
+
+  # Now:
+  data %>% select(all_of(race_prob_col))
+
+See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>. 
+
+[2025-03-29 20:42:21 UTC] ✓ Successfully completed: cd ~/ski/elo/python/ski/polars && python startlist-scrape-races.py
+[2025-03-29 20:42:21 UTC] ===== PICKS PROCESSING COMPLETED =====

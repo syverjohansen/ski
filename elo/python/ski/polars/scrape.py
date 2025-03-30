@@ -282,7 +282,7 @@ def get_or_fetch_athlete_info(athlete_id, sex):
 
 def parse_race_info(race_text, year):
     """Parse race information handling historical formats"""
-    distance = None
+    distance = 0
     technique = "N/A"
     mass_start = 0
     
