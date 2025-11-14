@@ -112,8 +112,8 @@ def process_mixed_relay_races(races_file: str = None) -> None:
             
             # Filter to only mixed relay races (Rel with gender code 'X' or mixed events)
             races_df = races_df[(races_df['Distance'] == 'Rel') & 
-                                ((races_df['Sex'] == 'X') | 
-                                 (races_df['Event'].str.contains('mixed', case=False, na=False)))]
+                                ((races_df['Sex'] == 'Mixed') | 
+                                 (races_df['Sex'].str.contains('mixed', case=False, na=False)))]
             print(f"Filtered to {len(races_df)} mixed relay races")
             
             # Find next race date
@@ -202,17 +202,35 @@ def get_mixed_relay_teams(url: str, fantasy_prices: Dict[str, Dict] = None) -> L
         # Track team numbers by nation
         nation_team_counts = {}
         
-        # Find all team rows (main rows)
-        team_rows = soup.select('.table-row_theme_main')
+        # Find all team rows (main rows) - these have class 'table-row_theme_main'
+        team_rows = soup.select('a.table-row.table-row_theme_main')
+        
+        print(f"Found {len(team_rows)} team rows")
         
         for team_row in team_rows:
-            team_name_elem = team_row.select_one('.g-lg-14.g-md-14.g-sm-11.g-xs-10')
-            if not team_name_elem:
+            # Get team rank
+            rank_elem = team_row.select_one('.g-lg-1.g-md-1.g-sm-1.g-xs-2.justify-right.bold')
+            if not rank_elem:
+                print("No rank element found, skipping row")
                 continue
-                
+            
+            team_rank = rank_elem.text.strip()
+            
+            # Get team name
+            team_name_elem = team_row.select_one('.g-lg-14.g-md-14.g-sm-11.g-xs-10.justify-left.bold')
+            if not team_name_elem:
+                print("No team name element found, skipping row")
+                continue
+            
+            team_name = team_name_elem.text.strip()
+            
             # Get nation code
             nation_elem = team_row.select_one('.country__name-short')
             nation = nation_elem.text.strip() if nation_elem else ""
+            
+            if not nation:
+                print(f"No nation found for team {team_name}, skipping")
+                continue
             
             # Update team counter for this nation
             if nation not in nation_team_counts:
@@ -223,51 +241,71 @@ def get_mixed_relay_teams(url: str, fantasy_prices: Dict[str, Dict] = None) -> L
             # Get team number for this nation
             team_number = nation_team_counts[nation]
             
+            # Get team time if available
+            team_time = ""
+            time_elem = team_row.select_one('.g-lg-2.g-md-2.justify-right.blue.bold.hidden-sm.hidden-xs')
+            if time_elem:
+                team_time = time_elem.text.strip()
+            
             team_data = {
-                'team_name': team_name_elem.text.strip(),
+                'team_name': team_name,
                 'nation': nation,
-                'team_rank': team_row.select_one('.g-lg-1.g-md-1.g-sm-1.g-xs-2.justify-right.bold').text.strip(),
-                'team_time': '',
-                'team_number': team_number,  # Add team number
+                'team_rank': team_rank,
+                'team_time': team_time,
+                'team_number': team_number,
                 'members': []
             }
             
-            # Get team time if available
-            time_elem = team_row.select_one('.g-lg-2.g-md-2.justify-right.blue.bold.hidden-sm.hidden-xs')
-            if time_elem:
-                team_data['team_time'] = time_elem.text.strip()
+            print(f"Processing team: {team_name} (Rank {team_rank}, Nation {nation})")
             
-            # Find the next athlete rows until the next team row
+            # Find all athlete rows that follow this team row
+            # Athlete rows have class 'table-row_theme_additional'
             current_element = team_row
+            athlete_count = 0
+            
             while True:
-                current_element = current_element.find_next_sibling()
-                if not current_element or 'table-row_theme_main' in current_element.get('class', []):
+                current_element = current_element.find_next_sibling('a')
+                if not current_element:
                     break
                 
-                if 'athlete-team-row' in current_element.select_one('.g-row').get('class', []):
-                    # This is an athlete row for the current team
-                    athlete_name_elem = current_element.select_one('.athlete-name')
-                    if athlete_name_elem:
+                # Check if this is an athlete row (additional theme) or next team row (main theme)
+                if 'table-row_theme_main' in current_element.get('class', []):
+                    # We've reached the next team, stop processing athletes
+                    break
+                
+                if 'table-row_theme_additional' in current_element.get('class', []):
+                    # This is an athlete row
+                    try:
+                        # Get athlete name
+                        athlete_name_elem = current_element.select_one('.g-lg-14.g-md-14.g-sm-11.g-xs-10.justify-left.bold')
+                        if not athlete_name_elem:
+                            print("No athlete name found in athlete row")
+                            continue
+                        
                         athlete_name = athlete_name_elem.text.strip()
-                        year_elem = current_element.select_one('.g-lg-1.g-md-1.g-sm-2.g-xs-3')
+                        
+                        # Get birth year
+                        year_elem = current_element.select_one('.g-lg-1.g-md-1.g-sm-2.g-xs-3.justify-left')
                         year = year_elem.text.strip() if year_elem else ''
                         
                         # Get athlete bib
                         bib_elem = current_element.select_one('.bib')
                         bib = bib_elem.text.strip() if bib_elem else ''
                         
-                        # For mixed relay, we need to determine gender
-                        # This is a bit tricky without explicit gender in the FIS data
-                        # We'll use the position in the team as a hint
-                        # Typically in mixed relay: positions 1/3 are men, 2/4 are women
+                        # Determine gender based on position in mixed relay
+                        # Typically: positions 1/3 are men, 2/4 are women
                         try:
-                            leg_position = int(bib.split('-')[1]) if '-' in bib else 0
-                            sex = 'M' if leg_position % 2 == 1 else 'F'  # Odd positions: men, Even positions: women
+                            if '-' in bib:
+                                leg_position = int(bib.split('-')[1])
+                                sex = 'M' if leg_position % 2 == 1 else 'F'  # Odd positions: men, Even: women
+                            else:
+                                # Fallback: alternate based on order
+                                sex = 'M' if athlete_count % 2 == 0 else 'F'
                         except (ValueError, IndexError):
-                            # If we can't parse the bib, make a guess based on position in team
-                            sex = 'M' if len(team_data['members']) % 2 == 0 else 'F'  # First and third: men, second and fourth: women
+                            # If we can't parse the bib, alternate based on order
+                            sex = 'M' if athlete_count % 2 == 0 else 'F'
                         
-                        # If we have fantasy prices, we could try to verify gender
+                        # If we have fantasy prices, try to verify gender
                         if fantasy_prices:
                             for athlete_id, athlete_data in fantasy_prices.items():
                                 if isinstance(athlete_data, dict) and athlete_data.get('name', '').lower() == athlete_name.lower():
@@ -277,22 +315,31 @@ def get_mixed_relay_teams(url: str, fantasy_prices: Dict[str, Dict] = None) -> L
                                     elif gender_code == 'f':
                                         sex = 'F'
                                     break
-                                    
+                        
                         team_data['members'].append({
                             'name': athlete_name,
-                            'nation': team_data['nation'],
+                            'nation': nation,
                             'year': year,
                             'bib': bib,
                             'sex': sex
                         })
+                        
+                        athlete_count += 1
+                        print(f"  Added athlete: {athlete_name} (bib: {bib}, sex: {sex})")
+                        
+                    except Exception as e:
+                        print(f"Error processing athlete row: {e}")
+                        continue
             
+            print(f"Team {team_name} has {len(team_data['members'])} members")
             teams.append(team_data)
         
-        print(f"Found {len(teams)} teams with {sum(len(team['members']) for team in teams)} athletes")
+        print(f"Found {len(teams)} teams with {sum(len(team['members']) for team in teams)} total athletes")
         return teams
         
     except Exception as e:
         print(f"Error getting mixed relay teams: {e}")
+        import traceback
         traceback.print_exc()
         return []
 

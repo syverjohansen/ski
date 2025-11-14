@@ -682,12 +682,12 @@ def main():
     
     # Process men's data
     logging.info("Processing men's historical data")
-    men_tables, men_results = process_year_range(1924, 2024, 'M')
+    men_tables, men_results = process_year_range(1924, 2025, 'M')
     men_df = construct_historical_df(men_tables, men_results, 'M')
     
     # Process ladies' data
     logging.info("Processing ladies' historical data")
-    ladies_tables, ladies_results = process_year_range(1924, 2024, 'L')
+    ladies_tables, ladies_results = process_year_range(1924, 2025, 'L')
     ladies_df = construct_historical_df(ladies_tables, ladies_results, 'L')
     
     # Save the data

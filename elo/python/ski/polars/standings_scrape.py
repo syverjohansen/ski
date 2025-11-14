@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 
 # Constants
 MEN_URL = "https://firstskisport.com/cross-country/ranking.php"
-WOMEN_URL = "https://firstskisport.com/cross-country/ranking.php?y=2025&hva=&g=w"
+WOMEN_URL = "https://firstskisport.com/cross-country/ranking.php?y=2026&hva=&g=w"
 OUTPUT_DIR = os.path.expanduser("~/ski/elo/python/ski/polars/excel365")
 MEN_OUTPUT = os.path.join(OUTPUT_DIR, "men_standings.csv")
 WOMEN_OUTPUT = os.path.join(OUTPUT_DIR, "ladies_standings.csv")

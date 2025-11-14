@@ -85,7 +85,10 @@ def process_race(link: List[Any], sex: str, metadata: Dict) -> Optional[Tuple]:
 
 def process_new_season(sex: str, metadata: Dict) -> Optional[pl.DataFrame]:
     """Process current season's races in parallel"""
-    current_year = 2025
+    now = datetime.now()
+    # Winter sports season starts in October, so if it's October or later, 
+    # we look for next calendar year's season
+    current_year = now.year + 1 if now.month >= 10 else now.year
     
     # Get current season links
     season_links = fetch_season_links(current_year, sex)
@@ -167,8 +170,19 @@ def merge_and_save(old_df: Optional[pl.DataFrame],
             old_df = old_df.with_columns([pl.col(col).cast(dtype) for col, dtype in type_mapping.items()])
             new_df = new_df.with_columns([pl.col(col).cast(dtype) for col, dtype in type_mapping.items()])
             
-            # Concatenate and sort
+            # Concatenate and remove duplicates
             final_df = pl.concat([old_df, new_df])
+            
+            # Remove duplicates based on key columns that uniquely identify a race result
+            # Use Date, City, Event, Distance, ID (skier), and Place to identify duplicates
+            before_dedup = len(final_df)
+            final_df = final_df.unique(subset=['Date', 'City', 'Event', 'Distance', 'ID', 'Place'])
+            after_dedup = len(final_df)
+            
+            if before_dedup > after_dedup:
+                logging.info(f"Removed {before_dedup - after_dedup} duplicate rows for {sex}")
+            
+            # Sort the final dataframe
             final_df = final_df.sort(['ID', 'Date'])
         
         # Save results

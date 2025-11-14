@@ -1,0 +1,304 @@
+INFO [2025-06-05 20:55:14] Starting race day predictions process
+INFO [2025-06-05 20:55:14] Reading weekends data
+INFO [2025-06-05 20:55:14] Current date: 2025-06-06
+INFO [2025-06-05 20:55:14] No races scheduled for today. Exiting.
+INFO [2025-06-05 20:55:38] Starting race day predictions process
+INFO [2025-06-05 20:55:38] Reading weekends data
+INFO [2025-06-05 20:55:38] Current date: 2025-06-06
+INFO [2025-06-05 20:55:38] No races scheduled for today. Exiting.
+INFO [2025-06-05 20:55:48] Starting race day predictions process
+INFO [2025-06-05 20:55:48] Reading weekends data
+INFO [2025-06-05 20:55:48] Current date: 2025-06-06
+INFO [2025-06-05 20:55:48] Found 2 races scheduled for today
+INFO [2025-06-05 20:55:48] Found 1 men's races and 1 ladies races for today
+INFO [2025-06-05 20:55:48] Reading startlists
+INFO [2025-06-05 20:55:48] Loaded 396 men and 265 ladies from startlists
+INFO [2025-06-05 20:55:48] Starting race day predictions workflow
+INFO [2025-06-05 20:55:48] Running race day predictions
+INFO [2025-06-05 20:55:48] Processing men's race day predictions
+INFO [2025-06-05 20:55:48] Processing men data
+INFO [2025-06-05 20:56:22] Starting race day predictions process
+INFO [2025-06-05 20:56:22] Reading weekends data
+INFO [2025-06-05 20:56:22] Current date: 2025-06-06
+INFO [2025-06-05 20:56:22] Found 2 races scheduled for today
+INFO [2025-06-05 20:56:22] Found 1 men's races and 1 ladies races for today
+INFO [2025-06-05 20:56:22] Reading startlists
+INFO [2025-06-05 20:56:22] Loaded 396 men and 265 ladies from startlists
+INFO [2025-06-05 20:56:22] Starting race day predictions workflow
+INFO [2025-06-05 20:56:22] Running race day predictions
+INFO [2025-06-05 20:56:22] Processing men's race day predictions
+INFO [2025-06-05 20:56:22] Processing men data
+INFO [2025-06-05 20:56:22] Using WORLD CUP points system for today's races
+INFO [2025-06-05 20:56:24] Processing men race 1: Sprint F
+INFO [2025-06-05 20:56:24] Using World Cup points for this race
+INFO [2025-06-05 20:56:25] Preparing startlist data for Sprint_F_Pelo_Pct
+INFO [2025-06-05 20:56:25] Available elo columns: Skier, Distance_Elo, Distance_C_Elo, Distance_F_Elo, Elo, Sprint_Elo, Sprint_C_Elo, Sprint_F_Elo, Freestyle_Elo, Classic_Elo
+INFO [2025-06-05 20:56:25] Creating missing Pelo Pct column: Distance_Pelo_Pct
+INFO [2025-06-05 20:56:25] Creating missing Pelo Pct column: Distance_C_Pelo_Pct
+INFO [2025-06-05 20:56:25] Creating missing Pelo Pct column: Distance_F_Pelo_Pct
+INFO [2025-06-05 20:56:25] Creating missing Pelo Pct column: Pelo_Pct
+INFO [2025-06-05 20:56:25] Creating missing Pelo Pct column: Sprint_Pelo_Pct
+INFO [2025-06-05 20:56:25] Creating missing Pelo Pct column: Sprint_C_Pelo_Pct
+INFO [2025-06-05 20:56:25] Creating missing Pelo Pct column: Sprint_F_Pelo_Pct
+INFO [2025-06-05 20:56:25] Creating missing Pelo Pct column: Freestyle_Pelo_Pct
+INFO [2025-06-05 20:56:25] Creating missing Pelo Pct column: Classic_Pelo_Pct
+INFO [2025-06-05 20:56:25] Calculated percentage for Distance_Elo
+INFO [2025-06-05 20:56:25] Calculated percentage for Distance_C_Elo
+INFO [2025-06-05 20:56:25] Calculated percentage for Distance_F_Elo
+INFO [2025-06-05 20:56:25] Calculated percentage for Elo
+INFO [2025-06-05 20:56:25] Calculated percentage for Sprint_Elo
+INFO [2025-06-05 20:56:25] Calculated percentage for Sprint_C_Elo
+INFO [2025-06-05 20:56:25] Calculated percentage for Sprint_F_Elo
+INFO [2025-06-05 20:56:25] Calculated percentage for Freestyle_Elo
+INFO [2025-06-05 20:56:25] Calculated percentage for Classic_Elo
+INFO [2025-06-05 20:56:25] Final columns in result_df: Skier, ID, Nation, Sex, Price, Distance_Elo, Distance_C_Elo, Distance_F_Elo, Elo, Sprint_Elo, Sprint_C_Elo, Sprint_F_Elo, Freestyle_Elo, Classic_Elo, Prev_Points_Weighted, Distance_Pelo_Pct, Distance_C_Pelo_Pct, Distance_F_Pelo_Pct, Pelo_Pct, Sprint_Pelo_Pct, Sprint_C_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Classic_Pelo_Pct, Distance_Elo_Pct, Distance_C_Elo_Pct, Distance_F_Elo_Pct, Elo_Pct, Sprint_Elo_Pct, Sprint_C_Elo_Pct, Sprint_F_Elo_Pct, Freestyle_Elo_Pct, Classic_Elo_Pct
+INFO [2025-06-05 20:56:25] Combining race predictions
+INFO [2025-06-05 20:56:25] Starting with first race data
+INFO [2025-06-05 20:56:25] Calculating totals
+INFO [2025-06-05 20:56:25] Returning final predictions
+INFO [2025-06-05 20:56:25] Final predictions calculated for men
+INFO [2025-06-05 20:56:25] Saved men race day predictions to /Users/syverjohansen/blog/daehl-e/content/post/cross-country/drafts/race-day-picks/20250606/men_race_day.xlsx
+INFO [2025-06-05 20:56:25] Processing ladies' race day predictions
+INFO [2025-06-05 20:56:25] Processing ladies data
+INFO [2025-06-05 20:56:25] Using WORLD CUP points system for today's races
+INFO [2025-06-05 20:56:27] Processing ladies race 1: Sprint F
+INFO [2025-06-05 20:56:27] Using World Cup points for this race
+INFO [2025-06-05 20:56:28] Preparing startlist data for Sprint_F_Pelo_Pct
+INFO [2025-06-05 20:56:28] Available elo columns: Skier, Distance_Elo, Distance_C_Elo, Distance_F_Elo, Elo, Sprint_Elo, Sprint_C_Elo, Sprint_F_Elo, Freestyle_Elo, Classic_Elo
+INFO [2025-06-05 20:56:28] Creating missing Pelo Pct column: Distance_Pelo_Pct
+INFO [2025-06-05 20:56:28] Creating missing Pelo Pct column: Distance_C_Pelo_Pct
+INFO [2025-06-05 20:56:28] Creating missing Pelo Pct column: Distance_F_Pelo_Pct
+INFO [2025-06-05 20:56:28] Creating missing Pelo Pct column: Pelo_Pct
+INFO [2025-06-05 20:56:28] Creating missing Pelo Pct column: Sprint_Pelo_Pct
+INFO [2025-06-05 20:56:28] Creating missing Pelo Pct column: Sprint_C_Pelo_Pct
+INFO [2025-06-05 20:56:28] Creating missing Pelo Pct column: Sprint_F_Pelo_Pct
+INFO [2025-06-05 20:56:28] Creating missing Pelo Pct column: Freestyle_Pelo_Pct
+INFO [2025-06-05 20:56:28] Creating missing Pelo Pct column: Classic_Pelo_Pct
+INFO [2025-06-05 20:56:28] Calculated percentage for Distance_Elo
+INFO [2025-06-05 20:56:28] Calculated percentage for Distance_C_Elo
+INFO [2025-06-05 20:56:28] Calculated percentage for Distance_F_Elo
+INFO [2025-06-05 20:56:28] Calculated percentage for Elo
+INFO [2025-06-05 20:56:28] Calculated percentage for Sprint_Elo
+INFO [2025-06-05 20:56:28] Calculated percentage for Sprint_C_Elo
+INFO [2025-06-05 20:56:28] Calculated percentage for Sprint_F_Elo
+INFO [2025-06-05 20:56:28] Calculated percentage for Freestyle_Elo
+INFO [2025-06-05 20:56:28] Calculated percentage for Classic_Elo
+INFO [2025-06-05 20:56:28] Final columns in result_df: Skier, ID, Nation, Sex, Price, Distance_Elo, Distance_C_Elo, Distance_F_Elo, Elo, Sprint_Elo, Sprint_C_Elo, Sprint_F_Elo, Freestyle_Elo, Classic_Elo, Prev_Points_Weighted, Distance_Pelo_Pct, Distance_C_Pelo_Pct, Distance_F_Pelo_Pct, Pelo_Pct, Sprint_Pelo_Pct, Sprint_C_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Classic_Pelo_Pct, Distance_Elo_Pct, Distance_C_Elo_Pct, Distance_F_Elo_Pct, Elo_Pct, Sprint_Elo_Pct, Sprint_C_Elo_Pct, Sprint_F_Elo_Pct, Freestyle_Elo_Pct, Classic_Elo_Pct
+INFO [2025-06-05 20:56:28] Combining race predictions
+INFO [2025-06-05 20:56:28] Starting with first race data
+INFO [2025-06-05 20:56:28] Calculating totals
+INFO [2025-06-05 20:56:28] Returning final predictions
+INFO [2025-06-05 20:56:28] Final predictions calculated for ladies
+INFO [2025-06-05 20:56:28] Saved ladies race day predictions to /Users/syverjohansen/blog/daehl-e/content/post/cross-country/drafts/race-day-picks/20250606/ladies_race_day.xlsx
+INFO [2025-06-05 20:56:28] Race day prediction workflow complete
+INFO [2025-06-05 20:56:28] Race day predictions complete
+INFO [2025-06-06 11:15:31] Starting race day predictions process
+INFO [2025-06-06 11:15:31] Reading weekends data
+INFO [2025-06-06 11:15:31] Current date: 2025-06-06
+INFO [2025-06-06 11:15:31] Found 2 races scheduled for today
+INFO [2025-06-06 11:15:31] Found 1 men's races and 1 ladies races for today
+INFO [2025-06-06 11:15:31] Reading startlists
+INFO [2025-06-06 11:15:31] Loaded 396 men and 265 ladies from startlists
+INFO [2025-06-06 11:15:31] Starting race day predictions workflow
+INFO [2025-06-06 11:15:31] Running race day predictions
+INFO [2025-06-06 11:15:31] Processing men's race day predictions
+INFO [2025-06-06 11:15:31] Processing men data
+INFO [2025-06-06 11:15:31] Using WORLD CUP points system for today's races
+INFO [2025-06-06 11:15:33] Processing men race 1: Sprint F
+INFO [2025-06-06 11:15:33] Using World Cup points for this race
+INFO [2025-06-06 11:15:34] Preparing startlist data for Sprint_F_Pelo_Pct
+INFO [2025-06-06 11:15:34] Available elo columns: Skier, Distance_Elo, Distance_C_Elo, Distance_F_Elo, Elo, Sprint_Elo, Sprint_C_Elo, Sprint_F_Elo, Freestyle_Elo, Classic_Elo
+INFO [2025-06-06 11:15:34] Creating missing Pelo Pct column: Distance_Pelo_Pct
+INFO [2025-06-06 11:15:34] Creating missing Pelo Pct column: Distance_C_Pelo_Pct
+INFO [2025-06-06 11:15:34] Creating missing Pelo Pct column: Distance_F_Pelo_Pct
+INFO [2025-06-06 11:15:34] Creating missing Pelo Pct column: Pelo_Pct
+INFO [2025-06-06 11:15:34] Creating missing Pelo Pct column: Sprint_Pelo_Pct
+INFO [2025-06-06 11:15:34] Creating missing Pelo Pct column: Sprint_C_Pelo_Pct
+INFO [2025-06-06 11:15:34] Creating missing Pelo Pct column: Sprint_F_Pelo_Pct
+INFO [2025-06-06 11:15:34] Creating missing Pelo Pct column: Freestyle_Pelo_Pct
+INFO [2025-06-06 11:15:34] Creating missing Pelo Pct column: Classic_Pelo_Pct
+INFO [2025-06-06 11:15:34] Calculated percentage for Distance_Elo
+INFO [2025-06-06 11:15:34] Calculated percentage for Distance_C_Elo
+INFO [2025-06-06 11:15:34] Calculated percentage for Distance_F_Elo
+INFO [2025-06-06 11:15:34] Calculated percentage for Elo
+INFO [2025-06-06 11:15:34] Calculated percentage for Sprint_Elo
+INFO [2025-06-06 11:15:34] Calculated percentage for Sprint_C_Elo
+INFO [2025-06-06 11:15:34] Calculated percentage for Sprint_F_Elo
+INFO [2025-06-06 11:15:34] Calculated percentage for Freestyle_Elo
+INFO [2025-06-06 11:15:34] Calculated percentage for Classic_Elo
+INFO [2025-06-06 11:15:34] Final columns in result_df: Skier, ID, Nation, Sex, Price, Distance_Elo, Distance_C_Elo, Distance_F_Elo, Elo, Sprint_Elo, Sprint_C_Elo, Sprint_F_Elo, Freestyle_Elo, Classic_Elo, Prev_Points_Weighted, Distance_Pelo_Pct, Distance_C_Pelo_Pct, Distance_F_Pelo_Pct, Pelo_Pct, Sprint_Pelo_Pct, Sprint_C_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Classic_Pelo_Pct, Distance_Elo_Pct, Distance_C_Elo_Pct, Distance_F_Elo_Pct, Elo_Pct, Sprint_Elo_Pct, Sprint_C_Elo_Pct, Sprint_F_Elo_Pct, Freestyle_Elo_Pct, Classic_Elo_Pct
+INFO [2025-06-06 11:15:35] Combining race predictions
+INFO [2025-06-06 11:15:35] Starting with first race data
+INFO [2025-06-06 11:15:35] Calculating totals
+INFO [2025-06-06 11:15:35] Returning final predictions
+INFO [2025-06-06 11:15:35] Final predictions calculated for men
+INFO [2025-06-06 11:15:35] Saved men race day predictions to /Users/syverjohansen/blog/daehl-e/content/post/cross-country/drafts/race-picks/20250606/men.xlsx
+INFO [2025-06-06 11:15:35] Processing ladies' race day predictions
+INFO [2025-06-06 11:15:35] Processing ladies data
+INFO [2025-06-06 11:15:35] Using WORLD CUP points system for today's races
+INFO [2025-06-06 11:15:36] Processing ladies race 1: Sprint F
+INFO [2025-06-06 11:15:36] Using World Cup points for this race
+INFO [2025-06-06 11:15:38] Preparing startlist data for Sprint_F_Pelo_Pct
+INFO [2025-06-06 11:15:38] Available elo columns: Skier, Distance_Elo, Distance_C_Elo, Distance_F_Elo, Elo, Sprint_Elo, Sprint_C_Elo, Sprint_F_Elo, Freestyle_Elo, Classic_Elo
+INFO [2025-06-06 11:15:38] Creating missing Pelo Pct column: Distance_Pelo_Pct
+INFO [2025-06-06 11:15:38] Creating missing Pelo Pct column: Distance_C_Pelo_Pct
+INFO [2025-06-06 11:15:38] Creating missing Pelo Pct column: Distance_F_Pelo_Pct
+INFO [2025-06-06 11:15:38] Creating missing Pelo Pct column: Pelo_Pct
+INFO [2025-06-06 11:15:38] Creating missing Pelo Pct column: Sprint_Pelo_Pct
+INFO [2025-06-06 11:15:38] Creating missing Pelo Pct column: Sprint_C_Pelo_Pct
+INFO [2025-06-06 11:15:38] Creating missing Pelo Pct column: Sprint_F_Pelo_Pct
+INFO [2025-06-06 11:15:38] Creating missing Pelo Pct column: Freestyle_Pelo_Pct
+INFO [2025-06-06 11:15:38] Creating missing Pelo Pct column: Classic_Pelo_Pct
+INFO [2025-06-06 11:15:38] Calculated percentage for Distance_Elo
+INFO [2025-06-06 11:15:38] Calculated percentage for Distance_C_Elo
+INFO [2025-06-06 11:15:38] Calculated percentage for Distance_F_Elo
+INFO [2025-06-06 11:15:38] Calculated percentage for Elo
+INFO [2025-06-06 11:15:38] Calculated percentage for Sprint_Elo
+INFO [2025-06-06 11:15:38] Calculated percentage for Sprint_C_Elo
+INFO [2025-06-06 11:15:38] Calculated percentage for Sprint_F_Elo
+INFO [2025-06-06 11:15:38] Calculated percentage for Freestyle_Elo
+INFO [2025-06-06 11:15:38] Calculated percentage for Classic_Elo
+INFO [2025-06-06 11:15:38] Final columns in result_df: Skier, ID, Nation, Sex, Price, Distance_Elo, Distance_C_Elo, Distance_F_Elo, Elo, Sprint_Elo, Sprint_C_Elo, Sprint_F_Elo, Freestyle_Elo, Classic_Elo, Prev_Points_Weighted, Distance_Pelo_Pct, Distance_C_Pelo_Pct, Distance_F_Pelo_Pct, Pelo_Pct, Sprint_Pelo_Pct, Sprint_C_Pelo_Pct, Sprint_F_Pelo_Pct, Freestyle_Pelo_Pct, Classic_Pelo_Pct, Distance_Elo_Pct, Distance_C_Elo_Pct, Distance_F_Elo_Pct, Elo_Pct, Sprint_Elo_Pct, Sprint_C_Elo_Pct, Sprint_F_Elo_Pct, Freestyle_Elo_Pct, Classic_Elo_Pct
+INFO [2025-06-06 11:15:38] Combining race predictions
+INFO [2025-06-06 11:15:38] Starting with first race data
+INFO [2025-06-06 11:15:38] Calculating totals
+INFO [2025-06-06 11:15:38] Returning final predictions
+INFO [2025-06-06 11:15:38] Final predictions calculated for ladies
+INFO [2025-06-06 11:15:38] Saved ladies race day predictions to /Users/syverjohansen/blog/daehl-e/content/post/cross-country/drafts/race-picks/20250606/ladies.xlsx
+INFO [2025-06-06 11:15:38] Race day prediction workflow complete
+INFO [2025-06-06 11:15:38] Race day predictions complete
+INFO [2025-06-06 11:53:00] Starting enhanced race day predictions process
+INFO [2025-06-06 11:53:00] Reading race data
+INFO [2025-06-06 11:53:00] Current date: 2025-06-06
+INFO [2025-06-06 11:53:00] Found 2 races scheduled for today
+INFO [2025-06-06 11:53:00] Found 1 men's races and 1 ladies races for today
+INFO [2025-06-06 11:53:00] Reading startlists
+INFO [2025-06-06 11:53:00] Loaded 396 men and 265 ladies from startlists
+INFO [2025-06-06 11:53:00] Starting enhanced race day predictions workflow
+INFO [2025-06-06 11:53:00] Running enhanced race day predictions workflow
+INFO [2025-06-06 11:53:00] Processing men's race day predictions
+INFO [2025-06-06 11:53:00] Processing men data
+INFO [2025-06-06 11:53:00] Using WORLD CUP points system for today's races
+INFO [2025-06-06 11:53:02] Processing men race 1: Sprint F
+INFO [2025-06-06 11:53:02] Using World Cup points for this race
+INFO [2025-06-06 11:53:03] Creating model for top 1 positions
+INFO [2025-06-06 11:53:04] Brier score for threshold 1 : 0.0066
+INFO [2025-06-06 11:53:05] Creating model for top 3 positions
+INFO [2025-06-06 11:53:07] Brier score for threshold 3 : 0.0235
+INFO [2025-06-06 11:53:08] Creating model for top 5 positions
+INFO [2025-06-06 11:53:10] Brier score for threshold 5 : 0.0371
+INFO [2025-06-06 11:53:11] Creating model for top 10 positions
+INFO [2025-06-06 11:53:13] Brier score for threshold 10 : 0.0669
+INFO [2025-06-06 11:53:14] Creating model for top 30 positions
+INFO [2025-06-06 11:53:16] Brier score for threshold 30 : 0.1244
+INFO [2025-06-06 11:53:17] Preparing startlist data for Sprint_F_Pelo_Pct
+INFO [2025-06-06 11:53:17] Creating missing Pelo Pct column: Distance_Pelo_Pct
+INFO [2025-06-06 11:53:17] Creating missing Pelo Pct column: Distance_C_Pelo_Pct
+INFO [2025-06-06 11:53:17] Creating missing Pelo Pct column: Distance_F_Pelo_Pct
+INFO [2025-06-06 11:53:17] Creating missing Pelo Pct column: Pelo_Pct
+INFO [2025-06-06 11:53:17] Creating missing Pelo Pct column: Sprint_Pelo_Pct
+INFO [2025-06-06 11:53:17] Creating missing Pelo Pct column: Sprint_C_Pelo_Pct
+INFO [2025-06-06 11:53:17] Creating missing Pelo Pct column: Sprint_F_Pelo_Pct
+INFO [2025-06-06 11:53:17] Creating missing Pelo Pct column: Freestyle_Pelo_Pct
+INFO [2025-06-06 11:53:17] Creating missing Pelo Pct column: Classic_Pelo_Pct
+INFO [2025-06-06 11:53:17] Calculated percentage for Distance_Elo
+INFO [2025-06-06 11:53:17] Calculated percentage for Distance_C_Elo
+INFO [2025-06-06 11:53:17] Calculated percentage for Distance_F_Elo
+INFO [2025-06-06 11:53:17] Calculated percentage for Elo
+INFO [2025-06-06 11:53:17] Calculated percentage for Sprint_Elo
+INFO [2025-06-06 11:53:17] Calculated percentage for Sprint_C_Elo
+INFO [2025-06-06 11:53:17] Calculated percentage for Sprint_F_Elo
+INFO [2025-06-06 11:53:17] Calculated percentage for Freestyle_Elo
+INFO [2025-06-06 11:53:17] Calculated percentage for Classic_Elo
+INFO [2025-06-06 11:53:17] Made predictions with adjustments for position threshold 1
+INFO [2025-06-06 11:53:17] Made predictions with adjustments for position threshold 3
+INFO [2025-06-06 11:53:17] Made predictions with adjustments for position threshold 5
+INFO [2025-06-06 11:53:17] Made predictions with adjustments for position threshold 10
+INFO [2025-06-06 11:53:17] Made predictions with adjustments for position threshold 30
+INFO [2025-06-06 11:53:17] Position probability sums BEFORE normalization:
+INFO [2025-06-06 11:53:17]   prob_top1: 134.60% (target: 100%)
+INFO [2025-06-06 11:53:17]   prob_top3: 364.80% (target: 300%)
+INFO [2025-06-06 11:53:17]   prob_top5: 583.00% (target: 500%)
+INFO [2025-06-06 11:53:17]   prob_top10: 1322.20% (target: 1000%)
+INFO [2025-06-06 11:53:17]   prob_top30: 4458.20% (target: 3000%)
+INFO [2025-06-06 11:53:17]   prob_top1 normalization: applied scaling factor of 0.7429
+INFO [2025-06-06 11:53:17]   prob_top3 normalization: applied scaling factor of 0.8224
+INFO [2025-06-06 11:53:17]   prob_top5 normalization: applied scaling factor of 0.8576
+INFO [2025-06-06 11:53:17]   prob_top10 normalization: applied scaling factor of 0.7563
+INFO [2025-06-06 11:53:17]   prob_top30 normalization: applied scaling factor of 0.6729
+INFO [2025-06-06 11:53:17] Position probability sums AFTER normalization:
+INFO [2025-06-06 11:53:17]   prob_top1: 100.00% (target: 100%)
+INFO [2025-06-06 11:53:17]   prob_top3: 300.00% (target: 300%)
+INFO [2025-06-06 11:53:17]   prob_top5: 500.00% (target: 500%)
+INFO [2025-06-06 11:53:17]   prob_top10: 1000.00% (target: 1000%)
+INFO [2025-06-06 11:53:17]   prob_top30: 3000.00% (target: 3000%)
+INFO [2025-06-06 11:53:17] Combining race predictions
+INFO [2025-06-06 11:53:17] Calculating totals
+INFO [2025-06-06 11:53:17] Final predictions calculated for men
+INFO [2025-06-06 11:53:18] Formatted position probabilities saved to /Users/syverjohansen/blog/daehl-e/content/post/cross-country/drafts/race-picks/20250606/men_position_probabilities.xlsx
+INFO [2025-06-06 11:53:18] Saved men race day predictions to /Users/syverjohansen/blog/daehl-e/content/post/cross-country/drafts/race-picks/20250606/men.xlsx
+INFO [2025-06-06 11:53:18] Processing ladies' race day predictions
+INFO [2025-06-06 11:53:18] Processing ladies data
+INFO [2025-06-06 11:53:18] Using WORLD CUP points system for today's races
+INFO [2025-06-06 11:53:19] Processing ladies race 1: Sprint F
+INFO [2025-06-06 11:53:19] Using World Cup points for this race
+INFO [2025-06-06 11:53:20] Creating model for top 1 positions
+INFO [2025-06-06 11:53:21] Brier score for threshold 1 : 0.0128
+INFO [2025-06-06 11:53:22] Creating model for top 3 positions
+INFO [2025-06-06 11:53:23] Brier score for threshold 3 : 0.0289
+INFO [2025-06-06 11:53:24] Creating model for top 5 positions
+INFO [2025-06-06 11:53:25] Brier score for threshold 5 : 0.0465
+INFO [2025-06-06 11:53:26] Creating model for top 10 positions
+INFO [2025-06-06 11:53:27] Brier score for threshold 10 : 0.0794
+INFO [2025-06-06 11:53:28] Creating model for top 30 positions
+INFO [2025-06-06 11:53:29] Brier score for threshold 30 : 0.1236
+INFO [2025-06-06 11:53:30] Preparing startlist data for Sprint_F_Pelo_Pct
+INFO [2025-06-06 11:53:30] Creating missing Pelo Pct column: Distance_Pelo_Pct
+INFO [2025-06-06 11:53:30] Creating missing Pelo Pct column: Distance_C_Pelo_Pct
+INFO [2025-06-06 11:53:30] Creating missing Pelo Pct column: Distance_F_Pelo_Pct
+INFO [2025-06-06 11:53:30] Creating missing Pelo Pct column: Pelo_Pct
+INFO [2025-06-06 11:53:30] Creating missing Pelo Pct column: Sprint_Pelo_Pct
+INFO [2025-06-06 11:53:30] Creating missing Pelo Pct column: Sprint_C_Pelo_Pct
+INFO [2025-06-06 11:53:30] Creating missing Pelo Pct column: Sprint_F_Pelo_Pct
+INFO [2025-06-06 11:53:30] Creating missing Pelo Pct column: Freestyle_Pelo_Pct
+INFO [2025-06-06 11:53:30] Creating missing Pelo Pct column: Classic_Pelo_Pct
+INFO [2025-06-06 11:53:30] Calculated percentage for Distance_Elo
+INFO [2025-06-06 11:53:30] Calculated percentage for Distance_C_Elo
+INFO [2025-06-06 11:53:30] Calculated percentage for Distance_F_Elo
+INFO [2025-06-06 11:53:30] Calculated percentage for Elo
+INFO [2025-06-06 11:53:30] Calculated percentage for Sprint_Elo
+INFO [2025-06-06 11:53:30] Calculated percentage for Sprint_C_Elo
+INFO [2025-06-06 11:53:30] Calculated percentage for Sprint_F_Elo
+INFO [2025-06-06 11:53:30] Calculated percentage for Freestyle_Elo
+INFO [2025-06-06 11:53:30] Calculated percentage for Classic_Elo
+INFO [2025-06-06 11:53:30] Made predictions with adjustments for position threshold 1
+INFO [2025-06-06 11:53:30] Made predictions with adjustments for position threshold 3
+INFO [2025-06-06 11:53:30] Made predictions with adjustments for position threshold 5
+INFO [2025-06-06 11:53:30] Made predictions with adjustments for position threshold 10
+INFO [2025-06-06 11:53:30] Made predictions with adjustments for position threshold 30
+INFO [2025-06-06 11:53:30] Position probability sums BEFORE normalization:
+INFO [2025-06-06 11:53:30]   prob_top1: 75.00% (target: 100%)
+INFO [2025-06-06 11:53:30]   prob_top3: 317.40% (target: 300%)
+INFO [2025-06-06 11:53:30]   prob_top5: 558.20% (target: 500%)
+INFO [2025-06-06 11:53:30]   prob_top10: 1253.60% (target: 1000%)
+INFO [2025-06-06 11:53:30]   prob_top30: 4528.30% (target: 3000%)
+INFO [2025-06-06 11:53:30]   prob_top1 normalization: applied scaling factor of 1.3333
+INFO [2025-06-06 11:53:30]   prob_top3 normalization: applied scaling factor of 0.9452
+INFO [2025-06-06 11:53:30]   prob_top5 normalization: applied scaling factor of 0.8957
+INFO [2025-06-06 11:53:30]   prob_top10 normalization: applied scaling factor of 0.7977
+INFO [2025-06-06 11:53:30]   prob_top30 normalization: applied scaling factor of 0.6625
+INFO [2025-06-06 11:53:30] Position probability sums AFTER normalization:
+INFO [2025-06-06 11:53:30]   prob_top1: 100.00% (target: 100%)
+INFO [2025-06-06 11:53:30]   prob_top3: 300.00% (target: 300%)
+INFO [2025-06-06 11:53:30]   prob_top5: 500.00% (target: 500%)
+INFO [2025-06-06 11:53:30]   prob_top10: 1000.00% (target: 1000%)
+INFO [2025-06-06 11:53:30]   prob_top30: 3000.00% (target: 3000%)
+INFO [2025-06-06 11:53:30] Combining race predictions
+INFO [2025-06-06 11:53:30] Calculating totals
+INFO [2025-06-06 11:53:30] Final predictions calculated for ladies
+INFO [2025-06-06 11:53:30] Formatted position probabilities saved to /Users/syverjohansen/blog/daehl-e/content/post/cross-country/drafts/race-picks/20250606/ladies_position_probabilities.xlsx
+INFO [2025-06-06 11:53:30] Saved ladies race day predictions to /Users/syverjohansen/blog/daehl-e/content/post/cross-country/drafts/race-picks/20250606/ladies.xlsx
+INFO [2025-06-06 11:53:30] Creating top contenders summary
+INFO [2025-06-06 11:53:30] Top contenders summary saved to /Users/syverjohansen/blog/daehl-e/content/post/cross-country/drafts/race-picks/20250606/top_contenders.xlsx
+INFO [2025-06-06 11:53:30] Enhanced race day prediction workflow complete
+INFO [2025-06-06 11:53:30] Enhanced race day predictions complete

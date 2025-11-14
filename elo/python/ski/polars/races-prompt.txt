@@ -1,0 +1,441 @@
+﻿Let’s actually try a different approach.  I’ll tell you the workflow of how it should be scraped and then let’s have a conversation to make sure we’re on the same page before you write any code.  To begin, we will be using two URLs from the FIS site.  These URLs have the World Cup races for the season as well as the Olympic races for the season.  
+
+https://www.fis-ski.com/DB/cross-country/calendar-results.html?eventselection=&place=&sectorcode=CC&seasoncode=2026&categorycode=WC&disciplinecode=&gendercode=&racedate=&racecodex=&nationcode=&seasonmonth=X-2026&saveselection=-1&seasonselection= this is for the World Cup
+
+https://www.fis-ski.com/DB/cross-country/calendar-results.html?eventselection=&place=&sectorcode=CC&seasoncode=2026&categorycode=OWG&disciplinecode=&gendercode=&racedate=&racecodex=&nationcode=&seasonmonth=X-2026&saveselection=-1&seasonselection= this is for the Olympics
+
+These page have a list of all the race weekends for the given event type.  Here is an excerpt from the page v>
+                                        <div class="table__body iscrollwrapper" data-module-iscroll-height="60vh">
+                                            <div class="tbody" id="calendardata" name="calendardata">
+            <div class="table-row reset-padding" data-navstart="28" data-navend="30" data-navmonth="11" id="58060">
+            <div class="container pr-xs-0">
+                <div class="g-row">
+                    <a class="pr-1 g-lg-1 g-md-1 g-sm-2 hidden-xs justify-left"  href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58060&seasoncode=2026" target="_self">
+                        <div class="status">
+                            <div class="status__inner">
+                                <div class="status__item-wrapper">
+                                    <span class="status__item" title="No results available">D</span>
+                                    <span class="status__item status__item_selected" title="PDF available">P</span>
+                                </div>
+                                <div class="status__item-wrapper">
+                                    <span class="status__item" title="No changes">C</span>
+                                    <span class="status__item" title="Not cancelled">C</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                
+                    <a class="pl-1 pl-sm-0 px-xs-0 g-lg-4 g-md-4 g-sm-3 g-xs-5 justify-left" href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58060&seasoncode=2026" target="_self">28-30 Nov 2025</a>
+                    <a class="g-xs-12 justify-left flex-xs-wrap hidden-sm-up" href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58060&seasoncode=2026" target="_self">
+                        <div class="g-xs-24 justify-left"><span class="bold clip-xs">Ruka</span></div>
+                        <div class="g-xs-24 justify-xs-left"><span class="gray clip">WC • SPWQ</span></div>
+                        <div class="g-xs-24 justify-xs-left"><span class="gray clip">2x10k 2x30k 4xSP</span></div>
+                    </a>
+                    <a class="g-sm-7 justify-left hidden-xs hidden-md-up" href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58060&seasoncode=2026" target="_self">
+                        <div class="split-row split-row">
+                            <div class="split-row__item">
+                                <div class="clip bold font_md_large">Ruka</div>
+                            </div>
+                                                    </div>
+                    </a>
+                    <a class="g-lg-7 g-md-7 hidden-sm-down"  href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58060&seasoncode=2026" target="_self">
+                        <div class="g-lg-18 g-md-18 justify-left">
+                            <div class="split-row split-row">
+                                <div class="split-row__item">
+                                    <div class="clip bold font_md_large font_lg_large">Ruka</div>
+                                </div>
+
+                                                    </div>
+                        </div>
+                        <div class="pr-md-1 g-lg-6 g-md-6 justify-center justify-md-right">
+                        </div>
+                    </a>
+                    <a class="px-xs-0 g-lg-2 g-md-2 g-sm-2 g-xs-4 justify-left" href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58060&seasoncode=2026" target="_self">
+                        <div class="country country_flag">
+                            <span class="country__flag">
+                                <span class="flag flag-FIN"></span>
+                            </span>
+                            <span class="country__name-short">FIN</span>
+                        </div>
+                    </a>
+                    <a class="g-lg-1 g-md-1 hidden-sm-down" href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58060&seasoncode=2026" target="_self">CC</a>  
+                    <a class="g-lg-7 g-md-7 g-sm-6 hidden-xs justify-left" href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58060&seasoncode=2026" target="_self">
+                        <div class="split-row split-row_bordered">
+                            <div class="split-row__item">
+                                <div class="clip">WC • SPWQ</div>
+                            </div>
+                            <div class="split-row__item">
+                                <div class="clip">2x10k 2x30k 4xSP</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="pl-xs-0_6 pr-xs-0 g-sm-2 g-xs-3 justify-sm-center hidden-md-up bold" href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58060&seasoncode=2026" target="_self">
+                        <div class="split-row">
+                            <div class="split-row__item">
+                                <div class="g-xs-24 justify-center">CC</div>
+                            </div>
+                            <div class="split-row__item">
+                                <div class="gender">
+                                    <div class="gender__inner">
+                                        <div class="gender__item gender__item_l">W</div>
+                                        <div class="gender__item gender__item_m">M</div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="g-lg-1 g-md-1 g-sm-2 hidden-sm-down bold" href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58060&seasoncode=2026" target="_self">
+                        <div class="gender">
+                            <div class="gender__inner">
+                                <div class="gender__item gender__item_l">W</div>
+                                <div class="gender__item gender__item_m">M</div>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="pl-1 g-lg-1 g-md-1 g-sm-2 hidden-xs open-modal" onclick="fct_set_calendar_download('https://data.fis-ski.com/services/public/icalendar-feed-fis-events.html?seasoncode=2026&sectorcode=CC&eventid=58060','webcal://data.fis-ski.com/services/public/icalendar-feed-fis-events.html?seasoncode=2026&sectorcode=CC&eventid=58060')">
+                        <span class="icon icon_size_large icon_color_pale-gray icon_pointer icon_calendar">
+                            <svg>
+                            <use xlink:href="https://www.fis-ski.com/DB/cross-country/calendar-results.html?eventselection=&place=&sectorcode=CC&seasoncode=2026&categorycode=WC&disciplinecode=&gendercode=&racedate=&racecodex=&nationcode=&seasonmonth=X-2026&saveselection=-1&seasonselection=#calendar"></use>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+                <div class="table-row reset-padding" data-navstart="5" data-navend="7" data-navmonth="12" id="58061">
+            <div class="container pr-xs-0">
+                <div class="g-row">
+                    <a class="pr-1 g-lg-1 g-md-1 g-sm-2 hidden-xs justify-left"  href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58061&seasoncode=2026" target="_self">
+                        <div class="status">
+                            <div class="status__inner">
+                                <div class="status__item-wrapper">
+                                    <span class="status__item" title="No results available">D</span>
+                                    <span class="status__item status__item_selected" title="PDF available">P</span>
+                                </div>
+                                <div class="status__item-wrapper">
+                                    <span class="status__item" title="No changes">C</span>
+                                    <span class="status__item" title="Not cancelled">C</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                
+                    <a class="pl-1 pl-sm-0 px-xs-0 g-lg-4 g-md-4 g-sm-3 g-xs-5 justify-left" href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58061&seasoncode=2026" target="_self">05-07 Dec 2025</a>
+                    <a class="g-xs-12 justify-left flex-xs-wrap hidden-sm-up" href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58061&seasoncode=2026" target="_self">
+                        <div class="g-xs-24 justify-left"><span class="bold clip-xs">Trondheim</span></div>
+                        <div class="g-xs-24 justify-xs-left"><span class="gray clip">WC • SPWQ</span></div>
+                        <div class="g-xs-24 justify-xs-left"><span class="gray clip">2x10k 2xSkt 4xSP</span></div>
+                    </a>
+                    <a class="g-sm-7 justify-left hidden-xs hidden-md-up" href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58061&seasoncode=2026" target="_self">
+                        <div class="split-row split-row">
+                            <div class="split-row__item">
+                                <div class="clip bold font_md_large">Trondheim</div>
+                            </div>
+                                                    </div>
+                    </a>
+                    <a class="g-lg-7 g-md-7 hidden-sm-down"  href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58061&seasoncode=2026" target="_self">
+                        <div class="g-lg-18 g-md-18 justify-left">
+                            <div class="split-row split-row">
+                                <div class="split-row__item">
+                                    <div class="clip bold font_md_large font_lg_large">Trondheim</div>
+                                </div>
+
+                                                    </div>
+                        </div>
+                        <div class="pr-md-1 g-lg-6 g-md-6 justify-center justify-md-right">
+                        </div>
+                    </a>
+                    <a class="px-xs-0 g-lg-2 g-md-2 g-sm-2 g-xs-4 justify-left" href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58061&seasoncode=2026" target="_self">
+                        <div class="country country_flag">
+                            <span class="country__flag">
+                                <span class="flag flag-NOR"></span>
+                            </span>
+                            <span class="country__name-short">NOR</span>
+                        </div>
+                    </a>
+                    <a class="g-lg-1 g-md-1 hidden-sm-down" href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58061&seasoncode=2026" target="_self">CC</a>  
+                    <a class="g-lg-7 g-md-7 g-sm-6 hidden-xs justify-left" href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58061&seasoncode=2026" target="_self">
+                        <div class="split-row split-row_bordered">
+                            <div class="split-row__item">
+                                <div class="clip">WC • SPWQ</div>
+                            </div>
+                            <div class="split-row__item">
+                                <div class="clip">2x10k 2xSkt 4xSP</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="pl-xs-0_6 pr-xs-0 g-sm-2 g-xs-3 justify-sm-center hidden-md-up bold" href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58061&seasoncode=2026" target="_self">
+                        <div class="split-row">
+                            <div class="split-row__item">
+                                <div class="g-xs-24 justify-center">CC</div>
+                            </div>
+                            <div class="split-row__item">
+                                <div class="gender">
+                                    <div class="gender__inner">
+                                        <div class="gender__item gender__item_l">W</div>
+                                        <div class="gender__item gender__item_m">M</div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="g-lg-1 g-md-1 g-sm-2 hidden-sm-down bold" href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58061&seasoncode=2026" target="_self">
+                        <div class="gender">
+                            <div class="gender__inner">
+                                <div class="gender__item gender__item_l">W</div>
+                                <div class="gender__item gender__item_m">M</div>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="pl-1 g-lg-1 g-md-1 g-sm-2 hidden-xs open-modal" onclick="fct_set_calendar_download('https://data.fis-ski.com/services/public/icalendar-feed-fis-events.html?seasoncode=2026&sectorcode=CC&eventid=58061','webcal://data.fis-ski.com/services/public/icalendar-feed-fis-events.html?seasoncode=2026&sectorcode=CC&eventid=58061')">
+                        <span class="icon icon_size_large icon_color_pale-gray icon_pointer icon_calendar">
+                            <svg>
+                            <use xlink:href="https://www.fis-ski.com/DB/cross-country/calendar-results.html?eventselection=&place=&sectorcode=CC&seasoncode=2026&categorycode=WC&disciplinecode=&gendercode=&racedate=&racecodex=&nationcode=&seasonmonth=X-2026&saveselection=-1&seasonselection=#calendar"></use>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+                <div class="table-row reset-padding" data-navstart="12" data-navend="14" data-navmonth="12" id="58062">
+            <div class="container pr-xs-0">
+                <div class="g-row">
+                    <a class="pr-1 g-lg-1 g-md-1 g-sm-2 hidden-xs justify-left"  href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58062&seasoncode=2026" target="_self">
+                        <div class="status">
+                            <div class="status__inner">
+                                <div class="status__item-wrapper">
+                                    <span class="status__item" title="No results available">D</span>
+                                    <span class="status__item status__item_selected" title="PDF available">P</span>
+                                </div>
+                                <div class="status__item-wrapper">
+                                    <span class="status__item" title="No changes">C</span>
+                                    <span class="status__item" title="Not cancelled">C</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                
+                    <a class="pl-1 pl-sm-0 px-xs-0 g-lg-4 g-md-4 g-sm-3 g-xs-5 justify-left" href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58062&seasoncode=2026" target="_self">12-14 Dec 2025</a>
+                    <a class="g-xs-12 justify-left flex-xs-wrap hidden-sm-up" href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58062&seasoncode=2026" target="_self">
+                        <div class="g-xs-24 justify-left"><span class="bold clip-xs">Davos</span></div>
+                        <div class="g-xs-24 justify-xs-left"><span class="gray clip">WC • TSPQ • SPWQ</span></div>
+                        <div class="g-xs-24 justify-xs-left"><span class="gray clip">2x10k 2x12TSPQ 2xTsp TSPQ SP</span></div>
+                    </a>
+                    <a class="g-sm-7 justify-left hidden-xs hidden-md-up" href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58062&seasoncode=2026" target="_self">
+                        <div class="split-row split-row">
+                            <div class="split-row__item">
+                                <div class="clip bold font_md_large">Davos</div>
+                            </div>
+                                                    </div>
+                    </a>
+                    <a class="g-lg-7 g-md-7 hidden-sm-down"  href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58062&seasoncode=2026" target="_self">
+                        <div class="g-lg-18 g-md-18 justify-left">
+                            <div class="split-row split-row">
+                                <div class="split-row__item">
+                                    <div class="clip bold font_md_large font_lg_large">Davos</div>
+                                </div>
+
+                                                    </div>
+                        </div>
+                        <div class="pr-md-1 g-lg-6 g-md-6 justify-center justify-md-right">
+                        </div>
+                    </a>
+                    <a class="px-xs-0 g-lg-2 g-md-2 g-sm-2 g-xs-4 justify-left" href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58062&seasoncode=2026" target="_self">
+                        <div class="country country_flag">
+                            <span class="country__flag">
+                                <span class="flag flag-SUI"></span>
+                            </span>
+                            <span class="country__name-short">SUI</span>
+                        </div>
+                    </a>
+                    <a class="g-lg-1 g-md-1 hidden-sm-down" href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58062&seasoncode=2026" target="_self">CC</a>  
+                    <a class="g-lg-7 g-md-7 g-sm-6 hidden-xs justify-left" href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58062&seasoncode=2026" target="_self">
+                        <div class="split-row split-row_bordered">
+                            <div class="split-row__item">
+                                <div class="clip">WC • TSPQ • SPWQ</div>
+                            </div>
+                            <div class="split-row__item">
+                                <div class="clip">2x10k 2x12TSPQ 2xTsp TSPQ SP</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="pl-xs-0_6 pr-xs-0 g-sm-2 g-xs-3 justify-sm-center hidden-md-up bold" href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58062&seasoncode=2026" target="_self">
+                        <div class="split-row">
+                            <div class="split-row__item">
+                                <div class="g-xs-24 justify-center">CC</div>
+                            </div>
+                            <div class="split-row__item">
+                                <div class="gender">
+                                    <div class="gender__inner">
+                                        <div class="gender__item gender__item_l">W</div>
+                                        <div class="gender__item gender__item_m">M</div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="g-lg-1 g-md-1 g-sm-2 hidden-sm-down bold" href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58062&seasoncode=2026" target="_self">
+                        <div class="gender">
+                            <div class="gender__inner">
+                                <div class="gender__item gender__item_l">W</div>
+                                <div class="gender__item gender__item_m">M</div>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="pl-1 g-lg-1 g-md-1 g-sm-2 hidden-xs open-modal" onclick="fct_set_calendar_download('https://data.fis-ski.com/services/public/icalendar-feed-fis-events.html?seasoncode=2026&sectorcode=CC&eventid=58062','webcal://data.fis-ski.com/services/public/icalendar-feed-fis-events.html?seasoncode=2026&sectorcode=CC&eventid=58062')">
+                        <span class="icon icon_size_large icon_color_pale-gray icon_pointer icon_calendar">
+                            <svg>
+                            <use xlink:href="https://www.fis-ski.com/DB/cross-country/calendar-results.html?eventselection=&place=&sectorcode=CC&seasoncode=2026&categorycode=WC&disciplinecode=&gendercode=&racedate=&racecodex=&nationcode=&seasonmonth=X-2026&saveselection=-1&seasonselection=#calendar"></use>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<a class="pl-1 pl-sm-0 px-xs-0 g-lg-4 g-md-4 g-sm-3 g-xs-5 justify-left" href="https://www.fis-ski.com/DB/general/event-details.html?sectorcode=CC&eventid=58060&seasoncode=2026" target="_self">28-30 Nov 2025</a> has a the link to a weekend.  The scraper should iterate through the weekends and do the following.
+
+1) Go to the weekend’s URL
+2) Go through each race, here is /div><div class="table__body" id="eventdetailscontent">
+                <div class="table-row reset-padding ">
+                <div class="container g-row px-sm-1 px-xs-0">
+                    <div class="g-lg-22 g-md-22 g-sm-21 g-xs-24">
+                        <div class="g-row">
+                            <a class="g-lg-1 g-md-1 g-sm-2 hidden-sm-down justify-left" href="https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49463"
+                               target="_self">
+                                <div class="status">
+                                    <div class="status__inner">
+                                        <div class="status__item-wrapper">
+                                            <span class="status__item"
+                                                  title="No results available">D</span>
+                                            <span class="status__item"
+                                                  title="No PDF available">P</span>
+                                        </div>
+                                        <div class="status__item-wrapper">
+                                            <span class="status__item"
+                                                  title="No changes">C</span>
+                                            <span class="status__item"
+                                                  title="Not cancelled">C</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="g-lg-2 g-md-3 g-sm-2 g-xs-4 px-md-1 px-lg-1 pl-xs-1 justify-left"
+                               href="https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49463" target="_self">
+                                <div class="split-row">
+                                    <div class="split-row__item split-row__item_text_medium reset-padding">
+                                        <div class="g-xs-24 justify-left">
+                                            <div class="timezone-date"
+     data-date="2025-11-28"
+     data-time=""
+     data-timezone="Europe/Helsinki"
+     data-iso-date=""
+     data-date-format="DD MMM"
+     data-formatted-date="28 Nov"
+>
+    28 Nov</div>                                        </div>
+                                    </div>
+
+                                                                    </div>
+                            </a>
+                                                            <a class="g-lg-2 g-md-2 g-sm-3 g-xs-4 justify-center" href="https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49463"
+                                   target="_self">2204</a>
+                                
+                            <a class="g-lg-5 g-md-6 justify-left hidden-sm-down" href="https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49463"
+                               target="_self">
+                                <div class="split-row">
+                                    <div class="split-row__item split-row__item_text_medium">
+                                        <div class="g-xs-24 justify-left">
+                                            <div class="clip">
+                                                10km Interval Start Classic                                            </div>
+                                        </div>
+                                    </div>
+                                                                    </div>
+                            </a>
+                            <a class="g-sm-8 g-xs-9 hidden-md-up" href="https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49463" target="_self">
+                                <div class="split-row split-row_bordered">
+                                    <div class="split-row__item">
+                                        <div class="g-xs-24 justify-left">
+                                            <div class="clip">
+                                                10km Interval C                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="split-row__item">
+                                        <div class="g-row">
+                                            <div class="g-xs-12 justify-left">WC</div>
+                                            <div class="g-xs-12 justify-right bold">
+                                                <div class="gender">
+                                                    <div class="gender__inner">
+                                                        <div class="gender__item gender__item_m">M</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="g-lg-2 g-xs-2 justify-center hidden-sm-down" href="https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49463"
+                               target="_self">WC</a>
+                            <a class="g-lg-1 g-md-1 justify-center hidden-sm-down bold"
+                               href="https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49463"
+                               target="_self">
+                                <div class="gender">
+                                    <div class="gender__inner">
+                                        <div class="gender__item gender__item_m">M</div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="g-lg-8 g-md-6 g-sm-6 hidden-xs" href="https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49463" target="_self">
+                                                                <div class="split-row split-row_bordered">
+                                                                            <div class="split-row__item split-row__item_text_medium">
+                                                                                            <div class="g-row">
+                                                    <div class="g-xs-24 justify-left gray">
+                                                        TCM: 27.11.2025, 18:00 (LOC) at Team Captains meeting Cross Country – press centre</div>
+                                                </div>
+                                                                                    </div>
+                                                                        
+                                </div>
+                            </a>
+                                                        <a class="hidden-xs px-1 g-lg-3 g-md-3 g-sm-4 g-xs-4 justify-left"
+                               href="https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49463" target="_self">
+                                                            </a>
+                            <a class="hidden-sm-up g-xs-6 justify-left"
+                               href="https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49463" target="_self">
+                                <div class="split-row">
+                                    <div class="split-row__item">
+                                        <div class="g-row">
+                                            <div class="g-xs-24 justify-left"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="g-lg-2 g-md-2 g-sm-3 hidden-xs justify-md-center justify-sm-left">
+                        <div class="g-row"> 
+Here is an excerpt of the source code and I’ll explain what can be gathered.  
+3) Gather date (data-date="2025-11-28") and reformat it to MM/DD/YYYY format
+4) Gather startlist URL from here <a class="g-lg-2 g-md-2 g-sm-3 g-xs-4 justify-center" href="https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49463"
+5) Gather Sex.  <div class="gender">
+                                                    <div class="gender__inner">
+                                                        <div class="gender__item gender__item_m">M</div>
+If it is M, sex should be M.  If it is W, sex should be L.  If it is A, sex should be Mixed.
+6) Gather city.  <h1 class="heading heading_l2 heading_off-sm-style heading_plain event-header__name">Ruka (FIN)</h1> can be gathered from here where the city would be Ruka
+7) Gather country.  (FIN) would be Finland.
+8) Gather Distance.  <div class="split-row__item split-row__item_text_medium">
+                                        <div class="g-xs-24 justify-left">
+                                            <div class="clip">
+                                                10km Interval Start Classic  
+This has the distance.  If it starts with 4x, the distance should be Rel.  If it starts with “Team Sprint Qualification”, the distance should be Ts.  If it starts with “Sprint Qualification” the distance should be Sprint.  If it contains “Sprint” in it, but does not have “Qualification”, then the whole row should be tagged for deletion (since the finals do not have a startlist in them, only the qualification).  Else if the first word (split by “ “) has km in it, then you take the part before the km and that is the distance.  Example being 10km becomes 10.  Else leave it empty
+9) For technique if distance is Rel, then leave technique as N/A.   Else if it has Skiathlon in it, technique is P.  If it has Classic in it it is C, if it has Free in it it is F.  Anything else leave blank
+10) For MS, if it has Mass Start or Skiathlon in it, it is 1.  Otherwise it is 0.
+11) For period, if it is before Christmas it is 1.  If it is between Christmas and January 7th it is 2.  If it is after January 7th and before the Olympics it is 3.  If it at the Olympics it is 4.  If it is after the Olympics it is 5.
+12) For pursuit, if the distance string has Pursuit in it, it is 1.  Otherwise it is 0.
+13) For Stage, If it is in period 2, Stage will be 1, otherwise it will be 0.
+14) For Final_Climb, if the City is Val di Fiemme and the Period is 2, MS is 1, and technique is F, and the distance is a number >5, then Final_Climb is 1.  Otherwise it is 0.
+15) For Championship, if it is at the Olympics or World Ski Championships it is 1.  Otherwise 0.
+16) For Elevation, reference excel365/elevation.csv and fuzzy match City from races.csv with City from elevation.csv.  Then take the value from the Elevation column and input it into the races.csv.
+17) For Race, it should be the number race of the season for that gender.  So the csv should be ordered by date first and then sex.  Then if grouped by gender it should be ordered 1...n for that gender.

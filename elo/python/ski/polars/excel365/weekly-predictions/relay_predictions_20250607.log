@@ -1,0 +1,1994 @@
+INFO [2025-06-07 20:05:40] Starting relay predictions process
+INFO [2025-06-07 20:05:40] Loading weekend race data
+INFO [2025-06-07 20:05:40] Tomorrow's date: 2025-06-08
+INFO [2025-06-07 20:05:40] Found 1 men's relay races and 1 ladies' relay races
+INFO [2025-06-07 20:05:40] Loading chrono data
+INFO [2025-06-07 20:05:43] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-06-07 20:05:43] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-06-07 20:05:43] Created men's relay df with 9688 rows
+INFO [2025-06-07 20:05:43] Created men's individual df with 92143 rows
+INFO [2025-06-07 20:05:43] Created ladies' relay df with 8019 rows
+INFO [2025-06-07 20:05:43] Created ladies' individual df with 68253 rows
+INFO [2025-06-07 20:05:46] Training models for Leg 1
+INFO [2025-06-07 20:05:46] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:05:46] Training podium model using glm
+INFO [2025-06-07 20:05:46] Training win model using glm
+INFO [2025-06-07 20:05:46] Training top5 model using glm
+INFO [2025-06-07 20:05:46] Training top10 model using glm
+INFO [2025-06-07 20:05:46] Top features for Leg 1 podium prediction:
+INFO [2025-06-07 20:05:46] Training models for Leg 2
+INFO [2025-06-07 20:05:46] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:05:46] Training podium model using glm
+INFO [2025-06-07 20:05:46] Training win model using glm
+INFO [2025-06-07 20:05:46] Training top5 model using glm
+INFO [2025-06-07 20:05:46] Training top10 model using glm
+INFO [2025-06-07 20:05:46] Top features for Leg 2 podium prediction:
+INFO [2025-06-07 20:05:46] Training models for Leg 3
+INFO [2025-06-07 20:05:46] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:05:46] Training podium model using glm
+INFO [2025-06-07 20:05:46] Training win model using glm
+INFO [2025-06-07 20:05:47] Training top5 model using glm
+INFO [2025-06-07 20:05:47] Training top10 model using glm
+INFO [2025-06-07 20:05:47] Top features for Leg 3 podium prediction:
+INFO [2025-06-07 20:05:47] Training models for Leg 4
+INFO [2025-06-07 20:05:47] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:05:47] Training podium model using glm
+INFO [2025-06-07 20:05:47] Training win model using glm
+INFO [2025-06-07 20:05:47] Training top5 model using glm
+INFO [2025-06-07 20:05:47] Training top10 model using glm
+INFO [2025-06-07 20:05:47] Top features for Leg 4 podium prediction:
+INFO [2025-06-07 20:05:47] Training models for Leg 1
+INFO [2025-06-07 20:05:47] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:05:47] Training podium model using glm
+INFO [2025-06-07 20:05:47] Training win model using glm
+INFO [2025-06-07 20:05:47] Training top5 model using glm
+INFO [2025-06-07 20:05:47] Training top10 model using glm
+INFO [2025-06-07 20:05:47] Top features for Leg 1 podium prediction:
+INFO [2025-06-07 20:05:47] Training models for Leg 2
+INFO [2025-06-07 20:05:47] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:05:47] Training podium model using glm
+INFO [2025-06-07 20:05:47] Training win model using glm
+INFO [2025-06-07 20:05:47] Training top5 model using glm
+INFO [2025-06-07 20:05:47] Training top10 model using glm
+INFO [2025-06-07 20:05:47] Top features for Leg 2 podium prediction:
+INFO [2025-06-07 20:05:47] Training models for Leg 3
+INFO [2025-06-07 20:05:47] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:05:47] Training podium model using glm
+INFO [2025-06-07 20:05:47] Training win model using glm
+INFO [2025-06-07 20:05:47] Training top5 model using glm
+INFO [2025-06-07 20:05:47] Training top10 model using glm
+INFO [2025-06-07 20:05:47] Top features for Leg 3 podium prediction:
+INFO [2025-06-07 20:05:47] Training models for Leg 4
+INFO [2025-06-07 20:05:47] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:05:47] Training podium model using glm
+INFO [2025-06-07 20:05:47] Training win model using glm
+INFO [2025-06-07 20:05:48] Training top5 model using glm
+INFO [2025-06-07 20:05:48] Training top10 model using glm
+INFO [2025-06-07 20:05:48] Top features for Leg 4 podium prediction:
+INFO [2025-06-07 20:05:48] Processing men's relay predictions
+INFO [2025-06-07 20:05:48] Loaded men relay teams startlist with 24 rows
+INFO [2025-06-07 20:05:48] Loaded men relay individuals startlist with 96 rows
+INFO [2025-06-07 20:05:48] Preparing current men skier data
+INFO [2025-06-07 20:05:48] Found 9 Elo columns for current skiers
+INFO [2025-06-07 20:05:48] Replaced NAs in Distance_Elo with first quartile: 1207.23243912712
+INFO [2025-06-07 20:05:48] Replaced NAs in Distance_C_Elo with first quartile: 1233.40200699225
+INFO [2025-06-07 20:05:48] Replaced NAs in Distance_F_Elo with first quartile: 1236.48554062178
+INFO [2025-06-07 20:05:48] Replaced NAs in Sprint_Elo with first quartile: 1223.60107000698
+INFO [2025-06-07 20:05:48] Replaced NAs in Sprint_C_Elo with first quartile: 1241.28715500947
+INFO [2025-06-07 20:05:48] Replaced NAs in Sprint_F_Elo with first quartile: 1234.45151108772
+INFO [2025-06-07 20:05:48] Replaced NAs in Classic_Elo with first quartile: 1241.52867310024
+INFO [2025-06-07 20:05:48] Replaced NAs in Freestyle_Elo with first quartile: 1228.48649348109
+INFO [2025-06-07 20:05:48] Replaced NAs in Distance_Pelo with first quartile: 1211.63035979047
+INFO [2025-06-07 20:05:48] Replaced NAs in Distance_C_Pelo with first quartile: 1234.81091928129
+INFO [2025-06-07 20:05:48] Replaced NAs in Distance_F_Pelo with first quartile: 1239.65331180248
+INFO [2025-06-07 20:05:48] Replaced NAs in Sprint_Pelo with first quartile: 1240.94751821383
+INFO [2025-06-07 20:05:48] Replaced NAs in Sprint_C_Pelo with first quartile: 1241.28715500947
+INFO [2025-06-07 20:05:48] Replaced NAs in Sprint_F_Pelo with first quartile: 1252.45166310493
+INFO [2025-06-07 20:05:48] Replaced NAs in Classic_Pelo with first quartile: 1243.63746068082
+INFO [2025-06-07 20:05:48] Replaced NAs in Freestyle_Pelo with first quartile: 1249.30280713791
+INFO [2025-06-07 20:05:48] Replaced NAs in Classic_Last_5 with first quartile: 0
+INFO [2025-06-07 20:05:48] Replaced NAs in Freestyle_Last_5 with first quartile: 0
+INFO [2025-06-07 20:05:48] Created Pelo_Pct from Elo with max value: 1946.6211651574
+INFO [2025-06-07 20:05:48] Created Distance_Pelo_Pct from Distance_Elo with max value: 1869.1251911742
+INFO [2025-06-07 20:05:48] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1777.16297253153
+INFO [2025-06-07 20:05:48] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1695.2053212904
+INFO [2025-06-07 20:05:48] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1886.80363942481
+INFO [2025-06-07 20:05:48] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.08486899169
+INFO [2025-06-07 20:05:48] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1792.65157560707
+INFO [2025-06-07 20:05:48] Created Classic_Pelo_Pct from Classic_Elo with max value: 1807.56773496777
+INFO [2025-06-07 20:05:48] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1814.60460629541
+INFO [2025-06-07 20:05:48] Prepared data for 381 men skiers with 33 features
+INFO [2025-06-07 20:05:48] Using FIS startlist for men's leg predictions
+INFO [2025-06-07 20:05:48] Using FIS startlist for men
+INFO [2025-06-07 20:05:48] Attempting Option 1: Team model coefficients
+INFO [2025-06-07 20:05:48] Option 1 failed: No team_podium model found
+INFO [2025-06-07 20:05:48] Option 1 failed: No team model
+INFO [2025-06-07 20:05:48] Attempting Option 2: Individual model accuracy
+INFO [2025-06-07 20:05:48] Leg 1 accuracy: 0.858022598870056
+INFO [2025-06-07 20:05:48] Leg 2 accuracy: 0.851468926553672
+INFO [2025-06-07 20:05:48] Leg 3 accuracy: 0.864385349698032
+INFO [2025-06-07 20:05:48] Leg 4 accuracy: 0.887706993960647
+INFO [2025-06-07 20:05:48] Option 2 succeeded: Using model accuracy weights
+INFO [2025-06-07 20:05:48] Leg importance weights: Leg 1: 0.25, Leg 2: 0.25, Leg 3: 0.25, Leg 4: 0.26
+INFO [2025-06-07 20:05:48] Processing ladies's relay predictions
+INFO [2025-06-07 20:05:48] Loaded ladies relay teams startlist with 20 rows
+INFO [2025-06-07 20:05:48] Loaded ladies relay individuals startlist with 80 rows
+INFO [2025-06-07 20:05:48] Preparing current ladies skier data
+INFO [2025-06-07 20:05:48] Found 9 Elo columns for current skiers
+INFO [2025-06-07 20:05:48] Replaced NAs in Distance_Elo with first quartile: 1237.38564383256
+INFO [2025-06-07 20:05:48] Replaced NAs in Distance_C_Elo with first quartile: 1243.87329106944
+INFO [2025-06-07 20:05:48] Replaced NAs in Distance_F_Elo with first quartile: 1256.69628195708
+INFO [2025-06-07 20:05:48] Replaced NAs in Sprint_Elo with first quartile: 1246.32574824425
+INFO [2025-06-07 20:05:48] Replaced NAs in Sprint_C_Elo with first quartile: 1257.67866787334
+INFO [2025-06-07 20:05:48] Replaced NAs in Sprint_F_Elo with first quartile: 1244.84742904868
+INFO [2025-06-07 20:05:48] Replaced NAs in Classic_Elo with first quartile: 1252.44868703669
+INFO [2025-06-07 20:05:48] Replaced NAs in Freestyle_Elo with first quartile: 1244.44508230281
+INFO [2025-06-07 20:05:48] Replaced NAs in Distance_Pelo with first quartile: 1241.11854419952
+INFO [2025-06-07 20:05:48] Replaced NAs in Distance_C_Pelo with first quartile: 1245.57367555166
+INFO [2025-06-07 20:05:48] Replaced NAs in Distance_F_Pelo with first quartile: 1259.54282973153
+INFO [2025-06-07 20:05:48] Replaced NAs in Sprint_Pelo with first quartile: 1254.59410960767
+INFO [2025-06-07 20:05:48] Replaced NAs in Sprint_C_Pelo with first quartile: 1257.58302026178
+INFO [2025-06-07 20:05:48] Replaced NAs in Sprint_F_Pelo with first quartile: 1257.67755691493
+INFO [2025-06-07 20:05:48] Replaced NAs in Classic_Pelo with first quartile: 1256.79275004544
+INFO [2025-06-07 20:05:48] Replaced NAs in Freestyle_Pelo with first quartile: 1256.79999900008
+INFO [2025-06-07 20:05:48] Replaced NAs in Classic_Last_5 with first quartile: 3.5
+INFO [2025-06-07 20:05:48] Replaced NAs in Freestyle_Last_5 with first quartile: 2.4
+INFO [2025-06-07 20:05:48] Created Pelo_Pct from Elo with max value: 1840.99747242401
+INFO [2025-06-07 20:05:48] Created Distance_Pelo_Pct from Distance_Elo with max value: 1889.46974050597
+INFO [2025-06-07 20:05:48] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1763.33572074398
+INFO [2025-06-07 20:05:48] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1693.85026290322
+INFO [2025-06-07 20:05:48] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1742.75320156525
+INFO [2025-06-07 20:05:48] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1601.58469902127
+INFO [2025-06-07 20:05:48] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1681.09824552997
+INFO [2025-06-07 20:05:48] Created Classic_Pelo_Pct from Classic_Elo with max value: 1698.68768563646
+INFO [2025-06-07 20:05:48] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1707.58410982918
+INFO [2025-06-07 20:05:48] Prepared data for 255 ladies skiers with 33 features
+INFO [2025-06-07 20:05:48] Using FIS startlist for ladies's leg predictions
+INFO [2025-06-07 20:05:48] Using FIS startlist for ladies
+INFO [2025-06-07 20:05:48] Attempting Option 1: Team model coefficients
+INFO [2025-06-07 20:05:48] Option 1 failed: No team_podium model found
+INFO [2025-06-07 20:05:48] Option 1 failed: No team model
+INFO [2025-06-07 20:05:48] Attempting Option 2: Individual model accuracy
+INFO [2025-06-07 20:05:48] Leg 1 accuracy: 0.767948717948718
+INFO [2025-06-07 20:05:48] Leg 2 accuracy: 0.85
+INFO [2025-06-07 20:05:48] Leg 3 accuracy: 0.802564102564103
+INFO [2025-06-07 20:05:48] Leg 4 accuracy: 0.795454545454546
+INFO [2025-06-07 20:05:48] Option 2 succeeded: Using model accuracy weights
+INFO [2025-06-07 20:05:48] Leg importance weights: Leg 1: 0.24, Leg 2: 0.26, Leg 3: 0.25, Leg 4: 0.25
+INFO [2025-06-07 20:05:48] Resetting men's probabilities at or below the mode to zero
+INFO [2025-06-07 20:05:48] No values appear more than twice for Win_Prob
+INFO [2025-06-07 20:05:48] No values appear more than twice for Podium_Prob
+INFO [2025-06-07 20:05:48] No values appear more than twice for Top5_Prob
+INFO [2025-06-07 20:05:48] No values appear more than twice for Top10_Prob
+INFO [2025-06-07 20:05:48] Resetting ladies' probabilities at or below the mode to zero
+INFO [2025-06-07 20:05:48] No values appear more than twice for Win_Prob
+INFO [2025-06-07 20:05:48] No values appear more than twice for Podium_Prob
+INFO [2025-06-07 20:05:48] No values appear more than twice for Top5_Prob
+INFO [2025-06-07 20:05:48] No values appear more than twice for Top10_Prob
+INFO [2025-06-07 20:05:48] Normalizing men's team probabilities
+INFO [2025-06-07 20:05:48] Normalized Win_Prob from sum of 0.72 to 1
+INFO [2025-06-07 20:05:48] Normalized Podium_Prob from sum of 2.34 to 3
+INFO [2025-06-07 20:05:48] Normalized Top5_Prob from sum of 4.2 to 5
+INFO [2025-06-07 20:05:48] Normalized Top10_Prob from sum of 10.33 to 10
+INFO [2025-06-07 20:05:48] Capped 1 values at 1 for Podium_Prob
+INFO [2025-06-07 20:05:48] Capped 1 values at 1 for Top5_Prob
+INFO [2025-06-07 20:05:48] Normalizing ladies' team probabilities
+INFO [2025-06-07 20:05:48] Normalized Win_Prob from sum of 1.12 to 1
+INFO [2025-06-07 20:05:48] Normalized Podium_Prob from sum of 3.26 to 3
+INFO [2025-06-07 20:05:48] Normalized Top5_Prob from sum of 4.5 to 5
+INFO [2025-06-07 20:05:48] Normalized Top10_Prob from sum of 9.35 to 10
+INFO [2025-06-07 20:05:48] Capped 2 values at 1 for Top5_Prob
+INFO [2025-06-07 20:05:48] Capped 5 values at 1 for Top10_Prob
+INFO [2025-06-07 20:05:48] Final capping of probabilities to maximum of 1
+INFO [2025-06-07 20:05:48] Capped 1 values at 1 for Podium_Prob
+INFO [2025-06-07 20:05:48] Capped 1 values at 1 for Top5_Prob
+INFO [2025-06-07 20:05:48] Capped 2 values at 1 for Top5_Prob
+INFO [2025-06-07 20:05:48] Capped 5 values at 1 for Top10_Prob
+INFO [2025-06-07 20:05:48] Optimizing fantasy relay team
+INFO [2025-06-07 20:05:48] Fantasy team optimization complete. Selected 12 teams.
+INFO [2025-06-07 20:05:48] Total price: 99826 of max 1e+05
+INFO [2025-06-07 20:05:48] Expected total points: 815
+INFO [2025-06-07 20:05:48] Men's teams: 6 ( 6 )
+INFO [2025-06-07 20:05:48] Ladies' teams: 6 ( 6 )
+INFO [2025-06-07 20:05:48] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/men_relay.xlsx
+INFO [2025-06-07 20:05:48] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/men_relay_position_probabilities.xlsx
+INFO [2025-06-07 20:05:48] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/ladies_relay.xlsx
+INFO [2025-06-07 20:05:48] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/ladies_relay_position_probabilities.xlsx
+INFO [2025-06-07 20:05:48] Saved fantasy team results to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/fantasy_relay_team.xlsx
+INFO [2025-06-07 20:05:48] Relay predictions completed successfully
+INFO [2025-06-07 20:35:23] Starting relay predictions process
+INFO [2025-06-07 20:35:24] Loading weekend race data
+INFO [2025-06-07 20:35:24] Tomorrow's date: 2025-06-08
+INFO [2025-06-07 20:35:24] Found 1 men's relay races and 1 ladies' relay races
+INFO [2025-06-07 20:35:24] Loading chrono data
+INFO [2025-06-07 20:35:26] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-06-07 20:35:26] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-06-07 20:35:26] Created men's relay df with 9688 rows
+INFO [2025-06-07 20:35:26] Created men's individual df with 92143 rows
+INFO [2025-06-07 20:35:26] Created ladies' relay df with 8019 rows
+INFO [2025-06-07 20:35:26] Created ladies' individual df with 68253 rows
+INFO [2025-06-07 20:35:29] Training models for Leg 1
+INFO [2025-06-07 20:35:29] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:35:29] Training podium model using glm
+INFO [2025-06-07 20:35:29] Training win model using glm
+INFO [2025-06-07 20:35:29] Training top5 model using glm
+INFO [2025-06-07 20:35:29] Training top10 model using glm
+INFO [2025-06-07 20:35:30] Top features for Leg 1 podium prediction:
+INFO [2025-06-07 20:35:30] Training models for Leg 2
+INFO [2025-06-07 20:35:30] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:35:30] Training podium model using glm
+INFO [2025-06-07 20:35:30] Training win model using glm
+INFO [2025-06-07 20:35:30] Training top5 model using glm
+INFO [2025-06-07 20:35:30] Training top10 model using glm
+INFO [2025-06-07 20:35:30] Top features for Leg 2 podium prediction:
+INFO [2025-06-07 20:35:30] Training models for Leg 3
+INFO [2025-06-07 20:35:30] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:35:30] Training podium model using glm
+INFO [2025-06-07 20:35:30] Training win model using glm
+INFO [2025-06-07 20:35:30] Training top5 model using glm
+INFO [2025-06-07 20:35:30] Training top10 model using glm
+INFO [2025-06-07 20:35:30] Top features for Leg 3 podium prediction:
+INFO [2025-06-07 20:35:30] Training models for Leg 4
+INFO [2025-06-07 20:35:30] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:35:30] Training podium model using glm
+INFO [2025-06-07 20:35:30] Training win model using glm
+INFO [2025-06-07 20:35:30] Training top5 model using glm
+INFO [2025-06-07 20:35:30] Training top10 model using glm
+INFO [2025-06-07 20:35:30] Top features for Leg 4 podium prediction:
+INFO [2025-06-07 20:35:30] Training models for Leg 1
+INFO [2025-06-07 20:35:30] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:35:30] Training podium model using glm
+INFO [2025-06-07 20:35:30] Training win model using glm
+INFO [2025-06-07 20:35:30] Training top5 model using glm
+INFO [2025-06-07 20:35:30] Training top10 model using glm
+INFO [2025-06-07 20:35:30] Top features for Leg 1 podium prediction:
+INFO [2025-06-07 20:35:30] Training models for Leg 2
+INFO [2025-06-07 20:35:30] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:35:30] Training podium model using glm
+INFO [2025-06-07 20:35:30] Training win model using glm
+INFO [2025-06-07 20:35:30] Training top5 model using glm
+INFO [2025-06-07 20:35:31] Training top10 model using glm
+INFO [2025-06-07 20:35:31] Top features for Leg 2 podium prediction:
+INFO [2025-06-07 20:35:31] Training models for Leg 3
+INFO [2025-06-07 20:35:31] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:35:31] Training podium model using glm
+INFO [2025-06-07 20:35:31] Training win model using glm
+INFO [2025-06-07 20:35:31] Training top5 model using glm
+INFO [2025-06-07 20:35:31] Training top10 model using glm
+INFO [2025-06-07 20:35:31] Top features for Leg 3 podium prediction:
+INFO [2025-06-07 20:35:31] Training models for Leg 4
+INFO [2025-06-07 20:35:31] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:35:31] Training podium model using glm
+INFO [2025-06-07 20:35:31] Training win model using glm
+INFO [2025-06-07 20:35:31] Training top5 model using glm
+INFO [2025-06-07 20:35:31] Training top10 model using glm
+INFO [2025-06-07 20:35:31] Top features for Leg 4 podium prediction:
+INFO [2025-06-07 20:35:31] Processing men's relay predictions
+INFO [2025-06-07 20:35:31] Loaded men relay teams startlist with 24 rows
+INFO [2025-06-07 20:35:31] Loaded men relay individuals startlist with 96 rows
+INFO [2025-06-07 20:35:31] Preparing current men skier data
+INFO [2025-06-07 20:35:31] Found 9 Elo columns for current skiers
+INFO [2025-06-07 20:35:31] Replaced NAs in Distance_Elo with first quartile: 1207.23243912712
+INFO [2025-06-07 20:35:31] Replaced NAs in Distance_C_Elo with first quartile: 1233.40200699225
+INFO [2025-06-07 20:35:31] Replaced NAs in Distance_F_Elo with first quartile: 1236.48554062178
+INFO [2025-06-07 20:35:31] Replaced NAs in Sprint_Elo with first quartile: 1223.60107000698
+INFO [2025-06-07 20:35:31] Replaced NAs in Sprint_C_Elo with first quartile: 1241.28715500947
+INFO [2025-06-07 20:35:31] Replaced NAs in Sprint_F_Elo with first quartile: 1234.45151108772
+INFO [2025-06-07 20:35:31] Replaced NAs in Classic_Elo with first quartile: 1241.52867310024
+INFO [2025-06-07 20:35:31] Replaced NAs in Freestyle_Elo with first quartile: 1228.48649348109
+INFO [2025-06-07 20:35:31] Replaced NAs in Distance_Pelo with first quartile: 1211.63035979047
+INFO [2025-06-07 20:35:31] Replaced NAs in Distance_C_Pelo with first quartile: 1234.81091928129
+INFO [2025-06-07 20:35:31] Replaced NAs in Distance_F_Pelo with first quartile: 1239.65331180248
+INFO [2025-06-07 20:35:31] Replaced NAs in Sprint_Pelo with first quartile: 1240.94751821383
+INFO [2025-06-07 20:35:31] Replaced NAs in Sprint_C_Pelo with first quartile: 1241.28715500947
+INFO [2025-06-07 20:35:31] Replaced NAs in Sprint_F_Pelo with first quartile: 1252.45166310493
+INFO [2025-06-07 20:35:31] Replaced NAs in Classic_Pelo with first quartile: 1243.63746068082
+INFO [2025-06-07 20:35:31] Replaced NAs in Freestyle_Pelo with first quartile: 1249.30280713791
+INFO [2025-06-07 20:35:31] Replaced NAs in Classic_Last_5 with first quartile: 0
+INFO [2025-06-07 20:35:31] Replaced NAs in Freestyle_Last_5 with first quartile: 0
+INFO [2025-06-07 20:35:31] Created Pelo_Pct from Elo with max value: 1946.6211651574
+INFO [2025-06-07 20:35:31] Created Distance_Pelo_Pct from Distance_Elo with max value: 1869.1251911742
+INFO [2025-06-07 20:35:31] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1777.16297253153
+INFO [2025-06-07 20:35:31] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1695.2053212904
+INFO [2025-06-07 20:35:31] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1886.80363942481
+INFO [2025-06-07 20:35:31] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.08486899169
+INFO [2025-06-07 20:35:31] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1792.65157560707
+INFO [2025-06-07 20:35:31] Created Classic_Pelo_Pct from Classic_Elo with max value: 1807.56773496777
+INFO [2025-06-07 20:35:31] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1814.60460629541
+INFO [2025-06-07 20:35:31] Prepared data for 381 men skiers with 33 features
+INFO [2025-06-07 20:35:31] Using FIS startlist for men's leg predictions
+INFO [2025-06-07 20:35:31] Using FIS startlist for men
+INFO [2025-06-07 20:35:31] Attempting Option 1: Team model coefficients
+INFO [2025-06-07 20:35:31] Option 1 failed: No team_podium model found
+INFO [2025-06-07 20:35:31] Option 1 failed: No team model
+INFO [2025-06-07 20:35:31] Attempting Option 2: Individual model accuracy
+INFO [2025-06-07 20:35:31] Leg 1 accuracy: 0.858174556789402
+INFO [2025-06-07 20:35:31] Leg 2 accuracy: 0.851412429378531
+INFO [2025-06-07 20:35:31] Leg 3 accuracy: 0.867547243327489
+INFO [2025-06-07 20:35:31] Leg 4 accuracy: 0.888135593220339
+INFO [2025-06-07 20:35:31] Option 2 succeeded: Using model accuracy weights
+INFO [2025-06-07 20:35:31] Leg importance weights: Leg 1: 0.25, Leg 2: 0.25, Leg 3: 0.25, Leg 4: 0.26
+INFO [2025-06-07 20:35:31] Processing ladies's relay predictions
+INFO [2025-06-07 20:35:31] Loaded ladies relay teams startlist with 20 rows
+INFO [2025-06-07 20:35:31] Loaded ladies relay individuals startlist with 80 rows
+INFO [2025-06-07 20:35:31] Preparing current ladies skier data
+INFO [2025-06-07 20:35:31] Found 9 Elo columns for current skiers
+INFO [2025-06-07 20:35:31] Replaced NAs in Distance_Elo with first quartile: 1237.38564383256
+INFO [2025-06-07 20:35:31] Replaced NAs in Distance_C_Elo with first quartile: 1243.87329106944
+INFO [2025-06-07 20:35:31] Replaced NAs in Distance_F_Elo with first quartile: 1256.69628195708
+INFO [2025-06-07 20:35:31] Replaced NAs in Sprint_Elo with first quartile: 1246.32574824425
+INFO [2025-06-07 20:35:31] Replaced NAs in Sprint_C_Elo with first quartile: 1257.67866787334
+INFO [2025-06-07 20:35:31] Replaced NAs in Sprint_F_Elo with first quartile: 1244.84742904868
+INFO [2025-06-07 20:35:31] Replaced NAs in Classic_Elo with first quartile: 1252.44868703669
+INFO [2025-06-07 20:35:31] Replaced NAs in Freestyle_Elo with first quartile: 1244.44508230281
+INFO [2025-06-07 20:35:31] Replaced NAs in Distance_Pelo with first quartile: 1241.11854419952
+INFO [2025-06-07 20:35:31] Replaced NAs in Distance_C_Pelo with first quartile: 1245.57367555166
+INFO [2025-06-07 20:35:31] Replaced NAs in Distance_F_Pelo with first quartile: 1259.54282973153
+INFO [2025-06-07 20:35:31] Replaced NAs in Sprint_Pelo with first quartile: 1254.59410960767
+INFO [2025-06-07 20:35:31] Replaced NAs in Sprint_C_Pelo with first quartile: 1257.58302026178
+INFO [2025-06-07 20:35:31] Replaced NAs in Sprint_F_Pelo with first quartile: 1257.67755691493
+INFO [2025-06-07 20:35:31] Replaced NAs in Classic_Pelo with first quartile: 1256.79275004544
+INFO [2025-06-07 20:35:31] Replaced NAs in Freestyle_Pelo with first quartile: 1256.79999900008
+INFO [2025-06-07 20:35:31] Replaced NAs in Classic_Last_5 with first quartile: 3.5
+INFO [2025-06-07 20:35:31] Replaced NAs in Freestyle_Last_5 with first quartile: 2.4
+INFO [2025-06-07 20:35:31] Created Pelo_Pct from Elo with max value: 1840.99747242401
+INFO [2025-06-07 20:35:31] Created Distance_Pelo_Pct from Distance_Elo with max value: 1889.46974050597
+INFO [2025-06-07 20:35:31] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1763.33572074398
+INFO [2025-06-07 20:35:31] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1693.85026290322
+INFO [2025-06-07 20:35:31] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1742.75320156525
+INFO [2025-06-07 20:35:31] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1601.58469902127
+INFO [2025-06-07 20:35:31] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1681.09824552997
+INFO [2025-06-07 20:35:31] Created Classic_Pelo_Pct from Classic_Elo with max value: 1698.68768563646
+INFO [2025-06-07 20:35:31] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1707.58410982918
+INFO [2025-06-07 20:35:31] Prepared data for 255 ladies skiers with 33 features
+INFO [2025-06-07 20:35:31] Using FIS startlist for ladies's leg predictions
+INFO [2025-06-07 20:35:31] Using FIS startlist for ladies
+INFO [2025-06-07 20:35:31] Attempting Option 1: Team model coefficients
+INFO [2025-06-07 20:35:31] Option 1 failed: No team_podium model found
+INFO [2025-06-07 20:35:31] Option 1 failed: No team model
+INFO [2025-06-07 20:35:31] Attempting Option 2: Individual model accuracy
+INFO [2025-06-07 20:35:31] Leg 1 accuracy: 0.803846153846154
+INFO [2025-06-07 20:35:31] Leg 2 accuracy: 0.816666666666667
+INFO [2025-06-07 20:35:31] Leg 3 accuracy: 0.838461538461538
+INFO [2025-06-07 20:35:31] Leg 4 accuracy: 0.777272727272727
+INFO [2025-06-07 20:35:31] Option 2 succeeded: Using model accuracy weights
+INFO [2025-06-07 20:35:31] Leg importance weights: Leg 1: 0.25, Leg 2: 0.25, Leg 3: 0.26, Leg 4: 0.24
+INFO [2025-06-07 20:35:31] Resetting men's probabilities at or below the mode to zero
+INFO [2025-06-07 20:35:31] No values appear more than twice for Win_Prob
+INFO [2025-06-07 20:35:31] No values appear more than twice for Podium_Prob
+INFO [2025-06-07 20:35:31] No values appear more than twice for Top5_Prob
+INFO [2025-06-07 20:35:31] No values appear more than twice for Top10_Prob
+INFO [2025-06-07 20:35:31] Resetting ladies' probabilities at or below the mode to zero
+INFO [2025-06-07 20:35:31] Reset 3 values to 0 for Win_Prob (repeated values or values <  0 )
+INFO [2025-06-07 20:35:31] Repeated values: 0
+INFO [2025-06-07 20:35:31] No values appear more than twice for Podium_Prob
+INFO [2025-06-07 20:35:31] No values appear more than twice for Top5_Prob
+INFO [2025-06-07 20:35:31] No values appear more than twice for Top10_Prob
+INFO [2025-06-07 20:35:31] Normalizing men's team probabilities
+INFO [2025-06-07 20:35:31] Normalized Win_Prob from sum of 0.72 to 1
+INFO [2025-06-07 20:35:31] Normalized Podium_Prob from sum of 2.34 to 3
+INFO [2025-06-07 20:35:31] Normalized Top5_Prob from sum of 4.2 to 5
+INFO [2025-06-07 20:35:31] Normalized Top10_Prob from sum of 10.33 to 10
+INFO [2025-06-07 20:35:31] Capped 1 values at 1 for Podium_Prob
+INFO [2025-06-07 20:35:31] Capped 1 values at 1 for Top5_Prob
+INFO [2025-06-07 20:35:31] Normalizing ladies' team probabilities
+INFO [2025-06-07 20:35:31] Normalized Win_Prob from sum of 1.12 to 1
+INFO [2025-06-07 20:35:31] Normalized Podium_Prob from sum of 3.26 to 3
+INFO [2025-06-07 20:35:31] Normalized Top5_Prob from sum of 4.5 to 5
+INFO [2025-06-07 20:35:31] Normalized Top10_Prob from sum of 9.38 to 10
+INFO [2025-06-07 20:35:31] Capped 2 values at 1 for Top5_Prob
+INFO [2025-06-07 20:35:31] Capped 5 values at 1 for Top10_Prob
+INFO [2025-06-07 20:35:31] Final capping of probabilities to maximum of 1
+INFO [2025-06-07 20:35:31] Capped 1 values at 1 for Podium_Prob
+INFO [2025-06-07 20:35:31] Capped 1 values at 1 for Top5_Prob
+INFO [2025-06-07 20:35:31] Capped 2 values at 1 for Top5_Prob
+INFO [2025-06-07 20:35:31] Capped 5 values at 1 for Top10_Prob
+INFO [2025-06-07 20:35:31] Optimizing fantasy relay team
+INFO [2025-06-07 20:35:31] Fantasy team optimization complete. Selected 12 teams.
+INFO [2025-06-07 20:35:31] Total price: 99826 of max 1e+05
+INFO [2025-06-07 20:35:31] Expected total points: 815
+INFO [2025-06-07 20:35:31] Men's teams: 6 ( 6 )
+INFO [2025-06-07 20:35:31] Ladies' teams: 6 ( 6 )
+INFO [2025-06-07 20:35:32] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/men_relay.xlsx
+INFO [2025-06-07 20:35:32] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/men_relay_position_probabilities.xlsx
+INFO [2025-06-07 20:35:32] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/ladies_relay.xlsx
+INFO [2025-06-07 20:35:32] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/ladies_relay_position_probabilities.xlsx
+INFO [2025-06-07 20:35:32] Saved fantasy team results to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/fantasy_relay_team.xlsx
+INFO [2025-06-07 20:35:32] Relay predictions completed successfully
+INFO [2025-06-07 20:42:52] Starting relay predictions process
+INFO [2025-06-07 20:42:52] Loading weekend race data
+INFO [2025-06-07 20:42:52] Tomorrow's date: 2025-06-08
+INFO [2025-06-07 20:42:52] Found 1 men's relay races and 1 ladies' relay races
+INFO [2025-06-07 20:42:52] Loading chrono data
+INFO [2025-06-07 20:42:55] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-06-07 20:42:55] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-06-07 20:42:55] Created men's relay df with 9688 rows
+INFO [2025-06-07 20:42:55] Created men's individual df with 92143 rows
+INFO [2025-06-07 20:42:55] Created ladies' relay df with 8019 rows
+INFO [2025-06-07 20:42:55] Created ladies' individual df with 68253 rows
+INFO [2025-06-07 20:43:08] Starting relay predictions process
+INFO [2025-06-07 20:43:09] Loading weekend race data
+INFO [2025-06-07 20:43:09] Tomorrow's date: 2025-06-08
+INFO [2025-06-07 20:43:09] Found 1 men's relay races and 1 ladies' relay races
+INFO [2025-06-07 20:43:09] Loading chrono data
+INFO [2025-06-07 20:43:11] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-06-07 20:43:11] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-06-07 20:43:11] Created men's relay df with 9688 rows
+INFO [2025-06-07 20:43:11] Created men's individual df with 92143 rows
+INFO [2025-06-07 20:43:11] Created ladies' relay df with 8019 rows
+INFO [2025-06-07 20:43:11] Created ladies' individual df with 68253 rows
+INFO [2025-06-07 20:43:14] Training models for Leg 1
+INFO [2025-06-07 20:43:14] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:43:14] Training podium model using glm
+INFO [2025-06-07 20:43:14] Training win model using glm
+INFO [2025-06-07 20:43:14] Training top5 model using glm
+INFO [2025-06-07 20:43:15] Training top10 model using glm
+INFO [2025-06-07 20:43:15] Top features for Leg 1 podium prediction:
+INFO [2025-06-07 20:43:15] Training models for Leg 2
+INFO [2025-06-07 20:43:15] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:43:15] Training podium model using glm
+INFO [2025-06-07 20:43:15] Training win model using glm
+INFO [2025-06-07 20:43:15] Training top5 model using glm
+INFO [2025-06-07 20:43:15] Training top10 model using glm
+INFO [2025-06-07 20:43:15] Top features for Leg 2 podium prediction:
+INFO [2025-06-07 20:43:15] Training models for Leg 3
+INFO [2025-06-07 20:43:15] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:43:15] Training podium model using glm
+INFO [2025-06-07 20:43:15] Training win model using glm
+INFO [2025-06-07 20:43:15] Training top5 model using glm
+INFO [2025-06-07 20:43:15] Training top10 model using glm
+INFO [2025-06-07 20:43:15] Top features for Leg 3 podium prediction:
+INFO [2025-06-07 20:43:15] Training models for Leg 4
+INFO [2025-06-07 20:43:15] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:43:15] Training podium model using glm
+INFO [2025-06-07 20:43:15] Training win model using glm
+INFO [2025-06-07 20:43:15] Training top5 model using glm
+INFO [2025-06-07 20:43:15] Training top10 model using glm
+INFO [2025-06-07 20:43:15] Top features for Leg 4 podium prediction:
+INFO [2025-06-07 20:43:15] Training models for Leg 1
+INFO [2025-06-07 20:43:15] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:43:15] Training podium model using glm
+INFO [2025-06-07 20:43:15] Training win model using glm
+INFO [2025-06-07 20:43:15] Training top5 model using glm
+INFO [2025-06-07 20:43:15] Training top10 model using glm
+INFO [2025-06-07 20:43:15] Top features for Leg 1 podium prediction:
+INFO [2025-06-07 20:43:15] Training models for Leg 2
+INFO [2025-06-07 20:43:15] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:43:15] Training podium model using glm
+INFO [2025-06-07 20:43:15] Training win model using glm
+INFO [2025-06-07 20:43:16] Training top5 model using glm
+INFO [2025-06-07 20:43:16] Training top10 model using glm
+INFO [2025-06-07 20:43:16] Top features for Leg 2 podium prediction:
+INFO [2025-06-07 20:43:16] Training models for Leg 3
+INFO [2025-06-07 20:43:16] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:43:16] Training podium model using glm
+INFO [2025-06-07 20:43:16] Training win model using glm
+INFO [2025-06-07 20:43:16] Training top5 model using glm
+INFO [2025-06-07 20:43:16] Training top10 model using glm
+INFO [2025-06-07 20:43:16] Top features for Leg 3 podium prediction:
+INFO [2025-06-07 20:43:16] Training models for Leg 4
+INFO [2025-06-07 20:43:16] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:43:16] Training podium model using glm
+INFO [2025-06-07 20:43:16] Training win model using glm
+INFO [2025-06-07 20:43:16] Training top5 model using glm
+INFO [2025-06-07 20:43:16] Training top10 model using glm
+INFO [2025-06-07 20:43:16] Top features for Leg 4 podium prediction:
+INFO [2025-06-07 20:43:16] Processing men's relay predictions
+INFO [2025-06-07 20:43:16] Loaded men relay teams startlist with 24 rows
+INFO [2025-06-07 20:43:16] Loaded men relay individuals startlist with 96 rows
+INFO [2025-06-07 20:43:16] Preparing current men skier data
+INFO [2025-06-07 20:43:16] Found 9 Elo columns for current skiers
+INFO [2025-06-07 20:43:16] Replaced NAs in Distance_Elo with first quartile: 1207.23243912712
+INFO [2025-06-07 20:43:16] Replaced NAs in Distance_C_Elo with first quartile: 1233.40200699225
+INFO [2025-06-07 20:43:16] Replaced NAs in Distance_F_Elo with first quartile: 1236.48554062178
+INFO [2025-06-07 20:43:16] Replaced NAs in Sprint_Elo with first quartile: 1223.60107000698
+INFO [2025-06-07 20:43:16] Replaced NAs in Sprint_C_Elo with first quartile: 1241.28715500947
+INFO [2025-06-07 20:43:16] Replaced NAs in Sprint_F_Elo with first quartile: 1234.45151108772
+INFO [2025-06-07 20:43:16] Replaced NAs in Classic_Elo with first quartile: 1241.52867310024
+INFO [2025-06-07 20:43:16] Replaced NAs in Freestyle_Elo with first quartile: 1228.48649348109
+INFO [2025-06-07 20:43:16] Replaced NAs in Distance_Pelo with first quartile: 1211.63035979047
+INFO [2025-06-07 20:43:16] Replaced NAs in Distance_C_Pelo with first quartile: 1234.81091928129
+INFO [2025-06-07 20:43:16] Replaced NAs in Distance_F_Pelo with first quartile: 1239.65331180248
+INFO [2025-06-07 20:43:16] Replaced NAs in Sprint_Pelo with first quartile: 1240.94751821383
+INFO [2025-06-07 20:43:16] Replaced NAs in Sprint_C_Pelo with first quartile: 1241.28715500947
+INFO [2025-06-07 20:43:16] Replaced NAs in Sprint_F_Pelo with first quartile: 1252.45166310493
+INFO [2025-06-07 20:43:16] Replaced NAs in Classic_Pelo with first quartile: 1243.63746068082
+INFO [2025-06-07 20:43:16] Replaced NAs in Freestyle_Pelo with first quartile: 1249.30280713791
+INFO [2025-06-07 20:43:16] Replaced NAs in Classic_Last_5 with first quartile: 0
+INFO [2025-06-07 20:43:16] Replaced NAs in Freestyle_Last_5 with first quartile: 0
+INFO [2025-06-07 20:43:16] Created Pelo_Pct from Elo with max value: 1946.6211651574
+INFO [2025-06-07 20:43:16] Created Distance_Pelo_Pct from Distance_Elo with max value: 1869.1251911742
+INFO [2025-06-07 20:43:16] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1777.16297253153
+INFO [2025-06-07 20:43:16] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1695.2053212904
+INFO [2025-06-07 20:43:16] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1886.80363942481
+INFO [2025-06-07 20:43:16] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.08486899169
+INFO [2025-06-07 20:43:16] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1792.65157560707
+INFO [2025-06-07 20:43:16] Created Classic_Pelo_Pct from Classic_Elo with max value: 1807.56773496777
+INFO [2025-06-07 20:43:16] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1814.60460629541
+INFO [2025-06-07 20:43:16] Prepared data for 381 men skiers with 33 features
+INFO [2025-06-07 20:43:16] Using FIS startlist for men's leg predictions
+INFO [2025-06-07 20:43:16] Using FIS startlist for men
+INFO [2025-06-07 20:43:16] Attempting Option 1: Team model coefficients
+INFO [2025-06-07 20:43:16] Option 1 failed: No team_podium model found
+INFO [2025-06-07 20:43:16] Option 1 failed: No team model
+INFO [2025-06-07 20:43:16] Attempting Option 2: Individual model accuracy
+INFO [2025-06-07 20:43:16] Leg 1 accuracy: 0.854734073641146
+INFO [2025-06-07 20:43:16] Leg 2 accuracy: 0.834463276836158
+INFO [2025-06-07 20:43:16] Leg 3 accuracy: 0.863880771478667
+INFO [2025-06-07 20:43:16] Leg 4 accuracy: 0.884601597506332
+INFO [2025-06-07 20:43:16] Option 2 succeeded: Using model accuracy weights
+INFO [2025-06-07 20:43:16] Leg importance weights: Leg 1: 0.25, Leg 2: 0.24, Leg 3: 0.25, Leg 4: 0.26
+INFO [2025-06-07 20:43:16] Processing ladies's relay predictions
+INFO [2025-06-07 20:43:16] Loaded ladies relay teams startlist with 20 rows
+INFO [2025-06-07 20:43:16] Loaded ladies relay individuals startlist with 80 rows
+INFO [2025-06-07 20:43:16] Preparing current ladies skier data
+INFO [2025-06-07 20:43:16] Found 9 Elo columns for current skiers
+INFO [2025-06-07 20:43:16] Replaced NAs in Distance_Elo with first quartile: 1237.38564383256
+INFO [2025-06-07 20:43:16] Replaced NAs in Distance_C_Elo with first quartile: 1243.87329106944
+INFO [2025-06-07 20:43:16] Replaced NAs in Distance_F_Elo with first quartile: 1256.69628195708
+INFO [2025-06-07 20:43:16] Replaced NAs in Sprint_Elo with first quartile: 1246.32574824425
+INFO [2025-06-07 20:43:16] Replaced NAs in Sprint_C_Elo with first quartile: 1257.67866787334
+INFO [2025-06-07 20:43:16] Replaced NAs in Sprint_F_Elo with first quartile: 1244.84742904868
+INFO [2025-06-07 20:43:16] Replaced NAs in Classic_Elo with first quartile: 1252.44868703669
+INFO [2025-06-07 20:43:16] Replaced NAs in Freestyle_Elo with first quartile: 1244.44508230281
+INFO [2025-06-07 20:43:16] Replaced NAs in Distance_Pelo with first quartile: 1241.11854419952
+INFO [2025-06-07 20:43:16] Replaced NAs in Distance_C_Pelo with first quartile: 1245.57367555166
+INFO [2025-06-07 20:43:16] Replaced NAs in Distance_F_Pelo with first quartile: 1259.54282973153
+INFO [2025-06-07 20:43:16] Replaced NAs in Sprint_Pelo with first quartile: 1254.59410960767
+INFO [2025-06-07 20:43:16] Replaced NAs in Sprint_C_Pelo with first quartile: 1257.58302026178
+INFO [2025-06-07 20:43:16] Replaced NAs in Sprint_F_Pelo with first quartile: 1257.67755691493
+INFO [2025-06-07 20:43:16] Replaced NAs in Classic_Pelo with first quartile: 1256.79275004544
+INFO [2025-06-07 20:43:16] Replaced NAs in Freestyle_Pelo with first quartile: 1256.79999900008
+INFO [2025-06-07 20:43:16] Replaced NAs in Classic_Last_5 with first quartile: 3.5
+INFO [2025-06-07 20:43:16] Replaced NAs in Freestyle_Last_5 with first quartile: 2.4
+INFO [2025-06-07 20:43:16] Created Pelo_Pct from Elo with max value: 1840.99747242401
+INFO [2025-06-07 20:43:16] Created Distance_Pelo_Pct from Distance_Elo with max value: 1889.46974050597
+INFO [2025-06-07 20:43:16] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1763.33572074398
+INFO [2025-06-07 20:43:16] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1693.85026290322
+INFO [2025-06-07 20:43:16] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1742.75320156525
+INFO [2025-06-07 20:43:16] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1601.58469902127
+INFO [2025-06-07 20:43:16] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1681.09824552997
+INFO [2025-06-07 20:43:16] Created Classic_Pelo_Pct from Classic_Elo with max value: 1698.68768563646
+INFO [2025-06-07 20:43:16] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1707.58410982918
+INFO [2025-06-07 20:43:16] Prepared data for 255 ladies skiers with 33 features
+INFO [2025-06-07 20:43:16] Using FIS startlist for ladies's leg predictions
+INFO [2025-06-07 20:43:16] Using FIS startlist for ladies
+INFO [2025-06-07 20:43:16] Attempting Option 1: Team model coefficients
+INFO [2025-06-07 20:43:16] Option 1 failed: No team_podium model found
+INFO [2025-06-07 20:43:16] Option 1 failed: No team model
+INFO [2025-06-07 20:43:16] Attempting Option 2: Individual model accuracy
+INFO [2025-06-07 20:43:16] Leg 1 accuracy: 0.835897435897436
+INFO [2025-06-07 20:43:16] Leg 2 accuracy: 0.8
+INFO [2025-06-07 20:43:16] Leg 3 accuracy: 0.819230769230769
+INFO [2025-06-07 20:43:16] Leg 4 accuracy: 0.778787878787879
+INFO [2025-06-07 20:43:16] Option 2 succeeded: Using model accuracy weights
+INFO [2025-06-07 20:43:16] Leg importance weights: Leg 1: 0.26, Leg 2: 0.25, Leg 3: 0.25, Leg 4: 0.24
+INFO [2025-06-07 20:43:16] Resetting men's probabilities at or below the mode to zero
+INFO [2025-06-07 20:43:16] No values appear more than twice for Win_Prob
+INFO [2025-06-07 20:43:16] No values appear more than twice for Podium_Prob
+INFO [2025-06-07 20:43:16] No values appear more than twice for Top5_Prob
+INFO [2025-06-07 20:43:16] No values appear more than twice for Top10_Prob
+INFO [2025-06-07 20:43:16] Resetting ladies' probabilities at or below the mode to zero
+INFO [2025-06-07 20:43:16] Reset 3 values to 0 for Win_Prob (repeated values or values <  0 )
+INFO [2025-06-07 20:43:16] Repeated values: 0
+INFO [2025-06-07 20:43:16] No values appear more than twice for Podium_Prob
+INFO [2025-06-07 20:43:16] No values appear more than twice for Top5_Prob
+INFO [2025-06-07 20:43:16] No values appear more than twice for Top10_Prob
+INFO [2025-06-07 20:43:16] Normalizing men's team probabilities
+INFO [2025-06-07 20:43:16] Normalized Win_Prob from sum of 0.71 to 1
+INFO [2025-06-07 20:43:16] Normalized Podium_Prob from sum of 2.34 to 3
+INFO [2025-06-07 20:43:16] Normalized Top5_Prob from sum of 4.2 to 5
+INFO [2025-06-07 20:43:16] Normalized Top10_Prob from sum of 10.33 to 10
+INFO [2025-06-07 20:43:16] Capped 1 values at 1 for Podium_Prob
+INFO [2025-06-07 20:43:16] Capped 1 values at 1 for Top5_Prob
+INFO [2025-06-07 20:43:16] Normalizing ladies' team probabilities
+INFO [2025-06-07 20:43:16] Normalized Win_Prob from sum of 1.12 to 1
+INFO [2025-06-07 20:43:16] Normalized Podium_Prob from sum of 3.27 to 3
+INFO [2025-06-07 20:43:16] Normalized Top5_Prob from sum of 4.5 to 5
+INFO [2025-06-07 20:43:16] Normalized Top10_Prob from sum of 9.39 to 10
+INFO [2025-06-07 20:43:16] Capped 2 values at 1 for Top5_Prob
+INFO [2025-06-07 20:43:16] Capped 5 values at 1 for Top10_Prob
+INFO [2025-06-07 20:43:16] Final capping of probabilities to maximum of 1
+INFO [2025-06-07 20:43:16] Capped 1 values at 1 for Podium_Prob
+INFO [2025-06-07 20:43:16] Capped 1 values at 1 for Top5_Prob
+INFO [2025-06-07 20:43:16] Capped 2 values at 1 for Top5_Prob
+INFO [2025-06-07 20:43:16] Capped 5 values at 1 for Top10_Prob
+INFO [2025-06-07 20:43:16] Optimizing fantasy relay team
+INFO [2025-06-07 20:43:17] Fantasy team optimization complete. Selected 12 teams.
+INFO [2025-06-07 20:43:17] Total price: 99826 of max 1e+05
+INFO [2025-06-07 20:43:17] Expected total points: 813.8
+INFO [2025-06-07 20:43:17] Men's teams: 6 ( 6 )
+INFO [2025-06-07 20:43:17] Ladies' teams: 6 ( 6 )
+INFO [2025-06-07 20:43:17] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/men_relay.xlsx
+INFO [2025-06-07 20:43:17] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/men_relay_position_probabilities.xlsx
+INFO [2025-06-07 20:43:17] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/ladies_relay.xlsx
+INFO [2025-06-07 20:43:17] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/ladies_relay_position_probabilities.xlsx
+INFO [2025-06-07 20:43:17] Saved fantasy team results to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/fantasy_relay_team.xlsx
+INFO [2025-06-07 20:43:17] Relay predictions completed successfully
+INFO [2025-06-07 20:45:43] Starting relay predictions process
+INFO [2025-06-07 20:45:44] Loading weekend race data
+INFO [2025-06-07 20:45:44] Tomorrow's date: 2025-06-08
+INFO [2025-06-07 20:45:44] Found 1 men's relay races and 1 ladies' relay races
+INFO [2025-06-07 20:45:44] Loading chrono data
+INFO [2025-06-07 20:45:46] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-06-07 20:45:46] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-06-07 20:45:46] Created men's relay df with 9688 rows
+INFO [2025-06-07 20:45:46] Created men's individual df with 92143 rows
+INFO [2025-06-07 20:45:46] Created ladies' relay df with 8019 rows
+INFO [2025-06-07 20:45:46] Created ladies' individual df with 68253 rows
+INFO [2025-06-07 20:45:49] Training models for Leg 1
+INFO [2025-06-07 20:45:49] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:45:49] Training podium model using glm
+INFO [2025-06-07 20:45:49] Training win model using glm
+INFO [2025-06-07 20:45:50] Training top5 model using glm
+INFO [2025-06-07 20:45:50] Training top10 model using glm
+INFO [2025-06-07 20:45:50] Top features for Leg 1 podium prediction:
+INFO [2025-06-07 20:45:50] Training models for Leg 2
+INFO [2025-06-07 20:45:50] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:45:50] Training podium model using glm
+INFO [2025-06-07 20:45:50] Training win model using glm
+INFO [2025-06-07 20:45:50] Training top5 model using glm
+INFO [2025-06-07 20:45:50] Training top10 model using glm
+INFO [2025-06-07 20:45:50] Top features for Leg 2 podium prediction:
+INFO [2025-06-07 20:45:50] Training models for Leg 3
+INFO [2025-06-07 20:45:50] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:45:50] Training podium model using glm
+INFO [2025-06-07 20:45:50] Training win model using glm
+INFO [2025-06-07 20:45:50] Training top5 model using glm
+INFO [2025-06-07 20:45:50] Training top10 model using glm
+INFO [2025-06-07 20:45:50] Top features for Leg 3 podium prediction:
+INFO [2025-06-07 20:45:50] Training models for Leg 4
+INFO [2025-06-07 20:45:50] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:45:50] Training podium model using glm
+INFO [2025-06-07 20:45:50] Training win model using glm
+INFO [2025-06-07 20:45:50] Training top5 model using glm
+INFO [2025-06-07 20:45:50] Training top10 model using glm
+INFO [2025-06-07 20:45:50] Top features for Leg 4 podium prediction:
+INFO [2025-06-07 20:45:50] Training models for Leg 1
+INFO [2025-06-07 20:45:50] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:45:50] Training podium model using glm
+INFO [2025-06-07 20:45:50] Training win model using glm
+INFO [2025-06-07 20:45:50] Training top5 model using glm
+INFO [2025-06-07 20:45:50] Training top10 model using glm
+INFO [2025-06-07 20:45:50] Top features for Leg 1 podium prediction:
+INFO [2025-06-07 20:45:50] Training models for Leg 2
+INFO [2025-06-07 20:45:50] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:45:50] Training podium model using glm
+INFO [2025-06-07 20:45:50] Training win model using glm
+INFO [2025-06-07 20:45:51] Training top5 model using glm
+INFO [2025-06-07 20:45:51] Training top10 model using glm
+INFO [2025-06-07 20:45:51] Top features for Leg 2 podium prediction:
+INFO [2025-06-07 20:45:51] Training models for Leg 3
+INFO [2025-06-07 20:45:51] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:45:51] Training podium model using glm
+INFO [2025-06-07 20:45:51] Training win model using glm
+INFO [2025-06-07 20:45:51] Training top5 model using glm
+INFO [2025-06-07 20:45:51] Training top10 model using glm
+INFO [2025-06-07 20:45:51] Top features for Leg 3 podium prediction:
+INFO [2025-06-07 20:45:51] Training models for Leg 4
+INFO [2025-06-07 20:45:51] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:45:51] Training podium model using glm
+INFO [2025-06-07 20:45:51] Training win model using glm
+INFO [2025-06-07 20:45:51] Training top5 model using glm
+INFO [2025-06-07 20:45:51] Training top10 model using glm
+INFO [2025-06-07 20:45:51] Top features for Leg 4 podium prediction:
+INFO [2025-06-07 20:45:51] Processing men's relay predictions
+INFO [2025-06-07 20:45:51] Loaded men relay teams startlist with 24 rows
+INFO [2025-06-07 20:45:51] Loaded men relay individuals startlist with 96 rows
+INFO [2025-06-07 20:45:51] Preparing current men skier data
+INFO [2025-06-07 20:45:51] Found 9 Elo columns for current skiers
+INFO [2025-06-07 20:45:51] Replaced NAs in Distance_Elo with first quartile: 1207.23243912712
+INFO [2025-06-07 20:45:51] Replaced NAs in Distance_C_Elo with first quartile: 1233.40200699225
+INFO [2025-06-07 20:45:51] Replaced NAs in Distance_F_Elo with first quartile: 1236.48554062178
+INFO [2025-06-07 20:45:51] Replaced NAs in Sprint_Elo with first quartile: 1223.60107000698
+INFO [2025-06-07 20:45:51] Replaced NAs in Sprint_C_Elo with first quartile: 1241.28715500947
+INFO [2025-06-07 20:45:51] Replaced NAs in Sprint_F_Elo with first quartile: 1234.45151108772
+INFO [2025-06-07 20:45:51] Replaced NAs in Classic_Elo with first quartile: 1241.52867310024
+INFO [2025-06-07 20:45:51] Replaced NAs in Freestyle_Elo with first quartile: 1228.48649348109
+INFO [2025-06-07 20:45:51] Replaced NAs in Distance_Pelo with first quartile: 1211.63035979047
+INFO [2025-06-07 20:45:51] Replaced NAs in Distance_C_Pelo with first quartile: 1234.81091928129
+INFO [2025-06-07 20:45:51] Replaced NAs in Distance_F_Pelo with first quartile: 1239.65331180248
+INFO [2025-06-07 20:45:51] Replaced NAs in Sprint_Pelo with first quartile: 1240.94751821383
+INFO [2025-06-07 20:45:51] Replaced NAs in Sprint_C_Pelo with first quartile: 1241.28715500947
+INFO [2025-06-07 20:45:51] Replaced NAs in Sprint_F_Pelo with first quartile: 1252.45166310493
+INFO [2025-06-07 20:45:51] Replaced NAs in Classic_Pelo with first quartile: 1243.63746068082
+INFO [2025-06-07 20:45:51] Replaced NAs in Freestyle_Pelo with first quartile: 1249.30280713791
+INFO [2025-06-07 20:45:51] Replaced NAs in Classic_Last_5 with first quartile: 0
+INFO [2025-06-07 20:45:51] Replaced NAs in Freestyle_Last_5 with first quartile: 0
+INFO [2025-06-07 20:45:51] Created Pelo_Pct from Elo with max value: 1946.6211651574
+INFO [2025-06-07 20:45:51] Created Distance_Pelo_Pct from Distance_Elo with max value: 1869.1251911742
+INFO [2025-06-07 20:45:51] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1777.16297253153
+INFO [2025-06-07 20:45:51] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1695.2053212904
+INFO [2025-06-07 20:45:51] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1886.80363942481
+INFO [2025-06-07 20:45:51] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.08486899169
+INFO [2025-06-07 20:45:51] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1792.65157560707
+INFO [2025-06-07 20:45:51] Created Classic_Pelo_Pct from Classic_Elo with max value: 1807.56773496777
+INFO [2025-06-07 20:45:51] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1814.60460629541
+INFO [2025-06-07 20:45:51] Prepared data for 381 men skiers with 33 features
+INFO [2025-06-07 20:45:51] Using FIS startlist for men's leg predictions
+INFO [2025-06-07 20:45:51] Using FIS startlist for men
+INFO [2025-06-07 20:45:51] Attempting Option 1: Team model coefficients
+INFO [2025-06-07 20:45:51] Option 1 failed: No team_podium model found
+INFO [2025-06-07 20:45:51] Option 1 failed: No team model
+INFO [2025-06-07 20:45:51] Attempting Option 2: Individual model accuracy
+INFO [2025-06-07 20:45:51] Leg 1 accuracy: 0.864745762711864
+INFO [2025-06-07 20:45:51] Leg 2 accuracy: 0.844732125462692
+INFO [2025-06-07 20:45:51] Leg 3 accuracy: 0.867445938047925
+INFO [2025-06-07 20:45:51] Leg 4 accuracy: 0.884788622637834
+INFO [2025-06-07 20:45:51] Option 2 succeeded: Using model accuracy weights
+INFO [2025-06-07 20:45:51] Leg importance weights: Leg 1: 0.25, Leg 2: 0.24, Leg 3: 0.25, Leg 4: 0.26
+INFO [2025-06-07 20:45:51] Processing ladies's relay predictions
+INFO [2025-06-07 20:45:51] Loaded ladies relay teams startlist with 20 rows
+INFO [2025-06-07 20:45:51] Loaded ladies relay individuals startlist with 80 rows
+INFO [2025-06-07 20:45:51] Preparing current ladies skier data
+INFO [2025-06-07 20:45:51] Found 9 Elo columns for current skiers
+INFO [2025-06-07 20:45:51] Replaced NAs in Distance_Elo with first quartile: 1237.38564383256
+INFO [2025-06-07 20:45:51] Replaced NAs in Distance_C_Elo with first quartile: 1243.87329106944
+INFO [2025-06-07 20:45:51] Replaced NAs in Distance_F_Elo with first quartile: 1256.69628195708
+INFO [2025-06-07 20:45:51] Replaced NAs in Sprint_Elo with first quartile: 1246.32574824425
+INFO [2025-06-07 20:45:51] Replaced NAs in Sprint_C_Elo with first quartile: 1257.67866787334
+INFO [2025-06-07 20:45:51] Replaced NAs in Sprint_F_Elo with first quartile: 1244.84742904868
+INFO [2025-06-07 20:45:51] Replaced NAs in Classic_Elo with first quartile: 1252.44868703669
+INFO [2025-06-07 20:45:51] Replaced NAs in Freestyle_Elo with first quartile: 1244.44508230281
+INFO [2025-06-07 20:45:51] Replaced NAs in Distance_Pelo with first quartile: 1241.11854419952
+INFO [2025-06-07 20:45:51] Replaced NAs in Distance_C_Pelo with first quartile: 1245.57367555166
+INFO [2025-06-07 20:45:51] Replaced NAs in Distance_F_Pelo with first quartile: 1259.54282973153
+INFO [2025-06-07 20:45:51] Replaced NAs in Sprint_Pelo with first quartile: 1254.59410960767
+INFO [2025-06-07 20:45:51] Replaced NAs in Sprint_C_Pelo with first quartile: 1257.58302026178
+INFO [2025-06-07 20:45:51] Replaced NAs in Sprint_F_Pelo with first quartile: 1257.67755691493
+INFO [2025-06-07 20:45:51] Replaced NAs in Classic_Pelo with first quartile: 1256.79275004544
+INFO [2025-06-07 20:45:51] Replaced NAs in Freestyle_Pelo with first quartile: 1256.79999900008
+INFO [2025-06-07 20:45:51] Replaced NAs in Classic_Last_5 with first quartile: 3.5
+INFO [2025-06-07 20:45:51] Replaced NAs in Freestyle_Last_5 with first quartile: 2.4
+INFO [2025-06-07 20:45:51] Created Pelo_Pct from Elo with max value: 1840.99747242401
+INFO [2025-06-07 20:45:51] Created Distance_Pelo_Pct from Distance_Elo with max value: 1889.46974050597
+INFO [2025-06-07 20:45:51] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1763.33572074398
+INFO [2025-06-07 20:45:51] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1693.85026290322
+INFO [2025-06-07 20:45:51] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1742.75320156525
+INFO [2025-06-07 20:45:51] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1601.58469902127
+INFO [2025-06-07 20:45:51] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1681.09824552997
+INFO [2025-06-07 20:45:51] Created Classic_Pelo_Pct from Classic_Elo with max value: 1698.68768563646
+INFO [2025-06-07 20:45:51] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1707.58410982918
+INFO [2025-06-07 20:45:51] Prepared data for 255 ladies skiers with 33 features
+INFO [2025-06-07 20:45:51] Using FIS startlist for ladies's leg predictions
+INFO [2025-06-07 20:45:51] Using FIS startlist for ladies
+INFO [2025-06-07 20:45:51] Attempting Option 1: Team model coefficients
+INFO [2025-06-07 20:45:51] Option 1 failed: No team_podium model found
+INFO [2025-06-07 20:45:51] Option 1 failed: No team model
+INFO [2025-06-07 20:45:51] Attempting Option 2: Individual model accuracy
+INFO [2025-06-07 20:45:51] Leg 1 accuracy: 0.738461538461539
+INFO [2025-06-07 20:45:51] Leg 2 accuracy: 0.85
+INFO [2025-06-07 20:45:51] Leg 3 accuracy: 0.801282051282051
+INFO [2025-06-07 20:45:51] Leg 4 accuracy: 0.828787878787879
+INFO [2025-06-07 20:45:51] Option 2 succeeded: Using model accuracy weights
+INFO [2025-06-07 20:45:51] Leg importance weights: Leg 1: 0.23, Leg 2: 0.26, Leg 3: 0.25, Leg 4: 0.26
+INFO [2025-06-07 20:45:52] Resetting men's probabilities at or below the mode to zero
+INFO [2025-06-07 20:45:52] No values appear more than twice for Win_Prob
+INFO [2025-06-07 20:45:52] No values appear more than twice for Podium_Prob
+INFO [2025-06-07 20:45:52] No values appear more than twice for Top5_Prob
+INFO [2025-06-07 20:45:52] No values appear more than twice for Top10_Prob
+INFO [2025-06-07 20:45:52] Resetting ladies' probabilities at or below the mode to zero
+INFO [2025-06-07 20:45:52] No values appear more than twice for Win_Prob
+INFO [2025-06-07 20:45:52] No values appear more than twice for Podium_Prob
+INFO [2025-06-07 20:45:52] No values appear more than twice for Top5_Prob
+INFO [2025-06-07 20:45:52] No values appear more than twice for Top10_Prob
+INFO [2025-06-07 20:45:52] Normalizing men's team probabilities
+INFO [2025-06-07 20:45:52] Normalized Win_Prob from sum of 0.71 to 1
+INFO [2025-06-07 20:45:52] Normalized Podium_Prob from sum of 2.34 to 3
+INFO [2025-06-07 20:45:52] Normalized Top5_Prob from sum of 4.2 to 5
+INFO [2025-06-07 20:45:52] Normalized Top10_Prob from sum of 10.33 to 10
+INFO [2025-06-07 20:45:52] Capped 1 values at 1 for Podium_Prob
+INFO [2025-06-07 20:45:52] Capped 1 values at 1 for Top5_Prob
+INFO [2025-06-07 20:45:52] Normalizing ladies' team probabilities
+INFO [2025-06-07 20:45:52] Normalized Win_Prob from sum of 1.12 to 1
+INFO [2025-06-07 20:45:52] Normalized Podium_Prob from sum of 3.25 to 3
+INFO [2025-06-07 20:45:52] Normalized Top5_Prob from sum of 4.5 to 5
+INFO [2025-06-07 20:45:52] Normalized Top10_Prob from sum of 9.33 to 10
+INFO [2025-06-07 20:45:52] Capped 2 values at 1 for Top5_Prob
+INFO [2025-06-07 20:45:52] Capped 5 values at 1 for Top10_Prob
+INFO [2025-06-07 20:45:52] Final capping of probabilities to maximum of 1
+INFO [2025-06-07 20:45:52] Capped 1 values at 1 for Podium_Prob
+INFO [2025-06-07 20:45:52] Capped 1 values at 1 for Top5_Prob
+INFO [2025-06-07 20:45:52] Capped 2 values at 1 for Top5_Prob
+INFO [2025-06-07 20:45:52] Capped 5 values at 1 for Top10_Prob
+INFO [2025-06-07 20:45:52] Optimizing fantasy relay team
+INFO [2025-06-07 20:45:52] Fantasy team optimization complete. Selected 12 teams.
+INFO [2025-06-07 20:45:52] Total price: 99826 of max 1e+05
+INFO [2025-06-07 20:45:52] Expected total points: 813.5
+INFO [2025-06-07 20:45:52] Men's teams: 6 ( 6 )
+INFO [2025-06-07 20:45:52] Ladies' teams: 6 ( 6 )
+INFO [2025-06-07 20:45:52] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/men_relay.xlsx
+INFO [2025-06-07 20:45:52] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/men_relay_position_probabilities.xlsx
+INFO [2025-06-07 20:45:52] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/ladies_relay.xlsx
+INFO [2025-06-07 20:45:52] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/ladies_relay_position_probabilities.xlsx
+INFO [2025-06-07 20:45:52] Saved fantasy team results to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/fantasy_relay_team.xlsx
+INFO [2025-06-07 20:45:52] Relay predictions completed successfully
+INFO [2025-06-07 20:49:58] Starting relay predictions process
+INFO [2025-06-07 20:49:58] Loading weekend race data
+INFO [2025-06-07 20:49:58] Tomorrow's date: 2025-06-08
+INFO [2025-06-07 20:49:58] Found 1 men's relay races and 1 ladies' relay races
+INFO [2025-06-07 20:49:58] Loading chrono data
+INFO [2025-06-07 20:50:00] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-06-07 20:50:00] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-06-07 20:50:00] Created men's relay df with 9688 rows
+INFO [2025-06-07 20:50:00] Created men's individual df with 92143 rows
+INFO [2025-06-07 20:50:00] Created ladies' relay df with 8019 rows
+INFO [2025-06-07 20:50:00] Created ladies' individual df with 68253 rows
+INFO [2025-06-07 20:50:03] Training models for Leg 1
+INFO [2025-06-07 20:50:03] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:50:03] Training podium model using glm
+INFO [2025-06-07 20:50:04] Training win model using glm
+INFO [2025-06-07 20:50:04] Training top5 model using glm
+INFO [2025-06-07 20:50:04] Training top10 model using glm
+INFO [2025-06-07 20:50:04] Top features for Leg 1 podium prediction:
+INFO [2025-06-07 20:50:04] Training models for Leg 2
+INFO [2025-06-07 20:50:04] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:50:04] Training podium model using glm
+INFO [2025-06-07 20:50:04] Training win model using glm
+INFO [2025-06-07 20:50:04] Training top5 model using glm
+INFO [2025-06-07 20:50:04] Training top10 model using glm
+INFO [2025-06-07 20:50:04] Top features for Leg 2 podium prediction:
+INFO [2025-06-07 20:50:04] Training models for Leg 3
+INFO [2025-06-07 20:50:04] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:50:04] Training podium model using glm
+INFO [2025-06-07 20:50:04] Training win model using glm
+INFO [2025-06-07 20:50:04] Training top5 model using glm
+INFO [2025-06-07 20:50:04] Training top10 model using glm
+INFO [2025-06-07 20:50:04] Top features for Leg 3 podium prediction:
+INFO [2025-06-07 20:50:04] Training models for Leg 4
+INFO [2025-06-07 20:50:04] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:50:04] Training podium model using glm
+INFO [2025-06-07 20:50:04] Training win model using glm
+INFO [2025-06-07 20:50:04] Training top5 model using glm
+INFO [2025-06-07 20:50:04] Training top10 model using glm
+INFO [2025-06-07 20:50:04] Top features for Leg 4 podium prediction:
+INFO [2025-06-07 20:50:04] Training models for Leg 1
+INFO [2025-06-07 20:50:04] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:50:04] Training podium model using glm
+INFO [2025-06-07 20:50:04] Training win model using glm
+INFO [2025-06-07 20:50:04] Training top5 model using glm
+INFO [2025-06-07 20:50:05] Training top10 model using glm
+INFO [2025-06-07 20:50:05] Top features for Leg 1 podium prediction:
+INFO [2025-06-07 20:50:05] Training models for Leg 2
+INFO [2025-06-07 20:50:05] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:50:05] Training podium model using glm
+INFO [2025-06-07 20:50:05] Training win model using glm
+INFO [2025-06-07 20:50:05] Training top5 model using glm
+INFO [2025-06-07 20:50:05] Training top10 model using glm
+INFO [2025-06-07 20:50:05] Top features for Leg 2 podium prediction:
+INFO [2025-06-07 20:50:05] Training models for Leg 3
+INFO [2025-06-07 20:50:05] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:50:05] Training podium model using glm
+INFO [2025-06-07 20:50:05] Training win model using glm
+INFO [2025-06-07 20:50:05] Training top5 model using glm
+INFO [2025-06-07 20:50:05] Training top10 model using glm
+INFO [2025-06-07 20:50:05] Top features for Leg 3 podium prediction:
+INFO [2025-06-07 20:50:05] Training models for Leg 4
+INFO [2025-06-07 20:50:05] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:50:05] Training podium model using glm
+INFO [2025-06-07 20:50:05] Training win model using glm
+INFO [2025-06-07 20:50:05] Training top5 model using glm
+INFO [2025-06-07 20:50:05] Training top10 model using glm
+INFO [2025-06-07 20:50:05] Top features for Leg 4 podium prediction:
+INFO [2025-06-07 20:50:05] Processing men's relay predictions
+INFO [2025-06-07 20:50:05] Loaded men relay teams startlist with 24 rows
+INFO [2025-06-07 20:50:05] Loaded men relay individuals startlist with 96 rows
+INFO [2025-06-07 20:50:05] Preparing current men skier data
+INFO [2025-06-07 20:50:05] Found 9 Elo columns for current skiers
+INFO [2025-06-07 20:50:05] Replaced NAs in Distance_Elo with first quartile: 1207.23243912712
+INFO [2025-06-07 20:50:05] Replaced NAs in Distance_C_Elo with first quartile: 1233.40200699225
+INFO [2025-06-07 20:50:05] Replaced NAs in Distance_F_Elo with first quartile: 1236.48554062178
+INFO [2025-06-07 20:50:05] Replaced NAs in Sprint_Elo with first quartile: 1223.60107000698
+INFO [2025-06-07 20:50:05] Replaced NAs in Sprint_C_Elo with first quartile: 1241.28715500947
+INFO [2025-06-07 20:50:05] Replaced NAs in Sprint_F_Elo with first quartile: 1234.45151108772
+INFO [2025-06-07 20:50:05] Replaced NAs in Classic_Elo with first quartile: 1241.52867310024
+INFO [2025-06-07 20:50:05] Replaced NAs in Freestyle_Elo with first quartile: 1228.48649348109
+INFO [2025-06-07 20:50:05] Replaced NAs in Distance_Pelo with first quartile: 1211.63035979047
+INFO [2025-06-07 20:50:05] Replaced NAs in Distance_C_Pelo with first quartile: 1234.81091928129
+INFO [2025-06-07 20:50:05] Replaced NAs in Distance_F_Pelo with first quartile: 1239.65331180248
+INFO [2025-06-07 20:50:05] Replaced NAs in Sprint_Pelo with first quartile: 1240.94751821383
+INFO [2025-06-07 20:50:05] Replaced NAs in Sprint_C_Pelo with first quartile: 1241.28715500947
+INFO [2025-06-07 20:50:05] Replaced NAs in Sprint_F_Pelo with first quartile: 1252.45166310493
+INFO [2025-06-07 20:50:05] Replaced NAs in Classic_Pelo with first quartile: 1243.63746068082
+INFO [2025-06-07 20:50:05] Replaced NAs in Freestyle_Pelo with first quartile: 1249.30280713791
+INFO [2025-06-07 20:50:05] Replaced NAs in Classic_Last_5 with first quartile: 0
+INFO [2025-06-07 20:50:05] Replaced NAs in Freestyle_Last_5 with first quartile: 0
+INFO [2025-06-07 20:50:05] Created Pelo_Pct from Elo with max value: 1946.6211651574
+INFO [2025-06-07 20:50:05] Created Distance_Pelo_Pct from Distance_Elo with max value: 1869.1251911742
+INFO [2025-06-07 20:50:05] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1777.16297253153
+INFO [2025-06-07 20:50:05] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1695.2053212904
+INFO [2025-06-07 20:50:05] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1886.80363942481
+INFO [2025-06-07 20:50:05] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.08486899169
+INFO [2025-06-07 20:50:05] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1792.65157560707
+INFO [2025-06-07 20:50:05] Created Classic_Pelo_Pct from Classic_Elo with max value: 1807.56773496777
+INFO [2025-06-07 20:50:05] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1814.60460629541
+INFO [2025-06-07 20:50:05] Prepared data for 381 men skiers with 33 features
+INFO [2025-06-07 20:50:05] Using FIS startlist for men's leg predictions
+INFO [2025-06-07 20:50:05] Using FIS startlist for men
+INFO [2025-06-07 20:50:05] Attempting Option 1: Team model coefficients
+INFO [2025-06-07 20:50:05] Option 1 failed: No team_podium model found
+INFO [2025-06-07 20:50:05] Option 1 failed: No team model
+INFO [2025-06-07 20:50:05] Attempting Option 2: Individual model accuracy
+INFO [2025-06-07 20:50:05] Leg 1 accuracy: 0.857948568088837
+INFO [2025-06-07 20:50:05] Leg 2 accuracy: 0.830937073835963
+INFO [2025-06-07 20:50:05] Leg 3 accuracy: 0.863463861289694
+INFO [2025-06-07 20:50:05] Leg 4 accuracy: 0.884605493863238
+INFO [2025-06-07 20:50:05] Option 2 succeeded: Using model accuracy weights
+INFO [2025-06-07 20:50:05] Leg importance weights: Leg 1: 0.25, Leg 2: 0.24, Leg 3: 0.25, Leg 4: 0.26
+INFO [2025-06-07 20:50:05] Processing ladies's relay predictions
+INFO [2025-06-07 20:50:05] Loaded ladies relay teams startlist with 20 rows
+INFO [2025-06-07 20:50:05] Loaded ladies relay individuals startlist with 80 rows
+INFO [2025-06-07 20:50:05] Preparing current ladies skier data
+INFO [2025-06-07 20:50:05] Found 9 Elo columns for current skiers
+INFO [2025-06-07 20:50:06] Replaced NAs in Distance_Elo with first quartile: 1237.38564383256
+INFO [2025-06-07 20:50:06] Replaced NAs in Distance_C_Elo with first quartile: 1243.87329106944
+INFO [2025-06-07 20:50:06] Replaced NAs in Distance_F_Elo with first quartile: 1256.69628195708
+INFO [2025-06-07 20:50:06] Replaced NAs in Sprint_Elo with first quartile: 1246.32574824425
+INFO [2025-06-07 20:50:06] Replaced NAs in Sprint_C_Elo with first quartile: 1257.67866787334
+INFO [2025-06-07 20:50:06] Replaced NAs in Sprint_F_Elo with first quartile: 1244.84742904868
+INFO [2025-06-07 20:50:06] Replaced NAs in Classic_Elo with first quartile: 1252.44868703669
+INFO [2025-06-07 20:50:06] Replaced NAs in Freestyle_Elo with first quartile: 1244.44508230281
+INFO [2025-06-07 20:50:06] Replaced NAs in Distance_Pelo with first quartile: 1241.11854419952
+INFO [2025-06-07 20:50:06] Replaced NAs in Distance_C_Pelo with first quartile: 1245.57367555166
+INFO [2025-06-07 20:50:06] Replaced NAs in Distance_F_Pelo with first quartile: 1259.54282973153
+INFO [2025-06-07 20:50:06] Replaced NAs in Sprint_Pelo with first quartile: 1254.59410960767
+INFO [2025-06-07 20:50:06] Replaced NAs in Sprint_C_Pelo with first quartile: 1257.58302026178
+INFO [2025-06-07 20:50:06] Replaced NAs in Sprint_F_Pelo with first quartile: 1257.67755691493
+INFO [2025-06-07 20:50:06] Replaced NAs in Classic_Pelo with first quartile: 1256.79275004544
+INFO [2025-06-07 20:50:06] Replaced NAs in Freestyle_Pelo with first quartile: 1256.79999900008
+INFO [2025-06-07 20:50:06] Replaced NAs in Classic_Last_5 with first quartile: 3.5
+INFO [2025-06-07 20:50:06] Replaced NAs in Freestyle_Last_5 with first quartile: 2.4
+INFO [2025-06-07 20:50:06] Created Pelo_Pct from Elo with max value: 1840.99747242401
+INFO [2025-06-07 20:50:06] Created Distance_Pelo_Pct from Distance_Elo with max value: 1889.46974050597
+INFO [2025-06-07 20:50:06] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1763.33572074398
+INFO [2025-06-07 20:50:06] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1693.85026290322
+INFO [2025-06-07 20:50:06] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1742.75320156525
+INFO [2025-06-07 20:50:06] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1601.58469902127
+INFO [2025-06-07 20:50:06] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1681.09824552997
+INFO [2025-06-07 20:50:06] Created Classic_Pelo_Pct from Classic_Elo with max value: 1698.68768563646
+INFO [2025-06-07 20:50:06] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1707.58410982918
+INFO [2025-06-07 20:50:06] Prepared data for 255 ladies skiers with 33 features
+INFO [2025-06-07 20:50:06] Using FIS startlist for ladies's leg predictions
+INFO [2025-06-07 20:50:06] Using FIS startlist for ladies
+INFO [2025-06-07 20:50:06] Attempting Option 1: Team model coefficients
+INFO [2025-06-07 20:50:06] Option 1 failed: No team_podium model found
+INFO [2025-06-07 20:50:06] Option 1 failed: No team model
+INFO [2025-06-07 20:50:06] Attempting Option 2: Individual model accuracy
+INFO [2025-06-07 20:50:06] Leg 1 accuracy: 0.77051282051282
+INFO [2025-06-07 20:50:06] Leg 2 accuracy: 0.866666666666667
+INFO [2025-06-07 20:50:06] Leg 3 accuracy: 0.787179487179487
+INFO [2025-06-07 20:50:06] Leg 4 accuracy: 0.813636363636364
+INFO [2025-06-07 20:50:06] Option 2 succeeded: Using model accuracy weights
+INFO [2025-06-07 20:50:06] Leg importance weights: Leg 1: 0.24, Leg 2: 0.27, Leg 3: 0.24, Leg 4: 0.25
+INFO [2025-06-07 20:50:06] Resetting men's probabilities at or below the mode to zero
+INFO [2025-06-07 20:50:06] No values appear more than twice for Win_Prob
+INFO [2025-06-07 20:50:06] No values appear more than twice for Podium_Prob
+INFO [2025-06-07 20:50:06] No values appear more than twice for Top5_Prob
+INFO [2025-06-07 20:50:06] No values appear more than twice for Top10_Prob
+INFO [2025-06-07 20:50:06] Resetting ladies' probabilities at or below the mode to zero
+INFO [2025-06-07 20:50:06] No values appear more than twice for Win_Prob
+INFO [2025-06-07 20:50:06] No values appear more than twice for Podium_Prob
+INFO [2025-06-07 20:50:06] No values appear more than twice for Top5_Prob
+INFO [2025-06-07 20:50:06] No values appear more than twice for Top10_Prob
+INFO [2025-06-07 20:50:06] Normalizing men's team probabilities
+INFO [2025-06-07 20:50:06] Normalized Win_Prob from sum of 0.71 to 1
+INFO [2025-06-07 20:50:06] Normalized Podium_Prob from sum of 2.34 to 3
+INFO [2025-06-07 20:50:06] Normalized Top5_Prob from sum of 4.2 to 5
+INFO [2025-06-07 20:50:06] Normalized Top10_Prob from sum of 10.33 to 10
+INFO [2025-06-07 20:50:06] Capped 1 values at 1 for Podium_Prob
+INFO [2025-06-07 20:50:06] Capped 1 values at 1 for Top5_Prob
+INFO [2025-06-07 20:50:06] Normalizing ladies' team probabilities
+INFO [2025-06-07 20:50:06] Normalized Win_Prob from sum of 1.12 to 1
+INFO [2025-06-07 20:50:06] Normalized Podium_Prob from sum of 3.26 to 3
+INFO [2025-06-07 20:50:06] Normalized Top5_Prob from sum of 4.51 to 5
+INFO [2025-06-07 20:50:06] Normalized Top10_Prob from sum of 9.34 to 10
+INFO [2025-06-07 20:50:06] Capped 2 values at 1 for Top5_Prob
+INFO [2025-06-07 20:50:06] Capped 5 values at 1 for Top10_Prob
+INFO [2025-06-07 20:50:06] Final capping of probabilities to maximum of 1
+INFO [2025-06-07 20:50:06] Capped 1 values at 1 for Podium_Prob
+INFO [2025-06-07 20:50:06] Capped 1 values at 1 for Top5_Prob
+INFO [2025-06-07 20:50:06] Capped 2 values at 1 for Top5_Prob
+INFO [2025-06-07 20:50:06] Capped 5 values at 1 for Top10_Prob
+INFO [2025-06-07 20:50:06] Optimizing fantasy relay team
+INFO [2025-06-07 20:50:06] Fantasy team optimization complete. Selected 12 teams.
+INFO [2025-06-07 20:50:06] Total price: 99826 of max 1e+05
+INFO [2025-06-07 20:50:06] Expected total points: 814
+INFO [2025-06-07 20:50:06] Men's teams: 6 ( 6 )
+INFO [2025-06-07 20:50:06] Ladies' teams: 6 ( 6 )
+INFO [2025-06-07 20:50:06] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/men_relay.xlsx
+INFO [2025-06-07 20:50:06] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/men_relay_position_probabilities.xlsx
+INFO [2025-06-07 20:50:06] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/ladies_relay.xlsx
+INFO [2025-06-07 20:50:06] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/ladies_relay_position_probabilities.xlsx
+INFO [2025-06-07 20:50:06] Saved fantasy team results to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/fantasy_relay_team.xlsx
+INFO [2025-06-07 20:50:06] Relay predictions completed successfully
+INFO [2025-06-07 20:51:23] Starting relay predictions process
+INFO [2025-06-07 20:51:24] Loading weekend race data
+INFO [2025-06-07 20:51:24] Tomorrow's date: 2025-06-08
+INFO [2025-06-07 20:51:24] Found 1 men's relay races and 1 ladies' relay races
+INFO [2025-06-07 20:51:24] Loading chrono data
+INFO [2025-06-07 20:51:26] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-06-07 20:51:26] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-06-07 20:51:26] Created men's relay df with 9688 rows
+INFO [2025-06-07 20:51:26] Created men's individual df with 92143 rows
+INFO [2025-06-07 20:51:26] Created ladies' relay df with 8019 rows
+INFO [2025-06-07 20:51:26] Created ladies' individual df with 68253 rows
+INFO [2025-06-07 20:51:29] Training models for Leg 1
+INFO [2025-06-07 20:51:29] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:51:29] Training podium model using glm
+INFO [2025-06-07 20:51:29] Training win model using glm
+INFO [2025-06-07 20:51:29] Training top5 model using glm
+INFO [2025-06-07 20:51:29] Training top10 model using glm
+INFO [2025-06-07 20:51:30] Top features for Leg 1 podium prediction:
+INFO [2025-06-07 20:51:30] Training models for Leg 2
+INFO [2025-06-07 20:51:30] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:51:30] Training podium model using glm
+INFO [2025-06-07 20:51:30] Training win model using glm
+INFO [2025-06-07 20:51:30] Training top5 model using glm
+INFO [2025-06-07 20:51:30] Training top10 model using glm
+INFO [2025-06-07 20:51:30] Top features for Leg 2 podium prediction:
+INFO [2025-06-07 20:51:30] Training models for Leg 3
+INFO [2025-06-07 20:51:30] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:51:30] Training podium model using glm
+INFO [2025-06-07 20:51:30] Training win model using glm
+INFO [2025-06-07 20:51:30] Training top5 model using glm
+INFO [2025-06-07 20:51:30] Training top10 model using glm
+INFO [2025-06-07 20:51:30] Top features for Leg 3 podium prediction:
+INFO [2025-06-07 20:51:30] Training models for Leg 4
+INFO [2025-06-07 20:51:30] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:51:30] Training podium model using glm
+INFO [2025-06-07 20:51:30] Training win model using glm
+INFO [2025-06-07 20:51:30] Training top5 model using glm
+INFO [2025-06-07 20:51:30] Training top10 model using glm
+INFO [2025-06-07 20:51:30] Top features for Leg 4 podium prediction:
+INFO [2025-06-07 20:51:30] Training models for Leg 1
+INFO [2025-06-07 20:51:30] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:51:30] Training podium model using glm
+INFO [2025-06-07 20:51:30] Training win model using glm
+INFO [2025-06-07 20:51:30] Training top5 model using glm
+INFO [2025-06-07 20:51:30] Training top10 model using glm
+INFO [2025-06-07 20:51:30] Top features for Leg 1 podium prediction:
+INFO [2025-06-07 20:51:30] Training models for Leg 2
+INFO [2025-06-07 20:51:30] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:51:30] Training podium model using glm
+INFO [2025-06-07 20:51:30] Training win model using glm
+INFO [2025-06-07 20:51:30] Training top5 model using glm
+INFO [2025-06-07 20:51:31] Training top10 model using glm
+INFO [2025-06-07 20:51:31] Top features for Leg 2 podium prediction:
+INFO [2025-06-07 20:51:31] Training models for Leg 3
+INFO [2025-06-07 20:51:31] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:51:31] Training podium model using glm
+INFO [2025-06-07 20:51:31] Training win model using glm
+INFO [2025-06-07 20:51:31] Training top5 model using glm
+INFO [2025-06-07 20:51:31] Training top10 model using glm
+INFO [2025-06-07 20:51:31] Top features for Leg 3 podium prediction:
+INFO [2025-06-07 20:51:31] Training models for Leg 4
+INFO [2025-06-07 20:51:31] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:51:31] Training podium model using glm
+INFO [2025-06-07 20:51:31] Training win model using glm
+INFO [2025-06-07 20:51:31] Training top5 model using glm
+INFO [2025-06-07 20:51:31] Training top10 model using glm
+INFO [2025-06-07 20:51:31] Top features for Leg 4 podium prediction:
+INFO [2025-06-07 20:51:31] Processing men's relay predictions
+INFO [2025-06-07 20:51:31] Loaded men relay teams startlist with 24 rows
+INFO [2025-06-07 20:51:31] Loaded men relay individuals startlist with 96 rows
+INFO [2025-06-07 20:51:31] Preparing current men skier data
+INFO [2025-06-07 20:51:31] Found 9 Elo columns for current skiers
+INFO [2025-06-07 20:51:31] Replaced NAs in Distance_Elo with first quartile: 1207.23243912712
+INFO [2025-06-07 20:51:31] Replaced NAs in Distance_C_Elo with first quartile: 1233.40200699225
+INFO [2025-06-07 20:51:31] Replaced NAs in Distance_F_Elo with first quartile: 1236.48554062178
+INFO [2025-06-07 20:51:31] Replaced NAs in Sprint_Elo with first quartile: 1223.60107000698
+INFO [2025-06-07 20:51:31] Replaced NAs in Sprint_C_Elo with first quartile: 1241.28715500947
+INFO [2025-06-07 20:51:31] Replaced NAs in Sprint_F_Elo with first quartile: 1234.45151108772
+INFO [2025-06-07 20:51:31] Replaced NAs in Classic_Elo with first quartile: 1241.52867310024
+INFO [2025-06-07 20:51:31] Replaced NAs in Freestyle_Elo with first quartile: 1228.48649348109
+INFO [2025-06-07 20:51:31] Replaced NAs in Distance_Pelo with first quartile: 1211.63035979047
+INFO [2025-06-07 20:51:31] Replaced NAs in Distance_C_Pelo with first quartile: 1234.81091928129
+INFO [2025-06-07 20:51:31] Replaced NAs in Distance_F_Pelo with first quartile: 1239.65331180248
+INFO [2025-06-07 20:51:31] Replaced NAs in Sprint_Pelo with first quartile: 1240.94751821383
+INFO [2025-06-07 20:51:31] Replaced NAs in Sprint_C_Pelo with first quartile: 1241.28715500947
+INFO [2025-06-07 20:51:31] Replaced NAs in Sprint_F_Pelo with first quartile: 1252.45166310493
+INFO [2025-06-07 20:51:31] Replaced NAs in Classic_Pelo with first quartile: 1243.63746068082
+INFO [2025-06-07 20:51:31] Replaced NAs in Freestyle_Pelo with first quartile: 1249.30280713791
+INFO [2025-06-07 20:51:31] Replaced NAs in Classic_Last_5 with first quartile: 0
+INFO [2025-06-07 20:51:31] Replaced NAs in Freestyle_Last_5 with first quartile: 0
+INFO [2025-06-07 20:51:31] Created Pelo_Pct from Elo with max value: 1946.6211651574
+INFO [2025-06-07 20:51:31] Created Distance_Pelo_Pct from Distance_Elo with max value: 1869.1251911742
+INFO [2025-06-07 20:51:31] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1777.16297253153
+INFO [2025-06-07 20:51:31] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1695.2053212904
+INFO [2025-06-07 20:51:31] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1886.80363942481
+INFO [2025-06-07 20:51:31] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.08486899169
+INFO [2025-06-07 20:51:31] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1792.65157560707
+INFO [2025-06-07 20:51:31] Created Classic_Pelo_Pct from Classic_Elo with max value: 1807.56773496777
+INFO [2025-06-07 20:51:31] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1814.60460629541
+INFO [2025-06-07 20:51:31] Prepared data for 381 men skiers with 33 features
+INFO [2025-06-07 20:51:31] Using FIS startlist for men's leg predictions
+INFO [2025-06-07 20:51:31] Using FIS startlist for men
+INFO [2025-06-07 20:51:31] Attempting Option 1: Team model coefficients
+INFO [2025-06-07 20:51:31] Option 1 failed: No team_podium model found
+INFO [2025-06-07 20:51:31] Option 1 failed: No team model
+INFO [2025-06-07 20:51:31] Attempting Option 2: Individual model accuracy
+INFO [2025-06-07 20:51:31] Leg 1 accuracy: 0.861638418079096
+INFO [2025-06-07 20:51:31] Leg 2 accuracy: 0.8445197740113
+INFO [2025-06-07 20:51:31] Leg 3 accuracy: 0.860607831677382
+INFO [2025-06-07 20:51:31] Leg 4 accuracy: 0.881223456068576
+INFO [2025-06-07 20:51:31] Option 2 succeeded: Using model accuracy weights
+INFO [2025-06-07 20:51:31] Leg importance weights: Leg 1: 0.25, Leg 2: 0.24, Leg 3: 0.25, Leg 4: 0.26
+INFO [2025-06-07 20:51:31] Processing ladies's relay predictions
+INFO [2025-06-07 20:51:31] Loaded ladies relay teams startlist with 20 rows
+INFO [2025-06-07 20:51:31] Loaded ladies relay individuals startlist with 80 rows
+INFO [2025-06-07 20:51:31] Preparing current ladies skier data
+INFO [2025-06-07 20:51:31] Found 9 Elo columns for current skiers
+INFO [2025-06-07 20:51:31] Replaced NAs in Distance_Elo with first quartile: 1237.38564383256
+INFO [2025-06-07 20:51:31] Replaced NAs in Distance_C_Elo with first quartile: 1243.87329106944
+INFO [2025-06-07 20:51:31] Replaced NAs in Distance_F_Elo with first quartile: 1256.69628195708
+INFO [2025-06-07 20:51:31] Replaced NAs in Sprint_Elo with first quartile: 1246.32574824425
+INFO [2025-06-07 20:51:31] Replaced NAs in Sprint_C_Elo with first quartile: 1257.67866787334
+INFO [2025-06-07 20:51:31] Replaced NAs in Sprint_F_Elo with first quartile: 1244.84742904868
+INFO [2025-06-07 20:51:31] Replaced NAs in Classic_Elo with first quartile: 1252.44868703669
+INFO [2025-06-07 20:51:31] Replaced NAs in Freestyle_Elo with first quartile: 1244.44508230281
+INFO [2025-06-07 20:51:31] Replaced NAs in Distance_Pelo with first quartile: 1241.11854419952
+INFO [2025-06-07 20:51:31] Replaced NAs in Distance_C_Pelo with first quartile: 1245.57367555166
+INFO [2025-06-07 20:51:31] Replaced NAs in Distance_F_Pelo with first quartile: 1259.54282973153
+INFO [2025-06-07 20:51:31] Replaced NAs in Sprint_Pelo with first quartile: 1254.59410960767
+INFO [2025-06-07 20:51:31] Replaced NAs in Sprint_C_Pelo with first quartile: 1257.58302026178
+INFO [2025-06-07 20:51:31] Replaced NAs in Sprint_F_Pelo with first quartile: 1257.67755691493
+INFO [2025-06-07 20:51:31] Replaced NAs in Classic_Pelo with first quartile: 1256.79275004544
+INFO [2025-06-07 20:51:31] Replaced NAs in Freestyle_Pelo with first quartile: 1256.79999900008
+INFO [2025-06-07 20:51:31] Replaced NAs in Classic_Last_5 with first quartile: 3.5
+INFO [2025-06-07 20:51:31] Replaced NAs in Freestyle_Last_5 with first quartile: 2.4
+INFO [2025-06-07 20:51:31] Created Pelo_Pct from Elo with max value: 1840.99747242401
+INFO [2025-06-07 20:51:31] Created Distance_Pelo_Pct from Distance_Elo with max value: 1889.46974050597
+INFO [2025-06-07 20:51:31] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1763.33572074398
+INFO [2025-06-07 20:51:31] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1693.85026290322
+INFO [2025-06-07 20:51:31] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1742.75320156525
+INFO [2025-06-07 20:51:31] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1601.58469902127
+INFO [2025-06-07 20:51:31] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1681.09824552997
+INFO [2025-06-07 20:51:31] Created Classic_Pelo_Pct from Classic_Elo with max value: 1698.68768563646
+INFO [2025-06-07 20:51:31] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1707.58410982918
+INFO [2025-06-07 20:51:31] Prepared data for 255 ladies skiers with 33 features
+INFO [2025-06-07 20:51:31] Using FIS startlist for ladies's leg predictions
+INFO [2025-06-07 20:51:31] Using FIS startlist for ladies
+INFO [2025-06-07 20:51:31] Attempting Option 1: Team model coefficients
+INFO [2025-06-07 20:51:31] Option 1 failed: No team_podium model found
+INFO [2025-06-07 20:51:31] Option 1 failed: No team model
+INFO [2025-06-07 20:51:31] Attempting Option 2: Individual model accuracy
+INFO [2025-06-07 20:51:31] Leg 1 accuracy: 0.785897435897436
+INFO [2025-06-07 20:51:31] Leg 2 accuracy: 0.816666666666667
+INFO [2025-06-07 20:51:31] Leg 3 accuracy: 0.803846153846154
+INFO [2025-06-07 20:51:31] Leg 4 accuracy: 0.85
+INFO [2025-06-07 20:51:31] Option 2 succeeded: Using model accuracy weights
+INFO [2025-06-07 20:51:31] Leg importance weights: Leg 1: 0.24, Leg 2: 0.25, Leg 3: 0.25, Leg 4: 0.26
+INFO [2025-06-07 20:51:31] Resetting men's probabilities at or below the mode to zero
+INFO [2025-06-07 20:51:31] No values appear more than twice for Win_Prob
+INFO [2025-06-07 20:51:31] No values appear more than twice for Podium_Prob
+INFO [2025-06-07 20:51:31] No values appear more than twice for Top5_Prob
+INFO [2025-06-07 20:51:31] No values appear more than twice for Top10_Prob
+INFO [2025-06-07 20:51:31] Resetting ladies' probabilities at or below the mode to zero
+INFO [2025-06-07 20:51:31] Reset 3 values to 0 for Win_Prob (repeated values or values <  0 )
+INFO [2025-06-07 20:51:31] Repeated values: 0
+INFO [2025-06-07 20:51:31] No values appear more than twice for Podium_Prob
+INFO [2025-06-07 20:51:31] No values appear more than twice for Top5_Prob
+INFO [2025-06-07 20:51:31] No values appear more than twice for Top10_Prob
+INFO [2025-06-07 20:51:31] Normalizing men's team probabilities
+INFO [2025-06-07 20:51:31] Normalized Win_Prob from sum of 0.71 to 1
+INFO [2025-06-07 20:51:31] Normalized Podium_Prob from sum of 2.34 to 3
+INFO [2025-06-07 20:51:31] Normalized Top5_Prob from sum of 4.2 to 5
+INFO [2025-06-07 20:51:31] Normalized Top10_Prob from sum of 10.33 to 10
+INFO [2025-06-07 20:51:31] Capped 1 values at 1 for Podium_Prob
+INFO [2025-06-07 20:51:31] Capped 1 values at 1 for Top5_Prob
+INFO [2025-06-07 20:51:31] Normalizing ladies' team probabilities
+INFO [2025-06-07 20:51:31] Normalized Win_Prob from sum of 1.11 to 1
+INFO [2025-06-07 20:51:31] Normalized Podium_Prob from sum of 3.26 to 3
+INFO [2025-06-07 20:51:31] Normalized Top5_Prob from sum of 4.51 to 5
+INFO [2025-06-07 20:51:31] Normalized Top10_Prob from sum of 9.34 to 10
+INFO [2025-06-07 20:51:31] Capped 2 values at 1 for Top5_Prob
+INFO [2025-06-07 20:51:31] Capped 5 values at 1 for Top10_Prob
+INFO [2025-06-07 20:51:31] Final capping of probabilities to maximum of 1
+INFO [2025-06-07 20:51:31] Capped 1 values at 1 for Podium_Prob
+INFO [2025-06-07 20:51:31] Capped 1 values at 1 for Top5_Prob
+INFO [2025-06-07 20:51:31] Capped 2 values at 1 for Top5_Prob
+INFO [2025-06-07 20:51:31] Capped 5 values at 1 for Top10_Prob
+INFO [2025-06-07 20:51:31] Optimizing fantasy relay team
+INFO [2025-06-07 20:51:32] Fantasy team optimization complete. Selected 12 teams.
+INFO [2025-06-07 20:51:32] Total price: 99826 of max 1e+05
+INFO [2025-06-07 20:51:32] Expected total points: 811.9
+INFO [2025-06-07 20:51:32] Men's teams: 6 ( 6 )
+INFO [2025-06-07 20:51:32] Ladies' teams: 6 ( 6 )
+INFO [2025-06-07 20:51:32] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/men_relay.xlsx
+INFO [2025-06-07 20:51:32] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/men_relay_position_probabilities.xlsx
+INFO [2025-06-07 20:51:32] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/ladies_relay.xlsx
+INFO [2025-06-07 20:51:32] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/ladies_relay_position_probabilities.xlsx
+INFO [2025-06-07 20:51:32] Saved fantasy team results to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/fantasy_relay_team.xlsx
+INFO [2025-06-07 20:51:32] Relay predictions completed successfully
+INFO [2025-06-07 20:55:27] Starting relay predictions process
+INFO [2025-06-07 20:55:28] Loading weekend race data
+INFO [2025-06-07 20:55:28] Tomorrow's date: 2025-06-08
+INFO [2025-06-07 20:55:28] Found 1 men's relay races and 1 ladies' relay races
+INFO [2025-06-07 20:55:28] Loading chrono data
+INFO [2025-06-07 20:55:30] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-06-07 20:55:30] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-06-07 20:55:30] Created men's relay df with 9688 rows
+INFO [2025-06-07 20:55:30] Created men's individual df with 92143 rows
+INFO [2025-06-07 20:55:30] Created ladies' relay df with 8019 rows
+INFO [2025-06-07 20:55:30] Created ladies' individual df with 68253 rows
+INFO [2025-06-07 20:55:34] Training models for Leg 1
+INFO [2025-06-07 20:55:34] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:55:34] Training podium model using glm
+INFO [2025-06-07 20:55:34] Training win model using glm
+INFO [2025-06-07 20:55:34] Training top5 model using glm
+INFO [2025-06-07 20:55:34] Training top10 model using glm
+INFO [2025-06-07 20:55:34] Top features for Leg 1 podium prediction:
+INFO [2025-06-07 20:55:34] Training models for Leg 2
+INFO [2025-06-07 20:55:34] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:55:34] Training podium model using glm
+INFO [2025-06-07 20:55:34] Training win model using glm
+INFO [2025-06-07 20:55:34] Training top5 model using glm
+INFO [2025-06-07 20:55:34] Training top10 model using glm
+INFO [2025-06-07 20:55:34] Top features for Leg 2 podium prediction:
+INFO [2025-06-07 20:55:34] Training models for Leg 3
+INFO [2025-06-07 20:55:34] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:55:34] Training podium model using glm
+INFO [2025-06-07 20:55:34] Training win model using glm
+INFO [2025-06-07 20:55:34] Training top5 model using glm
+INFO [2025-06-07 20:55:34] Training top10 model using glm
+INFO [2025-06-07 20:55:34] Top features for Leg 3 podium prediction:
+INFO [2025-06-07 20:55:34] Training models for Leg 4
+INFO [2025-06-07 20:55:34] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:55:34] Training podium model using glm
+INFO [2025-06-07 20:55:34] Training win model using glm
+INFO [2025-06-07 20:55:34] Training top5 model using glm
+INFO [2025-06-07 20:55:34] Training top10 model using glm
+INFO [2025-06-07 20:55:34] Top features for Leg 4 podium prediction:
+INFO [2025-06-07 20:55:34] Training models for Leg 1
+INFO [2025-06-07 20:55:34] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:55:34] Training podium model using glm
+INFO [2025-06-07 20:55:34] Training win model using glm
+INFO [2025-06-07 20:55:34] Training top5 model using glm
+INFO [2025-06-07 20:55:35] Training top10 model using glm
+INFO [2025-06-07 20:55:35] Top features for Leg 1 podium prediction:
+INFO [2025-06-07 20:55:35] Training models for Leg 2
+INFO [2025-06-07 20:55:35] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:55:35] Training podium model using glm
+INFO [2025-06-07 20:55:35] Training win model using glm
+INFO [2025-06-07 20:55:35] Training top5 model using glm
+INFO [2025-06-07 20:55:35] Training top10 model using glm
+INFO [2025-06-07 20:55:35] Top features for Leg 2 podium prediction:
+INFO [2025-06-07 20:55:35] Training models for Leg 3
+INFO [2025-06-07 20:55:35] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:55:35] Training podium model using glm
+INFO [2025-06-07 20:55:35] Training win model using glm
+INFO [2025-06-07 20:55:35] Training top5 model using glm
+INFO [2025-06-07 20:55:35] Training top10 model using glm
+INFO [2025-06-07 20:55:35] Top features for Leg 3 podium prediction:
+INFO [2025-06-07 20:55:35] Training models for Leg 4
+INFO [2025-06-07 20:55:35] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:55:35] Training podium model using glm
+INFO [2025-06-07 20:55:35] Training win model using glm
+INFO [2025-06-07 20:55:35] Training top5 model using glm
+INFO [2025-06-07 20:55:35] Training top10 model using glm
+INFO [2025-06-07 20:55:35] Top features for Leg 4 podium prediction:
+INFO [2025-06-07 20:55:35] Processing men's relay predictions
+INFO [2025-06-07 20:55:35] Loaded men relay teams startlist with 24 rows
+INFO [2025-06-07 20:55:35] Loaded men relay individuals startlist with 96 rows
+INFO [2025-06-07 20:55:35] Preparing current men skier data
+INFO [2025-06-07 20:55:35] Found 9 Elo columns for current skiers
+INFO [2025-06-07 20:55:35] Replaced NAs in Distance_Elo with first quartile: 1207.23243912712
+INFO [2025-06-07 20:55:35] Replaced NAs in Distance_C_Elo with first quartile: 1233.40200699225
+INFO [2025-06-07 20:55:35] Replaced NAs in Distance_F_Elo with first quartile: 1236.48554062178
+INFO [2025-06-07 20:55:35] Replaced NAs in Sprint_Elo with first quartile: 1223.60107000698
+INFO [2025-06-07 20:55:35] Replaced NAs in Sprint_C_Elo with first quartile: 1241.28715500947
+INFO [2025-06-07 20:55:35] Replaced NAs in Sprint_F_Elo with first quartile: 1234.45151108772
+INFO [2025-06-07 20:55:35] Replaced NAs in Classic_Elo with first quartile: 1241.52867310024
+INFO [2025-06-07 20:55:35] Replaced NAs in Freestyle_Elo with first quartile: 1228.48649348109
+INFO [2025-06-07 20:55:35] Replaced NAs in Distance_Pelo with first quartile: 1211.63035979047
+INFO [2025-06-07 20:55:35] Replaced NAs in Distance_C_Pelo with first quartile: 1234.81091928129
+INFO [2025-06-07 20:55:35] Replaced NAs in Distance_F_Pelo with first quartile: 1239.65331180248
+INFO [2025-06-07 20:55:35] Replaced NAs in Sprint_Pelo with first quartile: 1240.94751821383
+INFO [2025-06-07 20:55:35] Replaced NAs in Sprint_C_Pelo with first quartile: 1241.28715500947
+INFO [2025-06-07 20:55:35] Replaced NAs in Sprint_F_Pelo with first quartile: 1252.45166310493
+INFO [2025-06-07 20:55:35] Replaced NAs in Classic_Pelo with first quartile: 1243.63746068082
+INFO [2025-06-07 20:55:35] Replaced NAs in Freestyle_Pelo with first quartile: 1249.30280713791
+INFO [2025-06-07 20:55:35] Replaced NAs in Classic_Last_5 with first quartile: 0
+INFO [2025-06-07 20:55:35] Replaced NAs in Freestyle_Last_5 with first quartile: 0
+INFO [2025-06-07 20:55:35] Created Pelo_Pct from Elo with max value: 1946.6211651574
+INFO [2025-06-07 20:55:35] Created Distance_Pelo_Pct from Distance_Elo with max value: 1869.1251911742
+INFO [2025-06-07 20:55:35] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1777.16297253153
+INFO [2025-06-07 20:55:35] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1695.2053212904
+INFO [2025-06-07 20:55:35] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1886.80363942481
+INFO [2025-06-07 20:55:35] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.08486899169
+INFO [2025-06-07 20:55:35] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1792.65157560707
+INFO [2025-06-07 20:55:35] Created Classic_Pelo_Pct from Classic_Elo with max value: 1807.56773496777
+INFO [2025-06-07 20:55:35] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1814.60460629541
+INFO [2025-06-07 20:55:35] Prepared data for 381 men skiers with 33 features
+INFO [2025-06-07 20:55:35] Using FIS startlist for men's leg predictions
+INFO [2025-06-07 20:55:35] Using FIS startlist for men
+INFO [2025-06-07 20:55:35] Attempting Option 1: Team model coefficients
+INFO [2025-06-07 20:55:35] Option 1 failed: No team_podium model found
+INFO [2025-06-07 20:55:35] Option 1 failed: No team model
+INFO [2025-06-07 20:55:35] Attempting Option 2: Individual model accuracy
+INFO [2025-06-07 20:55:35] Leg 1 accuracy: 0.85472433274888
+INFO [2025-06-07 20:55:35] Leg 2 accuracy: 0.855189947399182
+INFO [2025-06-07 20:55:35] Leg 3 accuracy: 0.860652639781804
+INFO [2025-06-07 20:55:35] Leg 4 accuracy: 0.88138710305864
+INFO [2025-06-07 20:55:35] Option 2 succeeded: Using model accuracy weights
+INFO [2025-06-07 20:55:35] Leg importance weights: Leg 1: 0.25, Leg 2: 0.25, Leg 3: 0.25, Leg 4: 0.26
+INFO [2025-06-07 20:55:35] Processing ladies's relay predictions
+INFO [2025-06-07 20:55:35] Loaded ladies relay teams startlist with 20 rows
+INFO [2025-06-07 20:55:35] Loaded ladies relay individuals startlist with 80 rows
+INFO [2025-06-07 20:55:35] Preparing current ladies skier data
+INFO [2025-06-07 20:55:36] Found 9 Elo columns for current skiers
+INFO [2025-06-07 20:55:36] Replaced NAs in Distance_Elo with first quartile: 1237.38564383256
+INFO [2025-06-07 20:55:36] Replaced NAs in Distance_C_Elo with first quartile: 1243.87329106944
+INFO [2025-06-07 20:55:36] Replaced NAs in Distance_F_Elo with first quartile: 1256.69628195708
+INFO [2025-06-07 20:55:36] Replaced NAs in Sprint_Elo with first quartile: 1246.32574824425
+INFO [2025-06-07 20:55:36] Replaced NAs in Sprint_C_Elo with first quartile: 1257.67866787334
+INFO [2025-06-07 20:55:36] Replaced NAs in Sprint_F_Elo with first quartile: 1244.84742904868
+INFO [2025-06-07 20:55:36] Replaced NAs in Classic_Elo with first quartile: 1252.44868703669
+INFO [2025-06-07 20:55:36] Replaced NAs in Freestyle_Elo with first quartile: 1244.44508230281
+INFO [2025-06-07 20:55:36] Replaced NAs in Distance_Pelo with first quartile: 1241.11854419952
+INFO [2025-06-07 20:55:36] Replaced NAs in Distance_C_Pelo with first quartile: 1245.57367555166
+INFO [2025-06-07 20:55:36] Replaced NAs in Distance_F_Pelo with first quartile: 1259.54282973153
+INFO [2025-06-07 20:55:36] Replaced NAs in Sprint_Pelo with first quartile: 1254.59410960767
+INFO [2025-06-07 20:55:36] Replaced NAs in Sprint_C_Pelo with first quartile: 1257.58302026178
+INFO [2025-06-07 20:55:36] Replaced NAs in Sprint_F_Pelo with first quartile: 1257.67755691493
+INFO [2025-06-07 20:55:36] Replaced NAs in Classic_Pelo with first quartile: 1256.79275004544
+INFO [2025-06-07 20:55:36] Replaced NAs in Freestyle_Pelo with first quartile: 1256.79999900008
+INFO [2025-06-07 20:55:36] Replaced NAs in Classic_Last_5 with first quartile: 3.5
+INFO [2025-06-07 20:55:36] Replaced NAs in Freestyle_Last_5 with first quartile: 2.4
+INFO [2025-06-07 20:55:36] Created Pelo_Pct from Elo with max value: 1840.99747242401
+INFO [2025-06-07 20:55:36] Created Distance_Pelo_Pct from Distance_Elo with max value: 1889.46974050597
+INFO [2025-06-07 20:55:36] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1763.33572074398
+INFO [2025-06-07 20:55:36] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1693.85026290322
+INFO [2025-06-07 20:55:36] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1742.75320156525
+INFO [2025-06-07 20:55:36] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1601.58469902127
+INFO [2025-06-07 20:55:36] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1681.09824552997
+INFO [2025-06-07 20:55:36] Created Classic_Pelo_Pct from Classic_Elo with max value: 1698.68768563646
+INFO [2025-06-07 20:55:36] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1707.58410982918
+INFO [2025-06-07 20:55:36] Prepared data for 255 ladies skiers with 33 features
+INFO [2025-06-07 20:55:36] Using FIS startlist for ladies's leg predictions
+INFO [2025-06-07 20:55:36] Using FIS startlist for ladies
+INFO [2025-06-07 20:55:36] Attempting Option 1: Team model coefficients
+INFO [2025-06-07 20:55:36] Option 1 failed: No team_podium model found
+INFO [2025-06-07 20:55:36] Option 1 failed: No team model
+INFO [2025-06-07 20:55:36] Attempting Option 2: Individual model accuracy
+INFO [2025-06-07 20:55:36] Leg 1 accuracy: 0.753846153846154
+INFO [2025-06-07 20:55:36] Leg 2 accuracy: 0.85
+INFO [2025-06-07 20:55:36] Leg 3 accuracy: 0.838461538461538
+INFO [2025-06-07 20:55:36] Leg 4 accuracy: 0.833333333333333
+INFO [2025-06-07 20:55:36] Option 2 succeeded: Using model accuracy weights
+INFO [2025-06-07 20:55:36] Leg importance weights: Leg 1: 0.23, Leg 2: 0.26, Leg 3: 0.26, Leg 4: 0.25
+INFO [2025-06-07 20:55:36] Resetting men's probabilities at or below the mode to zero
+INFO [2025-06-07 20:55:36] No values appear more than twice for Win_Prob
+INFO [2025-06-07 20:55:36] No values appear more than twice for Podium_Prob
+INFO [2025-06-07 20:55:36] No values appear more than twice for Top5_Prob
+INFO [2025-06-07 20:55:36] No values appear more than twice for Top10_Prob
+INFO [2025-06-07 20:55:36] Resetting ladies' probabilities at or below the mode to zero
+INFO [2025-06-07 20:55:36] No values appear more than twice for Win_Prob
+INFO [2025-06-07 20:55:36] No values appear more than twice for Podium_Prob
+INFO [2025-06-07 20:55:36] No values appear more than twice for Top5_Prob
+INFO [2025-06-07 20:55:36] No values appear more than twice for Top10_Prob
+INFO [2025-06-07 20:55:36] Normalizing men's team probabilities
+INFO [2025-06-07 20:55:36] Normalized Win_Prob from sum of 0.72 to 1
+INFO [2025-06-07 20:55:36] Normalized Podium_Prob from sum of 2.35 to 3
+INFO [2025-06-07 20:55:36] Normalized Top5_Prob from sum of 4.21 to 5
+INFO [2025-06-07 20:55:36] Normalized Top10_Prob from sum of 10.33 to 10
+INFO [2025-06-07 20:55:36] Capped 1 values at 1 for Podium_Prob
+INFO [2025-06-07 20:55:36] Capped 1 values at 1 for Top5_Prob
+INFO [2025-06-07 20:55:36] Normalizing ladies' team probabilities
+INFO [2025-06-07 20:55:36] Normalized Win_Prob from sum of 1.11 to 1
+INFO [2025-06-07 20:55:36] Normalized Podium_Prob from sum of 3.25 to 3
+INFO [2025-06-07 20:55:36] Normalized Top5_Prob from sum of 4.5 to 5
+INFO [2025-06-07 20:55:36] Normalized Top10_Prob from sum of 9.34 to 10
+INFO [2025-06-07 20:55:36] Capped 2 values at 1 for Top5_Prob
+INFO [2025-06-07 20:55:36] Capped 5 values at 1 for Top10_Prob
+INFO [2025-06-07 20:55:36] Final capping of probabilities to maximum of 1
+INFO [2025-06-07 20:55:36] Capped 1 values at 1 for Podium_Prob
+INFO [2025-06-07 20:55:36] Capped 1 values at 1 for Top5_Prob
+INFO [2025-06-07 20:55:36] Capped 2 values at 1 for Top5_Prob
+INFO [2025-06-07 20:55:36] Capped 5 values at 1 for Top10_Prob
+INFO [2025-06-07 20:55:36] Optimizing fantasy relay team
+INFO [2025-06-07 20:55:36] Fantasy team optimization complete. Selected 12 teams.
+INFO [2025-06-07 20:55:36] Total price: 99826 of max 1e+05
+INFO [2025-06-07 20:55:36] Expected total points: 814.4
+INFO [2025-06-07 20:55:36] Men's teams: 6 ( 6 )
+INFO [2025-06-07 20:55:36] Ladies' teams: 6 ( 6 )
+INFO [2025-06-07 20:55:36] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/men_relay.xlsx
+INFO [2025-06-07 20:55:36] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/men_relay_position_probabilities.xlsx
+INFO [2025-06-07 20:55:36] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/ladies_relay.xlsx
+INFO [2025-06-07 20:55:36] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/ladies_relay_position_probabilities.xlsx
+INFO [2025-06-07 20:55:36] Saved fantasy team results to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/fantasy_relay_team.xlsx
+INFO [2025-06-07 20:55:36] Relay predictions completed successfully
+INFO [2025-06-07 20:58:57] Starting relay predictions process
+INFO [2025-06-07 20:58:57] Loading weekend race data
+INFO [2025-06-07 20:58:57] Tomorrow's date: 2025-06-08
+INFO [2025-06-07 20:58:57] Found 1 men's relay races and 1 ladies' relay races
+INFO [2025-06-07 20:58:57] Loading chrono data
+INFO [2025-06-07 20:58:59] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-06-07 20:58:59] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-06-07 20:59:00] Created men's relay df with 9688 rows
+INFO [2025-06-07 20:59:00] Created men's individual df with 92143 rows
+INFO [2025-06-07 20:59:00] Created ladies' relay df with 8019 rows
+INFO [2025-06-07 20:59:00] Created ladies' individual df with 68253 rows
+INFO [2025-06-07 20:59:03] Training models for Leg 1
+INFO [2025-06-07 20:59:03] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:59:03] Training podium model using glm
+INFO [2025-06-07 20:59:03] Training win model using glm
+INFO [2025-06-07 20:59:03] Training top5 model using glm
+INFO [2025-06-07 20:59:03] Training top10 model using glm
+INFO [2025-06-07 20:59:03] Top features for Leg 1 podium prediction:
+INFO [2025-06-07 20:59:03] Training models for Leg 2
+INFO [2025-06-07 20:59:03] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:59:03] Training podium model using glm
+INFO [2025-06-07 20:59:03] Training win model using glm
+INFO [2025-06-07 20:59:03] Training top5 model using glm
+INFO [2025-06-07 20:59:03] Training top10 model using glm
+INFO [2025-06-07 20:59:03] Top features for Leg 2 podium prediction:
+INFO [2025-06-07 20:59:03] Training models for Leg 3
+INFO [2025-06-07 20:59:03] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:59:03] Training podium model using glm
+INFO [2025-06-07 20:59:03] Training win model using glm
+INFO [2025-06-07 20:59:03] Training top5 model using glm
+INFO [2025-06-07 20:59:03] Training top10 model using glm
+INFO [2025-06-07 20:59:03] Top features for Leg 3 podium prediction:
+INFO [2025-06-07 20:59:03] Training models for Leg 4
+INFO [2025-06-07 20:59:03] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:59:03] Training podium model using glm
+INFO [2025-06-07 20:59:04] Training win model using glm
+INFO [2025-06-07 20:59:04] Training top5 model using glm
+INFO [2025-06-07 20:59:04] Training top10 model using glm
+INFO [2025-06-07 20:59:04] Top features for Leg 4 podium prediction:
+INFO [2025-06-07 20:59:04] Training models for Leg 1
+INFO [2025-06-07 20:59:04] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:59:04] Training podium model using glm
+INFO [2025-06-07 20:59:04] Training win model using glm
+INFO [2025-06-07 20:59:04] Training top5 model using glm
+INFO [2025-06-07 20:59:04] Training top10 model using glm
+INFO [2025-06-07 20:59:04] Top features for Leg 1 podium prediction:
+INFO [2025-06-07 20:59:04] Training models for Leg 2
+INFO [2025-06-07 20:59:04] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:59:04] Training podium model using glm
+INFO [2025-06-07 20:59:04] Training win model using glm
+INFO [2025-06-07 20:59:04] Training top5 model using glm
+INFO [2025-06-07 20:59:04] Training top10 model using glm
+INFO [2025-06-07 20:59:04] Top features for Leg 2 podium prediction:
+INFO [2025-06-07 20:59:04] Training models for Leg 3
+INFO [2025-06-07 20:59:04] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:59:04] Training podium model using glm
+INFO [2025-06-07 20:59:04] Training win model using glm
+INFO [2025-06-07 20:59:04] Training top5 model using glm
+INFO [2025-06-07 20:59:04] Training top10 model using glm
+INFO [2025-06-07 20:59:04] Top features for Leg 3 podium prediction:
+INFO [2025-06-07 20:59:04] Training models for Leg 4
+INFO [2025-06-07 20:59:04] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 20:59:04] Training podium model using glm
+INFO [2025-06-07 20:59:04] Training win model using glm
+INFO [2025-06-07 20:59:04] Training top5 model using glm
+INFO [2025-06-07 20:59:04] Training top10 model using glm
+INFO [2025-06-07 20:59:04] Top features for Leg 4 podium prediction:
+INFO [2025-06-07 20:59:04] Processing men's relay predictions
+INFO [2025-06-07 20:59:04] Loaded men relay teams startlist with 24 rows
+INFO [2025-06-07 20:59:04] Loaded men relay individuals startlist with 96 rows
+INFO [2025-06-07 20:59:05] Preparing current men skier data
+INFO [2025-06-07 20:59:05] Found 9 Elo columns for current skiers
+INFO [2025-06-07 20:59:05] Replaced NAs in Distance_Elo with first quartile: 1207.23243912712
+INFO [2025-06-07 20:59:05] Replaced NAs in Distance_C_Elo with first quartile: 1233.40200699225
+INFO [2025-06-07 20:59:05] Replaced NAs in Distance_F_Elo with first quartile: 1236.48554062178
+INFO [2025-06-07 20:59:05] Replaced NAs in Sprint_Elo with first quartile: 1223.60107000698
+INFO [2025-06-07 20:59:05] Replaced NAs in Sprint_C_Elo with first quartile: 1241.28715500947
+INFO [2025-06-07 20:59:05] Replaced NAs in Sprint_F_Elo with first quartile: 1234.45151108772
+INFO [2025-06-07 20:59:05] Replaced NAs in Classic_Elo with first quartile: 1241.52867310024
+INFO [2025-06-07 20:59:05] Replaced NAs in Freestyle_Elo with first quartile: 1228.48649348109
+INFO [2025-06-07 20:59:05] Replaced NAs in Distance_Pelo with first quartile: 1211.63035979047
+INFO [2025-06-07 20:59:05] Replaced NAs in Distance_C_Pelo with first quartile: 1234.81091928129
+INFO [2025-06-07 20:59:05] Replaced NAs in Distance_F_Pelo with first quartile: 1239.65331180248
+INFO [2025-06-07 20:59:05] Replaced NAs in Sprint_Pelo with first quartile: 1240.94751821383
+INFO [2025-06-07 20:59:05] Replaced NAs in Sprint_C_Pelo with first quartile: 1241.28715500947
+INFO [2025-06-07 20:59:05] Replaced NAs in Sprint_F_Pelo with first quartile: 1252.45166310493
+INFO [2025-06-07 20:59:05] Replaced NAs in Classic_Pelo with first quartile: 1243.63746068082
+INFO [2025-06-07 20:59:05] Replaced NAs in Freestyle_Pelo with first quartile: 1249.30280713791
+INFO [2025-06-07 20:59:05] Replaced NAs in Classic_Last_5 with first quartile: 0
+INFO [2025-06-07 20:59:05] Replaced NAs in Freestyle_Last_5 with first quartile: 0
+INFO [2025-06-07 20:59:05] Created Pelo_Pct from Elo with max value: 1946.6211651574
+INFO [2025-06-07 20:59:05] Created Distance_Pelo_Pct from Distance_Elo with max value: 1869.1251911742
+INFO [2025-06-07 20:59:05] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1777.16297253153
+INFO [2025-06-07 20:59:05] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1695.2053212904
+INFO [2025-06-07 20:59:05] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1886.80363942481
+INFO [2025-06-07 20:59:05] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.08486899169
+INFO [2025-06-07 20:59:05] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1792.65157560707
+INFO [2025-06-07 20:59:05] Created Classic_Pelo_Pct from Classic_Elo with max value: 1807.56773496777
+INFO [2025-06-07 20:59:05] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1814.60460629541
+INFO [2025-06-07 20:59:05] Prepared data for 381 men skiers with 33 features
+INFO [2025-06-07 20:59:05] Using FIS startlist for men's leg predictions
+INFO [2025-06-07 20:59:05] Using FIS startlist for men
+INFO [2025-06-07 20:59:05] Attempting Option 1: Team model coefficients
+INFO [2025-06-07 20:59:05] Option 1 failed: No team_podium model found
+INFO [2025-06-07 20:59:05] Option 1 failed: No team model
+INFO [2025-06-07 20:59:05] Attempting Option 2: Individual model accuracy
+INFO [2025-06-07 20:59:05] Leg 1 accuracy: 0.8545197740113
+INFO [2025-06-07 20:59:05] Leg 2 accuracy: 0.840960451977401
+INFO [2025-06-07 20:59:05] Leg 3 accuracy: 0.870644847067992
+INFO [2025-06-07 20:59:05] Leg 4 accuracy: 0.884502240405221
+INFO [2025-06-07 20:59:05] Option 2 succeeded: Using model accuracy weights
+INFO [2025-06-07 20:59:05] Leg importance weights: Leg 1: 0.25, Leg 2: 0.24, Leg 3: 0.25, Leg 4: 0.26
+INFO [2025-06-07 20:59:05] Processing ladies's relay predictions
+INFO [2025-06-07 20:59:05] Loaded ladies relay teams startlist with 20 rows
+INFO [2025-06-07 20:59:05] Loaded ladies relay individuals startlist with 80 rows
+INFO [2025-06-07 20:59:05] Preparing current ladies skier data
+INFO [2025-06-07 20:59:05] Found 9 Elo columns for current skiers
+INFO [2025-06-07 20:59:05] Replaced NAs in Distance_Elo with first quartile: 1237.38564383256
+INFO [2025-06-07 20:59:05] Replaced NAs in Distance_C_Elo with first quartile: 1243.87329106944
+INFO [2025-06-07 20:59:05] Replaced NAs in Distance_F_Elo with first quartile: 1256.69628195708
+INFO [2025-06-07 20:59:05] Replaced NAs in Sprint_Elo with first quartile: 1246.32574824425
+INFO [2025-06-07 20:59:05] Replaced NAs in Sprint_C_Elo with first quartile: 1257.67866787334
+INFO [2025-06-07 20:59:05] Replaced NAs in Sprint_F_Elo with first quartile: 1244.84742904868
+INFO [2025-06-07 20:59:05] Replaced NAs in Classic_Elo with first quartile: 1252.44868703669
+INFO [2025-06-07 20:59:05] Replaced NAs in Freestyle_Elo with first quartile: 1244.44508230281
+INFO [2025-06-07 20:59:05] Replaced NAs in Distance_Pelo with first quartile: 1241.11854419952
+INFO [2025-06-07 20:59:05] Replaced NAs in Distance_C_Pelo with first quartile: 1245.57367555166
+INFO [2025-06-07 20:59:05] Replaced NAs in Distance_F_Pelo with first quartile: 1259.54282973153
+INFO [2025-06-07 20:59:05] Replaced NAs in Sprint_Pelo with first quartile: 1254.59410960767
+INFO [2025-06-07 20:59:05] Replaced NAs in Sprint_C_Pelo with first quartile: 1257.58302026178
+INFO [2025-06-07 20:59:05] Replaced NAs in Sprint_F_Pelo with first quartile: 1257.67755691493
+INFO [2025-06-07 20:59:05] Replaced NAs in Classic_Pelo with first quartile: 1256.79275004544
+INFO [2025-06-07 20:59:05] Replaced NAs in Freestyle_Pelo with first quartile: 1256.79999900008
+INFO [2025-06-07 20:59:05] Replaced NAs in Classic_Last_5 with first quartile: 3.5
+INFO [2025-06-07 20:59:05] Replaced NAs in Freestyle_Last_5 with first quartile: 2.4
+INFO [2025-06-07 20:59:05] Created Pelo_Pct from Elo with max value: 1840.99747242401
+INFO [2025-06-07 20:59:05] Created Distance_Pelo_Pct from Distance_Elo with max value: 1889.46974050597
+INFO [2025-06-07 20:59:05] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1763.33572074398
+INFO [2025-06-07 20:59:05] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1693.85026290322
+INFO [2025-06-07 20:59:05] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1742.75320156525
+INFO [2025-06-07 20:59:05] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1601.58469902127
+INFO [2025-06-07 20:59:05] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1681.09824552997
+INFO [2025-06-07 20:59:05] Created Classic_Pelo_Pct from Classic_Elo with max value: 1698.68768563646
+INFO [2025-06-07 20:59:05] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1707.58410982918
+INFO [2025-06-07 20:59:05] Prepared data for 255 ladies skiers with 33 features
+INFO [2025-06-07 20:59:05] Using FIS startlist for ladies's leg predictions
+INFO [2025-06-07 20:59:05] Using FIS startlist for ladies
+INFO [2025-06-07 20:59:05] Attempting Option 1: Team model coefficients
+INFO [2025-06-07 20:59:05] Option 1 failed: No team_podium model found
+INFO [2025-06-07 20:59:05] Option 1 failed: No team model
+INFO [2025-06-07 20:59:05] Attempting Option 2: Individual model accuracy
+INFO [2025-06-07 20:59:05] Leg 1 accuracy: 0.77051282051282
+INFO [2025-06-07 20:59:05] Leg 2 accuracy: 0.85
+INFO [2025-06-07 20:59:05] Leg 3 accuracy: 0.801282051282051
+INFO [2025-06-07 20:59:05] Leg 4 accuracy: 0.845454545454545
+INFO [2025-06-07 20:59:05] Option 2 succeeded: Using model accuracy weights
+INFO [2025-06-07 20:59:05] Leg importance weights: Leg 1: 0.24, Leg 2: 0.26, Leg 3: 0.25, Leg 4: 0.26
+INFO [2025-06-07 20:59:05] Resetting men's probabilities at or below the mode to zero
+INFO [2025-06-07 20:59:05] No values appear more than twice for Win_Prob
+INFO [2025-06-07 20:59:05] No values appear more than twice for Podium_Prob
+INFO [2025-06-07 20:59:05] No values appear more than twice for Top5_Prob
+INFO [2025-06-07 20:59:05] No values appear more than twice for Top10_Prob
+INFO [2025-06-07 20:59:05] Resetting ladies' probabilities at or below the mode to zero
+INFO [2025-06-07 20:59:05] No values appear more than twice for Win_Prob
+INFO [2025-06-07 20:59:05] No values appear more than twice for Podium_Prob
+INFO [2025-06-07 20:59:05] No values appear more than twice for Top5_Prob
+INFO [2025-06-07 20:59:05] No values appear more than twice for Top10_Prob
+INFO [2025-06-07 20:59:05] Normalizing men's team probabilities
+INFO [2025-06-07 20:59:05] Normalized Win_Prob from sum of 0.72 to 1
+INFO [2025-06-07 20:59:05] Normalized Podium_Prob from sum of 2.34 to 3
+INFO [2025-06-07 20:59:05] Normalized Top5_Prob from sum of 4.2 to 5
+INFO [2025-06-07 20:59:05] Normalized Top10_Prob from sum of 10.33 to 10
+INFO [2025-06-07 20:59:05] Capped 1 values at 1 for Podium_Prob
+INFO [2025-06-07 20:59:05] Capped 1 values at 1 for Top5_Prob
+INFO [2025-06-07 20:59:05] Normalizing ladies' team probabilities
+INFO [2025-06-07 20:59:05] Normalized Win_Prob from sum of 1.12 to 1
+INFO [2025-06-07 20:59:05] Normalized Podium_Prob from sum of 3.26 to 3
+INFO [2025-06-07 20:59:05] Normalized Top5_Prob from sum of 4.51 to 5
+INFO [2025-06-07 20:59:05] Normalized Top10_Prob from sum of 9.34 to 10
+INFO [2025-06-07 20:59:05] Capped 2 values at 1 for Top5_Prob
+INFO [2025-06-07 20:59:05] Capped 5 values at 1 for Top10_Prob
+INFO [2025-06-07 20:59:05] Final capping of probabilities to maximum of 1
+INFO [2025-06-07 20:59:05] Capped 1 values at 1 for Podium_Prob
+INFO [2025-06-07 20:59:05] Capped 1 values at 1 for Top5_Prob
+INFO [2025-06-07 20:59:05] Capped 2 values at 1 for Top5_Prob
+INFO [2025-06-07 20:59:05] Capped 5 values at 1 for Top10_Prob
+INFO [2025-06-07 20:59:05] Optimizing fantasy relay team
+INFO [2025-06-07 20:59:05] Fantasy team optimization complete. Selected 12 teams.
+INFO [2025-06-07 20:59:05] Total price: 99826 of max 1e+05
+INFO [2025-06-07 20:59:05] Expected total points: 812.9
+INFO [2025-06-07 20:59:05] Men's teams: 6 ( 6 )
+INFO [2025-06-07 20:59:05] Ladies' teams: 6 ( 6 )
+INFO [2025-06-07 20:59:05] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/men_relay.xlsx
+INFO [2025-06-07 20:59:05] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/men_relay_position_probabilities.xlsx
+INFO [2025-06-07 20:59:05] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/ladies_relay.xlsx
+INFO [2025-06-07 20:59:05] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/ladies_relay_position_probabilities.xlsx
+INFO [2025-06-07 20:59:05] Saved fantasy team results to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/fantasy_relay_team.xlsx
+INFO [2025-06-07 20:59:05] Relay predictions completed successfully
+INFO [2025-06-07 21:06:22] Starting relay predictions process
+INFO [2025-06-07 21:06:22] Loading weekend race data
+INFO [2025-06-07 21:06:22] Tomorrow's date: 2025-06-08
+INFO [2025-06-07 21:06:22] Found 1 men's relay races and 1 ladies' relay races
+INFO [2025-06-07 21:06:22] Loading chrono data
+INFO [2025-06-07 21:06:25] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-06-07 21:06:25] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-06-07 21:06:25] Created men's relay df with 9688 rows
+INFO [2025-06-07 21:06:25] Created men's individual df with 92143 rows
+INFO [2025-06-07 21:06:25] Created ladies' relay df with 8019 rows
+INFO [2025-06-07 21:06:25] Created ladies' individual df with 68253 rows
+INFO [2025-06-07 21:06:28] Training models for Leg 1
+INFO [2025-06-07 21:06:28] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 21:06:28] Training podium model using glm
+INFO [2025-06-07 21:06:28] Training win model using glm
+INFO [2025-06-07 21:06:28] Training top5 model using glm
+INFO [2025-06-07 21:06:28] Training top10 model using glm
+INFO [2025-06-07 21:06:28] Top features for Leg 1 podium prediction:
+INFO [2025-06-07 21:06:28] Training models for Leg 2
+INFO [2025-06-07 21:06:28] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 21:06:28] Training podium model using glm
+INFO [2025-06-07 21:06:28] Training win model using glm
+INFO [2025-06-07 21:06:28] Training top5 model using glm
+INFO [2025-06-07 21:06:28] Training top10 model using glm
+INFO [2025-06-07 21:06:28] Top features for Leg 2 podium prediction:
+INFO [2025-06-07 21:06:28] Training models for Leg 3
+INFO [2025-06-07 21:06:28] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 21:06:28] Training podium model using glm
+INFO [2025-06-07 21:06:28] Training win model using glm
+INFO [2025-06-07 21:06:29] Training top5 model using glm
+INFO [2025-06-07 21:06:29] Training top10 model using glm
+INFO [2025-06-07 21:06:29] Top features for Leg 3 podium prediction:
+INFO [2025-06-07 21:06:29] Training models for Leg 4
+INFO [2025-06-07 21:06:29] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 21:06:29] Training podium model using glm
+INFO [2025-06-07 21:06:29] Training win model using glm
+INFO [2025-06-07 21:06:29] Training top5 model using glm
+INFO [2025-06-07 21:06:29] Training top10 model using glm
+INFO [2025-06-07 21:06:29] Top features for Leg 4 podium prediction:
+INFO [2025-06-07 21:06:29] Training models for Leg 1
+INFO [2025-06-07 21:06:29] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 21:06:29] Training podium model using glm
+INFO [2025-06-07 21:06:29] Training win model using glm
+INFO [2025-06-07 21:06:29] Training top5 model using glm
+INFO [2025-06-07 21:06:29] Training top10 model using glm
+INFO [2025-06-07 21:06:29] Top features for Leg 1 podium prediction:
+INFO [2025-06-07 21:06:29] Training models for Leg 2
+INFO [2025-06-07 21:06:29] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 21:06:29] Training podium model using glm
+INFO [2025-06-07 21:06:29] Training win model using glm
+INFO [2025-06-07 21:06:29] Training top5 model using glm
+INFO [2025-06-07 21:06:29] Training top10 model using glm
+INFO [2025-06-07 21:06:29] Top features for Leg 2 podium prediction:
+INFO [2025-06-07 21:06:29] Training models for Leg 3
+INFO [2025-06-07 21:06:29] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 21:06:29] Training podium model using glm
+INFO [2025-06-07 21:06:29] Training win model using glm
+INFO [2025-06-07 21:06:29] Training top5 model using glm
+INFO [2025-06-07 21:06:29] Training top10 model using glm
+INFO [2025-06-07 21:06:29] Top features for Leg 3 podium prediction:
+INFO [2025-06-07 21:06:29] Training models for Leg 4
+INFO [2025-06-07 21:06:29] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 21:06:29] Training podium model using glm
+INFO [2025-06-07 21:06:29] Training win model using glm
+INFO [2025-06-07 21:06:29] Training top5 model using glm
+INFO [2025-06-07 21:06:30] Training top10 model using glm
+INFO [2025-06-07 21:06:30] Top features for Leg 4 podium prediction:
+INFO [2025-06-07 21:06:30] Processing men's relay predictions
+INFO [2025-06-07 21:06:30] Loaded men relay teams startlist with 24 rows
+INFO [2025-06-07 21:06:30] Loaded men relay individuals startlist with 96 rows
+INFO [2025-06-07 21:06:30] Preparing current men skier data
+INFO [2025-06-07 21:06:30] Found 9 Elo columns for current skiers
+INFO [2025-06-07 21:06:30] Replaced NAs in Distance_Elo with first quartile: 1207.23243912712
+INFO [2025-06-07 21:06:30] Replaced NAs in Distance_C_Elo with first quartile: 1233.40200699225
+INFO [2025-06-07 21:06:30] Replaced NAs in Distance_F_Elo with first quartile: 1236.48554062178
+INFO [2025-06-07 21:06:30] Replaced NAs in Sprint_Elo with first quartile: 1223.60107000698
+INFO [2025-06-07 21:06:30] Replaced NAs in Sprint_C_Elo with first quartile: 1241.28715500947
+INFO [2025-06-07 21:06:30] Replaced NAs in Sprint_F_Elo with first quartile: 1234.45151108772
+INFO [2025-06-07 21:06:30] Replaced NAs in Classic_Elo with first quartile: 1241.52867310024
+INFO [2025-06-07 21:06:30] Replaced NAs in Freestyle_Elo with first quartile: 1228.48649348109
+INFO [2025-06-07 21:06:30] Replaced NAs in Distance_Pelo with first quartile: 1211.63035979047
+INFO [2025-06-07 21:06:30] Replaced NAs in Distance_C_Pelo with first quartile: 1234.81091928129
+INFO [2025-06-07 21:06:30] Replaced NAs in Distance_F_Pelo with first quartile: 1239.65331180248
+INFO [2025-06-07 21:06:30] Replaced NAs in Sprint_Pelo with first quartile: 1240.94751821383
+INFO [2025-06-07 21:06:30] Replaced NAs in Sprint_C_Pelo with first quartile: 1241.28715500947
+INFO [2025-06-07 21:06:30] Replaced NAs in Sprint_F_Pelo with first quartile: 1252.45166310493
+INFO [2025-06-07 21:06:30] Replaced NAs in Classic_Pelo with first quartile: 1243.63746068082
+INFO [2025-06-07 21:06:30] Replaced NAs in Freestyle_Pelo with first quartile: 1249.30280713791
+INFO [2025-06-07 21:06:30] Replaced NAs in Classic_Last_5 with first quartile: 0
+INFO [2025-06-07 21:06:30] Replaced NAs in Freestyle_Last_5 with first quartile: 0
+INFO [2025-06-07 21:06:30] Created Pelo_Pct from Elo with max value: 1946.6211651574
+INFO [2025-06-07 21:06:30] Created Distance_Pelo_Pct from Distance_Elo with max value: 1869.1251911742
+INFO [2025-06-07 21:06:30] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1777.16297253153
+INFO [2025-06-07 21:06:30] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1695.2053212904
+INFO [2025-06-07 21:06:30] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1886.80363942481
+INFO [2025-06-07 21:06:30] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.08486899169
+INFO [2025-06-07 21:06:30] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1792.65157560707
+INFO [2025-06-07 21:06:30] Created Classic_Pelo_Pct from Classic_Elo with max value: 1807.56773496777
+INFO [2025-06-07 21:06:30] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1814.60460629541
+INFO [2025-06-07 21:06:30] Prepared data for 381 men skiers with 33 features
+INFO [2025-06-07 21:06:30] Using FIS startlist for men's leg predictions
+INFO [2025-06-07 21:06:30] Using FIS startlist for men
+INFO [2025-06-07 21:06:30] Attempting Option 1: Team model coefficients
+INFO [2025-06-07 21:06:30] Option 1 failed: No team_podium model found
+INFO [2025-06-07 21:06:30] Option 1 failed: No team model
+INFO [2025-06-07 21:06:30] Attempting Option 2: Individual model accuracy
+INFO [2025-06-07 21:06:30] Leg 1 accuracy: 0.864915254237288
+INFO [2025-06-07 21:06:30] Leg 2 accuracy: 0.838065458796026
+INFO [2025-06-07 21:06:30] Leg 3 accuracy: 0.867212156633548
+INFO [2025-06-07 21:06:30] Leg 4 accuracy: 0.891558542762517
+INFO [2025-06-07 21:06:30] Option 2 succeeded: Using model accuracy weights
+INFO [2025-06-07 21:06:30] Leg importance weights: Leg 1: 0.25, Leg 2: 0.24, Leg 3: 0.25, Leg 4: 0.26
+INFO [2025-06-07 21:06:30] Processing ladies's relay predictions
+INFO [2025-06-07 21:06:30] Loaded ladies relay teams startlist with 20 rows
+INFO [2025-06-07 21:06:30] Loaded ladies relay individuals startlist with 80 rows
+INFO [2025-06-07 21:06:30] Preparing current ladies skier data
+INFO [2025-06-07 21:06:30] Found 9 Elo columns for current skiers
+INFO [2025-06-07 21:06:30] Replaced NAs in Distance_Elo with first quartile: 1237.38564383256
+INFO [2025-06-07 21:06:30] Replaced NAs in Distance_C_Elo with first quartile: 1243.87329106944
+INFO [2025-06-07 21:06:30] Replaced NAs in Distance_F_Elo with first quartile: 1256.69628195708
+INFO [2025-06-07 21:06:30] Replaced NAs in Sprint_Elo with first quartile: 1246.32574824425
+INFO [2025-06-07 21:06:30] Replaced NAs in Sprint_C_Elo with first quartile: 1257.67866787334
+INFO [2025-06-07 21:06:30] Replaced NAs in Sprint_F_Elo with first quartile: 1244.84742904868
+INFO [2025-06-07 21:06:30] Replaced NAs in Classic_Elo with first quartile: 1252.44868703669
+INFO [2025-06-07 21:06:30] Replaced NAs in Freestyle_Elo with first quartile: 1244.44508230281
+INFO [2025-06-07 21:06:30] Replaced NAs in Distance_Pelo with first quartile: 1241.11854419952
+INFO [2025-06-07 21:06:30] Replaced NAs in Distance_C_Pelo with first quartile: 1245.57367555166
+INFO [2025-06-07 21:06:30] Replaced NAs in Distance_F_Pelo with first quartile: 1259.54282973153
+INFO [2025-06-07 21:06:30] Replaced NAs in Sprint_Pelo with first quartile: 1254.59410960767
+INFO [2025-06-07 21:06:30] Replaced NAs in Sprint_C_Pelo with first quartile: 1257.58302026178
+INFO [2025-06-07 21:06:30] Replaced NAs in Sprint_F_Pelo with first quartile: 1257.67755691493
+INFO [2025-06-07 21:06:30] Replaced NAs in Classic_Pelo with first quartile: 1256.79275004544
+INFO [2025-06-07 21:06:30] Replaced NAs in Freestyle_Pelo with first quartile: 1256.79999900008
+INFO [2025-06-07 21:06:30] Replaced NAs in Classic_Last_5 with first quartile: 3.5
+INFO [2025-06-07 21:06:30] Replaced NAs in Freestyle_Last_5 with first quartile: 2.4
+INFO [2025-06-07 21:06:30] Created Pelo_Pct from Elo with max value: 1840.99747242401
+INFO [2025-06-07 21:06:30] Created Distance_Pelo_Pct from Distance_Elo with max value: 1889.46974050597
+INFO [2025-06-07 21:06:30] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1763.33572074398
+INFO [2025-06-07 21:06:30] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1693.85026290322
+INFO [2025-06-07 21:06:30] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1742.75320156525
+INFO [2025-06-07 21:06:30] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1601.58469902127
+INFO [2025-06-07 21:06:30] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1681.09824552997
+INFO [2025-06-07 21:06:30] Created Classic_Pelo_Pct from Classic_Elo with max value: 1698.68768563646
+INFO [2025-06-07 21:06:30] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1707.58410982918
+INFO [2025-06-07 21:06:30] Prepared data for 255 ladies skiers with 33 features
+INFO [2025-06-07 21:06:30] Using FIS startlist for ladies's leg predictions
+INFO [2025-06-07 21:06:30] Using FIS startlist for ladies
+INFO [2025-06-07 21:06:30] Attempting Option 1: Team model coefficients
+INFO [2025-06-07 21:06:30] Option 1 failed: No team_podium model found
+INFO [2025-06-07 21:06:30] Option 1 failed: No team model
+INFO [2025-06-07 21:06:30] Attempting Option 2: Individual model accuracy
+INFO [2025-06-07 21:06:30] Leg 1 accuracy: 0.767948717948718
+INFO [2025-06-07 21:06:30] Leg 2 accuracy: 0.833333333333333
+INFO [2025-06-07 21:06:30] Leg 3 accuracy: 0.787179487179487
+INFO [2025-06-07 21:06:30] Leg 4 accuracy: 0.781818181818182
+INFO [2025-06-07 21:06:30] Option 2 succeeded: Using model accuracy weights
+INFO [2025-06-07 21:06:30] Leg importance weights: Leg 1: 0.24, Leg 2: 0.26, Leg 3: 0.25, Leg 4: 0.25
+INFO [2025-06-07 21:06:30] Resetting men's probabilities at or below the mode to zero
+INFO [2025-06-07 21:06:30] No values appear more than twice for Win_Prob
+INFO [2025-06-07 21:06:30] No values appear more than twice for Podium_Prob
+INFO [2025-06-07 21:06:30] No values appear more than twice for Top5_Prob
+INFO [2025-06-07 21:06:30] No values appear more than twice for Top10_Prob
+INFO [2025-06-07 21:06:30] Resetting ladies' probabilities at or below the mode to zero
+INFO [2025-06-07 21:06:30] No values appear more than twice for Win_Prob
+INFO [2025-06-07 21:06:30] No values appear more than twice for Podium_Prob
+INFO [2025-06-07 21:06:30] No values appear more than twice for Top5_Prob
+INFO [2025-06-07 21:06:30] No values appear more than twice for Top10_Prob
+INFO [2025-06-07 21:06:30] Normalizing men's team probabilities
+INFO [2025-06-07 21:06:30] Normalized Win_Prob from sum of 0.71 to 1
+INFO [2025-06-07 21:06:30] Normalized Podium_Prob from sum of 2.34 to 3
+INFO [2025-06-07 21:06:30] Normalized Top5_Prob from sum of 4.2 to 5
+INFO [2025-06-07 21:06:30] Normalized Top10_Prob from sum of 10.33 to 10
+INFO [2025-06-07 21:06:30] Capped 1 values at 1 for Podium_Prob
+INFO [2025-06-07 21:06:30] Capped 1 values at 1 for Top5_Prob
+INFO [2025-06-07 21:06:30] Normalizing ladies' team probabilities
+INFO [2025-06-07 21:06:30] Normalized Win_Prob from sum of 1.12 to 1
+INFO [2025-06-07 21:06:30] Normalized Podium_Prob from sum of 3.26 to 3
+INFO [2025-06-07 21:06:30] Normalized Top5_Prob from sum of 4.51 to 5
+INFO [2025-06-07 21:06:30] Normalized Top10_Prob from sum of 9.36 to 10
+INFO [2025-06-07 21:06:30] Capped 2 values at 1 for Top5_Prob
+INFO [2025-06-07 21:06:30] Capped 5 values at 1 for Top10_Prob
+INFO [2025-06-07 21:06:30] Final capping of probabilities to maximum of 1
+INFO [2025-06-07 21:06:30] Capped 1 values at 1 for Podium_Prob
+INFO [2025-06-07 21:06:30] Capped 1 values at 1 for Top5_Prob
+INFO [2025-06-07 21:06:30] Capped 2 values at 1 for Top5_Prob
+INFO [2025-06-07 21:06:30] Capped 5 values at 1 for Top10_Prob
+INFO [2025-06-07 21:06:30] Optimizing fantasy relay team
+INFO [2025-06-07 21:06:30] Fantasy team optimization complete. Selected 12 teams.
+INFO [2025-06-07 21:06:30] Total price: 99826 of max 1e+05
+INFO [2025-06-07 21:06:30] Expected total points: 814.3
+INFO [2025-06-07 21:06:30] Men's teams: 6 ( 6 )
+INFO [2025-06-07 21:06:30] Ladies' teams: 6 ( 6 )
+INFO [2025-06-07 21:06:30] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/men_relay.xlsx
+INFO [2025-06-07 21:06:30] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/men_relay_position_probabilities.xlsx
+INFO [2025-06-07 21:06:30] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/ladies_relay.xlsx
+INFO [2025-06-07 21:06:30] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/ladies_relay_position_probabilities.xlsx
+INFO [2025-06-07 21:06:30] Saved fantasy team results to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/fantasy_relay_team.xlsx
+INFO [2025-06-07 21:06:30] Relay predictions completed successfully
+INFO [2025-06-07 21:13:12] Starting relay predictions process
+INFO [2025-06-07 21:13:12] Loading weekend race data
+INFO [2025-06-07 21:13:12] Tomorrow's date: 2025-06-08
+INFO [2025-06-07 21:13:12] Found 1 men's relay races and 1 ladies' relay races
+INFO [2025-06-07 21:13:12] Loading chrono data
+INFO [2025-06-07 21:13:14] Loaded men's chrono with 105122 rows and 36 columns
+INFO [2025-06-07 21:13:14] Loaded ladies' chrono with 78706 rows and 36 columns
+INFO [2025-06-07 21:13:14] Created men's relay df with 9688 rows
+INFO [2025-06-07 21:13:14] Created men's individual df with 92143 rows
+INFO [2025-06-07 21:13:14] Created ladies' relay df with 8019 rows
+INFO [2025-06-07 21:13:14] Created ladies' individual df with 68253 rows
+INFO [2025-06-07 21:13:18] Training models for Leg 1
+INFO [2025-06-07 21:13:18] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 21:13:18] Training podium model using glm
+INFO [2025-06-07 21:13:18] Training win model using glm
+INFO [2025-06-07 21:13:18] Training top5 model using glm
+INFO [2025-06-07 21:13:18] Training top10 model using glm
+INFO [2025-06-07 21:13:18] Top features for Leg 1 podium prediction:
+INFO [2025-06-07 21:13:18] Training models for Leg 2
+INFO [2025-06-07 21:13:18] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 21:13:18] Training podium model using glm
+INFO [2025-06-07 21:13:18] Training win model using glm
+INFO [2025-06-07 21:13:18] Training top5 model using glm
+INFO [2025-06-07 21:13:18] Training top10 model using glm
+INFO [2025-06-07 21:13:18] Top features for Leg 2 podium prediction:
+INFO [2025-06-07 21:13:18] Training models for Leg 3
+INFO [2025-06-07 21:13:18] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 21:13:18] Training podium model using glm
+INFO [2025-06-07 21:13:18] Training win model using glm
+INFO [2025-06-07 21:13:18] Training top5 model using glm
+INFO [2025-06-07 21:13:18] Training top10 model using glm
+INFO [2025-06-07 21:13:18] Top features for Leg 3 podium prediction:
+INFO [2025-06-07 21:13:18] Training models for Leg 4
+INFO [2025-06-07 21:13:18] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 21:13:18] Training podium model using glm
+INFO [2025-06-07 21:13:18] Training win model using glm
+INFO [2025-06-07 21:13:18] Training top5 model using glm
+INFO [2025-06-07 21:13:18] Training top10 model using glm
+INFO [2025-06-07 21:13:18] Top features for Leg 4 podium prediction:
+INFO [2025-06-07 21:13:18] Training models for Leg 1
+INFO [2025-06-07 21:13:18] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 21:13:18] Training podium model using glm
+INFO [2025-06-07 21:13:18] Training win model using glm
+INFO [2025-06-07 21:13:19] Training top5 model using glm
+INFO [2025-06-07 21:13:19] Training top10 model using glm
+INFO [2025-06-07 21:13:19] Top features for Leg 1 podium prediction:
+INFO [2025-06-07 21:13:19] Training models for Leg 2
+INFO [2025-06-07 21:13:19] Using predictors: Distance_C_Pelo_Pct, Classic_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 21:13:19] Training podium model using glm
+INFO [2025-06-07 21:13:19] Training win model using glm
+INFO [2025-06-07 21:13:19] Training top5 model using glm
+INFO [2025-06-07 21:13:19] Training top10 model using glm
+INFO [2025-06-07 21:13:19] Top features for Leg 2 podium prediction:
+INFO [2025-06-07 21:13:19] Training models for Leg 3
+INFO [2025-06-07 21:13:19] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 21:13:19] Training podium model using glm
+INFO [2025-06-07 21:13:19] Training win model using glm
+INFO [2025-06-07 21:13:19] Training top5 model using glm
+INFO [2025-06-07 21:13:19] Training top10 model using glm
+INFO [2025-06-07 21:13:19] Top features for Leg 3 podium prediction:
+INFO [2025-06-07 21:13:19] Training models for Leg 4
+INFO [2025-06-07 21:13:19] Using predictors: Distance_F_Pelo_Pct, Freestyle_Pelo_Pct, Distance_Pelo_Pct, Sprint_Pelo_Pct, Pelo_Pct, Weighted_Last_5
+INFO [2025-06-07 21:13:19] Training podium model using glm
+INFO [2025-06-07 21:13:19] Training win model using glm
+INFO [2025-06-07 21:13:19] Training top5 model using glm
+INFO [2025-06-07 21:13:19] Training top10 model using glm
+INFO [2025-06-07 21:13:19] Top features for Leg 4 podium prediction:
+INFO [2025-06-07 21:13:19] Processing men's relay predictions
+INFO [2025-06-07 21:13:19] Loaded men relay teams startlist with 24 rows
+INFO [2025-06-07 21:13:19] Loaded men relay individuals startlist with 96 rows
+INFO [2025-06-07 21:13:19] Preparing current men skier data
+INFO [2025-06-07 21:13:19] Found 9 Elo columns for current skiers
+INFO [2025-06-07 21:13:19] Replaced NAs in Distance_Elo with first quartile: 1207.23243912712
+INFO [2025-06-07 21:13:19] Replaced NAs in Distance_C_Elo with first quartile: 1233.40200699225
+INFO [2025-06-07 21:13:19] Replaced NAs in Distance_F_Elo with first quartile: 1236.48554062178
+INFO [2025-06-07 21:13:19] Replaced NAs in Sprint_Elo with first quartile: 1223.60107000698
+INFO [2025-06-07 21:13:19] Replaced NAs in Sprint_C_Elo with first quartile: 1241.28715500947
+INFO [2025-06-07 21:13:19] Replaced NAs in Sprint_F_Elo with first quartile: 1234.45151108772
+INFO [2025-06-07 21:13:19] Replaced NAs in Classic_Elo with first quartile: 1241.52867310024
+INFO [2025-06-07 21:13:19] Replaced NAs in Freestyle_Elo with first quartile: 1228.48649348109
+INFO [2025-06-07 21:13:19] Replaced NAs in Distance_Pelo with first quartile: 1211.63035979047
+INFO [2025-06-07 21:13:19] Replaced NAs in Distance_C_Pelo with first quartile: 1234.81091928129
+INFO [2025-06-07 21:13:19] Replaced NAs in Distance_F_Pelo with first quartile: 1239.65331180248
+INFO [2025-06-07 21:13:19] Replaced NAs in Sprint_Pelo with first quartile: 1240.94751821383
+INFO [2025-06-07 21:13:19] Replaced NAs in Sprint_C_Pelo with first quartile: 1241.28715500947
+INFO [2025-06-07 21:13:19] Replaced NAs in Sprint_F_Pelo with first quartile: 1252.45166310493
+INFO [2025-06-07 21:13:19] Replaced NAs in Classic_Pelo with first quartile: 1243.63746068082
+INFO [2025-06-07 21:13:19] Replaced NAs in Freestyle_Pelo with first quartile: 1249.30280713791
+INFO [2025-06-07 21:13:19] Replaced NAs in Classic_Last_5 with first quartile: 0
+INFO [2025-06-07 21:13:19] Replaced NAs in Freestyle_Last_5 with first quartile: 0
+INFO [2025-06-07 21:13:19] Created Pelo_Pct from Elo with max value: 1946.6211651574
+INFO [2025-06-07 21:13:19] Created Distance_Pelo_Pct from Distance_Elo with max value: 1869.1251911742
+INFO [2025-06-07 21:13:19] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1777.16297253153
+INFO [2025-06-07 21:13:19] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1695.2053212904
+INFO [2025-06-07 21:13:19] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1886.80363942481
+INFO [2025-06-07 21:13:19] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1711.08486899169
+INFO [2025-06-07 21:13:19] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1792.65157560707
+INFO [2025-06-07 21:13:19] Created Classic_Pelo_Pct from Classic_Elo with max value: 1807.56773496777
+INFO [2025-06-07 21:13:19] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1814.60460629541
+INFO [2025-06-07 21:13:19] Prepared data for 381 men skiers with 33 features
+INFO [2025-06-07 21:13:19] Using FIS startlist for men's leg predictions
+INFO [2025-06-07 21:13:19] Using FIS startlist for men
+INFO [2025-06-07 21:13:19] Attempting Option 1: Team model coefficients
+INFO [2025-06-07 21:13:19] Option 1 failed: No team_podium model found
+INFO [2025-06-07 21:13:19] Option 1 failed: No team model
+INFO [2025-06-07 21:13:19] Attempting Option 2: Individual model accuracy
+INFO [2025-06-07 21:13:19] Leg 1 accuracy: 0.868059614260666
+INFO [2025-06-07 21:13:19] Leg 2 accuracy: 0.84777712838496
+INFO [2025-06-07 21:13:19] Leg 3 accuracy: 0.874459380479252
+INFO [2025-06-07 21:13:19] Leg 4 accuracy: 0.884373660627313
+INFO [2025-06-07 21:13:19] Option 2 succeeded: Using model accuracy weights
+INFO [2025-06-07 21:13:19] Leg importance weights: Leg 1: 0.25, Leg 2: 0.24, Leg 3: 0.25, Leg 4: 0.25
+INFO [2025-06-07 21:13:19] Processing ladies's relay predictions
+INFO [2025-06-07 21:13:19] Loaded ladies relay teams startlist with 20 rows
+INFO [2025-06-07 21:13:19] Loaded ladies relay individuals startlist with 80 rows
+INFO [2025-06-07 21:13:19] Preparing current ladies skier data
+INFO [2025-06-07 21:13:20] Found 9 Elo columns for current skiers
+INFO [2025-06-07 21:13:20] Replaced NAs in Distance_Elo with first quartile: 1237.38564383256
+INFO [2025-06-07 21:13:20] Replaced NAs in Distance_C_Elo with first quartile: 1243.87329106944
+INFO [2025-06-07 21:13:20] Replaced NAs in Distance_F_Elo with first quartile: 1256.69628195708
+INFO [2025-06-07 21:13:20] Replaced NAs in Sprint_Elo with first quartile: 1246.32574824425
+INFO [2025-06-07 21:13:20] Replaced NAs in Sprint_C_Elo with first quartile: 1257.67866787334
+INFO [2025-06-07 21:13:20] Replaced NAs in Sprint_F_Elo with first quartile: 1244.84742904868
+INFO [2025-06-07 21:13:20] Replaced NAs in Classic_Elo with first quartile: 1252.44868703669
+INFO [2025-06-07 21:13:20] Replaced NAs in Freestyle_Elo with first quartile: 1244.44508230281
+INFO [2025-06-07 21:13:20] Replaced NAs in Distance_Pelo with first quartile: 1241.11854419952
+INFO [2025-06-07 21:13:20] Replaced NAs in Distance_C_Pelo with first quartile: 1245.57367555166
+INFO [2025-06-07 21:13:20] Replaced NAs in Distance_F_Pelo with first quartile: 1259.54282973153
+INFO [2025-06-07 21:13:20] Replaced NAs in Sprint_Pelo with first quartile: 1254.59410960767
+INFO [2025-06-07 21:13:20] Replaced NAs in Sprint_C_Pelo with first quartile: 1257.58302026178
+INFO [2025-06-07 21:13:20] Replaced NAs in Sprint_F_Pelo with first quartile: 1257.67755691493
+INFO [2025-06-07 21:13:20] Replaced NAs in Classic_Pelo with first quartile: 1256.79275004544
+INFO [2025-06-07 21:13:20] Replaced NAs in Freestyle_Pelo with first quartile: 1256.79999900008
+INFO [2025-06-07 21:13:20] Replaced NAs in Classic_Last_5 with first quartile: 3.5
+INFO [2025-06-07 21:13:20] Replaced NAs in Freestyle_Last_5 with first quartile: 2.4
+INFO [2025-06-07 21:13:20] Created Pelo_Pct from Elo with max value: 1840.99747242401
+INFO [2025-06-07 21:13:20] Created Distance_Pelo_Pct from Distance_Elo with max value: 1889.46974050597
+INFO [2025-06-07 21:13:20] Created Distance_C_Pelo_Pct from Distance_C_Elo with max value: 1763.33572074398
+INFO [2025-06-07 21:13:20] Created Distance_F_Pelo_Pct from Distance_F_Elo with max value: 1693.85026290322
+INFO [2025-06-07 21:13:20] Created Sprint_Pelo_Pct from Sprint_Elo with max value: 1742.75320156525
+INFO [2025-06-07 21:13:20] Created Sprint_C_Pelo_Pct from Sprint_C_Elo with max value: 1601.58469902127
+INFO [2025-06-07 21:13:20] Created Sprint_F_Pelo_Pct from Sprint_F_Elo with max value: 1681.09824552997
+INFO [2025-06-07 21:13:20] Created Classic_Pelo_Pct from Classic_Elo with max value: 1698.68768563646
+INFO [2025-06-07 21:13:20] Created Freestyle_Pelo_Pct from Freestyle_Elo with max value: 1707.58410982918
+INFO [2025-06-07 21:13:20] Prepared data for 255 ladies skiers with 33 features
+INFO [2025-06-07 21:13:20] Using FIS startlist for ladies's leg predictions
+INFO [2025-06-07 21:13:20] Using FIS startlist for ladies
+INFO [2025-06-07 21:13:20] Attempting Option 1: Team model coefficients
+INFO [2025-06-07 21:13:20] Option 1 failed: No team_podium model found
+INFO [2025-06-07 21:13:20] Option 1 failed: No team model
+INFO [2025-06-07 21:13:20] Attempting Option 2: Individual model accuracy
+INFO [2025-06-07 21:13:20] Leg 1 accuracy: 0.820512820512821
+INFO [2025-06-07 21:13:20] Leg 2 accuracy: 0.816666666666667
+INFO [2025-06-07 21:13:20] Leg 3 accuracy: 0.753846153846154
+INFO [2025-06-07 21:13:20] Leg 4 accuracy: 0.762121212121212
+INFO [2025-06-07 21:13:20] Option 2 succeeded: Using model accuracy weights
+INFO [2025-06-07 21:13:20] Leg importance weights: Leg 1: 0.26, Leg 2: 0.26, Leg 3: 0.24, Leg 4: 0.24
+INFO [2025-06-07 21:13:20] Resetting men's probabilities at or below the mode to zero
+INFO [2025-06-07 21:13:20] No values appear more than twice for Win_Prob
+INFO [2025-06-07 21:13:20] No values appear more than twice for Podium_Prob
+INFO [2025-06-07 21:13:20] No values appear more than twice for Top5_Prob
+INFO [2025-06-07 21:13:20] No values appear more than twice for Top10_Prob
+INFO [2025-06-07 21:13:20] Resetting ladies' probabilities at or below the mode to zero
+INFO [2025-06-07 21:13:20] No values appear more than twice for Win_Prob
+INFO [2025-06-07 21:13:20] No values appear more than twice for Podium_Prob
+INFO [2025-06-07 21:13:20] No values appear more than twice for Top5_Prob
+INFO [2025-06-07 21:13:20] No values appear more than twice for Top10_Prob
+INFO [2025-06-07 21:13:20] Normalizing men's team probabilities
+INFO [2025-06-07 21:13:20] Normalized Win_Prob from sum of 0.71 to 1
+INFO [2025-06-07 21:13:20] Normalized Podium_Prob from sum of 2.34 to 3
+INFO [2025-06-07 21:13:20] Normalized Top5_Prob from sum of 4.2 to 5
+INFO [2025-06-07 21:13:20] Normalized Top10_Prob from sum of 10.33 to 10
+INFO [2025-06-07 21:13:20] Capped 1 values at 1 for Podium_Prob
+INFO [2025-06-07 21:13:20] Capped 1 values at 1 for Top5_Prob
+INFO [2025-06-07 21:13:20] Normalizing ladies' team probabilities
+INFO [2025-06-07 21:13:20] Normalized Win_Prob from sum of 1.12 to 1
+INFO [2025-06-07 21:13:20] Normalized Podium_Prob from sum of 3.27 to 3
+INFO [2025-06-07 21:13:20] Normalized Top5_Prob from sum of 4.52 to 5
+INFO [2025-06-07 21:13:20] Normalized Top10_Prob from sum of 9.38 to 10
+INFO [2025-06-07 21:13:20] Capped 1 values at 1 for Top5_Prob
+INFO [2025-06-07 21:13:20] Capped 5 values at 1 for Top10_Prob
+INFO [2025-06-07 21:13:20] Final capping of probabilities to maximum of 1
+INFO [2025-06-07 21:13:20] Capped 1 values at 1 for Podium_Prob
+INFO [2025-06-07 21:13:20] Capped 1 values at 1 for Top5_Prob
+INFO [2025-06-07 21:13:20] Capped 1 values at 1 for Top5_Prob
+INFO [2025-06-07 21:13:20] Capped 5 values at 1 for Top10_Prob
+INFO [2025-06-07 21:13:20] Optimizing fantasy relay team
+INFO [2025-06-07 21:13:20] Fantasy team optimization complete. Selected 12 teams.
+INFO [2025-06-07 21:13:20] Total price: 99826 of max 1e+05
+INFO [2025-06-07 21:13:20] Expected total points: 814
+INFO [2025-06-07 21:13:20] Men's teams: 6 ( 6 )
+INFO [2025-06-07 21:13:20] Ladies' teams: 6 ( 6 )
+INFO [2025-06-07 21:13:20] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/men_relay.xlsx
+INFO [2025-06-07 21:13:20] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/men_relay_position_probabilities.xlsx
+INFO [2025-06-07 21:13:20] Saved points predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/ladies_relay.xlsx
+INFO [2025-06-07 21:13:20] Saved probability predictions to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/ladies_relay_position_probabilities.xlsx
+INFO [2025-06-07 21:13:20] Saved fantasy team results to ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks/20250608/fantasy_relay_team.xlsx
+INFO [2025-06-07 21:13:20] Relay predictions completed successfully

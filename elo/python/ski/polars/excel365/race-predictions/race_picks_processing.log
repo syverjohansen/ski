@@ -3932,3 +3932,75 @@ INFO [2025-03-30 13:56:15] No ladies races today
 INFO [2025-03-30 13:56:15] No results to create top contenders summary
 INFO [2025-03-30 13:56:15] Race day prediction workflow complete
 INFO [2025-03-30 13:56:15] race-picks.R execution complete
+INFO [2025-05-26 23:08:41] Starting race day predictions process
+INFO [2025-05-26 23:08:41] Reading races data
+INFO [2025-05-26 23:08:41] Current date (UTC): 2025-05-26
+INFO [2025-05-26 23:08:41] No races scheduled for today. Exiting.
+INFO [2025-06-04 11:20:27] Starting race predictions process
+INFO [2025-06-04 11:20:27] Reading races data
+INFO [2025-06-04 11:20:27] Current date: 2025-06-04
+INFO [2025-06-05 20:39:26] Starting race predictions process
+INFO [2025-06-05 20:39:26] Reading races data
+INFO [2025-06-05 20:39:26] Current date: 2025-06-06
+INFO [2025-06-05 20:39:33] Starting race predictions process
+INFO [2025-06-05 20:39:33] Reading races data
+INFO [2025-06-05 20:39:33] Current date: 2025-06-06
+INFO [2025-06-05 20:40:48] Starting race predictions process
+INFO [2025-06-05 20:40:48] Reading races data
+INFO [2025-06-05 20:40:48] Current date: 2025-06-06
+INFO [2025-06-05 20:41:50] Starting race predictions process
+INFO [2025-06-05 20:41:50] Reading races data
+INFO [2025-06-05 20:41:50] Current date: 2025-06-06
+INFO [2025-06-05 20:41:50] Next race date: 2025-06-06
+INFO [2025-06-05 20:41:50] Next race ID: 
+INFO [2025-06-05 20:42:55] Starting race predictions process
+INFO [2025-06-05 20:42:55] Reading races data
+INFO [2025-06-05 20:42:55] Current date: 2025-06-06
+INFO [2025-06-05 20:42:55] Next race date: 2025-06-06
+INFO [2025-06-05 20:42:55] Next race ID: 2
+INFO [2025-06-05 20:42:55] Found 0 men's races and 1 ladies races
+INFO [2025-06-05 20:42:55] Calculating race probabilities
+INFO [2025-06-05 20:42:55] Calculating race participation probabilities
+INFO [2025-06-05 20:42:55] Reading chronological data
+INFO [2025-06-05 20:42:57] Reading startlists
+INFO [2025-06-05 20:43:46] Starting race predictions process
+INFO [2025-06-05 20:43:46] Reading races data
+INFO [2025-06-05 20:43:46] Current date: 2025-06-06
+INFO [2025-06-05 20:43:46] Next race date: 2025-06-06
+INFO [2025-06-05 20:43:46] Next race ID: 2
+INFO [2025-06-05 20:43:46] Found 0 men's races and 1 ladies races
+INFO [2025-06-05 20:43:46] Calculating race probabilities
+INFO [2025-06-05 20:43:46] Calculating race participation probabilities
+INFO [2025-06-05 20:43:46] Reading chronological data
+INFO [2025-06-05 20:43:48] Reading startlists
+INFO [2025-06-05 20:46:13] Starting race predictions process
+INFO [2025-06-05 20:46:13] Reading races data
+INFO [2025-06-05 20:46:13] Current date: 2025-06-06
+INFO [2025-06-05 20:46:13] Next race date: 2025-06-06
+INFO [2025-06-05 20:46:44] Starting race predictions process
+INFO [2025-06-05 20:46:44] Reading races data
+INFO [2025-06-05 20:46:44] Current date: 2025-06-06
+INFO [2025-06-05 20:46:44] Next race date: 2025-06-06
+INFO [2025-06-05 20:47:18] Starting race predictions process
+INFO [2025-06-05 20:47:18] Reading races data
+INFO [2025-06-05 20:47:18] Current date: 2025-06-06
+INFO [2025-06-05 20:47:18] Next race date: 2025-06-06
+INFO [2025-06-05 20:47:18] Next race ID: 2
+INFO [2025-06-05 20:47:18] Found 0 men's races and 1 ladies races
+INFO [2025-06-05 20:47:18] Calculating race probabilities
+INFO [2025-06-05 20:47:18] Calculating race participation probabilities
+INFO [2025-06-05 20:47:18] Reading chronological data
+INFO [2025-06-05 20:47:20] Reading startlists
+INFO [2025-06-05 20:48:29] Starting race predictions process
+INFO [2025-06-05 20:48:29] Reading races data
+INFO [2025-06-05 20:48:29] Current date: 2025-06-06
+INFO [2025-06-05 20:48:29] Next race date: 2025-06-06
+INFO [2025-06-05 20:48:29] Next race ID: 2
+INFO [2025-06-05 20:48:29] Found 0 men's races and 1 ladies races
+INFO [2025-06-05 20:48:29] Calculating race probabilities
+INFO [2025-06-05 20:48:29] Calculating race participation probabilities
+INFO [2025-06-05 20:48:29] Reading chronological data
+INFO [2025-06-05 20:48:31] Reading startlists
+INFO [2025-06-05 20:48:31] Adding Config_Nation column to men's startlist
+INFO [2025-06-05 20:48:31] Adding Config_Nation column to ladies' startlist
+INFO [2025-06-05 20:48:31] Adding Quota column to men's startlist

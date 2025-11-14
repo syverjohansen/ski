@@ -4,7 +4,7 @@ import sys
 import os
 from typing import List, Dict, Tuple, Optional
 import warnings
-from datetime import datetime
+from datetime import datetime, timezone
 import traceback
 import subprocess
 warnings.filterwarnings('ignore')
@@ -120,15 +120,9 @@ def handle_relay_races(races_df: pd.DataFrame) -> bool:
     if races_df.empty:
         return False
     
-    # Check if all races are relay events
-    all_relays = all(is_relay_event(race) for _, race in races_df.iterrows())
-    
-    if not all_relays:
-        # If any non-relay races exist, let the main script handle it
-        return False
-    
     # Get unique relay types present in the dataframe
     relay_types = set(get_relay_type(race) for _, race in races_df.iterrows())
+    relay_types.discard('unknown')  # Remove unknown types
     
     # Log the relay types detected
     print(f"Relay events detected: {relay_types}")
@@ -136,54 +130,63 @@ def handle_relay_races(races_df: pd.DataFrame) -> bool:
     # Call the appropriate relay script for each type
     success = False
     for relay_type in relay_types:
-        if relay_type != 'unknown':
-            relay_script_path = f"relay/startlist_scrape_weekend_{relay_type}.py"
+        relay_script_path = f"relay/startlist_scrape_weekend_{relay_type}.py"
+        
+        # Filter races for this relay type
+        relay_distance = {
+            'relay': 'Rel', 
+            'team_sprint': 'Ts', 
+            'mixed_relay': 'Rel',
+            'mixed_team_sprint': 'Ts'
+        }[relay_type]
+        
+        # Additional filtering for mixed events
+        if relay_type in ['mixed_relay', 'mixed_team_sprint']:
+            relay_specific_races = races_df[(races_df['Distance'] == relay_distance) & 
+                                          (races_df['Sex'] == 'Mixed')]
+        else:
+            relay_specific_races = races_df[(races_df['Distance'] == relay_distance) & 
+                                          (races_df['Sex'] != 'Mixed')]
+        
+        if relay_specific_races.empty:
+            print(f"No {relay_type} races found after filtering")
+            continue
             
-            # Filter races for this relay type
-            relay_distance = {
-                'relay': 'Rel', 
-                'team_sprint': 'Ts', 
-                'mixed_relay': 'Rel',
-                'mixed_team_sprint': 'Ts'
-            }[relay_type]
+        # Save to temporary CSV for the relay script to use
+        temp_csv_path = f"/tmp/weekend_relay_{relay_type}_races.csv"
+        relay_specific_races.to_csv(temp_csv_path, index=False)
+        
+        print(f"Calling relay script for {relay_type}: {relay_script_path}")
+        print(f"Processing {len(relay_specific_races)} {relay_type} races")
+        
+        try:
+            # Call the relay script with the temporary CSV as an argument
+            result = subprocess.run(
+                ["python3", relay_script_path, temp_csv_path], 
+                check=True, 
+                capture_output=True, 
+                text=True
+            )
+            print(f"Relay script output:\n{result.stdout}")
+            if result.stderr:
+                print(f"Relay script error:\n{result.stderr}")
             
-            # Additional filtering for mixed events
-            if relay_type in ['mixed_relay', 'mixed_team_sprint']:
-                relay_specific_races = races_df[(races_df['Distance'] == relay_distance) & 
-                                              (races_df['Sex'] == 'Mixed')]
-            else:
-                relay_specific_races = races_df[(races_df['Distance'] == relay_distance) & 
-                                              (races_df['Sex'] != 'Mixed')]
+            success = True
+        except subprocess.CalledProcessError as e:
+            print(f"Error calling relay script: {e}")
+            print(f"Script output: {e.stdout}")
+            print(f"Script error: {e.stderr}")
+        except FileNotFoundError:
+            print(f"Relay script not found: {relay_script_path}")
             
-            # Save to temporary CSV for the relay script to use
-            temp_csv_path = f"/tmp/weekend_relay_{relay_type}_races.csv"
-            relay_specific_races.to_csv(temp_csv_path, index=False)
-            
-            print(f"Calling relay script for {relay_type}: {relay_script_path}")
-            try:
-                # Call the relay script with the temporary CSV as an argument
-                result = subprocess.run(
-                    ["python3", relay_script_path, temp_csv_path], 
-                    check=True, 
-                    capture_output=True, 
-                    text=True
-                )
-                print(f"Relay script output:\n{result.stdout}")
-                if result.stderr:
-                    print(f"Relay script error:\n{result.stderr}")
-                
-                success = True
-            except subprocess.CalledProcessError as e:
-                print(f"Error calling relay script: {e}")
-                print(f"Script output: {e.stdout}")
-                print(f"Script error: {e.stderr}")
-            except FileNotFoundError:
-                print(f"Relay script not found: {relay_script_path}")
-                
     return success
 
+def get_today_utc_date() -> str:
+    """Get today's date in UTC timezone as MM/DD/YYYY string to match CSV format"""
+    return datetime.now(timezone.utc).strftime('%m/%d/%Y')
+
 def process_weekend_races() -> None:
-    """Main function to process weekend races"""
+    """Main function to process weekend races - relays first, then individuals"""
     # Read weekends CSV
     print("Reading weekends.csv...")
     try:
@@ -194,103 +197,204 @@ def process_weekend_races() -> None:
         traceback.print_exc()
         return
     
-    # Find next race date
-    next_date = find_next_race_date(weekends_df)
-    print(f"Next race date is {next_date}")
+    # Get today's date in UTC
+    today_utc = get_today_utc_date()
+    print(f"Looking for races on today's date (UTC): {today_utc}")
     
-    # Filter races for the next date
-    next_races = filter_races_by_date(weekends_df, next_date)
-    print(f"Found {len(next_races)} races on {next_date}")
+    # Filter races for today's date
+    today_races = weekends_df[weekends_df['Date'] == today_utc]
     
-    # Check if all races are relay events
-    if all(is_relay_event(race) for _, race in next_races.iterrows()):
-        print("All races for next date are relay events.")
-        if handle_relay_races(next_races):
-            print("Relay races successfully handled by relay scripts.")
-            return
+    if today_races.empty:
+        print(f"No races found for today ({today_utc})")
+        return
+    
+    print(f"Found {len(today_races)} races for today ({today_utc})")
+    
+    # DEBUG: Show all races found for today
+    print("\n===== ALL RACES FOR TODAY =====")
+    for idx, (_, race) in enumerate(today_races.iterrows()):
+        race_id = parse_fis_race_id(race['Startlist']) if 'Startlist' in race else 'No ID'
+        print(f"  {idx+1}. {race['Distance']} {race['Sex']} in {race.get('City', 'Unknown')} - Race ID: {race_id}")
+        print(f"      Startlist: {race.get('Startlist', 'No URL')}")
+    
+    # Check for duplicate race IDs
+    race_ids = []
+    for _, race in today_races.iterrows():
+        race_id = parse_fis_race_id(race['Startlist']) if 'Startlist' in race else None
+        if race_id:
+            race_ids.append(race_id)
+    
+    duplicate_ids = [race_id for race_id in race_ids if race_ids.count(race_id) > 1]
+    if duplicate_ids:
+        print(f"\n⚠️  WARNING: Found duplicate race IDs: {duplicate_ids}")
+        # Remove duplicate races based on race ID
+        print("Removing duplicate races...")
+        seen_race_ids = set()
+        unique_races = []
+        for _, race in today_races.iterrows():
+            race_id = parse_fis_race_id(race['Startlist']) if 'Startlist' in race else None
+            if race_id is None or race_id not in seen_race_ids:
+                unique_races.append(race)
+                if race_id:
+                    seen_race_ids.add(race_id)
+        
+        today_races = pd.DataFrame(unique_races)
+        print(f"After removing duplicates: {len(today_races)} races")
+    
+    # STEP 1: Process all relay races first
+    relay_races = today_races[today_races['Distance'].isin(['Rel', 'Ts'])]
+    
+    if not relay_races.empty:
+        print(f"\n===== PROCESSING {len(relay_races)} RELAY RACES FIRST =====")
+        for _, race in relay_races.iterrows():
+            race_type = get_relay_type(race)
+            race_id = parse_fis_race_id(race['Startlist']) if 'Startlist' in race else 'No ID'
+            print(f"  {race_type}: {race['Distance']} {race['Sex']} in {race.get('City', 'Unknown')} - Race ID: {race_id}")
+        
+        # Handle all relay races
+        relay_success = handle_relay_races(relay_races)
+        if relay_success:
+            print("All relay races processed successfully")
         else:
-            print("Failed to handle relay races with relay scripts, continuing with standard processing...")
-    
-    # Filter out relays and team sprints for normal processing
-    valid_races = next_races[(next_races['Distance'] != 'Rel') & 
-                             (next_races['Distance'] != 'Ts')] 
-    print(f"Found {len(valid_races)} individual races after filtering out relays and team sprints")
-    
-    if valid_races.empty:
-        print("No valid individual races found for the next date")
-        return
-    
-    # Sort races by Race_Date (earliest first)
-    try:
-        # Convert Race_Date to datetime for proper sorting
-        valid_races['Race_Date'] = pd.to_datetime(valid_races['Race_Date'])
-        sorted_races = valid_races.sort_values('Race_Date')
-        print(f"Sorted races by Race_Date, first race date: {sorted_races['Race_Date'].iloc[0]}")
-        
-        # Determine host nation from the Country column
-        host_nation = sorted_races.iloc[0]['Country']
-        print(f"Host nation for this weekend: {host_nation}")
-        
-        # Select up to two races to scrape (prioritizing earliest race dates)
-        races_to_process = sorted_races.head(2)
-        print(f"Processing {len(races_to_process)} races with earliest dates")
-        
-    except Exception as e:
-        print(f"Error sorting races: {e}")
-        traceback.print_exc()
-        return
-    
-    # Get gender mapping for internal reference
-    gender_mapping = {'M': 'men', 'L': 'ladies'}
-    
-    # Process each gender separately
-    men_races = races_to_process[races_to_process['Sex'] == 'M']
-    ladies_races = races_to_process[races_to_process['Sex'] == 'L']
-    
-    print(f"Found {len(men_races)} men's races and {len(ladies_races)} ladies' races to process")
-    
-    # Process men's races
-    if not men_races.empty:
-        try:
-            process_gender_races(men_races, gender_mapping['M'], host_nation, next_races)
-        except Exception as e:
-            print(f"Error processing men's races: {e}")
-            traceback.print_exc()
-
-    # Process ladies' races
-    if not ladies_races.empty:
-        try:
-            process_gender_races(ladies_races, gender_mapping['L'], host_nation, next_races)
-        except Exception as e:
-            print(f"Error processing ladies' races: {e}")
-            traceback.print_exc()
-    call_r_script('weekend', 'standard')
-
-def process_gender_races(races_df: pd.DataFrame, gender: str, host_nation: str, all_next_races: pd.DataFrame) -> None:
-    """Process races for a specific gender"""
-    print(f"\nProcessing {gender} races...")
-    
-    # Get total number of races for this gender on the next date
-    # This counts ALL races for the gender, not just the ones we'll process
-    total_gender_races = len(all_next_races[all_next_races['Sex'] == ('M' if gender == 'men' else 'L')])
-    
-    # Set the column names based on total number of races for this gender
-    if total_gender_races == 1:
-        prob_columns = ['Race1_Prob', None]
+            print("Some relay races may not have been processed")
     else:
-        # Create enough probability columns for all races, even if we only process 2
-        prob_columns = [f'Race{i+1}_Prob' for i in range(total_gender_races)]
+        print("No relay races found for today")
+    
+    # STEP 2: Process individual races after all relays are done
+    individual_races = today_races[(today_races['Distance'] != 'Rel') & 
+                                   (today_races['Distance'] != 'Ts')]
+    
+    if not individual_races.empty:
+        print(f"\n===== PROCESSING {len(individual_races)} INDIVIDUAL RACES =====")
         
-        # Limit to the races we're actually processing
-        prob_columns = prob_columns[:len(races_df)]
+        # Debug: Show all individual races found
+        for _, race in individual_races.iterrows():
+            race_id = parse_fis_race_id(race['Startlist']) if 'Startlist' in race else 'No ID'
+            print(f"  Individual race: {race['Distance']} {race['Sex']} in {race.get('City', 'Unknown')} - Race ID: {race_id}")
+            print(f"    Race_Date: {race.get('Race_Date', 'Unknown')}")
+            print(f"    Startlist: {race.get('Startlist', 'No URL')}")
+        
+        # Check for duplicate individual races by gender and distance
+        print("\n--- Checking for duplicate individual races ---")
+        individual_summary = individual_races.groupby(['Sex', 'Distance']).size()
+        print("Individual races by Sex and Distance:")
+        print(individual_summary)
+        
+        duplicates_found = False
+        for (sex, distance), count in individual_summary.items():
+            if count > 1:
+                print(f"⚠️  WARNING: Found {count} {sex} {distance} races (expected 1)")
+                duplicates_found = True
+        
+        if duplicates_found:
+            print("\nRemoving duplicate individual races (keeping first occurrence)...")
+            # Remove duplicates by keeping first occurrence of each Sex+Distance combination
+            individual_races = individual_races.drop_duplicates(subset=['Sex', 'Distance'], keep='first')
+            print(f"After removing duplicates: {len(individual_races)} individual races")
+            
+            # Show final individual races
+            print("Final individual races to process:")
+            for _, race in individual_races.iterrows():
+                race_id = parse_fis_race_id(race['Startlist']) if 'Startlist' in race else 'No ID'
+                print(f"  {race['Distance']} {race['Sex']} in {race.get('City', 'Unknown')} - Race ID: {race_id}")
+        
+        # Sort individual races by Race_Date (earliest first)
+        try:
+            individual_races['Race_Date'] = pd.to_datetime(individual_races['Race_Date'])
+            sorted_races = individual_races.sort_values('Race_Date')
+            print(f"Sorted individual races by Race_Date, earliest: {sorted_races['Race_Date'].iloc[0]}")
+            
+            # Determine host nation from the first race
+            host_nation = sorted_races.iloc[0]['Country']
+            print(f"Host nation for this weekend: {host_nation}")
+            
+            # Use the deduplicated races
+            races_to_process = sorted_races
+            print(f"Processing {len(races_to_process)} individual races")
+            
+        except Exception as e:
+            print(f"Error sorting individual races: {e}")
+            traceback.print_exc()
+            return
+        
+        # Get gender mapping for internal reference
+        gender_mapping = {'M': 'men', 'L': 'ladies'}
+        
+        # Process each gender separately
+        men_races = races_to_process[races_to_process['Sex'] == 'M']
+        ladies_races = races_to_process[races_to_process['Sex'] == 'L']
+        
+        print(f"Found {len(men_races)} men's races and {len(ladies_races)} ladies' races to process")
+        
+        # Process men's races
+        if not men_races.empty:
+            try:
+                process_gender_races(men_races, gender_mapping['M'], host_nation, today_races)
+            except Exception as e:
+                print(f"Error processing men's races: {e}")
+                traceback.print_exc()
+
+        # Process ladies' races
+        if not ladies_races.empty:
+            try:
+                process_gender_races(ladies_races, gender_mapping['L'], host_nation, today_races)
+            except Exception as e:
+                print(f"Error processing ladies' races: {e}")
+                traceback.print_exc()
+    else:
+        print("No individual races found for today")
+    
+    # STEP 3: Call the main R script only if we processed individual races
+    if not individual_races.empty:
+        print(f"\n===== CALLING MAIN R SCRIPT =====")
+        call_r_script('weekend', 'standard')
+    else:
+        print("No individual races to process - skipping main R script")
+    
+    print("Weekend processing complete!")
+def process_gender_races(races_df: pd.DataFrame, gender: str, host_nation: str, all_today_races: pd.DataFrame) -> None:
+    """Process races for a specific gender with comprehensive debugging"""
+    
+    print(f"\n=== DEBUGGING {gender.upper()} RACE PROCESSING ===")
+    
+    # Debug: Show what races_df contains
+    print(f"races_df contains {len(races_df)} races:")
+    for i, (_, race) in enumerate(races_df.iterrows()):
+        print(f"  {i+1}. {race['Distance']} {race['Sex']} on {race.get('Race_Date', 'Unknown')}")
+    
+    # Use the actual number of races being processed instead of counting from all_today_races
+    # This fixes the bug where total_individual_races != len(races_df)
+    num_races_to_process = len(races_df)
+    print(f"Number of races to process: {num_races_to_process}")
+    
+    # Create exactly the number of probability columns we need
+    if num_races_to_process == 1:
+        prob_columns = ['Race1_Prob']
+    else:
+        prob_columns = [f'Race{i+1}_Prob' for i in range(num_races_to_process)]
+    
+    print(f"Probability columns for {gender}: {prob_columns}")
     
     # Get the ELO path
     elo_path = f"~/ski/elo/python/ski/polars/excel365/{gender}_chrono_elevation.csv"
     
+    # Check base ELO file for existing probability columns
+    print(f"\n=== CHECKING BASE ELO FILE ===")
+    try:
+        base_elo_df = pd.read_csv(elo_path)
+        base_prob_cols = [col for col in base_elo_df.columns if 'Race' in col and 'Prob' in col]
+        if base_prob_cols:
+            print(f"⚠️  BASE FILE ALREADY HAS PROBABILITY COLUMNS: {base_prob_cols}")
+            print("This could be the source of extra columns!")
+        else:
+            print("✓ Base ELO file contains no probability columns")
+    except Exception as e:
+        print(f"Could not read base ELO file: {e}")
+    
     # Initialize a consolidated dataframe
     consolidated_df = None
     
-    # Process each race
+    # Process each race with detailed debugging
     for i, (_, race) in enumerate(races_df.iterrows()):
         url = race['Startlist']
         
@@ -298,9 +402,12 @@ def process_gender_races(races_df: pd.DataFrame, gender: str, host_nation: str, 
             print(f"No startlist URL for race {i+1}, skipping")
             continue
         
-        print(f"Processing race {i+1} from URL: {url}")
+        print(f"\n=== PROCESSING RACE {i+1} ===")
+        print(f"URL: {url}")
+        print(f"Expected prob_column: {prob_columns[i]}")
         
         # Create startlist for this race
+        print(f"Calling create_weekend_startlist...")
         race_df = create_weekend_startlist(
             fis_url=url,
             elo_path=elo_path,
@@ -310,24 +417,127 @@ def process_gender_races(races_df: pd.DataFrame, gender: str, host_nation: str, 
         )
         
         if race_df is None:
-            print(f"Failed to create startlist for race {i+1}")
+            print(f"❌ create_weekend_startlist returned None for race {i+1}")
             continue
         
-        # If this is the first race, initialize the consolidated dataframe
-        if consolidated_df is None:
-            consolidated_df = race_df
+        # Check what columns this individual race created
+        print(f"✓ create_weekend_startlist returned DataFrame with {len(race_df)} rows, {len(race_df.columns)} columns")
+        race_prob_cols = [col for col in race_df.columns if 'Race' in col and 'Prob' in col]
+        print(f"Probability columns returned by race {i+1}: {race_prob_cols}")
+        
+        # Validate this race's output
+        if len(race_prob_cols) != 1:
+            print(f"⚠️  RACE {i+1} PROBLEM: Expected 1 probability column, got {len(race_prob_cols)}")
+            print(f"This is likely where extra columns are coming from!")
+            print(f"All columns in race_df: {list(race_df.columns)}")
+        elif race_prob_cols[0] != prob_columns[i]:
+            print(f"⚠️  RACE {i+1} COLUMN NAME MISMATCH:")
+            print(f"Expected: '{prob_columns[i]}'")
+            print(f"Got: '{race_prob_cols[0]}'")
         else:
-            # Merge with existing data (ensuring we don't lose any athletes)
+            print(f"✓ Race {i+1} returned correct single probability column")
+        
+        # Merge logic with debugging
+        if consolidated_df is None:
+            print(f"Initializing consolidated_df with race {i+1}")
+            consolidated_df = race_df.copy()
+            init_prob_cols = [col for col in consolidated_df.columns if 'Race' in col and 'Prob' in col]
+            print(f"Initial consolidated_df probability columns: {init_prob_cols}")
+            print(f"Initial consolidated_df has {len(consolidated_df)} rows, {len(consolidated_df.columns)} columns")
+        else:
+            # Debug merge operation
+            print(f"Merging race {i+1} data with consolidated_df...")
+            
+            # Before merge state
+            before_prob_cols = [col for col in consolidated_df.columns if 'Race' in col and 'Prob' in col]
+            before_total_cols = len(consolidated_df.columns)
+            print(f"Before merge - probability columns: {before_prob_cols}")
+            print(f"Before merge - total columns: {before_total_cols}")
+            
+            # Perform the merge
+            print(f"Calling merge_race_dataframes with prob_column: '{prob_columns[i]}'")
             consolidated_df = merge_race_dataframes(consolidated_df, race_df, prob_columns[i])
+            
+            # After merge state
+            after_prob_cols = [col for col in consolidated_df.columns if 'Race' in col and 'Prob' in col]
+            after_total_cols = len(consolidated_df.columns)
+            print(f"After merge - probability columns: {after_prob_cols}")
+            print(f"After merge - total columns: {after_total_cols}")
+            
+            # Validate merge results
+            expected_prob_cols = len(before_prob_cols) + 1
+            actual_prob_cols = len(after_prob_cols)
+            
+            if actual_prob_cols != expected_prob_cols:
+                print(f"⚠️  MERGE PROBLEM!")
+                print(f"Expected {expected_prob_cols} probability columns after merge, got {actual_prob_cols}")
+                
+                # Show what changed
+                new_cols = set(after_prob_cols) - set(before_prob_cols)
+                removed_cols = set(before_prob_cols) - set(after_prob_cols)
+                
+                if new_cols:
+                    print(f"Columns added during merge: {new_cols}")
+                if removed_cols:
+                    print(f"Columns removed during merge: {removed_cols}")
+                    
+                print("This suggests merge_race_dataframes is the source of extra columns!")
+            else:
+                print(f"✓ Merge correctly added 1 probability column")
     
-    # If we successfully processed at least one race
+    # Final validation and save
     if consolidated_df is not None:
-        # Save the consolidated dataframe
+        final_prob_cols = [col for col in consolidated_df.columns if 'Race' in col and 'Prob' in col]
+        print(f"\n=== FINAL VALIDATION ===")
+        print(f"Expected {len(prob_columns)} probability columns: {prob_columns}")
+        print(f"Actually got {len(final_prob_cols)} probability columns: {final_prob_cols}")
+        
+        # Check for problems
+        if len(final_prob_cols) != len(prob_columns):
+            print(f"⚠️  FINAL COLUMN COUNT MISMATCH!")
+            extra_cols = set(final_prob_cols) - set(prob_columns)
+            missing_cols = set(prob_columns) - set(final_prob_cols)
+            
+            if extra_cols:
+                print(f"Extra columns that shouldn't be there: {extra_cols}")
+            if missing_cols:
+                print(f"Missing expected columns: {missing_cols}")
+        else:
+            print(f"✓ Final column count is correct")
+        
+        # Check column names match exactly
+        if set(final_prob_cols) != set(prob_columns):
+            print(f"⚠️  COLUMN NAMES DON'T MATCH EXACTLY!")
+            print(f"Expected: {sorted(prob_columns)}")
+            print(f"Got: {sorted(final_prob_cols)}")
+        else:
+            print(f"✓ All column names match exactly")
+        
+        # Save the result
         output_path = f"~/ski/elo/python/ski/polars/excel365/startlist_weekend_{gender}.csv"
-        print(f"Saving consolidated {gender} startlist to {output_path}")
+        print(f"\nSaving consolidated {gender} startlist to {output_path}")
         consolidated_df.to_csv(output_path, index=False)
-        print(f"Saved {len(consolidated_df)} {gender} athletes")
-        #call_r_script('weekend', 'standard', gender)
+        print(f"Saved {len(consolidated_df)} {gender} athletes with {len(consolidated_df.columns)} columns")
+        
+        # Verify what was actually saved
+        print(f"\n=== VERIFICATION ===")
+        try:
+            saved_df = pd.read_csv(output_path)
+            saved_prob_cols = [col for col in saved_df.columns if 'Race' in col and 'Prob' in col]
+            print(f"File actually saved with probability columns: {saved_prob_cols}")
+            
+            if len(saved_prob_cols) != len(prob_columns):
+                print(f"⚠️  SAVE VERIFICATION FAILED!")
+                print(f"Expected to save {len(prob_columns)} columns, file contains {len(saved_prob_cols)}")
+            else:
+                print(f"✓ Save verification successful")
+                
+        except Exception as e:
+            print(f"Could not verify saved file: {e}")
+    else:
+        print(f"❌ No data to save for {gender}")
+    
+    print(f"=== END {gender.upper()} DEBUG ===\n")
 
 def create_weekend_startlist(fis_url: str, elo_path: str, gender: str, 
                            host_nation: str, prob_column: str) -> Optional[pd.DataFrame]:
@@ -735,8 +945,6 @@ def create_fallback_startlist(elo_path: str, gender: str, host_nation: str,
                 'In_Config': False,
                 'Price': price,
                 'Elo': elo_data.get('Elo', None),
-                'Distance':elo_data.get('Distance_Elo', None),
-                # Continuing from where we left off
                 'Distance_Elo': elo_data.get('Distance_Elo', None),
                 'Distance_C_Elo': elo_data.get('Distance_C_Elo', None),
                 'Distance_F_Elo': elo_data.get('Distance_F_Elo', None),
@@ -753,7 +961,6 @@ def create_fallback_startlist(elo_path: str, gender: str, host_nation: str,
             # Set race probability
             if prob_column:
                 # Set lower probability for fallback skiers
-                # You might want to adjust this based on various factors
                 skier_data[prob_column] = 0.0
             
             data.append(skier_data)

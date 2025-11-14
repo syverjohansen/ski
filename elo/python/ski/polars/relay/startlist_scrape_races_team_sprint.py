@@ -188,19 +188,19 @@ def process_team_sprint_races(races_file: str = None, gender: str = None) -> Non
 # Update the get_team_sprint_teams function to add team_number
 def get_team_sprint_teams(url: str) -> List[Dict]:
     """
-    Get teams from FIS team sprint startlist
+    Get teams from FIS team sprint startlist - FIXED VERSION
     
     Returns list of teams with structure:
     [
         {
-            'team_name': 'COUNTRY I',
-            'nation': 'XXX',
-            'team_rank': 1,
-            'team_time': '5:21.43',
-            'team_number': 1,  # Added to track multiple teams from same nation
+            'team_name': 'ITALY',
+            'nation': 'ITA',
+            'team_rank': '1',
+            'team_time': '7:53.89',
+            'team_number': 1,
             'members': [
-                {'name': 'ATHLETE NAME', 'nation': 'XXX', 'year': '1997', 'bib': '1-1'},
-                {'name': 'ATHLETE NAME', 'nation': 'XXX', 'year': '1994', 'bib': '1-2'}
+                {'name': 'GANZ Caterina', 'nation': 'ITA', 'year': '1995', 'bib': '7-1'},
+                {'name': 'CASSOL Federica', 'nation': 'ITA', 'year': '2000', 'bib': '7-2'}
             ]
         },
         ...
@@ -216,70 +216,112 @@ def get_team_sprint_teams(url: str) -> List[Dict]:
         # Track team numbers by nation
         nation_team_counts = {}
         
-        # Find all team rows (main rows)
-        team_rows = soup.select('.table-row_theme_main')
+        # Find all team rows (main rows) - these have class 'table-row_theme_main'
+        team_rows = soup.select('.table-row.table-row_theme_main')
+        
+        print(f"Found {len(team_rows)} team rows")
         
         for team_row in team_rows:
-            team_name_elem = team_row.select_one('.g-lg-14.g-md-14.g-sm-11.g-xs-10')
-            if not team_name_elem:
+            try:
+                # Get team rank
+                rank_elem = team_row.select_one('.g-lg-1.g-md-1.g-sm-1.g-xs-2.justify-right.bold.pr-1')
+                if not rank_elem:
+                    print("No rank element found, skipping row")
+                    continue
+                team_rank = rank_elem.text.strip()
+                
+                # Get team name (country name)
+                team_name_elem = team_row.select_one('.g-lg-14.g-md-14.g-sm-11.g-xs-10.justify-left.bold')
+                if not team_name_elem:
+                    print("No team name element found, skipping row")
+                    continue
+                team_name = team_name_elem.text.strip()
+                
+                # Get nation code
+                nation_elem = team_row.select_one('.country__name-short')
+                if not nation_elem:
+                    print(f"No nation code found for team {team_name}, skipping")
+                    continue
+                nation = nation_elem.text.strip()
+                
+                # Get team time
+                team_time = ""
+                time_elem = team_row.select_one('.g-lg-2.g-md-2.justify-right.blue.bold.hidden-sm.hidden-xs')
+                if time_elem:
+                    team_time = time_elem.text.strip()
+                
+                # Update team counter for this nation
+                if nation not in nation_team_counts:
+                    nation_team_counts[nation] = 1
+                else:
+                    nation_team_counts[nation] += 1
+                
+                team_number = nation_team_counts[nation]
+                
+                print(f"Processing team: {team_name} ({nation}) - Rank {team_rank}, Time: {team_time}")
+                
+                team_data = {
+                    'team_name': team_name,
+                    'nation': nation,
+                    'team_rank': team_rank,
+                    'team_time': team_time,
+                    'team_number': team_number,
+                    'members': []
+                }
+                
+                # Find the athlete rows that follow this team row
+                # Athlete rows have class 'table-row_theme_additional' and contain 'athlete-team-row'
+                current_element = team_row
+                athletes_found = 0
+                
+                while current_element and athletes_found < 2:  # Team sprint has exactly 2 athletes
+                    current_element = current_element.find_next_sibling('a')
+                    
+                    if not current_element:
+                        break
+                    
+                    # Check if this is an athlete row
+                    if 'table-row_theme_additional' in current_element.get('class', []):
+                        athlete_row_div = current_element.select_one('.athlete-team-row')
+                        if athlete_row_div:
+                            # This is an athlete row for the current team
+                            athlete_name_elem = current_element.select_one('.g-lg-14.g-md-14.g-sm-11.g-xs-10.justify-left.bold')
+                            if athlete_name_elem:
+                                athlete_name = athlete_name_elem.text.strip()
+                                
+                                # Get birth year
+                                year_elem = current_element.select_one('.g-lg-1.g-md-1.g-sm-2.g-xs-3.justify-left')
+                                year = year_elem.text.strip() if year_elem else ''
+                                
+                                # Get bib number
+                                bib_elem = current_element.select_one('.bib')
+                                bib = bib_elem.text.strip() if bib_elem else ''
+                                
+                                team_data['members'].append({
+                                    'name': athlete_name,
+                                    'nation': nation,  # Use team's nation
+                                    'year': year,
+                                    'bib': bib
+                                })
+                                
+                                athletes_found += 1
+                                print(f"  Added athlete: {athlete_name} (bib: {bib}, year: {year})")
+                            
+                    elif 'table-row_theme_main' in current_element.get('class', []):
+                        # We've reached the next team, stop looking for athletes
+                        break
+                
+                if len(team_data['members']) > 0:
+                    teams.append(team_data)
+                    print(f"Added team {team_name} with {len(team_data['members'])} members")
+                else:
+                    print(f"Warning: No athletes found for team {team_name}")
+                    
+            except Exception as e:
+                print(f"Error processing team row: {e}")
                 continue
-                
-            # Get nation code
-            nation_elem = team_row.select_one('.country__name-short')
-            nation = nation_elem.text.strip() if nation_elem else ""
-            
-            # Update team counter for this nation
-            if nation not in nation_team_counts:
-                nation_team_counts[nation] = 1
-            else:
-                nation_team_counts[nation] += 1
-            
-            # Get team number for this nation
-            team_number = nation_team_counts[nation]
-                
-            team_data = {
-                'team_name': team_name_elem.text.strip(),
-                'nation': nation,
-                'team_rank': team_row.select_one('.g-lg-1.g-md-1.g-sm-1.g-xs-2.justify-right.bold').text.strip(),
-                'team_time': '',
-                'team_number': team_number,  # Add team number
-                'members': []
-            }
-            
-            # Get team time if available
-            time_elem = team_row.select_one('.g-lg-2.g-md-2.justify-right.blue.bold.hidden-sm.hidden-xs')
-            if time_elem:
-                team_data['team_time'] = time_elem.text.strip()
-            
-            # Find the next athlete rows until the next team row
-            current_element = team_row
-            while True:
-                current_element = current_element.find_next_sibling()
-                if not current_element or 'table-row_theme_main' in current_element.get('class', []):
-                    break
-                
-                if 'athlete-team-row' in current_element.select_one('.g-row').get('class', []):
-                    # This is an athlete row for the current team
-                    athlete_name_elem = current_element.select_one('.athlete-name')
-                    if athlete_name_elem:
-                        athlete_name = athlete_name_elem.text.strip()
-                        year_elem = current_element.select_one('.g-lg-1.g-md-1.g-sm-2.g-xs-3')
-                        year = year_elem.text.strip() if year_elem else ''
-                        
-                        # Get athlete bib
-                        bib_elem = current_element.select_one('.bib')
-                        bib = bib_elem.text.strip() if bib_elem else ''
-                        
-                        team_data['members'].append({
-                            'name': athlete_name,
-                            'nation': team_data['nation'],
-                            'year': year,
-                            'bib': bib
-                        })
-            
-            teams.append(team_data)
         
-        print(f"Found {len(teams)} teams with {sum(len(team['members']) for team in teams)} athletes")
+        print(f"Found {len(teams)} teams with {sum(len(team['members']) for team in teams)} total athletes")
         return teams
         
     except Exception as e:
