@@ -1,0 +1,97 @@
+Skier,ID,Nation,Ranking,Points,Wins,Prone_Percentage,Standing_Percentage
+Franziska Preuss,926,Germany,1,1278,4,94.29,89.14
+Lou Jeanmonnot,1769,France,2,1258,8,96.57,88.57
+Julia Simon,1300,France,3,902,2,89.71,81.14
+Elvira Öberg,2266,Sweden,4,761,2,82.22,85.19
+Oceane Michelon,2736,France,5,760,0,89.14,83.43
+Jeanne Richard,2680,France,6,755,0,97.14,88.0
+Suvi Minkkinen,1233,Finland,7,694,0,91.52,92.73
+Justine Braisaz-Bouchet,1217,France,8,657,1,73.71,78.86
+Selina Grotian,2783,Germany,9,640,1,87.1,86.45
+Maren Kirkeeide,2898,Norway,10,548,0,80.0,89.7
+Lisa Theresa Hauser,1006,Austria,11,496,0,92.12,84.24
+Hanna Öberg,1384,Sweden,12,488,0,82.86,77.86
+Dorothea Wierer,54,Italy,13,446,0,91.61,77.42
+Karoline Offigstad Knotten,1275,Norway,14,421,0,89.66,82.76
+Milena Todorova,1598,Bulgaria,15,416,0,91.52,80.61
+Amy Baserga,2261,Switzerland,16,415,0,94.0,88.67
+Yuliia Dzhima,505,Ukraine,17,368,0,94.84,91.61
+Ella Halvarsson,2456,Sweden,18,367,0,86.43,83.57
+Lena Häcki-Gross,1238,Switzerland,19,359,0,84.0,81.71
+Anna Magnusson,1305,Sweden,20,356,0,90.0,83.33
+Tereza Vobornikova,2442,Czechia,21,349,0,92.26,90.32
+Lotte Lie,1237,Belgium,22,349,0,92.73,85.45
+Anamarija Lampic,2354,Slovenia,23,332,0,76.36,52.73
+Ida Lien,2235,Norway,24,310,0,93.6,68.0
+Vanessa Voigt,2165,Germany,25,307,0,92.86,94.29
+Aita Gasparin,1003,Switzerland,26,307,0,90.77,85.38
+Ingrid Landmark Tandrevold,1553,Norway,27,292,1,95.79,71.58
+Paulina Batovska Fialkova,947,Slovakia,28,289,0,82.31,80.77
+Natalia Sidorowicz,2951,Poland,29,267,0,85.52,84.83
+Samuela Comola,1803,Italy,30,258,0,94.84,84.52
+Julia Tannheimer,2896,Germany,31,232,0,80.0,86.0
+Khrystyna Dmytrenko,1589,Ukraine,32,224,0,92.0,92.0
+Marketa Davidova,1394,Czechia,33,223,1,86.67,86.67
+Paula Botet,2417,France,34,214,1,81.54,87.69
+Maya Cloetens,2588,Belgium,35,203,0,92.59,88.15
+Jessica Jislova,958,Czechia,36,200,0,92.31,86.92
+Sara Andersson,2547,Sweden,37,199,0,93.33,76.67
+Michela Carrara,1596,Italy,38,193,0,80.0,72.8
+Anna-Karin Heijdenberg,2635,Sweden,39,171,0,85.83,75.83
+Hannah Auchentaller,2552,Italy,40,171,0,87.27,89.09
+Sophie Chauveau,2177,France,41,150,0,92.94,68.24
+Venla Lehtonen,2309,Finland,42,148,0,93.85,78.46
+Anna Gandler,2264,Austria,43,146,0,87.06,78.82
+Ragnhild Femsteinevik,1269,Norway,44,131,0,78.46,84.62
+Johanna Skottheim,1340,Sweden,45,119,0,86.32,82.11
+Lucie Charvatova,1083,Czechia,46,105,0,75.65,62.61
+Regina Ermits,1314,Estonia,47,103,0,69.17,86.67
+Kamila Zuk,1554,Poland,48,97,0,73.91,74.78
+Martina Trabucchi,2593,Italy,49,96,0,87.27,89.09
+Elisa Gasparin,487,Switzerland,50,85,0,90.83,76.67
+Olena Horodna,2735,Ukraine,51,84,0,90.0,80.0
+Camille Bened,2166,France,52,79,0,92.0,84.0
+Deedra Irwin,2437,USA,53,79,0,85.83,84.17
+Sophia Schneider,1592,Germany,54,79,0,85.0,76.25
+Polona Klemencic,1606,Slovenia,55,77,0,80.0,77.78
+Gro Njølstad Randby,2719,Norway,56,76,0,85.0,60.0
+Susan Külm,1043,Estonia,57,75,0,90.0,72.5
+Alina Stremous,2758,Moldova,58,75,0,86.67,89.52
+Marthe Kråkstad Johansen,1802,Norway,59,75,0,97.5,90.0
+Joanna Jakiela,1612,Poland,60,67,0,91.43,63.81
+Sonja Leinamo,2793,Finland,61,65,0,80.0,70.0
+Gilonne Guigonnat,1805,France,62,65,0,86.67,90.0
+Karoline Erdal,1768,Norway,63,60,0,92.0,72.0
+Lena Repinc,2555,Slovenia,64,59,0,73.75,83.75
+Juni Arnekleiv,2384,Norway,65,53,0,92.73,72.73
+Anna Andexer,2690,Austria,66,49,0,88.0,69.33
+Tamara Steiner,1587,Austria,67,45,0,94.29,88.57
+Emma Lunder,501,Canada,68,42,0,80.87,89.57
+Anna Weidel,1337,Germany,69,38,0,100.0,93.33
+Anna Maka,941,Poland,70,34,0,87.78,81.11
+Stefanie Scherer,2228,Germany,71,26,0,93.33,100.0
+Julia Kink,2917,Germany,72,25,0,77.78,80.0
+Lea Meier,2505,Switzerland,73,24,0,88.0,80.0
+Anastasiya Kuzmina,12,Slovakia,74,24,0,78.57,71.43
+Natalija Kocergina,906,Lithuania,75,16,0,61.43,80.0
+Inka Hämäläinen,2794,Finland,76,16,0,74.67,85.33
+Emilie Kalkenberg,1572,Norway,77,15,0,88.57,62.86
+Johanna Puff,2718,Germany,78,15,0,90.0,80.0
+Sanita Bulina,2459,Latvia,79,15,0,68.24,81.18
+Valentina Dimitrova,2573,Bulgaria,80,14,0,92.0,80.0
+Lidiia Zhurauskaite,3097,Lithuania,81,12,0,92.94,74.12
+Nadia Moser,1786,Canada,82,12,0,87.06,84.71
+Lea Rothschopf,2556,Austria,83,12,0,84.62,86.15
+Pascale Paradis,2454,Canada,84,12,0,82.5,76.25
+Estere Volfa,2865,Latvia,85,12,0,80.0,77.78
+Baiba Bendika,531,Latvia,86,12,0,74.0,68.0
+Lora Hristova,2569,Bulgaria,87,10,0,95.56,78.89
+Rebecca Passler,2533,Italy,88,9,0,76.67,83.33
+Ekaterina Avvakumova,1638,South Korea,89,9,0,80.0,81.82
+Kristyna Otcovska,2868,Czechia,90,9,0,75.56,73.33
+Oleksandra Merkushyna,2819,Ukraine,91,8,0,86.67,86.67
+Johanna Talihärm,894,Estonia,92,6,0,75.56,76.67
+Anna Juppe,2776,Austria,93,6,0,80.0,70.91
+Eve Bouvard,2761,Belgium,94,4,0,86.0,76.0
+Anastasia Tolmacheva,2072,Romania,95,2,0,95.79,76.84
+Dunja Zdouc,1080,Austria,96,2,0,95.0,85.0
