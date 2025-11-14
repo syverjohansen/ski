@@ -4,14 +4,11 @@ birkie2/
 birkie2022/
 
 
-*.feather
-*.csv
 *.xlsx
 *.Rdata
 *.pkl
 *.xlsx
 *.xls
-*.csv
 *.pkl
 *.pickle
 *.db
