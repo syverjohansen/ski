@@ -171,11 +171,21 @@ def extract_individual_results(soup: BeautifulSoup) -> List[Dict]:
     try:
         # First try the newer format with .table-row class
         athlete_rows = soup.select('.table-row')
+        print(f"Found {len(athlete_rows)} .table-row elements in extract_individual_results")
         
         if not athlete_rows:
-            # If no .table-row found, try alternative format with result cards
-            print("No .table-row found, trying alternative format...")
+            # If no .table-row found, try events-info-results format
+            print("No .table-row found, trying events-info-results format...")
+            events_results = extract_events_info_results(soup)
+            if events_results:
+                return events_results
+            
+            # If that also fails, try alternative format with result cards
+            print("No events-info-results found, trying alternative format...")
             return extract_alternative_format_results(soup)
+        
+        # Debug: if we find .table-row elements but names are empty, let's check the structure
+        print("Processing .table-row elements from main extract function...")
         for row in athlete_rows:
             try:
                 # Extract athlete data
@@ -201,8 +211,36 @@ def extract_individual_results(soup: BeautifulSoup) -> List[Dict]:
                 fis_code = fis_code_elem.text.strip() if fis_code_elem else ""
                 
                 # Get name (different selectors for different race formats)
-                name_elem = row.select_one('.g-lg-18.g-md-18.g-sm-16.g-xs-16.justify-left.bold, .g-lg-12.g-md-12.g-sm-11.g-xs-8.justify-left.bold, .g-lg-8.g-md-8.g-sm-7.g-xs-8.justify-left.bold, .g-lg-10.g-md-10.g-sm-9.g-xs-11.justify-left.bold')
-                name = name_elem.text.strip() if name_elem else ""
+                name = ""
+                name_selectors = [
+                    '.g-lg-18.g-md-18.g-sm-16.g-xs-16.justify-left.bold',
+                    '.g-lg-12.g-md-12.g-sm-11.g-xs-8.justify-left.bold',
+                    '.g-lg-8.g-md-8.g-sm-7.g-xs-8.justify-left.bold', 
+                    '.g-lg-10.g-md-10.g-sm-9.g-xs-11.justify-left.bold',
+                    # Add more selectors for events-info-results format
+                    '.g-lg-4.g-md-4.g-sm-3.g-xs-8.justify-left.bold',
+                    '.justify-left.bold'
+                ]
+                
+                for selector in name_selectors:
+                    name_elem = row.select_one(selector)
+                    if name_elem and name_elem.text.strip():
+                        name = name_elem.text.strip()
+                        if len(athletes) < 3:  # Debug for first few rows
+                            print(f"Main extract found name using selector '{selector}': '{name}'")
+                        break
+                
+                # If still no name found, debug what elements are available
+                if not name and len(athletes) < 3:
+                    print("Main extract: No name found, checking all bold elements in row:")
+                    bold_elems = row.select('.bold')
+                    for i, elem in enumerate(bold_elems):
+                        print(f"  Bold element {i}: '{elem.text.strip()}' with classes: {elem.get('class', [])}")
+                    print("Main extract: All div elements with any class:")
+                    div_elems = row.select('div[class]')
+                    for i, elem in enumerate(div_elems):
+                        if elem.text.strip():  # Only show divs with text
+                            print(f"  Div {i}: '{elem.text.strip()}' with classes: {elem.get('class', [])}")
                 
                 # Get birth year
                 year_elem = row.select_one('.g-lg-1.g-md-1.hidden-sm-down.justify-left')
@@ -381,6 +419,138 @@ def extract_alternative_format_results(soup: BeautifulSoup) -> List[Dict]:
         
     except Exception as e:
         print(f"Error extracting alternative format results: {e}")
+        traceback.print_exc()
+        return []
+
+def extract_events_info_results(soup: BeautifulSoup) -> List[Dict]:
+    """Extract athlete results from events-info-results format"""
+    athletes = []
+    
+    try:
+        # Look for the events-info-results div
+        events_div = soup.find('div', {'id': 'events-info-results', 'class': 'table__body'})
+        
+        if not events_div:
+            print("No events-info-results div found")
+            return []
+            
+        print("Found results format with events-info-results")
+        
+        # Find all table rows
+        table_rows = events_div.find_all('a', class_='table-row')
+        print(f"Found {len(table_rows)} athlete rows in events-info-results format")
+        
+        for row in table_rows:
+            try:
+                # Debug: Print the HTML structure for the first few rows
+                if len(athletes) < 3:
+                    print(f"Debug row HTML: {row}")
+                
+                # Get rank - first bold number
+                rank_elem = row.select_one('.g-lg-1.g-md-1.g-sm-1.g-xs-2.justify-right.pr-1.bold')
+                rank = rank_elem.text.strip() if rank_elem else ""
+                
+                # Get bib number - second gray number
+                bib_elem = row.select_one('.g-lg-1.g-md-1.g-sm-1.justify-center.hidden-sm-down.gray')
+                bib = bib_elem.text.strip() if bib_elem else ""
+                
+                # Get FIS code - gray number in 2-column div
+                fis_code_elem = row.select_one('.pr-1.g-lg-2.g-md-2.g-sm-2.hidden-xs.justify-right.gray')
+                fis_code = fis_code_elem.text.strip() if fis_code_elem else ""
+                
+                # Get athlete name - try multiple selector patterns used in main extract function
+                name = ""
+                name_selectors = [
+                    # From main extraction function - all the name selectors
+                    '.g-lg-18.g-md-18.g-sm-16.g-xs-16.justify-left.bold',
+                    '.g-lg-12.g-md-12.g-sm-11.g-xs-8.justify-left.bold', 
+                    '.g-lg-8.g-md-8.g-sm-7.g-xs-8.justify-left.bold',
+                    '.g-lg-10.g-md-10.g-sm-9.g-xs-11.justify-left.bold',
+                    # Additional patterns for events-info-results format
+                    '.g-lg-4.g-md-4.g-sm-3.g-xs-8.justify-left.bold',
+                    '.g-lg-4.justify-left.bold',
+                    '.justify-left.bold',
+                    # Fallback patterns
+                    'div.bold',
+                    '.bold'
+                ]
+                
+                for selector in name_selectors:
+                    name_elem = row.select_one(selector)
+                    if name_elem and name_elem.text.strip():
+                        name = name_elem.text.strip()
+                        if len(athletes) < 3:  # Debug for first few rows
+                            print(f"Found name using selector '{selector}': '{name}'")
+                        break
+                
+                # If still no name found, debug what elements are available
+                if not name and len(athletes) < 3:
+                    print("No name found, checking all bold elements in row:")
+                    bold_elems = row.select('.bold')
+                    for i, elem in enumerate(bold_elems):
+                        print(f"  Bold element {i}: '{elem.text.strip()}' with classes: {elem.get('class', [])}")
+                    print("All div elements with any class:")
+                    div_elems = row.select('div[class]')
+                    for i, elem in enumerate(div_elems):
+                        if elem.text.strip():  # Only show divs with text
+                            print(f"  Div {i}: '{elem.text.strip()}' with classes: {elem.get('class', [])}")
+                
+                # Get birth year
+                year_elem = row.select_one('.g-lg-1.g-md-1.hidden-sm-down.justify-left')
+                year = year_elem.text.strip() if year_elem else ""
+                
+                # Get nation from country code
+                nation_elem = row.select_one('.country__name-short')
+                nation = nation_elem.text.strip() if nation_elem else ""
+                
+                # Get run times - bold hidden-xs elements
+                run_time_elems = row.select('.g-lg-2.g-md-2.g-sm-2.justify-right.bold.hidden-xs')
+                run1 = run_time_elems[0].text.strip() if len(run_time_elems) > 0 else ""
+                run2 = run_time_elems[1].text.strip() if len(run_time_elems) > 1 else ""
+                
+                # Get total time - blue bold time
+                total_time = ""
+                time_elem = row.select_one('.g-lg-2.g-md-2.justify-right.blue.bold.hidden-sm.hidden-xs')
+                if time_elem:
+                    total_time = time_elem.text.strip()
+                
+                # Get FIS points - last numeric element
+                points_elem = row.select_one('.g-lg-2.g-md-2.g-sm-2.g-xs-3.justify-right')
+                points = points_elem.text.strip() if points_elem else ""
+                
+                # Extract athlete ID from href
+                athlete_id = ""
+                href = row.get('href', '')
+                if href:
+                    id_match = re.search(r'competitorid=(\d+)', href)
+                    if id_match:
+                        athlete_id = id_match.group(1)
+                
+                athlete_data = {
+                    'Rank': rank,
+                    'Bib': bib,
+                    'FisCode': fis_code,
+                    'Name': name,
+                    'Year': year,
+                    'Nation': nation,
+                    'Run1': run1,
+                    'Run2': run2,
+                    'Time': total_time,
+                    'Points': points,
+                    'ID': athlete_id
+                }
+                
+                athletes.append(athlete_data)
+                print(f"Added skier: {rank} - {name} ({nation})")
+                
+            except Exception as e:
+                print(f"Error parsing events-info-results row: {e}")
+                continue
+        
+        return athletes
+        
+    except Exception as e:
+        print(f"Error extracting events-info-results: {e}")
         traceback.print_exc()
         return []
 
