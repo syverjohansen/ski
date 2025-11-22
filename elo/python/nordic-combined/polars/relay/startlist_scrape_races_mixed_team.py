@@ -33,11 +33,20 @@ def process_races_mixed_team(races_file: str = None) -> None:
             races_df = pd.read_csv(races_path)
             print(f"Loaded {len(races_df)} races from {races_path}")
             
-            # Filter to only mixed team races (not mixed team sprint)
-            mixed_team_races = races_df[(races_df['RaceType'].str.contains("Mixed Team", na=False)) & 
-                              (~races_df['RaceType'].str.contains("Sprint", na=False))]
+            # Get today's date in the same format as the CSV
+            from datetime import datetime
+            today_date = datetime.now().strftime('%m/%d/%Y')
+            print(f"Today's date: {today_date}")
+            
+            # Filter to only TODAY'S races first
+            today_races = races_df[races_df['Date'] == today_date]
+            print(f"Filtered to {len(today_races)} races for today")
+            
+            # Filter to only mixed team races (not mixed team sprint) from today
+            mixed_team_races = today_races[(today_races['RaceType'].str.contains("Mixed Team", na=False)) & 
+                              (~today_races['RaceType'].str.contains("Sprint", na=False))]
             races_df = mixed_team_races
-            print(f"Filtered to {len(races_df)} mixed team races")
+            print(f"Filtered to {len(races_df)} mixed team races for today")
             
             # Add deduplication step
             if not races_df.empty:

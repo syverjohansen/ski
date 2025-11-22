@@ -1,31 +1,52 @@
 Skier,ID,Nation,Ranking,Points,Wins
 Marco Odermatt,3040,Switzerland,1,100,1
-Marco Schwarz,2561,Austria,2,80,0
-Atle Lie McGrath,4711,Norway,3,60,0
-Stefan Brennsteiner,2436,Austria,4,50,0
-Thibaut Favrot,2493,France,5,45,0
-Raphael Haaser,4221,Austria,6,40,0
-Henrik Kristoffersen,2391,Norway,7,36,0
-Alex Vinatzer,4040,Italy,8,32,0
-Zan Kranjec,1942,Slovenia,9,29,0
-Flavio Vitale,7093,France,10,26,0
-Anton Grammel,3004,Germany,11,24,0
-Timon Haugan,3049,Norway,12,22,0
-Joan Verdu Sanchez,2551,Andorra,12,22,0
-Loic Meillard,2565,Switzerland,14,18,0
-Filip Zubcic,249,Croatia,15,16,0
-Thomas Tumler,2409,Switzerland,16,15,0
-Fabian Gratz,4358,Germany,17,14,0
-Alexis Pinturault,232,France,18,13,0
-Jonas Stockinger,3030,Germany,19,12,0
-Sam Maes,3002,Belgium,20,11,0
-River Radamus,2986,USA,21,10,0
-Luca De Aliprandini,1799,Italy,22,9,0
-Tormis Laine,4056,Estonia,23,8,0
-Giovanni Borsotti,114,Italy,24,7,0
-Alban Elezi Cannaferina,5693,France,25,6,0
-Eirik Hystad Solberg,6716,Norway,25,6,0
-Alexander Schmid,2410,Germany,27,4,0
-Andreas Zampa,1973,Slovakia,28,3,0
-Vincent Kriechmayr,1912,Austria,29,2,0
-Luca Aerni,2392,Switzerland,30,1,0
+Lucas Pinheiro Braathen,4748,Brazil,1,100,1
+Marco Schwarz,2561,Austria,3,92,0
+Clement Noel,2758,France,4,80,0
+Timon Haugan,3049,Norway,5,67,0
+Eduard Hallberg,6820,Finland,6,60,0
+Atle Lie McGrath,4711,Norway,6,60,0
+Henrik Kristoffersen,2391,Norway,8,56,0
+Stefan Brennsteiner,2436,Austria,9,50,0
+Laurie Taylor,4143,Great Britain,9,50,0
+Thibaut Favrot,2493,France,11,45,0
+Raphael Haaser,4221,Austria,12,40,0
+Paco Rassat,5371,France,12,40,0
+Loic Meillard,2565,Switzerland,14,36,0
+Dave Ryding,2375,Great Britain,14,36,0
+Steven Amiez,5409,France,16,32,0
+Alex Vinatzer,4040,Italy,16,32,0
+Zan Kranjec,1942,Slovenia,18,29,0
+Michael Matt,2481,Austria,18,29,0
+Filip Zubcic,249,Croatia,18,29,0
+Fabio Gstrein,3066,Austria,21,26,0
+Flavio Vitale,7093,France,21,26,0
+Manuel Feller,2396,Austria,23,24,0
+Anton Grammel,3004,Germany,23,24,0
+Tobias Kastlunger,5321,Italy,25,22,0
+Joan Verdu Sanchez,2551,Andorra,25,22,0
+Eirik Hystad Solberg,6716,Norway,27,20,0
+Sam Maes,3002,Belgium,28,17,0
+Linus Strasser,1932,Germany,29,16,0
+Samuel Kolega,3029,Croatia,30,15,0
+Thomas Tumler,2409,Switzerland,30,15,0
+Fabian Gratz,4358,Germany,32,14,0
+Alexis Pinturault,232,France,33,13,0
+Jonas Stockinger,3030,Germany,34,12,0
+Victor Muffat-Jeandet,2024,France,35,11,0
+Tanguy Nef,3065,Switzerland,36,10,0
+River Radamus,2986,USA,36,10,0
+Luca De Aliprandini,1799,Italy,38,9,0
+Daniel Yule,2404,Switzerland,38,9,0
+Tormis Laine,4056,Estonia,40,8,0
+Albert Popov,2597,Bulgaria,40,8,0
+Giovanni Borsotti,114,Italy,42,7,0
+Johannes Strolz,2401,Austria,42,7,0
+Alban Elezi Cannaferina,5693,France,44,6,0
+Cooper Puckett,5567,USA,45,5,0
+Billy Major,2607,Great Britain,46,4,0
+Alexander Schmid,2410,Germany,46,4,0
+Yohei Koyama,2447,Japan,48,3,0
+Andreas Zampa,1973,Slovakia,48,3,0
+Vincent Kriechmayr,1912,Austria,50,2,0
+Luca Aerni,2392,Switzerland,51,1,0

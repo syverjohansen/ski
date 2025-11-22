@@ -33,9 +33,18 @@ def process_races_mixed_relay(races_file: str = None) -> None:
             races_df = pd.read_csv(races_path)
             print(f"Loaded {len(races_df)} races from {races_path}")
             
-            # Filter to only mixed relay races
-            races_df = races_df[races_df['RaceType'] == 'Mixed Relay']
-            print(f"Filtered to {len(races_df)} mixed relay races")
+            # Get today's date in the same format as the CSV
+            from datetime import datetime
+            today_date = datetime.now().strftime('%m/%d/%Y')
+            print(f"Today's date: {today_date}")
+            
+            # Filter to only TODAY'S races first
+            today_races = races_df[races_df['Date'] == today_date]
+            print(f"Filtered to {len(today_races)} races for today")
+            
+            # Filter to only mixed relay races from today
+            races_df = today_races[today_races['RaceType'] == 'Mixed Relay']
+            print(f"Filtered to {len(races_df)} mixed relay races for today")
         except Exception as e:
             print(f"Error loading races from {races_path}: {e}")
             traceback.print_exc()

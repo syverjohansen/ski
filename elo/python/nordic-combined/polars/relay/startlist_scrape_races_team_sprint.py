@@ -33,10 +33,19 @@ def process_races_team_sprint(races_file: str = None) -> None:
             races_df = pd.read_csv(races_path)
             print(f"Loaded {len(races_df)} races from {races_path}")
             
-            # Filter to only team sprint races
-            team_sprint_races = races_df[races_df['RaceType'].str.contains("Team Sprint", na=False)]
+            # Get today's date in the same format as the CSV
+            from datetime import datetime
+            today_date = datetime.now().strftime('%m/%d/%Y')
+            print(f"Today's date: {today_date}")
+            
+            # Filter to only TODAY'S races first
+            today_races = races_df[races_df['Date'] == today_date]
+            print(f"Filtered to {len(today_races)} races for today")
+            
+            # Filter to only team sprint races from today
+            team_sprint_races = today_races[today_races['RaceType'].str.contains("Team Sprint", na=False)]
             races_df = team_sprint_races
-            print(f"Filtered to {len(races_df)} team sprint races")
+            print(f"Filtered to {len(races_df)} team sprint races for today")
             
             # Add deduplication step
             if not races_df.empty:
