@@ -33,18 +33,27 @@ def process_races_team(races_file: str = None) -> None:
             races_df = pd.read_csv(races_path)
             print(f"Loaded {len(races_df)} races from {races_path}")
             
-            # Filter to only team races (not mixed team)
-            team_races = races_df[(races_df['RaceType'].str.contains("Team", na=False)) & 
-                          (~races_df['RaceType'].str.contains("Mixed", na=False)) &
-                          (races_df['Sex'] != 'Mixed')]
+            # Get today's date in the same format as the CSV
+            from datetime import datetime
+            today_date = datetime.now().strftime('%m/%d/%Y')
+            print(f"Today's date: {today_date}")
+            
+            # Filter to only TODAY'S races first
+            today_races = races_df[races_df['Date'] == today_date]
+            print(f"Filtered to {len(today_races)} races for today")
+            
+            # Filter to only team races (not mixed team) from today
+            team_races = today_races[(today_races['RaceType'].str.contains("Team", na=False)) & 
+                          (~today_races['RaceType'].str.contains("Mixed", na=False)) &
+                          (today_races['Sex'] != 'Mixed')]
             races_df = team_races
-            print(f"Filtered to {len(races_df)} team races")
+            print(f"Filtered to {len(races_df)} team races for today")
             
             # Add deduplication step
             if not races_df.empty:
                 # Deduplicate races based on Date, City, and RaceType
                 races_df = races_df.drop_duplicates(subset=['Date', 'City', 'RaceType'])
-                print(f"After deduplication: {len(races_df)} team races")            
+                print(f"After deduplication: {len(races_df)} team races for today")            
             
         except Exception as e:
             print(f"Error loading races from {races_path}: {e}")
