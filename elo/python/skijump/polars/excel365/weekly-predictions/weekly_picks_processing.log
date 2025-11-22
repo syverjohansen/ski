@@ -7421,3 +7421,1278 @@ INFO [2025-11-21 00:03:58] Formatted position probabilities saved to ~/blog/daeh
 INFO [2025-11-21 00:03:58] Saved predictions to ~/blog/daehl-e/content/post/skijump/drafts/weekly-picks/20251121/Mixed_team.xlsx
 INFO [2025-11-21 00:03:58] Ski Jumping top contenders summary saved to ~/blog/daehl-e/content/post/skijump/drafts/weekly-picks/20251121/skijump_top_contenders.xlsx
 INFO [2025-11-21 00:03:58] Ski Jumping prediction workflow complete
+INFO [2025-11-22 20:49:12] Starting Ski Jumping weekly predictions process
+INFO [2025-11-22 20:49:12] Reading weekends data
+INFO [2025-11-22 20:49:12] Current date: 2025-11-22
+INFO [2025-11-22 20:49:12] Next weekend date: 2025-11-22
+INFO [2025-11-22 20:49:12] Found 2 men's races, 2 ladies' races
+INFO [2025-11-22 20:49:12] Found 0 men's team races, 0 ladies' team races
+INFO [2025-11-22 20:49:12] Found 1 mixed team races
+INFO [2025-11-22 20:49:13] Running integrated Ski Jumping predictions workflow
+INFO [2025-11-22 20:49:13] Calculating race probabilities
+INFO [2025-11-22 20:49:13] Calculating race participation probabilities
+INFO [2025-11-22 20:49:13] Reading men's chronological data and startlist
+INFO [2025-11-22 20:49:15] Reading ladies' chronological data and startlist
+INFO [2025-11-22 20:49:16] Loaded mixed team startlist with 15 teams
+INFO [2025-11-22 20:49:16] Processing men's race probabilities
+INFO [2025-11-22 20:49:16] FIS startlist exists (at least one In_Startlist=True), keeping existing Race1_Prob values
+INFO [2025-11-22 20:49:16] Using existing Race1_Prob from FIS startlist, skipping calculation
+DEBUG [2025-11-22 20:49:16] Calculating probability for participant: Stefan Kraft
+DEBUG [2025-11-22 20:49:16] Using start date: 2020-11-23 for participant: Stefan Kraft
+DEBUG [2025-11-22 20:49:16] Probability for Stefan Kraft since 2020-11-23 : 0.916666666666667 ( 110 / 120  races)
+DEBUG [2025-11-22 20:49:16] Calculating probability for participant: Ryoyu Kobayashi
+DEBUG [2025-11-22 20:49:16] Using start date: 2020-11-23 for participant: Ryoyu Kobayashi
+DEBUG [2025-11-22 20:49:16] Probability for Ryoyu Kobayashi since 2020-11-23 : 0.95 ( 114 / 120  races)
+DEBUG [2025-11-22 20:49:16] Calculating probability for participant: Andreas Wellinger
+DEBUG [2025-11-22 20:49:16] Using start date: 2020-11-23 for participant: Andreas Wellinger
+DEBUG [2025-11-22 20:49:16] Probability for Andreas Wellinger since 2020-11-23 : 0.808333333333333 ( 97 / 120  races)
+DEBUG [2025-11-22 20:49:16] Calculating probability for participant: Jan Hörl
+DEBUG [2025-11-22 20:49:16] Using start date: 2020-11-23 for participant: Jan Hörl
+DEBUG [2025-11-22 20:49:16] Probability for Jan Hörl since 2020-11-23 : 0.866666666666667 ( 104 / 120  races)
+DEBUG [2025-11-22 20:49:16] Calculating probability for participant: Anze Lanisek
+DEBUG [2025-11-22 20:49:16] Using start date: 2020-11-23 for participant: Anze Lanisek
+DEBUG [2025-11-22 20:49:16] Probability for Anze Lanisek since 2020-11-23 : 0.875 ( 105 / 120  races)
+DEBUG [2025-11-22 20:49:16] Calculating probability for participant: Johann Forfang
+DEBUG [2025-11-22 20:49:16] Using start date: 2020-11-23 for participant: Johann Forfang
+DEBUG [2025-11-22 20:49:16] Probability for Johann Forfang since 2020-11-23 : 0.916666666666667 ( 110 / 120  races)
+DEBUG [2025-11-22 20:49:16] Calculating probability for participant: Marius Lindvik
+DEBUG [2025-11-22 20:49:16] Using start date: 2020-11-23 for participant: Marius Lindvik
+DEBUG [2025-11-22 20:49:16] Probability for Marius Lindvik since 2020-11-23 : 0.925 ( 111 / 120  races)
+DEBUG [2025-11-22 20:49:16] Calculating probability for participant: Daniel Tschofenig
+DEBUG [2025-11-22 20:49:16] Using start date: 2021-01-06 for participant: Daniel Tschofenig
+DEBUG [2025-11-22 20:49:16] Probability for Daniel Tschofenig since 2021-01-06 : 0.81981981981982 ( 91 / 111  races)
+DEBUG [2025-11-22 20:49:16] Calculating probability for participant: Timi Zajc
+DEBUG [2025-11-22 20:49:16] Using start date: 2020-11-23 for participant: Timi Zajc
+DEBUG [2025-11-22 20:49:16] Probability for Timi Zajc since 2020-11-23 : 0.825 ( 99 / 120  races)
+DEBUG [2025-11-22 20:49:16] Calculating probability for participant: Halvor Egner Granerud
+DEBUG [2025-11-22 20:49:16] Using start date: 2020-11-23 for participant: Halvor Egner Granerud
+DEBUG [2025-11-22 20:49:16] Probability for Halvor Egner Granerud since 2020-11-23 : 0.875 ( 105 / 120  races)
+DEBUG [2025-11-22 20:49:16] Calculating probability for participant: Lovro Kos
+DEBUG [2025-11-22 20:49:16] Using start date: 2021-01-31 for participant: Lovro Kos
+DEBUG [2025-11-22 20:49:16] Probability for Lovro Kos since 2021-01-31 : 0.847619047619048 ( 89 / 105  races)
+DEBUG [2025-11-22 20:49:16] Calculating probability for participant: Domen Prevc
+DEBUG [2025-11-22 20:49:16] Using start date: 2020-11-23 for participant: Domen Prevc
+DEBUG [2025-11-22 20:49:16] Probability for Domen Prevc since 2020-11-23 : 0.708333333333333 ( 85 / 120  races)
+DEBUG [2025-11-22 20:49:16] Calculating probability for participant: Manuel Fettner
+DEBUG [2025-11-22 20:49:16] Using start date: 2020-11-23 for participant: Manuel Fettner
+DEBUG [2025-11-22 20:49:16] Probability for Manuel Fettner since 2020-11-23 : 0.8 ( 96 / 120  races)
+DEBUG [2025-11-22 20:49:16] Calculating probability for participant: Aleksander Zniszczol
+DEBUG [2025-11-22 20:49:16] Using start date: 2020-11-23 for participant: Aleksander Zniszczol
+DEBUG [2025-11-22 20:49:16] Probability for Aleksander Zniszczol since 2020-11-23 : 0.683333333333333 ( 82 / 120  races)
+DEBUG [2025-11-22 20:49:16] Calculating probability for participant: Pius Paschke
+DEBUG [2025-11-22 20:49:16] Using start date: 2020-11-23 for participant: Pius Paschke
+DEBUG [2025-11-22 20:49:16] Probability for Pius Paschke since 2020-11-23 : 0.841666666666667 ( 101 / 120  races)
+DEBUG [2025-11-22 20:49:16] Calculating probability for participant: Kristoffer Eriksen Sundal
+DEBUG [2025-11-22 20:49:16] Using start date: 2022-11-05 for participant: Kristoffer Eriksen Sundal
+DEBUG [2025-11-22 20:49:16] Probability for Kristoffer Eriksen Sundal since 2022-11-05 : 0.932432432432432 ( 69 / 74  races)
+DEBUG [2025-11-22 20:49:16] Calculating probability for participant: Gregor Deschwanden
+DEBUG [2025-11-22 20:49:16] Using start date: 2020-11-23 for participant: Gregor Deschwanden
+DEBUG [2025-11-22 20:49:17] Probability for Gregor Deschwanden since 2020-11-23 : 0.975 ( 117 / 120  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Philipp Raimund
+DEBUG [2025-11-22 20:49:17] Using start date: 2020-11-23 for participant: Philipp Raimund
+DEBUG [2025-11-22 20:49:17] Probability for Philipp Raimund since 2020-11-23 : 0.525 ( 63 / 120  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Ren Nikaido
+DEBUG [2025-11-22 20:49:17] Using start date: 2020-11-23 for participant: Ren Nikaido
+DEBUG [2025-11-22 20:49:17] Probability for Ren Nikaido since 2020-11-23 : 0.558333333333333 ( 67 / 120  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Karl Geiger
+DEBUG [2025-11-22 20:49:17] Using start date: 2020-11-23 for participant: Karl Geiger
+DEBUG [2025-11-22 20:49:17] Probability for Karl Geiger since 2020-11-23 : 0.941666666666667 ( 113 / 120  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Kamil Stoch
+DEBUG [2025-11-22 20:49:17] Using start date: 2020-11-23 for participant: Kamil Stoch
+DEBUG [2025-11-22 20:49:17] Probability for Kamil Stoch since 2020-11-23 : 0.791666666666667 ( 95 / 120  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Piotr Zyla
+DEBUG [2025-11-22 20:49:17] Using start date: 2020-11-23 for participant: Piotr Zyla
+DEBUG [2025-11-22 20:49:17] Probability for Piotr Zyla since 2020-11-23 : 0.825 ( 99 / 120  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Dawid Kubacki
+DEBUG [2025-11-22 20:49:17] Using start date: 2020-11-23 for participant: Dawid Kubacki
+DEBUG [2025-11-22 20:49:17] Probability for Dawid Kubacki since 2020-11-23 : 0.866666666666667 ( 104 / 120  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Stephan Embacher
+DEBUG [2025-11-22 20:49:17] Using start date: 2024-01-03 for participant: Stephan Embacher
+DEBUG [2025-11-22 20:49:17] Probability for Stephan Embacher since 2024-01-03 : 0.512820512820513 ( 20 / 39  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Roman Koudelka
+DEBUG [2025-11-22 20:49:17] Using start date: 2020-11-23 for participant: Roman Koudelka
+DEBUG [2025-11-22 20:49:17] Probability for Roman Koudelka since 2020-11-23 : 0.425 ( 51 / 120  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Alex Insam
+DEBUG [2025-11-22 20:49:17] Using start date: 2020-11-23 for participant: Alex Insam
+DEBUG [2025-11-22 20:49:17] Probability for Alex Insam since 2020-11-23 : 0.575 ( 69 / 120  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Giovanni Bresadola
+DEBUG [2025-11-22 20:49:17] Using start date: 2020-11-23 for participant: Giovanni Bresadola
+DEBUG [2025-11-22 20:49:17] Probability for Giovanni Bresadola since 2020-11-23 : 0.541666666666667 ( 65 / 120  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Benjamin Østvold
+DEBUG [2025-11-22 20:49:17] Using start date: 2021-03-26 for participant: Benjamin Østvold
+DEBUG [2025-11-22 20:49:17] Probability for Benjamin Østvold since 2021-03-26 : 0.282828282828283 ( 28 / 99  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Erik Belshaw
+DEBUG [2025-11-22 20:49:17] Using start date: 2022-12-17 for participant: Erik Belshaw
+DEBUG [2025-11-22 20:49:17] Probability for Erik Belshaw since 2022-12-17 : 0.588235294117647 ( 40 / 68  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Naoki Nakamura
+DEBUG [2025-11-22 20:49:17] Using start date: 2020-11-23 for participant: Naoki Nakamura
+DEBUG [2025-11-22 20:49:17] Probability for Naoki Nakamura since 2020-11-23 : 0.758333333333333 ( 91 / 120  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Maximilian Ortner
+DEBUG [2025-11-22 20:49:17] Using start date: 2023-01-06 for participant: Maximilian Ortner
+DEBUG [2025-11-22 20:49:17] Probability for Maximilian Ortner since 2023-01-06 : 0.380952380952381 ( 24 / 63  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Felix Hoffmann
+DEBUG [2025-11-22 20:49:17] Using start date: 2020-11-23 for participant: Felix Hoffmann
+DEBUG [2025-11-22 20:49:17] Probability for Felix Hoffmann since 2020-11-23 : 0.166666666666667 ( 20 / 120  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Sakutaro Kobayashi
+DEBUG [2025-11-22 20:49:17] Using start date: 2024-02-17 for participant: Sakutaro Kobayashi
+DEBUG [2025-11-22 20:49:17] Probability for Sakutaro Kobayashi since 2024-02-17 : 0.451612903225806 ( 14 / 31  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Jason Colby
+DEBUG [2025-11-22 20:49:17] Using start date: 2024-02-17 for participant: Jason Colby
+DEBUG [2025-11-22 20:49:17] Probability for Jason Colby since 2024-02-17 : 0.225806451612903 ( 7 / 31  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Weijie Zhen
+DEBUG [2025-11-22 20:49:17] Using start date: 2023-02-18 for participant: Weijie Zhen
+DEBUG [2025-11-22 20:49:17] Probability for Weijie Zhen since 2023-02-18 : 0.0185185185185185 ( 1 / 54  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Tate Frantz
+DEBUG [2025-11-22 20:49:17] Using start date: 2023-11-26 for participant: Tate Frantz
+DEBUG [2025-11-22 20:49:17] Probability for Tate Frantz since 2023-11-26 : 0.787234042553192 ( 37 / 47  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Yukiya Sato
+DEBUG [2025-11-22 20:49:17] Using start date: 2020-11-23 for participant: Yukiya Sato
+DEBUG [2025-11-22 20:49:17] Probability for Yukiya Sato since 2020-11-23 : 0.566666666666667 ( 68 / 120  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Jules Chervet
+DEBUG [2025-11-22 20:49:17] Using start date: 2024-02-04 for participant: Jules Chervet
+DEBUG [2025-11-22 20:49:17] Probability for Jules Chervet since 2024-02-04 : 0.0294117647058824 ( 1 / 34  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Pawel Wasek
+DEBUG [2025-11-22 20:49:17] Using start date: 2020-11-23 for participant: Pawel Wasek
+DEBUG [2025-11-22 20:49:17] Probability for Pawel Wasek since 2020-11-23 : 0.733333333333333 ( 88 / 120  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Svyatoslav Nazarenko
+DEBUG [2025-11-22 20:49:17] Using start date: 2023-12-09 for participant: Svyatoslav Nazarenko
+DEBUG [2025-11-22 20:49:17] Probability for Svyatoslav Nazarenko since 2023-12-09 : 0.0444444444444444 ( 2 / 45  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Felix Trunz
+DEBUG [2025-11-22 20:49:17] Using start date: 2024-03-01 for participant: Felix Trunz
+DEBUG [2025-11-22 20:49:17] Probability for Felix Trunz since 2024-03-01 : 0.413793103448276 ( 12 / 29  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Yevhen Marusiak
+DEBUG [2025-11-22 20:49:17] Using start date: 2021-02-13 for participant: Yevhen Marusiak
+DEBUG [2025-11-22 20:49:17] Probability for Yevhen Marusiak since 2021-02-13 : 0.333333333333333 ( 34 / 102  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Vladimir Zografski
+DEBUG [2025-11-22 20:49:17] Using start date: 2020-11-23 for participant: Vladimir Zografski
+DEBUG [2025-11-22 20:49:17] Probability for Vladimir Zografski since 2020-11-23 : 0.791666666666667 ( 95 / 120  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Antti Aalto
+DEBUG [2025-11-22 20:49:17] Using start date: 2020-11-23 for participant: Antti Aalto
+DEBUG [2025-11-22 20:49:17] Probability for Antti Aalto since 2020-11-23 : 0.766666666666667 ( 92 / 120  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Artti Aigro
+DEBUG [2025-11-22 20:49:17] Using start date: 2020-11-23 for participant: Artti Aigro
+DEBUG [2025-11-22 20:49:17] Probability for Artti Aigro since 2020-11-23 : 0.808333333333333 ( 97 / 120  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Mackenzie Boyd-Clowes
+DEBUG [2025-11-22 20:49:17] Using start date: 2020-11-23 for participant: Mackenzie Boyd-Clowes
+DEBUG [2025-11-22 20:49:17] Probability for Mackenzie Boyd-Clowes since 2020-11-23 : 0.458333333333333 ( 55 / 120  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Sandro Hauswirth
+DEBUG [2025-11-22 20:49:17] Using start date: 2020-11-23 for participant: Sandro Hauswirth
+DEBUG [2025-11-22 20:49:17] Probability for Sandro Hauswirth since 2020-11-23 : 0.025 ( 3 / 120  races)
+DEBUG [2025-11-22 20:49:17] Calculating probability for participant: Vilho Palosaari
+DEBUG [2025-11-22 20:49:17] Using start date: 2022-11-05 for participant: Vilho Palosaari
+DEBUG [2025-11-22 20:49:18] Probability for Vilho Palosaari since 2022-11-05 : 0.189189189189189 ( 14 / 74  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Mihnea Alexandru Spulber
+DEBUG [2025-11-22 20:49:18] Using start date: 2023-01-15 for participant: Mihnea Alexandru Spulber
+DEBUG [2025-11-22 20:49:18] Probability for Mihnea Alexandru Spulber since 2023-01-15 : 0.0483870967741935 ( 3 / 62  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Simon Ammann
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-23 for participant: Simon Ammann
+DEBUG [2025-11-22 20:49:18] Probability for Simon Ammann since 2020-11-23 : 0.55 ( 66 / 120  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Tomofumi Naito
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-23 for participant: Tomofumi Naito
+DEBUG [2025-11-22 20:49:18] Probability for Tomofumi Naito since 2020-11-23 : 0.0916666666666667 ( 11 / 120  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Muhammed Ali Bedir
+DEBUG [2025-11-22 20:49:18] Using start date: 2022-12-29 for participant: Muhammed Ali Bedir
+DEBUG [2025-11-22 20:49:18] Probability for Muhammed Ali Bedir since 2022-12-29 : 0.166666666666667 ( 11 / 66  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Daniel Andrei Cacina
+DEBUG [2025-11-22 20:49:18] Using start date: 2021-02-19 for participant: Daniel Andrei Cacina
+DEBUG [2025-11-22 20:49:18] Probability for Daniel Andrei Cacina since 2021-02-19 : 0.08 ( 8 / 100  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Kasperi Valto
+DEBUG [2025-11-22 20:49:18] Using start date: 2023-03-26 for participant: Kasperi Valto
+DEBUG [2025-11-22 20:49:18] Probability for Kasperi Valto since 2023-03-26 : 0.714285714285714 ( 35 / 49  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Fatih Arda Ipcioglu
+DEBUG [2025-11-22 20:49:18] Using start date: 2021-11-20 for participant: Fatih Arda Ipcioglu
+DEBUG [2025-11-22 20:49:18] Probability for Fatih Arda Ipcioglu since 2021-11-20 : 0.474747474747475 ( 47 / 99  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Kevin Bickner
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-23 for participant: Kevin Bickner
+DEBUG [2025-11-22 20:49:18] Probability for Kevin Bickner since 2020-11-23 : 0.241666666666667 ( 29 / 120  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Valentin Foubert
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-12-29 for participant: Valentin Foubert
+DEBUG [2025-11-22 20:49:18] Probability for Valentin Foubert since 2020-12-29 : 0.342105263157895 ( 39 / 114  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Andrew Urlaub
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-23 for participant: Andrew Urlaub
+DEBUG [2025-11-22 20:49:18] Probability for Andrew Urlaub since 2020-11-23 : 0.241666666666667 ( 29 / 120  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Danil Vassilyev
+DEBUG [2025-11-22 20:49:18] Using start date: 2021-01-31 for participant: Danil Vassilyev
+DEBUG [2025-11-22 20:49:18] Probability for Danil Vassilyev since 2021-01-31 : 0.314285714285714 ( 33 / 105  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Francesco Cecon
+DEBUG [2025-11-22 20:49:18] Using start date: 2022-01-23 for participant: Francesco Cecon
+DEBUG [2025-11-22 20:49:18] Probability for Francesco Cecon since 2022-01-23 : 0.349397590361446 ( 29 / 83  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Vitaliy Kalinichenko
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-23 for participant: Vitaliy Kalinichenko
+DEBUG [2025-11-22 20:49:18] Probability for Vitaliy Kalinichenko since 2020-11-23 : 0.175 ( 21 / 120  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: OBLAK Rok
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-23 for participant: OBLAK Rok
+DEBUG [2025-11-22 20:49:18] Probability for OBLAK Rok since 2020-11-23 : 0 ( 0 / 120  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: MIZERNYKH Ilya
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-23 for participant: MIZERNYKH Ilya
+DEBUG [2025-11-22 20:49:18] Probability for MIZERNYKH Ilya since 2020-11-23 : 0 ( 0 / 120  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: TOMASIAK Kacper
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-23 for participant: TOMASIAK Kacper
+DEBUG [2025-11-22 20:49:18] Probability for TOMASIAK Kacper since 2020-11-23 : 0 ( 0 / 120  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: KESSELI Juri
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-23 for participant: KESSELI Juri
+DEBUG [2025-11-22 20:49:18] Probability for KESSELI Juri since 2020-11-23 : 0 ( 0 / 120  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: OBERSTEINER Louis
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-23 for participant: OBERSTEINER Louis
+DEBUG [2025-11-22 20:49:18] Probability for OBERSTEINER Louis since 2020-11-23 : 0 ( 0 / 120  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: VANWIEREN Tarik
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-23 for participant: VANWIEREN Tarik
+DEBUG [2025-11-22 20:49:18] Probability for VANWIEREN Tarik since 2020-11-23 : 0 ( 0 / 120  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: LYU Yixin
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-23 for participant: LYU Yixin
+DEBUG [2025-11-22 20:49:18] Probability for LYU Yixin since 2020-11-23 : 0 ( 0 / 120  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: KAPUSTIK Hektor
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-23 for participant: KAPUSTIK Hektor
+DEBUG [2025-11-22 20:49:18] Probability for KAPUSTIK Hektor since 2020-11-23 : 0 ( 0 / 120  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: LANGMO Isak Andreas
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-23 for participant: LANGMO Isak Andreas
+DEBUG [2025-11-22 20:49:18] Probability for LANGMO Isak Andreas since 2020-11-23 : 0 ( 0 / 120  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Peter Prevc
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-23 for participant: Peter Prevc
+DEBUG [2025-11-22 20:49:18] Probability for Peter Prevc since 2020-11-23 : 0.641666666666667 ( 77 / 120  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Michael Hayböck
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-23 for participant: Michael Hayböck
+DEBUG [2025-11-22 20:49:18] Probability for Michael Hayböck since 2020-11-23 : 0.733333333333333 ( 88 / 120  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Daniel Huber
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-23 for participant: Daniel Huber
+DEBUG [2025-11-22 20:49:18] Probability for Daniel Huber since 2020-11-23 : 0.483333333333333 ( 58 / 120  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Robert Johansson
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-23 for participant: Robert Johansson
+DEBUG [2025-11-22 20:49:18] Probability for Robert Johansson since 2020-11-23 : 0.65 ( 78 / 120  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Ziga Jelar
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-23 for participant: Ziga Jelar
+DEBUG [2025-11-22 20:49:18] Probability for Ziga Jelar since 2020-11-23 : 0.533333333333333 ( 64 / 120  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Clemens Aigner
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-23 for participant: Clemens Aigner
+DEBUG [2025-11-22 20:49:18] Probability for Clemens Aigner since 2020-11-23 : 0.325 ( 39 / 120  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Stephan Leyhe
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-23 for participant: Stephan Leyhe
+DEBUG [2025-11-22 20:49:18] Probability for Stephan Leyhe since 2020-11-23 : 0.708333333333333 ( 85 / 120  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Daniel-Andrè Tande
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-23 for participant: Daniel-Andrè Tande
+DEBUG [2025-11-22 20:49:18] Probability for Daniel-Andrè Tande since 2020-11-23 : 0.616666666666667 ( 74 / 120  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Niko Kytösaho
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-23 for participant: Niko Kytösaho
+DEBUG [2025-11-22 20:49:18] Probability for Niko Kytösaho since 2020-11-23 : 0.791666666666667 ( 95 / 120  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Constantin Schmid
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-23 for participant: Constantin Schmid
+DEBUG [2025-11-22 20:49:18] Probability for Constantin Schmid since 2020-11-23 : 0.683333333333333 ( 82 / 120  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Martin Hamann
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-23 for participant: Martin Hamann
+DEBUG [2025-11-22 20:49:18] Probability for Martin Hamann since 2020-11-23 : 0.266666666666667 ( 32 / 120  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Jonas Schuster
+DEBUG [2025-11-22 20:49:18] Using start date: 2023-02-18 for participant: Jonas Schuster
+DEBUG [2025-11-22 20:49:18] Probability for Jonas Schuster since 2023-02-18 : 0.0555555555555556 ( 3 / 54  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Junshiro Kobayashi
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-23 for participant: Junshiro Kobayashi
+DEBUG [2025-11-22 20:49:18] Probability for Junshiro Kobayashi since 2020-11-23 : 0.75 ( 90 / 120  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Bendik Jakobsen Heggli
+DEBUG [2025-11-22 20:49:18] Using start date: 2022-03-05 for participant: Bendik Jakobsen Heggli
+DEBUG [2025-11-22 20:49:18] Probability for Bendik Jakobsen Heggli since 2022-03-05 : 0.144736842105263 ( 11 / 76  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: Sindre Ulven Jørgensen
+DEBUG [2025-11-22 20:49:18] Using start date: 2024-01-14 for participant: Sindre Ulven Jørgensen
+DEBUG [2025-11-22 20:49:18] Probability for Sindre Ulven Jørgensen since 2024-01-14 : 0.27027027027027 ( 10 / 37  races)
+DEBUG [2025-11-22 20:49:18] Calculating probability for participant: David Haagen
+DEBUG [2025-11-22 20:49:18] Using start date: 2020-11-28 for participant: David Haagen
+DEBUG [2025-11-22 20:49:19] Probability for David Haagen since 2020-11-28 : 0.0166666666666667 ( 2 / 120  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Mico Ahonen
+DEBUG [2025-11-22 20:49:19] Using start date: 2023-11-25 for participant: Mico Ahonen
+DEBUG [2025-11-22 20:49:19] Probability for Mico Ahonen since 2023-11-25 : 0.0208333333333333 ( 1 / 48  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Simon Steinberger
+DEBUG [2025-11-22 20:49:19] Using start date: 2024-01-06 for participant: Simon Steinberger
+DEBUG [2025-11-22 20:49:19] Probability for Simon Steinberger since 2024-01-06 : 0.0263157894736842 ( 1 / 38  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Maksim Bartolj
+DEBUG [2025-11-22 20:49:19] Using start date: 2023-02-18 for participant: Maksim Bartolj
+DEBUG [2025-11-22 20:49:19] Probability for Maksim Bartolj since 2023-02-18 : 0.0740740740740741 ( 4 / 54  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Marco Wörgötter
+DEBUG [2025-11-22 20:49:19] Using start date: 2020-11-23 for participant: Marco Wörgötter
+DEBUG [2025-11-22 20:49:19] Probability for Marco Wörgötter since 2020-11-23 : 0.00833333333333333 ( 1 / 120  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Killian Peier
+DEBUG [2025-11-22 20:49:19] Using start date: 2020-11-23 for participant: Killian Peier
+DEBUG [2025-11-22 20:49:19] Probability for Killian Peier since 2020-11-23 : 0.65 ( 78 / 120  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Robin Pedersen
+DEBUG [2025-11-22 20:49:19] Using start date: 2020-11-23 for participant: Robin Pedersen
+DEBUG [2025-11-22 20:49:19] Probability for Robin Pedersen since 2020-11-23 : 0.2 ( 24 / 120  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Andrzej Stekala
+DEBUG [2025-11-22 20:49:19] Using start date: 2020-11-23 for participant: Andrzej Stekala
+DEBUG [2025-11-22 20:49:19] Probability for Andrzej Stekala since 2020-11-23 : 0.266666666666667 ( 32 / 120  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Asahi Sakano
+DEBUG [2025-11-22 20:49:19] Using start date: 2024-02-17 for participant: Asahi Sakano
+DEBUG [2025-11-22 20:49:19] Probability for Asahi Sakano since 2024-02-17 : 0.0645161290322581 ( 2 / 31  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Nikita Devyatkin
+DEBUG [2025-11-22 20:49:19] Using start date: 2022-02-25 for participant: Nikita Devyatkin
+DEBUG [2025-11-22 20:49:19] Probability for Nikita Devyatkin since 2022-02-25 : 0.0126582278481013 ( 1 / 79  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Maciej Kot
+DEBUG [2025-11-22 20:49:19] Using start date: 2020-11-23 for participant: Maciej Kot
+DEBUG [2025-11-22 20:49:19] Probability for Maciej Kot since 2020-11-23 : 0.25 ( 30 / 120  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Zak Mogel
+DEBUG [2025-11-22 20:49:19] Using start date: 2020-11-23 for participant: Zak Mogel
+DEBUG [2025-11-22 20:49:19] Probability for Zak Mogel since 2020-11-23 : 0.175 ( 21 / 120  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Noriaki Kasai
+DEBUG [2025-11-22 20:49:19] Using start date: 2020-11-23 for participant: Noriaki Kasai
+DEBUG [2025-11-22 20:49:19] Probability for Noriaki Kasai since 2020-11-23 : 0.0583333333333333 ( 7 / 120  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Henri Kavilo
+DEBUG [2025-11-22 20:49:19] Using start date: 2022-02-25 for participant: Henri Kavilo
+DEBUG [2025-11-22 20:49:19] Probability for Henri Kavilo since 2022-02-25 : 0.0379746835443038 ( 3 / 79  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Luca Roth
+DEBUG [2025-11-22 20:49:19] Using start date: 2020-11-23 for participant: Luca Roth
+DEBUG [2025-11-22 20:49:19] Probability for Luca Roth since 2020-11-23 : 0.0416666666666667 ( 5 / 120  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Klemens Muranka
+DEBUG [2025-11-22 20:49:19] Using start date: 2020-11-23 for participant: Klemens Muranka
+DEBUG [2025-11-22 20:49:19] Probability for Klemens Muranka since 2020-11-23 : 0.191666666666667 ( 23 / 120  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Fredrik Villumstad
+DEBUG [2025-11-22 20:49:19] Using start date: 2020-11-23 for participant: Fredrik Villumstad
+DEBUG [2025-11-22 20:49:19] Probability for Fredrik Villumstad since 2020-11-23 : 0.383333333333333 ( 46 / 120  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Remo Imhof
+DEBUG [2025-11-22 20:49:19] Using start date: 2023-02-25 for participant: Remo Imhof
+DEBUG [2025-11-22 20:49:19] Probability for Remo Imhof since 2023-02-25 : 0.407407407407407 ( 22 / 54  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Keiichi Sato
+DEBUG [2025-11-22 20:49:19] Using start date: 2020-11-23 for participant: Keiichi Sato
+DEBUG [2025-11-22 20:49:19] Probability for Keiichi Sato since 2020-11-23 : 0.633333333333333 ( 76 / 120  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Yannick Wasser
+DEBUG [2025-11-22 20:49:19] Using start date: 2023-12-17 for participant: Yannick Wasser
+DEBUG [2025-11-22 20:49:19] Probability for Yannick Wasser since 2023-12-17 : 0.380952380952381 ( 16 / 42  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Eetu Nousiainen
+DEBUG [2025-11-22 20:49:19] Using start date: 2020-11-23 for participant: Eetu Nousiainen
+DEBUG [2025-11-22 20:49:19] Probability for Eetu Nousiainen since 2020-11-23 : 0.433333333333333 ( 52 / 120  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Taku Takeuchi
+DEBUG [2025-11-22 20:49:19] Using start date: 2020-11-23 for participant: Taku Takeuchi
+DEBUG [2025-11-22 20:49:19] Probability for Taku Takeuchi since 2020-11-23 : 0.158333333333333 ( 19 / 120  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Casey Larson
+DEBUG [2025-11-22 20:49:19] Using start date: 2020-11-23 for participant: Casey Larson
+DEBUG [2025-11-22 20:49:19] Probability for Casey Larson since 2020-11-23 : 0.358333333333333 ( 43 / 120  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Andrea Campregher
+DEBUG [2025-11-22 20:49:19] Using start date: 2023-11-25 for participant: Andrea Campregher
+DEBUG [2025-11-22 20:49:19] Probability for Andrea Campregher since 2023-11-25 : 0.270833333333333 ( 13 / 48  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Decker Dean
+DEBUG [2025-11-22 20:49:19] Using start date: 2021-01-03 for participant: Decker Dean
+DEBUG [2025-11-22 20:49:19] Probability for Decker Dean since 2021-01-03 : 0.303571428571429 ( 34 / 112  races)
+INFO [2025-11-22 20:49:19] Processing ladies' race probabilities
+INFO [2025-11-22 20:49:19] FIS startlist exists (at least one In_Startlist=True), keeping existing Race1_Prob values
+INFO [2025-11-22 20:49:19] Using existing Race1_Prob from FIS startlist, skipping calculation
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Sara Takanashi
+DEBUG [2025-11-22 20:49:19] Using start date: 2020-11-23 for participant: Sara Takanashi
+DEBUG [2025-11-22 20:49:19] Probability for Sara Takanashi since 2020-11-23 : 0.872727272727273 ( 48 / 55  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Katharina Schmid
+DEBUG [2025-11-22 20:49:19] Using start date: 2020-11-23 for participant: Katharina Schmid
+DEBUG [2025-11-22 20:49:19] Probability for Katharina Schmid since 2020-11-23 : 0.981818181818182 ( 54 / 55  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Nika Prevc
+DEBUG [2025-11-22 20:49:19] Using start date: 2021-11-26 for participant: Nika Prevc
+DEBUG [2025-11-22 20:49:19] Probability for Nika Prevc since 2021-11-26 : 0.823529411764706 ( 42 / 51  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Yuki Ito
+DEBUG [2025-11-22 20:49:19] Using start date: 2020-11-23 for participant: Yuki Ito
+DEBUG [2025-11-22 20:49:19] Probability for Yuki Ito since 2020-11-23 : 0.909090909090909 ( 50 / 55  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Anna Odine Strøm
+DEBUG [2025-11-22 20:49:19] Using start date: 2020-11-23 for participant: Anna Odine Strøm
+DEBUG [2025-11-22 20:49:19] Probability for Anna Odine Strøm since 2020-11-23 : 0.818181818181818 ( 45 / 55  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Eirin Maria Kvandal
+DEBUG [2025-11-22 20:49:19] Using start date: 2020-12-18 for participant: Eirin Maria Kvandal
+DEBUG [2025-11-22 20:49:19] Probability for Eirin Maria Kvandal since 2020-12-18 : 0.527272727272727 ( 29 / 55  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Josephine Pagnier
+DEBUG [2025-11-22 20:49:19] Using start date: 2020-11-23 for participant: Josephine Pagnier
+DEBUG [2025-11-22 20:49:19] Probability for Josephine Pagnier since 2020-11-23 : 0.963636363636364 ( 53 / 55  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Silje Opseth
+DEBUG [2025-11-22 20:49:19] Using start date: 2020-11-23 for participant: Silje Opseth
+DEBUG [2025-11-22 20:49:19] Probability for Silje Opseth since 2020-11-23 : 0.8 ( 44 / 55  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Abigail Strate
+DEBUG [2025-11-22 20:49:19] Using start date: 2020-11-23 for participant: Abigail Strate
+DEBUG [2025-11-22 20:49:19] Probability for Abigail Strate since 2020-11-23 : 0.763636363636364 ( 42 / 55  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Selina Freitag
+DEBUG [2025-11-22 20:49:19] Using start date: 2020-11-23 for participant: Selina Freitag
+DEBUG [2025-11-22 20:49:19] Probability for Selina Freitag since 2020-11-23 : 0.927272727272727 ( 51 / 55  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Lisa Eder
+DEBUG [2025-11-22 20:49:19] Using start date: 2020-11-23 for participant: Lisa Eder
+DEBUG [2025-11-22 20:49:19] Probability for Lisa Eder since 2020-11-23 : 0.654545454545455 ( 36 / 55  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Jenny Rautionaho
+DEBUG [2025-11-22 20:49:19] Using start date: 2020-11-23 for participant: Jenny Rautionaho
+DEBUG [2025-11-22 20:49:19] Probability for Jenny Rautionaho since 2020-11-23 : 0.963636363636364 ( 53 / 55  races)
+DEBUG [2025-11-22 20:49:19] Calculating probability for participant: Nozomi Maruyama
+DEBUG [2025-11-22 20:49:20] Using start date: 2020-11-23 for participant: Nozomi Maruyama
+DEBUG [2025-11-22 20:49:20] Probability for Nozomi Maruyama since 2020-11-23 : 0.690909090909091 ( 38 / 55  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Frida Westman
+DEBUG [2025-11-22 20:49:20] Using start date: 2021-02-25 for participant: Frida Westman
+DEBUG [2025-11-22 20:49:20] Probability for Frida Westman since 2021-02-25 : 0.207547169811321 ( 11 / 53  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Chiara Kreuzer
+DEBUG [2025-11-22 20:49:20] Using start date: 2020-11-23 for participant: Chiara Kreuzer
+DEBUG [2025-11-22 20:49:20] Probability for Chiara Kreuzer since 2020-11-23 : 0.745454545454545 ( 41 / 55  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Julia Mühlbacher
+DEBUG [2025-11-22 20:49:20] Using start date: 2020-12-18 for participant: Julia Mühlbacher
+DEBUG [2025-11-22 20:49:20] Probability for Julia Mühlbacher since 2020-12-18 : 0.545454545454545 ( 30 / 55  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Yuka Seto
+DEBUG [2025-11-22 20:49:20] Using start date: 2020-11-23 for participant: Yuka Seto
+DEBUG [2025-11-22 20:49:20] Probability for Yuka Seto since 2020-11-23 : 0.909090909090909 ( 50 / 55  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Heidi Dyhre Tråserud
+DEBUG [2025-11-22 20:49:20] Using start date: 2024-02-24 for participant: Heidi Dyhre Tråserud
+DEBUG [2025-11-22 20:49:20] Probability for Heidi Dyhre Tråserud since 2024-02-24 : 0.941176470588235 ( 16 / 17  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Annika Sieff
+DEBUG [2025-11-22 20:49:20] Using start date: 2023-12-02 for participant: Annika Sieff
+DEBUG [2025-11-22 20:49:20] Probability for Annika Sieff since 2023-12-02 : 0.807692307692308 ( 21 / 26  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Juliane Seyfarth
+DEBUG [2025-11-22 20:49:20] Using start date: 2020-11-23 for participant: Juliane Seyfarth
+DEBUG [2025-11-22 20:49:20] Probability for Juliane Seyfarth since 2020-11-23 : 0.745454545454545 ( 41 / 55  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Katra Komar
+DEBUG [2025-11-22 20:49:20] Using start date: 2020-11-23 for participant: Katra Komar
+DEBUG [2025-11-22 20:49:20] Probability for Katra Komar since 2020-11-23 : 0.563636363636364 ( 31 / 55  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Sofia Mattila
+DEBUG [2025-11-22 20:49:20] Using start date: 2023-03-24 for participant: Sofia Mattila
+DEBUG [2025-11-22 20:49:20] Probability for Sofia Mattila since 2023-03-24 : 0.037037037037037 ( 1 / 27  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Delia Anamaria Folea
+DEBUG [2025-11-22 20:49:20] Using start date: 2022-12-11 for participant: Delia Anamaria Folea
+DEBUG [2025-11-22 20:49:20] Probability for Delia Anamaria Folea since 2022-12-11 : 0.0256410256410256 ( 1 / 39  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Nora Midtsundstad
+DEBUG [2025-11-22 20:49:20] Using start date: 2022-03-13 for participant: Nora Midtsundstad
+DEBUG [2025-11-22 20:49:20] Probability for Nora Midtsundstad since 2022-03-13 : 0.119047619047619 ( 5 / 42  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Yuzuki Sato
+DEBUG [2025-11-22 20:49:20] Using start date: 2024-01-13 for participant: Yuzuki Sato
+DEBUG [2025-11-22 20:49:20] Probability for Yuzuki Sato since 2024-01-13 : 0.333333333333333 ( 7 / 21  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Yangning Weng
+DEBUG [2025-11-22 20:49:20] Using start date: 2024-02-24 for participant: Yangning Weng
+DEBUG [2025-11-22 20:49:20] Probability for Yangning Weng since 2024-02-24 : 0.176470588235294 ( 3 / 17  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Agnes Reisch
+DEBUG [2025-11-22 20:49:20] Using start date: 2020-11-23 for participant: Agnes Reisch
+DEBUG [2025-11-22 20:49:20] Probability for Agnes Reisch since 2020-11-23 : 0.418181818181818 ( 23 / 55  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Martina Zanitzer
+DEBUG [2025-11-22 20:49:20] Using start date: 2023-02-17 for participant: Martina Zanitzer
+DEBUG [2025-11-22 20:49:20] Probability for Martina Zanitzer since 2023-02-17 : 0.125 ( 4 / 32  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Veronika Shishkina
+DEBUG [2025-11-22 20:49:20] Using start date: 2020-11-23 for participant: Veronika Shishkina
+DEBUG [2025-11-22 20:49:20] Probability for Veronika Shishkina since 2020-11-23 : 0 ( 0 / 55  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Bing Dong
+DEBUG [2025-11-22 20:49:20] Using start date: 2021-11-27 for participant: Bing Dong
+DEBUG [2025-11-22 20:49:20] Probability for Bing Dong since 2021-11-27 : 0.156862745098039 ( 8 / 51  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Julia Kykkänen
+DEBUG [2025-11-22 20:49:20] Using start date: 2020-11-23 for participant: Julia Kykkänen
+DEBUG [2025-11-22 20:49:20] Probability for Julia Kykkänen since 2020-11-23 : 0.909090909090909 ( 50 / 55  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Tinkara Komar
+DEBUG [2025-11-22 20:49:20] Using start date: 2022-12-31 for participant: Tinkara Komar
+DEBUG [2025-11-22 20:49:20] Probability for Tinkara Komar since 2022-12-31 : 0 ( 0 / 38  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Liangyao Wang
+DEBUG [2025-11-22 20:49:20] Using start date: 2021-12-31 for participant: Liangyao Wang
+DEBUG [2025-11-22 20:49:20] Probability for Liangyao Wang since 2021-12-31 : 0.0208333333333333 ( 1 / 48  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Ping Zeng
+DEBUG [2025-11-22 20:49:20] Using start date: 2023-01-07 for participant: Ping Zeng
+DEBUG [2025-11-22 20:49:20] Probability for Ping Zeng since 2023-01-07 : 0.0789473684210526 ( 3 / 38  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Anezka Indrackova
+DEBUG [2025-11-22 20:49:20] Using start date: 2021-12-31 for participant: Anezka Indrackova
+DEBUG [2025-11-22 20:49:20] Probability for Anezka Indrackova since 2021-12-31 : 0.208333333333333 ( 10 / 48  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Emma Chervet
+DEBUG [2025-11-22 20:49:20] Using start date: 2023-12-30 for participant: Emma Chervet
+DEBUG [2025-11-22 20:49:20] Probability for Emma Chervet since 2023-12-30 : 0.521739130434783 ( 12 / 23  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Pola Beltowska
+DEBUG [2025-11-22 20:49:20] Using start date: 2023-12-30 for participant: Pola Beltowska
+DEBUG [2025-11-22 20:49:20] Probability for Pola Beltowska since 2023-12-30 : 0.260869565217391 ( 6 / 23  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Ringo Miyajima
+DEBUG [2025-11-22 20:49:20] Using start date: 2022-11-05 for participant: Ringo Miyajima
+DEBUG [2025-11-22 20:49:20] Probability for Ringo Miyajima since 2022-11-05 : 0.357142857142857 ( 15 / 42  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Qi Liu
+DEBUG [2025-11-22 20:49:20] Using start date: 2020-11-23 for participant: Qi Liu
+DEBUG [2025-11-22 20:49:20] Probability for Qi Liu since 2020-11-23 : 0.272727272727273 ( 15 / 55  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Josie Johnson
+DEBUG [2025-11-22 20:49:20] Using start date: 2023-01-15 for participant: Josie Johnson
+DEBUG [2025-11-22 20:49:20] Probability for Josie Johnson since 2023-01-15 : 0.25 ( 9 / 36  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Tamara Mesikova
+DEBUG [2025-11-22 20:49:20] Using start date: 2022-03-13 for participant: Tamara Mesikova
+DEBUG [2025-11-22 20:49:20] Probability for Tamara Mesikova since 2022-03-13 : 0.0952380952380952 ( 4 / 42  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Jessica Malsiner
+DEBUG [2025-11-22 20:49:20] Using start date: 2020-11-23 for participant: Jessica Malsiner
+DEBUG [2025-11-22 20:49:20] Probability for Jessica Malsiner since 2020-11-23 : 0.418181818181818 ( 23 / 55  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Samantha Macuga
+DEBUG [2025-11-22 20:49:20] Using start date: 2023-01-15 for participant: Samantha Macuga
+DEBUG [2025-11-22 20:49:20] Probability for Samantha Macuga since 2023-01-15 : 0.194444444444444 ( 7 / 36  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Ingvild Synnøve Midtskogen
+DEBUG [2025-11-22 20:49:20] Using start date: 2022-12-03 for participant: Ingvild Synnøve Midtskogen
+DEBUG [2025-11-22 20:49:20] Probability for Ingvild Synnøve Midtskogen since 2022-12-03 : 0.425 ( 17 / 40  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Emely Torazza
+DEBUG [2025-11-22 20:49:20] Using start date: 2022-11-05 for participant: Emely Torazza
+DEBUG [2025-11-22 20:49:20] Probability for Emely Torazza since 2022-11-05 : 0.261904761904762 ( 11 / 42  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Hannah Wiegele
+DEBUG [2025-11-22 20:49:20] Using start date: 2021-02-06 for participant: Hannah Wiegele
+DEBUG [2025-11-22 20:49:20] Probability for Hannah Wiegele since 2021-02-06 : 0.415094339622642 ( 22 / 53  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Annika Belshaw
+DEBUG [2025-11-22 20:49:20] Using start date: 2020-11-23 for participant: Annika Belshaw
+DEBUG [2025-11-22 20:49:20] Probability for Annika Belshaw since 2020-11-23 : 0.436363636363636 ( 24 / 55  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Sina Arnet
+DEBUG [2025-11-22 20:49:20] Using start date: 2022-03-12 for participant: Sina Arnet
+DEBUG [2025-11-22 20:49:20] Probability for Sina Arnet since 2022-03-12 : 0.428571428571429 ( 18 / 42  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Nicole Maurer
+DEBUG [2025-11-22 20:49:20] Using start date: 2020-11-23 for participant: Nicole Maurer
+DEBUG [2025-11-22 20:49:20] Probability for Nicole Maurer since 2020-11-23 : 0.581818181818182 ( 32 / 55  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Natalie Eilers
+DEBUG [2025-11-22 20:49:20] Using start date: 2020-11-23 for participant: Natalie Eilers
+DEBUG [2025-11-22 20:49:20] Probability for Natalie Eilers since 2020-11-23 : 0.254545454545455 ( 14 / 55  races)
+DEBUG [2025-11-22 20:49:20] Calculating probability for participant: Anna Twardosz
+DEBUG [2025-11-22 20:49:20] Using start date: 2020-11-23 for participant: Anna Twardosz
+DEBUG [2025-11-22 20:49:21] Probability for Anna Twardosz since 2020-11-23 : 0.381818181818182 ( 21 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Paige Jones
+DEBUG [2025-11-22 20:49:21] Using start date: 2021-01-24 for participant: Paige Jones
+DEBUG [2025-11-22 20:49:21] Probability for Paige Jones since 2021-01-24 : 0.472727272727273 ( 26 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: SPROCH Sandra
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: SPROCH Sandra
+DEBUG [2025-11-22 20:49:21] Probability for SPROCH Sandra since 2020-11-23 : 0 ( 0 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: VODAN Nika
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: VODAN Nika
+DEBUG [2025-11-22 20:49:21] Probability for VODAN Nika since 2020-11-23 : 0 ( 0 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: ZHOU Shiyu
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: ZHOU Shiyu
+DEBUG [2025-11-22 20:49:21] Probability for ZHOU Shiyu since 2020-11-23 : 0 ( 0 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: HLUKHOVA Zhanna
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: HLUKHOVA Zhanna
+DEBUG [2025-11-22 20:49:21] Probability for HLUKHOVA Zhanna since 2020-11-23 : 0 ( 0 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: KINDLIMANN Rea
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: KINDLIMANN Rea
+DEBUG [2025-11-22 20:49:21] Probability for KINDLIMANN Rea since 2020-11-23 : 0 ( 0 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: TOTH Daniela Vasilica
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: TOTH Daniela Vasilica
+DEBUG [2025-11-22 20:49:21] Probability for TOTH Daniela Vasilica since 2020-11-23 : 0 ( 0 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: HOLLANDT Anna
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: HOLLANDT Anna
+DEBUG [2025-11-22 20:49:21] Probability for HOLLANDT Anna since 2020-11-23 : 0 ( 0 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: HIRVONEN Heta
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: HIRVONEN Heta
+DEBUG [2025-11-22 20:49:21] Probability for HIRVONEN Heta since 2020-11-23 : 0 ( 0 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: KORHONEN Minja
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: KORHONEN Minja
+DEBUG [2025-11-22 20:49:21] Probability for KORHONEN Minja since 2020-11-23 : 0 ( 0 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: KAPUSTIKOVA Kira Maria
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: KAPUSTIKOVA Kira Maria
+DEBUG [2025-11-22 20:49:21] Probability for KAPUSTIKOVA Kira Maria since 2020-11-23 : 0 ( 0 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: HANSEN Gyda Westvold
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: HANSEN Gyda Westvold
+DEBUG [2025-11-22 20:49:21] Probability for HANSEN Gyda Westvold since 2020-11-23 : 0 ( 0 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: KOVACIC Maja
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: KOVACIC Maja
+DEBUG [2025-11-22 20:49:21] Probability for KOVACIC Maja since 2020-11-23 : 0 ( 0 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: SVIRIDENKO Alyona
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: SVIRIDENKO Alyona
+DEBUG [2025-11-22 20:49:21] Probability for SVIRIDENKO Alyona since 2020-11-23 : 0 ( 0 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: KONDERLA-JUROSZEK Nicole
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: KONDERLA-JUROSZEK Nicole
+DEBUG [2025-11-22 20:49:21] Probability for KONDERLA-JUROSZEK Nicole since 2020-11-23 : 0 ( 0 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: MESNIL Capucine
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: MESNIL Capucine
+DEBUG [2025-11-22 20:49:21] Probability for MESNIL Capucine since 2020-11-23 : 0 ( 0 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Eva Pinkelnig
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: Eva Pinkelnig
+DEBUG [2025-11-22 20:49:21] Probability for Eva Pinkelnig since 2020-11-23 : 0.818181818181818 ( 45 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Nika Kriznar
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: Nika Kriznar
+DEBUG [2025-11-22 20:49:21] Probability for Nika Kriznar since 2020-11-23 : 0.727272727272727 ( 40 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Alexandria Loutitt
+DEBUG [2025-11-22 20:49:21] Using start date: 2021-03-03 for participant: Alexandria Loutitt
+DEBUG [2025-11-22 20:49:21] Probability for Alexandria Loutitt since 2021-03-03 : 0.641509433962264 ( 34 / 53  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Jacqueline Seifriedsberger
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: Jacqueline Seifriedsberger
+DEBUG [2025-11-22 20:49:21] Probability for Jacqueline Seifriedsberger since 2020-11-23 : 0.854545454545454 ( 47 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Ema Klinec
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: Ema Klinec
+DEBUG [2025-11-22 20:49:21] Probability for Ema Klinec since 2020-11-23 : 0.872727272727273 ( 48 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Marita Kramer
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: Marita Kramer
+DEBUG [2025-11-22 20:49:21] Probability for Marita Kramer since 2020-11-23 : 0.709090909090909 ( 39 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Thea Minyan Bjørseth
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: Thea Minyan Bjørseth
+DEBUG [2025-11-22 20:49:21] Probability for Thea Minyan Bjørseth since 2020-11-23 : 0.927272727272727 ( 51 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Sophie Sorschag
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: Sophie Sorschag
+DEBUG [2025-11-22 20:49:21] Probability for Sophie Sorschag since 2020-11-23 : 0.0909090909090909 ( 5 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Anna Rupprecht
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: Anna Rupprecht
+DEBUG [2025-11-22 20:49:21] Probability for Anna Rupprecht since 2020-11-23 : 0.636363636363636 ( 35 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Luisa Görlich
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: Luisa Görlich
+DEBUG [2025-11-22 20:49:21] Probability for Luisa Görlich since 2020-11-23 : 0.6 ( 33 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Tina Erzar
+DEBUG [2025-11-22 20:49:21] Using start date: 2024-01-27 for participant: Tina Erzar
+DEBUG [2025-11-22 20:49:21] Probability for Tina Erzar since 2024-01-27 : 0.210526315789474 ( 4 / 19  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Alvine Holz
+DEBUG [2025-11-22 20:49:21] Using start date: 2023-12-30 for participant: Alvine Holz
+DEBUG [2025-11-22 20:49:21] Probability for Alvine Holz since 2023-12-30 : 0.391304347826087 ( 9 / 23  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Veronika Jencova
+DEBUG [2025-11-22 20:49:21] Using start date: 2024-01-27 for participant: Veronika Jencova
+DEBUG [2025-11-22 20:49:21] Probability for Veronika Jencova since 2024-01-27 : 0.105263157894737 ( 2 / 19  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Pauline Heßler
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: Pauline Heßler
+DEBUG [2025-11-22 20:49:21] Probability for Pauline Heßler since 2020-11-23 : 0.418181818181818 ( 23 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Jerica Jesenko
+DEBUG [2025-11-22 20:49:21] Using start date: 2024-01-27 for participant: Jerica Jesenko
+DEBUG [2025-11-22 20:49:21] Probability for Jerica Jesenko since 2024-01-27 : 0 ( 0 / 19  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Riko Iwasaki
+DEBUG [2025-11-22 20:49:21] Using start date: 2024-01-13 for participant: Riko Iwasaki
+DEBUG [2025-11-22 20:49:21] Probability for Riko Iwasaki since 2024-01-13 : 0.142857142857143 ( 3 / 21  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Ziva Andric
+DEBUG [2025-11-22 20:49:21] Using start date: 2024-01-27 for participant: Ziva Andric
+DEBUG [2025-11-22 20:49:21] Probability for Ziva Andric since 2024-01-27 : 0 ( 0 / 19  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Ursa Vidmar
+DEBUG [2025-11-22 20:49:21] Using start date: 2024-01-27 for participant: Ursa Vidmar
+DEBUG [2025-11-22 20:49:21] Probability for Ursa Vidmar since 2024-01-27 : 0 ( 0 / 19  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Katharina Ellmauer
+DEBUG [2025-11-22 20:49:21] Using start date: 2023-02-10 for participant: Katharina Ellmauer
+DEBUG [2025-11-22 20:49:21] Probability for Katharina Ellmauer since 2023-02-10 : 0 ( 0 / 32  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Karolina Indrackova
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: Karolina Indrackova
+DEBUG [2025-11-22 20:49:21] Probability for Karolina Indrackova since 2020-11-23 : 0.636363636363636 ( 35 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Lara Malsiner
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: Lara Malsiner
+DEBUG [2025-11-22 20:49:21] Probability for Lara Malsiner since 2020-11-23 : 0.854545454545454 ( 47 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Pia Lilian Kübler
+DEBUG [2025-11-22 20:49:21] Using start date: 2023-01-28 for participant: Pia Lilian Kübler
+DEBUG [2025-11-22 20:49:21] Probability for Pia Lilian Kübler since 2023-01-28 : 0.111111111111111 ( 4 / 36  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Lilou Zepchi
+DEBUG [2025-11-22 20:49:21] Using start date: 2022-12-28 for participant: Lilou Zepchi
+DEBUG [2025-11-22 20:49:21] Probability for Lilou Zepchi since 2022-12-28 : 0 ( 0 / 38  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Kjersti Græsli
+DEBUG [2025-11-22 20:49:21] Using start date: 2022-12-28 for participant: Kjersti Græsli
+DEBUG [2025-11-22 20:49:21] Probability for Kjersti Græsli since 2022-12-28 : 0.0789473684210526 ( 3 / 38  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Haruka Iwasa
+DEBUG [2025-11-22 20:49:21] Using start date: 2020-11-23 for participant: Haruka Iwasa
+DEBUG [2025-11-22 20:49:21] Probability for Haruka Iwasa since 2020-11-23 : 0.254545454545455 ( 14 / 55  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Taja Bodlaj
+DEBUG [2025-11-22 20:49:21] Using start date: 2022-12-31 for participant: Taja Bodlaj
+DEBUG [2025-11-22 20:49:21] Probability for Taja Bodlaj since 2022-12-31 : 0.5 ( 19 / 38  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Kurumi Ichinohe
+DEBUG [2025-11-22 20:49:21] Using start date: 2023-01-13 for participant: Kurumi Ichinohe
+DEBUG [2025-11-22 20:49:21] Probability for Kurumi Ichinohe since 2023-01-13 : 0.5 ( 18 / 36  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Ajda Kosnjek
+DEBUG [2025-11-22 20:49:21] Using start date: 2022-12-31 for participant: Ajda Kosnjek
+DEBUG [2025-11-22 20:49:21] Probability for Ajda Kosnjek since 2022-12-31 : 0.236842105263158 ( 9 / 38  races)
+DEBUG [2025-11-22 20:49:21] Calculating probability for participant: Qingyue Peng
+DEBUG [2025-11-22 20:49:22] Using start date: 2021-12-10 for participant: Qingyue Peng
+DEBUG [2025-11-22 20:49:22] Probability for Qingyue Peng since 2021-12-10 : 0.08 ( 4 / 50  races)
+DEBUG [2025-11-22 20:49:22] Calculating probability for participant: Daniela Haralambie
+DEBUG [2025-11-22 20:49:22] Using start date: 2020-11-23 for participant: Daniela Haralambie
+DEBUG [2025-11-22 20:49:22] Probability for Daniela Haralambie since 2020-11-23 : 0.490909090909091 ( 27 / 55  races)
+DEBUG [2025-11-22 20:49:22] Calculating probability for participant: Martina Ambrosi
+DEBUG [2025-11-22 20:49:22] Using start date: 2022-02-26 for participant: Martina Ambrosi
+DEBUG [2025-11-22 20:49:22] Probability for Martina Ambrosi since 2022-02-26 : 0.130434782608696 ( 6 / 46  races)
+DEBUG [2025-11-22 20:49:22] Calculating probability for participant: Klara Ulrichova
+DEBUG [2025-11-22 20:49:22] Using start date: 2020-11-23 for participant: Klara Ulrichova
+DEBUG [2025-11-22 20:49:22] Probability for Klara Ulrichova since 2020-11-23 : 0.181818181818182 ( 10 / 55  races)
+DEBUG [2025-11-22 20:49:22] Calculating probability for participant: Nicole Konderla
+DEBUG [2025-11-22 20:49:22] Using start date: 2021-01-30 for participant: Nicole Konderla
+DEBUG [2025-11-22 20:49:22] Probability for Nicole Konderla since 2021-01-30 : 0.309090909090909 ( 17 / 55  races)
+INFO [2025-11-22 20:49:22] Processing mixed team race probabilities
+INFO [2025-11-22 20:49:22] Processing team race probabilities - setting all to 1
+INFO [2025-11-22 20:49:22] Input races dataframe has 1 rows
+INFO [2025-11-22 20:49:22] Set Race1_Prob to 1 for all 15 teams
+INFO [2025-11-22 20:49:22] Saving race probability results
+INFO [2025-11-22 20:49:22] Race probability calculation complete
+INFO [2025-11-22 20:49:22] Updating startlist variables with calculated probabilities
+INFO [2025-11-22 20:49:22] Men's startlist has 110 entries
+INFO [2025-11-22 20:49:22] Ladies' startlist has 100 entries
+INFO [2025-11-22 20:49:22] Men's team startlist has 0 entries
+INFO [2025-11-22 20:49:22] Ladies' team startlist has 0 entries
+INFO [2025-11-22 20:49:22] Mixed team startlist has 15 entries
+INFO [2025-11-22 20:49:22] Creating team chronos
+INFO [2025-11-22 20:49:22] Loading team-based chronological files
+INFO [2025-11-22 20:49:22] Loading mixed team chrono
+INFO [2025-11-22 20:49:22] Loaded mixed team chrono with 1467 team entries
+INFO [2025-11-22 20:49:22] Processing men's predictions
+INFO [2025-11-22 20:49:23] Using provided startlist_override with 110 entries
+INFO [2025-11-22 20:49:23] Using men's races: 2 races found
+INFO [2025-11-22 20:49:23] Selected startlist has 110 entries
+INFO [2025-11-22 20:49:23] Using chronological data from: ~/ski/elo/python/skijump/polars/excel365/men_chrono.csv
+INFO [2025-11-22 20:49:23] Loading chronological data from ~/ski/elo/python/skijump/polars/excel365/men_chrono.csv
+INFO [2025-11-22 20:49:28] Preprocessing complete - final dimensions: 17207 x 48
+INFO [2025-11-22 20:49:28] Final columns: Elo, Small_Elo, Medium_Elo, Normal_Elo, Large_Elo, Flying_Elo, Date, City, Country, Sex ...
+INFO [2025-11-22 20:49:28] Chronological data dimensions: 17207 x 48
+INFO [2025-11-22 20:49:28] First few columns: Elo, Small_Elo, Medium_Elo, Normal_Elo, Large_Elo, Flying_Elo, Date, City, Country, Sex
+INFO [2025-11-22 20:49:28] Race probability columns in startlist: Race1_Prob, Race2_Prob
+INFO [2025-11-22 20:49:28] Processing men race 1: Large
+INFO [2025-11-22 20:49:28] Using World Cup points for this race
+INFO [2025-11-22 20:49:28] Race probability column Race1_Prob exists in startlist
+INFO [2025-11-22 20:49:28]   Mean: 0.63302752293578
+INFO [2025-11-22 20:49:28]   Sum: 69
+INFO [2025-11-22 20:49:28] Race 1 hill size: 140 | Race type: Individual
+INFO [2025-11-22 20:49:28] Initial formula with all variables: Points ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-22 20:49:28] Variables selected by BIC: (Intercept), Prev_Points_Weighted, Pelo_Pct
+INFO [2025-11-22 20:49:28] Number of variables selected: 3
+INFO [2025-11-22 20:49:28] Best BIC value: -3740.22084329884
+INFO [2025-11-22 20:49:28] Final GAM formula: s(Prev_Points_Weighted) + s(Pelo_Pct)
+INFO [2025-11-22 20:49:29] Creating model for top 1 positions
+INFO [2025-11-22 20:49:29] Position model for threshold 1 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-22 20:49:29] Training data size for threshold 1 : 12626 rows
+INFO [2025-11-22 20:49:29] Position model threshold 1 - Variables selected by BIC: (Intercept), Prev_Points_Weighted, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-22 20:49:29] Position model threshold 1 - Number of variables selected: 4
+INFO [2025-11-22 20:49:29] Position model threshold 1 - Best BIC value: -1130.9778
+INFO [2025-11-22 20:49:29] Position model threshold 1 - Final GAM formula: s(Prev_Points_Weighted) + s(Flying_Pelo_Pct) + s(Pelo_Pct)
+INFO [2025-11-22 20:49:33] Position model threshold 1 - GAM model fitted successfully
+INFO [2025-11-22 20:49:34] Position model threshold 1 - Brier score: 0.019
+INFO [2025-11-22 20:49:34] Position model threshold 1 - Mean predicted probability: 0.0225
+INFO [2025-11-22 20:49:34] Position model threshold 1 - Actual success rate: 0.0204
+INFO [2025-11-22 20:49:34] Variables selected for 1 position model: Prev_Points_Weighted, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-22 20:49:36] Creating model for top 3 positions
+INFO [2025-11-22 20:49:36] Position model for threshold 3 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-22 20:49:36] Training data size for threshold 3 : 12626 rows
+INFO [2025-11-22 20:49:36] Position model threshold 3 - Variables selected by BIC: (Intercept), Prev_Points_Weighted, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-22 20:49:36] Position model threshold 3 - Number of variables selected: 4
+INFO [2025-11-22 20:49:36] Position model threshold 3 - Best BIC value: -2535.2481
+INFO [2025-11-22 20:49:36] Position model threshold 3 - Final GAM formula: s(Prev_Points_Weighted) + s(Flying_Pelo_Pct) + s(Pelo_Pct)
+INFO [2025-11-22 20:49:43] Position model threshold 3 - GAM model fitted successfully
+INFO [2025-11-22 20:49:44] Position model threshold 3 - Brier score: 0.0476
+INFO [2025-11-22 20:49:44] Position model threshold 3 - Mean predicted probability: 0.0673
+INFO [2025-11-22 20:49:44] Position model threshold 3 - Actual success rate: 0.0604
+INFO [2025-11-22 20:49:44] Variables selected for 3 position model: Prev_Points_Weighted, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-22 20:49:46] Creating model for top 5 positions
+INFO [2025-11-22 20:49:46] Position model for threshold 5 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-22 20:49:46] Training data size for threshold 5 : 12626 rows
+INFO [2025-11-22 20:49:46] Position model threshold 5 - Variables selected by BIC: (Intercept), Prev_Points_Weighted, Flying_Pelo_Pct
+INFO [2025-11-22 20:49:46] Position model threshold 5 - Number of variables selected: 3
+INFO [2025-11-22 20:49:46] Position model threshold 5 - Best BIC value: -3381.8095
+INFO [2025-11-22 20:49:46] Position model threshold 5 - Final GAM formula: s(Prev_Points_Weighted) + s(Flying_Pelo_Pct)
+INFO [2025-11-22 20:49:47] Position model threshold 5 - GAM model fitted successfully
+INFO [2025-11-22 20:49:48] Position model threshold 5 - Brier score: 0.0702
+INFO [2025-11-22 20:49:48] Position model threshold 5 - Mean predicted probability: 0.1115
+INFO [2025-11-22 20:49:48] Position model threshold 5 - Actual success rate: 0.1005
+INFO [2025-11-22 20:49:48] Variables selected for 5 position model: Prev_Points_Weighted, Flying_Pelo_Pct
+INFO [2025-11-22 20:49:49] Creating model for top 10 positions
+INFO [2025-11-22 20:49:49] Position model for threshold 10 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-22 20:49:49] Training data size for threshold 10 : 12626 rows
+INFO [2025-11-22 20:49:49] Position model threshold 10 - Variables selected by BIC: (Intercept), Prev_Points_Weighted, Pelo_Pct
+INFO [2025-11-22 20:49:49] Position model threshold 10 - Number of variables selected: 3
+INFO [2025-11-22 20:49:49] Position model threshold 10 - Best BIC value: -4293.1959
+INFO [2025-11-22 20:49:49] Position model threshold 10 - Final GAM formula: s(Prev_Points_Weighted) + s(Pelo_Pct)
+INFO [2025-11-22 20:49:51] Position model threshold 10 - GAM model fitted successfully
+INFO [2025-11-22 20:49:52] Position model threshold 10 - Brier score: 0.1035
+INFO [2025-11-22 20:49:52] Position model threshold 10 - Mean predicted probability: 0.201
+INFO [2025-11-22 20:49:52] Position model threshold 10 - Actual success rate: 0.201
+INFO [2025-11-22 20:49:52] Variables selected for 10 position model: Prev_Points_Weighted, Pelo_Pct
+INFO [2025-11-22 20:49:53] Creating model for top 30 positions
+INFO [2025-11-22 20:49:53] Position model for threshold 30 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-22 20:49:53] Training data size for threshold 30 : 12626 rows
+INFO [2025-11-22 20:49:53] Position model threshold 30 - Variables selected by BIC: (Intercept), Prev_Points_Weighted, Normal_Pelo_Pct, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-22 20:49:53] Position model threshold 30 - Number of variables selected: 5
+INFO [2025-11-22 20:49:53] Position model threshold 30 - Best BIC value: -3112.235
+INFO [2025-11-22 20:49:53] Position model threshold 30 - Final GAM formula: s(Prev_Points_Weighted) + s(Normal_Pelo_Pct) + s(Flying_Pelo_Pct) + s(Pelo_Pct)
+INFO [2025-11-22 20:49:59] Position model threshold 30 - GAM model fitted successfully
+INFO [2025-11-22 20:50:01] Position model threshold 30 - Brier score: 0.1583
+INFO [2025-11-22 20:50:01] Position model threshold 30 - Mean predicted probability: 0.6477
+INFO [2025-11-22 20:50:01] Position model threshold 30 - Actual success rate: 0.6011
+INFO [2025-11-22 20:50:01] Variables selected for 30 position model: Prev_Points_Weighted, Normal_Pelo_Pct, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-22 20:50:10] Preparing startlist data for Elo_Pct
+INFO [2025-11-22 20:50:10] Race probability columns found: Race1_Prob, Race2_Prob
+INFO [2025-11-22 20:50:11] Available elo columns: Skier, Small_Elo, Medium_Elo, Normal_Elo, Large_Elo, Flying_Elo, Elo
+INFO [2025-11-22 20:50:11] Using default value for Small_Elo_Pct (max value issue)
+INFO [2025-11-22 20:50:11] Using default value for Medium_Elo_Pct (max value issue)
+INFO [2025-11-22 20:50:11] Calculating Normal_Elo_Pct from Normal_Elo
+INFO [2025-11-22 20:50:11] Calculating Large_Elo_Pct from Large_Elo
+INFO [2025-11-22 20:50:11] Calculating Flying_Elo_Pct from Flying_Elo
+INFO [2025-11-22 20:50:11] Calculating Elo_Pct from Elo
+WARN [2025-11-22 20:50:11] No valid max value for Small_Pelo using default
+WARN [2025-11-22 20:50:11] No valid max value for Medium_Pelo using default
+INFO [2025-11-22 20:50:11] Converting Normal_Elo to Normal_Pelo_Pct using max Pelo = 1681.25728891558
+INFO [2025-11-22 20:50:11] Converting Large_Elo to Large_Pelo_Pct using max Pelo = 1802.86850408569
+INFO [2025-11-22 20:50:11] Converting Flying_Elo to Flying_Pelo_Pct using max Pelo = 1560.91754202016
+INFO [2025-11-22 20:50:11] Converting Elo to Pelo_Pct using max Pelo = 1826.50208548439
+INFO [2025-11-22 20:50:11] Race probability column Race1_Prob summary:
+INFO [2025-11-22 20:50:11]   Mean: 0.63302752293578
+INFO [2025-11-22 20:50:11]   Sum: 69
+INFO [2025-11-22 20:50:11]   Max: 1
+INFO [2025-11-22 20:50:11] Race probability column Race2_Prob summary:
+INFO [2025-11-22 20:50:11]   Mean: 0.42561478634002
+INFO [2025-11-22 20:50:11]   Sum: 46.8176264974022
+INFO [2025-11-22 20:50:11]   Max: 0.975
+INFO [2025-11-22 20:50:11] Final columns in result_df: Skier, ID, Nation, Sex, Race1_Prob, Race2_Prob, Small_Elo, Medium_Elo, Normal_Elo, Large_Elo, Flying_Elo, Elo, Prev_Points_Weighted, Small_Elo_Pct, Medium_Elo_Pct, Normal_Elo_Pct, Large_Elo_Pct, Flying_Elo_Pct, Elo_Pct, Small_Pelo_Pct, Medium_Pelo_Pct, Normal_Pelo_Pct, Large_Pelo_Pct, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-22 20:50:11] Model for threshold 1 requires variables: Prev_Points_Weighted, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-22 20:50:11] Attempting prediction for threshold 1 with 110 rows
+INFO [2025-11-22 20:50:11] Made predictions with adjustments for position threshold 1
+INFO [2025-11-22 20:50:11] Model for threshold 3 requires variables: Prev_Points_Weighted, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-22 20:50:11] Attempting prediction for threshold 3 with 110 rows
+INFO [2025-11-22 20:50:11] Made predictions with adjustments for position threshold 3
+INFO [2025-11-22 20:50:11] Model for threshold 5 requires variables: Prev_Points_Weighted, Flying_Pelo_Pct
+INFO [2025-11-22 20:50:11] Attempting prediction for threshold 5 with 110 rows
+INFO [2025-11-22 20:50:11] Made predictions with adjustments for position threshold 5
+INFO [2025-11-22 20:50:11] Model for threshold 10 requires variables: Prev_Points_Weighted, Pelo_Pct
+INFO [2025-11-22 20:50:11] Attempting prediction for threshold 10 with 110 rows
+INFO [2025-11-22 20:50:11] Made predictions with adjustments for position threshold 10
+INFO [2025-11-22 20:50:11] Model for threshold 30 requires variables: Prev_Points_Weighted, Normal_Pelo_Pct, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-22 20:50:11] Attempting prediction for threshold 30 with 110 rows
+INFO [2025-11-22 20:50:11] Made predictions with adjustments for position threshold 30
+INFO [2025-11-22 20:50:11] Position probability sums BEFORE normalization:
+INFO [2025-11-22 20:50:11]   prob_top1: 76.80% (target: 100%)
+INFO [2025-11-22 20:50:11]   prob_top3: 242.10% (target: 300%)
+INFO [2025-11-22 20:50:11]   prob_top5: 503.10% (target: 500%)
+INFO [2025-11-22 20:50:11]   prob_top10: 959.10% (target: 1000%)
+INFO [2025-11-22 20:50:11]   prob_top30: 4059.00% (target: 3000%)
+INFO [2025-11-22 20:50:11]   prob_top1 after race prob adjustment: 65.50% (scaling by race participation)
+INFO [2025-11-22 20:50:11]   prob_top1 normalization: applied scaling factor of 1.5267
+INFO [2025-11-22 20:50:11]   prob_top3 after race prob adjustment: 202.50% (scaling by race participation)
+INFO [2025-11-22 20:50:11]   prob_top3 normalization: applied scaling factor of 1.4815
+INFO [2025-11-22 20:50:11]   prob_top5 after race prob adjustment: 391.70% (scaling by race participation)
+INFO [2025-11-22 20:50:11]   prob_top5 normalization: applied scaling factor of 1.2765
+INFO [2025-11-22 20:50:11]   prob_top10 after race prob adjustment: 760.90% (scaling by race participation)
+INFO [2025-11-22 20:50:11]   Capping 2 participants with >100% probability for prob_top10
+INFO [2025-11-22 20:50:11]   prob_top10 normalization: applied scaling factor of 1.3142
+INFO [2025-11-22 20:50:11]   prob_top30 after race prob adjustment: 2795.80% (scaling by race participation)
+INFO [2025-11-22 20:50:11]   Capping 5 participants with >100% probability for prob_top30
+INFO [2025-11-22 20:50:11]   prob_top30 normalization: applied scaling factor of 1.0730
+INFO [2025-11-22 20:50:11] Position probability sums AFTER normalization:
+INFO [2025-11-22 20:50:11]   prob_top1: 100.00% (target: 100%)
+INFO [2025-11-22 20:50:11]   prob_top3: 300.00% (target: 300%)
+INFO [2025-11-22 20:50:11]   prob_top5: 500.00% (target: 500%)
+INFO [2025-11-22 20:50:11]   prob_top10: 1000.00% (target: 1000%)
+INFO [2025-11-22 20:50:11]   prob_top30: 3000.00% (target: 3000%)
+INFO [2025-11-22 20:50:11] Race 1 position probability sums after normalization:
+INFO [2025-11-22 20:50:11]   prob_top1: 100.00% (should be 100%)
+INFO [2025-11-22 20:50:11]   prob_top3: 300.00% (should be 300%)
+INFO [2025-11-22 20:50:11]   prob_top5: 500.00% (should be 500%)
+INFO [2025-11-22 20:50:11]   prob_top10: 1000.00% (should be 1000%)
+INFO [2025-11-22 20:50:11]   prob_top30: 3000.00% (should be 3000%)
+INFO [2025-11-22 20:50:11] Race 1 probability check:
+INFO [2025-11-22 20:50:11] Processing men race 2: Large
+INFO [2025-11-22 20:50:11] Using World Cup points for this race
+INFO [2025-11-22 20:50:11] Race probability column Race2_Prob exists in startlist
+INFO [2025-11-22 20:50:11]   Mean: 0.42561478634002
+INFO [2025-11-22 20:50:11]   Sum: 46.8176264974022
+INFO [2025-11-22 20:50:11] Race 2 hill size: 140 | Race type: Individual
+INFO [2025-11-22 20:50:11] Initial formula with all variables: Points ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-22 20:50:11] Variables selected by BIC: (Intercept), Prev_Points_Weighted, Pelo_Pct
+INFO [2025-11-22 20:50:11] Number of variables selected: 3
+INFO [2025-11-22 20:50:11] Best BIC value: -3740.22084329884
+INFO [2025-11-22 20:50:11] Final GAM formula: s(Prev_Points_Weighted) + s(Pelo_Pct)
+INFO [2025-11-22 20:50:12] Creating model for top 1 positions
+INFO [2025-11-22 20:50:12] Position model for threshold 1 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-22 20:50:12] Training data size for threshold 1 : 12626 rows
+INFO [2025-11-22 20:50:12] Position model threshold 1 - Variables selected by BIC: (Intercept), Prev_Points_Weighted, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-22 20:50:12] Position model threshold 1 - Number of variables selected: 4
+INFO [2025-11-22 20:50:12] Position model threshold 1 - Best BIC value: -1130.9778
+INFO [2025-11-22 20:50:12] Position model threshold 1 - Final GAM formula: s(Prev_Points_Weighted) + s(Flying_Pelo_Pct) + s(Pelo_Pct)
+INFO [2025-11-22 20:50:16] Position model threshold 1 - GAM model fitted successfully
+INFO [2025-11-22 20:50:17] Position model threshold 1 - Brier score: 0.019
+INFO [2025-11-22 20:50:17] Position model threshold 1 - Mean predicted probability: 0.0225
+INFO [2025-11-22 20:50:17] Position model threshold 1 - Actual success rate: 0.0204
+INFO [2025-11-22 20:50:17] Variables selected for 1 position model: Prev_Points_Weighted, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-22 20:50:19] Creating model for top 3 positions
+INFO [2025-11-22 20:50:19] Position model for threshold 3 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-22 20:50:19] Training data size for threshold 3 : 12626 rows
+INFO [2025-11-22 20:50:19] Position model threshold 3 - Variables selected by BIC: (Intercept), Prev_Points_Weighted, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-22 20:50:19] Position model threshold 3 - Number of variables selected: 4
+INFO [2025-11-22 20:50:19] Position model threshold 3 - Best BIC value: -2535.2481
+INFO [2025-11-22 20:50:19] Position model threshold 3 - Final GAM formula: s(Prev_Points_Weighted) + s(Flying_Pelo_Pct) + s(Pelo_Pct)
+INFO [2025-11-22 20:50:26] Position model threshold 3 - GAM model fitted successfully
+INFO [2025-11-22 20:50:27] Position model threshold 3 - Brier score: 0.0476
+INFO [2025-11-22 20:50:27] Position model threshold 3 - Mean predicted probability: 0.0673
+INFO [2025-11-22 20:50:27] Position model threshold 3 - Actual success rate: 0.0604
+INFO [2025-11-22 20:50:27] Variables selected for 3 position model: Prev_Points_Weighted, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-22 20:50:29] Creating model for top 5 positions
+INFO [2025-11-22 20:50:29] Position model for threshold 5 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-22 20:50:29] Training data size for threshold 5 : 12626 rows
+INFO [2025-11-22 20:50:29] Position model threshold 5 - Variables selected by BIC: (Intercept), Prev_Points_Weighted, Flying_Pelo_Pct
+INFO [2025-11-22 20:50:29] Position model threshold 5 - Number of variables selected: 3
+INFO [2025-11-22 20:50:29] Position model threshold 5 - Best BIC value: -3381.8095
+INFO [2025-11-22 20:50:29] Position model threshold 5 - Final GAM formula: s(Prev_Points_Weighted) + s(Flying_Pelo_Pct)
+INFO [2025-11-22 20:50:30] Position model threshold 5 - GAM model fitted successfully
+INFO [2025-11-22 20:50:31] Position model threshold 5 - Brier score: 0.0702
+INFO [2025-11-22 20:50:31] Position model threshold 5 - Mean predicted probability: 0.1115
+INFO [2025-11-22 20:50:31] Position model threshold 5 - Actual success rate: 0.1005
+INFO [2025-11-22 20:50:31] Variables selected for 5 position model: Prev_Points_Weighted, Flying_Pelo_Pct
+INFO [2025-11-22 20:50:32] Creating model for top 10 positions
+INFO [2025-11-22 20:50:32] Position model for threshold 10 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-22 20:50:32] Training data size for threshold 10 : 12626 rows
+INFO [2025-11-22 20:50:33] Position model threshold 10 - Variables selected by BIC: (Intercept), Prev_Points_Weighted, Pelo_Pct
+INFO [2025-11-22 20:50:33] Position model threshold 10 - Number of variables selected: 3
+INFO [2025-11-22 20:50:33] Position model threshold 10 - Best BIC value: -4293.1959
+INFO [2025-11-22 20:50:33] Position model threshold 10 - Final GAM formula: s(Prev_Points_Weighted) + s(Pelo_Pct)
+INFO [2025-11-22 20:50:35] Position model threshold 10 - GAM model fitted successfully
+INFO [2025-11-22 20:50:35] Position model threshold 10 - Brier score: 0.1035
+INFO [2025-11-22 20:50:35] Position model threshold 10 - Mean predicted probability: 0.201
+INFO [2025-11-22 20:50:35] Position model threshold 10 - Actual success rate: 0.201
+INFO [2025-11-22 20:50:35] Variables selected for 10 position model: Prev_Points_Weighted, Pelo_Pct
+INFO [2025-11-22 20:50:37] Creating model for top 30 positions
+INFO [2025-11-22 20:50:37] Position model for threshold 30 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-22 20:50:37] Training data size for threshold 30 : 12626 rows
+INFO [2025-11-22 20:50:37] Position model threshold 30 - Variables selected by BIC: (Intercept), Prev_Points_Weighted, Normal_Pelo_Pct, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-22 20:50:37] Position model threshold 30 - Number of variables selected: 5
+INFO [2025-11-22 20:50:37] Position model threshold 30 - Best BIC value: -3112.235
+INFO [2025-11-22 20:50:37] Position model threshold 30 - Final GAM formula: s(Prev_Points_Weighted) + s(Normal_Pelo_Pct) + s(Flying_Pelo_Pct) + s(Pelo_Pct)
+INFO [2025-11-22 20:50:43] Position model threshold 30 - GAM model fitted successfully
+INFO [2025-11-22 20:50:44] Position model threshold 30 - Brier score: 0.1583
+INFO [2025-11-22 20:50:44] Position model threshold 30 - Mean predicted probability: 0.6477
+INFO [2025-11-22 20:50:44] Position model threshold 30 - Actual success rate: 0.6011
+INFO [2025-11-22 20:50:44] Variables selected for 30 position model: Prev_Points_Weighted, Normal_Pelo_Pct, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-22 20:50:52] Preparing startlist data for Elo_Pct
+INFO [2025-11-22 20:50:52] Race probability columns found: Race1_Prob, Race2_Prob
+INFO [2025-11-22 20:50:52] Available elo columns: Skier, Small_Elo, Medium_Elo, Normal_Elo, Large_Elo, Flying_Elo, Elo
+INFO [2025-11-22 20:50:52] Using default value for Small_Elo_Pct (max value issue)
+INFO [2025-11-22 20:50:52] Using default value for Medium_Elo_Pct (max value issue)
+INFO [2025-11-22 20:50:52] Calculating Normal_Elo_Pct from Normal_Elo
+INFO [2025-11-22 20:50:52] Calculating Large_Elo_Pct from Large_Elo
+INFO [2025-11-22 20:50:52] Calculating Flying_Elo_Pct from Flying_Elo
+INFO [2025-11-22 20:50:52] Calculating Elo_Pct from Elo
+WARN [2025-11-22 20:50:52] No valid max value for Small_Pelo using default
+WARN [2025-11-22 20:50:52] No valid max value for Medium_Pelo using default
+INFO [2025-11-22 20:50:52] Converting Normal_Elo to Normal_Pelo_Pct using max Pelo = 1681.25728891558
+INFO [2025-11-22 20:50:52] Converting Large_Elo to Large_Pelo_Pct using max Pelo = 1802.86850408569
+INFO [2025-11-22 20:50:52] Converting Flying_Elo to Flying_Pelo_Pct using max Pelo = 1560.91754202016
+INFO [2025-11-22 20:50:53] Converting Elo to Pelo_Pct using max Pelo = 1826.50208548439
+INFO [2025-11-22 20:50:53] Race probability column Race1_Prob summary:
+INFO [2025-11-22 20:50:53]   Mean: 0.63302752293578
+INFO [2025-11-22 20:50:53]   Sum: 69
+INFO [2025-11-22 20:50:53]   Max: 1
+INFO [2025-11-22 20:50:53] Race probability column Race2_Prob summary:
+INFO [2025-11-22 20:50:53]   Mean: 0.42561478634002
+INFO [2025-11-22 20:50:53]   Sum: 46.8176264974022
+INFO [2025-11-22 20:50:53]   Max: 0.975
+INFO [2025-11-22 20:50:53] Final columns in result_df: Skier, ID, Nation, Sex, Race1_Prob, Race2_Prob, Small_Elo, Medium_Elo, Normal_Elo, Large_Elo, Flying_Elo, Elo, Prev_Points_Weighted, Small_Elo_Pct, Medium_Elo_Pct, Normal_Elo_Pct, Large_Elo_Pct, Flying_Elo_Pct, Elo_Pct, Small_Pelo_Pct, Medium_Pelo_Pct, Normal_Pelo_Pct, Large_Pelo_Pct, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-22 20:50:53] Model for threshold 1 requires variables: Prev_Points_Weighted, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-22 20:50:53] Attempting prediction for threshold 1 with 110 rows
+INFO [2025-11-22 20:50:53] Made predictions with adjustments for position threshold 1
+INFO [2025-11-22 20:50:53] Model for threshold 3 requires variables: Prev_Points_Weighted, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-22 20:50:53] Attempting prediction for threshold 3 with 110 rows
+INFO [2025-11-22 20:50:53] Made predictions with adjustments for position threshold 3
+INFO [2025-11-22 20:50:53] Model for threshold 5 requires variables: Prev_Points_Weighted, Flying_Pelo_Pct
+INFO [2025-11-22 20:50:53] Attempting prediction for threshold 5 with 110 rows
+INFO [2025-11-22 20:50:53] Made predictions with adjustments for position threshold 5
+INFO [2025-11-22 20:50:53] Model for threshold 10 requires variables: Prev_Points_Weighted, Pelo_Pct
+INFO [2025-11-22 20:50:53] Attempting prediction for threshold 10 with 110 rows
+INFO [2025-11-22 20:50:53] Made predictions with adjustments for position threshold 10
+INFO [2025-11-22 20:50:53] Model for threshold 30 requires variables: Prev_Points_Weighted, Normal_Pelo_Pct, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-22 20:50:53] Attempting prediction for threshold 30 with 110 rows
+INFO [2025-11-22 20:50:53] Made predictions with adjustments for position threshold 30
+INFO [2025-11-22 20:50:53] Position probability sums BEFORE normalization:
+INFO [2025-11-22 20:50:53]   prob_top1: 76.80% (target: 100%)
+INFO [2025-11-22 20:50:53]   prob_top3: 242.10% (target: 300%)
+INFO [2025-11-22 20:50:53]   prob_top5: 503.10% (target: 500%)
+INFO [2025-11-22 20:50:53]   prob_top10: 959.10% (target: 1000%)
+INFO [2025-11-22 20:50:53]   prob_top30: 4059.00% (target: 3000%)
+INFO [2025-11-22 20:50:53]   prob_top1 after race prob adjustment: 62.41% (scaling by race participation)
+INFO [2025-11-22 20:50:53]   prob_top1 normalization: applied scaling factor of 1.6023
+INFO [2025-11-22 20:50:53]   prob_top3 after race prob adjustment: 202.68% (scaling by race participation)
+INFO [2025-11-22 20:50:53]   prob_top3 normalization: applied scaling factor of 1.4801
+INFO [2025-11-22 20:50:53]   prob_top5 after race prob adjustment: 391.70% (scaling by race participation)
+INFO [2025-11-22 20:50:53]   prob_top5 normalization: applied scaling factor of 1.2765
+INFO [2025-11-22 20:50:53]   prob_top10 after race prob adjustment: 751.33% (scaling by race participation)
+INFO [2025-11-22 20:50:53]   Capping 1 participants with >100% probability for prob_top10
+INFO [2025-11-22 20:50:53]   prob_top10 normalization: applied scaling factor of 1.3310
+INFO [2025-11-22 20:50:53]   prob_top30 after race prob adjustment: 2464.53% (scaling by race participation)
+INFO [2025-11-22 20:50:53]   Capping 6 participants with >100% probability for prob_top30
+INFO [2025-11-22 20:50:53]   Recursive capping needed after redistribution
+INFO [2025-11-22 20:50:53]   prob_top30 normalization: applied scaling factor of 1.2173
+INFO [2025-11-22 20:50:53] Position probability sums AFTER normalization:
+INFO [2025-11-22 20:50:53]   prob_top1: 100.00% (target: 100%)
+INFO [2025-11-22 20:50:53]   prob_top3: 300.00% (target: 300%)
+INFO [2025-11-22 20:50:53]   prob_top5: 500.00% (target: 500%)
+INFO [2025-11-22 20:50:53]   prob_top10: 1000.00% (target: 1000%)
+INFO [2025-11-22 20:50:53]   prob_top30: 2999.51% (target: 3000%)
+INFO [2025-11-22 20:50:53] Race 2 position probability sums after normalization:
+INFO [2025-11-22 20:50:53]   prob_top1: 100.00% (should be 100%)
+INFO [2025-11-22 20:50:53]   prob_top3: 300.00% (should be 300%)
+INFO [2025-11-22 20:50:53]   prob_top5: 500.00% (should be 500%)
+INFO [2025-11-22 20:50:53]   prob_top10: 1000.00% (should be 1000%)
+INFO [2025-11-22 20:50:53]   prob_top30: 2999.51% (should be 3000%)
+INFO [2025-11-22 20:50:53] Race 2 probability check:
+INFO [2025-11-22 20:50:53] Combining race predictions
+INFO [2025-11-22 20:50:53] Starting with first race data
+INFO [2025-11-22 20:50:53] Adding race 2 to combined predictions
+INFO [2025-11-22 20:50:53] Probability column Race1_Probability exists in final predictions
+INFO [2025-11-22 20:50:53]   Mean: 0.63302752293578
+INFO [2025-11-22 20:50:53]   Sum: 69
+INFO [2025-11-22 20:50:53] Probability column Race2_Probability exists in final predictions
+INFO [2025-11-22 20:50:53]   Mean: 0.42561478634002
+INFO [2025-11-22 20:50:53]   Sum: 46.8176264974022
+INFO [2025-11-22 20:50:53] Calculating totals with probability weighting
+INFO [2025-11-22 20:50:53] Returning final predictions
+INFO [2025-11-22 20:50:53] Final predictions calculated for men
+INFO [2025-11-22 20:50:54] Formatted position probabilities saved to ~/blog/daehl-e/content/post/skijump/drafts/weekly-picks/20251122/men_position_probabilities.xlsx
+INFO [2025-11-22 20:50:54] Saved predictions to ~/blog/daehl-e/content/post/skijump/drafts/weekly-picks/20251122/men.xlsx
+INFO [2025-11-22 20:50:54] Processing ladies' predictions
+INFO [2025-11-22 20:50:54] Using provided startlist_override with 100 entries
+INFO [2025-11-22 20:50:54] Using ladies' races: 2 races found
+INFO [2025-11-22 20:50:54] Selected startlist has 100 entries
+INFO [2025-11-22 20:50:54] Using chronological data from: ~/ski/elo/python/skijump/polars/excel365/ladies_chrono.csv
+INFO [2025-11-22 20:50:54] Loading chronological data from ~/ski/elo/python/skijump/polars/excel365/ladies_chrono.csv
+INFO [2025-11-22 20:50:55] Preprocessing complete - final dimensions: 9324 x 48
+INFO [2025-11-22 20:50:55] Final columns: Elo, Small_Elo, Medium_Elo, Normal_Elo, Large_Elo, Flying_Elo, Date, City, Country, Sex ...
+INFO [2025-11-22 20:50:55] Chronological data dimensions: 9324 x 48
+INFO [2025-11-22 20:50:55] First few columns: Elo, Small_Elo, Medium_Elo, Normal_Elo, Large_Elo, Flying_Elo, Date, City, Country, Sex
+INFO [2025-11-22 20:50:55] Race probability columns in startlist: Race1_Prob, Race2_Prob
+INFO [2025-11-22 20:50:55] Processing ladies race 1: Large
+INFO [2025-11-22 20:50:55] Using World Cup points for this race
+INFO [2025-11-22 20:50:55] Race probability column Race1_Prob exists in startlist
+INFO [2025-11-22 20:50:55]   Mean: 0.67
+INFO [2025-11-22 20:50:55]   Sum: 67
+INFO [2025-11-22 20:50:55] Race 1 hill size: 140 | Race type: Individual
+INFO [2025-11-22 20:50:55] Initial formula with all variables: Points ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+WARN [2025-11-22 20:50:55] Error in model selection: vector size cannot be infinite
+WARN [2025-11-22 20:50:56] Error in fallback GAM model: A term has fewer unique covariate combinations than specified maximum degrees of freedom
+INFO [2025-11-22 20:50:56] Using linear model as final fallback
+INFO [2025-11-22 20:50:56] Creating model for top 1 positions
+INFO [2025-11-22 20:50:56] Position model for threshold 1 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-22 20:50:56] Training data size for threshold 1 : 2527 rows
+WARN [2025-11-22 20:50:56] Error in position model for threshold 1 : vector size cannot be infinite
+INFO [2025-11-22 20:50:56] Created fallback model for threshold 1 using variables: Prev_Points_Weighted, Elo_Pct
+INFO [2025-11-22 20:50:56] Creating model for top 3 positions
+INFO [2025-11-22 20:50:56] Position model for threshold 3 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-22 20:50:56] Training data size for threshold 3 : 2527 rows
+WARN [2025-11-22 20:50:56] Error in position model for threshold 3 : vector size cannot be infinite
+INFO [2025-11-22 20:50:57] Created fallback model for threshold 3 using variables: Prev_Points_Weighted, Elo_Pct
+INFO [2025-11-22 20:50:57] Creating model for top 5 positions
+INFO [2025-11-22 20:50:57] Position model for threshold 5 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-22 20:50:57] Training data size for threshold 5 : 2527 rows
+WARN [2025-11-22 20:50:57] Error in position model for threshold 5 : vector size cannot be infinite
+INFO [2025-11-22 20:50:58] Created fallback model for threshold 5 using variables: Prev_Points_Weighted, Elo_Pct
+INFO [2025-11-22 20:50:58] Creating model for top 10 positions
+INFO [2025-11-22 20:50:58] Position model for threshold 10 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-22 20:50:58] Training data size for threshold 10 : 2527 rows
+WARN [2025-11-22 20:50:58] Error in position model for threshold 10 : vector size cannot be infinite
+INFO [2025-11-22 20:50:59] Created fallback model for threshold 10 using variables: Prev_Points_Weighted, Elo_Pct
+INFO [2025-11-22 20:50:59] Creating model for top 30 positions
+INFO [2025-11-22 20:50:59] Position model for threshold 30 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-22 20:50:59] Training data size for threshold 30 : 2527 rows
+WARN [2025-11-22 20:50:59] Error in position model for threshold 30 : vector size cannot be infinite
+INFO [2025-11-22 20:50:59] Created fallback model for threshold 30 using variables: Prev_Points_Weighted, Elo_Pct
+INFO [2025-11-22 20:51:00] Preparing startlist data for Elo_Pct
+INFO [2025-11-22 20:51:00] Race probability columns found: Race1_Prob, Race2_Prob
+INFO [2025-11-22 20:51:00] Available elo columns: Skier, Small_Elo, Medium_Elo, Normal_Elo, Large_Elo, Flying_Elo, Elo
+INFO [2025-11-22 20:51:00] Using default value for Small_Elo_Pct (max value issue)
+INFO [2025-11-22 20:51:00] Using default value for Medium_Elo_Pct (max value issue)
+INFO [2025-11-22 20:51:00] Calculating Normal_Elo_Pct from Normal_Elo
+INFO [2025-11-22 20:51:00] Calculating Large_Elo_Pct from Large_Elo
+INFO [2025-11-22 20:51:00] Using default value for Flying_Elo_Pct (max value issue)
+INFO [2025-11-22 20:51:00] Calculating Elo_Pct from Elo
+WARN [2025-11-22 20:51:00] No valid max value for Small_Pelo using default
+WARN [2025-11-22 20:51:00] No valid max value for Medium_Pelo using default
+INFO [2025-11-22 20:51:00] Converting Normal_Elo to Normal_Pelo_Pct using max Pelo = 1741.2842919901
+INFO [2025-11-22 20:51:00] Converting Large_Elo to Large_Pelo_Pct using max Pelo = 1650.29686357084
+WARN [2025-11-22 20:51:00] No valid max value for Flying_Pelo using default
+INFO [2025-11-22 20:51:00] Converting Elo to Pelo_Pct using max Pelo = 1840.88200113687
+INFO [2025-11-22 20:51:00] Race probability column Race1_Prob summary:
+INFO [2025-11-22 20:51:00]   Mean: 0.67
+INFO [2025-11-22 20:51:00]   Sum: 67
+INFO [2025-11-22 20:51:00]   Max: 1
+INFO [2025-11-22 20:51:00] Race probability column Race2_Prob summary:
+INFO [2025-11-22 20:51:00]   Mean: 0.373093430407377
+INFO [2025-11-22 20:51:00]   Sum: 37.3093430407377
+INFO [2025-11-22 20:51:00]   Max: 0.981818181818182
+INFO [2025-11-22 20:51:00] Final columns in result_df: Skier, ID, Nation, Sex, Race1_Prob, Race2_Prob, Small_Elo, Medium_Elo, Normal_Elo, Large_Elo, Flying_Elo, Elo, Prev_Points_Weighted, Small_Elo_Pct, Medium_Elo_Pct, Normal_Elo_Pct, Large_Elo_Pct, Flying_Elo_Pct, Elo_Pct, Small_Pelo_Pct, Medium_Pelo_Pct, Normal_Pelo_Pct, Large_Pelo_Pct, Flying_Pelo_Pct, Pelo_Pct
+WARN [2025-11-22 20:51:00] No model found for threshold 1
+WARN [2025-11-22 20:51:00] No model found for threshold 3
+WARN [2025-11-22 20:51:00] No model found for threshold 5
+WARN [2025-11-22 20:51:00] No model found for threshold 10
+WARN [2025-11-22 20:51:00] No model found for threshold 30
+INFO [2025-11-22 20:51:00] Position probability sums BEFORE normalization:
+INFO [2025-11-22 20:51:00]   prob_top1: 0.00% (target: 100%)
+INFO [2025-11-22 20:51:00]   prob_top3: 0.00% (target: 300%)
+INFO [2025-11-22 20:51:00]   prob_top5: 0.00% (target: 500%)
+INFO [2025-11-22 20:51:00]   prob_top10: 0.00% (target: 1000%)
+INFO [2025-11-22 20:51:00]   prob_top30: 0.00% (target: 3000%)
+INFO [2025-11-22 20:51:00]   prob_top1 after race prob adjustment: 0.00% (scaling by race participation)
+WARN [2025-11-22 20:51:00] Zero sum for prob_top1 - distributing evenly
+INFO [2025-11-22 20:51:00]   prob_top3 after race prob adjustment: 0.00% (scaling by race participation)
+WARN [2025-11-22 20:51:00] Zero sum for prob_top3 - distributing evenly
+INFO [2025-11-22 20:51:00]   prob_top5 after race prob adjustment: 0.00% (scaling by race participation)
+WARN [2025-11-22 20:51:00] Zero sum for prob_top5 - distributing evenly
+INFO [2025-11-22 20:51:00]   prob_top10 after race prob adjustment: 0.00% (scaling by race participation)
+WARN [2025-11-22 20:51:00] Zero sum for prob_top10 - distributing evenly
+INFO [2025-11-22 20:51:00]   prob_top30 after race prob adjustment: 0.00% (scaling by race participation)
+WARN [2025-11-22 20:51:00] Zero sum for prob_top30 - distributing evenly
+INFO [2025-11-22 20:51:00] Position probability sums AFTER normalization:
+INFO [2025-11-22 20:51:00]   prob_top1: 100.00% (target: 100%)
+INFO [2025-11-22 20:51:00]   prob_top3: 300.00% (target: 300%)
+INFO [2025-11-22 20:51:00]   prob_top5: 500.00% (target: 500%)
+INFO [2025-11-22 20:51:00]   prob_top10: 1000.00% (target: 1000%)
+INFO [2025-11-22 20:51:00]   prob_top30: 3000.00% (target: 3000%)
+INFO [2025-11-22 20:51:00] Race 1 position probability sums after normalization:
+INFO [2025-11-22 20:51:00]   prob_top1: 100.00% (should be 100%)
+INFO [2025-11-22 20:51:00]   prob_top3: 300.00% (should be 300%)
+INFO [2025-11-22 20:51:00]   prob_top5: 500.00% (should be 500%)
+INFO [2025-11-22 20:51:00]   prob_top10: 1000.00% (should be 1000%)
+INFO [2025-11-22 20:51:00]   prob_top30: 3000.00% (should be 3000%)
+INFO [2025-11-22 20:51:00] Race 1 probability check:
+INFO [2025-11-22 20:51:00] Processing ladies race 2: Large
+INFO [2025-11-22 20:51:00] Using World Cup points for this race
+INFO [2025-11-22 20:51:00] Race probability column Race2_Prob exists in startlist
+INFO [2025-11-22 20:51:00]   Mean: 0.373093430407377
+INFO [2025-11-22 20:51:00]   Sum: 37.3093430407377
+INFO [2025-11-22 20:51:00] Race 2 hill size: 140 | Race type: Individual
+INFO [2025-11-22 20:51:00] Initial formula with all variables: Points ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+WARN [2025-11-22 20:51:00] Error in model selection: vector size cannot be infinite
+WARN [2025-11-22 20:51:00] Error in fallback GAM model: A term has fewer unique covariate combinations than specified maximum degrees of freedom
+INFO [2025-11-22 20:51:00] Using linear model as final fallback
+INFO [2025-11-22 20:51:00] Creating model for top 1 positions
+INFO [2025-11-22 20:51:00] Position model for threshold 1 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-22 20:51:00] Training data size for threshold 1 : 2527 rows
+WARN [2025-11-22 20:51:00] Error in position model for threshold 1 : vector size cannot be infinite
+INFO [2025-11-22 20:51:01] Created fallback model for threshold 1 using variables: Prev_Points_Weighted, Elo_Pct
+INFO [2025-11-22 20:51:01] Creating model for top 3 positions
+INFO [2025-11-22 20:51:01] Position model for threshold 3 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-22 20:51:01] Training data size for threshold 3 : 2527 rows
+WARN [2025-11-22 20:51:01] Error in position model for threshold 3 : vector size cannot be infinite
+INFO [2025-11-22 20:51:02] Created fallback model for threshold 3 using variables: Prev_Points_Weighted, Elo_Pct
+INFO [2025-11-22 20:51:02] Creating model for top 5 positions
+INFO [2025-11-22 20:51:02] Position model for threshold 5 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-22 20:51:02] Training data size for threshold 5 : 2527 rows
+WARN [2025-11-22 20:51:02] Error in position model for threshold 5 : vector size cannot be infinite
+INFO [2025-11-22 20:51:03] Created fallback model for threshold 5 using variables: Prev_Points_Weighted, Elo_Pct
+INFO [2025-11-22 20:51:03] Creating model for top 10 positions
+INFO [2025-11-22 20:51:03] Position model for threshold 10 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-22 20:51:03] Training data size for threshold 10 : 2527 rows
+WARN [2025-11-22 20:51:03] Error in position model for threshold 10 : vector size cannot be infinite
+INFO [2025-11-22 20:51:03] Created fallback model for threshold 10 using variables: Prev_Points_Weighted, Elo_Pct
+INFO [2025-11-22 20:51:03] Creating model for top 30 positions
+INFO [2025-11-22 20:51:03] Position model for threshold 30 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-22 20:51:03] Training data size for threshold 30 : 2527 rows
+WARN [2025-11-22 20:51:03] Error in position model for threshold 30 : vector size cannot be infinite
+INFO [2025-11-22 20:51:04] Created fallback model for threshold 30 using variables: Prev_Points_Weighted, Elo_Pct
+INFO [2025-11-22 20:51:05] Preparing startlist data for Elo_Pct
+INFO [2025-11-22 20:51:05] Race probability columns found: Race1_Prob, Race2_Prob
+INFO [2025-11-22 20:51:05] Available elo columns: Skier, Small_Elo, Medium_Elo, Normal_Elo, Large_Elo, Flying_Elo, Elo
+INFO [2025-11-22 20:51:05] Using default value for Small_Elo_Pct (max value issue)
+INFO [2025-11-22 20:51:05] Using default value for Medium_Elo_Pct (max value issue)
+INFO [2025-11-22 20:51:05] Calculating Normal_Elo_Pct from Normal_Elo
+INFO [2025-11-22 20:51:05] Calculating Large_Elo_Pct from Large_Elo
+INFO [2025-11-22 20:51:05] Using default value for Flying_Elo_Pct (max value issue)
+INFO [2025-11-22 20:51:05] Calculating Elo_Pct from Elo
+WARN [2025-11-22 20:51:05] No valid max value for Small_Pelo using default
+WARN [2025-11-22 20:51:05] No valid max value for Medium_Pelo using default
+INFO [2025-11-22 20:51:05] Converting Normal_Elo to Normal_Pelo_Pct using max Pelo = 1741.2842919901
+INFO [2025-11-22 20:51:05] Converting Large_Elo to Large_Pelo_Pct using max Pelo = 1650.29686357084
+WARN [2025-11-22 20:51:05] No valid max value for Flying_Pelo using default
+INFO [2025-11-22 20:51:05] Converting Elo to Pelo_Pct using max Pelo = 1840.88200113687
+INFO [2025-11-22 20:51:05] Race probability column Race1_Prob summary:
+INFO [2025-11-22 20:51:05]   Mean: 0.67
+INFO [2025-11-22 20:51:05]   Sum: 67
+INFO [2025-11-22 20:51:05]   Max: 1
+INFO [2025-11-22 20:51:05] Race probability column Race2_Prob summary:
+INFO [2025-11-22 20:51:05]   Mean: 0.373093430407377
+INFO [2025-11-22 20:51:05]   Sum: 37.3093430407377
+INFO [2025-11-22 20:51:05]   Max: 0.981818181818182
+INFO [2025-11-22 20:51:05] Final columns in result_df: Skier, ID, Nation, Sex, Race1_Prob, Race2_Prob, Small_Elo, Medium_Elo, Normal_Elo, Large_Elo, Flying_Elo, Elo, Prev_Points_Weighted, Small_Elo_Pct, Medium_Elo_Pct, Normal_Elo_Pct, Large_Elo_Pct, Flying_Elo_Pct, Elo_Pct, Small_Pelo_Pct, Medium_Pelo_Pct, Normal_Pelo_Pct, Large_Pelo_Pct, Flying_Pelo_Pct, Pelo_Pct
+WARN [2025-11-22 20:51:05] No model found for threshold 1
+WARN [2025-11-22 20:51:05] No model found for threshold 3
+WARN [2025-11-22 20:51:05] No model found for threshold 5
+WARN [2025-11-22 20:51:05] No model found for threshold 10
+WARN [2025-11-22 20:51:05] No model found for threshold 30
+INFO [2025-11-22 20:51:05] Position probability sums BEFORE normalization:
+INFO [2025-11-22 20:51:05]   prob_top1: 0.00% (target: 100%)
+INFO [2025-11-22 20:51:05]   prob_top3: 0.00% (target: 300%)
+INFO [2025-11-22 20:51:05]   prob_top5: 0.00% (target: 500%)
+INFO [2025-11-22 20:51:05]   prob_top10: 0.00% (target: 1000%)
+INFO [2025-11-22 20:51:05]   prob_top30: 0.00% (target: 3000%)
+INFO [2025-11-22 20:51:05]   prob_top1 after race prob adjustment: 0.00% (scaling by race participation)
+WARN [2025-11-22 20:51:05] Zero sum for prob_top1 - distributing evenly
+INFO [2025-11-22 20:51:05]   prob_top3 after race prob adjustment: 0.00% (scaling by race participation)
+WARN [2025-11-22 20:51:05] Zero sum for prob_top3 - distributing evenly
+INFO [2025-11-22 20:51:05]   prob_top5 after race prob adjustment: 0.00% (scaling by race participation)
+WARN [2025-11-22 20:51:05] Zero sum for prob_top5 - distributing evenly
+INFO [2025-11-22 20:51:05]   prob_top10 after race prob adjustment: 0.00% (scaling by race participation)
+WARN [2025-11-22 20:51:05] Zero sum for prob_top10 - distributing evenly
+INFO [2025-11-22 20:51:05]   prob_top30 after race prob adjustment: 0.00% (scaling by race participation)
+WARN [2025-11-22 20:51:05] Zero sum for prob_top30 - distributing evenly
+INFO [2025-11-22 20:51:05] Position probability sums AFTER normalization:
+INFO [2025-11-22 20:51:05]   prob_top1: 100.00% (target: 100%)
+INFO [2025-11-22 20:51:05]   prob_top3: 300.00% (target: 300%)
+INFO [2025-11-22 20:51:05]   prob_top5: 500.00% (target: 500%)
+INFO [2025-11-22 20:51:05]   prob_top10: 1000.00% (target: 1000%)
+INFO [2025-11-22 20:51:05]   prob_top30: 3000.00% (target: 3000%)
+INFO [2025-11-22 20:51:05] Race 2 position probability sums after normalization:
+INFO [2025-11-22 20:51:05]   prob_top1: 100.00% (should be 100%)
+INFO [2025-11-22 20:51:05]   prob_top3: 300.00% (should be 300%)
+INFO [2025-11-22 20:51:05]   prob_top5: 500.00% (should be 500%)
+INFO [2025-11-22 20:51:05]   prob_top10: 1000.00% (should be 1000%)
+INFO [2025-11-22 20:51:05]   prob_top30: 3000.00% (should be 3000%)
+INFO [2025-11-22 20:51:05] Race 2 probability check:
+INFO [2025-11-22 20:51:05] Combining race predictions
+INFO [2025-11-22 20:51:05] Starting with first race data
+INFO [2025-11-22 20:51:05] Adding race 2 to combined predictions
+INFO [2025-11-22 20:51:05] Probability column Race1_Probability exists in final predictions
+INFO [2025-11-22 20:51:05]   Mean: 0.67
+INFO [2025-11-22 20:51:05]   Sum: 67
+INFO [2025-11-22 20:51:05] Probability column Race2_Probability exists in final predictions
+INFO [2025-11-22 20:51:05]   Mean: 0.373093430407377
+INFO [2025-11-22 20:51:05]   Sum: 37.3093430407377
+INFO [2025-11-22 20:51:05] Calculating totals with probability weighting
+INFO [2025-11-22 20:51:05] Returning final predictions
+INFO [2025-11-22 20:51:05] Final predictions calculated for ladies
+INFO [2025-11-22 20:51:05] Formatted position probabilities saved to ~/blog/daehl-e/content/post/skijump/drafts/weekly-picks/20251122/ladies_position_probabilities.xlsx
+INFO [2025-11-22 20:51:05] Saved predictions to ~/blog/daehl-e/content/post/skijump/drafts/weekly-picks/20251122/ladies.xlsx
+INFO [2025-11-22 20:51:05] Processing mixed team predictions using combined men's and ladies' team data
+INFO [2025-11-22 20:51:05] Using provided startlist_override with 15 entries
+INFO [2025-11-22 20:51:05] Using mixed team races: 1 races found
+INFO [2025-11-22 20:51:05] Using mixed team chronological data
+INFO [2025-11-22 20:51:05] Selected startlist has 15 entries
+INFO [2025-11-22 20:51:05] Using chronological data from: ~/ski/elo/python/skijump/polars/relay/excel365/mixed_team_chrono.csv
+INFO [2025-11-22 20:51:05] Loading chronological data from ~/ski/elo/python/skijump/polars/relay/excel365/mixed_team_chrono.csv
+INFO [2025-11-22 20:51:05] Processing team data - using team-based metrics
+INFO [2025-11-22 20:51:05] Creating missing team Pelo column: Avg_Small_Pelo
+INFO [2025-11-22 20:51:05] Creating missing team Pelo column: Avg_Medium_Pelo
+INFO [2025-11-22 20:51:05] Creating missing team Pelo column: Avg_Normal_Pelo
+INFO [2025-11-22 20:51:05] Creating missing team Pelo column: Avg_Large_Pelo
+INFO [2025-11-22 20:51:05] Creating missing team Pelo column: Avg_Flying_Pelo
+INFO [2025-11-22 20:51:05] Creating missing team Pelo column: Avg_Pelo
+INFO [2025-11-22 20:51:06] Preprocessing complete - final dimensions: 933 x 41
+INFO [2025-11-22 20:51:06] Final columns: Date, City, Country, Nation, RaceType, Season, Race, Event, HillSize, Place ...
+INFO [2025-11-22 20:51:06] Successfully read team chrono data from ~/ski/elo/python/skijump/polars/relay/excel365/mixed_team_chrono.csv with 933 rows
+INFO [2025-11-22 20:51:06] Chronological data dimensions: 933 x 41
+INFO [2025-11-22 20:51:06] First few columns: Date, City, Country, Nation, RaceType, Season, Race, Event, HillSize, Place
+INFO [2025-11-22 20:51:06] Race probability columns in startlist: Race1_Prob
+INFO [2025-11-22 20:51:06] Processing team race 1: Team Large
+INFO [2025-11-22 20:51:06] Using World Cup points for this race
+INFO [2025-11-22 20:51:06] Race probability column Race1_Prob exists in startlist
+INFO [2025-11-22 20:51:06]   Mean: 1
+INFO [2025-11-22 20:51:06]   Sum: 15
+INFO [2025-11-22 20:51:06] Race 1 hill size: 140 | Race type: Team
+INFO [2025-11-22 20:51:06] Initial formula with all variables: Points ~ Avg_Normal_Pelo_Pct + Avg_Large_Pelo_Pct + Avg_Flying_Pelo_Pct + Avg_Pelo_Pct
+WARN [2025-11-22 20:51:06] Error in model selection: subscript out of bounds
+WARN [2025-11-22 20:51:06] Error in fallback GAM model: A term has fewer unique covariate combinations than specified maximum degrees of freedom
+INFO [2025-11-22 20:51:06] Using linear model as final fallback
+INFO [2025-11-22 20:51:06] Creating model for top 1 positions
+INFO [2025-11-22 20:51:06] Position model for threshold 1 - Initial formula: position_achieved ~ Avg_Normal_Pelo_Pct + Avg_Large_Pelo_Pct + Avg_Flying_Pelo_Pct + Avg_Pelo_Pct
+INFO [2025-11-22 20:51:06] Training data size for threshold 1 : 572 rows
+WARN [2025-11-22 20:51:06] Error in position model for threshold 1 : subscript out of bounds
+INFO [2025-11-22 20:51:06] Created fallback model for threshold 1 using variables: Prev_Points_Weighted, Avg_Elo_Pct
+INFO [2025-11-22 20:51:06] Creating model for top 3 positions
+INFO [2025-11-22 20:51:06] Position model for threshold 3 - Initial formula: position_achieved ~ Avg_Normal_Pelo_Pct + Avg_Large_Pelo_Pct + Avg_Flying_Pelo_Pct + Avg_Pelo_Pct
+INFO [2025-11-22 20:51:06] Training data size for threshold 3 : 572 rows
+WARN [2025-11-22 20:51:06] Error in position model for threshold 3 : subscript out of bounds
+INFO [2025-11-22 20:51:06] Created fallback model for threshold 3 using variables: Prev_Points_Weighted, Avg_Elo_Pct
+INFO [2025-11-22 20:51:06] Creating model for top 5 positions
+INFO [2025-11-22 20:51:06] Position model for threshold 5 - Initial formula: position_achieved ~ Avg_Normal_Pelo_Pct + Avg_Large_Pelo_Pct + Avg_Flying_Pelo_Pct + Avg_Pelo_Pct
+INFO [2025-11-22 20:51:06] Training data size for threshold 5 : 572 rows
+WARN [2025-11-22 20:51:06] Error in position model for threshold 5 : subscript out of bounds
+INFO [2025-11-22 20:51:06] Created fallback model for threshold 5 using variables: Prev_Points_Weighted, Avg_Elo_Pct
+INFO [2025-11-22 20:51:06] Creating model for top 10 positions
+INFO [2025-11-22 20:51:06] Position model for threshold 10 - Initial formula: position_achieved ~ Avg_Normal_Pelo_Pct + Avg_Large_Pelo_Pct + Avg_Flying_Pelo_Pct + Avg_Pelo_Pct
+INFO [2025-11-22 20:51:06] Training data size for threshold 10 : 572 rows
+WARN [2025-11-22 20:51:06] Error in position model for threshold 10 : subscript out of bounds
+INFO [2025-11-22 20:51:06] Created fallback model for threshold 10 using variables: Prev_Points_Weighted, Avg_Elo_Pct
+INFO [2025-11-22 20:51:06] Preparing startlist data for Avg_Elo_Pct
+INFO [2025-11-22 20:51:06] Race probability columns found: Race1_Prob
+WARN [2025-11-22 20:51:07] No valid max value for Avg_Small_Pelo using default
+WARN [2025-11-22 20:51:07] No valid max value for Avg_Medium_Pelo using default
+WARN [2025-11-22 20:51:07] No valid max value for Avg_Normal_Pelo using default
+WARN [2025-11-22 20:51:07] No valid max value for Avg_Large_Pelo using default
+WARN [2025-11-22 20:51:07] No valid max value for Avg_Flying_Pelo using default
+WARN [2025-11-22 20:51:07] No valid max value for Avg_Pelo using default
+INFO [2025-11-22 20:51:07] Race probability column Race1_Prob summary:
+INFO [2025-11-22 20:51:07]   Mean: 1
+INFO [2025-11-22 20:51:07]   Sum: 15
+INFO [2025-11-22 20:51:07]   Max: 1
+INFO [2025-11-22 20:51:07] Final columns in result_df: Nation, Avg_Small_Elo, Avg_Medium_Elo, Avg_Normal_Elo, Avg_Large_Elo, Avg_Flying_Elo, Avg_Elo, Race1_Prob, Prev_Points_Weighted, Avg_Small_Pelo_Pct, Avg_Medium_Pelo_Pct, Avg_Normal_Pelo_Pct, Avg_Large_Pelo_Pct, Avg_Flying_Pelo_Pct, Avg_Pelo_Pct
+WARN [2025-11-22 20:51:07] No model found for threshold 1
+WARN [2025-11-22 20:51:07] No model found for threshold 3
+WARN [2025-11-22 20:51:07] No model found for threshold 5
+WARN [2025-11-22 20:51:07] No model found for threshold 10
+INFO [2025-11-22 20:51:07] Position probability sums BEFORE normalization:
+INFO [2025-11-22 20:51:07]   prob_top1: 0.00% (target: 100%)
+INFO [2025-11-22 20:51:07]   prob_top3: 0.00% (target: 300%)
+INFO [2025-11-22 20:51:07]   prob_top5: 0.00% (target: 500%)
+INFO [2025-11-22 20:51:07]   prob_top10: 0.00% (target: 1000%)
+INFO [2025-11-22 20:51:07]   prob_top1 after race prob adjustment: 0.00% (scaling by race participation)
+WARN [2025-11-22 20:51:07] Zero sum for prob_top1 - distributing evenly
+INFO [2025-11-22 20:51:07]   prob_top3 after race prob adjustment: 0.00% (scaling by race participation)
+WARN [2025-11-22 20:51:07] Zero sum for prob_top3 - distributing evenly
+INFO [2025-11-22 20:51:07]   prob_top5 after race prob adjustment: 0.00% (scaling by race participation)
+WARN [2025-11-22 20:51:07] Zero sum for prob_top5 - distributing evenly
+INFO [2025-11-22 20:51:07]   prob_top10 after race prob adjustment: 0.00% (scaling by race participation)
+WARN [2025-11-22 20:51:07] Zero sum for prob_top10 - distributing evenly
+INFO [2025-11-22 20:51:07] Position probability sums AFTER normalization:
+INFO [2025-11-22 20:51:07]   prob_top1: 100.00% (target: 100%)
+INFO [2025-11-22 20:51:07]   prob_top3: 300.00% (target: 300%)
+INFO [2025-11-22 20:51:07]   prob_top5: 500.00% (target: 500%)
+INFO [2025-11-22 20:51:07]   prob_top10: 1000.00% (target: 1000%)
+INFO [2025-11-22 20:51:07] Race 1 position probability sums after normalization:
+INFO [2025-11-22 20:51:07]   prob_top1: 100.00% (should be 100%)
+INFO [2025-11-22 20:51:07]   prob_top3: 300.00% (should be 300%)
+INFO [2025-11-22 20:51:07]   prob_top5: 500.00% (should be 500%)
+INFO [2025-11-22 20:51:07]   prob_top10: 1000.00% (should be 1000%)
+INFO [2025-11-22 20:51:07] Race 1 probability check:
