@@ -885,7 +885,7 @@ def main():
     
     # Define year range - can be adjusted as needed
     start_year = 1924  # First World Cup season
-    end_year = 2025    # Current season
+    end_year = 2026    # Current season
     
     # Process men's data
     logging.info("Processing men's historical data")
