@@ -4,11 +4,11 @@ birkie2/
 birkie2022/
 
 
-*.xlsx
+#*.xlsx
 *.Rdata
 *.pkl
-*.xlsx
-*.xls
+#*.xlsx
+#*.xls
 *.pkl
 *.pickle
 *.db
@@ -16,7 +16,7 @@ birkie2022/
 *.sqlite3
 
 # Large directories
-excel365/
+#excel365/
 archive/
 logs/
 
