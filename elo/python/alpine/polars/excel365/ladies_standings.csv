@@ -1,48 +1,56 @@
 Skier,ID,Nation,Ranking,Points,Wins
-Mikaela Shiffrin,72,USA,1,150,1
-Paula Moltzan,294,USA,2,130,0
-Lara Colturi,5268,Albania,3,116,0
-Julia Scheib,2970,Austria,4,100,1
-Lena Dürr,28,Germany,5,68,0
-Zrinka Ljutic,4175,Croatia,6,66,0
-Emma Aicher,4194,Germany,7,63,0
-Lara Gut-Behrami,10,Switzerland,8,60,0
-Sara Hector,133,Sweden,9,53,0
-Thea Louise Stjernesund,3019,Norway,10,45,0
-Neja Dvornik,3890,Slovenia,11,41,0
-Nina O'Brien,1346,USA,12,40,0
-Wendy Holdener,78,Switzerland,13,33,0
-Camille Rast,3229,Switzerland,14,32,0
-Alice Robinson,3891,New Zealand,14,32,0
-Katharina Liensberger,2921,Austria,16,30,0
-Marion Chevrier,4203,France,17,29,0
-Valerie Grenier,460,Canada,18,24,0
-Anna Swenn-Larsson,76,Sweden,18,24,0
-Katie Hensien,3887,USA,20,22,0
-AJ Hurt,3886,USA,21,20,0
-Caitlin McFarlane,4104,France,21,20,0
-Bianca Bakke Westhoff,4160,Norway,23,18,0
-Katharina Huber,1324,Austria,24,15,0
-Katharina Truppe,1345,Austria,24,15,0
-Kajsa Vickhoff Lie,2963,Norway,24,15,0
-Maryna Gasienica Daniel,289,Poland,27,14,0
-Asja Zenere,1325,Italy,27,14,0
-Cornelia Öhlund,5016,Sweden,29,13,0
-Hanna Aronsson Elfman,4063,Sweden,30,12,0
-Elisabeth Bocock,4761,USA,30,12,0
-Ana Bucik Jogan,180,Slovenia,32,11,0
-Brett Richardson,4212,Canada,32,11,0
-Dzenifera Germane,4080,Latvia,34,10,0
-Mina Fürst Holtmann,480,Norway,34,10,0
-Melanie Meillard,1322,Switzerland,36,9,0
-Erika Pykäläinen,3894,Finland,36,9,0
-Stephanie Brunner,234,Austria,38,8,0
-Lisa Hörhager,4176,Austria,38,8,0
-Nina Astner,3959,Austria,40,7,0
-Katharina Gallhuber,2829,Austria,40,7,0
-Clara Direz,252,France,42,6,0
-Zita Toth,3970,Hungary,42,6,0
-Asa Ando,427,Japan,44,5,0
-Emilia Mondinelli,4987,Italy,45,4,0
-Rosa Pohjolainen,4060,Finland,46,3,0
-Vanessa Kasper,3023,Switzerland,47,2,0
+Mikaela Shiffrin,72,USA,1,250,2
+Lara Colturi,5268,Albania,2,196,0
+Paula Moltzan,294,USA,3,175,0
+Lena Dürr,28,Germany,4,104,0
+Julia Scheib,2970,Austria,5,100,1
+Emma Aicher,4194,Germany,6,92,0
+Camille Rast,3229,Switzerland,6,92,0
+Sara Hector,133,Sweden,8,85,0
+Wendy Holdener,78,Switzerland,9,83,0
+Zrinka Ljutic,4175,Croatia,10,66,0
+Lara Gut-Behrami,10,Switzerland,11,60,0
+Katharina Truppe,1345,Austria,12,55,0
+Anna Swenn-Larsson,76,Sweden,13,50,0
+Marion Chevrier,4203,France,14,45,0
+Thea Louise Stjernesund,3019,Norway,14,45,0
+Neja Dvornik,3890,Slovenia,16,41,0
+Nina O'Brien,1346,USA,17,40,0
+Katharina Huber,1324,Austria,18,37,0
+Alice Robinson,3891,New Zealand,19,32,0
+Katharina Liensberger,2921,Austria,20,30,0
+Dzenifera Germane,4080,Latvia,21,28,0
+Katharina Gallhuber,2829,Austria,22,27,0
+Valerie Grenier,460,Canada,23,24,0
+Laurence St-Germain,379,Canada,23,24,0
+Hanna Aronsson Elfman,4063,Sweden,25,23,0
+Katie Hensien,3887,USA,26,22,0
+Asa Ando,427,Japan,27,20,0
+AJ Hurt,3886,USA,27,20,0
+Lisa Hörhager,4176,Austria,27,20,0
+Caitlin McFarlane,4104,France,27,20,0
+Bianca Bakke Westhoff,4160,Norway,31,18,0
+Mina Fürst Holtmann,480,Norway,32,17,0
+Kajsa Vickhoff Lie,2963,Norway,33,15,0
+Maryna Gasienica Daniel,289,Poland,34,14,0
+Franziska Gritsch,3694,Austria,34,14,0
+Asja Zenere,1325,Italy,34,14,0
+Lara Della Mea,3580,Italy,37,13,0
+Cornelia Öhlund,5016,Sweden,37,13,0
+Elisabeth Bocock,4761,USA,39,12,0
+Ana Bucik Jogan,180,Slovenia,40,11,0
+Brett Richardson,4212,Canada,40,11,0
+Anuk Brändli,5277,Switzerland,42,10,0
+Melanie Meillard,1322,Switzerland,43,9,0
+Leona Popovic,1193,Croatia,43,9,0
+Erika Pykäläinen,3894,Finland,43,9,0
+Stephanie Brunner,234,Austria,46,8,0
+Marie Lamure,3993,France,46,8,0
+Nina Astner,3959,Austria,48,7,0
+Eliane Christen,4471,Switzerland,49,6,0
+Clara Direz,252,France,49,6,0
+Zita Toth,3970,Hungary,49,6,0
+Natalie Falch,4280,Austria,52,5,0
+Emilia Mondinelli,4987,Italy,53,4,0
+Rosa Pohjolainen,4060,Finland,54,3,0
+Vanessa Kasper,3023,Switzerland,55,2,0

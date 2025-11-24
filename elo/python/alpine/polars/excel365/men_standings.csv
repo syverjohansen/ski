@@ -1,52 +1,57 @@
 Skier,ID,Nation,Ranking,Points,Wins
-Marco Odermatt,3040,Switzerland,1,100,1
-Lucas Pinheiro Braathen,4748,Brazil,1,100,1
-Marco Schwarz,2561,Austria,3,92,0
-Clement Noel,2758,France,4,80,0
-Timon Haugan,3049,Norway,5,67,0
-Eduard Hallberg,6820,Finland,6,60,0
-Atle Lie McGrath,4711,Norway,6,60,0
-Henrik Kristoffersen,2391,Norway,8,56,0
-Stefan Brennsteiner,2436,Austria,9,50,0
-Laurie Taylor,4143,Great Britain,9,50,0
-Thibaut Favrot,2493,France,11,45,0
-Raphael Haaser,4221,Austria,12,40,0
-Paco Rassat,5371,France,12,40,0
-Loic Meillard,2565,Switzerland,14,36,0
-Dave Ryding,2375,Great Britain,14,36,0
-Steven Amiez,5409,France,16,32,0
-Alex Vinatzer,4040,Italy,16,32,0
-Zan Kranjec,1942,Slovenia,18,29,0
-Michael Matt,2481,Austria,18,29,0
-Filip Zubcic,249,Croatia,18,29,0
-Fabio Gstrein,3066,Austria,21,26,0
-Flavio Vitale,7093,France,21,26,0
-Manuel Feller,2396,Austria,23,24,0
-Anton Grammel,3004,Germany,23,24,0
-Tobias Kastlunger,5321,Italy,25,22,0
-Joan Verdu Sanchez,2551,Andorra,25,22,0
-Eirik Hystad Solberg,6716,Norway,27,20,0
-Sam Maes,3002,Belgium,28,17,0
-Linus Strasser,1932,Germany,29,16,0
-Samuel Kolega,3029,Croatia,30,15,0
-Thomas Tumler,2409,Switzerland,30,15,0
-Fabian Gratz,4358,Germany,32,14,0
-Alexis Pinturault,232,France,33,13,0
-Jonas Stockinger,3030,Germany,34,12,0
-Victor Muffat-Jeandet,2024,France,35,11,0
-Tanguy Nef,3065,Switzerland,36,10,0
-River Radamus,2986,USA,36,10,0
-Luca De Aliprandini,1799,Italy,38,9,0
-Daniel Yule,2404,Switzerland,38,9,0
-Tormis Laine,4056,Estonia,40,8,0
-Albert Popov,2597,Bulgaria,40,8,0
-Giovanni Borsotti,114,Italy,42,7,0
-Johannes Strolz,2401,Austria,42,7,0
-Alban Elezi Cannaferina,5693,France,44,6,0
-Cooper Puckett,5567,USA,45,5,0
-Billy Major,2607,Great Britain,46,4,0
-Alexander Schmid,2410,Germany,46,4,0
-Yohei Koyama,2447,Japan,48,3,0
-Andreas Zampa,1973,Slovakia,48,3,0
-Vincent Kriechmayr,1912,Austria,50,2,0
-Luca Aerni,2392,Switzerland,51,1,0
+Paco Rassat,5371,France,1,140,1
+Lucas Pinheiro Braathen,4748,Brazil,2,126,1
+Atle Lie McGrath,4711,Norway,3,120,0
+Timon Haugan,3049,Norway,4,117,0
+Clement Noel,2758,France,5,102,0
+Marco Schwarz,2561,Austria,5,102,0
+Marco Odermatt,3040,Switzerland,7,100,1
+Armand Marchant,2603,Belgium,8,80,0
+Henrik Kristoffersen,2391,Norway,9,78,0
+Eduard Hallberg,6820,Finland,10,60,0
+Tanguy Nef,3065,Switzerland,11,55,0
+Stefan Brennsteiner,2436,Austria,12,50,0
+Laurie Taylor,4143,Great Britain,12,50,0
+Steven Amiez,5409,France,14,48,0
+Linus Strasser,1932,Germany,14,48,0
+Victor Muffat-Jeandet,2024,France,16,47,0
+Thibaut Favrot,2493,France,17,45,0
+Alex Vinatzer,4040,Italy,18,44,0
+Dave Ryding,2375,Great Britain,19,42,0
+Fabio Gstrein,3066,Austria,20,41,0
+Raphael Haaser,4221,Austria,21,40,0
+Dominik Raschner,2639,Austria,21,40,0
+Albert Popov,2597,Bulgaria,23,37,0
+Loic Meillard,2565,Switzerland,24,36,0
+Daniel Yule,2404,Switzerland,25,33,0
+Zan Kranjec,1942,Slovenia,26,29,0
+Michael Matt,2481,Austria,26,29,0
+Filip Zubcic,249,Croatia,26,29,0
+Manuel Feller,2396,Austria,29,28,0
+Sam Maes,3002,Belgium,29,28,0
+Eirik Hystad Solberg,6716,Norway,29,28,0
+Flavio Vitale,7093,France,32,26,0
+Anton Grammel,3004,Germany,33,24,0
+Tobias Kastlunger,5321,Italy,34,22,0
+Simon Rueland,3725,Austria,34,22,0
+Joan Verdu Sanchez,2551,Andorra,34,22,0
+Billy Major,2607,Great Britain,37,18,0
+Samuel Kolega,3029,Croatia,38,15,0
+Thomas Tumler,2409,Switzerland,38,15,0
+Fabian Gratz,4358,Germany,40,14,0
+Johannes Strolz,2401,Austria,40,14,0
+Alexis Pinturault,232,France,42,13,0
+Oscar Andreas Sandvik,6803,Norway,42,13,0
+Yohei Koyama,2447,Japan,44,12,0
+Jonas Stockinger,3030,Germany,44,12,0
+River Radamus,2986,USA,46,10,0
+Luca De Aliprandini,1799,Italy,47,9,0
+Tormis Laine,4056,Estonia,48,8,0
+Giovanni Borsotti,114,Italy,49,7,0
+Alban Elezi Cannaferina,5693,France,50,6,0
+Cooper Puckett,5567,USA,51,5,0
+Tommaso Sala,2588,Italy,51,5,0
+Alexander Schmid,2410,Germany,53,4,0
+Andreas Zampa,1973,Slovakia,54,3,0
+Vincent Kriechmayr,1912,Austria,55,2,0
+Luca Aerni,2392,Switzerland,56,1,0
