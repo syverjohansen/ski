@@ -876,9 +876,10 @@ def main():
     check_environment()
     setup_cache_structure()
     
-    # Process biathlon data for all years (1958-2024)
+    # Process biathlon data for all years (1958-current)
     logging.info("Processing biathlon historical data")
-    tables, results, sex_maps = process_year_range(1958, 2025)
+    current_year = datetime.now().year
+    tables, results, sex_maps = process_year_range(1958, current_year)
     men_df, ladies_df = construct_historical_df(tables, results, sex_maps)
     
     # Save the data

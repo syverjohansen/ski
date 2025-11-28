@@ -50,14 +50,14 @@ def get_fantasy_price(name: str, fantasy_prices: Dict[str, int]) -> int:
     
     # Try fuzzy matching with original name
     best_match = fuzzy_match_name(name, list(fantasy_prices.keys()))
-    if best_match:
+    if best_match and best_match in fantasy_prices:
         print(f"Found fuzzy match for original name: {name} -> {best_match} -> {fantasy_prices[best_match]}")
         return fantasy_prices[best_match]
     
     # Try fuzzy matching with all FIS formats
     for fis_format in fis_formats:
         best_match = fuzzy_match_name(fis_format, list(fantasy_prices.keys()))
-        if best_match:
+        if best_match and best_match in fantasy_prices:
             print(f"Found fuzzy match for FIS format: {fis_format} -> {best_match} -> {fantasy_prices[best_match]}")
             return fantasy_prices[best_match]
     
@@ -68,7 +68,10 @@ def get_fantasy_price(name: str, fantasy_prices: Dict[str, int]) -> int:
 def get_fis_startlist(url: str) -> List[Tuple[str, str]]:
     """Gets skier names and nations from FIS website"""
     try:
-        response = requests.get(url)
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+        }
+        response = requests.get(url, headers=headers)
         response.raise_for_status()
         
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -107,8 +110,8 @@ def get_fis_startlist(url: str) -> List[Tuple[str, str]]:
                     athlete_name_div = row.select_one('.athlete-name')
                     
                     if athlete_name_div:
-                        # Found the athlete name div
-                        name = athlete_name_div.get_text(strip=True)
+                        # Found the athlete name div - clean up extra whitespace
+                        name = ' '.join(athlete_name_div.get_text().split())
                     else:
                         # Try to find any div that might contain the name
                         # Look for common patterns in the HTML structure
@@ -339,7 +342,9 @@ def fuzzy_match_name(name: str, name_list: List[str], threshold: int = 85) -> st
     """Finds best matching name using normalized comparison"""
     # First check manual mappings
     if name in MANUAL_NAME_MAPPINGS:
-        return MANUAL_NAME_MAPPINGS[name]
+        mapped_name = MANUAL_NAME_MAPPINGS[name]
+        if mapped_name in name_list:
+            return mapped_name
     
     best_score = 0
     best_match = ''

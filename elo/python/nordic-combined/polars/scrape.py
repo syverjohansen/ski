@@ -925,7 +925,8 @@ def main():
     # Process nordic combined data (adjust year range as needed)
     logging.info("Processing nordic combined historical data")
     start_year = 1924  # Adjust start year as needed
-    end_year = 2025    # Adjust end year as needed
+    current_year = datetime.now().year
+    end_year = current_year    # Adjust end year as needed
     tables, results = process_year_range(start_year, end_year)
     
     # Create main DataFrame

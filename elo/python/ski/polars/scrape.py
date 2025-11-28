@@ -681,13 +681,14 @@ def main():
     setup_cache_structure()
     
     # Process men's data
+    current_year = datetime.now().year
     logging.info("Processing men's historical data")
-    men_tables, men_results = process_year_range(1924, 2025, 'M')
+    men_tables, men_results = process_year_range(1924, current_year, 'M')
     men_df = construct_historical_df(men_tables, men_results, 'M')
     
     # Process ladies' data
     logging.info("Processing ladies' historical data")
-    ladies_tables, ladies_results = process_year_range(1924, 2025, 'L')
+    ladies_tables, ladies_results = process_year_range(1924, current_year, 'L')
     ladies_df = construct_historical_df(ladies_tables, ladies_results, 'L')
     
     # Save the data
