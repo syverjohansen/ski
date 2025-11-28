@@ -465,3 +465,138 @@ INFO [2025-11-28 00:34:47] Creating model for top 30 positions
 INFO [2025-11-28 00:34:52] Brier score for threshold 30 : 0.1324
 INFO [2025-11-28 00:35:00] Preparing startlist data for Distance_C_Pelo_Pct
 >>>>>>> eb4c82573af8792cde5906fe66b6416b42ae3b67
+INFO [2025-11-28 04:39:08] Starting enhanced race day predictions process
+INFO [2025-11-28 04:39:08] Reading race data
+INFO [2025-11-28 04:39:08] Current date: 2025-11-28
+INFO [2025-11-28 04:39:08] Found 2 races scheduled for today
+INFO [2025-11-28 04:39:08] Found 1 men's races and 1 ladies races for today
+INFO [2025-11-28 04:39:08] Reading startlists
+INFO [2025-11-28 04:39:08] Loaded 388 men and 262 ladies from startlists
+INFO [2025-11-28 04:39:08] Starting enhanced race day predictions workflow
+INFO [2025-11-28 04:39:08] Running enhanced race day predictions workflow
+INFO [2025-11-28 04:39:08] Processing men's race day predictions
+INFO [2025-11-28 04:39:08] Processing men data
+INFO [2025-11-28 04:39:08] Using WORLD CUP points system for today's races
+INFO [2025-11-28 04:39:10] Processing men race 1: 10 C
+INFO [2025-11-28 04:39:10] Using World Cup points for this race
+INFO [2025-11-28 04:39:12] Creating model for top 1 positions
+INFO [2025-11-28 04:39:13] Brier score for threshold 1 : 0.0112
+INFO [2025-11-28 04:39:14] Creating model for top 3 positions
+INFO [2025-11-28 04:39:17] Brier score for threshold 3 : 0.0291
+INFO [2025-11-28 04:39:18] Creating model for top 5 positions
+INFO [2025-11-28 04:39:21] Brier score for threshold 5 : 0.044
+INFO [2025-11-28 04:39:22] Creating model for top 10 positions
+INFO [2025-11-28 04:39:25] Brier score for threshold 10 : 0.0721
+INFO [2025-11-28 04:39:26] Creating model for top 30 positions
+INFO [2025-11-28 04:39:29] Brier score for threshold 30 : 0.1324
+INFO [2025-11-28 04:39:31] Preparing startlist data for Distance_C_Pelo_Pct
+INFO [2025-11-28 04:39:31] Creating missing Pelo Pct column: Distance_Pelo_Pct
+INFO [2025-11-28 04:39:31] Creating missing Pelo Pct column: Distance_C_Pelo_Pct
+INFO [2025-11-28 04:39:31] Creating missing Pelo Pct column: Distance_F_Pelo_Pct
+INFO [2025-11-28 04:39:31] Creating missing Pelo Pct column: Pelo_Pct
+INFO [2025-11-28 04:39:31] Creating missing Pelo Pct column: Sprint_Pelo_Pct
+INFO [2025-11-28 04:39:31] Creating missing Pelo Pct column: Sprint_C_Pelo_Pct
+INFO [2025-11-28 04:39:31] Creating missing Pelo Pct column: Sprint_F_Pelo_Pct
+INFO [2025-11-28 04:39:31] Creating missing Pelo Pct column: Freestyle_Pelo_Pct
+INFO [2025-11-28 04:39:31] Creating missing Pelo Pct column: Classic_Pelo_Pct
+INFO [2025-11-28 04:39:31] Calculated percentage for Distance_Elo
+INFO [2025-11-28 04:39:31] Calculated percentage for Distance_C_Elo
+INFO [2025-11-28 04:39:31] Calculated percentage for Distance_F_Elo
+INFO [2025-11-28 04:39:31] Calculated percentage for Elo
+INFO [2025-11-28 04:39:31] Calculated percentage for Sprint_Elo
+INFO [2025-11-28 04:39:31] Calculated percentage for Sprint_C_Elo
+INFO [2025-11-28 04:39:31] Calculated percentage for Sprint_F_Elo
+INFO [2025-11-28 04:39:31] Calculated percentage for Freestyle_Elo
+INFO [2025-11-28 04:39:31] Calculated percentage for Classic_Elo
+INFO [2025-11-28 04:39:31] Made predictions with adjustments for position threshold 1
+INFO [2025-11-28 04:39:31] Made predictions with adjustments for position threshold 3
+INFO [2025-11-28 04:39:31] Made predictions with adjustments for position threshold 5
+INFO [2025-11-28 04:39:31] Made predictions with adjustments for position threshold 10
+INFO [2025-11-28 04:39:31] Made predictions with adjustments for position threshold 30
+INFO [2025-11-28 04:39:31] Position probability sums BEFORE normalization:
+INFO [2025-11-28 04:39:31]   prob_top1: 100.50% (target: 100%)
+INFO [2025-11-28 04:39:31]   prob_top3: 337.00% (target: 300%)
+INFO [2025-11-28 04:39:31]   prob_top5: 608.90% (target: 500%)
+INFO [2025-11-28 04:39:31]   prob_top10: 1230.60% (target: 1000%)
+INFO [2025-11-28 04:39:31]   prob_top30: 5057.80% (target: 3000%)
+INFO [2025-11-28 04:39:31]   prob_top1 normalization: applied scaling factor of 0.9950
+INFO [2025-11-28 04:39:31]   prob_top3 normalization: applied scaling factor of 0.8902
+INFO [2025-11-28 04:39:31]   prob_top5 normalization: applied scaling factor of 0.8212
+INFO [2025-11-28 04:39:31]   prob_top10 normalization: applied scaling factor of 0.8126
+INFO [2025-11-28 04:39:31]   prob_top30 normalization: applied scaling factor of 0.5931
+INFO [2025-11-28 04:39:31] Position probability sums AFTER normalization:
+INFO [2025-11-28 04:39:31]   prob_top1: 100.00% (target: 100%)
+INFO [2025-11-28 04:39:31]   prob_top3: 300.00% (target: 300%)
+INFO [2025-11-28 04:39:31]   prob_top5: 500.00% (target: 500%)
+INFO [2025-11-28 04:39:31]   prob_top10: 1000.00% (target: 1000%)
+INFO [2025-11-28 04:39:31]   prob_top30: 3000.00% (target: 3000%)
+INFO [2025-11-28 04:39:31] Combining race predictions
+INFO [2025-11-28 04:39:31] Calculating totals
+INFO [2025-11-28 04:39:31] Final predictions calculated for men
+INFO [2025-11-28 04:39:31] Formatted position probabilities saved to /Users/syverjohansen/blog/daehl-e/content/post/cross-country/drafts/race-picks/20251128/men_position_probabilities.xlsx
+INFO [2025-11-28 04:39:31] Saved men race day predictions to /Users/syverjohansen/blog/daehl-e/content/post/cross-country/drafts/race-picks/20251128/men.xlsx
+INFO [2025-11-28 04:39:31] Processing ladies' race day predictions
+INFO [2025-11-28 04:39:31] Processing ladies data
+INFO [2025-11-28 04:39:31] Using WORLD CUP points system for today's races
+INFO [2025-11-28 04:39:33] Processing ladies race 1: 10 C
+INFO [2025-11-28 04:39:33] Using World Cup points for this race
+INFO [2025-11-28 04:39:34] Creating model for top 1 positions
+INFO [2025-11-28 04:39:37] Brier score for threshold 1 : 0.0122
+INFO [2025-11-28 04:39:37] Creating model for top 3 positions
+INFO [2025-11-28 04:39:39] Brier score for threshold 3 : 0.0309
+INFO [2025-11-28 04:39:40] Creating model for top 5 positions
+INFO [2025-11-28 04:39:41] Brier score for threshold 5 : 0.0457
+INFO [2025-11-28 04:39:42] Creating model for top 10 positions
+INFO [2025-11-28 04:39:44] Brier score for threshold 10 : 0.0709
+INFO [2025-11-28 04:39:45] Creating model for top 30 positions
+INFO [2025-11-28 04:39:49] Brier score for threshold 30 : 0.1254
+INFO [2025-11-28 04:39:50] Preparing startlist data for Distance_C_Pelo_Pct
+INFO [2025-11-28 04:39:50] Creating missing Pelo Pct column: Distance_Pelo_Pct
+INFO [2025-11-28 04:39:50] Creating missing Pelo Pct column: Distance_C_Pelo_Pct
+INFO [2025-11-28 04:39:50] Creating missing Pelo Pct column: Distance_F_Pelo_Pct
+INFO [2025-11-28 04:39:50] Creating missing Pelo Pct column: Pelo_Pct
+INFO [2025-11-28 04:39:50] Creating missing Pelo Pct column: Sprint_Pelo_Pct
+INFO [2025-11-28 04:39:50] Creating missing Pelo Pct column: Sprint_C_Pelo_Pct
+INFO [2025-11-28 04:39:50] Creating missing Pelo Pct column: Sprint_F_Pelo_Pct
+INFO [2025-11-28 04:39:50] Creating missing Pelo Pct column: Freestyle_Pelo_Pct
+INFO [2025-11-28 04:39:50] Creating missing Pelo Pct column: Classic_Pelo_Pct
+INFO [2025-11-28 04:39:50] Calculated percentage for Distance_Elo
+INFO [2025-11-28 04:39:50] Calculated percentage for Distance_C_Elo
+INFO [2025-11-28 04:39:50] Calculated percentage for Distance_F_Elo
+INFO [2025-11-28 04:39:50] Calculated percentage for Elo
+INFO [2025-11-28 04:39:50] Calculated percentage for Sprint_Elo
+INFO [2025-11-28 04:39:50] Calculated percentage for Sprint_C_Elo
+INFO [2025-11-28 04:39:50] Calculated percentage for Sprint_F_Elo
+INFO [2025-11-28 04:39:50] Calculated percentage for Freestyle_Elo
+INFO [2025-11-28 04:39:50] Calculated percentage for Classic_Elo
+INFO [2025-11-28 04:39:50] Made predictions with adjustments for position threshold 1
+INFO [2025-11-28 04:39:50] Made predictions with adjustments for position threshold 3
+INFO [2025-11-28 04:39:50] Made predictions with adjustments for position threshold 5
+INFO [2025-11-28 04:39:50] Made predictions with adjustments for position threshold 10
+INFO [2025-11-28 04:39:50] Made predictions with adjustments for position threshold 30
+INFO [2025-11-28 04:39:50] Position probability sums BEFORE normalization:
+INFO [2025-11-28 04:39:50]   prob_top1: 71.50% (target: 100%)
+INFO [2025-11-28 04:39:50]   prob_top3: 328.70% (target: 300%)
+INFO [2025-11-28 04:39:50]   prob_top5: 612.40% (target: 500%)
+INFO [2025-11-28 04:39:50]   prob_top10: 1341.00% (target: 1000%)
+INFO [2025-11-28 04:39:50]   prob_top30: 5801.70% (target: 3000%)
+INFO [2025-11-28 04:39:50]   prob_top1 normalization: applied scaling factor of 1.3986
+INFO [2025-11-28 04:39:50]   prob_top3 normalization: applied scaling factor of 0.9127
+INFO [2025-11-28 04:39:50]   prob_top5 normalization: applied scaling factor of 0.8165
+INFO [2025-11-28 04:39:50]   prob_top10 normalization: applied scaling factor of 0.7457
+INFO [2025-11-28 04:39:50]   prob_top30 normalization: applied scaling factor of 0.5171
+INFO [2025-11-28 04:39:50] Position probability sums AFTER normalization:
+INFO [2025-11-28 04:39:50]   prob_top1: 100.00% (target: 100%)
+INFO [2025-11-28 04:39:50]   prob_top3: 300.00% (target: 300%)
+INFO [2025-11-28 04:39:50]   prob_top5: 500.00% (target: 500%)
+INFO [2025-11-28 04:39:50]   prob_top10: 1000.00% (target: 1000%)
+INFO [2025-11-28 04:39:50]   prob_top30: 3000.00% (target: 3000%)
+INFO [2025-11-28 04:39:50] Combining race predictions
+INFO [2025-11-28 04:39:50] Calculating totals
+INFO [2025-11-28 04:39:50] Final predictions calculated for ladies
+INFO [2025-11-28 04:39:50] Formatted position probabilities saved to /Users/syverjohansen/blog/daehl-e/content/post/cross-country/drafts/race-picks/20251128/ladies_position_probabilities.xlsx
+INFO [2025-11-28 04:39:50] Saved ladies race day predictions to /Users/syverjohansen/blog/daehl-e/content/post/cross-country/drafts/race-picks/20251128/ladies.xlsx
+INFO [2025-11-28 04:39:50] Creating top contenders summary
+INFO [2025-11-28 04:39:50] Top contenders summary saved to /Users/syverjohansen/blog/daehl-e/content/post/cross-country/drafts/race-picks/20251128/top_contenders.xlsx
+INFO [2025-11-28 04:39:50] Enhanced race day prediction workflow complete
+INFO [2025-11-28 04:39:51] Enhanced race day predictions complete
