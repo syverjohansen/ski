@@ -3688,3 +3688,332 @@ INFO [2025-11-28 04:40:48] Formatted position probabilities saved to ~/blog/daeh
 INFO [2025-11-28 04:40:48] Saved predictions to ~/blog/daehl-e/content/post/skijump/drafts/race-picks/20251128/ladies.xlsx
 INFO [2025-11-28 04:40:48] Ski Jumping top contenders summary saved to ~/blog/daehl-e/content/post/skijump/drafts/race-picks/20251128/skijump_top_contenders.xlsx
 INFO [2025-11-28 04:40:48] Ski Jumping prediction workflow complete
+INFO [2025-11-28 04:55:21] Starting Ski Jumping race predictions process
+INFO [2025-11-28 04:55:21] Today's date: 11/28/2025
+INFO [2025-11-28 04:55:21] Found 2 races for today
+INFO [2025-11-28 04:55:21] Found 1 men's races, 1 ladies' races
+INFO [2025-11-28 04:55:21] Found 0 men's team races, 0 ladies' team races
+INFO [2025-11-28 04:55:21] Found 0 mixed team races
+INFO [2025-11-28 04:55:22] Running integrated Ski Jumping predictions workflow
+INFO [2025-11-28 04:55:22] Calculating race probabilities
+INFO [2025-11-28 04:55:22] Calculating race participation probabilities
+INFO [2025-11-28 04:55:22] Reading men's chronological data and startlist
+INFO [2025-11-28 04:55:25] Reading ladies' chronological data and startlist
+INFO [2025-11-28 04:55:25] Processing men's race probabilities
+INFO [2025-11-28 04:55:25] FIS startlist exists (at least one In_Startlist=True), keeping existing Race1_Prob values
+INFO [2025-11-28 04:55:25] Using existing Race1_Prob from FIS startlist, skipping calculation
+INFO [2025-11-28 04:55:25] Processing ladies' race probabilities
+INFO [2025-11-28 04:55:25] FIS startlist exists (at least one In_Startlist=True), keeping existing Race1_Prob values
+INFO [2025-11-28 04:55:25] Using existing Race1_Prob from FIS startlist, skipping calculation
+INFO [2025-11-28 04:55:25] Saving race probability results
+INFO [2025-11-28 04:55:25] Race probability calculation complete
+INFO [2025-11-28 04:55:25] Updating startlist variables with calculated probabilities
+INFO [2025-11-28 04:55:25] Men's startlist has 68 entries
+INFO [2025-11-28 04:55:25] Ladies' startlist has 68 entries
+INFO [2025-11-28 04:55:25] Men's team startlist has 0 entries
+INFO [2025-11-28 04:55:25] Ladies' team startlist has 0 entries
+INFO [2025-11-28 04:55:25] Mixed team startlist has 0 entries
+INFO [2025-11-28 04:55:25] Processing men's predictions
+INFO [2025-11-28 04:55:26] Using provided startlist_override with 68 entries
+INFO [2025-11-28 04:55:26] Using men's races: 1 races found
+INFO [2025-11-28 04:55:26] Selected startlist has 68 entries
+INFO [2025-11-28 04:55:26] Using chronological data from: ~/ski/elo/python/skijump/polars/excel365/men_chrono_elevation.csv
+INFO [2025-11-28 04:55:26] Loading chronological data from ~/ski/elo/python/skijump/polars/excel365/men_chrono_elevation.csv
+INFO [2025-11-28 04:55:32] Preprocessing complete - final dimensions: 15639 x 49
+INFO [2025-11-28 04:55:32] Final columns: Elo, Small_Elo, Medium_Elo, Normal_Elo, Large_Elo, Flying_Elo, Date, City, Country, Sex ...
+INFO [2025-11-28 04:55:32] Chronological data dimensions: 15639 x 49
+INFO [2025-11-28 04:55:32] First few columns: Elo, Small_Elo, Medium_Elo, Normal_Elo, Large_Elo, Flying_Elo, Date, City, Country, Sex
+INFO [2025-11-28 04:55:32] Race probability columns in startlist: Race1_Prob
+INFO [2025-11-28 04:55:32] Processing men race 1: Large
+INFO [2025-11-28 04:55:32] Using World Cup points for this race
+INFO [2025-11-28 04:55:32] Race probability column Race1_Prob exists in startlist
+INFO [2025-11-28 04:55:32]   Mean: 1
+INFO [2025-11-28 04:55:32]   Sum: 68
+INFO [2025-11-28 04:55:32] Race 1 hill size: 142 | Race type: Individual
+INFO [2025-11-28 04:55:32] Initial formula with all variables: Points ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-28 04:55:32] Variables selected by BIC: (Intercept), Prev_Points_Weighted, Pelo_Pct
+INFO [2025-11-28 04:55:32] Number of variables selected: 3
+INFO [2025-11-28 04:55:32] Best BIC value: -3307.9401490798
+INFO [2025-11-28 04:55:32] Final GAM formula: s(Prev_Points_Weighted) + s(Pelo_Pct)
+INFO [2025-11-28 04:55:33] Creating model for top 1 positions
+INFO [2025-11-28 04:55:33] Position model for threshold 1 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-28 04:55:33] Training data size for threshold 1 : 11352 rows
+INFO [2025-11-28 04:55:33] Position model threshold 1 - Variables selected by BIC: (Intercept), Prev_Points_Weighted, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-28 04:55:33] Position model threshold 1 - Number of variables selected: 4
+INFO [2025-11-28 04:55:33] Position model threshold 1 - Best BIC value: -1127.8801
+INFO [2025-11-28 04:55:33] Position model threshold 1 - Final GAM formula: s(Prev_Points_Weighted) + s(Flying_Pelo_Pct) + s(Pelo_Pct)
+INFO [2025-11-28 04:55:37] Position model threshold 1 - GAM model fitted successfully
+INFO [2025-11-28 04:55:38] Position model threshold 1 - Brier score: 0.019
+INFO [2025-11-28 04:55:38] Position model threshold 1 - Mean predicted probability: 0.0227
+INFO [2025-11-28 04:55:38] Position model threshold 1 - Actual success rate: 0.0203
+INFO [2025-11-28 04:55:40] Creating model for top 3 positions
+INFO [2025-11-28 04:55:40] Position model for threshold 3 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-28 04:55:40] Training data size for threshold 3 : 11352 rows
+INFO [2025-11-28 04:55:40] Position model threshold 3 - Variables selected by BIC: (Intercept), Prev_Points_Weighted, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-28 04:55:40] Position model threshold 3 - Number of variables selected: 4
+INFO [2025-11-28 04:55:40] Position model threshold 3 - Best BIC value: -2406.7618
+INFO [2025-11-28 04:55:40] Position model threshold 3 - Final GAM formula: s(Prev_Points_Weighted) + s(Flying_Pelo_Pct) + s(Pelo_Pct)
+INFO [2025-11-28 04:55:43] Position model threshold 3 - GAM model fitted successfully
+INFO [2025-11-28 04:55:44] Position model threshold 3 - Brier score: 0.0469
+INFO [2025-11-28 04:55:44] Position model threshold 3 - Mean predicted probability: 0.0672
+INFO [2025-11-28 04:55:44] Position model threshold 3 - Actual success rate: 0.0603
+INFO [2025-11-28 04:55:45] Creating model for top 5 positions
+INFO [2025-11-28 04:55:45] Position model for threshold 5 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-28 04:55:45] Training data size for threshold 5 : 11352 rows
+INFO [2025-11-28 04:55:45] Position model threshold 5 - Variables selected by BIC: (Intercept), Prev_Points_Weighted
+INFO [2025-11-28 04:55:45] Position model threshold 5 - Number of variables selected: 2
+INFO [2025-11-28 04:55:45] Position model threshold 5 - Best BIC value: -3187.1369
+INFO [2025-11-28 04:55:45] Position model threshold 5 - Final GAM formula: s(Prev_Points_Weighted)
+INFO [2025-11-28 04:55:46] Position model threshold 5 - GAM model fitted successfully
+INFO [2025-11-28 04:55:46] Position model threshold 5 - Brier score: 0.0633
+INFO [2025-11-28 04:55:46] Position model threshold 5 - Mean predicted probability: 0.1009
+INFO [2025-11-28 04:55:46] Position model threshold 5 - Actual success rate: 0.1009
+INFO [2025-11-28 04:55:47] Creating model for top 10 positions
+INFO [2025-11-28 04:55:47] Position model for threshold 10 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-28 04:55:47] Training data size for threshold 10 : 11352 rows
+INFO [2025-11-28 04:55:47] Position model threshold 10 - Variables selected by BIC: (Intercept), Prev_Points_Weighted, Pelo_Pct
+INFO [2025-11-28 04:55:47] Position model threshold 10 - Number of variables selected: 3
+INFO [2025-11-28 04:55:47] Position model threshold 10 - Best BIC value: -3908.5514
+INFO [2025-11-28 04:55:47] Position model threshold 10 - Final GAM formula: s(Prev_Points_Weighted) + s(Pelo_Pct)
+INFO [2025-11-28 04:55:48] Position model threshold 10 - GAM model fitted successfully
+INFO [2025-11-28 04:55:49] Position model threshold 10 - Brier score: 0.1032
+INFO [2025-11-28 04:55:49] Position model threshold 10 - Mean predicted probability: 0.2014
+INFO [2025-11-28 04:55:49] Position model threshold 10 - Actual success rate: 0.2014
+INFO [2025-11-28 04:55:50] Creating model for top 30 positions
+INFO [2025-11-28 04:55:50] Position model for threshold 30 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-28 04:55:50] Training data size for threshold 30 : 11352 rows
+INFO [2025-11-28 04:55:50] Position model threshold 30 - Variables selected by BIC: (Intercept), Prev_Points_Weighted, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-28 04:55:50] Position model threshold 30 - Number of variables selected: 4
+INFO [2025-11-28 04:55:50] Position model threshold 30 - Best BIC value: -2973.3454
+INFO [2025-11-28 04:55:50] Position model threshold 30 - Final GAM formula: s(Prev_Points_Weighted) + s(Flying_Pelo_Pct) + s(Pelo_Pct)
+INFO [2025-11-28 04:55:53] Position model threshold 30 - GAM model fitted successfully
+INFO [2025-11-28 04:55:54] Position model threshold 30 - Brier score: 0.1571
+INFO [2025-11-28 04:55:54] Position model threshold 30 - Mean predicted probability: 0.6392
+INFO [2025-11-28 04:55:54] Position model threshold 30 - Actual success rate: 0.6025
+INFO [2025-11-28 04:56:01] Preparing startlist data for Elo_Pct
+INFO [2025-11-28 04:56:01] Race probability columns found: Race1_Prob
+INFO [2025-11-28 04:56:01] Available elo columns: Skier, Small_Elo, Medium_Elo, Normal_Elo, Large_Elo, Flying_Elo, Elo
+INFO [2025-11-28 04:56:01] Using default value for Small_Elo_Pct (max value issue)
+INFO [2025-11-28 04:56:01] Using default value for Medium_Elo_Pct (max value issue)
+INFO [2025-11-28 04:56:01] Calculating Normal_Elo_Pct from Normal_Elo
+INFO [2025-11-28 04:56:01] Calculating Large_Elo_Pct from Large_Elo
+INFO [2025-11-28 04:56:01] Calculating Flying_Elo_Pct from Flying_Elo
+INFO [2025-11-28 04:56:01] Calculating Elo_Pct from Elo
+WARN [2025-11-28 04:56:01] No valid max value for Small_Pelo using default
+WARN [2025-11-28 04:56:01] No valid max value for Medium_Pelo using default
+INFO [2025-11-28 04:56:01] Converting Normal_Elo to Normal_Pelo_Pct using max Pelo = 1681.25728891558
+INFO [2025-11-28 04:56:01] Converting Large_Elo to Large_Pelo_Pct using max Pelo = 1802.86525362784
+INFO [2025-11-28 04:56:01] Converting Flying_Elo to Flying_Pelo_Pct using max Pelo = 1560.80317575441
+INFO [2025-11-28 04:56:01] Converting Elo to Pelo_Pct using max Pelo = 1826.36477633341
+INFO [2025-11-28 04:56:01] Race probability column Race1_Prob summary:
+INFO [2025-11-28 04:56:01]   Mean: 1
+INFO [2025-11-28 04:56:01]   Sum: 68
+INFO [2025-11-28 04:56:01]   Max: 1
+INFO [2025-11-28 04:56:01] Final columns in result_df: Skier, ID, Nation, Sex, Race1_Prob, Small_Elo, Medium_Elo, Normal_Elo, Large_Elo, Flying_Elo, Elo, Prev_Points_Weighted, Small_Elo_Pct, Medium_Elo_Pct, Normal_Elo_Pct, Large_Elo_Pct, Flying_Elo_Pct, Elo_Pct, Small_Pelo_Pct, Medium_Pelo_Pct, Normal_Pelo_Pct, Large_Pelo_Pct, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-28 04:56:01] Model for threshold 1 requires variables: Prev_Points_Weighted, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-28 04:56:01] Attempting prediction for threshold 1 with 68 rows
+INFO [2025-11-28 04:56:01] Made predictions with adjustments for position threshold 1
+INFO [2025-11-28 04:56:01] Model for threshold 3 requires variables: Prev_Points_Weighted, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-28 04:56:01] Attempting prediction for threshold 3 with 68 rows
+INFO [2025-11-28 04:56:01] Made predictions with adjustments for position threshold 3
+INFO [2025-11-28 04:56:01] Model for threshold 5 requires variables: Prev_Points_Weighted
+INFO [2025-11-28 04:56:01] Attempting prediction for threshold 5 with 68 rows
+INFO [2025-11-28 04:56:01] Made predictions with adjustments for position threshold 5
+INFO [2025-11-28 04:56:01] Model for threshold 10 requires variables: Prev_Points_Weighted, Pelo_Pct
+INFO [2025-11-28 04:56:01] Attempting prediction for threshold 10 with 68 rows
+INFO [2025-11-28 04:56:01] Made predictions with adjustments for position threshold 10
+INFO [2025-11-28 04:56:01] Model for threshold 30 requires variables: Prev_Points_Weighted, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-28 04:56:01] Attempting prediction for threshold 30 with 68 rows
+INFO [2025-11-28 04:56:01] Made predictions with adjustments for position threshold 30
+INFO [2025-11-28 04:56:01] Position probability sums BEFORE normalization:
+INFO [2025-11-28 04:56:01]   prob_top1: 93.80% (target: 100%)
+INFO [2025-11-28 04:56:01]   prob_top3: 288.30% (target: 300%)
+INFO [2025-11-28 04:56:01]   prob_top5: 564.20% (target: 500%)
+INFO [2025-11-28 04:56:01]   prob_top10: 963.20% (target: 1000%)
+INFO [2025-11-28 04:56:01]   prob_top30: 2979.60% (target: 3000%)
+INFO [2025-11-28 04:56:01]   prob_top1 after race prob adjustment: 93.80% (scaling by race participation)
+INFO [2025-11-28 04:56:01]   prob_top1 normalization: applied scaling factor of 1.0661
+INFO [2025-11-28 04:56:01]   prob_top3 after race prob adjustment: 288.30% (scaling by race participation)
+INFO [2025-11-28 04:56:01]   prob_top3 normalization: applied scaling factor of 1.0406
+INFO [2025-11-28 04:56:01]   prob_top5 after race prob adjustment: 564.20% (scaling by race participation)
+INFO [2025-11-28 04:56:01]   prob_top5 normalization: applied scaling factor of 0.8862
+INFO [2025-11-28 04:56:01]   prob_top10 after race prob adjustment: 963.20% (scaling by race participation)
+INFO [2025-11-28 04:56:01]   prob_top10 normalization: applied scaling factor of 1.0382
+INFO [2025-11-28 04:56:01]   prob_top30 after race prob adjustment: 2979.60% (scaling by race participation)
+INFO [2025-11-28 04:56:01]   prob_top30 normalization: applied scaling factor of 1.0068
+INFO [2025-11-28 04:56:01] Position probability sums AFTER normalization:
+INFO [2025-11-28 04:56:01]   prob_top1: 100.00% (target: 100%)
+INFO [2025-11-28 04:56:01]   prob_top3: 300.00% (target: 300%)
+INFO [2025-11-28 04:56:01]   prob_top5: 500.00% (target: 500%)
+INFO [2025-11-28 04:56:01]   prob_top10: 1000.00% (target: 1000%)
+INFO [2025-11-28 04:56:01]   prob_top30: 3000.00% (target: 3000%)
+INFO [2025-11-28 04:56:01] Race 1 position probability sums after normalization:
+INFO [2025-11-28 04:56:01]   prob_top1: 100.00% (should be 100%)
+INFO [2025-11-28 04:56:01]   prob_top3: 300.00% (should be 300%)
+INFO [2025-11-28 04:56:01]   prob_top5: 500.00% (should be 500%)
+INFO [2025-11-28 04:56:01]   prob_top10: 1000.00% (should be 1000%)
+INFO [2025-11-28 04:56:01]   prob_top30: 3000.00% (should be 3000%)
+INFO [2025-11-28 04:56:01] Race 1 probability check:
+INFO [2025-11-28 04:56:02] Combining race predictions
+INFO [2025-11-28 04:56:02] Starting with first race data
+INFO [2025-11-28 04:56:02] Probability column Race1_Probability exists in final predictions
+INFO [2025-11-28 04:56:02]   Mean: 1
+INFO [2025-11-28 04:56:02]   Sum: 68
+INFO [2025-11-28 04:56:02] Calculating totals with probability weighting
+INFO [2025-11-28 04:56:02] Returning final predictions
+INFO [2025-11-28 04:56:02] Final predictions calculated for men
+INFO [2025-11-28 04:56:02] Formatted position probabilities saved to ~/blog/daehl-e/content/post/skijump/drafts/race-picks/20251128/men_position_probabilities.xlsx
+INFO [2025-11-28 04:56:02] Saved predictions to ~/blog/daehl-e/content/post/skijump/drafts/race-picks/20251128/men.xlsx
+INFO [2025-11-28 04:56:02] Processing ladies' predictions
+INFO [2025-11-28 04:56:02] Using provided startlist_override with 68 entries
+INFO [2025-11-28 04:56:02] Using ladies' races: 1 races found
+INFO [2025-11-28 04:56:02] Selected startlist has 68 entries
+INFO [2025-11-28 04:56:02] Using chronological data from: ~/ski/elo/python/skijump/polars/excel365/ladies_chrono_elevation.csv
+INFO [2025-11-28 04:56:02] Loading chronological data from ~/ski/elo/python/skijump/polars/excel365/ladies_chrono_elevation.csv
+INFO [2025-11-28 04:56:03] Preprocessing complete - final dimensions: 8959 x 49
+INFO [2025-11-28 04:56:03] Final columns: Elo, Small_Elo, Medium_Elo, Normal_Elo, Large_Elo, Flying_Elo, Date, City, Country, Sex ...
+INFO [2025-11-28 04:56:03] Chronological data dimensions: 8959 x 49
+INFO [2025-11-28 04:56:03] First few columns: Elo, Small_Elo, Medium_Elo, Normal_Elo, Large_Elo, Flying_Elo, Date, City, Country, Sex
+INFO [2025-11-28 04:56:03] Race probability columns in startlist: Race1_Prob
+INFO [2025-11-28 04:56:03] Processing ladies race 1: Large
+INFO [2025-11-28 04:56:03] Using World Cup points for this race
+INFO [2025-11-28 04:56:03] Race probability column Race1_Prob exists in startlist
+INFO [2025-11-28 04:56:03]   Mean: 0.955882352941177
+INFO [2025-11-28 04:56:03]   Sum: 65
+INFO [2025-11-28 04:56:03] Race 1 hill size: 134 | Race type: Individual
+INFO [2025-11-28 04:56:03] Initial formula with all variables: Points ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-28 04:56:03] Variables selected by BIC: (Intercept), Prev_Points_Weighted
+INFO [2025-11-28 04:56:03] Number of variables selected: 2
+INFO [2025-11-28 04:56:03] Best BIC value: -86.3406733443186
+INFO [2025-11-28 04:56:03] Final GAM formula: s(Prev_Points_Weighted)
+INFO [2025-11-28 04:56:03] Creating model for top 1 positions
+INFO [2025-11-28 04:56:03] Position model for threshold 1 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-28 04:56:03] Training data size for threshold 1 : 3043 rows
+INFO [2025-11-28 04:56:03] Position model threshold 1 - Variables selected by BIC: (Intercept), Prev_Points_Weighted
+INFO [2025-11-28 04:56:03] Position model threshold 1 - Number of variables selected: 2
+INFO [2025-11-28 04:56:04] Position model threshold 1 - Best BIC value: -29.2457
+INFO [2025-11-28 04:56:04] Position model threshold 1 - Final GAM formula: s(Prev_Points_Weighted)
+INFO [2025-11-28 04:56:04] Position model threshold 1 - GAM model fitted successfully
+INFO [2025-11-28 04:56:04] Position model threshold 1 - Brier score: 0.0217
+INFO [2025-11-28 04:56:04] Position model threshold 1 - Mean predicted probability: 0.0266
+INFO [2025-11-28 04:56:04] Position model threshold 1 - Actual success rate: 0.0266
+INFO [2025-11-28 04:56:04] Creating model for top 3 positions
+INFO [2025-11-28 04:56:04] Position model for threshold 3 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-28 04:56:04] Training data size for threshold 3 : 3043 rows
+INFO [2025-11-28 04:56:04] Position model threshold 3 - Variables selected by BIC: (Intercept), Prev_Points_Weighted, Large_Pelo_Pct
+INFO [2025-11-28 04:56:04] Position model threshold 3 - Number of variables selected: 3
+INFO [2025-11-28 04:56:04] Position model threshold 3 - Best BIC value: -35.6798
+INFO [2025-11-28 04:56:04] Position model threshold 3 - Final GAM formula: s(Prev_Points_Weighted) + s(Large_Pelo_Pct)
+INFO [2025-11-28 04:56:05] Position model threshold 3 - GAM model fitted successfully
+INFO [2025-11-28 04:56:05] Position model threshold 3 - Brier score: 0.056
+INFO [2025-11-28 04:56:05] Position model threshold 3 - Mean predicted probability: 0.0799
+INFO [2025-11-28 04:56:05] Position model threshold 3 - Actual success rate: 0.0799
+INFO [2025-11-28 04:56:05] Creating model for top 5 positions
+INFO [2025-11-28 04:56:05] Position model for threshold 5 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-28 04:56:05] Training data size for threshold 5 : 3043 rows
+INFO [2025-11-28 04:56:05] Position model threshold 5 - Variables selected by BIC: (Intercept), Prev_Points_Weighted
+INFO [2025-11-28 04:56:05] Position model threshold 5 - Number of variables selected: 2
+INFO [2025-11-28 04:56:05] Position model threshold 5 - Best BIC value: -45.315
+INFO [2025-11-28 04:56:05] Position model threshold 5 - Final GAM formula: s(Prev_Points_Weighted)
+INFO [2025-11-28 04:56:05] Position model threshold 5 - GAM model fitted successfully
+INFO [2025-11-28 04:56:06] Position model threshold 5 - Brier score: 0.0781
+INFO [2025-11-28 04:56:06] Position model threshold 5 - Mean predicted probability: 0.1331
+INFO [2025-11-28 04:56:06] Position model threshold 5 - Actual success rate: 0.1331
+INFO [2025-11-28 04:56:06] Creating model for top 10 positions
+INFO [2025-11-28 04:56:06] Position model for threshold 10 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-28 04:56:06] Training data size for threshold 10 : 3043 rows
+INFO [2025-11-28 04:56:06] Position model threshold 10 - Variables selected by BIC: (Intercept), Prev_Points_Weighted, Pelo_Pct
+INFO [2025-11-28 04:56:06] Position model threshold 10 - Number of variables selected: 3
+INFO [2025-11-28 04:56:06] Position model threshold 10 - Best BIC value: -54.9811
+INFO [2025-11-28 04:56:06] Position model threshold 10 - Final GAM formula: s(Prev_Points_Weighted) + s(Pelo_Pct)
+INFO [2025-11-28 04:56:06] Position model threshold 10 - GAM model fitted successfully
+INFO [2025-11-28 04:56:07] Position model threshold 10 - Brier score: 0.1028
+INFO [2025-11-28 04:56:07] Position model threshold 10 - Mean predicted probability: 0.2668
+INFO [2025-11-28 04:56:07] Position model threshold 10 - Actual success rate: 0.2668
+INFO [2025-11-28 04:56:07] Creating model for top 30 positions
+INFO [2025-11-28 04:56:07] Position model for threshold 30 - Initial formula: position_achieved ~ Prev_Points_Weighted + Normal_Pelo_Pct + Large_Pelo_Pct + Flying_Pelo_Pct + Pelo_Pct
+INFO [2025-11-28 04:56:07] Training data size for threshold 30 : 3043 rows
+INFO [2025-11-28 04:56:07] Position model threshold 30 - Variables selected by BIC: (Intercept), Pelo_Pct
+INFO [2025-11-28 04:56:07] Position model threshold 30 - Number of variables selected: 2
+INFO [2025-11-28 04:56:07] Position model threshold 30 - Best BIC value: 0.3612
+INFO [2025-11-28 04:56:07] Position model threshold 30 - Final GAM formula: s(Pelo_Pct)
+INFO [2025-11-28 04:56:08] Position model threshold 30 - GAM model fitted successfully
+INFO [2025-11-28 04:56:08] Position model threshold 30 - Brier score: 0.1246
+INFO [2025-11-28 04:56:08] Position model threshold 30 - Mean predicted probability: 0.7933
+INFO [2025-11-28 04:56:08] Position model threshold 30 - Actual success rate: 0.7933
+INFO [2025-11-28 04:56:10] Preparing startlist data for Elo_Pct
+INFO [2025-11-28 04:56:10] Race probability columns found: Race1_Prob
+INFO [2025-11-28 04:56:10] Available elo columns: Skier, Small_Elo, Medium_Elo, Normal_Elo, Large_Elo, Flying_Elo, Elo
+INFO [2025-11-28 04:56:10] Using default value for Small_Elo_Pct (max value issue)
+INFO [2025-11-28 04:56:10] Using default value for Medium_Elo_Pct (max value issue)
+INFO [2025-11-28 04:56:10] Calculating Normal_Elo_Pct from Normal_Elo
+INFO [2025-11-28 04:56:10] Calculating Large_Elo_Pct from Large_Elo
+INFO [2025-11-28 04:56:10] Calculating Flying_Elo_Pct from Flying_Elo
+INFO [2025-11-28 04:56:10] Calculating Elo_Pct from Elo
+WARN [2025-11-28 04:56:10] No valid max value for Small_Pelo using default
+WARN [2025-11-28 04:56:10] No valid max value for Medium_Pelo using default
+INFO [2025-11-28 04:56:10] Converting Normal_Elo to Normal_Pelo_Pct using max Pelo = 1740.76633815637
+INFO [2025-11-28 04:56:10] Converting Large_Elo to Large_Pelo_Pct using max Pelo = 1650.29686357084
+INFO [2025-11-28 04:56:10] Converting Flying_Elo to Flying_Pelo_Pct using max Pelo = 1314.43855726267
+INFO [2025-11-28 04:56:10] Converting Elo to Pelo_Pct using max Pelo = 1840.4982059631
+INFO [2025-11-28 04:56:10] Race probability column Race1_Prob summary:
+INFO [2025-11-28 04:56:10]   Mean: 0.955882352941177
+INFO [2025-11-28 04:56:10]   Sum: 65
+INFO [2025-11-28 04:56:10]   Max: 1
+INFO [2025-11-28 04:56:10] Final columns in result_df: Skier, ID, Nation, Sex, Race1_Prob, Small_Elo, Medium_Elo, Normal_Elo, Large_Elo, Flying_Elo, Elo, Prev_Points_Weighted, Small_Elo_Pct, Medium_Elo_Pct, Normal_Elo_Pct, Large_Elo_Pct, Flying_Elo_Pct, Elo_Pct, Small_Pelo_Pct, Medium_Pelo_Pct, Normal_Pelo_Pct, Large_Pelo_Pct, Flying_Pelo_Pct, Pelo_Pct
+INFO [2025-11-28 04:56:10] Model for threshold 1 requires variables: Prev_Points_Weighted
+INFO [2025-11-28 04:56:10] Attempting prediction for threshold 1 with 68 rows
+INFO [2025-11-28 04:56:10] Made predictions with adjustments for position threshold 1
+INFO [2025-11-28 04:56:10] Model for threshold 3 requires variables: Prev_Points_Weighted, Large_Pelo_Pct
+INFO [2025-11-28 04:56:10] Attempting prediction for threshold 3 with 68 rows
+INFO [2025-11-28 04:56:10] Made predictions with adjustments for position threshold 3
+INFO [2025-11-28 04:56:10] Model for threshold 5 requires variables: Prev_Points_Weighted
+INFO [2025-11-28 04:56:10] Attempting prediction for threshold 5 with 68 rows
+INFO [2025-11-28 04:56:10] Made predictions with adjustments for position threshold 5
+INFO [2025-11-28 04:56:10] Model for threshold 10 requires variables: Prev_Points_Weighted, Pelo_Pct
+INFO [2025-11-28 04:56:10] Attempting prediction for threshold 10 with 68 rows
+INFO [2025-11-28 04:56:10] Made predictions with adjustments for position threshold 10
+INFO [2025-11-28 04:56:10] Model for threshold 30 requires variables: Pelo_Pct
+INFO [2025-11-28 04:56:10] Attempting prediction for threshold 30 with 68 rows
+INFO [2025-11-28 04:56:10] Made predictions with adjustments for position threshold 30
+INFO [2025-11-28 04:56:10] Position probability sums BEFORE normalization:
+INFO [2025-11-28 04:56:10]   prob_top1: 83.00% (target: 100%)
+INFO [2025-11-28 04:56:10]   prob_top3: 303.40% (target: 300%)
+INFO [2025-11-28 04:56:10]   prob_top5: 495.80% (target: 500%)
+INFO [2025-11-28 04:56:10]   prob_top10: 867.70% (target: 1000%)
+INFO [2025-11-28 04:56:10]   prob_top30: 3790.30% (target: 3000%)
+INFO [2025-11-28 04:56:10]   prob_top1 after race prob adjustment: 82.00% (scaling by race participation)
+INFO [2025-11-28 04:56:10]   prob_top1 normalization: applied scaling factor of 1.2195
+INFO [2025-11-28 04:56:10]   prob_top3 after race prob adjustment: 298.00% (scaling by race participation)
+INFO [2025-11-28 04:56:10]   prob_top3 normalization: applied scaling factor of 1.0067
+INFO [2025-11-28 04:56:10]   prob_top5 after race prob adjustment: 487.20% (scaling by race participation)
+INFO [2025-11-28 04:56:10]   prob_top5 normalization: applied scaling factor of 1.0263
+INFO [2025-11-28 04:56:10]   prob_top10 after race prob adjustment: 839.90% (scaling by race participation)
+INFO [2025-11-28 04:56:10]   prob_top10 normalization: applied scaling factor of 1.1906
+INFO [2025-11-28 04:56:10]   prob_top30 after race prob adjustment: 3609.40% (scaling by race participation)
+INFO [2025-11-28 04:56:10]   prob_top30 normalization: applied scaling factor of 0.8312
+INFO [2025-11-28 04:56:10] Position probability sums AFTER normalization:
+INFO [2025-11-28 04:56:10]   prob_top1: 100.00% (target: 100%)
+INFO [2025-11-28 04:56:10]   prob_top3: 300.00% (target: 300%)
+INFO [2025-11-28 04:56:10]   prob_top5: 500.00% (target: 500%)
+INFO [2025-11-28 04:56:10]   prob_top10: 1000.00% (target: 1000%)
+INFO [2025-11-28 04:56:10]   prob_top30: 3000.00% (target: 3000%)
+INFO [2025-11-28 04:56:10] Race 1 position probability sums after normalization:
+INFO [2025-11-28 04:56:10]   prob_top1: 100.00% (should be 100%)
+INFO [2025-11-28 04:56:10]   prob_top3: 300.00% (should be 300%)
+INFO [2025-11-28 04:56:10]   prob_top5: 500.00% (should be 500%)
+INFO [2025-11-28 04:56:10]   prob_top10: 1000.00% (should be 1000%)
+INFO [2025-11-28 04:56:10]   prob_top30: 3000.00% (should be 3000%)
+INFO [2025-11-28 04:56:10] Race 1 probability check:
+INFO [2025-11-28 04:56:10] Combining race predictions
+INFO [2025-11-28 04:56:10] Starting with first race data
+INFO [2025-11-28 04:56:10] Probability column Race1_Probability exists in final predictions
+INFO [2025-11-28 04:56:10]   Mean: 0.955882352941177
+INFO [2025-11-28 04:56:10]   Sum: 65
+INFO [2025-11-28 04:56:10] Calculating totals with probability weighting
+INFO [2025-11-28 04:56:10] Returning final predictions
+INFO [2025-11-28 04:56:10] Final predictions calculated for ladies
+INFO [2025-11-28 04:56:10] Formatted position probabilities saved to ~/blog/daehl-e/content/post/skijump/drafts/race-picks/20251128/ladies_position_probabilities.xlsx
+INFO [2025-11-28 04:56:10] Saved predictions to ~/blog/daehl-e/content/post/skijump/drafts/race-picks/20251128/ladies.xlsx
+INFO [2025-11-28 04:56:11] Ski Jumping top contenders summary saved to ~/blog/daehl-e/content/post/skijump/drafts/race-picks/20251128/skijump_top_contenders.xlsx
+INFO [2025-11-28 04:56:11] Ski Jumping prediction workflow complete

@@ -600,3 +600,28 @@ INFO [2025-11-28 04:39:50] Creating top contenders summary
 INFO [2025-11-28 04:39:50] Top contenders summary saved to /Users/syverjohansen/blog/daehl-e/content/post/cross-country/drafts/race-picks/20251128/top_contenders.xlsx
 INFO [2025-11-28 04:39:50] Enhanced race day prediction workflow complete
 INFO [2025-11-28 04:39:51] Enhanced race day predictions complete
+INFO [2025-11-28 04:52:03] Starting enhanced race day predictions process
+INFO [2025-11-28 04:52:03] Reading race data
+INFO [2025-11-28 04:52:03] Current date: 2025-11-28
+INFO [2025-11-28 04:52:03] Found 2 races scheduled for today
+INFO [2025-11-28 04:52:03] Found 1 men's races and 1 ladies races for today
+INFO [2025-11-28 04:52:03] Reading startlists
+INFO [2025-11-28 04:52:03] Loaded 387 men and 262 ladies from startlists
+INFO [2025-11-28 04:52:03] Starting enhanced race day predictions workflow
+INFO [2025-11-28 04:52:04] Running enhanced race day predictions workflow
+INFO [2025-11-28 04:52:04] Processing men's race day predictions
+INFO [2025-11-28 04:52:04] Processing men data
+INFO [2025-11-28 04:52:04] Using WORLD CUP points system for today's races
+INFO [2025-11-28 04:52:15] Processing men race 1: 10 C
+INFO [2025-11-28 04:52:15] Using World Cup points for this race
+INFO [2025-11-28 04:52:19] Creating model for top 1 positions
+INFO [2025-11-28 04:52:22] Brier score for threshold 1 : 0.0112
+INFO [2025-11-28 04:52:26] Creating model for top 3 positions
+INFO [2025-11-28 04:52:35] Brier score for threshold 3 : 0.0291
+INFO [2025-11-28 04:52:39] Creating model for top 5 positions
+INFO [2025-11-28 04:52:44] Brier score for threshold 5 : 0.044
+INFO [2025-11-28 04:52:48] Creating model for top 10 positions
+INFO [2025-11-28 04:52:56] Brier score for threshold 10 : 0.0721
+INFO [2025-11-28 04:53:01] Creating model for top 30 positions
+INFO [2025-11-28 04:53:07] Brier score for threshold 30 : 0.1324
+INFO [2025-11-28 04:53:15] Preparing startlist data for Distance_C_Pelo_Pct
