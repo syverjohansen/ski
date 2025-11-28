@@ -302,6 +302,7 @@ INFO [2025-06-06 11:53:30] Creating top contenders summary
 INFO [2025-06-06 11:53:30] Top contenders summary saved to /Users/syverjohansen/blog/daehl-e/content/post/cross-country/drafts/race-picks/20250606/top_contenders.xlsx
 INFO [2025-06-06 11:53:30] Enhanced race day prediction workflow complete
 INFO [2025-06-06 11:53:30] Enhanced race day predictions complete
+<<<<<<< HEAD
 INFO [2025-11-27 22:32:06] Starting enhanced race day predictions process
 INFO [2025-11-27 22:32:06] Reading race data
 INFO [2025-11-27 22:32:06] Current date: 2025-11-28
@@ -437,3 +438,30 @@ INFO [2025-11-27 22:32:47] Creating top contenders summary
 INFO [2025-11-27 22:32:47] Top contenders summary saved to /Users/syverjohansen/blog/daehl-e/content/post/cross-country/drafts/race-picks/20251128/top_contenders.xlsx
 INFO [2025-11-27 22:32:47] Enhanced race day prediction workflow complete
 INFO [2025-11-27 22:32:47] Enhanced race day predictions complete
+=======
+INFO [2025-11-28 00:33:49] Starting enhanced race day predictions process
+INFO [2025-11-28 00:33:49] Reading race data
+INFO [2025-11-28 00:33:49] Current date: 2025-11-28
+INFO [2025-11-28 00:33:49] Found 2 races scheduled for today
+INFO [2025-11-28 00:33:49] Found 1 men's races and 1 ladies races for today
+INFO [2025-11-28 00:33:49] Reading startlists
+INFO [2025-11-28 00:33:49] Loaded 376 men and 271 ladies from startlists
+INFO [2025-11-28 00:33:50] Starting enhanced race day predictions workflow
+INFO [2025-11-28 00:33:50] Running enhanced race day predictions workflow
+INFO [2025-11-28 00:33:50] Processing men's race day predictions
+INFO [2025-11-28 00:33:50] Processing men data
+INFO [2025-11-28 00:33:50] Using WORLD CUP points system for today's races
+INFO [2025-11-28 00:33:59] Processing men race 1: 10 C
+INFO [2025-11-28 00:33:59] Using World Cup points for this race
+INFO [2025-11-28 00:34:04] Creating model for top 1 positions
+INFO [2025-11-28 00:34:08] Brier score for threshold 1 : 0.0112
+INFO [2025-11-28 00:34:12] Creating model for top 3 positions
+INFO [2025-11-28 00:34:21] Brier score for threshold 3 : 0.0291
+INFO [2025-11-28 00:34:25] Creating model for top 5 positions
+INFO [2025-11-28 00:34:30] Brier score for threshold 5 : 0.044
+INFO [2025-11-28 00:34:34] Creating model for top 10 positions
+INFO [2025-11-28 00:34:43] Brier score for threshold 10 : 0.0721
+INFO [2025-11-28 00:34:47] Creating model for top 30 positions
+INFO [2025-11-28 00:34:52] Brier score for threshold 30 : 0.1324
+INFO [2025-11-28 00:35:00] Preparing startlist data for Distance_C_Pelo_Pct
+>>>>>>> eb4c82573af8792cde5906fe66b6416b42ae3b67
