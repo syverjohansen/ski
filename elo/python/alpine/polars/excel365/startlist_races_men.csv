@@ -1,513 +1,513 @@
-"FISName","Skier","ID","Nation","StartOrder","Bib","Is_Host_Nation","In_Startlist","Year","Run1","Run2","Time","Points","Discipline","Elo","Downhill_Elo","Slalom_Elo","Combined_Elo","Tech_Elo","Speed_Elo","Race_Elo","Race1_Prob","City","Country","Race_Type","Race_Date","Sex"
+FISName,Skier,ID,Nation,StartOrder,Bib,Is_Host_Nation,In_Startlist,Year,Run1,Run2,Time,Points,Discipline,Elo,Downhill_Elo,Slalom_Elo,Combined_Elo,Tech_Elo,Speed_Elo,Race_Elo,Race1_Prob,City,Country,Race_Type,Race_Date
 "KRISTOFFERSEN Henrik                                                                
 
 
-Van Deer","Henrik Kristoffersen",2391,"NOR",NA,4,"False","True",1994,NA,NA,NA,NA,"Giant Slalom",1646.17390944211,1247.96994767169,1603.21731433193,1335.85779840895,1643.84066077839,1309.72399628773,1627.75187741884,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Van Deer",Henrik Kristoffersen,2391,NOR,,4,False,True,1994,,,,,Giant Slalom,1646.1739094421075,1247.9699476716914,1603.217314331932,1335.857798408946,1643.8406607783902,1309.723996287731,1627.7518774188447,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "BRENNSTEINER Stefan                                                                
 
 
-Fischer","Stefan Brennsteiner",2436,"AUT",NA,1,"False","True",1991,NA,NA,NA,NA,"Giant Slalom",1605.05134017245,1247.96994767169,1318.04890159404,1281.54698735659,1599.79981102553,1248.50442564635,1596.55047252708,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Fischer",Stefan Brennsteiner,2436,AUT,,1,False,True,1991,,,,,Giant Slalom,1605.051340172451,1247.9699476716914,1318.0489015940395,1281.5469873565858,1599.799811025532,1248.5044256463475,1596.550472527075,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "MCGRATH Atle Lie                                                                
 
 
-Head","Atle Lie McGrath",4711,"NOR",NA,14,"False","True",2000,NA,NA,NA,NA,"Giant Slalom",1616.7689238041,1247.96994767169,1548.81250906303,1331.99556742401,1590.70459689273,1443.57999166331,1556.10814570028,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Head",Atle Lie McGrath,4711,NOR,,14,False,True,2000,,,,,Giant Slalom,1616.768923804099,1247.9699476716914,1548.81250906303,1331.995567424012,1590.7045968927314,1443.5799916633052,1556.1081457002776,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "PINHEIRO BRAATHEN Lucas                                                                
 
 
-Atomic","Lucas Pinheiro Braathen",4748,"BRA",NA,7,"False","True",2000,NA,NA,NA,NA,"Giant Slalom",1413.97595503225,1247.96994767169,1642.60001313806,1281.54698735659,1671.67310678511,1182.62924462788,1539.950512367,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Atomic",Lucas Pinheiro Braathen,4748,BRA,,7,False,True,2000,,,,,Giant Slalom,1413.9759550322528,1247.9699476716914,1642.600013138058,1281.5469873565858,1671.67310678511,1182.6292446278817,1539.9505123669985,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "HAASER Raphael                                                                
 
 
-Atomic","Raphael Haaser",4221,"AUT",NA,13,"False","True",1997,NA,NA,NA,NA,"Giant Slalom",1624.05159536969,1258.34223584158,1270.36688600321,1348.15680599113,1534.34876980742,1533.94797816313,1529.90934663748,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Atomic",Raphael Haaser,4221,AUT,,13,False,True,1997,,,,,Giant Slalom,1624.0515953696854,1258.342235841577,1270.3668860032053,1348.1568059911287,1534.3487698074175,1533.947978163125,1529.9093466374827,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "PINTURAULT Alexis                                                                
 
 
-Head","Alexis Pinturault",232,"FRA",NA,23,"False","True",1991,NA,NA,NA,NA,"Giant Slalom",1484.98565926813,1318.73038873617,1456.22399553964,1473.79755847479,1502.3160802601,1420.07830478373,1505.66655900632,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Head",Alexis Pinturault,232,FRA,,23,False,True,1991,,,,,Giant Slalom,1484.985659268133,1318.7303887361709,1456.2239955396392,1473.79755847479,1502.3160802600974,1420.0783047837276,1505.6665590063235,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "DE ALIPRANDINI Luca                                                                
 
 
-Salomon","Luca De Aliprandini",1799,"ITA",NA,15,"False","True",1990,NA,NA,NA,NA,"Giant Slalom",1493.20031079562,1275.95229665735,1285.37165802023,1281.54670560541,1487.66038688826,1293.85522394912,1484.4738237628,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Salomon",Luca De Aliprandini,1799,ITA,,15,False,True,1990,,,,,Giant Slalom,1493.2003107956218,1275.952296657352,1285.3716580202274,1281.5467056054129,1487.6603868882555,1293.855223949117,1484.4738237627998,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "SCHMID Alexander                                                                
 
 
-Head","Alexander Schmid",2410,"GER",NA,25,"False","True",1994,NA,NA,NA,NA,"Giant Slalom",1441.260832889,1247.96994767169,1321.3918379456,1281.54698735659,1436.9161775428,1248.50442564635,1444.93826495079,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Head",Alexander Schmid,2410,GER,,25,False,True,1994,,,,,Giant Slalom,1441.260832889,1247.9699476716914,1321.391837945603,1281.5469873565858,1436.9161775428015,1248.5044256463475,1444.9382649507893,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "GRAMMEL Anton                                                                
 
 
-Head","Anton Grammel",3004,"GER",NA,19,"False","True",1998,NA,NA,NA,NA,"Giant Slalom",1270.77031846566,1247.96994767169,1270.36688600321,1281.54698735659,1430.02737339946,1184.61412938893,1431.99337475001,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Head",Anton Grammel,3004,GER,,19,False,True,1998,,,,,Giant Slalom,1270.770318465664,1247.9699476716914,1270.3668860032053,1281.5469873565858,1430.027373399461,1184.6141293889343,1431.9933747500074,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "VITALE Flavio                                                                
 
 
-Head","Flavio Vitale",7093,"FRA",NA,28,"False","True",2005,NA,NA,NA,NA,"Giant Slalom",1418.55798117259,1247.96994767169,1270.36688600321,1281.54698735659,1415.5751366907,1248.50442564635,1414.65314075874,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Head",Flavio Vitale,7093,FRA,,28,False,True,2005,,,,,Giant Slalom,1418.5579811725934,1247.9699476716914,1270.3668860032053,1281.5469873565858,1415.575136690701,1248.5044256463475,1414.6531407587418,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "STOCKINGER Jonas                                                                
 
 
-Voelkl","Jonas Stockinger",3030,"GER",NA,27,"False","True",1999,NA,NA,NA,NA,"Giant Slalom",1383.07671433491,1247.96994767169,1270.36688600321,1281.54698735659,1379.47655302303,1248.50442564635,1378.51750059994,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Voelkl",Jonas Stockinger,3030,GER,,27,False,True,1999,,,,,Giant Slalom,1383.0767143349094,1247.9699476716914,1270.3668860032053,1281.5469873565858,1379.476553023034,1248.5044256463475,1378.5175005999397,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "ELEZI CANNAFERINA Alban                                                                
 
 
-Rossignol","Alban Elezi Cannaferina",5693,"FRA",NA,31,"False","True",2003,NA,NA,NA,NA,"Giant Slalom",1448.56486077031,1247.96994767169,1270.36688600321,1281.54698735659,1362.38841993121,1402.11412938893,1360.5490296698,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Rossignol",Alban Elezi Cannaferina,5693,FRA,,31,False,True,2003,,,,,Giant Slalom,1448.56486077031,1247.9699476716914,1270.3668860032053,1281.5469873565858,1362.3884199312074,1402.1141293889343,1360.549029669798,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "SOLBERG Eirik Hystad                                                                
 
 
-FISCHER","Eirik Hystad Solberg",6716,"NOR",NA,32,"False","True",2002,NA,NA,NA,NA,"Giant Slalom",1402.6760719306,1247.96994767169,1385.36079093622,1281.54698735659,1402.18070608829,1248.50442564635,1308.0600369234,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+FISCHER",Eirik Hystad Solberg,6716,NOR,,32,False,True,2002,,,,,Giant Slalom,1402.6760719306044,1247.9699476716914,1385.3607909362163,1281.5469873565858,1402.1807060882882,1248.5044256463475,1308.0600369234044,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "GRAVIER Tiziano                                                                
 
 
-Head","Tiziano Gravier",5351,"ARG",NA,45,"False","True",2002,NA,NA,NA,NA,"Giant Slalom",1213.24546285122,1275.43063766671,1277.91371661927,1256.44184402825,1297.78094129034,1182.61454511692,1299.65104465122,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Head",Tiziano Gravier,5351,ARG,,45,False,True,2002,,,,,Giant Slalom,1213.2454628512198,1275.4306376667068,1277.9137166192718,1256.4418440282495,1297.7809412903446,1182.6145451169173,1299.6510446512218,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "ZWISCHENBRUGGER Noel                                                                
 
 
-Atomic","Noel Zwischenbrugger",6600,"AUT",NA,63,"False","True",2001,NA,NA,NA,NA,"Giant Slalom",1291.07257004736,1247.96994767169,1270.36688600321,1281.54698735659,1290.64116543115,1248.50442564635,1292.35126820326,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Atomic",Noel Zwischenbrugger,6600,AUT,,63,False,True,2001,,,,,Giant Slalom,1291.0725700473567,1247.9699476716914,1270.3668860032053,1281.5469873565858,1290.641165431149,1248.5044256463475,1292.3512682032642,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "KENNEY Patrick                                                                
 
 
-Voelkl","Patrick Kenney",3044,"USA",NA,62,"True","True",1997,NA,NA,NA,NA,"Giant Slalom",1288.58004606531,1247.96994767169,1270.36688600321,1281.54698735659,1286.21430148885,1248.50442564635,1286.21980729212,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Voelkl",Patrick Kenney,3044,USA,,62,True,True,1997,,,,,Giant Slalom,1288.5800460653063,1247.9699476716914,1270.3668860032053,1281.5469873565858,1286.2143014888452,1248.5044256463475,1286.2198072921178,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "BABINSKY Stefan                                                                
 
 
-Head","Stefan Babinsky",3039,"AUT",NA,65,"False","True",1996,NA,NA,NA,NA,"Giant Slalom",1551.89765263852,1413.24114670842,1270.36688600321,1247.22468741766,1287.08462600917,1541.66234442471,1285.8201601769,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Head",Stefan Babinsky,3039,AUT,,65,False,True,1996,,,,,Giant Slalom,1551.8976526385172,1413.2411467084212,1270.3668860032053,1247.224687417655,1287.084626009174,1541.6623444247143,1285.8201601769035,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "SANDVIK Oscar Andreas                                                                
 
 
-Head","Oscar Andreas Sandvik",6803,"NOR",NA,39,"False","True",2004,NA,NA,NA,NA,"Giant Slalom",1244.53900352837,1247.96994767169,1375.80194958404,1281.54698735659,1367.9230334939,1197.11412938893,1278.49606000002,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Head",Oscar Andreas Sandvik,6803,NOR,,39,False,True,2004,,,,,Giant Slalom,1244.5390035283676,1247.9699476716914,1375.8019495840365,1281.5469873565858,1367.923033493897,1197.1141293889343,1278.4960600000215,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "FEURSTEIN Lukas                                                                
 
 
-Head","Lukas Feurstein",5336,"AUT",NA,36,"False","True",2001,NA,NA,NA,NA,"Giant Slalom",1487.22497497163,1272.7432453489,1270.36688600321,1281.54698735659,1278.12910336193,1509.16575246142,1275.85683230451,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Head",Lukas Feurstein,5336,AUT,,36,False,True,2001,,,,,Giant Slalom,1487.2249749716348,1272.743245348902,1270.3668860032053,1281.5469873565858,1278.1291033619295,1509.1657524614188,1275.8568323045076,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "DRUKAROV Andrej                                                                
 
 
-Voelkl","Andrej Drukarov",3014,"LTU",NA,47,"False","True",1999,NA,NA,NA,NA,"Giant Slalom",1280.02720344759,1247.96994767169,1259.0307046527,1281.54698735659,1276.47310041792,1277.50718135549,1275.09310546922,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Voelkl",Andrej Drukarov,3014,LTU,,47,False,True,1999,,,,,Giant Slalom,1280.0272034475947,1247.9699476716914,1259.0307046526952,1281.5469873565858,1276.473100417918,1277.507181355491,1275.0931054692196,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "MUHLEN-SCHULTE Louis                                                                
 
 
-Voelkl","Louis Muhlen-Schulte",3008,"AUS",NA,41,"False","True",1998,NA,NA,NA,NA,"Giant Slalom",1186.18206387006,1247.96994767169,1145.1768570519,1281.54698735659,1184.48907770318,1248.50442564635,1264.43311148302,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Voelkl",Louis Muhlen-Schulte,3008,AUS,,41,False,True,1998,,,,,Giant Slalom,1186.1820638700613,1247.9699476716914,1145.1768570518989,1281.5469873565858,1184.4890777031794,1248.5044256463475,1264.4331114830184,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "STEFFEY George                                                                
 
 
-Voelkl","George Steffey",4295,"USA",NA,61,"True","True",1997,NA,NA,NA,NA,"Giant Slalom",1253.1633999471,1247.96994767169,1252.20465944779,1275.8550499493,1254.04129389656,1248.50442564635,1259.5736045592,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Voelkl",George Steffey,4295,USA,,61,True,True,1997,,,,,Giant Slalom,1253.1633999470962,1247.9699476716914,1252.204659447795,1275.8550499493028,1254.0412938965624,1248.5044256463475,1259.5736045591989,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "BORGNAES Christian                                                                
 
 
-Salomon","Christian Borgnaes",5528,"DEN",NA,33,"False","True",1996,NA,NA,NA,NA,"Giant Slalom",1241.78245449955,1247.96994767169,1267.01387773715,1318.04184402825,1237.39986405997,1287.23798524401,1237.52572908102,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Salomon",Christian Borgnaes,5528,DEN,,33,False,True,1996,,,,,Giant Slalom,1241.78245449955,1247.9699476716914,1267.0138777371528,1318.0418440282494,1237.399864059969,1287.2379852440065,1237.5257290810184,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "GILE Bridger                                                                
 
 
-Head","Bridger Gile",5310,"USA",NA,44,"True","True",1999,NA,NA,NA,NA,"Giant Slalom",1222.13213903164,1247.96994767169,1285.09034345362,1281.54698735659,1222.27935856723,1248.50442564635,1222.14441358582,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Head",Bridger Gile,5310,USA,,44,True,True,1999,,,,,Giant Slalom,1222.1321390316375,1247.9699476716914,1285.0903434536203,1281.5469873565858,1222.2793585672318,1248.5044256463475,1222.1444135858185,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "PARAND Loevan                                                                
 
 
-Head","Loevan Parand",5340,"FRA",NA,50,"False","True",1999,NA,NA,NA,NA,"Giant Slalom",1217.81590573946,1247.96994767169,1270.36688600321,1281.54698735659,1213.5995013375,1248.50442564635,1213.6449027258,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Head",Loevan Parand,5340,FRA,,50,False,True,1999,,,,,Giant Slalom,1217.8159057394632,1247.9699476716914,1270.3668860032053,1281.5469873565858,1213.5995013374982,1248.5044256463475,1213.6449027258027,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "WAKATSUKI Hayata                                                                
 
 
-Salomon","Hayata Wakatsuki",4979,"JPN",NA,57,"False","True",1999,NA,NA,NA,NA,"Giant Slalom",1202.96984926274,1247.96994767169,1270.36688600321,1281.54698735659,1203.60149267924,1248.50442564635,1198.14144859998,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Salomon",Hayata Wakatsuki,4979,JPN,,57,False,True,1999,,,,,Giant Slalom,1202.969849262738,1247.9699476716914,1270.3668860032053,1281.5469873565858,1203.6014926792354,1248.5044256463475,1198.1414485999835,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "STRASSER Linus                                                                
 
 
-Head","Linus Strasser",1932,"GER",NA,58,"False","True",1992,NA,NA,NA,NA,"Giant Slalom",1492.2895820043,1293.87398584389,1594.24982293501,1338.87525872661,1490.73697131354,1295.76928595021,1161.54015825167,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Head",Linus Strasser,1932,GER,,58,False,True,1992,,,,,Giant Slalom,1492.289582004301,1293.873985843887,1594.2498229350142,1338.8752587266135,1490.736971313543,1295.7692859502138,1161.5401582516722,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "KASTLUNGER Tobias                                                                
 
 
-Head","Tobias Kastlunger",5321,"ITA",NA,59,"False","True",1999,NA,NA,NA,NA,"Giant Slalom",1265.01871040526,1247.96994767169,1335.8184268223,1332.04184402825,1263.76076064449,1248.50442564635,1096.43389101231,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"FEURSTEIN Patrick                                                                
-
-
-Rossignol","FEURSTEIN Patrick                                                                
-
-
-Rossignol",54359,"AUT",NA,16,"False","True",1996,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"ANGUENOT Leo                                                                
-
-
-Rossignol","ANGUENOT Leo                                                                
-
-
-Rossignol",6190628,"FRA",NA,17,"False","True",1998,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"MEILLARD Loic                                                                
-
-
-Rossignol","MEILLARD Loic                                                                
-
-
-Rossignol",512182,"SUI",NA,5,"False","True",1996,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"TUMLER Thomas                                                                
-
-
-Stoeckli","TUMLER Thomas                                                                
-
-
-Stoeckli",511638,"SUI",NA,3,"False","True",1989,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"KRANJEC Zan                                                                
-
-
-Rossignol","KRANJEC Zan                                                                
-
-
-Rossignol",561244,"SLO",NA,2,"False","True",1992,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"BORSOTTI Giovanni                                                                
-
-
-Rossignol","BORSOTTI Giovanni                                                                
-
-
-Rossignol",990048,"ITA",NA,30,"False","True",1990,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"DELLA VITE Filippo                                                                
-
-
-Rossignol","DELLA VITE Filippo                                                                
-
-
-Rossignol",6293775,"ITA",NA,29,"False","True",2001,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"LAINE Tormis                                                                
-
-
-Voelkl","LAINE Tormis                                                                
-
-
-Voelkl",390044,"EST",NA,26,"False","True",2000,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"VERDU Joan                                                                
-
-
-Van Deer","VERDU Joan                                                                
-
-
-Van Deer",20398,"AND",NA,18,"False","True",1995,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"VINATZER Alex                                                                
-
-
-Atomic","VINATZER Alex                                                                
-
-
-Atomic",6293171,"ITA",NA,21,"False","True",1999,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"MAES Sam                                                                
-
-
-Voelkl","MAES Sam                                                                
-
-
-Voelkl",60261,"BEL",NA,20,"False","True",1998,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"AERNI Luca                                                                
-
-
-Fischer","AERNI Luca                                                                
-
-
-Fischer",511983,"SUI",NA,22,"False","True",1993,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"GRATZ Fabian                                                                
-
-
-Fischer","GRATZ Fabian                                                                
-
-
-Fischer",202829,"GER",NA,24,"False","True",1997,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"HAUGAN Timon                                                                
-
-
-Van Deer","HAUGAN Timon                                                                
-
-
-Van Deer",422507,"NOR",NA,9,"False","True",1996,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"SCHWARZ Marco                                                                
-
-
-Atomic","SCHWARZ Marco                                                                
-
-
-Atomic",54320,"AUT",NA,8,"False","True",1995,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"ODERMATT Marco                                                                
-
-
-Stoeckli","ODERMATT Marco                                                                
-
-
-Stoeckli",512269,"SUI",NA,6,"False","True",1997,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"ZUBCIC Filip                                                                
-
-
-Atomic","ZUBCIC Filip                                                                
-
-
-Atomic",380335,"CRO",NA,10,"False","True",1993,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"FAVROT Thibaut                                                                
-
-
-Dynastar","FAVROT Thibaut                                                                
-
-
-Dynastar",194935,"FRA",NA,12,"False","True",1994,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"RADAMUS River                                                                
-
-
-Rossignol","RADAMUS River                                                                
-
-
-Rossignol",6532084,"USA",NA,11,"True","True",1998,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"AX SWARTZ Fabian                                                                
-
-
-Van Deer","AX SWARTZ Fabian                                                                
-
-
-Van Deer",502617,"SWE",NA,37,"False","True",2004,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"KATO Seigo                                                                
-
-
-Atomic","KATO Seigo                                                                
-
-
-Atomic",6300451,"JPN",NA,34,"False","True",1998,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"JANUTIN Fadri                                                                
-
-
-Fischer","JANUTIN Fadri                                                                
-
-
-Fischer",512424,"SUI",NA,49,"False","True",2000,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"NELSON Isaiah                                                                
-
-
-Rossignol","NELSON Isaiah                                                                
-
-
-Rossignol",6532790,"USA",NA,48,"True","True",2001,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"READ Erik                                                                
-
-
-Atomic","READ Erik                                                                
-
-
-Atomic",103729,"CAN",NA,46,"False","True",1991,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"ORECCHIONI Diego                                                                
-
-
-Rossignol","ORECCHIONI Diego                                                                
-
-
-Rossignol",6190876,"FRA",NA,42,"False","True",2000,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"ZAMPA Andreas                                                                
-
-
-Salomon","ZAMPA Andreas                                                                
-
-
-Salomon",700879,"SVK",NA,43,"False","True",1993,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"HAECHLER Lenz                                                                
-
-
-Stoeckli","HAECHLER Lenz                                                                
-
-
-Stoeckli",512588,"SUI",NA,35,"False","True",2003,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"ORTEGA FORNESA Albert                                                                
-
-
-Rossignol","ORTEGA FORNESA Albert                                                                
-
-
-Rossignol",492192,"ESP",NA,38,"False","True",1998,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"FRANZONI Giovanni                                                                
-
-
-Rossignol","FRANZONI Giovanni                                                                
-
-
-Rossignol",6293831,"ITA",NA,40,"False","True",2001,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"HANSSON William                                                                
-
-
-Rossignol","HANSSON William                                                                
-
-
-Rossignol",502433,"SWE",NA,56,"False","True",2001,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"ZURBRUEGG Sandro                                                                
-
-
-Stoeckli","ZURBRUEGG Sandro                                                                
-
-
-Stoeckli",512495,"SUI",NA,55,"False","True",2002,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"SIMONET Livio                                                                
-
-
-Rossignol","SIMONET Livio                                                                
-
-
-Rossignol",512301,"SUI",NA,54,"False","True",1998,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"FAVRE Guerlain                                                                
-
-
-Salomon","FAVRE Guerlain                                                                
-
-
-Salomon",6190875,"FRA",NA,53,"False","True",2000,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Head",Tobias Kastlunger,5321,ITA,,59,False,True,1999,,,,,Giant Slalom,1265.018710405256,1247.9699476716914,1335.8184268223008,1332.0418440282494,1263.7607606444922,1248.5044256463475,1096.4338910123083,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "SARCHETT Ryder                                                                
 
 
 Dynastar","SARCHETT Ryder                                                                
 
 
-Dynastar",6533248,"USA",NA,51,"True","True",2003,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Dynastar",6533248,USA,,51,True,True,2003,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"READ Erik                                                                
+
+
+Atomic","READ Erik                                                                
+
+
+Atomic",103729,CAN,,46,False,True,1991,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"NELSON Isaiah                                                                
+
+
+Rossignol","NELSON Isaiah                                                                
+
+
+Rossignol",6532790,USA,,48,True,True,2001,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"JANUTIN Fadri                                                                
+
+
+Fischer","JANUTIN Fadri                                                                
+
+
+Fischer",512424,SUI,,49,False,True,2000,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"SIMONET Livio                                                                
+
+
+Rossignol","SIMONET Livio                                                                
+
+
+Rossignol",512301,SUI,,54,False,True,1998,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "STURM Joshua                                                                
 
 
 Atomic","STURM Joshua                                                                
 
 
-Atomic",54630,"AUT",NA,52,"False","True",2001,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Atomic",54630,AUT,,52,False,True,2001,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"FAVRE Guerlain                                                                
+
+
+Salomon","FAVRE Guerlain                                                                
+
+
+Salomon",6190875,FRA,,53,False,True,2000,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"ZURBRUEGG Sandro                                                                
+
+
+Stoeckli","ZURBRUEGG Sandro                                                                
+
+
+Stoeckli",512495,SUI,,55,False,True,2002,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"HANSSON William                                                                
+
+
+Rossignol","HANSSON William                                                                
+
+
+Rossignol",502433,SWE,,56,False,True,2001,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "ZAMPA Adam                                                                
 
 
 Salomon","ZAMPA Adam                                                                
 
 
-Salomon",700830,"SVK",NA,60,"False","True",1990,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Salomon",700830,SVK,,60,False,True,1990,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"MEILLARD Loic                                                                
+
+
+Rossignol","MEILLARD Loic                                                                
+
+
+Rossignol",512182,SUI,,5,False,True,1996,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"TUMLER Thomas                                                                
+
+
+Stoeckli","TUMLER Thomas                                                                
+
+
+Stoeckli",511638,SUI,,3,False,True,1989,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
 "AMMAN Hannes                                                                
 
 
 Rossignol","AMMAN Hannes                                                                
 
 
-Rossignol",203114,"GER",NA,64,"False","True",2002,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Marco Odermatt","Marco Odermatt",3040,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1799.76576457399,1678.15713435598,1298.38261549842,1304.10511903077,1694.84559418372,1721.21758611995,1691.22847549117,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Marco Schwarz","Marco Schwarz",2561,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1555.99960506072,1374.32631012509,1456.45300042349,1438.86860240772,1536.31194569667,1470.05022566233,1606.53658224653,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Loic Meillard","Loic Meillard",2565,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1458.18656761235,1287.48308538231,1513.93407336759,1389.15444916694,1546.86425361913,1355.92105137248,1596.08014855883,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Zan Kranjec","Zan Kranjec",1942,"Slovenia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1580.57795173985,1247.96994767169,1265.77481304502,1281.54698735659,1575.59409391757,1248.50442564635,1583.20653778,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Thibaut Favrot","Thibaut Favrot",2493,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1570.1812161453,1247.96994767169,1314.92246736376,1281.54698735659,1564.03275873451,1248.50442564635,1560.2445622087,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Filip Zubcic","Filip Zubcic",249,"Croatia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1523.81637806511,1247.96994767169,1448.26900530087,1320.97481813778,1521.52521295452,1240.04067204547,1551.09000391974,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Thomas Tumler","Thomas Tumler",2409,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1532.09179585599,1261.24456202948,1270.36688600321,1281.54698735659,1526.63498948098,1286.50848747472,1522.13794761863,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Timon Haugan","Timon Haugan",3049,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1676.03603331457,1247.96994767169,1660.17923502014,1281.54698735659,1673.401045612,1248.50442564635,1501.62258422424,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"River Radamus","River Radamus",2986,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1465.31798103463,1228.81228116885,1252.32308381013,1340.44184402825,1458.58493697112,1369.02166546833,1489.85320001807,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Joan Verdu Sanchez","Joan Verdu Sanchez",2551,"Andorra",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1497.53683946513,1289.82095742209,1270.36688600321,1306.80925635049,1491.93830046425,1272.95528327084,1485.56480638838,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Aleksander Aamodt Kilde","Aleksander Aamodt Kilde",2393,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1576.78341984601,1667.17626335145,1323.64001158574,1454.17610437297,1490.0990522464,1570.35500895766,1483.98805060506,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Alex Vinatzer","Alex Vinatzer",4040,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1497.79401741997,1247.96994767169,1438.23755571326,1281.54698735659,1495.53008746178,1248.50442564635,1481.75448278199,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Sam Maes","Sam Maes",3002,"Belgium",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1449.18166393435,1247.96994767169,1395.04708763138,1281.54698735659,1447.24257146688,1248.50442564635,1444.088971002,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Manuel Feller","Manuel Feller",2396,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1494.9303932919,1247.96994767169,1515.04360553307,1281.54698735659,1494.66659969649,1248.50442564635,1438.58449386057,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Fabian Gratz","Fabian Gratz",4358,"Germany",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1413.11431077985,1247.96994767169,1283.04890159404,1281.54698735659,1407.81069348405,1248.50442564635,1407.42292089312,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Giovanni Borsotti","Giovanni Borsotti",114,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1382.18568126246,1247.96994767169,1270.67510744497,1246.19853531022,1393.85107402819,1239.06026802655,1387.43156030809,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Tormis Laine","Tormis Laine",4056,"Estonia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1310.61453417865,1247.96994767169,1226.93221183249,1281.54698735659,1308.83769075284,1248.50442564635,1374.68613772539,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Justin Murisier","Justin Murisier",67,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1443.36796206783,1500.89466590234,1196.89082814511,1348.39690378871,1379.89324145865,1437.86588080256,1374.25410025436,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Luca Aerni","Luca Aerni",2392,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1276.74141196233,1247.96994767169,1275.58225893759,1303.83942889792,1275.64426279781,1248.50442564635,1358.39665565073,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Ryan Cochran-Siegle","Ryan Cochran-Siegle",1918,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1551.59983218548,1522.32309073185,1283.80618993358,1386.93792286117,1335.07440458039,1537.92793984533,1332.87368915285,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Patrick Feurstein","Patrick Feurstein",5295,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1335.14699817745,1247.96994767169,1297.04890159404,1281.54698735659,1329.74465689659,1248.50442564635,1328.66299880224,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Victor Muffat-Jeandet","Victor Muffat-Jeandet",2024,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1501.55341147473,1247.96994767169,1500.29068628021,1451.51468591003,1500.90076514722,1324.69099168577,1325.13965083262,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Jared Goldberg","Jared Goldberg",2445,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1190.55704857872,1318.20181829689,1270.36688600321,1314.50823632164,1314.26184209436,1178.20381666373,1314.96878845621,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Armand Marchant","Armand Marchant",2603,"Belgium",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1457.41352445545,1247.96994767169,1457.8888258454,1297.97802148464,1457.15657051013,1248.50442564635,1310.87227265733,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Filippo Della Vite","Filippo Della Vite",5526,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1313.94611836071,1247.96994767169,1282.61615442848,1281.54698735659,1310.07098617147,1248.50442564635,1308.89725222753,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Vincent Kriechmayr","Vincent Kriechmayr",1912,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1608.01181063746,1569.61793844331,1287.45922759249,1342.41669436112,1310.02114542002,1646.17593697377,1308.11367427165,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Erik Read","Erik Read",1920,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1217.79203527619,1247.96994767169,1215.3687523135,1332.95670827935,1216.13173335709,1254.39473158605,1305.09191852017,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Aleix Aubert Serracanta","Aleix Aubert Serracanta",6824,"Spain",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1309.67929157227,1247.96994767169,1270.36688600321,1281.54698735659,1306.26972163924,1248.50442564635,1304.349687256,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"James Crawford","James Crawford",2720,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1516.82264554523,1461.92772462225,1270.36688600321,1353.1310855322,1306.29273853073,1507.77438850959,1303.59121516697,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Ramon Zenhäusern","Ramon Zenhäusern",2427,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1342.55370234222,1247.96994767169,1346.22060643016,1281.54698735659,1344.42003737609,1248.50442564635,1302.9801203523,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Nils Allegre","Nils Allegre",2395,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1475.4793650796,1506.77059773826,1270.36688600321,1332.08141810483,1300.93843159982,1461.59802769465,1301.39976896612,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Kristoffer Jakobsen","Kristoffer Jakobsen",2765,"Sweden",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1349.9591286674,1247.96994767169,1352.56170252994,1281.54698735659,1349.56136810629,1248.50442564635,1299.64585901379,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Alexis Monney","Alexis Monney",5493,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1509.88528166136,1513.58545917838,1270.36688600321,1281.54698735659,1299.80705761066,1499.45967932563,1299.37377348063,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Laurie Taylor","Laurie Taylor",4143,"Great Britain",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1392.03365450292,1247.96994767169,1394.1772386257,1281.54698735659,1392.52073873674,1248.50442564635,1298.08660570527,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Brodie Seger","Brodie Seger",2711,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1268.96602066214,1290.72076840128,1270.36688600321,1289.91023831611,1295.38572911174,1257.09129070944,1295.9949024425,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Jan Zabystran","Jan Zabystran",2719,"Czechia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1380.56415168651,1254.96790096633,1272.08497174244,1287.40246781079,1279.74968268327,1364.60706167618,1295.70178357711,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Dave Ryding","Dave Ryding",2375,"Great Britain",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1501.3323893595,1247.96994767169,1501.68234934024,1281.54698735659,1501.65778344683,1248.50442564635,1295.65142826957,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Andreas Zampa","Andreas Zampa",1973,"Slovakia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1296.36794395622,1223.35428034169,1227.97013278885,1201.38216405685,1293.02837094424,1157.39065278833,1289.22140333643,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Henrik Von Appen","Henrik Von Appen",2505,"Chile",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1235.27779529138,1241.04839494347,1270.36688600321,1196.52584107303,1286.56442432241,1226.21986097882,1286.36506060544,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Yohei Koyama","Yohei Koyama",2447,"Japan",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1326.97588712525,1247.96994767169,1329.93451970218,1281.54698735659,1329.32888708092,1248.50442564635,1286.29607025272,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Michael Matt","Michael Matt",2481,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1415.12836979075,1247.96994767169,1415.14876940466,1281.54698735659,1415.39755287067,1248.50442564635,1286.09431840148,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Marc Rochat","Marc Rochat",2812,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1333.7308605795,1247.96994767169,1336.30731757222,1281.54698735659,1334.01338490853,1248.50442564635,1285.86499470245,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Rok Aznoh","Rok Aznoh",5119,"Slovenia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1238.34718337149,1199.02955146069,1282.61656635493,1267.64184402825,1269.27577196474,1236.33835660285,1284.92025768957,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Albert Popov","Albert Popov",2597,"Bulgaria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1508.70117342033,1247.96994767169,1510.58812462916,1281.54698735659,1509.14229073509,1248.50442564635,1284.7611154398,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Theodor Brækken","Theodor Brækken",6709,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1150.39861169726,1247.96994767169,1156.09030902783,1281.54698735659,1151.67981880757,1248.50442564635,1283.77401151931,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Samuel Kolega","Samuel Kolega",3029,"Croatia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1477.78816530217,1247.96994767169,1482.24257681868,1281.54698735659,1477.76399656595,1248.50442564635,1281.40928027133,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Hugh McAdam","Hugh McAdam",5549,"Australia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1220.69795214212,1247.96994767169,1232.79996593104,1281.54698735659,1220.86718193558,1248.50442564635,1280.97689515747,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Rasmus Bakkevig","Rasmus Bakkevig",7233,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1283.84533796032,1247.96994767169,1270.36688600321,1281.54698735659,1280.56375771595,1248.50442564635,1279.4501973916,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Stefan Rogentin","Stefan Rogentin",3505,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1595.71102762517,1502.99553542713,1270.36688600321,1297.04054244527,1279.79212263223,1586.39701460383,1277.56403677209,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Daniel Yule","Daniel Yule",2404,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1503.69453291792,1247.96994767169,1505.1052958534,1281.54698735659,1504.57019726452,1248.50442564635,1273.49378258035,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Romed Baumann","Romed Baumann",10,"Germany",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1341.42583210204,1351.70203619129,1264.89997039264,1396.88798860369,1262.51632158542,1328.66577811532,1268.8494646177,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Istok Rodes","Istok Rodes",2454,"Croatia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1308.37380305257,1247.96994767169,1319.92927798498,1257.84523475085,1308.43786389567,1256.49331466945,1267.98323302422,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Marco Abbruzzese","Marco Abbruzzese",5426,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1195.99228877353,1282.29497779145,1270.36688600321,1281.54698735659,1262.09869500625,1187.54152877719,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Blaise Giezendanner","Blaise Giezendanner",2476,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1301.74761715806,1390.29656542551,1270.36688600321,1241.22935802453,1262.09869500625,1288.96076396744,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Hugo Desgrippes","Hugo Desgrippes",5508,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1265.846237785,1247.96994767169,1267.97293610575,1281.54698735659,1267.58431562419,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Mikkel Remsøy","Mikkel Remsøy",5471,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1174.05692056938,1247.96994767169,1177.95541747886,1281.54698735659,1175.07275907621,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Arnaud Boisset","Arnaud Boisset",4710,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1377.57647287616,1320.15491577846,1270.36688600321,1281.54698735659,1262.09869500625,1365.7058593049,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Adrian Smiseth Sejersted","Adrian Smiseth Sejersted",2386,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1508.12899982073,1450.56929745186,1270.36688600321,1294.81725602702,1262.09869500625,1494.5724860954,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Daniel Hemetsberger","Daniel Hemetsberger",4605,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1500.96651267827,1443.47943255614,1270.36688600321,1281.54698735659,1262.09869500625,1487.15071348554,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Matteo Canins","Matteo Canins",4739,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1181.35734303885,1247.96994767169,1177.05848483452,1281.54698735659,1181.91394435658,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Antoine Azzolin","Antoine Azzolin",6717,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1163.27400572173,1247.96994767169,1166.46157031396,1281.54698735659,1163.86346168322,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Richard Leitgeb","Richard Leitgeb",2854,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1234.24982183783,1247.96994767169,1234.71301897812,1281.54698735659,1235.6447925906,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Franjo Von Allmen","Franjo Von Allmen",5674,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1597.98057113194,1548.49945737919,1270.36688600321,1281.54698735659,1262.09869500625,1584.24889444813,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Simon Jocher","Simon Jocher",4305,"Germany",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1427.77776250757,1324.8127756337,1270.36688600321,1318.81611106143,1262.09869500625,1416.08196764445,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Kyle Negomir","Kyle Negomir",4714,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1352.29707610339,1197.805657102,1295.73290777013,1282.20171661597,1297.05153737175,1341.59490722215,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Nicolo Molteni","Nicolo Molteni",4296,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1346.26948532751,1229.55374469506,1270.36688600321,1281.54698735659,1262.09869500625,1336.38023767518,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Guglielmo Bosca","Guglielmo Bosca",2413,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1527.87262575358,1332.49423818042,1270.36688600321,1244.91326477757,1262.09869500625,1514.34816901291,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Peder Lunder","Peder Lunder",7230,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1219.75973898682,1247.96994767169,1222.42801589272,1281.54698735659,1219.91440075608,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Jesper Pohjolainen","Jesper Pohjolainen",5401,"Finland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1107.6703159814,1247.96994767169,1108.95968914297,1281.54698735659,1109.0268963052,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Joaquim Salarich","Joaquim Salarich",2697,"Spain",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1119.15180344019,1247.96994767169,1121.74085058621,1281.54698735659,1120.7240397277,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Anton Tremmel","Anton Tremmel",2746,"Germany",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1204.09409234436,1247.96994767169,1208.03230793146,1281.54698735659,1205.79648916316,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Matthieu Bailet","Matthieu Bailet",2742,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1312.79484225944,1283.93931617955,1270.36688600321,1281.54698735659,1262.09869500625,1301.68598343506,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Benjamin Ritchie","Benjamin Ritchie",5296,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1346.2760726714,1247.96994767169,1346.31069124983,1281.54698735659,1345.86563892454,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Paco Rassat","Paco Rassat",5371,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1577.97166309114,1247.96994767169,1577.61901958426,1281.54698735659,1577.03104863005,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Steven Amiez","Steven Amiez",5409,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1538.85173694889,1247.96994767169,1539.12075670327,1281.54698735659,1537.90969234588,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Jett Seymour","Jett Seymour",4992,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1253.68222348762,1247.96994767169,1255.76858234545,1281.54698735659,1253.72728124442,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Sebastian Holzmann","Sebastian Holzmann",2425,"Germany",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1338.32607614619,1247.96994767169,1343.89696129997,1281.54698735659,1339.88511869261,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Billy Major","Billy Major",2607,"Great Britain",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1412.38445080411,1247.96994767169,1413.98277141841,1281.54698735659,1412.57159566155,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Simon Rueland","Simon Rueland",3725,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1328.32161122625,1247.96994767169,1326.37875750006,1281.54698735659,1328.57620146779,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"AJ Ginnis","AJ Ginnis",2683,"Greece",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1327.71023063715,1247.96994767169,1334.71198564572,1281.54698735659,1327.67596904414,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Dominik Zerhoch","Dominik Zerhoch",5569,"Germany",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1229.75973898682,1247.96994767169,1232.42801589272,1281.54698735659,1229.91440075608,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Corrado Barbera","Corrado Barbera",5644,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1166.72628470332,1247.96994767169,1169.36272420085,1281.54698735659,1169.31935465676,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Bryce Bennett","Bryce Bennett",2387,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1233.07109819951,1437.74766875345,1270.36688600321,1369.66321831496,1262.09869500625,1220.19987997738,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Florian Schieder","Florian Schieder",3043,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1266.74696855022,1425.13005495857,1270.36688600321,1272.26555720187,1262.09869500625,1253.96881628612,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Benjamin Jacques Alliod","Benjamin Jacques Alliod",5631,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1210.48594978967,1245.21237044267,1270.36688600321,1281.54698735659,1262.09869500625,1200.33841060398,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Vincent Wieser","Vincent Wieser",5486,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1228.16456634034,1244.83007560964,1270.36688600321,1281.54698735659,1262.09869500625,1219.15781469734,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Sam Morse","Sam Morse",2636,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1234.64106394021,1295.54095661375,1270.36688600321,1255.180847383,1262.09869500625,1223.52846090981,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Cameron Alexander","Cameron Alexander",4306,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1353.9936236232,1487.70349201587,1270.36688600321,1281.54698735659,1262.09869500625,1340.67395149867,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Raphael Lessard","Raphael Lessard",5312,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1206.85941862694,1257.83885269996,1270.36688600321,1281.54698735659,1262.09869500625,1198.06155256167,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Elian Lehto","Elian Lehto",4054,"Finland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1375.97753512983,1372.88749163554,1270.36688600321,1259.24184402825,1262.09869500625,1363.96183102058,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Andreas Ploier","Andreas Ploier",4998,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1298.83451276014,1248.87751068704,1270.36688600321,1281.54698735659,1262.09869500625,1288.12000644462,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Ander Mintegui","Ander Mintegui",6890,"Spain",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1310.84367025607,1247.96994767169,1270.36688600321,1281.54698735659,1262.09869500625,1302.11412938893,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Charles Gamel Seigneur","Charles Gamel Seigneur",5612,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1300.41406680948,1272.76146487928,1270.36688600321,1281.54698735659,1262.09869500625,1291.96998427392,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Nils Alphand","Nils Alphand",4310,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1290.00088684535,1298.32305410051,1270.36688600321,1281.54698735659,1262.09869500625,1279.63321056467,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Nejc Naralocnik","Nejc Naralocnik",3001,"Slovenia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1251.73611762211,1261.2374320014,1270.36688600321,1265.72565555713,1262.09869500625,1242.06190940023,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Jeffrey Read","Jeffrey Read",2208,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1309.00205822553,1256.62423029157,1270.36688600321,1245.93797283432,1262.09869500625,1296.96673721603,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Lars Rösti","Lars Rösti",4300,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1284.61643523932,1333.24403555246,1270.36688600321,1281.54698735659,1262.09869500625,1273.05926544301,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Felix Monsén","Felix Monsén",2567,"Sweden",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1343.61531479227,1282.65815895685,1270.36688600321,1278.66168828285,1262.09869500625,1333.09353804248,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Juhan Luik","Juhan Luik",2613,"Estonia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1106.14513851617,1213.00662719483,1270.36688600321,1290.57907893801,1262.09869500625,1098.25170947246,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Roy-Alexander Steudle","Roy-Alexander Steudle",5425,"Great Britain",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1096.75549518117,1147.062523152,1270.36688600321,1281.54698735659,1262.09869500625,1091.38438272009,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Wiley Maple","Wiley Maple",1808,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1145.71946937433,1190.64427799903,1270.36688600321,1246.78626032815,1262.09869500625,1136.92707556994,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Florian Loriot","Florian Loriot",5301,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1163.42195758112,1221.4014318902,1270.36688600321,1302.42641451164,1262.09869500625,1153.50280556055,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Tanner Perkins","Tanner Perkins",6297,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1245.84367025607,1247.96994767169,1270.36688600321,1281.54698735659,1262.09869500625,1237.11412938893,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Gustav Wissting","Gustav Wissting",7109,"Sweden",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1168.37632245988,1247.96994767169,1171.72520513123,1281.54698735659,1169.29962938599,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Miha Hrobat","Miha Hrobat",2633,"Slovenia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1533.96197539954,1519.82338245824,1291.90654639898,1252.85300581505,1261.90622024316,1520.27143435985,1263.72399267857,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Fabian Ax Swartz","Fabian Ax Swartz",6700,"Sweden",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1274.55541943146,1247.96994767169,1279.30798451365,1281.54698735659,1272.77567907622,1248.50442564635,1262.00411360996,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Adrian Pertl","Adrian Pertl",4172,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1286.75295383575,1247.96994767169,1289.18556225342,1281.54698735659,1287.40399698881,1248.50442564635,1257.73449257814,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Isaiah Nelson","Isaiah Nelson",5504,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1253.31065063062,1247.96994767169,1279.28564438532,1281.54698735659,1257.68506902333,1262.39348507464,1257.2652213696,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Juan Del Campo","Juan Del Campo",2602,"Spain",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1141.44631998255,1247.96994767169,1146.9356082963,1281.54698735659,1143.08251858723,1248.50442564635,1256.66131225128,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Luke Winters","Luke Winters",4709,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1134.98217384132,1247.96994767169,1142.23960664626,1281.64184402825,1139.21223298295,1248.50442564635,1253.02778864247,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Fadri Janutin","Fadri Janutin",5338,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1254.56234595467,1247.96994767169,1279.27083253629,1281.54698735659,1250.97152548732,1248.50442564635,1251.90929675131,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Cooper Puckett","Cooper Puckett",5567,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1322.73634284254,1247.96994767169,1352.42801589272,1281.54698735659,1323.37380616361,1248.50442564635,1251.73154046309,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Dominik Paris","Dominik Paris",91,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1595.30174931325,1561.59519224322,1280.12489430212,1353.31351071216,1244.40897715563,1582.36294887866,1249.33814211901,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Giovanni Franzoni","Giovanni Franzoni",5497,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1432.67059119467,1292.68652035721,1270.36688600321,1288.23361710708,1245.60472608747,1436.51797621026,1242.43646134462,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Simon Maurberger","Simon Maurberger",2640,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1179.27369217163,1247.96994767169,1198.09413815421,1281.54698735659,1181.48179841073,1272.53630043205,1235.1189076267,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Christof Innerhofer","Christof Innerhofer",13,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1382.52516854605,1338.50188753027,1271.2678865978,1323.05900652853,1238.22973883872,1369.84878965102,1233.4871590953,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Eduard Hallberg","Eduard Hallberg",6820,"Finland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1413.60182165163,1247.96994767169,1440.89015123566,1281.54698735659,1414.0543101532,1248.50442564635,1230.31228599827,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Tommaso Sala","Tommaso Sala",2588,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1331.63178366493,1247.96994767169,1341.04499536096,1281.54698735659,1332.36834292245,1248.50442564635,1230.20437418543,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Ryder Sarchett","Ryder Sarchett",6284,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1233.79192005248,1247.96994767169,1270.36688600321,1281.54698735659,1231.19538967233,1248.50442564635,1228.21112832752,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Riley Seger","Riley Seger",4304,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1241.01016363891,1257.01073988864,1270.36688600321,1281.54698735659,1234.57604976664,1239.82341927985,1227.8090610196,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Clement Noel","Clement Noel",2758,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1584.45509107102,1247.96994767169,1609.08045573183,1281.54698735659,1584.07364333025,1248.50442564635,1226.70516274552,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Liam Wallace","Liam Wallace",4988,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1168.38606400861,1247.96994767169,1190.77894280629,1281.54698735659,1167.10435721485,1248.50442564635,1226.49347359492,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Tanguy Nef","Tanguy Nef",3065,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1549.05200527098,1247.96994767169,1548.68047952081,1281.54698735659,1548.13764946333,1248.50442564635,1226.37511434193,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Pietro Tranchina","Pietro Tranchina",7025,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1228.60507876841,1247.96994767169,1270.36688600321,1281.54698735659,1225.64219313849,1248.50442564635,1223.69172793515,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Johannes Strolz","Johannes Strolz",2401,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1421.20171483849,1260.43995912687,1428.28034981358,1296.3104858637,1426.47875949508,1269.12025323661,1219.99312071509,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Seigo Kato","Seigo Kato",2734,"Japan",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1212.91236854401,1247.96994767169,1227.19482857937,1281.54698735659,1210.53278770216,1248.50442564635,1219.8875008971,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Dominik Raschner","Dominik Raschner",2639,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1433.45615264293,1247.96994767169,1445.84728960351,1281.54698735659,1432.79173315866,1248.50442564635,1219.32413734783,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Adam Hofstedt","Adam Hofstedt",5449,"Sweden",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1217.39267511029,1247.96994767169,1288.94674214609,1281.54698735659,1215.04511005355,1248.50442564635,1218.21984113146,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Mattia Casse","Mattia Casse",158,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1478.82713036039,1472.32117491679,1304.91220045071,1238.99860103808,1220.17321650768,1464.94955640909,1216.92081475808,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Hannes Amman","Hannes Amman",5698,"Germany",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1218.60507876841,1247.96994767169,1270.36688600321,1281.54698735659,1215.64219313849,1248.50442564635,1213.69172793515,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Freddy Carrick-Smith","Freddy Carrick-Smith",8011,"Great Britain",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1208.60507876841,1247.96994767169,1270.36688600321,1281.54698735659,1205.64219313849,1248.50442564635,1203.69172793515,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Wiliam St-Germain","Wiliam St-Germain",2483,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1209.12794881912,1247.96994767169,1270.36688600321,1281.54698735659,1206.71123321869,1248.50442564635,1203.24157224609,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Fredrik Møller","Fredrik Møller",5758,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1461.45525068154,1309.74149471904,1270.36688600321,1281.54698735659,1208.47615200403,1509.92248360047,1202.87724138493,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Adrien Theaux","Adrien Theaux",19,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1211.39096018937,1359.2924217942,1279.78798149309,1360.49475128241,1209.62218643074,1199.11619946281,1201.06142078966,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Ryoma Katayama","Ryoma Katayama",5578,"Japan",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1206.19292599459,1247.96994767169,1270.36688600321,1281.54698735659,1203.51340979528,1248.50442564635,1200.70193302261,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Fabio Gstrein","Fabio Gstrein",3066,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1533.59667052774,1247.96994767169,1560.14979874862,1281.54698735659,1532.52821512686,1248.50442564635,1178.47215019997,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"William Hansson","William Hansson",5403,"Sweden",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1082.53320020276,1247.96994767169,1140.48367245357,1281.54698735659,1080.79082796021,1248.50442564635,1174.92242060194,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Semyel Bissig","Semyel Bissig",4294,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1181.98525775811,1247.96994767169,1313.23883026736,1281.54698735659,1178.64227372775,1248.50442564635,1173.96652130183,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Livio Simonet","Livio Simonet",5413,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1175.47979869617,1247.96994767169,1270.36688600321,1281.54698735659,1172.40709379949,1248.50442564635,1165.29195759521,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Guerlain Favre","Guerlain Favre",5499,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1153.62765454625,1247.96994767169,1270.36688600321,1281.54698735659,1152.22762071872,1248.50442564635,1147.55451034275,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Joshua Sturm","Joshua Sturm",5399,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1102.15041819812,1247.96994767169,1175.86195440054,1281.54698735659,1101.30959969129,1248.50442564635,1125.83613465127,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+Rossignol",203114,GER,,64,False,True,2002,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"ODERMATT Marco                                                                
+
+
+Stoeckli","ODERMATT Marco                                                                
+
+
+Stoeckli",512269,SUI,,6,False,True,1997,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"VERDU Joan                                                                
+
+
+Van Deer","VERDU Joan                                                                
+
+
+Van Deer",20398,AND,,18,False,True,1995,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"ZAMPA Andreas                                                                
+
+
+Salomon","ZAMPA Andreas                                                                
+
+
+Salomon",700879,SVK,,43,False,True,1993,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"ANGUENOT Leo                                                                
+
+
+Rossignol","ANGUENOT Leo                                                                
+
+
+Rossignol",6190628,FRA,,17,False,True,1998,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"MAES Sam                                                                
+
+
+Voelkl","MAES Sam                                                                
+
+
+Voelkl",60261,BEL,,20,False,True,1998,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"VINATZER Alex                                                                
+
+
+Atomic","VINATZER Alex                                                                
+
+
+Atomic",6293171,ITA,,21,False,True,1999,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"AERNI Luca                                                                
+
+
+Fischer","AERNI Luca                                                                
+
+
+Fischer",511983,SUI,,22,False,True,1993,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"FEURSTEIN Patrick                                                                
+
+
+Rossignol","FEURSTEIN Patrick                                                                
+
+
+Rossignol",54359,AUT,,16,False,True,1996,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"GRATZ Fabian                                                                
+
+
+Fischer","GRATZ Fabian                                                                
+
+
+Fischer",202829,GER,,24,False,True,1997,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"FAVROT Thibaut                                                                
+
+
+Dynastar","FAVROT Thibaut                                                                
+
+
+Dynastar",194935,FRA,,12,False,True,1994,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"LAINE Tormis                                                                
+
+
+Voelkl","LAINE Tormis                                                                
+
+
+Voelkl",390044,EST,,26,False,True,2000,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"RADAMUS River                                                                
+
+
+Rossignol","RADAMUS River                                                                
+
+
+Rossignol",6532084,USA,,11,True,True,1998,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"ZUBCIC Filip                                                                
+
+
+Atomic","ZUBCIC Filip                                                                
+
+
+Atomic",380335,CRO,,10,False,True,1993,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"DELLA VITE Filippo                                                                
+
+
+Rossignol","DELLA VITE Filippo                                                                
+
+
+Rossignol",6293775,ITA,,29,False,True,2001,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"BORSOTTI Giovanni                                                                
+
+
+Rossignol","BORSOTTI Giovanni                                                                
+
+
+Rossignol",990048,ITA,,30,False,True,1990,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"HAUGAN Timon                                                                
+
+
+Van Deer","HAUGAN Timon                                                                
+
+
+Van Deer",422507,NOR,,9,False,True,1996,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"SCHWARZ Marco                                                                
+
+
+Atomic","SCHWARZ Marco                                                                
+
+
+Atomic",54320,AUT,,8,False,True,1995,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"KRANJEC Zan                                                                
+
+
+Rossignol","KRANJEC Zan                                                                
+
+
+Rossignol",561244,SLO,,2,False,True,1992,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"KATO Seigo                                                                
+
+
+Atomic","KATO Seigo                                                                
+
+
+Atomic",6300451,JPN,,34,False,True,1998,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"HAECHLER Lenz                                                                
+
+
+Stoeckli","HAECHLER Lenz                                                                
+
+
+Stoeckli",512588,SUI,,35,False,True,2003,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"AX SWARTZ Fabian                                                                
+
+
+Van Deer","AX SWARTZ Fabian                                                                
+
+
+Van Deer",502617,SWE,,37,False,True,2004,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"ORTEGA FORNESA Albert                                                                
+
+
+Rossignol","ORTEGA FORNESA Albert                                                                
+
+
+Rossignol",492192,ESP,,38,False,True,1998,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"FRANZONI Giovanni                                                                
+
+
+Rossignol","FRANZONI Giovanni                                                                
+
+
+Rossignol",6293831,ITA,,40,False,True,2001,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+"ORECCHIONI Diego                                                                
+
+
+Rossignol","ORECCHIONI Diego                                                                
+
+
+Rossignol",6190876,FRA,,42,False,True,2000,,,,,Giant Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Marco Odermatt,Marco Odermatt,3040,Switzerland,999,999,False,False,,,,,,Giant Slalom,1799.7657645739887,1678.1571343559776,1298.3826154984208,1304.1051190307687,1694.8455941837158,1721.2175861199532,1691.2284754911682,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Marco Schwarz,Marco Schwarz,2561,Austria,999,999,False,False,,,,,,Giant Slalom,1555.9996050607217,1374.326310125092,1456.4530004234882,1438.8686024077217,1536.3119456966688,1470.050225662332,1606.5365822465253,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Loic Meillard,Loic Meillard,2565,Switzerland,999,999,False,False,,,,,,Giant Slalom,1458.1865676123489,1287.4830853823132,1513.9340733675858,1389.1544491669358,1546.8642536191348,1355.9210513724802,1596.0801485588304,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Zan Kranjec,Zan Kranjec,1942,Slovenia,999,999,False,False,,,,,,Giant Slalom,1580.5779517398462,1247.9699476716914,1265.7748130450243,1281.5469873565858,1575.5940939175737,1248.5044256463475,1583.2065377800045,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Thibaut Favrot,Thibaut Favrot,2493,France,999,999,False,False,,,,,,Giant Slalom,1570.1812161453004,1247.9699476716914,1314.9224673637575,1281.5469873565858,1564.0327587345123,1248.5044256463475,1560.2445622086975,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Filip Zubcic,Filip Zubcic,249,Croatia,999,999,False,False,,,,,,Giant Slalom,1523.8163780651134,1247.9699476716914,1448.2690053008705,1320.974818137779,1521.5252129545197,1240.0406720454664,1551.0900039197372,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Thomas Tumler,Thomas Tumler,2409,Switzerland,999,999,False,False,,,,,,Giant Slalom,1532.0917958559894,1261.2445620294843,1270.3668860032053,1281.5469873565858,1526.6349894809805,1286.5084874747151,1522.1379476186348,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Timon Haugan,Timon Haugan,3049,Norway,999,999,False,False,,,,,,Giant Slalom,1676.036033314571,1247.9699476716914,1660.179235020136,1281.5469873565858,1673.401045611996,1248.5044256463475,1501.6225842242438,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+River Radamus,River Radamus,2986,USA,999,999,True,False,,,,,,Giant Slalom,1465.3179810346296,1228.8122811688472,1252.3230838101256,1340.4418440282495,1458.5849369711189,1369.0216654683254,1489.8532000180653,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Joan Verdu Sanchez,Joan Verdu Sanchez,2551,Andorra,999,999,False,False,,,,,,Giant Slalom,1497.536839465129,1289.8209574220875,1270.3668860032053,1306.8092563504922,1491.9383004642502,1272.9552832708364,1485.5648063883823,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Aleksander Aamodt Kilde,Aleksander Aamodt Kilde,2393,Norway,999,999,False,False,,,,,,Giant Slalom,1576.7834198460132,1667.1762633514509,1323.6400115857396,1454.1761043729744,1490.0990522464049,1570.3550089576622,1483.988050605064,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Alex Vinatzer,Alex Vinatzer,4040,Italy,999,999,False,False,,,,,,Giant Slalom,1497.7940174199653,1247.9699476716914,1438.2375557132625,1281.5469873565858,1495.5300874617806,1248.5044256463475,1481.7544827819918,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Sam Maes,Sam Maes,3002,Belgium,999,999,False,False,,,,,,Giant Slalom,1449.1816639343467,1247.9699476716914,1395.047087631376,1281.5469873565858,1447.2425714668773,1248.5044256463475,1444.088971001997,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Manuel Feller,Manuel Feller,2396,Austria,999,999,False,False,,,,,,Giant Slalom,1494.9303932919015,1247.9699476716914,1515.0436055330715,1281.5469873565858,1494.6665996964864,1248.5044256463475,1438.584493860569,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Fabian Gratz,Fabian Gratz,4358,Germany,999,999,False,False,,,,,,Giant Slalom,1413.114310779846,1247.9699476716914,1283.0489015940395,1281.5469873565858,1407.8106934840544,1248.5044256463475,1407.4229208931226,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Giovanni Borsotti,Giovanni Borsotti,114,Italy,999,999,False,False,,,,,,Giant Slalom,1382.185681262455,1247.9699476716914,1270.675107444967,1246.1985353102157,1393.8510740281913,1239.0602680265497,1387.4315603080947,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Tormis Laine,Tormis Laine,4056,Estonia,999,999,False,False,,,,,,Giant Slalom,1310.614534178649,1247.9699476716914,1226.9322118324949,1281.5469873565858,1308.8376907528395,1248.5044256463475,1374.686137725395,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Justin Murisier,Justin Murisier,67,Switzerland,999,999,False,False,,,,,,Giant Slalom,1443.3679620678254,1500.894665902342,1196.8908281451138,1348.3969037887082,1379.8932414586516,1437.8658808025557,1374.2541002543553,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Luca Aerni,Luca Aerni,2392,Switzerland,999,999,False,False,,,,,,Giant Slalom,1276.7414119623295,1247.9699476716914,1275.582258937588,1303.8394288979216,1275.644262797815,1248.5044256463475,1358.3966556507337,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Ryan Cochran-Siegle,Ryan Cochran-Siegle,1918,USA,999,999,True,False,,,,,,Giant Slalom,1551.599832185476,1522.323090731849,1283.8061899335817,1386.9379228611708,1335.074404580393,1537.927939845328,1332.8736891528476,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Patrick Feurstein,Patrick Feurstein,5295,Austria,999,999,False,False,,,,,,Giant Slalom,1335.1469981774492,1247.9699476716914,1297.0489015940395,1281.5469873565858,1329.7446568965895,1248.5044256463475,1328.662998802241,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Victor Muffat-Jeandet,Victor Muffat-Jeandet,2024,France,999,999,False,False,,,,,,Giant Slalom,1501.5534114747336,1247.9699476716914,1500.2906862802056,1451.5146859100328,1500.9007651472186,1324.6909916857692,1325.1396508326188,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Jared Goldberg,Jared Goldberg,2445,USA,999,999,True,False,,,,,,Giant Slalom,1190.5570485787202,1318.2018182968914,1270.3668860032053,1314.5082363216395,1314.2618420943566,1178.2038166637303,1314.9687884562106,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Armand Marchant,Armand Marchant,2603,Belgium,999,999,False,False,,,,,,Giant Slalom,1457.4135244554543,1247.9699476716914,1457.8888258454,1297.978021484638,1457.156570510133,1248.5044256463475,1310.8722726573344,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Filippo Della Vite,Filippo Della Vite,5526,Italy,999,999,False,False,,,,,,Giant Slalom,1313.946118360711,1247.9699476716914,1282.6161544284823,1281.5469873565858,1310.0709861714747,1248.5044256463475,1308.8972522275255,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Vincent Kriechmayr,Vincent Kriechmayr,1912,Austria,999,999,False,False,,,,,,Giant Slalom,1608.01181063746,1569.617938443306,1287.4592275924945,1342.41669436112,1310.0211454200185,1646.1759369737715,1308.1136742716465,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Erik Read,Erik Read,1920,Canada,999,999,False,False,,,,,,Giant Slalom,1217.792035276192,1247.9699476716914,1215.3687523134963,1332.956708279347,1216.1317333570917,1254.3947315860455,1305.091918520174,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Aleix Aubert Serracanta,Aleix Aubert Serracanta,6824,Spain,999,999,False,False,,,,,,Giant Slalom,1309.6792915722676,1247.9699476716914,1270.3668860032053,1281.5469873565858,1306.2697216392417,1248.5044256463475,1304.349687256002,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+James Crawford,James Crawford,2720,Canada,999,999,False,False,,,,,,Giant Slalom,1516.8226455452293,1461.927724622248,1270.3668860032053,1353.1310855322015,1306.2927385307262,1507.774388509595,1303.591215166974,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Ramon Zenhäusern,Ramon Zenhäusern,2427,Switzerland,999,999,False,False,,,,,,Giant Slalom,1342.553702342223,1247.9699476716914,1346.2206064301618,1281.5469873565858,1344.4200373760914,1248.5044256463475,1302.9801203523011,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Nils Allegre,Nils Allegre,2395,France,999,999,False,False,,,,,,Giant Slalom,1475.4793650795968,1506.7705977382625,1270.3668860032053,1332.0814181048272,1300.9384315998225,1461.5980276946536,1301.3997689661226,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Kristoffer Jakobsen,Kristoffer Jakobsen,2765,Sweden,999,999,False,False,,,,,,Giant Slalom,1349.9591286674015,1247.9699476716914,1352.5617025299398,1281.5469873565858,1349.5613681062866,1248.5044256463475,1299.6458590137947,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Alexis Monney,Alexis Monney,5493,Switzerland,999,999,False,False,,,,,,Giant Slalom,1509.8852816613614,1513.585459178384,1270.3668860032053,1281.5469873565858,1299.807057610663,1499.4596793256255,1299.3737734806325,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Laurie Taylor,Laurie Taylor,4143,Great Britain,999,999,False,False,,,,,,Giant Slalom,1392.0336545029163,1247.9699476716914,1394.177238625697,1281.5469873565858,1392.520738736736,1248.5044256463475,1298.0866057052722,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Brodie Seger,Brodie Seger,2711,Canada,999,999,False,False,,,,,,Giant Slalom,1268.9660206621372,1290.7207684012803,1270.3668860032053,1289.9102383161076,1295.3857291117438,1257.0912907094369,1295.9949024425043,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Jan Zabystran,Jan Zabystran,2719,Czechia,999,999,False,False,,,,,,Giant Slalom,1380.564151686508,1254.9679009663291,1272.0849717424428,1287.4024678107935,1279.7496826832728,1364.607061676177,1295.7017835771082,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Dave Ryding,Dave Ryding,2375,Great Britain,999,999,False,False,,,,,,Giant Slalom,1501.332389359501,1247.9699476716914,1501.682349340243,1281.5469873565858,1501.6577834468296,1248.5044256463475,1295.6514282695707,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Andreas Zampa,Andreas Zampa,1973,Slovakia,999,999,False,False,,,,,,Giant Slalom,1296.367943956225,1223.3542803416872,1227.9701327888467,1201.382164056849,1293.0283709442367,1157.3906527883337,1289.2214033364285,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Henrik Von Appen,Henrik Von Appen,2505,Chile,999,999,False,False,,,,,,Giant Slalom,1235.2777952913762,1241.048394943467,1270.3668860032053,1196.5258410730269,1286.56442432241,1226.219860978818,1286.3650606054418,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Yohei Koyama,Yohei Koyama,2447,Japan,999,999,False,False,,,,,,Giant Slalom,1326.9758871252536,1247.9699476716914,1329.9345197021826,1281.5469873565858,1329.3288870809197,1248.5044256463475,1286.2960702527168,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Michael Matt,Michael Matt,2481,Austria,999,999,False,False,,,,,,Giant Slalom,1415.1283697907534,1247.9699476716914,1415.148769404662,1281.5469873565858,1415.3975528706678,1248.5044256463475,1286.0943184014811,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Marc Rochat,Marc Rochat,2812,Switzerland,999,999,False,False,,,,,,Giant Slalom,1333.730860579502,1247.9699476716914,1336.307317572221,1281.5469873565858,1334.0133849085282,1248.5044256463475,1285.8649947024494,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Rok Aznoh,Rok Aznoh,5119,Slovenia,999,999,False,False,,,,,,Giant Slalom,1238.347183371491,1199.02955146069,1282.6165663549336,1267.6418440282494,1269.275771964742,1236.338356602851,1284.9202576895734,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Albert Popov,Albert Popov,2597,Bulgaria,999,999,False,False,,,,,,Giant Slalom,1508.701173420335,1247.9699476716914,1510.5881246291603,1281.5469873565858,1509.142290735089,1248.5044256463475,1284.7611154398005,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Theodor Brækken,Theodor Brækken,6709,Norway,999,999,False,False,,,,,,Giant Slalom,1150.398611697257,1247.9699476716914,1156.0903090278302,1281.5469873565858,1151.679818807567,1248.5044256463475,1283.7740115193085,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Samuel Kolega,Samuel Kolega,3029,Croatia,999,999,False,False,,,,,,Giant Slalom,1477.7881653021657,1247.9699476716914,1482.242576818685,1281.5469873565858,1477.7639965659505,1248.5044256463475,1281.409280271329,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Hugh McAdam,Hugh McAdam,5549,Australia,999,999,False,False,,,,,,Giant Slalom,1220.6979521421165,1247.9699476716914,1232.7999659310444,1281.5469873565858,1220.867181935581,1248.5044256463475,1280.9768951574674,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Rasmus Bakkevig,Rasmus Bakkevig,7233,Norway,999,999,False,False,,,,,,Giant Slalom,1283.8453379603247,1247.9699476716914,1270.3668860032053,1281.5469873565858,1280.563757715953,1248.5044256463475,1279.4501973915972,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Stefan Rogentin,Stefan Rogentin,3505,Switzerland,999,999,False,False,,,,,,Giant Slalom,1595.711027625166,1502.9955354271335,1270.3668860032053,1297.0405424452665,1279.7921226322276,1586.397014603829,1277.5640367720864,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Daniel Yule,Daniel Yule,2404,Switzerland,999,999,False,False,,,,,,Giant Slalom,1503.6945329179232,1247.9699476716914,1505.1052958534017,1281.5469873565858,1504.5701972645236,1248.5044256463475,1273.493782580349,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Romed Baumann,Romed Baumann,10,Germany,999,999,False,False,,,,,,Giant Slalom,1341.4258321020368,1351.7020361912942,1264.8999703926374,1396.8879886036918,1262.5163215854195,1328.6657781153183,1268.8494646176982,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Istok Rodes,Istok Rodes,2454,Croatia,999,999,False,False,,,,,,Giant Slalom,1308.373803052574,1247.9699476716914,1319.9292779849786,1257.8452347508528,1308.4378638956728,1256.4933146694489,1267.9832330242166,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Corrado Barbera,Corrado Barbera,5644,Italy,999,999,False,False,,,,,,Giant Slalom,1166.7262847033246,1247.9699476716914,1169.3627242008497,1281.5469873565858,1169.3193546567593,1248.5044256463475,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Joaquim Salarich,Joaquim Salarich,2697,Spain,999,999,False,False,,,,,,Giant Slalom,1119.1518034401872,1247.9699476716914,1121.7408505862056,1281.5469873565858,1120.7240397276955,1248.5044256463475,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Peder Lunder,Peder Lunder,7230,Norway,999,999,False,False,,,,,,Giant Slalom,1219.7597389868172,1247.9699476716914,1222.4280158927197,1281.5469873565858,1219.9144007560756,1248.5044256463475,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Dominik Zerhoch,Dominik Zerhoch,5569,Germany,999,999,False,False,,,,,,Giant Slalom,1229.7597389868172,1247.9699476716914,1232.4280158927197,1281.5469873565858,1229.9144007560756,1248.5044256463475,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Andreas Ploier,Andreas Ploier,4998,Austria,999,999,False,False,,,,,,Giant Slalom,1298.8345127601376,1248.877510687038,1270.3668860032053,1281.5469873565858,1262.09869500625,1288.1200064446198,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Anton Tremmel,Anton Tremmel,2746,Germany,999,999,False,False,,,,,,Giant Slalom,1204.0940923443634,1247.9699476716914,1208.0323079314633,1281.5469873565858,1205.796489163157,1248.5044256463475,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Mikkel Remsøy,Mikkel Remsøy,5471,Norway,999,999,False,False,,,,,,Giant Slalom,1174.05692056938,1247.9699476716914,1177.955417478859,1281.5469873565858,1175.0727590762085,1248.5044256463475,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Gustav Wissting,Gustav Wissting,7109,Sweden,999,999,False,False,,,,,,Giant Slalom,1168.376322459877,1247.9699476716914,1171.7252051312337,1281.5469873565858,1169.2996293859917,1248.5044256463475,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Jesper Pohjolainen,Jesper Pohjolainen,5401,Finland,999,999,False,False,,,,,,Giant Slalom,1107.6703159814049,1247.9699476716914,1108.9596891429678,1281.5469873565858,1109.0268963051983,1248.5044256463475,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Ander Mintegui,Ander Mintegui,6890,Spain,999,999,False,False,,,,,,Giant Slalom,1310.843670256069,1247.9699476716914,1270.3668860032053,1281.5469873565858,1262.09869500625,1302.1141293889343,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Antoine Azzolin,Antoine Azzolin,6717,France,999,999,False,False,,,,,,Giant Slalom,1163.2740057217284,1247.9699476716914,1166.461570313961,1281.5469873565858,1163.8634616832246,1248.5044256463475,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Richard Leitgeb,Richard Leitgeb,2854,Austria,999,999,False,False,,,,,,Giant Slalom,1234.249821837825,1247.9699476716914,1234.7130189781176,1281.5469873565858,1235.644792590597,1248.5044256463475,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Charles Gamel Seigneur,Charles Gamel Seigneur,5612,France,999,999,False,False,,,,,,Giant Slalom,1300.4140668094774,1272.7614648792762,1270.3668860032053,1281.5469873565858,1262.09869500625,1291.9699842739208,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Matteo Canins,Matteo Canins,4739,Italy,999,999,False,False,,,,,,Giant Slalom,1181.3573430388465,1247.9699476716914,1177.05848483452,1281.5469873565858,1181.913944356582,1248.5044256463475,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Elian Lehto,Elian Lehto,4054,Finland,999,999,False,False,,,,,,Giant Slalom,1375.9775351298342,1372.887491635541,1270.3668860032053,1259.2418440282495,1262.09869500625,1363.9618310205838,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Matthieu Bailet,Matthieu Bailet,2742,France,999,999,False,False,,,,,,Giant Slalom,1312.7948422594436,1283.939316179552,1270.3668860032053,1281.5469873565858,1262.09869500625,1301.6859834350614,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Guglielmo Bosca,Guglielmo Bosca,2413,Italy,999,999,False,False,,,,,,Giant Slalom,1527.8726257535848,1332.4942381804249,1270.3668860032053,1244.9132647775689,1262.09869500625,1514.348169012908,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Franjo Von Allmen,Franjo Von Allmen,5674,Switzerland,999,999,False,False,,,,,,Giant Slalom,1597.9805711319425,1548.4994573791894,1270.3668860032053,1281.5469873565858,1262.09869500625,1584.2488944481302,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Daniel Hemetsberger,Daniel Hemetsberger,4605,Austria,999,999,False,False,,,,,,Giant Slalom,1500.966512678272,1443.479432556136,1270.3668860032053,1281.5469873565858,1262.09869500625,1487.1507134855383,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Adrian Smiseth Sejersted,Adrian Smiseth Sejersted,2386,Norway,999,999,False,False,,,,,,Giant Slalom,1508.1289998207308,1450.5692974518602,1270.3668860032053,1294.8172560270232,1262.09869500625,1494.572486095402,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Simon Jocher,Simon Jocher,4305,Germany,999,999,False,False,,,,,,Giant Slalom,1427.77776250757,1324.812775633698,1270.3668860032053,1318.8161110614317,1262.09869500625,1416.0819676444455,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Nicolo Molteni,Nicolo Molteni,4296,Italy,999,999,False,False,,,,,,Giant Slalom,1346.269485327507,1229.553744695056,1270.3668860032053,1281.5469873565858,1262.09869500625,1336.3802376751785,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Kyle Negomir,Kyle Negomir,4714,USA,999,999,True,False,,,,,,Giant Slalom,1352.2970761033878,1197.805657102005,1295.732907770135,1282.2017166159696,1297.051537371752,1341.594907222153,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Arnaud Boisset,Arnaud Boisset,4710,Switzerland,999,999,False,False,,,,,,Giant Slalom,1377.5764728761565,1320.1549157784611,1270.3668860032053,1281.5469873565858,1262.09869500625,1365.7058593049017,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Juhan Luik,Juhan Luik,2613,Estonia,999,999,False,False,,,,,,Giant Slalom,1106.1451385161668,1213.0066271948297,1270.3668860032053,1290.579078938011,1262.09869500625,1098.2517094724649,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Nils Alphand,Nils Alphand,4310,France,999,999,False,False,,,,,,Giant Slalom,1290.00088684535,1298.3230541005075,1270.3668860032053,1281.5469873565858,1262.09869500625,1279.6332105646725,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Blaise Giezendanner,Blaise Giezendanner,2476,France,999,999,False,False,,,,,,Giant Slalom,1301.7476171580647,1390.296565425508,1270.3668860032053,1241.2293580245253,1262.09869500625,1288.960763967444,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Roy-Alexander Steudle,Roy-Alexander Steudle,5425,Great Britain,999,999,False,False,,,,,,Giant Slalom,1096.7554951811703,1147.0625231519955,1270.3668860032053,1281.5469873565858,1262.09869500625,1091.3843827200906,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Bryce Bennett,Bryce Bennett,2387,USA,999,999,True,False,,,,,,Giant Slalom,1233.071098199511,1437.7476687534463,1270.3668860032053,1369.6632183149566,1262.09869500625,1220.1998799773755,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Wiley Maple,Wiley Maple,1808,USA,999,999,True,False,,,,,,Giant Slalom,1145.7194693743263,1190.6442779990302,1270.3668860032053,1246.7862603281503,1262.09869500625,1136.9270755699429,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Florian Loriot,Florian Loriot,5301,France,999,999,False,False,,,,,,Giant Slalom,1163.4219575811169,1221.4014318902005,1270.3668860032053,1302.4264145116397,1262.09869500625,1153.5028055605478,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Florian Schieder,Florian Schieder,3043,Italy,999,999,False,False,,,,,,Giant Slalom,1266.7469685502242,1425.1300549585667,1270.3668860032053,1272.265557201867,1262.09869500625,1253.9688162861164,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Marco Abbruzzese,Marco Abbruzzese,5426,Italy,999,999,False,False,,,,,,Giant Slalom,1195.9922887735308,1282.2949777914496,1270.3668860032053,1281.5469873565858,1262.09869500625,1187.5415287771905,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Paco Rassat,Paco Rassat,5371,France,999,999,False,False,,,,,,Giant Slalom,1577.9716630911398,1247.9699476716914,1577.6190195842555,1281.5469873565858,1577.0310486300525,1248.5044256463475,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Raphael Lessard,Raphael Lessard,5312,Canada,999,999,False,False,,,,,,Giant Slalom,1206.85941862694,1257.8388526999622,1270.3668860032053,1281.5469873565858,1262.09869500625,1198.0615525616652,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Steven Amiez,Steven Amiez,5409,France,999,999,False,False,,,,,,Giant Slalom,1538.85173694889,1247.9699476716914,1539.120756703267,1281.5469873565858,1537.909692345875,1248.5044256463475,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Cameron Alexander,Cameron Alexander,4306,Canada,999,999,False,False,,,,,,Giant Slalom,1353.9936236232047,1487.7034920158744,1270.3668860032053,1281.5469873565858,1262.09869500625,1340.6739514986657,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Sam Morse,Sam Morse,2636,USA,999,999,True,False,,,,,,Giant Slalom,1234.641063940215,1295.540956613746,1270.3668860032053,1255.1808473830015,1262.09869500625,1223.528460909807,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Jeffrey Read,Jeffrey Read,2208,Canada,999,999,False,False,,,,,,Giant Slalom,1309.0020582255263,1256.624230291567,1270.3668860032053,1245.9379728343208,1262.09869500625,1296.9667372160304,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Benjamin Jacques Alliod,Benjamin Jacques Alliod,5631,Italy,999,999,False,False,,,,,,Giant Slalom,1210.4859497896682,1245.2123704426667,1270.3668860032053,1281.5469873565858,1262.09869500625,1200.3384106039805,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Vincent Wieser,Vincent Wieser,5486,Austria,999,999,False,False,,,,,,Giant Slalom,1228.164566340344,1244.8300756096414,1270.3668860032053,1281.5469873565858,1262.09869500625,1219.157814697339,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Tanner Perkins,Tanner Perkins,6297,USA,999,999,True,False,,,,,,Giant Slalom,1245.843670256069,1247.9699476716914,1270.3668860032053,1281.5469873565858,1262.09869500625,1237.1141293889343,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Hugo Desgrippes,Hugo Desgrippes,5508,France,999,999,False,False,,,,,,Giant Slalom,1265.8462377850003,1247.9699476716914,1267.9729361057484,1281.5469873565858,1267.5843156241915,1248.5044256463475,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Sebastian Holzmann,Sebastian Holzmann,2425,Germany,999,999,False,False,,,,,,Giant Slalom,1338.3260761461895,1247.9699476716914,1343.8969612999713,1281.5469873565858,1339.8851186926072,1248.5044256463475,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+AJ Ginnis,AJ Ginnis,2683,Greece,999,999,False,False,,,,,,Giant Slalom,1327.7102306371532,1247.9699476716914,1334.7119856457232,1281.5469873565858,1327.6759690441415,1248.5044256463475,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Simon Rueland,Simon Rueland,3725,Austria,999,999,False,False,,,,,,Giant Slalom,1328.3216112262487,1247.9699476716914,1326.3787575000629,1281.5469873565858,1328.5762014677864,1248.5044256463475,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Jett Seymour,Jett Seymour,4992,USA,999,999,True,False,,,,,,Giant Slalom,1253.682223487618,1247.9699476716914,1255.7685823454478,1281.5469873565858,1253.727281244416,1248.5044256463475,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Billy Major,Billy Major,2607,Great Britain,999,999,False,False,,,,,,Giant Slalom,1412.384450804106,1247.9699476716914,1413.9827714184134,1281.5469873565858,1412.571595661551,1248.5044256463475,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Nejc Naralocnik,Nejc Naralocnik,3001,Slovenia,999,999,False,False,,,,,,Giant Slalom,1251.7361176221125,1261.2374320013953,1270.3668860032053,1265.725655557125,1262.09869500625,1242.0619094002273,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Felix Monsén,Felix Monsén,2567,Sweden,999,999,False,False,,,,,,Giant Slalom,1343.615314792266,1282.658158956846,1270.3668860032053,1278.6616882828548,1262.09869500625,1333.0935380424771,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Benjamin Ritchie,Benjamin Ritchie,5296,USA,999,999,True,False,,,,,,Giant Slalom,1346.2760726713964,1247.9699476716914,1346.3106912498336,1281.5469873565858,1345.865638924541,1248.5044256463475,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Lars Rösti,Lars Rösti,4300,Switzerland,999,999,False,False,,,,,,Giant Slalom,1284.6164352393228,1333.2440355524602,1270.3668860032053,1281.5469873565858,1262.09869500625,1273.0592654430125,1265.965789752475,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Miha Hrobat,Miha Hrobat,2633,Slovenia,999,999,False,False,,,,,,Giant Slalom,1533.9619753995446,1519.8233824582396,1291.906546398978,1252.8530058150502,1261.9062202431633,1520.271434359853,1263.723992678566,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Fabian Ax Swartz,Fabian Ax Swartz,6700,Sweden,999,999,False,False,,,,,,Giant Slalom,1274.5554194314557,1247.9699476716914,1279.307984513652,1281.5469873565858,1272.7756790762185,1248.5044256463475,1262.0041136099594,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Adrian Pertl,Adrian Pertl,4172,Austria,999,999,False,False,,,,,,Giant Slalom,1286.7529538357471,1247.9699476716914,1289.1855622534165,1281.5469873565858,1287.4039969888056,1248.5044256463475,1257.7344925781442,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Isaiah Nelson,Isaiah Nelson,5504,USA,999,999,True,False,,,,,,Giant Slalom,1253.31065063062,1247.9699476716914,1279.2856443853173,1281.5469873565858,1257.6850690233346,1262.3934850746425,1257.2652213695956,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Juan Del Campo,Juan Del Campo,2602,Spain,999,999,False,False,,,,,,Giant Slalom,1141.4463199825536,1247.9699476716914,1146.9356082962952,1281.5469873565858,1143.0825185872336,1248.5044256463475,1256.661312251283,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Luke Winters,Luke Winters,4709,USA,999,999,True,False,,,,,,Giant Slalom,1134.9821738413175,1247.9699476716914,1142.2396066462604,1281.6418440282494,1139.2122329829535,1248.5044256463475,1253.02778864247,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Fadri Janutin,Fadri Janutin,5338,Switzerland,999,999,False,False,,,,,,Giant Slalom,1254.5623459546684,1247.9699476716914,1279.2708325362885,1281.5469873565858,1250.971525487325,1248.5044256463475,1251.9092967513109,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Cooper Puckett,Cooper Puckett,5567,USA,999,999,True,False,,,,,,Giant Slalom,1322.7363428425388,1247.9699476716914,1352.4280158927197,1281.5469873565858,1323.3738061636056,1248.5044256463475,1251.731540463089,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Dominik Paris,Dominik Paris,91,Italy,999,999,False,False,,,,,,Giant Slalom,1595.3017493132495,1561.5951922432153,1280.1248943021226,1353.313510712159,1244.408977155631,1582.362948878661,1249.3381421190138,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Giovanni Franzoni,Giovanni Franzoni,5497,Italy,999,999,False,False,,,,,,Giant Slalom,1432.6705911946729,1292.6865203572072,1270.3668860032053,1288.2336171070838,1245.6047260874698,1436.5179762102605,1242.4364613446185,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Simon Maurberger,Simon Maurberger,2640,Italy,999,999,False,False,,,,,,Giant Slalom,1179.27369217163,1247.9699476716914,1198.094138154206,1281.5469873565858,1181.481798410726,1272.5363004320548,1235.1189076266985,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Christof Innerhofer,Christof Innerhofer,13,Italy,999,999,False,False,,,,,,Giant Slalom,1382.5251685460512,1338.501887530269,1271.2678865977955,1323.0590065285294,1238.22973883872,1369.8487896510212,1233.487159095302,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Eduard Hallberg,Eduard Hallberg,6820,Finland,999,999,False,False,,,,,,Giant Slalom,1413.601821651628,1247.9699476716914,1440.8901512356597,1281.5469873565858,1414.0543101532007,1248.5044256463475,1230.3122859982732,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Tommaso Sala,Tommaso Sala,2588,Italy,999,999,False,False,,,,,,Giant Slalom,1331.6317836649334,1247.9699476716914,1341.044995360962,1281.5469873565858,1332.368342922452,1248.5044256463475,1230.2043741854256,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Ryder Sarchett,Ryder Sarchett,6284,USA,999,999,True,False,,,,,,Giant Slalom,1233.7919200524814,1247.9699476716914,1270.3668860032053,1281.5469873565858,1231.1953896723282,1248.5044256463475,1228.2111283275162,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Riley Seger,Riley Seger,4304,Canada,999,999,False,False,,,,,,Giant Slalom,1241.0101636389088,1257.0107398886412,1270.3668860032053,1281.5469873565858,1234.576049766637,1239.8234192798502,1227.809061019601,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Clement Noel,Clement Noel,2758,France,999,999,False,False,,,,,,Giant Slalom,1584.455091071019,1247.9699476716914,1609.0804557318286,1281.5469873565858,1584.0736433302518,1248.5044256463475,1226.7051627455248,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Liam Wallace,Liam Wallace,4988,Canada,999,999,False,False,,,,,,Giant Slalom,1168.3860640086111,1247.9699476716914,1190.7789428062922,1281.5469873565858,1167.1043572148546,1248.5044256463475,1226.4934735949166,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Tanguy Nef,Tanguy Nef,3065,Switzerland,999,999,False,False,,,,,,Giant Slalom,1549.0520052709833,1247.9699476716914,1548.6804795208104,1281.5469873565858,1548.1376494633348,1248.5044256463475,1226.3751143419313,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Pietro Tranchina,Pietro Tranchina,7025,France,999,999,False,False,,,,,,Giant Slalom,1228.6050787684103,1247.9699476716914,1270.3668860032053,1281.5469873565858,1225.642193138494,1248.5044256463475,1223.6917279351455,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Johannes Strolz,Johannes Strolz,2401,Austria,999,999,False,False,,,,,,Giant Slalom,1421.2017148384948,1260.439959126866,1428.2803498135831,1296.3104858636991,1426.478759495085,1269.1202532366106,1219.99312071509,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Seigo Kato,Seigo Kato,2734,Japan,999,999,False,False,,,,,,Giant Slalom,1212.9123685440072,1247.9699476716914,1227.194828579373,1281.5469873565858,1210.5327877021632,1248.5044256463475,1219.8875008971008,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Dominik Raschner,Dominik Raschner,2639,Austria,999,999,False,False,,,,,,Giant Slalom,1433.4561526429327,1247.9699476716914,1445.8472896035105,1281.5469873565858,1432.7917331586614,1248.5044256463475,1219.3241373478288,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Adam Hofstedt,Adam Hofstedt,5449,Sweden,999,999,False,False,,,,,,Giant Slalom,1217.392675110288,1247.9699476716914,1288.9467421460915,1281.5469873565858,1215.0451100535522,1248.5044256463475,1218.2198411314646,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Mattia Casse,Mattia Casse,158,Italy,999,999,False,False,,,,,,Giant Slalom,1478.827130360393,1472.3211749167926,1304.9122004507092,1238.9986010380846,1220.1732165076771,1464.9495564090855,1216.920814758076,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Hannes Amman,Hannes Amman,5698,Germany,999,999,False,False,,,,,,Giant Slalom,1218.6050787684103,1247.9699476716914,1270.3668860032053,1281.5469873565858,1215.642193138494,1248.5044256463475,1213.6917279351455,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Freddy Carrick-Smith,Freddy Carrick-Smith,8011,Great Britain,999,999,False,False,,,,,,Giant Slalom,1208.6050787684103,1247.9699476716914,1270.3668860032053,1281.5469873565858,1205.642193138494,1248.5044256463475,1203.6917279351455,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Wiliam St-Germain,Wiliam St-Germain,2483,Canada,999,999,False,False,,,,,,Giant Slalom,1209.1279488191192,1247.9699476716914,1270.3668860032053,1281.5469873565858,1206.7112332186932,1248.5044256463475,1203.241572246094,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Fredrik Møller,Fredrik Møller,5758,Norway,999,999,False,False,,,,,,Giant Slalom,1461.4552506815444,1309.741494719039,1270.3668860032053,1281.5469873565858,1208.4761520040329,1509.9224836004703,1202.877241384931,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Adrien Theaux,Adrien Theaux,19,France,999,999,False,False,,,,,,Giant Slalom,1211.390960189367,1359.2924217942002,1279.7879814930911,1360.4947512824149,1209.6221864307383,1199.1161994628064,1201.061420789663,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Ryoma Katayama,Ryoma Katayama,5578,Japan,999,999,False,False,,,,,,Giant Slalom,1206.1929259945937,1247.9699476716914,1270.3668860032053,1281.5469873565858,1203.5134097952798,1248.5044256463475,1200.701933022607,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Fabio Gstrein,Fabio Gstrein,3066,Austria,999,999,False,False,,,,,,Giant Slalom,1533.5966705277422,1247.9699476716914,1560.1497987486216,1281.5469873565858,1532.5282151268646,1248.5044256463475,1178.4721501999677,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+William Hansson,William Hansson,5403,Sweden,999,999,False,False,,,,,,Giant Slalom,1082.5332002027567,1247.9699476716914,1140.4836724535685,1281.5469873565858,1080.7908279602138,1248.5044256463475,1174.9224206019355,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Semyel Bissig,Semyel Bissig,4294,Switzerland,999,999,False,False,,,,,,Giant Slalom,1181.9852577581062,1247.9699476716914,1313.2388302673585,1281.5469873565858,1178.642273727751,1248.5044256463475,1173.9665213018302,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Livio Simonet,Livio Simonet,5413,Switzerland,999,999,False,False,,,,,,Giant Slalom,1175.4797986961653,1247.9699476716914,1270.3668860032053,1281.5469873565858,1172.4070937994904,1248.5044256463475,1165.2919575952108,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Guerlain Favre,Guerlain Favre,5499,France,999,999,False,False,,,,,,Giant Slalom,1153.627654546249,1247.9699476716914,1270.3668860032053,1281.5469873565858,1152.2276207187192,1248.5044256463475,1147.5545103427517,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
+Joshua Sturm,Joshua Sturm,5399,Austria,999,999,False,False,,,,,,Giant Slalom,1102.150418198125,1247.9699476716914,1175.861954400542,1281.5469873565858,1101.3095996912923,1248.5044256463475,1125.836134651271,0.0,Copper Mt.,USA,Men's Giant Slalom,11/28/2025
