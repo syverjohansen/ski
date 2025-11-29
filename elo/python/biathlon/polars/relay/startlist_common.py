@@ -216,7 +216,7 @@ def get_biathlon_relay_teams(url: str) -> List[Dict]:
         
         # Convert to list and sort by rank
         team_list = list(team_entries.values())
-        team_list.sort(key=lambda x: int(x['team_rank']) if x['team_rank'].isdigit() else float('inf'))
+        team_list.sort(key=lambda x: int(x['team_rank']) if x['team_rank'] and str(x['team_rank']).isdigit() else float('inf'))
         
         print(f"Processed {len(team_list)} teams with {sum(len(team['members']) for team in team_list)} athletes")
         return team_list
