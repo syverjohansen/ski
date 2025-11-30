@@ -104,7 +104,7 @@ def fetch_season_links(year, sex='M'):
             return []
             
         soup = BeautifulSoup(html_content, 'html.parser')
-        links = []
+        race_data_list = []  # Collect race data with dates for sorting
         processed_races = set()  # Track unique race identifiers
         
         # Find all table rows - this gives us the context for each race
@@ -114,6 +114,12 @@ def fetch_season_links(year, sex='M'):
             # Skip rows without enough cells
             cells = row.find_all('td')
             if len(cells) < 5:  # We need at least 5 cells to have discipline info
+                continue
+            
+            # Extract datetime from the first hidden cell
+            datetime_cell = cells[0]
+            datetime_text = datetime_cell.get_text(strip=True)
+            if not datetime_text or len(datetime_text) < 10:  # Must have a valid datetime
                 continue
                 
             # The race discipline is in the 5th column (index 4)
@@ -136,9 +142,14 @@ def fetch_season_links(year, sex='M'):
             # Check if this is a mixed relay
             is_mixed_relay = "Mixed" in race_type_text
             
-            # Skip mixed relays for ladies since they'll be processed from men's calendar
-            if sex == 'L' and is_mixed_relay:
+            # Skip if we've already processed this race ID
+            if race_id in processed_races:
                 continue
+                
+            # Add race ID to processed set
+            processed_races.add(race_id)
+            
+            # No longer skip mixed relays for ladies - we'll filter by gender in the results instead
                 
             # Construct full URL for this race
             race_url = 'https://firstskisport.com/biathlon/' + discipline_link['href']
@@ -159,19 +170,21 @@ def fetch_season_links(year, sex='M'):
                 # Men's races - use URL as is
                 full_url = race_url
                 
-            # Skip if we've already processed this race ID
-            if race_id in processed_races:
-                #print("Continuing because race was already processed")
-                continue
-                
-            # Add race ID to processed set
-            processed_races.add(race_id)
+            # Store race data with datetime for sorting
+            race_data_list.append({
+                'datetime': datetime_text,
+                'url': full_url,
+                'year': year,
+                'is_mixed_relay': is_mixed_relay
+            })
             
-            # Calculate race number based on order in the table
-            race_num = len(links) + 1
-            
-            # Add to links
-            links.append([full_url, year, race_num, is_mixed_relay])
+        # Sort races by datetime chronologically
+        race_data_list.sort(key=lambda x: x['datetime'])
+        
+        # Assign race numbers based on chronological order and create links
+        links = []
+        for race_num, race_data in enumerate(race_data_list, 1):
+            links.append([race_data['url'], race_data['year'], race_num, race_data['is_mixed_relay']])
             
         logging.info(f"Found {len(links)} races for {year} ({sex})")
         return links
@@ -657,6 +670,10 @@ async def get_race_results_async(link: List[Any], default_sex: str) -> Tuple[Lis
                     # Record sex mapping
                     sex_map[athlete_id] = athlete_sex
                     
+                    # Filter athletes by expected gender for this processing run
+                    if athlete_sex != default_sex:
+                        continue
+                    
                     # Store athlete data
                     athletes_data.append({
                         'Place': int(place_cell),
@@ -879,6 +896,7 @@ def main():
     # Process biathlon data for all years (1958-current)
     logging.info("Processing biathlon historical data")
     current_year = datetime.now().year
+    #tables, results, sex_maps = process_year_range(2025, current_year)
     tables, results, sex_maps = process_year_range(1958, current_year)
     men_df, ladies_df = construct_historical_df(tables, results, sex_maps)
     

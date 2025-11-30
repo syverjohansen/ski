@@ -12226,45 +12226,46 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2025-03-21,Lahti,Finland,World Cup,130,Large,0,2025,28,L,31,Heta Hirvonen,Finland,542,2008-10-16T00:00:00.000000,0,,,,53.2,16.427104722792606,2
 2025-03-21,Lahti,Finland,World Cup,130,Large,0,2025,28,L,32,Oosa Thure,Finland,544,2007-10-01T00:00:00.000000,0,,,,45.4,17.470225872689937,1
 2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,1,Nozomi Maruyama,JPN,222,1998-06-02T00:00:00.000000,0,,,,,27.912388774811774,6
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,2,Heidi Dyhre Tråserud,NOR,366,2003-07-10T00:00:00.000000,0,,,,,22.809034907597535,2
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,3,Nika Prevc,SLO,426,2005-03-15T00:00:00.000000,0,,,,,21.127994524298426,4
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,4,Lisa Eder,AUT,337,2001-08-12T00:00:00.000000,0,,,,,24.71731690622861,7
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,2,Nika Prevc,SLO,426,2005-03-15T00:00:00.000000,0,,,,,21.127994524298426,4
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,3,Lisa Eder,AUT,337,2001-08-12T00:00:00.000000,0,,,,,24.71731690622861,7
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,4,Heidi Dyhre Tråserud,NOR,366,2003-07-10T00:00:00.000000,0,,,,,22.809034907597535,2
 2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,5,Abigail Strate,CAN,289,2001-02-22T00:00:00.000000,0,,,,,25.1854893908282,7
 2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,6,Anna Odine Strøm,NOR,44,1998-04-17T00:00:00.000000,0,,,,,28.03832991101985,11
 2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,7,Katharina Schmid,GER,13,1996-05-23T00:00:00.000000,0,,,,,29.93839835728953,14
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,8,Yuki Ito,JPN,5,1994-05-10T00:00:00.000000,0,,,,,31.975359342915812,14
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,9,Nika Kriznar,SLO,266,2000-03-09T00:00:00.000000,0,,,,,26.143737166324435,10
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,10,Eirin Maria Kvandal,NOR,354,2001-12-12T00:00:00.000000,0,,,,,24.383299110198493,4
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,11,Sara Takanashi,JPN,3,1996-10-08T00:00:00.000000,0,,,,,29.560574948665298,14
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,12,Juliane Seyfarth,GER,63,1990-02-19T00:00:00.000000,0,,,,,36.19438740588638,14
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,13,Frida Westman,SWE,296,2001-01-10T00:00:00.000000,0,,,,,25.30321697467488,2
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,14,Ringo Miyajima,JPN,427,2003-10-31T00:00:00.000000,0,,,,,22.49965776865161,2
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,14,Anna Twardosz,POL,288,2001-04-12T00:00:00.000000,0,,,,,25.05133470225873,3
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,16,Yuka Seto,JPN,32,1997-02-22T00:00:00.000000,0,,,,,29.1854893908282,11
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,17,Agnes Reisch,GER,259,1999-10-11T00:00:00.000000,0,,,,,26.55441478439425,9
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,18,Julia Mühlbacher,AUT,400,2004-08-02T00:00:00.000000,0,,,,,21.744010951403148,5
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,19,Selina Freitag,GER,338,2001-05-19T00:00:00.000000,0,,,,,24.95003422313484,7
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,8,Eirin Maria Kvandal,NOR,354,2001-12-12T00:00:00.000000,0,,,,,24.383299110198493,4
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,9,Sara Takanashi,JPN,3,1996-10-08T00:00:00.000000,0,,,,,29.560574948665298,14
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,10,Yuki Ito,JPN,5,1994-05-10T00:00:00.000000,0,,,,,31.975359342915812,14
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,11,Nika Kriznar,SLO,266,2000-03-09T00:00:00.000000,0,,,,,26.143737166324435,10
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,12,Agnes Reisch,GER,259,1999-10-11T00:00:00.000000,0,,,,,26.55441478439425,9
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,13,Yuka Seto,JPN,32,1997-02-22T00:00:00.000000,0,,,,,29.1854893908282,11
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,14,Juliane Seyfarth,GER,63,1990-02-19T00:00:00.000000,0,,,,,36.19438740588638,14
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,15,Selina Freitag,GER,338,2001-05-19T00:00:00.000000,0,,,,,24.95003422313484,7
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,16,Julia Mühlbacher,AUT,400,2004-08-02T00:00:00.000000,0,,,,,21.744010951403148,5
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,17,Frida Westman,SWE,296,2001-01-10T00:00:00.000000,0,,,,,25.30321697467488,2
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,18,Annika Sieff,ITA,377,2003-10-27T00:00:00.000000,0,,,,,22.510609171800137,2
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,19,Anna Twardosz,POL,288,2001-04-12T00:00:00.000000,0,,,,,25.05133470225873,3
 2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,20,Heta Hirvonen,FIN,542,2008-10-16T00:00:00.000000,0,,,,,17.53867214236824,0
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,21,Sina Arnet,SUI,448,2005-07-28T00:00:00.000000,0,,,,,20.758384668035593,4
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,21,Annika Sieff,ITA,377,2003-10-27T00:00:00.000000,0,,,,,22.510609171800137,2
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,23,Anezka Indrackova,CZE,437,2006-07-30T00:00:00.000000,0,,,,,19.753593429158112,2
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,20,Ringo Miyajima,JPN,427,2003-10-31T00:00:00.000000,0,,,,,22.49965776865161,2
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,22,Sina Arnet,SUI,448,2005-07-28T00:00:00.000000,0,,,,,20.758384668035593,4
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,23,Klara Ulrichova,CZE,388,2004-05-14T00:00:00.000000,0,,,,,21.963039014373717,3
 2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,24,Yuzuki Sato,JPN,480,2007-01-22T00:00:00.000000,0,,,,,19.27173169062286,1
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,25,Klara Ulrichova,CZE,388,2004-05-14T00:00:00.000000,0,,,,,21.963039014373717,3
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,26,Gyda Westvold Hansen,NOR,382,2002-04-20T00:00:00.000000,0,,,,,24.030116358658454,0
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,27,Pola Beltowska,POL,442,2006-11-12T00:00:00.000000,0,,,,,19.46611909650924,1
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,28,Ingvild Synnøve Midtskogen,NOR,479,2007-12-21T00:00:00.000000,0,,,,,18.360027378507873,2
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,29,Silje Opseth,NOR,221,1999-04-28T00:00:00.000000,0,,,,,27.00889801505818,10
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,30,Nicole Maurer,CAN,275,2000-01-28T00:00:00.000000,0,,,,,26.255989048596852,4
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,31,Jenny Rautionaho,FIN,145,1996-07-26T00:00:00.000000,0,,,,,29.763175906913073,5
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,31,Martina Zanitzer,ITA,430,2005-09-04T00:00:00.000000,0,,,,,20.654346338124572,0
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,31,Ping Zeng,CHN,438,2005-01-01T00:00:00.000000,0,,,,,21.32785763175907,0
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,34,Paige Jones,USA,365,2002-08-30T00:00:00.000000,0,,,,,23.668720054757017,3
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,35,Minja Korhonen,FIN,506,2007-05-19T00:00:00.000000,0,,,,,18.951403148528406,0
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,36,Julia Kykkänen,FIN,11,1994-04-17T00:00:00.000000,0,,,,,32.03832991101985,14
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,25,Ingvild Synnøve Midtskogen,NOR,479,2007-12-21T00:00:00.000000,0,,,,,18.360027378507873,2
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,26,Anezka Indrackova,CZE,437,2006-07-30T00:00:00.000000,0,,,,,19.753593429158112,2
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,27,Gyda Westvold Hansen,NOR,382,2002-04-20T00:00:00.000000,0,,,,,24.030116358658454,0
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,28,Silje Opseth,NOR,221,1999-04-28T00:00:00.000000,0,,,,,27.00889801505818,10
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,29,Pola Beltowska,POL,442,2006-11-12T00:00:00.000000,0,,,,,19.46611909650924,1
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,29,Jenny Rautionaho,FIN,145,1996-07-26T00:00:00.000000,0,,,,,29.763175906913073,5
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,31,Nicole Maurer,CAN,275,2000-01-28T00:00:00.000000,0,,,,,26.255989048596852,4
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,32,Martina Zanitzer,ITA,430,2005-09-04T00:00:00.000000,0,,,,,20.654346338124572,0
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,33,Julia Kykkänen,FIN,11,1994-04-17T00:00:00.000000,0,,,,,32.03832991101985,14
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,33,Ping Zeng,CHN,438,2005-01-01T00:00:00.000000,0,,,,,21.32785763175907,0
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,35,Paige Jones,USA,365,2002-08-30T00:00:00.000000,0,,,,,23.668720054757017,3
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,36,Minja Korhonen,FIN,506,2007-05-19T00:00:00.000000,0,,,,,18.951403148528406,0
 2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,37,Sandra Sproch,USA,501,2007-11-09T00:00:00.000000,0,,,,,18.47501711156742,0
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,38,Katra Komar,SLO,284,2001-05-16T00:00:00.000000,0,,,,,24.958247775496236,8
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,39,Tinkara Komar,SLO,471,2005-08-24T00:00:00.000000,0,,,,,20.684462696783026,1
-2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,40,Daniela Haralambie,ROM,43,1997-08-14T00:00:00.000000,0,,,,,28.711841204654345,11
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,38,Annika Belshaw,USA,346,2002-06-13T00:00:00.000000,0,,,,,23.88227241615332,3
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,39,Katra Komar,SLO,284,2001-05-16T00:00:00.000000,0,,,,,24.958247775496236,8
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,40,Tinkara Komar,SLO,471,2005-08-24T00:00:00.000000,0,,,,,20.684462696783026,1
+2026-05-01,Offseason,Offseason,Standings,0,Standings,0,2026,0,L,41,Daniela Haralambie,ROM,43,1997-08-14T00:00:00.000000,0,,,,,28.711841204654345,11
 2025-11-22,Lillehammer,Norway,World Cup,140,Large,0,2026,1,L,1,Nozomi Maruyama,Japan,222,1998-06-02T00:00:00.000000,0,,,,100.0,27.474332648870636,132
 2025-11-22,Lillehammer,Norway,World Cup,140,Large,0,2026,1,L,2,Abigail Strate,Canada,289,2001-02-22T00:00:00.000000,0,,,,80.0,24.747433264887064,104
 2025-11-22,Lillehammer,Norway,World Cup,140,Large,0,2026,1,L,3,Lisa Eder,Austria,337,2001-08-12T00:00:00.000000,0,,,,60.0,24.279260780287473,106
@@ -12408,3 +12409,43 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2025-11-28,Falun,Sweden,World Cup,95,Normal,0,2026,3,L,62,Rea Kindlimann,Switzerland,358,2002-10-04T00:00:00.000000,0,,,,48.6,23.151266255989047,2
 2025-11-28,Falun,Sweden,World Cup,95,Normal,0,2026,3,L,63,Liangyao Wang,China,418,2003-11-21T00:00:00.000000,0,,,,48.4,22.02053388090349,9
 2025-11-28,Falun,Sweden,World Cup,95,Normal,0,2026,3,L,64,Veronika Shishkina,Kazakhstan,347,2003-08-18T00:00:00.000000,0,,,,28.1,22.28062970568104,6
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,1,Nika Prevc,Slovenia,426,2005-03-15T00:00:00.000000,0,,,,100.0,20.711841204654345,93
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,2,Nozomi Maruyama,Japan,222,1998-06-02T00:00:00.000000,0,,,,80.0,27.496235455167692,135
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,3,Eirin Maria Kvandal,Norway,354,2001-12-12T00:00:00.000000,0,,,,60.0,23.967145790554415,56
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,4,Sara Takanashi,Japan,3,1996-10-08T00:00:00.000000,0,,,,50.0,29.144421629021217,270
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,5,Agnes Reisch,Germany,259,1999-10-11T00:00:00.000000,0,,,,45.0,26.13826146475017,78
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,6,Lisa Eder,Austria,337,2001-08-12T00:00:00.000000,0,,,,40.0,24.30116358658453,109
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,7,Anna Odine Strøm,Norway,44,1998-04-17T00:00:00.000000,0,,,,36.0,27.62217659137577,176
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,8,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,,,,32.0,29.522245037645447,266
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,9,Abigail Strate,Canada,289,2001-02-22T00:00:00.000000,0,,,,29.0,24.76933607118412,107
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,10,Selina Freitag,Germany,338,2001-05-19T00:00:00.000000,0,,,,26.0,24.53388090349076,129
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,11,Yuka Seto,Japan,32,1997-02-22T00:00:00.000000,0,,,,24.0,28.76933607118412,211
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,12,Julia Mühlbacher,Austria,400,2004-08-02T00:00:00.000000,0,,,,22.0,21.32785763175907,72
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,13,Annika Sieff,Italy,377,2003-10-27T00:00:00.000000,0,,,,20.0,22.094455852156056,46
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,14,Yuki Ito,Japan,5,1994-05-10T00:00:00.000000,0,,,,18.0,31.55920602327173,270
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,15,Klara Ulrichova,Czechia,388,2004-05-14T00:00:00.000000,0,,,,16.0,21.546885694729635,43
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,16,Ingvild Synnøve Midtskogen,Norway,479,2007-12-21T00:00:00.000000,0,,,,15.0,17.94387405886379,37
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,17,Nika Kriznar,Slovenia,266,2000-03-09T00:00:00.000000,0,,,,14.0,25.727583846680357,169
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,18,Heta Hirvonen,Finland,542,2008-10-16T00:00:00.000000,0,,,,13.0,17.12251882272416,6
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,19,Juliane Seyfarth,Germany,63,1990-02-19T00:00:00.000000,0,,,,12.0,35.7782340862423,220
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,20,Heidi Dyhre Tråserud,Norway,366,2003-07-10T00:00:00.000000,0,,,,11.0,22.392881587953458,32
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,21,Frida Westman,Sweden,296,2001-01-10T00:00:00.000000,0,,,,10.0,24.8870636550308,26
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,22,Sina Arnet,Switzerland,448,2005-07-28T00:00:00.000000,0,,,,9.0,20.34223134839151,38
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,23,Yuzuki Sato,Japan,480,2007-01-22T00:00:00.000000,0,,,,8.0,18.85557837097878,12
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,24,Jenny Rautionaho,Finland,145,1996-07-26T00:00:00.000000,0,,,,7.0,29.347022587268995,112
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,25,Silje Opseth,Norway,221,1999-04-28T00:00:00.000000,0,,,,6.0,26.5927446954141,166
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,26,Nicole Maurer,Canada,275,2000-01-28T00:00:00.000000,0,,,,5.0,25.83983572895277,71
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,27,Annika Belshaw,USA,346,2002-06-13T00:00:00.000000,0,,,,4.0,23.46611909650924,69
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,28,Julia Kykkänen,Finland,11,1994-04-17T00:00:00.000000,0,,,,3.0,31.62217659137577,244
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,29,Martina Zanitzer,Italy,430,2005-09-04T00:00:00.000000,0,,,,2.0,20.23819301848049,11
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,30,Anna Twardosz,Poland,288,2001-04-12T00:00:00.000000,0,,,,1.0,24.635181382614647,60
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,31,Gyda Westvold Hansen,Norway,382,2002-04-20T00:00:00.000000,0,,,,87.0,23.613963039014372,4
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,32,Maja Kovacic,Slovenia,511,2006-05-22T00:00:00.000000,0,,,,85.9,19.526351813826142,2
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,32,Yangning Weng,China,513,2006-11-30T00:00:00.000000,0,,,,85.9,19.000684462696785,14
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,34,Paige Jones,USA,365,2002-08-30T00:00:00.000000,0,,,,85.2,23.252566735112936,63
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,35,Hannah Wiegele,Austria,396,2001-09-22T00:00:00.000000,0,,,,84.6,24.188911704312115,38
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,36,Anna Rupprecht,Germany,67,1996-12-29T00:00:00.000000,0,,,,80.6,28.919917864476385,151
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,37,Bing Dong,China,320,1996-12-10T00:00:00.000000,0,,,,79.6,28.971937029431896,22
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,38,Josie Johnson,USA,446,2006-10-03T00:00:00.000000,0,,,,77.0,19.159479808350444,20
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,39,Tinkara Komar,Slovenia,471,2005-08-24T00:00:00.000000,0,,,,75.5,20.268309377138944,10
+2025-11-30,Falun,Sweden,World Cup,132,Large,0,2026,4,L,40,Pola Beltowska,Poland,442,2006-11-12T00:00:00.000000,0,,,,72.9,19.04996577686516,13

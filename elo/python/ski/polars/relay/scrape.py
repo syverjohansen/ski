@@ -76,6 +76,29 @@ class RateLimit:
 # Initialize rate limiter
 rate_limiter = RateLimit(max_per_second=5)
 
+def create_season_date(date_text, season_year):
+    """Create a comparable date that accounts for cross-country season spanning two years"""
+    try:
+        # Parse day and month from format like "06.01" or "24.03"
+        day, month = date_text.split('.')
+        day = int(day)
+        month = int(month)
+        
+        # Cross-country season logic:
+        # Races from October-December are in the first calendar year (season_year)
+        # Races from January-April are in the following calendar year (season_year + 1)
+        if month >= 10:  # October, November, December
+            actual_year = season_year
+        else:  # January through September (but realistically Jan-Apr for cross-country)
+            actual_year = season_year + 1
+            
+        return f"{actual_year:04d}{month:02d}{day:02d}"
+        
+    except Exception as e:
+        logging.warning(f"Error parsing date '{date_text}': {e}")
+        # Fallback to original date for sorting
+        return date_text
+
 def fetch_with_retry(url, max_retries=3, timeout=10):
     """Fetch URL with retry logic and rate limiting"""
     rate_limiter.wait()  # Respect rate limiting
@@ -107,14 +130,78 @@ def fetch_season_links(year, sex='M'):
         soup = BeautifulSoup(html_content, 'html.parser')
         links = []
         
-        # Find all results links
-        result_links = soup.find_all('a', {'title': 'Results'}, href=True)
+        # Find all race rows to get race links more comprehensively
+        race_rows = soup.find_all('tr')
+        race_data_list = []
         
-        # Process every second link (to avoid duplicates)
-        for i in range(0, len(result_links), 2):
-            link = result_links[i]
-            race_num = int(i/2 + 1)
-            full_url = 'https://firstskisport.com/cross-country/' + link['href']
+        for row_index, row in enumerate(race_rows):
+            cells = row.find_all('td')
+            if len(cells) < 4:  # Need at least 4 cells for a valid race row
+                continue
+                
+            # Extract date from first cell for sorting
+            date_cell = cells[0]
+            date_text = date_cell.get_text(strip=True)
+            
+            # Look for race links in either:
+            # 1. Discipline column (4th cell) with title="Results"
+            # 2. City column (3rd cell) with results.php link
+            discipline_cell = cells[3]
+            city_cell = cells[2]
+            
+            race_link = None
+            race_type_text = ""
+            
+            # First check discipline column for title="Results" links
+            discipline_link = discipline_cell.find('a', {'title': 'Results'})
+            if discipline_link and 'href' in discipline_link.attrs:
+                race_link = discipline_link['href']
+                race_type_text = discipline_link.get_text(strip=True)
+            else:
+                # Check city column for results.php links
+                city_link = city_cell.find('a', href=True)
+                if city_link and 'results.php?id=' in city_link['href']:
+                    race_link = city_link['href']
+                    # Get race type from discipline cell (plain text)
+                    race_type_text = discipline_cell.get_text(strip=True)
+            
+            if race_link:
+                # Extract race ID for tertiary sorting
+                race_id_match = re.search(r'id=(\d+)', race_link)
+                race_id = int(race_id_match.group(1)) if race_id_match else 0
+                
+                # Stage races should come after individual races with same date
+                is_stage_race = "Stage Race" in race_type_text
+                stage_priority = 1 if is_stage_race else 0
+                
+                # Create season-aware date for sorting
+                season_date = create_season_date(date_text, year)
+                
+                race_data_list.append({
+                    'date': date_text,
+                    'season_date': season_date,
+                    'stage_priority': stage_priority,
+                    'race_id': race_id,
+                    'row_index': row_index,
+                    'link': race_link,
+                    'race_type': race_type_text
+                })
+        
+        # Sort races by: season_date, stage priority (individual races first), then race ID, then row index
+        race_data_list.sort(key=lambda x: (x['season_date'], x['stage_priority'], x['race_id'], x['row_index']))
+        
+        # Remove duplicates while preserving sorted order
+        seen = set()
+        unique_race_data = []
+        for race_data in race_data_list:
+            if race_data['link'] not in seen:
+                seen.add(race_data['link'])
+                unique_race_data.append(race_data)
+        
+        # Assign race numbers based on sorted order and create links
+        links = []
+        for race_num, race_data in enumerate(unique_race_data, 1):
+            full_url = 'https://firstskisport.com/cross-country/' + race_data['link']
             links.append([full_url, year, race_num])
             
         logging.info(f"Found {len(links)} races for {year} ({sex})")
@@ -704,11 +791,13 @@ def main():
     current_year = datetime.now().year
     logging.info("Processing men's historical data")
     men_tables, men_results = process_year_range(1924, current_year, 'M')
+    #men_tables, men_results = process_year_range(2019, 2019, 'M')
     men_df = construct_historical_df(men_tables, men_results, 'M')
     
     # Process ladies' data
     logging.info("Processing ladies' historical data")
     ladies_tables, ladies_results = process_year_range(1924, current_year, 'L')
+    #ladies_tables, ladies_results = process_year_range(2019, 2019, 'L')
     ladies_df = construct_historical_df(ladies_tables, ladies_results, 'L')
     
     # Save the data
