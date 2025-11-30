@@ -90,14 +90,17 @@ def load_and_process_data() -> Tuple[Optional[pl.DataFrame], Optional[pl.DataFra
         logging.error(f"Error loading data: {e}")
         return None, None, {'races': set(), 'men_experience': {}, 'ladies_experience': {}}
 
-def process_race(link: List[Any], metadata: Dict) -> Optional[Tuple]:
+def process_race(link: List[Any], metadata: Dict, expected_sex: str = None) -> Optional[Tuple]:
     """Process a single race with its results"""
     try:
         # Determine if this is a mixed relay race
         is_mixed_relay = link[3] if len(link) > 3 else False
         
-        # Determine default sex from URL
-        default_sex = 'L' if '&g=w' in link[0] else 'M'
+        # Determine default sex - use expected_sex if provided, otherwise infer from URL
+        if expected_sex:
+            default_sex = expected_sex
+        else:
+            default_sex = 'L' if '&g=w' in link[0] else 'M'
         
         table_data = get_race_data(link)
         if table_data is None:
@@ -139,9 +142,9 @@ def process_new_season(metadata: Dict) -> Tuple[Optional[pl.DataFrame], Optional
     
     if men_season_links:
         with ThreadPoolExecutor(max_workers=max_workers) as executor:
-            # Create tasks for each race with 'M' as default sex
+            # Create tasks for each race with 'M' as expected sex
             future_to_link = {
-                executor.submit(process_race, link, metadata): link 
+                executor.submit(process_race, link, metadata, 'M'): link 
                 for link in men_season_links
             }
             
@@ -159,9 +162,9 @@ def process_new_season(metadata: Dict) -> Tuple[Optional[pl.DataFrame], Optional
     
     if women_season_links:
         with ThreadPoolExecutor(max_workers=max_workers) as executor:
-            # Create tasks for each race with 'L' as default sex
+            # Create tasks for each race with 'L' as expected sex
             future_to_link = {
-                executor.submit(process_race, link, metadata): link 
+                executor.submit(process_race, link, metadata, 'L'): link 
                 for link in women_season_links
             }
             

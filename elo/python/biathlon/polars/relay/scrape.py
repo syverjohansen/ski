@@ -148,8 +148,6 @@ def fetch_season_links(year, sex='M'):
                 
             # Add race ID to processed set
             processed_races.add(race_id)
-            
-            # No longer skip mixed relays for ladies - we'll filter by gender in the results instead
                 
             # Construct full URL for this race
             race_url = 'https://firstskisport.com/biathlon/' + discipline_link['href']
@@ -896,7 +894,7 @@ def main():
     # Process biathlon data for all years (1958-current)
     logging.info("Processing biathlon historical data")
     current_year = datetime.now().year
-    #tables, results, sex_maps = process_year_range(2025, current_year)
+    #tables, results, sex_maps = process_year_range(2026, 2026)
     tables, results, sex_maps = process_year_range(1958, current_year)
     men_df, ladies_df = construct_historical_df(tables, results, sex_maps)
     
