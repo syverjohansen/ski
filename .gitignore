@@ -14,7 +14,7 @@ birkie2022/
 *.db
 *.sqlite
 *.sqlite3
-*.feather
+#*.feather
 # Large directories
 #excel365/
 archive/
