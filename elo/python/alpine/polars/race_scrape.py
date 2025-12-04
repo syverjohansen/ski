@@ -225,6 +225,12 @@ def scrape_alpine_event(event_url, source_category, country_mapping):
         race_rows = content_div.find_all('div', {'class': 'table-row'})
         
         for row in race_rows:
+            # Check if race is cancelled first
+            cancelled_span = row.find('span', {'class': 'status__item status__item_cancelled'})
+            if cancelled_span and cancelled_span.get('title') == 'Cancelled':
+                print(f"Skipping cancelled race")
+                continue
+            
             # Extract date
             date_div = row.find('div', {'class': 'timezone-date'})
             if not date_div or not date_div.get('data-date'):
@@ -277,8 +283,8 @@ def scrape_alpine_event(event_url, source_category, country_mapping):
                     distance = text
                     break
             
-            # Skip if no valid distance found or if it's training
-            if not distance or "Training" in distance:
+            # Skip if no valid distance found, if it's training, or if it's a team event
+            if not distance or "Training" in distance or "Team" in distance:
                 continue
             
             # Determine championship
@@ -366,7 +372,7 @@ if __name__ == "__main__":
     races = scrape_alpine_races()
     
     if races:
-        output_file = "excel365/races2026.csv"
+        output_file = "excel365/races.csv"
         save_alpine_races(races, output_file)
         print(f"Scraping complete! Found {len(races)} total alpine races.")
     else:

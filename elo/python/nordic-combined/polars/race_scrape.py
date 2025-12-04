@@ -4,6 +4,7 @@ import csv
 from datetime import datetime
 import re
 import time
+import random
 import pandas as pd
 from fuzzywuzzy import fuzz, process
 
@@ -228,8 +229,18 @@ def scrape_nordic_combined():
     # Scrape World Cup races
     print("Scraping World Cup calendar...")
     try:
-        response = requests.get(wc_url)
-        response.raise_for_status()
+        # Add headers to avoid bot detection
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'DNT': '1',
+            'Connection': 'keep-alive',
+            'Upgrade-Insecure-Requests': '1',
+        }
+        
+        response = make_request_with_retry(wc_url, headers)
         soup = BeautifulSoup(response.content, 'html.parser')
         
         calendar_div = soup.find('div', {'id': 'calendardata'})
@@ -248,7 +259,7 @@ def scrape_nordic_combined():
                         print(f"Processing WC event: {event_url}")
                         races = scrape_nordic_event(event_url, "World Cup", country_mapping, elevation_df)
                         all_races.extend(races)
-                        time.sleep(1)
+                        time.sleep(3)  # Be more polite to server
                         break
     except Exception as e:
         print(f"Error scraping World Cup: {str(e)}")
@@ -263,13 +274,43 @@ def scrape_nordic_combined():
     
     return all_races
 
+def make_request_with_retry(url, headers, max_retries=3):
+    """Make HTTP request with retry logic and exponential backoff"""
+    for attempt in range(max_retries):
+        try:
+            # Add random delay between requests to avoid rate limiting
+            time.sleep(random.uniform(2, 5))
+            
+            response = requests.get(url, headers=headers, timeout=30)
+            response.raise_for_status()
+            return response
+            
+        except requests.exceptions.RequestException as e:
+            if attempt < max_retries - 1:
+                wait_time = (2 ** attempt) + random.uniform(0, 2)
+                print(f"Request failed (attempt {attempt + 1}), retrying in {wait_time:.1f} seconds...")
+                time.sleep(wait_time)
+            else:
+                print(f"Request failed after {max_retries} attempts: {e}")
+                raise e
+
 def scrape_nordic_event(event_url, source_category, country_mapping, elevation_df):
     """Scrape nordic combined races from an event page"""
     races = []
     
     try:
-        response = requests.get(event_url)
-        response.raise_for_status()
+        # Add headers to avoid bot detection
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'DNT': '1',
+            'Connection': 'keep-alive',
+            'Upgrade-Insecure-Requests': '1',
+        }
+        
+        response = make_request_with_retry(event_url, headers)
         soup = BeautifulSoup(response.content, 'html.parser')
         
         # Get city and country from page header
@@ -293,6 +334,12 @@ def scrape_nordic_event(event_url, source_category, country_mapping, elevation_d
         race_rows = content_div.find_all('div', {'class': 'table-row'})
         
         for row in race_rows:
+            # Check if race is cancelled first
+            cancelled_span = row.find('span', {'class': 'status__item status__item_cancelled'})
+            if cancelled_span and cancelled_span.get('title') == 'Cancelled':
+                print(f"Skipping cancelled race")
+                continue
+            
             # Extract date
             date_div = row.find('div', {'class': 'timezone-date'})
             if not date_div or not date_div.get('data-date'):
@@ -441,7 +488,7 @@ if __name__ == "__main__":
     races = scrape_nordic_combined()
     
     if races:
-        output_file = "excel365/races2026.csv"
+        output_file = "excel365/races.csv"
         save_nordic_races(races, output_file)
         print(f"Scraping complete! Found {len(races)} total nordic combined races.")
     else:

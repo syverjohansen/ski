@@ -4,6 +4,7 @@ import csv
 from datetime import datetime
 import re
 import time
+import random
 import pandas as pd
 from fuzzywuzzy import fuzz, process
 
@@ -169,12 +170,13 @@ def determine_stage(period):
     """Determine stage based on period"""
     return "1" if period == "2" else "0"
 
-def determine_final_climb(city, period, ms, technique, distance):
+def determine_final_climb(city, stage, ms, technique, distance):
     """Determine Final_Climb based on specific criteria"""
     try:
-        if (city == "Val di Fiemme" and period == "2" and 
-            ms == "1" and technique == "F" and 
-            distance.isdigit() and int(distance) > 5):
+        # Handle case variations of Val di Fiemme
+        city_lower = city.lower() if city else ""
+        if (("val di fiemme" in city_lower or "val di fiemme" == city_lower) and 
+            stage == "1" and ms == "1" and technique == "F"):
             return "1"
     except:
         pass
@@ -187,6 +189,26 @@ def determine_championship(source_category, city, distance_text):
     if "World Championships" in str(distance_text):
         return "1"
     return "0"
+
+def make_request_with_retry(url, headers, max_retries=3):
+    """Make HTTP request with retry logic and exponential backoff"""
+    for attempt in range(max_retries):
+        try:
+            # Add random delay between requests to avoid rate limiting
+            time.sleep(random.uniform(2, 5))
+            
+            response = requests.get(url, headers=headers, timeout=30)
+            response.raise_for_status()
+            return response
+            
+        except requests.exceptions.RequestException as e:
+            if attempt < max_retries - 1:
+                wait_time = (2 ** attempt) + random.uniform(0, 2)
+                print(f"Request failed (attempt {attempt + 1}), retrying in {wait_time:.1f} seconds...")
+                time.sleep(wait_time)
+            else:
+                print(f"Request failed after {max_retries} attempts: {e}")
+                raise e
 
 def scrape_fis_comprehensive():
     """Comprehensive FIS race scraper with all 17 data points"""
@@ -203,8 +225,18 @@ def scrape_fis_comprehensive():
         print(f"Scraping {category} calendar...")
         
         try:
-            response = requests.get(url)
-            response.raise_for_status()
+            # Add headers to avoid bot detection
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+                'Accept-Language': 'en-US,en;q=0.9',
+                'Accept-Encoding': 'gzip, deflate, br',
+                'DNT': '1',
+                'Connection': 'keep-alive',
+                'Upgrade-Insecure-Requests': '1',
+            }
+            
+            response = make_request_with_retry(url, headers)
             soup = BeautifulSoup(response.content, 'html.parser')
             
             # Find all event weekend rows
@@ -229,7 +261,7 @@ def scrape_fis_comprehensive():
                         print(f"Processing event: {event_url}")
                         races = scrape_event_comprehensive(event_url, category, country_mapping, elevation_df)
                         all_races.extend(races)
-                        time.sleep(1)  # Be polite to server
+                        time.sleep(3)  # Be more polite to server
                         break
         
         except Exception as e:
@@ -242,8 +274,18 @@ def scrape_event_comprehensive(event_url, source_category, country_mapping, elev
     races = []
     
     try:
-        response = requests.get(event_url)
-        response.raise_for_status()
+        # Add headers to avoid bot detection
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'DNT': '1',
+            'Connection': 'keep-alive',
+            'Upgrade-Insecure-Requests': '1',
+        }
+        
+        response = make_request_with_retry(event_url, headers)
         soup = BeautifulSoup(response.content, 'html.parser')
         
         # Get city and country from page header
@@ -268,6 +310,12 @@ def scrape_event_comprehensive(event_url, source_category, country_mapping, elev
         race_rows = content_div.find_all('div', {'class': 'table-row'})
         
         for row in race_rows:
+            # Check if race is cancelled first
+            cancelled_span = row.find('span', {'class': 'status__item status__item_cancelled'})
+            if cancelled_span and cancelled_span.get('title') == 'Cancelled':
+                print(f"Skipping cancelled race")
+                continue
+            
             # 1. Extract date
             date_div = row.find('div', {'class': 'timezone-date'})
             if not date_div or not date_div.get('data-date'):
@@ -344,7 +392,7 @@ def scrape_event_comprehensive(event_url, source_category, country_mapping, elev
             stage = determine_stage(period)
             
             # 14. Final_Climb
-            final_climb = determine_final_climb(city, period, ms, technique, distance)
+            final_climb = determine_final_climb(city, stage, ms, technique, distance)
             
             # 15. Championship
             championship = determine_championship(source_category, city, distance_text)
@@ -437,7 +485,7 @@ if __name__ == "__main__":
     races = scrape_fis_comprehensive()
     
     if races:
-        output_file = "excel365/races2026.csv"
+        output_file = "excel365/races.csv"
         save_comprehensive_races(races, output_file)
         print(f"Scraping complete! Found {len(races)} total races.")
     else:
