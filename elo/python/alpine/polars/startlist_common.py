@@ -212,23 +212,32 @@ def extract_individual_results(soup: BeautifulSoup) -> List[Dict]:
                 
                 # Get name (different selectors for different race formats)
                 name = ""
-                name_selectors = [
-                    '.g-lg-18.g-md-18.g-sm-16.g-xs-16.justify-left.bold',
-                    '.g-lg-12.g-md-12.g-sm-11.g-xs-8.justify-left.bold',
-                    '.g-lg-8.g-md-8.g-sm-7.g-xs-8.justify-left.bold', 
-                    '.g-lg-10.g-md-10.g-sm-9.g-xs-11.justify-left.bold',
-                    # Add more selectors for events-info-results format
-                    '.g-lg-4.g-md-4.g-sm-3.g-xs-8.justify-left.bold',
-                    '.justify-left.bold'
-                ]
                 
-                for selector in name_selectors:
-                    name_elem = row.select_one(selector)
-                    if name_elem and name_elem.text.strip():
-                        name = name_elem.text.strip()
-                        if len(athletes) < 3:  # Debug for first few rows
-                            print(f"Main extract found name using selector '{selector}': '{name}'")
-                        break
+                # First try the new split-row format with athlete-name class
+                athlete_name_elem = row.select_one('.athlete-name')
+                if athlete_name_elem and athlete_name_elem.text.strip():
+                    name = athlete_name_elem.text.strip()
+                    if len(athletes) < 3:  # Debug for first few rows
+                        print(f"Main extract found name using .athlete-name selector: '{name}'")
+                else:
+                    # Fallback to original selectors
+                    name_selectors = [
+                        '.g-lg-18.g-md-18.g-sm-16.g-xs-16.justify-left.bold',
+                        '.g-lg-12.g-md-12.g-sm-11.g-xs-8.justify-left.bold',
+                        '.g-lg-8.g-md-8.g-sm-7.g-xs-8.justify-left.bold', 
+                        '.g-lg-10.g-md-10.g-sm-9.g-xs-11.justify-left.bold',
+                        # Add more selectors for events-info-results format
+                        '.g-lg-4.g-md-4.g-sm-3.g-xs-8.justify-left.bold',
+                        '.justify-left.bold'
+                    ]
+                    
+                    for selector in name_selectors:
+                        name_elem = row.select_one(selector)
+                        if name_elem and name_elem.text.strip():
+                            name = name_elem.text.strip()
+                            if len(athletes) < 3:  # Debug for first few rows
+                                print(f"Main extract found name using selector '{selector}': '{name}'")
+                            break
                 
                 # If still no name found, debug what elements are available
                 if not name and len(athletes) < 3:
@@ -460,28 +469,37 @@ def extract_events_info_results(soup: BeautifulSoup) -> List[Dict]:
                 
                 # Get athlete name - try multiple selector patterns used in main extract function
                 name = ""
-                name_selectors = [
-                    # From main extraction function - all the name selectors
-                    '.g-lg-18.g-md-18.g-sm-16.g-xs-16.justify-left.bold',
-                    '.g-lg-12.g-md-12.g-sm-11.g-xs-8.justify-left.bold', 
-                    '.g-lg-8.g-md-8.g-sm-7.g-xs-8.justify-left.bold',
-                    '.g-lg-10.g-md-10.g-sm-9.g-xs-11.justify-left.bold',
-                    # Additional patterns for events-info-results format
-                    '.g-lg-4.g-md-4.g-sm-3.g-xs-8.justify-left.bold',
-                    '.g-lg-4.justify-left.bold',
-                    '.justify-left.bold',
-                    # Fallback patterns
-                    'div.bold',
-                    '.bold'
-                ]
                 
-                for selector in name_selectors:
-                    name_elem = row.select_one(selector)
-                    if name_elem and name_elem.text.strip():
-                        name = name_elem.text.strip()
-                        if len(athletes) < 3:  # Debug for first few rows
-                            print(f"Found name using selector '{selector}': '{name}'")
-                        break
+                # First try the new split-row format with athlete-name class
+                athlete_name_elem = row.select_one('.athlete-name')
+                if athlete_name_elem and athlete_name_elem.text.strip():
+                    name = athlete_name_elem.text.strip()
+                    if len(athletes) < 3:  # Debug for first few rows
+                        print(f"Events-info found name using .athlete-name selector: '{name}'")
+                else:
+                    # Fallback to original selectors
+                    name_selectors = [
+                        # From main extraction function - all the name selectors
+                        '.g-lg-18.g-md-18.g-sm-16.g-xs-16.justify-left.bold',
+                        '.g-lg-12.g-md-12.g-sm-11.g-xs-8.justify-left.bold', 
+                        '.g-lg-8.g-md-8.g-sm-7.g-xs-8.justify-left.bold',
+                        '.g-lg-10.g-md-10.g-sm-9.g-xs-11.justify-left.bold',
+                        # Additional patterns for events-info-results format
+                        '.g-lg-4.g-md-4.g-sm-3.g-xs-8.justify-left.bold',
+                        '.g-lg-4.justify-left.bold',
+                        '.justify-left.bold',
+                        # Fallback patterns
+                        'div.bold',
+                        '.bold'
+                    ]
+                    
+                    for selector in name_selectors:
+                        name_elem = row.select_one(selector)
+                        if name_elem and name_elem.text.strip():
+                            name = name_elem.text.strip()
+                            if len(athletes) < 3:  # Debug for first few rows
+                                print(f"Found name using selector '{selector}': '{name}'")
+                            break
                 
                 # If still no name found, debug what elements are available
                 if not name and len(athletes) < 3:

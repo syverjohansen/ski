@@ -1,513 +1,188 @@
 "FISName","Skier","ID","Nation","StartOrder","Bib","Is_Host_Nation","In_Startlist","Year","Run1","Run2","Time","Points","Discipline","Elo","Downhill_Elo","Slalom_Elo","Combined_Elo","Tech_Elo","Speed_Elo","Race_Elo","Race1_Prob","City","Country","Race_Type","Race_Date","Sex"
-"KRISTOFFERSEN Henrik                                                                
-
-
-Van Deer","Henrik Kristoffersen",2391,"NOR",NA,4,"False","True",1994,NA,NA,NA,NA,"Giant Slalom",1646.17390944211,1247.96994767169,1603.21731433193,1335.85779840895,1643.84066077839,1309.72399628773,1627.75187741884,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"BRENNSTEINER Stefan                                                                
-
-
-Fischer","Stefan Brennsteiner",2436,"AUT",NA,1,"False","True",1991,NA,NA,NA,NA,"Giant Slalom",1605.05134017245,1247.96994767169,1318.04890159404,1281.54698735659,1599.79981102553,1248.50442564635,1596.55047252708,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"MCGRATH Atle Lie                                                                
-
-
-Head","Atle Lie McGrath",4711,"NOR",NA,14,"False","True",2000,NA,NA,NA,NA,"Giant Slalom",1616.7689238041,1247.96994767169,1548.81250906303,1331.99556742401,1590.70459689273,1443.57999166331,1556.10814570028,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"PINHEIRO BRAATHEN Lucas                                                                
-
-
-Atomic","Lucas Pinheiro Braathen",4748,"BRA",NA,7,"False","True",2000,NA,NA,NA,NA,"Giant Slalom",1413.97595503225,1247.96994767169,1642.60001313806,1281.54698735659,1671.67310678511,1182.62924462788,1539.950512367,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"HAASER Raphael                                                                
-
-
-Atomic","Raphael Haaser",4221,"AUT",NA,13,"False","True",1997,NA,NA,NA,NA,"Giant Slalom",1624.05159536969,1258.34223584158,1270.36688600321,1348.15680599113,1534.34876980742,1533.94797816313,1529.90934663748,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"PINTURAULT Alexis                                                                
-
-
-Head","Alexis Pinturault",232,"FRA",NA,23,"False","True",1991,NA,NA,NA,NA,"Giant Slalom",1484.98565926813,1318.73038873617,1456.22399553964,1473.79755847479,1502.3160802601,1420.07830478373,1505.66655900632,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"DE ALIPRANDINI Luca                                                                
-
-
-Salomon","Luca De Aliprandini",1799,"ITA",NA,15,"False","True",1990,NA,NA,NA,NA,"Giant Slalom",1493.20031079562,1275.95229665735,1285.37165802023,1281.54670560541,1487.66038688826,1293.85522394912,1484.4738237628,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"SCHMID Alexander                                                                
-
-
-Head","Alexander Schmid",2410,"GER",NA,25,"False","True",1994,NA,NA,NA,NA,"Giant Slalom",1441.260832889,1247.96994767169,1321.3918379456,1281.54698735659,1436.9161775428,1248.50442564635,1444.93826495079,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"GRAMMEL Anton                                                                
-
-
-Head","Anton Grammel",3004,"GER",NA,19,"False","True",1998,NA,NA,NA,NA,"Giant Slalom",1270.77031846566,1247.96994767169,1270.36688600321,1281.54698735659,1430.02737339946,1184.61412938893,1431.99337475001,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"VITALE Flavio                                                                
-
-
-Head","Flavio Vitale",7093,"FRA",NA,28,"False","True",2005,NA,NA,NA,NA,"Giant Slalom",1418.55798117259,1247.96994767169,1270.36688600321,1281.54698735659,1415.5751366907,1248.50442564635,1414.65314075874,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"STOCKINGER Jonas                                                                
-
-
-Voelkl","Jonas Stockinger",3030,"GER",NA,27,"False","True",1999,NA,NA,NA,NA,"Giant Slalom",1383.07671433491,1247.96994767169,1270.36688600321,1281.54698735659,1379.47655302303,1248.50442564635,1378.51750059994,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"ELEZI CANNAFERINA Alban                                                                
-
-
-Rossignol","Alban Elezi Cannaferina",5693,"FRA",NA,31,"False","True",2003,NA,NA,NA,NA,"Giant Slalom",1448.56486077031,1247.96994767169,1270.36688600321,1281.54698735659,1362.38841993121,1402.11412938893,1360.5490296698,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"SOLBERG Eirik Hystad                                                                
-
-
-FISCHER","Eirik Hystad Solberg",6716,"NOR",NA,32,"False","True",2002,NA,NA,NA,NA,"Giant Slalom",1402.6760719306,1247.96994767169,1385.36079093622,1281.54698735659,1402.18070608829,1248.50442564635,1308.0600369234,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"GRAVIER Tiziano                                                                
-
-
-Head","Tiziano Gravier",5351,"ARG",NA,45,"False","True",2002,NA,NA,NA,NA,"Giant Slalom",1213.24546285122,1275.43063766671,1277.91371661927,1256.44184402825,1297.78094129034,1182.61454511692,1299.65104465122,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"ZWISCHENBRUGGER Noel                                                                
-
-
-Atomic","Noel Zwischenbrugger",6600,"AUT",NA,63,"False","True",2001,NA,NA,NA,NA,"Giant Slalom",1291.07257004736,1247.96994767169,1270.36688600321,1281.54698735659,1290.64116543115,1248.50442564635,1292.35126820326,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"KENNEY Patrick                                                                
-
-
-Voelkl","Patrick Kenney",3044,"USA",NA,62,"True","True",1997,NA,NA,NA,NA,"Giant Slalom",1288.58004606531,1247.96994767169,1270.36688600321,1281.54698735659,1286.21430148885,1248.50442564635,1286.21980729212,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"BABINSKY Stefan                                                                
-
-
-Head","Stefan Babinsky",3039,"AUT",NA,65,"False","True",1996,NA,NA,NA,NA,"Giant Slalom",1551.89765263852,1413.24114670842,1270.36688600321,1247.22468741766,1287.08462600917,1541.66234442471,1285.8201601769,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"SANDVIK Oscar Andreas                                                                
-
-
-Head","Oscar Andreas Sandvik",6803,"NOR",NA,39,"False","True",2004,NA,NA,NA,NA,"Giant Slalom",1244.53900352837,1247.96994767169,1375.80194958404,1281.54698735659,1367.9230334939,1197.11412938893,1278.49606000002,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"FEURSTEIN Lukas                                                                
-
-
-Head","Lukas Feurstein",5336,"AUT",NA,36,"False","True",2001,NA,NA,NA,NA,"Giant Slalom",1487.22497497163,1272.7432453489,1270.36688600321,1281.54698735659,1278.12910336193,1509.16575246142,1275.85683230451,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"DRUKAROV Andrej                                                                
-
-
-Voelkl","Andrej Drukarov",3014,"LTU",NA,47,"False","True",1999,NA,NA,NA,NA,"Giant Slalom",1280.02720344759,1247.96994767169,1259.0307046527,1281.54698735659,1276.47310041792,1277.50718135549,1275.09310546922,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"MUHLEN-SCHULTE Louis                                                                
-
-
-Voelkl","Louis Muhlen-Schulte",3008,"AUS",NA,41,"False","True",1998,NA,NA,NA,NA,"Giant Slalom",1186.18206387006,1247.96994767169,1145.1768570519,1281.54698735659,1184.48907770318,1248.50442564635,1264.43311148302,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"STEFFEY George                                                                
-
-
-Voelkl","George Steffey",4295,"USA",NA,61,"True","True",1997,NA,NA,NA,NA,"Giant Slalom",1253.1633999471,1247.96994767169,1252.20465944779,1275.8550499493,1254.04129389656,1248.50442564635,1259.5736045592,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"BORGNAES Christian                                                                
-
-
-Salomon","Christian Borgnaes",5528,"DEN",NA,33,"False","True",1996,NA,NA,NA,NA,"Giant Slalom",1241.78245449955,1247.96994767169,1267.01387773715,1318.04184402825,1237.39986405997,1287.23798524401,1237.52572908102,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"GILE Bridger                                                                
-
-
-Head","Bridger Gile",5310,"USA",NA,44,"True","True",1999,NA,NA,NA,NA,"Giant Slalom",1222.13213903164,1247.96994767169,1285.09034345362,1281.54698735659,1222.27935856723,1248.50442564635,1222.14441358582,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"PARAND Loevan                                                                
-
-
-Head","Loevan Parand",5340,"FRA",NA,50,"False","True",1999,NA,NA,NA,NA,"Giant Slalom",1217.81590573946,1247.96994767169,1270.36688600321,1281.54698735659,1213.5995013375,1248.50442564635,1213.6449027258,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"WAKATSUKI Hayata                                                                
-
-
-Salomon","Hayata Wakatsuki",4979,"JPN",NA,57,"False","True",1999,NA,NA,NA,NA,"Giant Slalom",1202.96984926274,1247.96994767169,1270.36688600321,1281.54698735659,1203.60149267924,1248.50442564635,1198.14144859998,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"STRASSER Linus                                                                
-
-
-Head","Linus Strasser",1932,"GER",NA,58,"False","True",1992,NA,NA,NA,NA,"Giant Slalom",1492.2895820043,1293.87398584389,1594.24982293501,1338.87525872661,1490.73697131354,1295.76928595021,1161.54015825167,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"KASTLUNGER Tobias                                                                
-
-
-Head","Tobias Kastlunger",5321,"ITA",NA,59,"False","True",1999,NA,NA,NA,NA,"Giant Slalom",1265.01871040526,1247.96994767169,1335.8184268223,1332.04184402825,1263.76076064449,1248.50442564635,1096.43389101231,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"FEURSTEIN Patrick                                                                
-
-
-Rossignol","FEURSTEIN Patrick                                                                
-
-
-Rossignol",54359,"AUT",NA,16,"False","True",1996,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"ANGUENOT Leo                                                                
-
-
-Rossignol","ANGUENOT Leo                                                                
-
-
-Rossignol",6190628,"FRA",NA,17,"False","True",1998,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"MEILLARD Loic                                                                
-
-
-Rossignol","MEILLARD Loic                                                                
-
-
-Rossignol",512182,"SUI",NA,5,"False","True",1996,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"TUMLER Thomas                                                                
-
-
-Stoeckli","TUMLER Thomas                                                                
-
-
-Stoeckli",511638,"SUI",NA,3,"False","True",1989,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"KRANJEC Zan                                                                
-
-
-Rossignol","KRANJEC Zan                                                                
-
-
-Rossignol",561244,"SLO",NA,2,"False","True",1992,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"BORSOTTI Giovanni                                                                
-
-
-Rossignol","BORSOTTI Giovanni                                                                
-
-
-Rossignol",990048,"ITA",NA,30,"False","True",1990,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"DELLA VITE Filippo                                                                
-
-
-Rossignol","DELLA VITE Filippo                                                                
-
-
-Rossignol",6293775,"ITA",NA,29,"False","True",2001,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"LAINE Tormis                                                                
-
-
-Voelkl","LAINE Tormis                                                                
-
-
-Voelkl",390044,"EST",NA,26,"False","True",2000,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"VERDU Joan                                                                
-
-
-Van Deer","VERDU Joan                                                                
-
-
-Van Deer",20398,"AND",NA,18,"False","True",1995,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"VINATZER Alex                                                                
-
-
-Atomic","VINATZER Alex                                                                
-
-
-Atomic",6293171,"ITA",NA,21,"False","True",1999,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"MAES Sam                                                                
-
-
-Voelkl","MAES Sam                                                                
-
-
-Voelkl",60261,"BEL",NA,20,"False","True",1998,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"AERNI Luca                                                                
-
-
-Fischer","AERNI Luca                                                                
-
-
-Fischer",511983,"SUI",NA,22,"False","True",1993,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"GRATZ Fabian                                                                
-
-
-Fischer","GRATZ Fabian                                                                
-
-
-Fischer",202829,"GER",NA,24,"False","True",1997,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"HAUGAN Timon                                                                
-
-
-Van Deer","HAUGAN Timon                                                                
-
-
-Van Deer",422507,"NOR",NA,9,"False","True",1996,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"SCHWARZ Marco                                                                
-
-
-Atomic","SCHWARZ Marco                                                                
-
-
-Atomic",54320,"AUT",NA,8,"False","True",1995,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"ODERMATT Marco                                                                
-
-
-Stoeckli","ODERMATT Marco                                                                
-
-
-Stoeckli",512269,"SUI",NA,6,"False","True",1997,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"ZUBCIC Filip                                                                
-
-
-Atomic","ZUBCIC Filip                                                                
-
-
-Atomic",380335,"CRO",NA,10,"False","True",1993,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"FAVROT Thibaut                                                                
-
-
-Dynastar","FAVROT Thibaut                                                                
-
-
-Dynastar",194935,"FRA",NA,12,"False","True",1994,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"RADAMUS River                                                                
-
-
-Rossignol","RADAMUS River                                                                
-
-
-Rossignol",6532084,"USA",NA,11,"True","True",1998,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"AX SWARTZ Fabian                                                                
-
-
-Van Deer","AX SWARTZ Fabian                                                                
-
-
-Van Deer",502617,"SWE",NA,37,"False","True",2004,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"KATO Seigo                                                                
-
-
-Atomic","KATO Seigo                                                                
-
-
-Atomic",6300451,"JPN",NA,34,"False","True",1998,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"JANUTIN Fadri                                                                
-
-
-Fischer","JANUTIN Fadri                                                                
-
-
-Fischer",512424,"SUI",NA,49,"False","True",2000,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"NELSON Isaiah                                                                
-
-
-Rossignol","NELSON Isaiah                                                                
-
-
-Rossignol",6532790,"USA",NA,48,"True","True",2001,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"READ Erik                                                                
-
-
-Atomic","READ Erik                                                                
-
-
-Atomic",103729,"CAN",NA,46,"False","True",1991,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"ORECCHIONI Diego                                                                
-
-
-Rossignol","ORECCHIONI Diego                                                                
-
-
-Rossignol",6190876,"FRA",NA,42,"False","True",2000,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"ZAMPA Andreas                                                                
-
-
-Salomon","ZAMPA Andreas                                                                
-
-
-Salomon",700879,"SVK",NA,43,"False","True",1993,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"HAECHLER Lenz                                                                
-
-
-Stoeckli","HAECHLER Lenz                                                                
-
-
-Stoeckli",512588,"SUI",NA,35,"False","True",2003,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"ORTEGA FORNESA Albert                                                                
-
-
-Rossignol","ORTEGA FORNESA Albert                                                                
-
-
-Rossignol",492192,"ESP",NA,38,"False","True",1998,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"FRANZONI Giovanni                                                                
-
-
-Rossignol","FRANZONI Giovanni                                                                
-
-
-Rossignol",6293831,"ITA",NA,40,"False","True",2001,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"HANSSON William                                                                
-
-
-Rossignol","HANSSON William                                                                
-
-
-Rossignol",502433,"SWE",NA,56,"False","True",2001,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"ZURBRUEGG Sandro                                                                
-
-
-Stoeckli","ZURBRUEGG Sandro                                                                
-
-
-Stoeckli",512495,"SUI",NA,55,"False","True",2002,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"SIMONET Livio                                                                
-
-
-Rossignol","SIMONET Livio                                                                
-
-
-Rossignol",512301,"SUI",NA,54,"False","True",1998,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"FAVRE Guerlain                                                                
-
-
-Salomon","FAVRE Guerlain                                                                
-
-
-Salomon",6190875,"FRA",NA,53,"False","True",2000,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"SARCHETT Ryder                                                                
-
-
-Dynastar","SARCHETT Ryder                                                                
-
-
-Dynastar",6533248,"USA",NA,51,"True","True",2003,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"STURM Joshua                                                                
-
-
-Atomic","STURM Joshua                                                                
-
-
-Atomic",54630,"AUT",NA,52,"False","True",2001,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"ZAMPA Adam                                                                
-
-
-Salomon","ZAMPA Adam                                                                
-
-
-Salomon",700830,"SVK",NA,60,"False","True",1990,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"AMMAN Hannes                                                                
-
-
-Rossignol","AMMAN Hannes                                                                
-
-
-Rossignol",203114,"GER",NA,64,"False","True",2002,NA,NA,NA,NA,"Giant Slalom",NA,NA,NA,NA,NA,NA,0,1,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Marco Odermatt","Marco Odermatt",3040,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1799.76576457399,1678.15713435598,1298.38261549842,1304.10511903077,1694.84559418372,1721.21758611995,1691.22847549117,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Marco Schwarz","Marco Schwarz",2561,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1555.99960506072,1374.32631012509,1456.45300042349,1438.86860240772,1536.31194569667,1470.05022566233,1606.53658224653,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Loic Meillard","Loic Meillard",2565,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1458.18656761235,1287.48308538231,1513.93407336759,1389.15444916694,1546.86425361913,1355.92105137248,1596.08014855883,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Zan Kranjec","Zan Kranjec",1942,"Slovenia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1580.57795173985,1247.96994767169,1265.77481304502,1281.54698735659,1575.59409391757,1248.50442564635,1583.20653778,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Thibaut Favrot","Thibaut Favrot",2493,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1570.1812161453,1247.96994767169,1314.92246736376,1281.54698735659,1564.03275873451,1248.50442564635,1560.2445622087,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Filip Zubcic","Filip Zubcic",249,"Croatia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1523.81637806511,1247.96994767169,1448.26900530087,1320.97481813778,1521.52521295452,1240.04067204547,1551.09000391974,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Thomas Tumler","Thomas Tumler",2409,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1532.09179585599,1261.24456202948,1270.36688600321,1281.54698735659,1526.63498948098,1286.50848747472,1522.13794761863,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Timon Haugan","Timon Haugan",3049,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1676.03603331457,1247.96994767169,1660.17923502014,1281.54698735659,1673.401045612,1248.50442564635,1501.62258422424,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"River Radamus","River Radamus",2986,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1465.31798103463,1228.81228116885,1252.32308381013,1340.44184402825,1458.58493697112,1369.02166546833,1489.85320001807,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Joan Verdu Sanchez","Joan Verdu Sanchez",2551,"Andorra",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1497.53683946513,1289.82095742209,1270.36688600321,1306.80925635049,1491.93830046425,1272.95528327084,1485.56480638838,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Aleksander Aamodt Kilde","Aleksander Aamodt Kilde",2393,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1576.78341984601,1667.17626335145,1323.64001158574,1454.17610437297,1490.0990522464,1570.35500895766,1483.98805060506,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Alex Vinatzer","Alex Vinatzer",4040,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1497.79401741997,1247.96994767169,1438.23755571326,1281.54698735659,1495.53008746178,1248.50442564635,1481.75448278199,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Sam Maes","Sam Maes",3002,"Belgium",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1449.18166393435,1247.96994767169,1395.04708763138,1281.54698735659,1447.24257146688,1248.50442564635,1444.088971002,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Manuel Feller","Manuel Feller",2396,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1494.9303932919,1247.96994767169,1515.04360553307,1281.54698735659,1494.66659969649,1248.50442564635,1438.58449386057,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Fabian Gratz","Fabian Gratz",4358,"Germany",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1413.11431077985,1247.96994767169,1283.04890159404,1281.54698735659,1407.81069348405,1248.50442564635,1407.42292089312,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Giovanni Borsotti","Giovanni Borsotti",114,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1382.18568126246,1247.96994767169,1270.67510744497,1246.19853531022,1393.85107402819,1239.06026802655,1387.43156030809,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Tormis Laine","Tormis Laine",4056,"Estonia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1310.61453417865,1247.96994767169,1226.93221183249,1281.54698735659,1308.83769075284,1248.50442564635,1374.68613772539,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Justin Murisier","Justin Murisier",67,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1443.36796206783,1500.89466590234,1196.89082814511,1348.39690378871,1379.89324145865,1437.86588080256,1374.25410025436,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Luca Aerni","Luca Aerni",2392,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1276.74141196233,1247.96994767169,1275.58225893759,1303.83942889792,1275.64426279781,1248.50442564635,1358.39665565073,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Ryan Cochran-Siegle","Ryan Cochran-Siegle",1918,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1551.59983218548,1522.32309073185,1283.80618993358,1386.93792286117,1335.07440458039,1537.92793984533,1332.87368915285,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Patrick Feurstein","Patrick Feurstein",5295,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1335.14699817745,1247.96994767169,1297.04890159404,1281.54698735659,1329.74465689659,1248.50442564635,1328.66299880224,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Victor Muffat-Jeandet","Victor Muffat-Jeandet",2024,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1501.55341147473,1247.96994767169,1500.29068628021,1451.51468591003,1500.90076514722,1324.69099168577,1325.13965083262,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Jared Goldberg","Jared Goldberg",2445,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1190.55704857872,1318.20181829689,1270.36688600321,1314.50823632164,1314.26184209436,1178.20381666373,1314.96878845621,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Armand Marchant","Armand Marchant",2603,"Belgium",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1457.41352445545,1247.96994767169,1457.8888258454,1297.97802148464,1457.15657051013,1248.50442564635,1310.87227265733,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Filippo Della Vite","Filippo Della Vite",5526,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1313.94611836071,1247.96994767169,1282.61615442848,1281.54698735659,1310.07098617147,1248.50442564635,1308.89725222753,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Vincent Kriechmayr","Vincent Kriechmayr",1912,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1608.01181063746,1569.61793844331,1287.45922759249,1342.41669436112,1310.02114542002,1646.17593697377,1308.11367427165,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Erik Read","Erik Read",1920,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1217.79203527619,1247.96994767169,1215.3687523135,1332.95670827935,1216.13173335709,1254.39473158605,1305.09191852017,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Aleix Aubert Serracanta","Aleix Aubert Serracanta",6824,"Spain",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1309.67929157227,1247.96994767169,1270.36688600321,1281.54698735659,1306.26972163924,1248.50442564635,1304.349687256,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"James Crawford","James Crawford",2720,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1516.82264554523,1461.92772462225,1270.36688600321,1353.1310855322,1306.29273853073,1507.77438850959,1303.59121516697,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Ramon Zenhäusern","Ramon Zenhäusern",2427,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1342.55370234222,1247.96994767169,1346.22060643016,1281.54698735659,1344.42003737609,1248.50442564635,1302.9801203523,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Nils Allegre","Nils Allegre",2395,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1475.4793650796,1506.77059773826,1270.36688600321,1332.08141810483,1300.93843159982,1461.59802769465,1301.39976896612,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Kristoffer Jakobsen","Kristoffer Jakobsen",2765,"Sweden",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1349.9591286674,1247.96994767169,1352.56170252994,1281.54698735659,1349.56136810629,1248.50442564635,1299.64585901379,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Alexis Monney","Alexis Monney",5493,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1509.88528166136,1513.58545917838,1270.36688600321,1281.54698735659,1299.80705761066,1499.45967932563,1299.37377348063,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Laurie Taylor","Laurie Taylor",4143,"Great Britain",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1392.03365450292,1247.96994767169,1394.1772386257,1281.54698735659,1392.52073873674,1248.50442564635,1298.08660570527,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Brodie Seger","Brodie Seger",2711,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1268.96602066214,1290.72076840128,1270.36688600321,1289.91023831611,1295.38572911174,1257.09129070944,1295.9949024425,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Jan Zabystran","Jan Zabystran",2719,"Czechia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1380.56415168651,1254.96790096633,1272.08497174244,1287.40246781079,1279.74968268327,1364.60706167618,1295.70178357711,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Dave Ryding","Dave Ryding",2375,"Great Britain",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1501.3323893595,1247.96994767169,1501.68234934024,1281.54698735659,1501.65778344683,1248.50442564635,1295.65142826957,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Andreas Zampa","Andreas Zampa",1973,"Slovakia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1296.36794395622,1223.35428034169,1227.97013278885,1201.38216405685,1293.02837094424,1157.39065278833,1289.22140333643,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Henrik Von Appen","Henrik Von Appen",2505,"Chile",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1235.27779529138,1241.04839494347,1270.36688600321,1196.52584107303,1286.56442432241,1226.21986097882,1286.36506060544,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Yohei Koyama","Yohei Koyama",2447,"Japan",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1326.97588712525,1247.96994767169,1329.93451970218,1281.54698735659,1329.32888708092,1248.50442564635,1286.29607025272,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Michael Matt","Michael Matt",2481,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1415.12836979075,1247.96994767169,1415.14876940466,1281.54698735659,1415.39755287067,1248.50442564635,1286.09431840148,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Marc Rochat","Marc Rochat",2812,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1333.7308605795,1247.96994767169,1336.30731757222,1281.54698735659,1334.01338490853,1248.50442564635,1285.86499470245,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Rok Aznoh","Rok Aznoh",5119,"Slovenia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1238.34718337149,1199.02955146069,1282.61656635493,1267.64184402825,1269.27577196474,1236.33835660285,1284.92025768957,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Albert Popov","Albert Popov",2597,"Bulgaria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1508.70117342033,1247.96994767169,1510.58812462916,1281.54698735659,1509.14229073509,1248.50442564635,1284.7611154398,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Theodor Brækken","Theodor Brækken",6709,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1150.39861169726,1247.96994767169,1156.09030902783,1281.54698735659,1151.67981880757,1248.50442564635,1283.77401151931,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Samuel Kolega","Samuel Kolega",3029,"Croatia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1477.78816530217,1247.96994767169,1482.24257681868,1281.54698735659,1477.76399656595,1248.50442564635,1281.40928027133,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Hugh McAdam","Hugh McAdam",5549,"Australia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1220.69795214212,1247.96994767169,1232.79996593104,1281.54698735659,1220.86718193558,1248.50442564635,1280.97689515747,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Rasmus Bakkevig","Rasmus Bakkevig",7233,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1283.84533796032,1247.96994767169,1270.36688600321,1281.54698735659,1280.56375771595,1248.50442564635,1279.4501973916,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Stefan Rogentin","Stefan Rogentin",3505,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1595.71102762517,1502.99553542713,1270.36688600321,1297.04054244527,1279.79212263223,1586.39701460383,1277.56403677209,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Daniel Yule","Daniel Yule",2404,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1503.69453291792,1247.96994767169,1505.1052958534,1281.54698735659,1504.57019726452,1248.50442564635,1273.49378258035,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Romed Baumann","Romed Baumann",10,"Germany",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1341.42583210204,1351.70203619129,1264.89997039264,1396.88798860369,1262.51632158542,1328.66577811532,1268.8494646177,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Istok Rodes","Istok Rodes",2454,"Croatia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1308.37380305257,1247.96994767169,1319.92927798498,1257.84523475085,1308.43786389567,1256.49331466945,1267.98323302422,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Marco Abbruzzese","Marco Abbruzzese",5426,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1195.99228877353,1282.29497779145,1270.36688600321,1281.54698735659,1262.09869500625,1187.54152877719,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Blaise Giezendanner","Blaise Giezendanner",2476,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1301.74761715806,1390.29656542551,1270.36688600321,1241.22935802453,1262.09869500625,1288.96076396744,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Hugo Desgrippes","Hugo Desgrippes",5508,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1265.846237785,1247.96994767169,1267.97293610575,1281.54698735659,1267.58431562419,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Mikkel Remsøy","Mikkel Remsøy",5471,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1174.05692056938,1247.96994767169,1177.95541747886,1281.54698735659,1175.07275907621,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Arnaud Boisset","Arnaud Boisset",4710,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1377.57647287616,1320.15491577846,1270.36688600321,1281.54698735659,1262.09869500625,1365.7058593049,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Adrian Smiseth Sejersted","Adrian Smiseth Sejersted",2386,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1508.12899982073,1450.56929745186,1270.36688600321,1294.81725602702,1262.09869500625,1494.5724860954,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Daniel Hemetsberger","Daniel Hemetsberger",4605,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1500.96651267827,1443.47943255614,1270.36688600321,1281.54698735659,1262.09869500625,1487.15071348554,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Matteo Canins","Matteo Canins",4739,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1181.35734303885,1247.96994767169,1177.05848483452,1281.54698735659,1181.91394435658,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Antoine Azzolin","Antoine Azzolin",6717,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1163.27400572173,1247.96994767169,1166.46157031396,1281.54698735659,1163.86346168322,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Richard Leitgeb","Richard Leitgeb",2854,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1234.24982183783,1247.96994767169,1234.71301897812,1281.54698735659,1235.6447925906,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Franjo Von Allmen","Franjo Von Allmen",5674,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1597.98057113194,1548.49945737919,1270.36688600321,1281.54698735659,1262.09869500625,1584.24889444813,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Simon Jocher","Simon Jocher",4305,"Germany",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1427.77776250757,1324.8127756337,1270.36688600321,1318.81611106143,1262.09869500625,1416.08196764445,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Kyle Negomir","Kyle Negomir",4714,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1352.29707610339,1197.805657102,1295.73290777013,1282.20171661597,1297.05153737175,1341.59490722215,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Nicolo Molteni","Nicolo Molteni",4296,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1346.26948532751,1229.55374469506,1270.36688600321,1281.54698735659,1262.09869500625,1336.38023767518,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Guglielmo Bosca","Guglielmo Bosca",2413,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1527.87262575358,1332.49423818042,1270.36688600321,1244.91326477757,1262.09869500625,1514.34816901291,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Peder Lunder","Peder Lunder",7230,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1219.75973898682,1247.96994767169,1222.42801589272,1281.54698735659,1219.91440075608,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Jesper Pohjolainen","Jesper Pohjolainen",5401,"Finland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1107.6703159814,1247.96994767169,1108.95968914297,1281.54698735659,1109.0268963052,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Joaquim Salarich","Joaquim Salarich",2697,"Spain",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1119.15180344019,1247.96994767169,1121.74085058621,1281.54698735659,1120.7240397277,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Anton Tremmel","Anton Tremmel",2746,"Germany",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1204.09409234436,1247.96994767169,1208.03230793146,1281.54698735659,1205.79648916316,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Matthieu Bailet","Matthieu Bailet",2742,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1312.79484225944,1283.93931617955,1270.36688600321,1281.54698735659,1262.09869500625,1301.68598343506,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Benjamin Ritchie","Benjamin Ritchie",5296,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1346.2760726714,1247.96994767169,1346.31069124983,1281.54698735659,1345.86563892454,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Paco Rassat","Paco Rassat",5371,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1577.97166309114,1247.96994767169,1577.61901958426,1281.54698735659,1577.03104863005,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Steven Amiez","Steven Amiez",5409,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1538.85173694889,1247.96994767169,1539.12075670327,1281.54698735659,1537.90969234588,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Jett Seymour","Jett Seymour",4992,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1253.68222348762,1247.96994767169,1255.76858234545,1281.54698735659,1253.72728124442,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Sebastian Holzmann","Sebastian Holzmann",2425,"Germany",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1338.32607614619,1247.96994767169,1343.89696129997,1281.54698735659,1339.88511869261,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Billy Major","Billy Major",2607,"Great Britain",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1412.38445080411,1247.96994767169,1413.98277141841,1281.54698735659,1412.57159566155,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Simon Rueland","Simon Rueland",3725,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1328.32161122625,1247.96994767169,1326.37875750006,1281.54698735659,1328.57620146779,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"AJ Ginnis","AJ Ginnis",2683,"Greece",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1327.71023063715,1247.96994767169,1334.71198564572,1281.54698735659,1327.67596904414,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Dominik Zerhoch","Dominik Zerhoch",5569,"Germany",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1229.75973898682,1247.96994767169,1232.42801589272,1281.54698735659,1229.91440075608,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Corrado Barbera","Corrado Barbera",5644,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1166.72628470332,1247.96994767169,1169.36272420085,1281.54698735659,1169.31935465676,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Bryce Bennett","Bryce Bennett",2387,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1233.07109819951,1437.74766875345,1270.36688600321,1369.66321831496,1262.09869500625,1220.19987997738,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Florian Schieder","Florian Schieder",3043,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1266.74696855022,1425.13005495857,1270.36688600321,1272.26555720187,1262.09869500625,1253.96881628612,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Benjamin Jacques Alliod","Benjamin Jacques Alliod",5631,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1210.48594978967,1245.21237044267,1270.36688600321,1281.54698735659,1262.09869500625,1200.33841060398,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Vincent Wieser","Vincent Wieser",5486,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1228.16456634034,1244.83007560964,1270.36688600321,1281.54698735659,1262.09869500625,1219.15781469734,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Sam Morse","Sam Morse",2636,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1234.64106394021,1295.54095661375,1270.36688600321,1255.180847383,1262.09869500625,1223.52846090981,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Cameron Alexander","Cameron Alexander",4306,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1353.9936236232,1487.70349201587,1270.36688600321,1281.54698735659,1262.09869500625,1340.67395149867,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Raphael Lessard","Raphael Lessard",5312,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1206.85941862694,1257.83885269996,1270.36688600321,1281.54698735659,1262.09869500625,1198.06155256167,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Elian Lehto","Elian Lehto",4054,"Finland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1375.97753512983,1372.88749163554,1270.36688600321,1259.24184402825,1262.09869500625,1363.96183102058,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Andreas Ploier","Andreas Ploier",4998,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1298.83451276014,1248.87751068704,1270.36688600321,1281.54698735659,1262.09869500625,1288.12000644462,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Ander Mintegui","Ander Mintegui",6890,"Spain",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1310.84367025607,1247.96994767169,1270.36688600321,1281.54698735659,1262.09869500625,1302.11412938893,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Charles Gamel Seigneur","Charles Gamel Seigneur",5612,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1300.41406680948,1272.76146487928,1270.36688600321,1281.54698735659,1262.09869500625,1291.96998427392,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Nils Alphand","Nils Alphand",4310,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1290.00088684535,1298.32305410051,1270.36688600321,1281.54698735659,1262.09869500625,1279.63321056467,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Nejc Naralocnik","Nejc Naralocnik",3001,"Slovenia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1251.73611762211,1261.2374320014,1270.36688600321,1265.72565555713,1262.09869500625,1242.06190940023,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Jeffrey Read","Jeffrey Read",2208,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1309.00205822553,1256.62423029157,1270.36688600321,1245.93797283432,1262.09869500625,1296.96673721603,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Lars Rösti","Lars Rösti",4300,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1284.61643523932,1333.24403555246,1270.36688600321,1281.54698735659,1262.09869500625,1273.05926544301,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Felix Monsén","Felix Monsén",2567,"Sweden",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1343.61531479227,1282.65815895685,1270.36688600321,1278.66168828285,1262.09869500625,1333.09353804248,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Juhan Luik","Juhan Luik",2613,"Estonia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1106.14513851617,1213.00662719483,1270.36688600321,1290.57907893801,1262.09869500625,1098.25170947246,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Roy-Alexander Steudle","Roy-Alexander Steudle",5425,"Great Britain",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1096.75549518117,1147.062523152,1270.36688600321,1281.54698735659,1262.09869500625,1091.38438272009,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Wiley Maple","Wiley Maple",1808,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1145.71946937433,1190.64427799903,1270.36688600321,1246.78626032815,1262.09869500625,1136.92707556994,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Florian Loriot","Florian Loriot",5301,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1163.42195758112,1221.4014318902,1270.36688600321,1302.42641451164,1262.09869500625,1153.50280556055,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Tanner Perkins","Tanner Perkins",6297,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1245.84367025607,1247.96994767169,1270.36688600321,1281.54698735659,1262.09869500625,1237.11412938893,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Gustav Wissting","Gustav Wissting",7109,"Sweden",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1168.37632245988,1247.96994767169,1171.72520513123,1281.54698735659,1169.29962938599,1248.50442564635,1265.96578975248,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Miha Hrobat","Miha Hrobat",2633,"Slovenia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1533.96197539954,1519.82338245824,1291.90654639898,1252.85300581505,1261.90622024316,1520.27143435985,1263.72399267857,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Fabian Ax Swartz","Fabian Ax Swartz",6700,"Sweden",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1274.55541943146,1247.96994767169,1279.30798451365,1281.54698735659,1272.77567907622,1248.50442564635,1262.00411360996,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Adrian Pertl","Adrian Pertl",4172,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1286.75295383575,1247.96994767169,1289.18556225342,1281.54698735659,1287.40399698881,1248.50442564635,1257.73449257814,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Isaiah Nelson","Isaiah Nelson",5504,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1253.31065063062,1247.96994767169,1279.28564438532,1281.54698735659,1257.68506902333,1262.39348507464,1257.2652213696,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Juan Del Campo","Juan Del Campo",2602,"Spain",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1141.44631998255,1247.96994767169,1146.9356082963,1281.54698735659,1143.08251858723,1248.50442564635,1256.66131225128,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Luke Winters","Luke Winters",4709,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1134.98217384132,1247.96994767169,1142.23960664626,1281.64184402825,1139.21223298295,1248.50442564635,1253.02778864247,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Fadri Janutin","Fadri Janutin",5338,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1254.56234595467,1247.96994767169,1279.27083253629,1281.54698735659,1250.97152548732,1248.50442564635,1251.90929675131,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Cooper Puckett","Cooper Puckett",5567,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1322.73634284254,1247.96994767169,1352.42801589272,1281.54698735659,1323.37380616361,1248.50442564635,1251.73154046309,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Dominik Paris","Dominik Paris",91,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1595.30174931325,1561.59519224322,1280.12489430212,1353.31351071216,1244.40897715563,1582.36294887866,1249.33814211901,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Giovanni Franzoni","Giovanni Franzoni",5497,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1432.67059119467,1292.68652035721,1270.36688600321,1288.23361710708,1245.60472608747,1436.51797621026,1242.43646134462,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Simon Maurberger","Simon Maurberger",2640,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1179.27369217163,1247.96994767169,1198.09413815421,1281.54698735659,1181.48179841073,1272.53630043205,1235.1189076267,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Christof Innerhofer","Christof Innerhofer",13,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1382.52516854605,1338.50188753027,1271.2678865978,1323.05900652853,1238.22973883872,1369.84878965102,1233.4871590953,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Eduard Hallberg","Eduard Hallberg",6820,"Finland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1413.60182165163,1247.96994767169,1440.89015123566,1281.54698735659,1414.0543101532,1248.50442564635,1230.31228599827,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Tommaso Sala","Tommaso Sala",2588,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1331.63178366493,1247.96994767169,1341.04499536096,1281.54698735659,1332.36834292245,1248.50442564635,1230.20437418543,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Ryder Sarchett","Ryder Sarchett",6284,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1233.79192005248,1247.96994767169,1270.36688600321,1281.54698735659,1231.19538967233,1248.50442564635,1228.21112832752,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Riley Seger","Riley Seger",4304,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1241.01016363891,1257.01073988864,1270.36688600321,1281.54698735659,1234.57604976664,1239.82341927985,1227.8090610196,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Clement Noel","Clement Noel",2758,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1584.45509107102,1247.96994767169,1609.08045573183,1281.54698735659,1584.07364333025,1248.50442564635,1226.70516274552,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Liam Wallace","Liam Wallace",4988,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1168.38606400861,1247.96994767169,1190.77894280629,1281.54698735659,1167.10435721485,1248.50442564635,1226.49347359492,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Tanguy Nef","Tanguy Nef",3065,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1549.05200527098,1247.96994767169,1548.68047952081,1281.54698735659,1548.13764946333,1248.50442564635,1226.37511434193,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Pietro Tranchina","Pietro Tranchina",7025,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1228.60507876841,1247.96994767169,1270.36688600321,1281.54698735659,1225.64219313849,1248.50442564635,1223.69172793515,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Johannes Strolz","Johannes Strolz",2401,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1421.20171483849,1260.43995912687,1428.28034981358,1296.3104858637,1426.47875949508,1269.12025323661,1219.99312071509,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Seigo Kato","Seigo Kato",2734,"Japan",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1212.91236854401,1247.96994767169,1227.19482857937,1281.54698735659,1210.53278770216,1248.50442564635,1219.8875008971,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Dominik Raschner","Dominik Raschner",2639,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1433.45615264293,1247.96994767169,1445.84728960351,1281.54698735659,1432.79173315866,1248.50442564635,1219.32413734783,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Adam Hofstedt","Adam Hofstedt",5449,"Sweden",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1217.39267511029,1247.96994767169,1288.94674214609,1281.54698735659,1215.04511005355,1248.50442564635,1218.21984113146,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Mattia Casse","Mattia Casse",158,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1478.82713036039,1472.32117491679,1304.91220045071,1238.99860103808,1220.17321650768,1464.94955640909,1216.92081475808,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Hannes Amman","Hannes Amman",5698,"Germany",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1218.60507876841,1247.96994767169,1270.36688600321,1281.54698735659,1215.64219313849,1248.50442564635,1213.69172793515,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Freddy Carrick-Smith","Freddy Carrick-Smith",8011,"Great Britain",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1208.60507876841,1247.96994767169,1270.36688600321,1281.54698735659,1205.64219313849,1248.50442564635,1203.69172793515,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Wiliam St-Germain","Wiliam St-Germain",2483,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1209.12794881912,1247.96994767169,1270.36688600321,1281.54698735659,1206.71123321869,1248.50442564635,1203.24157224609,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Fredrik Møller","Fredrik Møller",5758,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1461.45525068154,1309.74149471904,1270.36688600321,1281.54698735659,1208.47615200403,1509.92248360047,1202.87724138493,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Adrien Theaux","Adrien Theaux",19,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1211.39096018937,1359.2924217942,1279.78798149309,1360.49475128241,1209.62218643074,1199.11619946281,1201.06142078966,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Ryoma Katayama","Ryoma Katayama",5578,"Japan",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1206.19292599459,1247.96994767169,1270.36688600321,1281.54698735659,1203.51340979528,1248.50442564635,1200.70193302261,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Fabio Gstrein","Fabio Gstrein",3066,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1533.59667052774,1247.96994767169,1560.14979874862,1281.54698735659,1532.52821512686,1248.50442564635,1178.47215019997,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"William Hansson","William Hansson",5403,"Sweden",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1082.53320020276,1247.96994767169,1140.48367245357,1281.54698735659,1080.79082796021,1248.50442564635,1174.92242060194,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Semyel Bissig","Semyel Bissig",4294,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1181.98525775811,1247.96994767169,1313.23883026736,1281.54698735659,1178.64227372775,1248.50442564635,1173.96652130183,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Livio Simonet","Livio Simonet",5413,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1175.47979869617,1247.96994767169,1270.36688600321,1281.54698735659,1172.40709379949,1248.50442564635,1165.29195759521,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Guerlain Favre","Guerlain Favre",5499,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1153.62765454625,1247.96994767169,1270.36688600321,1281.54698735659,1152.22762071872,1248.50442564635,1147.55451034275,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
-"Joshua Sturm","Joshua Sturm",5399,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1102.15041819812,1247.96994767169,1175.86195440054,1281.54698735659,1101.30959969129,1248.50442564635,1125.83613465127,0,"Copper Mt.","USA","Men's Giant Slalom","11/28/2025","M"
+"ODERMATT Marco","Marco Odermatt",3040,"SUI",NA,11,"False","True",1997,NA,NA,NA,NA,"Downhill",1799.76576457399,1678.15713435598,1298.38261549842,1304.10511903077,1694.84559418372,1721.21758611995,1678.15713435598,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"KILDE Aleksander Aamodt","Aleksander Aamodt Kilde",2393,"NOR",NA,3,"False","True",1992,NA,NA,NA,NA,"Downhill",1576.78341984601,1667.17626335145,1323.64001158574,1454.17610437297,1490.0990522464,1570.35500895766,1667.17626335145,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"KRIECHMAYR Vincent","Vincent Kriechmayr",1912,"AUT",NA,8,"False","True",1991,NA,NA,NA,NA,"Downhill",1608.01181063746,1569.61793844331,1287.45922759249,1342.41669436112,1310.02114542002,1646.17593697377,1569.61793844331,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"PARIS Dominik","Dominik Paris",91,"ITA",NA,15,"False","True",1989,NA,NA,NA,NA,"Downhill",1595.30174931325,1561.59519224322,1280.12489430212,1353.31351071216,1244.40897715563,1582.36294887866,1561.59519224322,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"VON ALLMEN Franjo","Franjo Von Allmen",5674,"SUI",NA,14,"False","True",2001,NA,NA,NA,NA,"Downhill",1597.98057113194,1548.49945737919,1270.36688600321,1281.54698735659,1262.01597361103,1584.24889444813,1548.49945737919,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"COCHRAN-SIEGLE Ryan","Ryan Cochran-Siegle",1918,"USA",NA,4,"True","True",1992,NA,NA,NA,NA,"Downhill",1551.59983218548,1522.32309073185,1283.80618993358,1386.93792286117,1335.07440458039,1537.92793984533,1522.32309073185,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"HROBAT Miha","Miha Hrobat",2633,"SLO",NA,9,"False","True",1995,NA,NA,NA,NA,"Downhill",1533.96197539954,1519.82338245824,1291.90654639898,1252.85300581505,1261.90622024316,1520.27143435985,1519.82338245824,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"HINTERMANN Niels","Niels Hintermann",2768,"SUI",NA,1,"False","True",1995,NA,NA,NA,NA,"Downhill",1447.84994033772,1519.27064274966,1270.36688600321,1337.2330422429,1262.01597361103,1439.60358299069,1519.27064274966,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"MONNEY Alexis","Alexis Monney",5493,"SUI",NA,6,"False","True",2000,NA,NA,NA,NA,"Downhill",1509.88528166136,1513.58545917838,1270.36688600321,1281.54698735659,1299.80705761066,1499.45967932563,1513.58545917838,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"ALLEGRE Nils","Nils Allegre",2395,"FRA",NA,10,"False","True",1994,NA,NA,NA,NA,"Downhill",1475.4793650796,1506.77059773826,1270.36688600321,1332.08141810483,1300.93843159982,1461.59802769465,1506.77059773826,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"ROGENTIN Stefan","Stefan Rogentin",3505,"SUI",NA,7,"False","True",1994,NA,NA,NA,NA,"Downhill",1595.71102762517,1502.99553542713,1270.36688600321,1297.04054244527,1279.79212263223,1586.39701460383,1502.99553542713,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"MURISIER Justin","Justin Murisier",67,"SUI",NA,13,"False","True",1992,NA,NA,NA,NA,"Downhill",1443.36796206783,1500.89466590234,1196.89082814511,1348.39690378871,1379.89324145865,1437.86588080256,1500.89466590234,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"ALEXANDER Cameron","Cameron Alexander",4306,"CAN",NA,17,"False","True",1997,NA,NA,NA,NA,"Downhill",1353.9936236232,1487.70349201587,1270.36688600321,1281.54698735659,1262.01597361103,1340.67395149867,1487.70349201587,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"CASSE Mattia","Mattia Casse",158,"ITA",NA,30,"False","True",1990,NA,NA,NA,NA,"Downhill",1478.82713036039,1472.32117491679,1304.91220045071,1238.99860103808,1220.17321650768,1464.94955640909,1472.32117491679,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"CRAWFORD James","James Crawford",2720,"CAN",NA,12,"False","True",1997,NA,NA,NA,NA,"Downhill",1516.82264554523,1461.92772462225,1270.36688600321,1353.1310855322,1306.29273853073,1507.7743885096,1461.92772462225,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"SEJERSTED Adrian Smiseth","Adrian Smiseth Sejersted",2386,"NOR",NA,2,"False","True",1994,NA,NA,NA,NA,"Downhill",1508.12899982073,1450.56929745186,1270.36688600321,1294.81725602702,1262.01597361103,1494.5724860954,1450.56929745186,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"HEMETSBERGER Daniel","Daniel Hemetsberger",4605,"AUT",NA,5,"False","True",1991,NA,NA,NA,NA,"Downhill",1500.96651267827,1443.47943255614,1270.36688600321,1281.54698735659,1262.01597361103,1487.15071348554,1443.47943255614,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"BENNETT Bryce","Bryce Bennett",2387,"USA",NA,19,"True","True",1992,NA,NA,NA,NA,"Downhill",1233.07109819951,1437.74766875345,1270.36688600321,1369.66321831496,1262.01597361103,1220.19987997738,1437.74766875345,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"SCHIEDER Florian","Florian Schieder",3043,"ITA",NA,16,"False","True",1995,NA,NA,NA,NA,"Downhill",1266.74696855022,1425.13005495857,1270.36688600321,1272.26555720187,1262.01597361103,1253.96881628612,1425.13005495857,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"BABINSKY Stefan","Stefan Babinsky",3039,"AUT",NA,18,"False","True",1996,NA,NA,NA,NA,"Downhill",1551.89765263852,1413.24114670842,1270.36688600321,1247.22468741766,1287.08462600917,1541.66234442471,1413.24114670842,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"MUZATON Maxence","Maxence Muzaton",1990,"FRA",NA,25,"False","True",1990,NA,NA,NA,NA,"Downhill",1342.15964071879,1405.13898836249,1270.36688600321,1202.14182214069,1262.01597361103,1338.81330348735,1405.13898836249,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"GIEZENDANNER Blaise","Blaise Giezendanner",2476,"FRA",NA,26,"False","True",1991,NA,NA,NA,NA,"Downhill",1301.74761715806,1390.29656542551,1270.36688600321,1241.22935802453,1262.01597361103,1288.96076396744,1390.29656542551,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"STRIEDINGER Otmar","Otmar Striedinger",1956,"AUT",NA,28,"False","True",1991,NA,NA,NA,NA,"Downhill",1354.55034720666,1382.29795906628,1270.36688600321,1241.53564773669,1262.01597361103,1349.05153325883,1382.29795906628,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"EICHBERGER Stefan","Stefan Eichberger",5604,"AUT",NA,20,"False","True",2000,NA,NA,NA,NA,"Downhill",1412.62492907227,1378.80089486488,1270.36688600321,1281.54698735659,1262.01597361103,1407.50154272319,1378.80089486488,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"LEHTO Elian","Elian Lehto",4054,"FIN",NA,21,"False","True",2000,NA,NA,NA,NA,"Downhill",1375.97753512983,1372.88749163554,1270.36688600321,1259.24184402825,1262.01597361103,1363.96183102058,1372.88749163554,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"THEAUX Adrien","Adrien Theaux",19,"FRA",NA,33,"False","True",1984,NA,NA,NA,NA,"Downhill",1211.39096018937,1359.2924217942,1279.78798149309,1360.49475128241,1209.62218643074,1199.11619946281,1359.2924217942,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"BAUMANN Romed","Romed Baumann",10,"GER",NA,27,"False","True",1986,NA,NA,NA,NA,"Downhill",1341.42583210204,1351.70203619129,1264.89997039264,1396.88798860369,1262.51632158542,1328.66577811532,1351.70203619129,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"INNERHOFER Christof","Christof Innerhofer",13,"ITA",NA,37,"False","True",1984,NA,NA,NA,NA,"Downhill",1382.52516854605,1338.50188753027,1271.2678865978,1323.05900652853,1238.22973883872,1369.84878965102,1338.50188753027,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"KOHLER Marco","Marco Kohler",3045,"SUI",NA,22,"False","True",1997,NA,NA,NA,NA,"Downhill",1292.98640566713,1334.56551923734,1270.36688600321,1281.54698735659,1262.01597361103,1289.18610377945,1334.56551923734,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"ROESTI Lars","Lars Rösti",4300,"SUI",NA,24,"False","True",1998,NA,NA,NA,NA,"Downhill",1284.61643523932,1333.24403555246,1270.36688600321,1281.54698735659,1262.01597361103,1273.05926544301,1333.24403555246,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"BOSCA Guglielmo","Guglielmo Bosca",2413,"ITA",NA,32,"False","True",1993,NA,NA,NA,NA,"Downhill",1527.87262575358,1332.49423818042,1270.36688600321,1244.91326477757,1262.01597361103,1514.34816901291,1332.49423818042,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"JOCHER Simon","Simon Jocher",4305,"GER",NA,41,"False","True",1996,NA,NA,NA,NA,"Downhill",1427.77776250757,1324.8127756337,1270.36688600321,1318.81611106143,1262.01597361103,1416.08196764445,1324.8127756337,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"GOLDBERG Jared","Jared Goldberg",2445,"USA",NA,47,"True","True",1991,NA,NA,NA,NA,"Downhill",1190.55704857872,1318.20181829689,1270.36688600321,1314.50823632164,1314.26184209436,1178.20381666373,1318.20181829689,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"MOELLER Fredrik","Fredrik Møller",5758,"NOR",NA,43,"False","True",2000,NA,NA,NA,NA,"Downhill",1461.45525068154,1309.74149471904,1270.36688600321,1281.54698735659,1208.47615200403,1509.92248360047,1309.74149471904,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"ALPHAND Nils","Nils Alphand",4310,"FRA",NA,45,"False","True",1996,NA,NA,NA,NA,"Downhill",1290.00088684535,1298.32305410051,1270.36688600321,1281.54698735659,1262.01597361103,1279.63321056467,1298.32305410051,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"MORSE Sam","Sam Morse",2636,"USA",NA,53,"True","True",1996,NA,NA,NA,NA,"Downhill",1234.64106394021,1295.54095661375,1270.36688600321,1255.180847383,1262.01597361103,1223.52846090981,1295.54095661375,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"FRANZONI Giovanni","Giovanni Franzoni",5497,"ITA",NA,48,"False","True",2001,NA,NA,NA,NA,"Downhill",1432.67059119467,1292.68652035721,1270.36688600321,1288.23361710708,1245.60472608747,1436.51797621026,1292.68652035721,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"SEGER Brodie","Brodie Seger",2711,"CAN",NA,29,"False","True",1995,NA,NA,NA,NA,"Downhill",1268.96602066214,1290.72076840128,1270.36688600321,1289.91023831611,1295.38572911174,1257.09129070944,1290.72076840128,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"MONSEN Felix","Felix Monsen",2567,"SWE",NA,35,"False","True",1994,NA,NA,NA,NA,"Downhill",1309.12554772107,1285.25943511332,1270.36688600321,1281.86243504043,1262.01597361103,1306.18754898227,1285.25943511332,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"BAILET Matthieu","Matthieu Bailet",2742,"FRA",NA,56,"False","True",1996,NA,NA,NA,NA,"Downhill",1312.79484225944,1283.93931617955,1270.36688600321,1281.54698735659,1262.01597361103,1301.68598343506,1283.93931617955,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"HILTBRAND Livio","Livio Hiltbrand",7095,"SUI",NA,34,"False","True",2003,NA,NA,NA,NA,"Downhill",1285.2842070101,1277.93905717472,1270.36688600321,1281.54698735659,1262.01597361103,1283.58311312415,1277.93905717472,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"ARVIDSSON Erik","Erik Arvidsson",2717,"USA",NA,49,"True","True",1996,NA,NA,NA,NA,"Downhill",1281.14555181194,1276.95329819332,1270.36688600321,1322.47556742401,1262.01597361103,1272.35881736789,1276.95329819332,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"SCHWARZ Maximilian","Maximilian Schwarz",5705,"GER",NA,62,"False","True",2002,NA,NA,NA,NA,"Downhill",1243.26063947438,1266.40915014625,1270.36688600321,1281.54698735659,1262.01597361103,1242.86790327748,1266.40915014625,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"NARALOCNIK Nejc","Nejc Naralocnik",3001,"SLO",NA,23,"False","True",1999,NA,NA,NA,NA,"Downhill",1251.73611762211,1261.2374320014,1270.36688600321,1265.72565555713,1262.01597361103,1242.06190940023,1261.2374320014,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"HAASER Raphael","Raphael Haaser",4221,"AUT",NA,31,"False","True",1997,NA,NA,NA,NA,"Downhill",1554.13761680747,1258.34223584158,1270.36688600321,1348.15680599113,1487.7341751795,1533.94797816313,1258.34223584158,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"LESSARD Raphael","Raphael Lessard",5312,"CAN",NA,55,"False","True",2001,NA,NA,NA,NA,"Downhill",1206.85941862694,1257.83885269996,1270.36688600321,1281.54698735659,1262.01597361103,1198.06155256167,1257.83885269996,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"READ Jeffrey","Jeffrey Read",2208,"CAN",NA,39,"False","True",1997,NA,NA,NA,NA,"Downhill",1309.00205822553,1256.62423029157,1270.36688600321,1245.93797283432,1262.01597361103,1296.96673721603,1256.62423029157,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"ZABYSTRAN Jan","Jan Zabystran",2719,"CZE",NA,36,"False","True",1998,NA,NA,NA,NA,"Downhill",1380.56415168651,1254.96790096633,1272.08497174244,1287.40246781079,1279.74968268327,1364.60706167618,1254.96790096633,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"MIGGIANO Alessio","Alessio Miggiano",5726,"SUI",NA,44,"False","True",2002,NA,NA,NA,NA,"Downhill",1262.28895225725,1250.49264457947,1270.36688600321,1281.54698735659,1262.01597361103,1261.72035017616,1250.49264457947,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"PLOIER Andreas","Andreas Ploier",4998,"AUT",NA,52,"False","True",1997,NA,NA,NA,NA,"Downhill",1298.83451276014,1248.87751068704,1270.36688600321,1281.54698735659,1262.01597361103,1288.12000644462,1248.87751068704,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"ELEZI CANNAFERINA Alban","Alban Elezi Cannaferina",5693,"FRA",NA,59,"False","True",2003,NA,NA,NA,NA,"Downhill",1448.56486077031,1247.91508944685,1270.36688600321,1281.54698735659,1362.38841993121,1402.11412938893,1247.91508944685,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"MINTEGUI RIVERA Ander","Ander Mintegui",6890,"ESP",NA,63,"False","True",2003,NA,NA,NA,NA,"Downhill",1310.84367025607,1247.91508944685,1270.36688600321,1281.54698735659,1262.01597361103,1302.11412938893,1247.91508944685,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"CATER Martin","Martin Cater",1919,"SLO",NA,46,"False","True",1992,NA,NA,NA,NA,"Downhill",1249.79296962259,1247.86051549709,1279.14034345362,1307.94328220442,1270.45121032876,1246.2735606668,1247.86051549709,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"ALLIOD Benjamin Jacques","Benjamin Jacques Alliod",5631,"ITA",NA,40,"False","True",2000,NA,NA,NA,NA,"Downhill",1210.48594978967,1245.21237044267,1270.36688600321,1281.54698735659,1262.01597361103,1200.33841060398,1245.21237044267,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"VON APPEN Henrik","Henrik Von Appen",2505,"CHI",NA,54,"False","True",1994,NA,NA,NA,NA,"Downhill",1235.27779529138,1241.04839494347,1270.36688600321,1196.52584107303,1286.56442432241,1226.21986097882,1241.04839494347,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"MOLTENI Nicolo","Nicolo Molteni",4296,"ITA",NA,42,"False","True",1998,NA,NA,NA,NA,"Downhill",1346.26948532751,1229.55374469506,1270.36688600321,1281.54698735659,1262.01597361103,1336.38023767518,1229.55374469506,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"FRESQUET Adrien","Adrien Fresquet",5516,"FRA",NA,60,"False","True",1999,NA,NA,NA,NA,"Downhill",1230.40578086457,1224.9003259975,1270.36688600321,1281.54698735659,1262.01597361103,1228.16311926285,1224.9003259975,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"TRANINGER Manuel","Manuel Traninger",2988,"AUT",NA,57,"False","True",1998,NA,NA,NA,NA,"Downhill",1228.43110933621,1223.78846778077,1270.36688600321,1281.54698735659,1262.01597361103,1225.75855857354,1223.78846778077,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"LUIK Juhan","Juhan Luik",2613,"EST",NA,64,"False","True",1997,NA,NA,NA,NA,"Downhill",1106.14513851617,1213.00662719483,1270.36688600321,1290.57907893801,1262.01597361103,1098.25170947246,1213.00662719483,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"AZNOH Rok","Rok Aznoh",5119,"SLO",NA,58,"False","True",2002,NA,NA,NA,NA,"Downhill",1238.34718337149,1199.02955146069,1282.61656635493,1267.64184402825,1269.27577196474,1236.33835660285,1199.02955146069,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"NEGOMIR Kyle","Kyle Negomir",4714,"USA",NA,50,"True","True",1998,NA,NA,NA,NA,"Downhill",1352.29707610339,1197.805657102,1295.73290777013,1282.20171661597,1297.05153737175,1341.59490722215,1197.805657102,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"MAPLE Wiley","Wiley Maple",1808,"USA",NA,38,"True","True",1990,NA,NA,NA,NA,"Downhill",1145.71946937433,1190.64427799903,1270.36688600321,1246.78626032815,1262.01597361103,1136.92707556994,1190.64427799903,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"PFIFFNER Marco","Marco Pfiffner",2525,"LIE",NA,51,"False","True",1994,NA,NA,NA,NA,"Downhill",1163.55014110442,1190.43471908717,1277.10339558269,1288.62971110929,1278.62593298683,1159.17277882617,1190.43471908717,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"STEUDLE Roy-Alexander","Roy-Alexander Steudle",5425,"GBR",NA,61,"False","True",1993,NA,NA,NA,NA,"Downhill",1096.75549518117,1147.062523152,1270.36688600321,1281.54698735659,1262.01597361103,1091.38438272009,1147.062523152,1,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Marco Schwarz","Marco Schwarz",2561,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1606.91883552661,1374.32631012509,1456.45300042349,1438.86860240772,1594.17847798321,1470.05022566233,1374.32631012509,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Arnaud Boisset","Arnaud Boisset",4710,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1377.57647287616,1320.15491577846,1270.36688600321,1281.54698735659,1262.01597361103,1365.7058593049,1320.15491577846,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Alexis Pinturault","Alexis Pinturault",232,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1514.97296473541,1318.73038873617,1456.22399553964,1473.79755847479,1529.41380564701,1420.07830478373,1318.73038873617,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Linus Strasser","Linus Strasser",1932,"Germany",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1492.2895820043,1293.87398584389,1594.24982293501,1338.87525872661,1490.73697131354,1295.76928595021,1293.87398584389,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Joan Verdu Sanchez","Joan Verdu Sanchez",2551,"Andorra",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1503.98733284553,1289.82095742209,1270.36688600321,1306.80925635049,1501.95186428564,1272.95528327084,1289.82095742209,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Loic Meillard","Loic Meillard",2565,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1465.93111512473,1287.48308538231,1513.93407336759,1389.15444916694,1531.9733067142,1355.92105137248,1287.48308538231,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Felix Monsén","Felix Monsén",2567,"Sweden",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1343.61531479227,1282.65815895685,1270.36688600321,1278.66168828285,1262.01597361103,1333.09353804248,1282.65815895685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Marco Abbruzzese","Marco Abbruzzese",5426,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1195.99228877353,1282.29497779145,1270.36688600321,1281.54698735659,1262.01597361103,1187.54152877719,1282.29497779145,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Luca De Aliprandini","Luca De Aliprandini",1799,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1450.86540672486,1275.95229665735,1285.37165802023,1281.54670560541,1448.88820961632,1293.85522394912,1275.95229665735,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Tiziano Gravier","Tiziano Gravier",5351,"Argentina",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1213.24546285122,1275.43063766671,1277.91371661927,1256.44184402825,1297.78094129034,1182.61454511692,1275.43063766671,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Charles Gamel Seigneur","Charles Gamel Seigneur",5612,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1300.41406680948,1272.76146487928,1270.36688600321,1281.54698735659,1262.01597361103,1291.96998427392,1272.76146487928,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Lukas Feurstein","Lukas Feurstein",5336,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1487.22497497163,1272.7432453489,1270.36688600321,1281.54698735659,1278.12910336193,1509.16575246142,1272.7432453489,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Thomas Tumler","Thomas Tumler",2409,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1564.16338233225,1261.24456202948,1270.36688600321,1281.54698735659,1562.07657211812,1286.50848747472,1261.24456202948,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Johannes Strolz","Johannes Strolz",2401,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1421.20171483849,1260.43995912687,1428.28034981358,1296.3104858637,1426.47875949508,1269.12025323661,1260.43995912687,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Riley Seger","Riley Seger",4304,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1241.01016363891,1257.01073988864,1270.36688600321,1281.54698735659,1234.57604976664,1239.82341927985,1257.01073988864,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Peder Lunder","Peder Lunder",7230,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1219.75973898682,1247.91508944685,1222.42801589272,1281.54698735659,1219.91440075608,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Hugh McAdam","Hugh McAdam",5549,"Australia",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1220.69795214212,1247.91508944685,1232.79996593104,1281.54698735659,1220.86718193558,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Corrado Barbera","Corrado Barbera",5644,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1166.72628470332,1247.91508944685,1169.36272420085,1281.54698735659,1169.31935465676,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Anton Tremmel","Anton Tremmel",2746,"Germany",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1204.09409234436,1247.91508944685,1208.03230793146,1281.54698735659,1205.79648916316,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Dominik Zerhoch","Dominik Zerhoch",5569,"Germany",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1229.75973898682,1247.91508944685,1232.42801589272,1281.54698735659,1229.91440075608,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Liam Wallace","Liam Wallace",4988,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1168.38606400861,1247.91508944685,1190.77894280629,1281.54698735659,1167.10435721485,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Armand Marchant","Armand Marchant",2603,"Belgium",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1457.41352445545,1247.91508944685,1457.8888258454,1297.97802148464,1457.15657051013,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Theodor Brækken","Theodor Brækken",6709,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1150.39861169726,1247.91508944685,1156.09030902783,1281.54698735659,1151.67981880757,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Adrian Pertl","Adrian Pertl",4172,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1286.75295383575,1247.91508944685,1289.18556225342,1281.54698735659,1287.40399698881,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Kristoffer Jakobsen","Kristoffer Jakobsen",2765,"Sweden",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1349.9591286674,1247.91508944685,1352.56170252994,1281.54698735659,1349.56136810629,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Dominik Raschner","Dominik Raschner",2639,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1433.45615264293,1247.91508944685,1445.84728960351,1281.54698735659,1432.79173315866,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Hayata Wakatsuki","Hayata Wakatsuki",4979,"Japan",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1143.68932312028,1247.91508944685,1270.36688600321,1281.54698735659,1145.5000283799,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Mikkel Remsøy","Mikkel Remsøy",5471,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1174.05692056938,1247.91508944685,1177.95541747886,1281.54698735659,1175.07275907621,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Tommaso Sala","Tommaso Sala",2588,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1331.63178366493,1247.91508944685,1341.04499536096,1281.54698735659,1332.36834292245,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Juan Del Campo","Juan Del Campo",2602,"Spain",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1141.44631998255,1247.91508944685,1146.9356082963,1281.54698735659,1143.08251858723,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Diego Orecchioni","Diego Orecchioni",5575,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1258.14395012113,1247.91508944685,1270.36688600321,1281.54698735659,1259.13594369228,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Luke Winters","Luke Winters",4709,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Downhill",1134.98217384132,1247.91508944685,1142.23960664626,1281.64184402825,1139.21223298295,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Patrick Kenney","Patrick Kenney",3044,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Downhill",1223.79892599701,1247.91508944685,1270.36688600321,1281.54698735659,1223.87214686782,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Tanner Perkins","Tanner Perkins",6297,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Downhill",1245.84367025607,1247.91508944685,1270.36688600321,1281.54698735659,1262.01597361103,1237.11412938893,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Istok Rodes","Istok Rodes",2454,"Croatia",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1308.37380305257,1247.91508944685,1319.92927798498,1257.84523475085,1308.43786389567,1256.49331466945,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Leo Anguenot","Leo Anguenot",2997,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1454.15660953909,1247.91508944685,1200.12317517824,1281.54698735659,1454.16528482783,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Albert Ortega","Albert Ortega",4313,"Spain",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1283.17357570652,1247.91508944685,1270.36688600321,1343.1711536243,1284.61806638465,1276.9675846879,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Noel Zwischenbrugger","Noel Zwischenbrugger",6600,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1230.51932638887,1247.91508944685,1270.36688600321,1281.54698735659,1231.9455610935,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"George Steffey","George Steffey",4295,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Downhill",1194.2067860458,1247.91508944685,1243.77018758564,1271.59417641094,1196.39795002447,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Gustav Wissting","Gustav Wissting",7109,"Sweden",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1168.37632245988,1247.91508944685,1171.72520513123,1281.54698735659,1169.29962938599,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Matteo Canins","Matteo Canins",4739,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1181.35734303885,1247.91508944685,1177.05848483452,1281.54698735659,1181.91394435658,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Simon Maurberger","Simon Maurberger",2640,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1179.27369217163,1247.91508944685,1198.09413815421,1281.54698735659,1181.48179841073,1272.53630043205,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Richard Leitgeb","Richard Leitgeb",2854,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1234.24982183783,1247.91508944685,1234.71301897812,1281.54698735659,1235.6447925906,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Antoine Azzolin","Antoine Azzolin",6717,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1163.27400572173,1247.91508944685,1166.46157031396,1281.54698735659,1163.86346168322,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Joaquim Salarich","Joaquim Salarich",2697,"Spain",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1119.15180344019,1247.91508944685,1121.74085058621,1281.54698735659,1120.7240397277,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Jesper Pohjolainen","Jesper Pohjolainen",5401,"Finland",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1107.6703159814,1247.91508944685,1108.95968914297,1281.54698735659,1109.0268963052,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"AJ Ginnis","AJ Ginnis",2683,"Greece",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1327.71023063715,1247.91508944685,1334.71198564572,1281.54698735659,1327.67596904414,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Simon Rueland","Simon Rueland",3725,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1328.32161122625,1247.91508944685,1326.37875750006,1281.54698735659,1328.57620146779,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Ramon Zenhäusern","Ramon Zenhäusern",2427,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1342.55370234222,1247.91508944685,1346.22060643016,1281.54698735659,1344.42003737609,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Pietro Tranchina","Pietro Tranchina",7025,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1228.60507876841,1247.91508944685,1270.36688600321,1281.54698735659,1225.64219313849,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Luca Aerni","Luca Aerni",2392,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1333.11122451411,1247.91508944685,1275.58225893759,1303.83942889792,1334.01695864856,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Louis Muhlen-Schulte","Louis Muhlen-Schulte",3008,"Australia",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1191.58152427787,1247.91508944685,1145.1768570519,1281.54698735659,1191.62567457443,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Erik Read","Erik Read",1920,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1254.27691124218,1247.91508944685,1215.3687523135,1332.95670827935,1254.50876405402,1254.39473158605,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Aleix Aubert Serracanta","Aleix Aubert Serracanta",6824,"Spain",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1309.67929157227,1247.91508944685,1270.36688600321,1281.54698735659,1306.26972163924,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Andrej Drukarov","Andrej Drukarov",3014,"Lithuania",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1272.88658967444,1247.91508944685,1259.0307046527,1281.54698735659,1272.09462110304,1277.50718135549,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Isaiah Nelson","Isaiah Nelson",5504,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Downhill",1259.30970381073,1247.91508944685,1279.28564438532,1281.54698735659,1263.95715545465,1262.39348507464,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Fabian Ax Swartz","Fabian Ax Swartz",6700,"Sweden",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1249.09613706522,1247.91508944685,1279.30798451365,1281.54698735659,1249.51641220124,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Seigo Kato","Seigo Kato",2734,"Japan",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1190.80140810827,1247.91508944685,1227.19482857937,1281.54698735659,1190.49150567067,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Rasmus Bakkevig","Rasmus Bakkevig",7233,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1283.84533796032,1247.91508944685,1270.36688600321,1281.54698735659,1280.56375771595,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Christian Borgnaes","Christian Borgnaes",5528,"Denmark",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1241.78245449955,1247.91508944685,1267.01387773715,1318.04184402825,1237.39986405997,1287.23798524401,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Filippo Della Vite","Filippo Della Vite",5526,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1271.2629905836,1247.91508944685,1282.61615442848,1281.54698735659,1270.39419300256,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Jett Seymour","Jett Seymour",4992,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Downhill",1253.68222348762,1247.91508944685,1255.76858234545,1281.54698735659,1253.72728124442,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Fadri Janutin","Fadri Janutin",5338,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1215.18429230554,1247.91508944685,1279.27083253629,1281.54698735659,1214.23878916688,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Loevan Parand","Loevan Parand",5340,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1284.29388923864,1247.91508944685,1270.36688600321,1281.54698735659,1282.69348133098,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Ryder Sarchett","Ryder Sarchett",6284,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Downhill",1195.60791688867,1247.91508944685,1270.36688600321,1281.54698735659,1195.25514415257,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Alexander Schmid","Alexander Schmid",2410,"Germany",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1491.53279577607,1247.91508944685,1321.3918379456,1281.54698735659,1490.52538454921,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Eirik Hystad Solberg","Eirik Hystad Solberg",6716,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1447.20387475403,1247.91508944685,1385.36079093622,1281.54698735659,1448.87264457567,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Flavio Vitale","Flavio Vitale",7093,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1378.20380500004,1247.91508944685,1270.36688600321,1281.54698735659,1378.15734631435,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Atle Lie McGrath","Atle Lie McGrath",4711,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1483.42495343928,1247.91508944685,1548.81250906303,1331.99556742401,1464.95929512013,1443.57999166331,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Stefan Brennsteiner","Stefan Brennsteiner",2436,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1659.29725621152,1247.91508944685,1318.04890159404,1281.54698735659,1656.93048162885,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Thibaut Favrot","Thibaut Favrot",2493,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1527.59078399739,1247.91508944685,1314.92246736376,1281.54698735659,1524.77265188552,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Henrik Kristoffersen","Henrik Kristoffersen",2391,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1686.67882969152,1247.91508944685,1603.21731433193,1335.85779840895,1686.34144428603,1309.72399628773,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Alex Vinatzer","Alex Vinatzer",4040,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1559.17272912463,1247.91508944685,1438.23755571326,1281.54698735659,1559.52962048847,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Zan Kranjec","Zan Kranjec",1942,"Slovenia",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1615.48315287092,1247.91508944685,1265.77481304502,1281.54698735659,1613.47665881673,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Anton Grammel","Anton Grammel",3004,"Germany",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1328.9701227802,1247.91508944685,1270.36688600321,1281.54698735659,1440.71467975422,1184.61412938893,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Giovanni Borsotti","Giovanni Borsotti",114,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1358.07989863232,1247.91508944685,1270.67510744497,1246.19853531022,1368.11330719746,1239.06026802655,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Timon Haugan","Timon Haugan",3049,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1676.03603331457,1247.91508944685,1660.17923502014,1281.54698735659,1673.401045612,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Filip Zubcic","Filip Zubcic",249,"Croatia",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1588.08358942625,1247.91508944685,1448.26900530087,1320.97481813778,1588.34384913957,1240.04067204547,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Fabian Gratz","Fabian Gratz",4358,"Germany",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1459.42743686296,1247.91508944685,1283.04890159404,1281.54698735659,1457.77140284557,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Jonas Stockinger","Jonas Stockinger",3030,"Germany",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1383.07671433491,1247.91508944685,1270.36688600321,1281.54698735659,1379.47655302303,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Sam Maes","Sam Maes",3002,"Belgium",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1512.08961745904,1247.91508944685,1395.04708763138,1281.54698735659,1512.75952193712,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Tormis Laine","Tormis Laine",4056,"Estonia",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1313.97405889077,1247.91508944685,1226.93221183249,1281.54698735659,1314.54225915146,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Adam Hofstedt","Adam Hofstedt",5449,"Sweden",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1217.39267511029,1247.91508944685,1288.94674214609,1281.54698735659,1215.04511005355,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Patrick Feurstein","Patrick Feurstein",5295,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1385.80826531342,1247.91508944685,1297.04890159404,1281.54698735659,1383.96150007404,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Sandro Zurbrügg","Sandro Zurbrügg",5490,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1144.4686757403,1247.91508944685,1270.36688600321,1281.54698735659,1147.01960279781,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Manuel Feller","Manuel Feller",2396,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1494.9303932919,1247.91508944685,1515.04360553307,1281.54698735659,1494.66659969649,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Marc Rochat","Marc Rochat",2812,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1333.7308605795,1247.91508944685,1336.30731757222,1281.54698735659,1334.01338490853,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Dave Ryding","Dave Ryding",2375,"Great Britain",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1501.3323893595,1247.91508944685,1501.68234934024,1281.54698735659,1501.65778344683,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Steven Amiez","Steven Amiez",5409,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1538.85173694889,1247.91508944685,1539.12075670327,1281.54698735659,1537.90969234588,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Michael Matt","Michael Matt",2481,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1415.12836979075,1247.91508944685,1415.14876940466,1281.54698735659,1415.39755287067,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Sebastian Holzmann","Sebastian Holzmann",2425,"Germany",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1338.32607614619,1247.91508944685,1343.89696129997,1281.54698735659,1339.88511869261,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Fabio Gstrein","Fabio Gstrein",3066,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1533.59667052774,1247.91508944685,1560.14979874862,1281.54698735659,1532.52821512686,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Benjamin Ritchie","Benjamin Ritchie",5296,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Downhill",1346.2760726714,1247.91508944685,1346.31069124983,1281.54698735659,1345.86563892454,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Cooper Puckett","Cooper Puckett",5567,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Downhill",1322.73634284254,1247.91508944685,1352.42801589272,1281.54698735659,1323.37380616361,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Samuel Kolega","Samuel Kolega",3029,"Croatia",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1477.78816530217,1247.91508944685,1482.24257681868,1281.54698735659,1477.76399656595,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Victor Muffat-Jeandet","Victor Muffat-Jeandet",2024,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1501.55341147473,1247.91508944685,1500.29068628021,1451.51468591003,1500.90076514722,1324.69099168577,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Yohei Koyama","Yohei Koyama",2447,"Japan",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1326.97588712525,1247.91508944685,1329.93451970218,1281.54698735659,1329.32888708092,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Tanguy Nef","Tanguy Nef",3065,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1549.05200527098,1247.91508944685,1548.68047952081,1281.54698735659,1548.13764946333,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Billy Major","Billy Major",2607,"Great Britain",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1412.38445080411,1247.91508944685,1413.98277141841,1281.54698735659,1412.57159566155,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Daniel Yule","Daniel Yule",2404,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1503.69453291792,1247.91508944685,1505.1052958534,1281.54698735659,1504.57019726452,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Oscar Andreas Sandvik","Oscar Andreas Sandvik",6803,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1244.53900352837,1247.91508944685,1375.80194958404,1281.54698735659,1367.9230334939,1197.11412938893,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Paco Rassat","Paco Rassat",5371,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1577.97166309114,1247.91508944685,1577.61901958426,1281.54698735659,1577.03104863005,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Laurie Taylor","Laurie Taylor",4143,"Great Britain",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1392.03365450292,1247.91508944685,1394.1772386257,1281.54698735659,1392.52073873674,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Guerlain Favre","Guerlain Favre",5499,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1087.71121588807,1247.91508944685,1270.36688600321,1281.54698735659,1087.80267280015,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Wiliam St-Germain","Wiliam St-Germain",2483,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1209.12794881912,1247.91508944685,1270.36688600321,1281.54698735659,1206.71123321869,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Hannes Amman","Hannes Amman",5698,"Germany",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1218.60507876841,1247.91508944685,1270.36688600321,1281.54698735659,1215.64219313849,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Ryoma Katayama","Ryoma Katayama",5578,"Japan",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1206.19292599459,1247.91508944685,1270.36688600321,1281.54698735659,1203.51340979528,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Freddy Carrick-Smith","Freddy Carrick-Smith",8011,"Great Britain",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1208.60507876841,1247.91508944685,1270.36688600321,1281.54698735659,1205.64219313849,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Semyel Bissig","Semyel Bissig",4294,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1181.98525775811,1247.91508944685,1313.23883026736,1281.54698735659,1178.64227372775,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Joshua Sturm","Joshua Sturm",5399,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1183.77929146131,1247.91508944685,1175.86195440054,1281.54698735659,1184.04910841853,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Livio Simonet","Livio Simonet",5413,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1108.79340712417,1247.91508944685,1270.36688600321,1281.54698735659,1107.76576289542,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Eduard Hallberg","Eduard Hallberg",6820,"Finland",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1413.60182165163,1247.91508944685,1440.89015123566,1281.54698735659,1414.0543101532,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"William Hansson","William Hansson",5403,"Sweden",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1048.52893192879,1247.91508944685,1140.48367245357,1281.54698735659,1048.00266140017,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Tobias Kastlunger","Tobias Kastlunger",5321,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1192.47313385415,1247.91508944685,1335.8184268223,1332.04184402825,1193.21587635169,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Lucas Pinheiro Braathen","Lucas Pinheiro Braathen",4748,"Brazil",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1472.52473301884,1247.91508944685,1642.60001313806,1281.54698735659,1666.16107332844,1182.62924462788,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Clement Noel","Clement Noel",2758,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1584.45509107102,1247.91508944685,1609.08045573183,1281.54698735659,1584.07364333025,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Hugo Desgrippes","Hugo Desgrippes",5508,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1265.846237785,1247.91508944685,1267.97293610575,1281.54698735659,1267.58431562419,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Albert Popov","Albert Popov",2597,"Bulgaria",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1508.70117342033,1247.91508944685,1510.58812462916,1281.54698735659,1509.14229073509,1248.50442564635,1247.91508944685,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Vincent Wieser","Vincent Wieser",5486,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1228.16456634034,1244.83007560964,1270.36688600321,1281.54698735659,1262.01597361103,1219.15781469734,1244.83007560964,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Adam Zampa","Adam Zampa",247,"Slovakia",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1169.27803005714,1239.4004208227,1224.58349062774,1351.17072371919,1171.03945847059,1218.93525164661,1239.4004208227,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"River Radamus","River Radamus",2986,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Downhill",1485.9726410707,1228.81228116885,1252.32308381013,1340.44184402825,1483.24004920806,1369.02166546833,1228.81228116885,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Andreas Zampa","Andreas Zampa",1973,"Slovakia",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1279.17077973832,1223.35428034169,1227.97013278885,1201.38216405685,1278.60133648351,1157.39065278833,1223.35428034169,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
+"Florian Loriot","Florian Loriot",5301,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Downhill",1163.42195758112,1221.4014318902,1270.36688600321,1302.42641451164,1262.01597361103,1153.50280556055,1221.4014318902,0,"Beaver Creek","USA","Men's Downhill","12/04/2025","M"
