@@ -220,9 +220,7 @@ def parse_birthday(text):
             # Year with age format: "1990 (32)"
             r"(\d{4})\s*\((\d{1,2})\)",
             # Just age format: "(32)"
-            r"\((\d{1,2})\)",
-            # Just year format: "1990"
-            r"^(\d{4})$"
+            r"\((\d{1,2})\)"
         ]
 
         month_map = {
@@ -246,10 +244,6 @@ def parse_birthday(text):
                     return datetime(year, month, day)
                 elif len(match.groups()) == 2 and pattern.endswith(r"(\d{4})\s*\((\d{1,2})\)"):
                     # Year and age format
-                    year = int(match.group(1))
-                    return datetime(year, 1, 1)  # Default to January 1st
-                elif len(match.groups()) == 1 and pattern == r"^(\d{4})$":
-                    # Just year format
                     year = int(match.group(1))
                     return datetime(year, 1, 1)  # Default to January 1st
                 elif len(match.groups()) == 1:  # Just age
@@ -721,6 +715,9 @@ async def get_race_results_async(link: List[Any]) -> List[Dict]:
             # Include all athletes, with or without birthday info
             athlete['Birthday'] = birthday  # This will be None if no birthday was found
             results.append(athlete)
+            
+            if not birthday:
+                logging.warning(f"Could not determine birthday for {athlete['Skier']} (ID: {athlete['ID']})")
         
         logging.info(f"Processed {len(results)} results for race {link[0]}")
         return results
@@ -808,7 +805,43 @@ def construct_historical_df(tables, results_data):
         except:
             logging.info("Some Place values are not numeric, keeping as string")
         
-        # Calculate age
+        # Handle athletes with missing birthdays - estimate birthday based on first race
+        athletes_without_birthdays = df.filter(pl.col('Birthday').is_null()).select('ID').unique()
+        
+        if len(athletes_without_birthdays) > 0:
+            logging.info(f"Estimating birthdays for {len(athletes_without_birthdays)} athletes based on first race (assuming age 22 at debut)")
+            
+            # For each athlete without birthday, calculate estimated birthday
+            for athlete_row in athletes_without_birthdays.iter_rows():
+                athlete_id = athlete_row[0]
+                
+                # Find their earliest race date
+                athlete_races = df.filter(pl.col('ID') == athlete_id).sort('Date')
+                if len(athlete_races) > 0:
+                    first_race_date = athlete_races['Date'][0]
+                    
+                    # Calculate birthday assuming they were 22 years old at first race
+                    # Subtract 22 years from first race date
+                    try:
+                        estimated_birthday = datetime(first_race_date.year - 22, first_race_date.month, first_race_date.day)
+                    except ValueError:
+                        # Handle leap year issue - if Feb 29 doesn't exist in birth year, use Feb 28
+                        if first_race_date.month == 2 and first_race_date.day == 29:
+                            estimated_birthday = datetime(first_race_date.year - 22, 2, 28)
+                        else:
+                            raise  # Re-raise if it's a different date issue
+                    
+                    # Update all records for this athlete with the estimated birthday
+                    df = df.with_columns(
+                        pl.when(pl.col('ID') == athlete_id)
+                        .then(pl.lit(estimated_birthday))
+                        .otherwise(pl.col('Birthday'))
+                        .alias('Birthday')
+                    )
+                    
+                    logging.info(f"Set estimated birthday for athlete {athlete_id}: {estimated_birthday.strftime('%Y-%m-%d')} (22 years before first race on {first_race_date})")
+        
+        # Calculate age - now all athletes should have birthdays (actual or estimated)
         df = df.with_columns(
             ((pl.col('Date').cast(pl.Datetime) - pl.col('Birthday')).dt.total_days() / 365.25)
             .cast(pl.Float64)

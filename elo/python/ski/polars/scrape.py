@@ -590,9 +590,12 @@ async def get_race_results_async(link: List[Any], sex: str) -> List[Dict]:
         results = []
         for athlete in athletes_data:
             birthday = birthdays.get(athlete['ID']) or SKIER_INFO_CACHE['birthdays'].get((athlete['ID'], sex))
-            if birthday:  # Only include athletes where we have birthday info
-                athlete['Birthday'] = birthday
-                results.append(athlete)
+            # Include all athletes, even those without birthdays
+            athlete['Birthday'] = birthday  # Can be None
+            results.append(athlete)
+            
+            if not birthday:
+                logging.warning(f"Could not determine birthday for {athlete['Skier']} (ID: {athlete['ID']})")
         
         logging.info(f"Processed {len(results)} results for race {link[0]}")
         return results
@@ -659,17 +662,53 @@ def construct_historical_df(tables, results_data, sex):
         # Create DataFrame from all results
         df = pl.DataFrame(all_results)
         
-        # Convert types
+        # Convert types - handle None birthdays properly
         df = df.with_columns([
             pl.col('Date').str.strptime(pl.Date, format='%Y%m%d'),
-            pl.col('Birthday').cast(pl.Datetime),
+            pl.col('Birthday').cast(pl.Datetime),  # Polars handles None values automatically
             pl.col('Place').cast(pl.Int64),
             pl.col('MS').cast(pl.Int64),
             pl.col('Season').cast(pl.Int64),
             pl.col('Race').cast(pl.Int64)
         ])
         
-        # Calculate age
+        # Handle athletes with missing birthdays - estimate birthday based on first race
+        athletes_without_birthdays = df.filter(pl.col('Birthday').is_null()).select('ID').unique()
+        
+        if len(athletes_without_birthdays) > 0:
+            logging.info(f"Estimating birthdays for {len(athletes_without_birthdays)} athletes based on first race (assuming age 22 at debut)")
+            
+            # For each athlete without birthday, calculate estimated birthday
+            for athlete_row in athletes_without_birthdays.iter_rows():
+                athlete_id = athlete_row[0]
+                
+                # Find their earliest race date
+                athlete_races = df.filter(pl.col('ID') == athlete_id).sort('Date')
+                if len(athlete_races) > 0:
+                    first_race_date = athlete_races['Date'][0]
+                    
+                    # Calculate birthday assuming they were 22 years old at first race
+                    # Subtract 22 years from first race date
+                    try:
+                        estimated_birthday = datetime(first_race_date.year - 22, first_race_date.month, first_race_date.day)
+                    except ValueError:
+                        # Handle leap year issue - if Feb 29 doesn't exist in birth year, use Feb 28
+                        if first_race_date.month == 2 and first_race_date.day == 29:
+                            estimated_birthday = datetime(first_race_date.year - 22, 2, 28)
+                        else:
+                            raise  # Re-raise if it's a different date issue
+                    
+                    # Update all records for this athlete with the estimated birthday
+                    df = df.with_columns(
+                        pl.when(pl.col('ID') == athlete_id)
+                        .then(pl.lit(estimated_birthday))
+                        .otherwise(pl.col('Birthday'))
+                        .alias('Birthday')
+                    )
+                    
+                    logging.info(f"Set estimated birthday for athlete {athlete_id}: {estimated_birthday.strftime('%Y-%m-%d')} (22 years before first race on {first_race_date})")
+        
+        # Calculate age - now all athletes should have birthdays (actual or estimated)
         df = df.with_columns(
             ((pl.col('Date').cast(pl.Datetime) - pl.col('Birthday')).dt.total_days() / 365.25)
             .cast(pl.Float64)
