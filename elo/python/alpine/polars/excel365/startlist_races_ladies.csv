@@ -1,405 +1,123 @@
-FISName,Skier,ID,Nation,StartOrder,Bib,Is_Host_Nation,In_Startlist,Year,Run1,Run2,Time,Points,Discipline,Elo,Downhill_Elo,Slalom_Elo,Combined_Elo,Tech_Elo,Speed_Elo,Race_Elo,Race1_Prob,City,Country,Race_Type,Race_Date
-"SHIFFRIN Mikaela                                                                
-
-
-Atomic",Mikaela Shiffrin,72,USA,,4,True,True,1995,,,,,Slalom,1727.793647088292,1456.815213294789,1739.22400115888,1342.40321109425,1727.0598226944155,1565.4992837791326,1739.22400115888,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"DUERR Lena                                                                
-
-
-Head",Lena Dürr,28,GER,,6,False,True,1991,,,,,Slalom,1675.7585875745638,1257.5535213029661,1665.9101626998738,1316.0429033157452,1676.0826628319114,1261.8884720912713,1665.9101626998738,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"HOLDENER Wendy                                                                
-
-
-Head",Wendy Holdener,78,SUI,,1,False,True,1993,,,,,Slalom,1582.8670099626463,1273.65750923264,1650.6678530243864,1418.8591218422755,1583.688296642089,1385.565476646973,1650.6678530243864,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"RAST Camille                                                                
-
-
-Head",Camille Rast,3229,SUI,,2,False,True,1999,,,,,Slalom,1670.2394177500762,1257.5535213029661,1616.6786760893922,1284.90824397702,1670.1244261122324,1251.2751842207147,1616.6786760893922,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"LIENSBERGER Katharina                                                                
-
-
-Rossignol",Katharina Liensberger,2921,AUT,,5,False,True,1997,,,,,Slalom,1582.479888236399,1257.5535213029661,1612.087828868263,1284.90824397702,1583.1764300022533,1251.2751842207147,1612.087828868263,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"HECTOR Sara                                                                
-
-
-Head",Sara Hector,133,SWE,,15,False,True,1992,,,,,Slalom,1682.3516135182076,1265.3409836566125,1588.361836826268,1355.8912254424492,1682.3608257128913,1242.7543175562664,1588.361836826268,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"SWENN LARSSON Anna                                                                
-
-
-Head",Anna Swenn-Larsson,76,SWE,,10,False,True,1991,,,,,Slalom,1580.713011753692,1257.5535213029661,1581.300336710028,1284.90824397702,1580.4527617675456,1251.2751842207147,1581.300336710028,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"TRUPPE Katharina                                                                
-
-
-Voelkl",Katharina Truppe,1345,AUT,,9,False,True,1996,,,,,Slalom,1528.6130790549078,1257.5535213029661,1581.1049389444622,1284.90824397702,1528.403759154075,1251.2751842207147,1581.1049389444622,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"AICHER Emma                                                                
-
-
-Head",Emma Aicher,4194,GER,,8,False,True,2003,,,,,Slalom,1474.8253590299132,1381.6100668656625,1580.1028795397076,1305.795214621094,1462.5098991099824,1441.575481618543,1580.1028795397076,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"HUBER Katharina                                                                
-
-
-Voelkl",Katharina Huber,1324,AUT,,14,False,True,1995,,,,,Slalom,1496.2567900619238,1257.5535213029661,1537.6934453007143,1324.558392360261,1495.7633791156045,1251.2751842207147,1537.6934453007143,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"CHEVRIER Marion                                                                
-
-
-Atomic",Marion Chevrier,4203,FRA,,20,False,True,2001,,,,,Slalom,1479.848693341634,1257.5535213029661,1482.1417121387108,1284.90824397702,1479.715086310223,1251.2751842207147,1482.1417121387108,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"OEHLUND Cornelia                                                                
-
-
-Head",Cornelia Öhlund,5016,SWE,,12,False,True,2005,,,,,Slalom,1358.0692228829607,1257.5535213029661,1481.0655784559283,1284.90824397702,1359.0244972611686,1251.2751842207147,1481.0655784559283,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"GALLHUBER Katharina                                                                
-
-
-Atomic",Katharina Gallhuber,2829,AUT,,25,False,True,1997,,,,,Slalom,1474.2394546257835,1257.5535213029661,1475.5563183045906,1284.90824397702,1474.0430433238937,1251.2751842207147,1475.5563183045906,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"ARONSSON ELFMAN Hanna                                                                
-
-
-Rossignol",Hanna Aronsson Elfman,4063,SWE,,19,False,True,2002,,,,,Slalom,1430.99349680088,1257.5535213029661,1451.370191836124,1284.90824397702,1432.6213501788486,1251.2751842207147,1451.370191836124,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"WESTHOFF Bianca Bakke                                                                
-
-
-Atomic",Bianca Bakke Westhoff,4160,NOR,,45,False,True,2000,,,,,Slalom,1332.862927244758,1257.5535213029661,1442.5722064779818,1284.90824397702,1334.215011416408,1251.2751842207147,1442.5722064779818,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"HOLTMANN Mina Fuerst                                                                
-
-
-Atomic",Mina Fürst Holtmann,480,NOR,,16,False,True,1995,,,,,Slalom,1503.2018863305193,1257.5535213029661,1409.255839940318,1284.90824397702,1504.3480764175388,1290.9632823638078,1409.255839940318,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"HOERHAGER Lisa                                                                
-
-
-Atomic",Lisa Hörhager,4176,AUT,,29,False,True,2001,,,,,Slalom,1392.6015955657376,1257.5535213029661,1384.396893360631,1284.90824397702,1394.5525576002433,1251.2751842207147,1384.396893360631,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"MONDINELLI Emilia                                                                
-
-
-Salomon",Emilia Mondinelli,4987,ITA,,49,False,True,2004,,,,,Slalom,1351.326988573054,1257.5535213029661,1354.8347206802885,1284.90824397702,1351.8698925850388,1251.2751842207147,1354.8347206802885,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"ALPHAND Estelle                                                                
-
-
-Head",Estelle Alphand,197,SWE,,32,False,True,1995,,,,,Slalom,1381.5820703812767,1257.5535213029661,1337.4080315090512,1265.3486485791773,1383.2862011601137,1236.843773721768,1337.4080315090512,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"FORGET Arianne                                                                
-
-
-Atomic",Arianne Forget,4919,CAN,,42,False,True,2003,,,,,Slalom,1314.3884853491056,1257.5535213029661,1336.2897249064513,1284.90824397702,1315.9212258639748,1251.2751842207147,1336.2897249064513,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"MIJARES RUF Carla                                                                
-
-
-Head",Carla Mijares Ruf,4106,AND,,48,False,True,2002,,,,,Slalom,1312.7522912967145,1257.5535213029661,1316.9797499339547,1284.90824397702,1312.6540172424693,1251.2751842207147,1316.9797499339547,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"DANIOTH Aline                                                                
-
-
-Head",Aline Danioth,1321,SUI,,41,False,True,1998,,,,,Slalom,1297.6036379319564,1257.5535213029661,1305.1906998188929,1284.90824397702,1298.527505981123,1251.2751842207147,1305.1906998188929,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"CHRISTEN Eliane                                                                
-
-
-Head",Eliane Christen,4471,SUI,,28,False,True,1999,,,,,Slalom,1288.3268626539957,1257.5535213029661,1291.0413674802462,1284.90824397702,1288.4399588133483,1251.2751842207147,1291.0413674802462,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"SOMMEROVA Celine                                                                
-
-
--",Celine Sommerova,4770,CZE,,59,False,True,2003,,,,,Slalom,1288.8673067659158,1257.5535213029661,1288.0020408431235,1284.90824397702,1288.9621466062829,1251.2751842207147,1288.0020408431235,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"ESCANE Doriane                                                                
-
-
-Head",Doriane Escane,3577,FRA,,47,False,True,1999,,,,,Slalom,1210.511908685659,1257.5535213029661,1287.9140492273266,1284.90824397702,1211.943171197578,1251.2751842207147,1287.9140492273266,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"SYLVESTER-DAVIK Madeleine                                                                
-
-
-Atomic",Madeline Sylvester-Davik,5486,NOR,,58,False,True,2005,,,,,Slalom,1262.420163566516,1257.5535213029661,1267.8838932990782,1284.90824397702,1264.705369562068,1251.2751842207147,1267.8838932990782,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"HILZINGER Jessica                                                                
-
-
-Head",Jessica Hilzinger,1339,GER,,37,False,True,1997,,,,,Slalom,1149.768621971554,1257.5535213029661,1259.9811297924264,1294.5185410305971,1151.84418499866,1251.2751842207147,1259.9811297924264,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"WATANABE Eren                                                                
-
-
--",Eren Watanabe,4205,JPN,,52,False,True,2003,,,,,Slalom,1224.1190996107466,1257.5535213029661,1228.7757885196154,1284.90824397702,1224.2481341995797,1251.2751842207147,1228.7757885196154,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"HOEPLI Aline                                                                
-
-
-Head",Aline Höpli,4226,SUI,,30,False,True,2001,,,,,Slalom,1204.9382048542163,1257.5535213029661,1207.6798652739687,1284.90824397702,1205.285887498172,1251.2751842207147,1207.6798652739687,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"MAEDA Chisaki                                                                
-
-
--",Chisaki Maeda,2985,JPN,,33,False,True,1998,,,,,Slalom,1192.1120804858765,1257.5535213029661,1188.1462206313668,1284.90824397702,1192.1931306168196,1251.2751842207147,1188.1462206313668,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"BARUZZI FARRIOL Francesca                                                                
-
-
-Rossignol",Francesca Baruzzi Farriol,1336,ARG,,50,False,True,1998,,,,,Slalom,1203.048409649617,1257.5535213029661,1171.847132188985,1274.3108787997596,1208.5777574329286,1270.3903694332205,1171.847132188985,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"STJERNESUND Thea Louise                                                                
-
-
-Rossignol",Thea Louise Stjernesund,3019,NOR,,55,False,True,1996,,,,,Slalom,1419.3356323188475,1257.5535213029661,1132.6234352528688,1284.90824397702,1420.9169082361043,1251.2751842207147,1132.6234352528688,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"LAPANJA LILA GRACE                                                                
-
-
-Stoeckli","LAPANJA LILA GRACE                                                                
-
-
-Stoeckli",539927,SLO,,54,False,True,1994,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"HUNT Annika                                                                
-
-
-Rossignol","HUNT Annika                                                                
-
-
-Rossignol",6537779,USA,,53,True,True,2006,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"SOLA Beatrice                                                                
-
-
-Rossignol","SOLA Beatrice                                                                
-
-
-Rossignol",6296075,ITA,,44,False,True,2003,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"COLLOMB Giorgia                                                                
-
-
-Rossignol","COLLOMB Giorgia                                                                
-
-
-Rossignol",6296778,ITA,,51,False,True,2006,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"MORITZ Kjersti                                                                
-
-
-FISCHER","MORITZ Kjersti                                                                
-
-
-FISCHER",6537255,USA,,56,True,True,2004,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"LJUTIC Zrinka                                                                
-
-
-Atomic","LJUTIC Zrinka                                                                
-
-
-Atomic",385116,CRO,,3,False,True,2004,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"COLTURI Lara                                                                
-
-
-Blizzard","COLTURI Lara                                                                
-
-
-Blizzard",805009,ALB,,7,False,True,2006,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"PILLER Sue                                                                
-
-
-Atomic","PILLER Sue                                                                
-
-
-Atomic",516813,SUI,,57,False,True,2005,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"ALEXANDER Kiki                                                                
-
-
-Rossignol","ALEXANDER Kiki                                                                
-
-
-Rossignol",108095,CAN,,46,False,True,2001,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"MEILLARD Melanie                                                                
-
-
-Rossignol","MEILLARD Melanie                                                                
-
-
-Rossignol",516528,SUI,,11,False,True,1998,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"POPOVIC Leona                                                                
-
-
-Voelkl","POPOVIC Leona                                                                
-
-
-Voelkl",385096,CRO,,24,False,True,1997,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"MCFARLANE Caitlin                                                                
-
-
-Rossignol","MCFARLANE Caitlin                                                                
-
-
-Rossignol",198253,FRA,,43,False,True,2002,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"BUCIK JOGAN Ana                                                                
-
-
-Salomon","BUCIK JOGAN Ana                                                                
-
-
-Salomon",565401,SLO,,26,False,True,1993,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"ST-GERMAIN Laurence                                                                
-
-
-Rossignol","ST-GERMAIN Laurence                                                                
-
-
-Rossignol",107427,CAN,,17,False,True,1994,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"MORITZ Liv                                                                
-
-
-FISCHER","MORITZ Liv                                                                
-
-
-FISCHER",6537254,USA,,40,True,True,2004,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"O BRIEN Nina                                                                
-
-
-Rossignol","O BRIEN Nina                                                                
-
-
-Rossignol",6535773,USA,,39,True,True,1997,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"BRAENDLI Anuk                                                                
-
-
-Atomic","BRAENDLI Anuk                                                                
-
-
-Atomic",516722,SUI,,38,False,True,2003,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"GOOD Nicole                                                                
-
-
-Stoeckli","GOOD Nicole                                                                
-
-
-Stoeckli",516530,SUI,,36,False,True,1998,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"BOCOCK Elisabeth                                                                
-
-
-Rossignol","BOCOCK Elisabeth                                                                
-
-
-Rossignol",6537468,USA,,35,True,True,2005,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"ANDO Asa                                                                
-
-
-Atomic","ANDO Asa                                                                
-
-
-Atomic",307493,JPN,,34,False,True,1996,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"LAMURE Marie                                                                
-
-
-Rossignol","LAMURE Marie                                                                
-
-
-Rossignol",198176,FRA,,18,False,True,2001,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"SMART Amelia                                                                
-
-
-Atomic","SMART Amelia                                                                
-
-
-Atomic",107747,CAN,,31,False,True,1998,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"DELLA MEA Lara                                                                
-
-
-Fischer","DELLA MEA Lara                                                                
-
-
-Fischer",6295075,ITA,,21,False,True,1999,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"NULLMEYER Ali                                                                
-
-
-Atomic","NULLMEYER Ali                                                                
-
-
-Atomic",107798,CAN,,22,False,True,1998,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"PETERLINI Martina                                                                
-
-
-Rossignol","PETERLINI Martina                                                                
-
-
-Rossignol",299699,ITA,,23,False,True,1997,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"GRITSCH Franziska                                                                
-
-
-Blizzard","GRITSCH Franziska                                                                
-
-
-Blizzard",56392,AUT,,27,False,True,1997,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-"MOLTZAN Paula                                                                
-
-
-Rossignol","MOLTZAN Paula                                                                
-
-
-Rossignol",539909,USA,,13,True,True,1994,,,,,Slalom,,,,,,,0.0,1.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Paula Moltzan,Paula Moltzan,294,USA,999,999,True,False,,,,,,Slalom,1608.8576359373078,1257.5535213029661,1635.3548146788971,1284.90824397702,1608.628303513383,1251.2751842207147,1635.3548146788971,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Lara Colturi,Lara Colturi,5268,Albania,999,999,False,False,,,,,,Slalom,1691.8598233028067,1257.5535213029661,1627.5723479646845,1284.90824397702,1691.5357777184088,1290.1217289881993,1627.5723479646845,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Neja Dvornik,Neja Dvornik,3890,Slovenia,999,999,False,False,,,,,,Slalom,1534.3141472041646,1257.5535213029661,1523.749559586552,1284.90824397702,1534.00613849999,1251.2751842207147,1523.749559586552,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Zrinka Ljutic,Zrinka Ljutic,4175,Croatia,999,999,False,False,,,,,,Slalom,1607.9616533113942,1257.5535213029661,1519.234410589132,1284.90824397702,1608.2640588734462,1251.2751842207147,1519.234410589132,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Andreja Slokar,Andreja Slokar,3736,Slovenia,999,999,False,False,,,,,,Slalom,1262.9234244962825,1257.5535213029661,1493.83596313365,1284.90824397702,1263.4238844906215,1251.2751842207147,1493.83596313365,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Melanie Meillard,Melanie Meillard,1322,Switzerland,999,999,False,False,,,,,,Slalom,1461.7097287146596,1257.5535213029661,1480.3844767209546,1284.90824397702,1460.9826681422492,1251.2751842207147,1480.3844767209546,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Dzenifera Germane,Dzenifera Germane,4080,Latvia,999,999,False,False,,,,,,Slalom,1469.2634913790507,1257.5535213029661,1472.2575308471214,1284.90824397702,1468.3279917691048,1251.2751842207147,1472.2575308471214,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Laurence St-Germain,Laurence St-Germain,379,Canada,999,999,False,False,,,,,,Slalom,1461.5216763183953,1257.5535213029661,1460.8671190325697,1284.90824397702,1462.1932223562758,1251.2751842207147,1460.8671190325697,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Caitlin McFarlane,Caitlin McFarlane,4104,France,999,999,False,False,,,,,,Slalom,1283.1308254319042,1257.5535213029661,1416.7873585078864,1284.90824397702,1284.8907803193672,1251.2751842207147,1416.7873585078864,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Asa Ando,Asa Ando,427,Japan,999,999,False,False,,,,,,Slalom,1400.666258266655,1257.5535213029661,1403.1440163874108,1284.90824397702,1400.553310812879,1251.2751842207147,1403.1440163874108,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Ana Bucik Jogan,Ana Bucik Jogan,180,Slovenia,999,999,False,False,,,,,,Slalom,1384.6062578327003,1270.9899706442625,1393.2578775452723,1292.9745708914486,1386.171888134134,1257.9060827456658,1393.2578775452723,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Leona Popovic,Leona Popovic,1193,Croatia,999,999,False,False,,,,,,Slalom,1348.0363914425675,1284.826455428118,1361.5808792378214,1291.6354916508776,1348.2935471134135,1240.0274835778623,1361.5808792378214,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Anuk Brändli,Anuk Brändli,5277,Switzerland,999,999,False,False,,,,,,Slalom,1356.1858033669396,1257.5535213029661,1358.521700101718,1284.90824397702,1356.2875650234505,1251.2751842207147,1358.521700101718,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Ali Nullmeyer,Ali Nullmeyer,2972,Canada,999,999,False,False,,,,,,Slalom,1350.872743141012,1257.5535213029661,1355.7035039900893,1284.90824397702,1350.8677478338798,1251.2751842207147,1355.7035039900893,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Lara Della Mea,Lara Della Mea,3580,Italy,999,999,False,False,,,,,,Slalom,1361.1489774622055,1257.5535213029661,1353.1576384402026,1284.90824397702,1362.342556650268,1251.2751842207147,1353.1576384402026,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Zita Toth,Zita Toth,3970,Hungary,999,999,False,False,,,,,,Slalom,1351.5016442553367,1257.5535213029661,1350.9893234687024,1284.90824397702,1352.085452874772,1251.2751842207147,1350.9893234687024,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Liv Moritz,Liv Moritz,4744,USA,999,999,True,False,,,,,,Slalom,1330.8852331306323,1257.5535213029661,1347.9958192487966,1284.90824397702,1330.9983001840897,1251.2751842207147,1347.9958192487966,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Rosa Pohjolainen,Rosa Pohjolainen,4060,Finland,999,999,False,False,,,,,,Slalom,1342.332955703986,1257.5535213029661,1346.7281460510762,1284.90824397702,1343.0749772462968,1251.2751842207147,1346.7281460510762,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Marie Lamure,Marie Lamure,3993,France,999,999,False,False,,,,,,Slalom,1339.9593320230608,1257.5535213029661,1344.554634448134,1284.90824397702,1339.3776671800908,1251.2751842207147,1344.554634448134,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Franziska Gritsch,Franziska Gritsch,3694,Austria,999,999,False,False,,,,,,Slalom,1356.6446877179692,1242.793361380578,1337.3866639788137,1341.415951482706,1359.6253498284668,1290.2657885343583,1337.3866639788137,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Maryna Gasienica Daniel,Maryna Gasienica Daniel,289,Poland,999,999,False,False,,,,,,Slalom,1467.3282757833394,1292.3177565742433,1330.709708966123,1268.68235027714,1504.3061425484873,1212.8005229565513,1330.709708966123,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Beatrice Sola,Beatrice Sola,4229,Italy,999,999,False,False,,,,,,Slalom,1313.1326078698155,1257.5535213029661,1328.6511037709631,1284.90824397702,1313.353170300349,1251.2751842207147,1328.6511037709631,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Nicole Good,Nicole Good,3782,Switzerland,999,999,False,False,,,,,,Slalom,1309.785412894385,1257.5535213029661,1315.0669004593226,1284.90824397702,1309.4061070359749,1251.2751842207147,1315.0669004593226,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Lara Gut-Behrami,Lara Gut-Behrami,10,Switzerland,999,999,False,False,,,,,,Slalom,1719.7560907266334,1542.305102550375,1314.3306658025776,1309.2260525147208,1671.328421829205,1673.0373518033775,1314.3306658025776,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Alice Robinson,Alice Robinson,3891,New Zealand,999,999,False,False,,,,,,Slalom,1653.4692913172248,1252.5044489441514,1313.933288506268,1278.918541030597,1695.8305920523371,1381.8943797460936,1313.933288506268,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Vanessa Kasper,Vanessa Kasper,3023,Switzerland,999,999,False,False,,,,,,Slalom,1315.3949884542722,1257.5535213029661,1312.0750194956197,1284.90824397702,1316.1358279821843,1251.2751842207147,1312.0750194956197,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-AJ Hurt,AJ Hurt,3886,USA,999,999,True,False,,,,,,Slalom,1442.9359391978182,1257.5535213029661,1308.0340018019972,1279.1108787997596,1442.110211640632,1264.7335687444818,1308.0340018019972,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Jasmina Suter,Jasmina Suter,262,Switzerland,999,999,False,False,,,,,,Slalom,1213.9939497658786,1228.012832574956,1303.4293640269912,1273.1893696956847,1201.2079810980222,1266.9224089646066,1303.4293640269912,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Sofia Goggia,Sofia Goggia,331,Italy,999,999,False,False,,,,,,Slalom,1594.858239706391,1599.5980269567026,1301.4867081716748,1330.2681432861605,1498.6014574794788,1650.7476159892512,1301.4867081716748,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Simone Wild,Simone Wild,397,Switzerland,999,999,False,False,,,,,,Slalom,1283.3444429200858,1257.5535213029661,1300.7185461702663,1284.90824397702,1283.7003086787224,1251.2751842207147,1300.7185461702663,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Martina Dubovska,Martina Dubovska,168,Czechia,999,999,False,False,,,,,,Slalom,1295.4645744832087,1257.5535213029661,1299.5935556885636,1284.90824397702,1295.9605223616406,1251.2751842207147,1299.5935556885636,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Moa Boström Mussener,Moa Boström Mussener,4168,Sweden,999,999,False,False,,,,,,Slalom,1286.6315337590204,1257.5535213029661,1295.8239347176136,1284.90824397702,1286.7782062729182,1251.2751842207147,1295.8239347176136,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Katie Hensien,Katie Hensien,3887,USA,999,999,True,False,,,,,,Slalom,1444.6250959874997,1257.5535213029661,1292.2221620916675,1284.90824397702,1445.2858738285713,1251.2751842207147,1292.2221620916675,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Elisabeth Bocock,Elisabeth Bocock,4761,USA,999,999,True,False,,,,,,Slalom,1359.5783741997516,1257.5535213029661,1284.8694730194495,1284.90824397702,1360.8128775259695,1251.2751842207147,1284.8694730194495,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Kiara Alexander,Kiara Alexander,4743,Canada,999,999,False,False,,,,,,Slalom,1281.0341029493609,1257.5535213029661,1284.8172840520203,1284.90824397702,1281.7807225245945,1251.2751842207147,1284.8172840520203,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Tricia Mangan,Tricia Mangan,1341,USA,999,999,True,False,,,,,,Slalom,1142.2633404765804,1158.0610610897625,1284.537268843023,1305.0617794974648,1201.6065641593998,1173.2563320934446,1284.537268843023,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Clara Direz,Clara Direz,252,France,999,999,False,False,,,,,,Slalom,1366.4952682231144,1257.5535213029661,1283.640880683882,1284.90824397702,1380.552272455755,1277.2862512092847,1283.640880683882,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Keely Cashman,Keely Cashman,2975,USA,999,999,True,False,,,,,,Slalom,1133.4020997178432,1184.027214269017,1278.48802224267,1287.1602828280168,1138.3670014606855,1207.345076403125,1278.48802224267,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Elisa Platino,Elisa Platino,3947,Italy,999,999,False,False,,,,,,Slalom,1195.7274135571836,1257.5535213029661,1267.8838932990782,1284.90824397702,1195.626061614599,1251.2751842207147,1267.8838932990782,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Sue Piller,Sue Piller,5832,Switzerland,999,999,False,False,,,,,,Slalom,1278.1534198299732,1257.5535213029661,1267.8838932990782,1284.90824397702,1280.457852011286,1251.2751842207147,1267.8838932990782,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Hilma Lövblom,Hilma Lövblom,3985,Sweden,999,999,False,False,,,,,,Slalom,1250.7940804063517,1257.5535213029661,1267.8838932990782,1284.90824397702,1251.689677848923,1251.2751842207147,1267.8838932990782,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Camille Cerutti,Camille Cerutti,2964,France,999,999,False,False,,,,,,Slalom,1262.6772821002955,1174.7216133599452,1267.8838932990782,1279.0207598760076,1296.3373225598953,1218.7757745442718,1267.8838932990782,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Kajsa Vickhoff Lie,Kajsa Vickhoff Lie,2963,Norway,999,999,False,False,,,,,,Slalom,1539.3570526584674,1449.1577404961895,1267.8838932990782,1286.051844613608,1450.9479624410828,1511.0106721840823,1267.8838932990782,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Asja Zenere,Asja Zenere,1325,Italy,999,999,False,False,,,,,,Slalom,1479.6285567894734,1274.9386257657384,1267.8838932990782,1284.90824397702,1497.118398696298,1275.2803557507314,1267.8838932990782,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Brett Richardson,Brett Richardson,4212,Canada,999,999,False,False,,,,,,Slalom,1480.296860963652,1257.5535213029661,1267.8838932990782,1284.90824397702,1484.2920788454478,1278.163707945546,1267.8838932990782,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Cassidy Gray,Cassidy Gray,4154,Canada,999,999,False,False,,,,,,Slalom,1289.8437112932174,1229.5339873660698,1267.8838932990782,1284.90824397702,1317.9705137596502,1238.781988794077,1267.8838932990782,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Stefanie Grob,Stefanie Grob,4970,Switzerland,999,999,False,False,,,,,,Slalom,1271.7752396123435,1294.7690375857994,1267.8838932990782,1284.90824397702,1273.411425299861,1295.3509854269792,1267.8838932990782,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Victoria Olivier,Victoria Olivier,4232,Austria,999,999,False,False,,,,,,Slalom,1295.2536332927662,1257.5535213029661,1267.8838932990782,1284.90824397702,1297.3720892328972,1251.2751842207147,1267.8838932990782,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Julia Scheib,Julia Scheib,2970,Austria,999,999,False,False,,,,,,Slalom,1632.1348012196413,1257.5535213029661,1267.8838932990782,1284.90824397702,1645.2188325382865,1288.951262985311,1267.8838932990782,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Fabiana Dorigo,Fabiana Dorigo,4130,Germany,999,999,False,False,,,,,,Slalom,1236.3703016637817,1240.0908096384433,1267.8838932990782,1284.90824397702,1253.543585684948,1249.0513802874375,1267.8838932990782,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Shaienne Zehnder,Shaienne Zehnder,5933,Switzerland,999,999,False,False,,,,,,Slalom,1225.4987573207163,1257.5535213029661,1267.8838932990782,1284.90824397702,1226.4435069725737,1251.2751842207147,1267.8838932990782,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Laura Steinmair,Laura Steinmair,4237,Italy,999,999,False,False,,,,,,Slalom,1192.5984427151604,1257.5535213029661,1267.8838932990782,1284.90824397702,1193.3606707652427,1251.2751842207147,1267.8838932990782,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-llaria Ghisalberti,llaria Ghisalberti,4151,Italy,999,999,False,False,,,,,,Slalom,1231.1786830874817,1257.5535213029661,1267.8838932990782,1284.90824397702,1232.312051086183,1251.2751842207147,1267.8838932990782,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Viktoria Bürgler,Viktoria Bürgler,4323,Austria,999,999,False,False,,,,,,Slalom,1144.650979846943,1257.5535213029661,1267.8838932990782,1284.90824397702,1147.2410232521725,1251.2751842207147,1267.8838932990782,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Rebeka Jancova,Rebeka Jancova,4087,Slovakia,999,999,False,False,,,,,,Slalom,1215.9177827944095,1257.5535213029661,1267.8838932990782,1284.90824397702,1222.0618152394393,1275.161068862469,1267.8838932990782,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Stephanie Brunner,Stephanie Brunner,234,Austria,999,999,False,False,,,,,,Slalom,1414.6753014892695,1257.5535213029661,1266.327037234101,1354.7777058745403,1435.148256780912,1287.3465740712122,1266.327037234101,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Amelia Smart,Amelia Smart,2983,Canada,999,999,False,False,,,,,,Slalom,1259.9399653856829,1257.5535213029661,1262.8856296859158,1284.90824397702,1260.1521962367433,1251.2751842207147,1262.8856296859158,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Erika Pykäläinen,Erika Pykäläinen,3894,Finland,999,999,False,False,,,,,,Slalom,1261.3819471171548,1257.5535213029661,1254.2862952320904,1284.90824397702,1262.7179018558577,1251.2751842207147,1254.2862952320904,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Valerie Grenier,Valerie Grenier,460,Canada,999,999,False,False,,,,,,Slalom,1544.556580976149,1234.6880947734353,1249.2848497644993,1303.226879866344,1573.9872047826457,1324.5502099407784,1249.2848497644993,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Annabel Jallat,Annabel Jallat,5433,France,999,999,False,False,,,,,,Slalom,1242.7522912967145,1257.5535213029661,1246.9797499339547,1284.90824397702,1242.6540172424693,1251.2751842207147,1246.9797499339547,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Nina O'Brien,Nina O'Brien,1346,USA,999,999,True,False,,,,,,Slalom,1502.6589709961238,1257.5535213029661,1240.2612707615638,1284.90824397702,1504.4386698612752,1270.9965500243,1240.2612707615638,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Maja Waroschitz,Maja Waroschitz,5878,Austria,999,999,False,False,,,,,,Slalom,1165.9998908777402,1257.5535213029661,1232.927986597659,1284.90824397702,1167.6691837476617,1251.2751842207147,1232.927986597659,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Natalie Falch,Natalie Falch,4280,Austria,999,999,False,False,,,,,,Slalom,1229.3322049241046,1257.5535213029661,1232.11558774674,1284.90824397702,1229.8333576830837,1251.2751842207147,1232.11558774674,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Silja Koskinen,Silja Koskinen,5220,Finland,999,999,False,False,,,,,,Slalom,1223.581795976129,1257.5535213029661,1228.103470054914,1284.90824397702,1223.6606963987022,1251.2751842207147,1228.103470054914,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Madeleine Beck,Madeleine Beck,5214,Liechtenstein,999,999,False,False,,,,,,Slalom,1222.7522912967145,1257.5535213029661,1226.9797499339547,1284.90824397702,1222.6540172424693,1251.2751842207147,1226.9797499339547,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Noa Szollos,Noa Szollos,4124,Israel,999,999,False,False,,,,,,Slalom,1191.0319750762703,1257.5535213029661,1225.6913823203818,1284.1952146210938,1193.6014935857509,1283.5346324227414,1225.6913823203818,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Annika Hunt,Annika Hunt,5297,USA,999,999,True,False,,,,,,Slalom,1218.9064317541515,1257.5535213029661,1218.21572091916,1284.90824397702,1218.8447174751248,1251.2751842207147,1218.21572091916,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Selina Egloff,Selina Egloff,3958,Switzerland,999,999,False,False,,,,,,Slalom,1217.1914244104014,1257.5535213029661,1212.2191870912952,1284.90824397702,1217.0305014269231,1251.2751842207147,1212.2191870912952,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Kia Suni,Kia Suni,5944,Finland,999,999,False,False,,,,,,Slalom,1207.7522912967145,1257.5535213029661,1211.9797499339547,1284.90824397702,1207.6540172424693,1251.2751842207147,1211.9797499339547,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Nina Astner,Nina Astner,3959,Austria,999,999,False,False,,,,,,Slalom,1320.9959755418372,1257.5535213029661,1206.010359044583,1284.90824397702,1322.6604952891769,1251.2751842207147,1206.010359044583,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Sophie Mathiou,Sophie Mathiou,4103,Italy,999,999,False,False,,,,,,Slalom,1189.985442370075,1257.5535213029661,1196.9314576983193,1284.90824397702,1187.4724345172956,1251.2751842207147,1196.9314576983193,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Clara-Marie Holmer Vorre,Clara-Marie Holmer Vorre,4211,Denmark,999,999,False,False,,,,,,Slalom,1188.3232585371077,1257.5535213029661,1196.2231240038411,1284.90824397702,1188.651942245298,1251.2751842207147,1196.2231240038411,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Liene Bondare,Liene Bondare,511,Latvia,999,999,False,False,,,,,,Slalom,1171.0732418858238,1257.5535213029661,1186.738165906193,1284.90824397702,1170.4112726934077,1251.2751842207147,1186.738165906193,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Aada Kanto,Aada Kanto,5444,Finland,999,999,False,False,,,,,,Slalom,1180.6550832605965,1257.5535213029661,1185.202707020048,1284.90824397702,1180.7038075585874,1251.2751842207147,1185.202707020048,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Giorgia Collomb,Giorgia Collomb,5332,Italy,999,999,False,False,,,,,,Slalom,1160.8625737150985,1257.5535213029661,1182.6680388181271,1284.90824397702,1163.3116044462392,1251.2751842207147,1182.6680388181271,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Marjolaine Ollier,Marjolaine Ollier,5699,France,999,999,False,False,,,,,,Slalom,1177.7522912967145,1257.5535213029661,1181.9797499339547,1284.90824397702,1177.6540172424693,1251.2751842207147,1181.9797499339547,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Mialitiana Clerc,Mialitiana Clerc,3889,Madagascar,999,999,False,False,,,,,,Slalom,1166.5063117100633,1257.5535213029661,1181.5063475471927,1284.90824397702,1166.3105470420412,1251.2751842207147,1181.5063475471927,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Phoebe Heaydon,Phoebe Heaydon,5282,Australia,999,999,False,False,,,,,,Slalom,1172.7522912967145,1257.5535213029661,1176.9797499339547,1284.90824397702,1172.6540172424693,1251.2751842207147,1176.9797499339547,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Victoria Palla,Victoria Palla,3921,Great Britain,999,999,False,False,,,,,,Slalom,1170.266432128789,1257.5535213029661,1175.5077228527296,1284.90824397702,1170.2312107774778,1251.2751842207147,1175.5077228527296,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Annette Belfrond,Annette Belfrond,4065,Italy,999,999,False,False,,,,,,Slalom,1164.5395289158812,1257.5535213029661,1175.3487016784254,1284.90824397702,1164.1376988638897,1251.2751842207147,1175.3487016784254,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Sophie Mahon,Sophie Mahon,5255,Australia,999,999,False,False,,,,,,Slalom,1171.2811012014477,1257.5535213029661,1174.2022198341429,1284.90824397702,1171.1793178538917,1251.2751842207147,1174.2022198341429,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Sarah Bennett,Sarah Bennett,4156,Canada,999,999,False,False,,,,,,Slalom,1109.7251424887415,1257.5535213029661,1161.9797499339547,1284.90824397702,1109.6539295360149,1251.2751842207147,1161.9797499339547,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Giulia Valleriani,Giulia Valleriani,5329,Italy,999,999,False,False,,,,,,Slalom,1116.110355629848,1257.5535213029661,1151.9797499339547,1284.90824397702,1116.5694155442563,1251.2751842207147,1151.9797499339547,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Amelie Klopfenstein,Amelie Klopfenstein,4092,Switzerland,999,999,False,False,,,,,,Slalom,1144.1970704998012,1257.5535213029661,1146.628599753263,1284.90824397702,1143.2866463099308,1251.2751842207147,1146.628599753263,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Alice Pazzaglia,Alice Pazzaglia,4303,Italy,999,999,False,False,,,,,,Slalom,1133.952142913197,1257.5535213029661,1137.0660909684475,1284.90824397702,1133.9724563221882,1251.2751842207147,1137.0660909684475,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Kim Vanreusel,Kim Vanreusel,2962,Belgium,999,999,False,False,,,,,,Slalom,1115.8837729644806,1287.8034264214402,1118.9620174681618,1284.90824397702,1116.6393436831609,1274.7626552081588,1118.9620174681618,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
-Lila Lapanja,Lila Lapanja,377,USA,999,999,True,False,,,,,,Slalom,1050.8380173776943,1257.5535213029661,1053.7577812203408,1284.90824397702,1051.554522406058,1251.2751842207147,1053.7577812203408,0.0,Copper Mt.,USA,Ladies' Slalom,11/30/2025
+"FISName","Skier","ID","Nation","StartOrder","Bib","Is_Host_Nation","In_Startlist","Year","Run1","Run2","Time","Points","Discipline","Elo","Downhill_Elo","Slalom_Elo","Combined_Elo","Tech_Elo","Speed_Elo","Race_Elo","Race1_Prob","City","Country","Race_Type","Race_Date","Sex"
+"ROBINSON Alice","Alice Robinson",3891,"NZL",NA,3,"False","True",2001,NA,NA,NA,NA,"Giant Slalom",1703.02974319115,1252.50624647081,1313.93329793017,1278.91862961427,1714.09320201949,1381.89892206213,1690.1608619605,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"HECTOR Sara","Sara Hector",133,"SWE",NA,7,"False","True",1992,NA,NA,NA,NA,"Giant Slalom",1687.37950801032,1265.35655983862,1599.13314003047,1355.89529390758,1668.79807372199,1242.8028280004,1631.35777613654,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"LJUTIC Zrinka","Zrinka Ljutic",4175,"CRO",NA,5,"False","True",2004,NA,NA,NA,NA,"Giant Slalom",1661.49248238177,1256.79815955042,1521.86352685385,1285.16840491896,1644.28637482529,1250.18510252558,1607.06498095884,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"SHIFFRIN Mikaela","Mikaela Shiffrin",72,"USA",NA,9,"True","True",1995,NA,NA,NA,NA,"Giant Slalom",1770.62811701357,1456.81987561885,1758.97602757286,1342.40366084027,1749.30174960604,1565.50771842141,1599.06570167919,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"SCHEIB Julia","Julia Scheib",2970,"AUT",NA,4,"False","True",1998,NA,NA,NA,NA,"Giant Slalom",1634.07478108338,1256.79815955042,1269.01140007282,1285.16840491896,1616.39208554682,1288.95233918088,1594.71631515972,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"GRENIER Valerie","Valerie Grenier",460,"CAN",NA,8,"False","True",1996,NA,NA,NA,NA,"Giant Slalom",1606.48301677307,1234.6946013197,1249.28487321043,1303.22725846521,1608.9136898541,1324.55712444439,1583.16704083892,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"RAST Camille","Camille Rast",3229,"SUI",NA,13,"False","True",1999,NA,NA,NA,NA,"Giant Slalom",1703.25548465603,1256.79815955042,1620.34634864418,1285.16840491896,1680.35472557537,1250.18510252558,1579.49651081679,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"O BRIEN Nina","Nina O'Brien",1346,"USA",NA,10,"True","True",1997,NA,NA,NA,NA,"Giant Slalom",1509.98903293119,1256.79815955042,1270.03408780928,1285.16840491896,1497.30586265284,1270.99773247879,1555.59566417658,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"STJERNESUND Thea Louise","Thea Louise Stjernesund",3019,"NOR",NA,1,"False","True",1996,NA,NA,NA,NA,"Giant Slalom",1409.69735378937,1256.79815955042,1252.70578511224,1285.16840491896,1412.76622090323,1250.18510252558,1554.50814462238,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"MOLTZAN Paula","Paula Moltzan",294,"USA",NA,2,"True","True",1994,NA,NA,NA,NA,"Giant Slalom",1626.9743476061,1256.79815955042,1640.36145638869,1285.16840491896,1623.79916099366,1250.18510252558,1529.38627965857,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"COLTURI Lara","Lara Colturi",5268,"ALB",NA,6,"False","True",2006,NA,NA,NA,NA,"Giant Slalom",1652.00475192389,1256.79815955042,1649.38762223017,1285.16840491896,1642.84923217014,1290.1221850374,1514.3483506613,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"GOGGIA Sofia","Sofia Goggia",331,"ITA",NA,17,"False","True",1992,NA,NA,NA,NA,"Giant Slalom",1620.05822121226,1599.60229159362,1301.48672688615,1330.26966078486,1530.99966926096,1650.75418763831,1509.44120173631,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"HOLTMANN Mina Fuerst","Mina Fürst Holtmann",480,"NOR",NA,15,"False","True",1995,NA,NA,NA,NA,"Giant Slalom",1468.27872028557,1256.79815955042,1386.49912525683,1285.16840491896,1464.85621986492,1290.96649218019,1498.61715374065,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"GASIENICA-DANIEL Maryna","Maryna Gasienica Daniel",289,"POL",NA,11,"False","True",1994,NA,NA,NA,NA,"Giant Slalom",1492.6721083334,1292.31847520439,1330.70987843678,1268.68297545334,1507.3852761751,1212.80638167345,1481.02271684708,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"RICHARDSON Britt","Brett Richardson",4212,"CAN",NA,12,"False","True",2003,NA,NA,NA,NA,"Giant Slalom",1497.72976063809,1256.79815955042,1269.01140007282,1285.16840491896,1488.35314382928,1278.16426048962,1464.14268192713,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"DUERR Lena","Lena Dürr",28,"GER",NA,14,"False","True",1991,NA,NA,NA,NA,"Giant Slalom",1655.31027849197,1256.79815955042,1695.83264672365,1316.04569623979,1642.11206432601,1261.92577062984,1459.35572420967,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"BRUNNER Stephanie","Stephanie Brunner",234,"AUT",NA,21,"False","True",1994,NA,NA,NA,NA,"Giant Slalom",1467.93257262307,1256.79815955042,1266.74261944525,1354.77830874305,1473.97796160626,1287.35244374132,1455.35248167338,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"HOLDENER Wendy","Wendy Holdener",78,"SUI",NA,16,"False","True",1993,NA,NA,NA,NA,"Giant Slalom",1606.98784049993,1273.66577034323,1672.98063345975,1418.86016911435,1594.81263248443,1385.5756828072,1433.0875209989,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"DIREZ Clara","Clara Direz",252,"FRA",NA,23,"False","True",1995,NA,NA,NA,NA,"Giant Slalom",1461.69415407278,1256.79815955042,1283.64090136868,1285.16840491896,1452.40017701585,1277.28676781362,1427.94990108364,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"ALPHAND Estelle","Estelle Alphand",197,"SWE",NA,20,"False","True",1995,NA,NA,NA,NA,"Giant Slalom",1440.56435537791,1256.79815955042,1320.85486970893,1265.34901163416,1422.50367295192,1236.84923241528,1418.86495373128,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"LIENSBERGER Katharina","Katharina Liensberger",2921,"AUT",NA,18,"False","True",1997,NA,NA,NA,NA,"Giant Slalom",1563.75288047924,1256.79815955042,1638.23197944494,1285.16840491896,1557.26773630991,1250.18510252558,1414.6115651221,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"ZENERE Asja","Asja Zenere",1325,"ITA",NA,22,"False","True",1996,NA,NA,NA,NA,"Giant Slalom",1396.34554609171,1274.93888567662,1269.01140007282,1285.16840491896,1406.19749265493,1275.28156862015,1381.36468564052,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"DELLA MEA Lara","Lara Della Mea",3580,"ITA",NA,25,"False","True",1999,NA,NA,NA,NA,"Giant Slalom",1449.68254562698,1256.79815955042,1369.00715245909,1285.16840491896,1430.58006847926,1250.18510252558,1379.80916136107,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"BUCIK JOGAN Ana","Ana Bucik Jogan",180,"SLO",NA,24,"False","True",1993,NA,NA,NA,NA,"Giant Slalom",1346.18625790177,1270.99417610439,1357.72101333692,1292.97606126565,1352.39823039215,1257.91253068703,1354.69700998269,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"BOCOCK Elisabeth","Elisabeth Bocock",4761,"USA",NA,26,"True","True",2005,NA,NA,NA,NA,"Giant Slalom",1360.75818660725,1256.79815955042,1284.98838234965,1285.16840491896,1346.55527586294,1250.18510252558,1347.04408413452,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"AICHER Emma","Emma Aicher",4194,"GER",NA,19,"False","True",2003,NA,NA,NA,NA,"Giant Slalom",1476.87619223909,1381.61219148203,1506.624187948,1305.79525998479,1462.18051637414,1441.58022091527,1343.79117965906,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"ASTNER Nina","Nina Astner",3959,"AUT",NA,28,"False","True",2000,NA,NA,NA,NA,"Giant Slalom",1361.6816042765,1256.79815955042,1206.3016061291,1285.16840491896,1335.51971125802,1250.18510252558,1332.9535036012,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"GRITSCH Franziska","Franziska Gritsch",3694,"AUT",NA,27,"False","True",1997,NA,NA,NA,NA,"Giant Slalom",1353.92213788091,1242.79505014202,1335.55519179055,1341.4163087596,1342.70230361625,1290.27041672363,1307.48930902145,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"PILLER Sue","Sue Piller",5832,"SUI",NA,36,"False","True",2005,NA,NA,NA,NA,"Giant Slalom",1319.04141213354,1256.79815955042,1269.01140007282,1285.16840491896,1312.86875973873,1250.18510252558,1295.61673855307,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"GRAY Cassidy","Cassidy Gray",4154,"CAN",NA,40,"False","True",2001,NA,NA,NA,NA,"Giant Slalom",1293.02835457698,1229.53486694189,1269.01140007282,1285.16840491896,1313.82468771727,1238.78348318888,1295.51903483275,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"PYKALAINEN Erika","Erika Pykäläinen",3894,"FIN",NA,39,"False","True",2001,NA,NA,NA,NA,"Giant Slalom",1311.67150379799,1256.79815955042,1254.39699543521,1285.16840491896,1300.65965572693,1250.18510252558,1283.98064937979,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"SYLVESTER-DAVIK Madeleine","Madeline Sylvester-Davik",5486,"NOR",NA,29,"False","True",2005,NA,NA,NA,NA,"Giant Slalom",1260.91869341091,1256.79815955042,1250.44835909627,1285.16840491896,1264.16974734377,1250.18510252558,1277.72426582878,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"WILD Simone","Simone Wild",397,"SUI",NA,50,"False","True",1993,NA,NA,NA,NA,"Giant Slalom",1277.93503634941,1256.79815955042,1300.71855955051,1285.16840491896,1289.06692831189,1250.18510252558,1265.99087018822,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"OLIVIER Victoria","Victoria Olivier",4232,"AUT",NA,37,"False","True",2004,NA,NA,NA,NA,"Giant Slalom",1277.07108729136,1256.79815955042,1269.01140007282,1285.16840491896,1282.5423024,1250.18510252558,1264.63868517574,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"FORGET Arianne","Arianne Forget",4919,"CAN",NA,34,"False","True",2003,NA,NA,NA,NA,"Giant Slalom",1251.97936847711,1256.79815955042,1287.49885846103,1285.16840491896,1261.27294204876,1250.18510252558,1261.67163567519,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"HOERHAGER Lisa","Lisa Hörhager",4176,"AUT",NA,43,"False","True",2001,NA,NA,NA,NA,"Giant Slalom",1365.75174550667,1256.79815955042,1369.70559278157,1285.16840491896,1350.51067573176,1250.18510252558,1259.56714546403,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"KASPER Vanessa","Vanessa Kasper",3023,"SUI",NA,31,"False","True",1996,NA,NA,NA,NA,"Giant Slalom",1282.45979205157,1256.79815955042,1312.07502547765,1285.16840491896,1278.35670309024,1250.18510252558,1257.386772925,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"CERUTTI Camille","Camille Cerutti",2964,"FRA",NA,42,"False","True",1998,NA,NA,NA,NA,"Giant Slalom",1226.79887917752,1174.72419505186,1269.01140007282,1279.02083517213,1256.95716124924,1218.78010444593,1242.41068693297,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"DORIGO Fabiana","Fabiana Dorigo",4130,"GER",NA,33,"False","True",1998,NA,NA,NA,NA,"Giant Slalom",1239.2966409699,1240.09150353271,1269.01140007282,1285.16840491896,1257.27859412774,1249.05251107392,1240.29425286649,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"MORITZ Kjersti","Kjersti Moritz",4742,"USA",NA,48,"True","True",2004,NA,NA,NA,NA,"Giant Slalom",1190.57401336912,1256.79815955042,1254.7816924296,1285.16840491896,1209.83153911306,1250.18510252558,1237.57259026597,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"GHISALBERTI Ilaria","llaria Ghisalberti",4151,"ITA",NA,30,"False","True",2000,NA,NA,NA,NA,"Giant Slalom",1252.91664980249,1256.79815955042,1269.01140007282,1285.16840491896,1255.319149799,1250.18510252558,1235.59278828597,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"GIESBRECHT Kendra","Kendra Giesbrecht",5336,"CAN",NA,49,"False","True",2005,NA,NA,NA,NA,"Giant Slalom",1224.83517212574,1256.79815955042,1269.01140007282,1285.16840491896,1239.67281677276,1250.18510252558,1233.57259026597,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"LOEVBLOM Hilma","Hilma Lövblom",3985,"SWE",NA,32,"False","True",2000,NA,NA,NA,NA,"Giant Slalom",1251.84475892743,1256.79815955042,1269.01140007282,1285.16840491896,1252.52252128805,1250.18510252558,1232.24187122108,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"BARUZZI FARRIOL Francesca","Francesca Baruzzi Farriol",1336,"ARG",NA,38,"False","True",1998,NA,NA,NA,NA,"Giant Slalom",1206.02944603703,1256.79815955042,1172.24023551686,1274.31096087483,1209.80897043257,1270.39222098411,1229.04737514488,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"JANCOVA Rebeka","Rebeka Jancova",4087,"SVK",NA,46,"False","True",2003,NA,NA,NA,NA,"Giant Slalom",1178.57121981413,1256.79815955042,1269.01140007282,1285.16840491896,1202.58165434371,1275.16232520503,1191.15686695572,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"COLLOMB Giorgia","Giorgia Collomb",5332,"ITA",NA,35,"False","True",2006,NA,NA,NA,NA,"Giant Slalom",1127.61344496991,1256.79815955042,1152.6192064916,1285.16840491896,1137.97297782165,1250.18510252558,1187.27562917526,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"LAMONTAGNE Justine","Justine Lamontagne",4286,"CAN",NA,47,"False","True",2002,NA,NA,NA,NA,"Giant Slalom",1173.65536302906,1256.79815955042,1267.65749521494,1285.16840491896,1183.86793547288,1250.18510252558,1180.60001969143,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"ESCANE Doriane","Doriane Escane",3577,"FRA",NA,44,"False","True",1999,NA,NA,NA,NA,"Giant Slalom",1182.1148147162,1256.79815955042,1282.68947838251,1285.16840491896,1196.59639996848,1250.18510252558,1177.80359636143,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"BUERGLER Viktoria","Viktoria Bürgler",4323,"AUT",NA,41,"False","True",2004,NA,NA,NA,NA,"Giant Slalom",1145.6824031827,1256.79815955042,1269.01140007282,1285.16840491896,1166.94305043253,1250.18510252558,1152.80183681021,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"MCFARLANE Caitlin","Caitlin McFarlane",4104,"FRA",NA,45,"False","True",2002,NA,NA,NA,NA,"Giant Slalom",1303.35599392481,1256.79815955042,1448.04826974145,1285.16840491896,1298.64041780098,1250.18510252558,1141.3660644482,1,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Lara Gut-Behrami","Lara Gut-Behrami",10,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1721.16904766921,1542.30925361081,1314.33045729156,1309.23050563173,1663.71617237049,1673.04373589813,1648.43583818753,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"AJ Hurt","AJ Hurt",3886,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1446.1165872573,1256.79815955042,1312.11691445619,1279.11096087483,1447.76116514533,1264.73652737646,1485.54885487984,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Kajsa Vickhoff Lie","Kajsa Vickhoff Lie",2963,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1541.04930246144,1449.16143697395,1269.01140007282,1286.05232987678,1443.47172055564,1511.01587297906,1433.61355013871,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Katie Hensien","Katie Hensien",3887,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1449.17838816638,1256.79815955042,1295.1276246383,1285.16840491896,1432.98903468551,1250.18510252558,1421.29572906911,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Neja Dvornik","Neja Dvornik",3890,"Slovenia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1536.62634126119,1256.79815955042,1508.5172684393,1285.16840491896,1516.40049302509,1250.18510252558,1395.46295367648,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Zita Toth","Zita Toth",3970,"Hungary",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1355.77096198627,1256.79815955042,1336.98410641275,1285.16840491896,1337.04960711019,1250.18510252558,1308.65732578546,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Clara-Marie Holmer Vorre","Clara-Marie Holmer Vorre",4211,"Denmark",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1190.57198659173,1256.79815955042,1207.83214144004,1285.16840491896,1208.28717952561,1250.18510252558,1292.72105142649,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Laurence St-Germain","Laurence St-Germain",379,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1490.65208659371,1256.79815955042,1479.62854495815,1285.16840491896,1475.72322806826,1250.18510252558,1290.61121812099,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Selina Egloff","Selina Egloff",3958,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1217.86954483218,1256.79815955042,1217.69862625083,1285.16840491896,1225.42652608328,1250.18510252558,1286.41182209188,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Katharina Gallhuber","Katharina Gallhuber",2829,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1519.77798698198,1256.79815955042,1507.15471151923,1285.16840491896,1499.92432240269,1250.18510252558,1282.06835919878,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Marie Lamure","Marie Lamure",3993,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1329.48202726437,1256.79815955042,1335.25314270421,1285.16840491896,1333.40502918735,1250.18510252558,1280.14820346695,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Annette Belfrond","Annette Belfrond",4065,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1165.60040082939,1256.79815955042,1190.1834100043,1285.16840491896,1185.52131687757,1250.18510252558,1278.44400574536,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Hanna Aronsson Elfman","Hanna Aronsson Elfman",4063,"Sweden",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1454.42141352229,1256.79815955042,1460.54544126085,1285.16840491896,1436.05800373007,1250.18510252558,1276.66440901615,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Amelia Smart","Amelia Smart",2983,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1295.72716126693,1256.79815955042,1299.33394704614,1285.16840491896,1299.69654165044,1250.18510252558,1274.21887204164,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Melanie Meillard","Melanie Meillard",1322,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1478.97965143336,1256.79815955042,1486.56677727695,1285.16840491896,1468.25868989128,1250.18510252558,1271.63947443025,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Moa Boström Mussener","Moa Boström Mussener",4168,"Sweden",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1287.8313484418,1256.79815955042,1293.02826782446,1285.16840491896,1282.99682498302,1250.18510252558,1270.06561457327,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Eliane Christen","Eliane Christen",4471,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1346.30255788599,1256.79815955042,1339.80255430569,1285.16840491896,1335.09214033812,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Kiara Alexander","Kiara Alexander",4743,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1200.76035274892,1256.79815955042,1206.87134861923,1285.16840491896,1207.95668991089,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Madeleine Beck","Madeleine Beck",5214,"Liechtenstein",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1223.62011914304,1256.79815955042,1237.17765399394,1285.16840491896,1239.19527672966,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Silja Koskinen","Silja Koskinen",5220,"Finland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1224.49221976509,1256.79815955042,1235.91984835334,1285.16840491896,1236.63458144328,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Emilia Mondinelli","Emilia Mondinelli",4987,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1261.60150652079,1256.79815955042,1266.25563124886,1285.16840491896,1266.73645948809,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Rosa Pohjolainen","Rosa Pohjolainen",4060,"Finland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1343.2757277211,1256.79815955042,1335.88806560603,1285.16840491896,1328.21687298901,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Anuk Brändli","Anuk Brändli",5277,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1355.13157953208,1256.79815955042,1348.89695645797,1285.16840491896,1344.17251659138,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Alice Pazzaglia","Alice Pazzaglia",4303,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1135.07408820651,1256.79815955042,1155.04327070686,1285.16840491896,1162.1466247567,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Aada Kanto","Aada Kanto",5444,"Finland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1181.56711931892,1256.79815955042,1199.27616998561,1285.16840491896,1203.04528499374,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Kia Suni","Kia Suni",5944,"Finland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1208.62011914304,1256.79815955042,1224.17765399394,1285.16840491896,1227.19527672966,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Carla Mijares Ruf","Carla Mijares Ruf",4106,"Andorra",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1228.67247964191,1256.79815955042,1240.28974476752,1285.16840491896,1242.8773263934,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Annabel Jallat","Annabel Jallat",5433,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1243.62011914304,1256.79815955042,1254.51098732728,1285.16840491896,1255.19527672966,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Natalie Falch","Natalie Falch",4280,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1230.61554462653,1256.79815955042,1230.26594488316,1285.16840491896,1228.06317834366,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Nicole Good","Nicole Good",3782,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1351.79839604738,1256.79815955042,1350.20576973294,1285.16840491896,1344.68296655692,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Aline Höpli","Aline Höpli",4226,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1219.14945607964,1256.79815955042,1221.80505676816,1285.16840491896,1221.95631526687,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Eren Watanabe","Eren Watanabe",4205,"Japan",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1226.7539470403,1256.79815955042,1237.36722997729,1285.16840491896,1237.43668638967,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Sophie Mahon","Sophie Mahon",5255,"Australia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1172.35160865168,1256.79815955042,1189.29813503014,1285.16840491896,1194.84988995923,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Annika Hunt","Annika Hunt",5297,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1174.13054584197,1256.79815955042,1187.12079220154,1285.16840491896,1195.08070736099,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Marjolaine Ollier","Marjolaine Ollier",5699,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1178.62011914304,1256.79815955042,1198.17765399394,1285.16840491896,1203.19527672966,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Phoebe Heaydon","Phoebe Heaydon",5282,"Australia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1173.62011914304,1256.79815955042,1193.84432066061,1285.16840491896,1199.19527672966,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Martina Peterlini","Martina Peterlini",3892,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1338.6320387476,1256.79815955042,1345.91226167201,1285.16840491896,1347.48700149608,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Victoria Palla","Victoria Palla",3921,"Great Britain",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1173.82099806285,1256.79815955042,1197.83587422082,1285.16840491896,1203.30787890482,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Marion Chevrier","Marion Chevrier",4203,"France",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1479.5892775385,1256.79815955042,1465.88137772791,1285.16840491896,1456.54643907158,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Amelie Klopfenstein","Amelie Klopfenstein",4092,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1145.05931113596,1256.79815955042,1164.88439889875,1285.16840491896,1172.13476565636,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Lila Lapanja","Lila Lapanja",377,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1045.34407162592,1256.79815955042,1061.53395096885,1285.16840491896,1068.71482791754,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Chisaki Maeda","Chisaki Maeda",2985,"Japan",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1183.98373648508,1256.79815955042,1181.90388088093,1285.16840491896,1186.46166939063,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Dzenifera Germane","Dzenifera Germane",4080,"Latvia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1471.13757370442,1256.79815955042,1463.66163743997,1285.16840491896,1454.5971555082,1250.18510252558,1265.99739116851,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Liv Moritz","Liv Moritz",4744,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1331.95644711354,1256.79815955042,1342.39213095043,1285.16840491896,1321.68712064006,1250.18510252558,1264.48422712833,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Kim Vanreusel","Kim Vanreusel",2962,"Belgium",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1121.40359117502,1287.80403725706,1132.10772990022,1285.16840491896,1140.85535676961,1274.7655742187,1264.38281588771,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Mialitiana Clerc","Mialitiana Clerc",3889,"Madagascar",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1170.6913117093,1256.79815955042,1194.35549872252,1285.16840491896,1188.13197408136,1250.18510252558,1259.63022595691,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Stefanie Grob","Stefanie Grob",4970,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1272.82491676953,1294.76917529788,1269.01140007282,1285.16840491896,1269.81010181818,1295.3511947374,1259.44968648493,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Asa Ando","Asa Ando",427,"Japan",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1403.22504433318,1256.79815955042,1393.32166963666,1285.16840491896,1386.18387598326,1250.18510252558,1256.78398122058,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Giulia Valleriani","Giulia Valleriani",5329,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1117.31733379616,1256.79815955042,1172.17765399394,1285.16840491896,1150.37884779924,1250.18510252558,1248.78498661466,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Beatrice Sola","Beatrice Sola",4229,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1264.77405468902,1256.79815955042,1278.39022110095,1285.16840491896,1268.17371159925,1250.18510252558,1246.40084185357,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Sophie Mathiou","Sophie Mathiou",4103,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1190.66922945103,1256.79815955042,1196.93149757328,1285.16840491896,1191.66043482819,1250.18510252558,1243.08984796447,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Bianca Bakke Westhoff","Bianca Bakke Westhoff",4160,"Norway",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1334.26299785325,1256.79815955042,1425.80473004746,1285.16840491896,1335.51988706474,1250.18510252558,1241.01542541089,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Shaienne Zehnder","Shaienne Zehnder",5933,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1226.18618741304,1256.79815955042,1269.01140007282,1285.16840491896,1241.72816262574,1250.18510252558,1236.78498661466,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Noa Szollos","Noa Szollos",4124,"Israel",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1194.97925485847,1256.79815955042,1236.20525032163,1284.19525998479,1206.64382477479,1283.53578368116,1233.66075416709,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Cornelia Öhlund","Cornelia Öhlund",5016,"Sweden",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1312.16210526957,1256.79815955042,1404.06883028946,1285.16840491896,1329.23799876822,1250.18510252558,1229.67945440145,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Katharina Truppe","Katharina Truppe",1345,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1580.572442194,1256.79815955042,1605.63584711473,1285.16840491896,1549.28814856706,1250.18510252558,1227.8292037389,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Aline Danioth","Aline Danioth",1321,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1368.40909103453,1256.79815955042,1368.74247889551,1285.16840491896,1361.53365731274,1250.18510252558,1226.55103094369,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Maja Waroschitz","Maja Waroschitz",5878,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1166.86703826027,1256.79815955042,1233.24557790118,1285.16840491896,1181.86179085842,1250.18510252558,1224.78498661466,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Anna Swenn-Larsson","Anna Swenn-Larsson",76,"Sweden",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1628.60869062312,1256.79815955042,1614.59825176938,1285.16840491896,1607.08209813136,1250.18510252558,1221.65193559989,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Ali Nullmeyer","Ali Nullmeyer",2972,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1350.60148613601,1256.79815955042,1363.70398378673,1285.16840491896,1364.29921334744,1250.18510252558,1219.77568797082,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Martina Dubovska","Martina Dubovska",168,"Czechia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1297.90884312437,1256.79815955042,1310.20829106084,1285.16840491896,1312.39018049245,1250.18510252558,1219.01099111245,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Liene Bondare","Liene Bondare",511,"Latvia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1175.61598366929,1256.79815955042,1202.38764710311,1285.16840491896,1191.43593397089,1250.18510252558,1217.77238587055,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Tricia Mangan","Tricia Mangan",1341,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1142.84461415642,1158.06326947878,1284.53728226956,1305.06196110636,1213.20532144733,1173.26044395096,1206.99228519513,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Sarah Bennett","Sarah Bennett",4156,"Canada",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1110.71681254526,1256.79815955042,1180.84432066061,1285.16840491896,1131.14115150004,1250.18510252558,1203.39211387703,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Leona Popovic","Leona Popovic",1193,"Croatia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1314.56914007293,1284.82952765726,1333.08271514283,1291.63602926795,1326.68747798114,1240.0372091902,1202.53811747516,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Elisa Platino","Elisa Platino",3947,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1197.04205230148,1256.79815955042,1269.01140007282,1285.16840491896,1219.05179608181,1250.18510252558,1202.29931929984,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Laura Steinmair","Laura Steinmair",4237,"Italy",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1193.26300172503,1256.79815955042,1269.01140007282,1285.16840491896,1208.29030568709,1250.18510252558,1201.4102073316,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Jasmina Suter","Jasmina Suter",262,"Switzerland",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1214.85832104668,1228.01634058421,1303.42937747041,1273.18973068739,1211.13565231744,1266.92755933445,1194.67518853367,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Katharina Huber","Katharina Huber",1324,"Austria",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1526.32427077235,1256.79815955042,1547.43060239161,1324.55850437723,1503.36265308313,1250.18510252558,1163.36449651201,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Keely Cashman","Keely Cashman",2975,"USA",999,999,"True","False",NA,NA,NA,NA,NA,"Giant Slalom",1134.41348018485,1184.03005818619,1278.48804359175,1287.16033038406,1153.474999961,1207.34952243272,1146.36564264306,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Andreja Slokar","Andreja Slokar",3736,"Slovenia",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1265.64839591212,1256.79815955042,1495.9367079516,1285.16840491896,1292.58398015888,1250.18510252558,1127.25954846051,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
+"Jessica Hilzinger","Jessica Hilzinger",1339,"Germany",999,999,"False","False",NA,NA,NA,NA,NA,"Giant Slalom",1226.69299577337,1256.79815955042,1306.28757498783,1294.51862961427,1227.54426998972,1250.18510252558,1123.38473803434,0,"Tremblant","Canada","Ladies' Giant Slalom","12/07/2025","L"
