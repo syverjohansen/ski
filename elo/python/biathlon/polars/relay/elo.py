@@ -606,7 +606,7 @@ def main():
     # Save results
     base_path = os.path.expanduser("~/ski/elo/python/biathlon/polars/relay/excel365")
     
-    # Save both feather and CSV formats
+    # Save CSV format
     elo_df.write_csv(f"{base_path}/{file_string}.csv")
     
     # Log execution time

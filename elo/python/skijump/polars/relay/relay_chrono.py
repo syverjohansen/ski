@@ -232,7 +232,7 @@ def process_team(df, sex):
     return team_df_processed
 
 def save_dataframe(df, filename):
-    """Save dataframe to both feather and CSV formats"""
+    """Save dataframe to CSV format"""
     if df is None:
         print(f"No data to save for {filename}")
         return

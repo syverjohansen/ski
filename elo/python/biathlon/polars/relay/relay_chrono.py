@@ -295,7 +295,7 @@ def process_relay(df, sex):
     return team_df
 
 def save_dataframe(df, filename):
-    """Save dataframe to both feather and CSV formats"""
+    """Save dataframe to CSV format"""
     if df is None:
         print(f"No data to save for {filename}")
         return

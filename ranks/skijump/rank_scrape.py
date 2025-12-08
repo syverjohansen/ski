@@ -301,7 +301,7 @@ def merge_with_existing_data(standings_df: pd.DataFrame, gender: str) -> pd.Data
         return standings_df
 
 def save_standings(standings: List[Dict], gender: str):
-    """Save standings to CSV and feather formats"""
+    """Save standings to CSV format"""
     if not standings:
         logging.warning(f"No standings data to save for {gender}")
         return
@@ -337,10 +337,8 @@ def save_standings(standings: List[Dict], gender: str):
     # Save files
     base_name = "ladies" if gender == "L" else "men"
     csv_path = output_dir / f"{base_name}_scrape_update.csv"
-    feather_path = output_dir / f"{base_name}_scrape.feather"
     
     final_df.to_csv(csv_path, index=False)
-    final_df.to_feather(feather_path)
     logging.info(f"Saved {len(final_df)} total records for {gender}")
 
 async def process_gender(gender: str):

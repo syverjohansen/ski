@@ -71,65 +71,65 @@ def ladies():
     
     try:
         L = pl.read_csv(f'{base_path}/L.csv')
-        print("Successfully read L.feather")
+        print("Successfully read L.csv")
     except Exception as e:
-        print(f"Error reading L.feather: {e}")
+        print(f"Error reading L.csv: {e}")
         L = None
         
     try:
         L_Downhill = pl.read_csv(f'{base_path}/L_Downhill.csv')
         L_Downhill = L_Downhill.rename({"Pelo": "Downhill_Pelo", "Elo": "Downhill_Elo"})
-        print("Successfully read L_Downhill.feather")
+        print("Successfully read L_Downhill.csv")
     except Exception as e:
-        print(f"Error reading L_Downhill.feather: {e}")
+        print(f"Error reading L_Downhill.csv: {e}")
         L_Downhill = None
         
     try:
         L_SuperG = pl.read_csv(f'{base_path}/L_SuperG.csv')
         L_SuperG = L_SuperG.rename({'Pelo': 'Super G_Pelo', 'Elo': 'Super G_Elo'})
-        print("Successfully read L_SuperG.feather")
+        print("Successfully read L_SuperG.csv")
     except Exception as e:
-        print(f"Error reading L_SuperG.feather: {e}")
+        print(f"Error reading L_SuperG.csv: {e}")
         L_SuperG = None
         
     try:
         L_GS = pl.read_csv(f'{base_path}/L_GS.csv')
         L_GS = L_GS.rename({'Pelo': 'Giant Slalom_Pelo', 'Elo': 'Giant Slalom_Elo'})
-        print("Successfully read L_GS.feather")
+        print("Successfully read L_GS.csv")
     except Exception as e:
-        print(f"Error reading L_GS.feather: {e}")
+        print(f"Error reading L_GS.csv: {e}")
         L_GS = None
         
     try:
         L_SL = pl.read_csv(f'{base_path}/L_SL.csv')
         L_SL = L_SL.rename({'Pelo': 'Slalom_Pelo', 'Elo': 'Slalom_Elo'})
-        print("Successfully read L_SL.feather")
+        print("Successfully read L_SL.csv")
     except Exception as e:
-        print(f"Error reading L_SL.feather: {e}")
+        print(f"Error reading L_SL.csv: {e}")
         L_SL = None
         
     try:
         L_Combined = pl.read_csv(f'{base_path}/L_Combined.csv')
         L_Combined = L_Combined.rename({'Pelo': 'Combined_Pelo', 'Elo': 'Combined_Elo'})
-        print("Successfully read L_Combined.feather")
+        print("Successfully read L_Combined.csv")
     except Exception as e:
-        print(f"Error reading L_Combined.feather: {e}")
+        print(f"Error reading L_Combined.csv: {e}")
         L_Combined = None
         
     try:
         L_Tech = pl.read_csv(f'{base_path}/L_Tech.csv')
         L_Tech = L_Tech.rename({'Pelo': 'Tech_Pelo', 'Elo': 'Tech_Elo'})
-        print("Successfully read L_Tech.feather")
+        print("Successfully read L_Tech.csv")
     except Exception as e:
-        print(f"Error reading L_Tech.feather: {e}")
+        print(f"Error reading L_Tech.csv: {e}")
         L_Tech = None
         
     try:
         L_Speed = pl.read_csv(f'{base_path}/L_Speed.csv')
         L_Speed = L_Speed.rename({'Pelo': 'Speed_Pelo', 'Elo': 'Speed_Elo'})
-        print("Successfully read L_Speed.feather")
+        print("Successfully read L_Speed.csv")
     except Exception as e:
-        print(f"Error reading L_Speed.feather: {e}")
+        print(f"Error reading L_Speed.csv: {e}")
         L_Speed = None
     
     print("Done reading ladies files")
@@ -217,65 +217,65 @@ def men():
     
     try:
         M = pl.read_csv(f'{base_path}/M.csv')
-        print("Successfully read M.feather")
+        print("Successfully read M.csv")
     except Exception as e:
-        print(f"Error reading M.feather: {e}")
+        print(f"Error reading M.csv: {e}")
         M = None
         
     try:
         M_Downhill = pl.read_csv(f'{base_path}/M_Downhill.csv')
         M_Downhill = M_Downhill.rename({"Pelo": "Downhill_Pelo", "Elo": "Downhill_Elo"})
-        print("Successfully read M_Downhill.feather")
+        print("Successfully read M_Downhill.csv")
     except Exception as e:
-        print(f"Error reading M_Downhill.feather: {e}")
+        print(f"Error reading M_Downhill.csv: {e}")
         M_Downhill = None
         
     try:
         M_SuperG = pl.read_csv(f'{base_path}/M_SuperG.csv')
         M_SuperG = M_SuperG.rename({'Pelo': 'Super G_Pelo', 'Elo': 'Super G_Elo'})
-        print("Successfully read M_SuperG.feather")
+        print("Successfully read M_SuperG.csv")
     except Exception as e:
-        print(f"Error reading M_SuperG.feather: {e}")
+        print(f"Error reading M_SuperG.csv: {e}")
         M_SuperG = None
         
     try:
         M_GS = pl.read_csv(f'{base_path}/M_GS.csv')
         M_GS = M_GS.rename({'Pelo': 'Giant Slalom_Pelo', 'Elo': 'Giant Slalom_Elo'})
-        print("Successfully read M_GS.feather")
+        print("Successfully read M_GS.csv")
     except Exception as e:
-        print(f"Error reading M_GS.feather: {e}")
+        print(f"Error reading M_GS.csv: {e}")
         M_GS = None
         
     try:
         M_SL = pl.read_csv(f'{base_path}/M_SL.csv')
         M_SL = M_SL.rename({'Pelo': 'Slalom_Pelo', 'Elo': 'Slalom_Elo'})
-        print("Successfully read M_SL.feather")
+        print("Successfully read M_SL.csv")
     except Exception as e:
-        print(f"Error reading M_SL.feather: {e}")
+        print(f"Error reading M_SL.csv: {e}")
         M_SL = None
         
     try:
         M_Combined = pl.read_csv(f'{base_path}/M_Combined.csv')
         M_Combined = M_Combined.rename({'Pelo': 'Combined_Pelo', 'Elo': 'Combined_Elo'})
-        print("Successfully read M_Combined.feather")
+        print("Successfully read M_Combined.csv")
     except Exception as e:
-        print(f"Error reading M_Combined.feather: {e}")
+        print(f"Error reading M_Combined.csv: {e}")
         M_Combined = None
         
     try:
         M_Tech = pl.read_csv(f'{base_path}/M_Tech.csv')
         M_Tech = M_Tech.rename({'Pelo': 'Tech_Pelo', 'Elo': 'Tech_Elo'})
-        print("Successfully read M_Tech.feather")
+        print("Successfully read M_Tech.csv")
     except Exception as e:
-        print(f"Error reading M_Tech.feather: {e}")
+        print(f"Error reading M_Tech.csv: {e}")
         M_Tech = None
         
     try:
         M_Speed = pl.read_csv(f'{base_path}/M_Speed.csv')
         M_Speed = M_Speed.rename({'Pelo': 'Speed_Pelo', 'Elo': 'Speed_Elo'})
-        print("Successfully read M_Speed.feather")
+        print("Successfully read M_Speed.csv")
     except Exception as e:
-        print(f"Error reading M_Speed.feather: {e}")
+        print(f"Error reading M_Speed.csv: {e}")
         M_Speed = None
     
     print("Done reading men's files")
@@ -371,17 +371,17 @@ if __name__ == "__main__":
         print("Ladies nations:")
         print(ladies_nation)
         
-        # Save the ladies files
+        # Save the ladies chrono CSV file
         ladiesdf.write_csv("~/ski/elo/python/alpine/polars/excel365/ladies_chrono.csv")
-        print("Saved ladies chrono files")
+        print("Saved ladies chrono CSV file")
 
     if mendf is not None:
         men_nation = mendf.select("Nation").unique().sort(["Nation"])
         print("Men's nations:")
         print(men_nation)
         
-        # Save the men's files
+        # Save the men's chrono CSV file
         mendf.write_csv("~/ski/elo/python/alpine/polars/excel365/men_chrono.csv")
-        print("Saved men's chrono files")
+        print("Saved men's chrono CSV file")
 
     print(f"Total execution time: {time.time() - start_time:.2f} seconds")

@@ -39,10 +39,6 @@ EOF
         expanded_path=$(eval echo $base_path)
         
         # Check if the file without prefix exists and rename it
-        if [ -f "$expanded_path/$distance.feather" ]; then
-            mv "$expanded_path/$distance.feather" "$expanded_path/${output_name}.feather"
-            echo "Renamed $distance.feather to ${output_name}.feather"
-        fi
         
         if [ -f "$expanded_path/$distance.csv" ]; then
             mv "$expanded_path/$distance.csv" "$expanded_path/${output_name}.csv"
