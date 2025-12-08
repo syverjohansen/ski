@@ -20,9 +20,9 @@ start_time = time.time()
 # Modify the sex function in elo.py to use the updated scrape files:
 def sex(df, sex):
     if(sex=="M"):
-        df = pl.read_ipc("~/ski/elo/python/ski/polars/relay/excel365/men_scrape_update.feather")
+        df = pl.read_csv("~/ski/elo/python/ski/polars/relay/excel365/men_scrape_update.csv")
     else:
-        df = pl.read_ipc("~/ski/elo/python/ski/polars/relay/excel365/ladies_scrape_update.feather")
+        df = pl.read_csv("~/ski/elo/python/ski/polars/relay/excel365/ladies_scrape_update.csv")
     
     # Cast columns to appropriate types
     df = df.with_columns([
@@ -526,8 +526,7 @@ print(elo_df)
 # Base path for output files
 base_path = "~/ski/elo/python/ski/polars/relay/excel365"
 
-# Save both feather and CSV formats
-elo_df.write_ipc(f"{base_path}/{file_string}.feather")
+# Save CSV format
 elo_df.write_csv(f"{base_path}/{file_string}.csv")
 print(time.time() - start_time)
 

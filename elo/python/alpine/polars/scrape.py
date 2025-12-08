@@ -857,12 +857,10 @@ def save_dataframes(men_df, ladies_df, base_path="~/ski/elo/python/alpine/polars
         os.makedirs(base_path, exist_ok=True)
         
         if men_df is not None:
-            men_df.write_ipc(f"{base_path}/men_scrape.feather")
             men_df.write_csv(f"{base_path}/men_scrape.csv")
             logging.info(f"Saved men's historical data with {len(men_df)} rows")
             
         if ladies_df is not None:
-            ladies_df.write_ipc(f"{base_path}/ladies_scrape.feather")
             ladies_df.write_csv(f"{base_path}/ladies_scrape.csv")
             logging.info(f"Saved ladies' historical data with {len(ladies_df)} rows")
             

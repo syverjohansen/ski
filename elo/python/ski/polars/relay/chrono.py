@@ -65,22 +65,22 @@ def ladies():
     # Read all ladies files with consistent path
     base_path = '~/ski/elo/python/ski/polars/relay/excel365'
     
-    L = pl.read_ipc(f'{base_path}/L_rel.feather')
-    L_Distance = pl.read_ipc(f'{base_path}/L_rel_Distance.feather')
+    L = pl.read_csv(f'{base_path}/L_rel.csv')
+    L_Distance = pl.read_csv(f'{base_path}/L_rel_Distance.csv')
     L_Distance = L_Distance.rename({"Pelo": "Distance_Pelo", "Elo": "Distance_Elo"})
-    L_Distance_C = pl.read_ipc(f'{base_path}/L_rel_Distance_C.feather')
+    L_Distance_C = pl.read_csv(f'{base_path}/L_rel_Distance_C.csv')
     L_Distance_C = L_Distance_C.rename({'Pelo': 'Distance_C_Pelo', 'Elo': 'Distance_C_Elo'})
-    L_Distance_F = pl.read_ipc(f'{base_path}/L_rel_Distance_F.feather')
+    L_Distance_F = pl.read_csv(f'{base_path}/L_rel_Distance_F.csv')
     L_Distance_F = L_Distance_F.rename({'Pelo': 'Distance_F_Pelo', 'Elo': 'Distance_F_Elo'})
-    L_Sprint = pl.read_ipc(f'{base_path}/L_rel_Sprint.feather')
+    L_Sprint = pl.read_csv(f'{base_path}/L_rel_Sprint.csv')
     L_Sprint = L_Sprint.rename({'Pelo': 'Sprint_Pelo', 'Elo': 'Sprint_Elo'})
-    L_Sprint_C = pl.read_ipc(f'{base_path}/L_rel_Sprint_C.feather')
+    L_Sprint_C = pl.read_csv(f'{base_path}/L_rel_Sprint_C.csv')
     L_Sprint_C = L_Sprint_C.rename({'Pelo': 'Sprint_C_Pelo', 'Elo': 'Sprint_C_Elo'})
-    L_Sprint_F = pl.read_ipc(f'{base_path}/L_rel_Sprint_F.feather')
+    L_Sprint_F = pl.read_csv(f'{base_path}/L_rel_Sprint_F.csv')
     L_Sprint_F = L_Sprint_F.rename({'Pelo': 'Sprint_F_Pelo', 'Elo': 'Sprint_F_Elo'})
-    L_C = pl.read_ipc(f'{base_path}/L_rel_C.feather')
+    L_C = pl.read_csv(f'{base_path}/L_rel_C.csv')
     L_C = L_C.rename({'Pelo': 'Classic_Pelo', 'Elo': 'Classic_Elo'})
-    L_F = pl.read_ipc(f'{base_path}/L_rel_F.feather')
+    L_F = pl.read_csv(f'{base_path}/L_rel_F.csv')
     L_F = L_F.rename({'Pelo': 'Freestyle_Pelo', 'Elo': 'Freestyle_Elo'})
     print("Done reading ladies files")
 
@@ -135,22 +135,22 @@ def men():
     # Read all men's files with consistent path
     base_path = '~/ski/elo/python/ski/polars/relay/excel365'
     
-    M = pl.read_ipc(f'{base_path}/M_rel.feather')
-    M_Distance = pl.read_ipc(f'{base_path}/M_rel_Distance.feather')
+    M = pl.read_csv(f'{base_path}/M_rel.csv')
+    M_Distance = pl.read_csv(f'{base_path}/M_rel_Distance.csv')
     M_Distance = M_Distance.rename({"Pelo": "Distance_Pelo", "Elo": "Distance_Elo"})
-    M_Distance_C = pl.read_ipc(f'{base_path}/M_rel_Distance_C.feather')
+    M_Distance_C = pl.read_csv(f'{base_path}/M_rel_Distance_C.csv')
     M_Distance_C = M_Distance_C.rename({'Pelo': 'Distance_C_Pelo', 'Elo': 'Distance_C_Elo'})
-    M_Distance_F = pl.read_ipc(f'{base_path}/M_rel_Distance_F.feather')
+    M_Distance_F = pl.read_csv(f'{base_path}/M_rel_Distance_F.csv')
     M_Distance_F = M_Distance_F.rename({'Pelo': 'Distance_F_Pelo', 'Elo': 'Distance_F_Elo'})
-    M_Sprint = pl.read_ipc(f'{base_path}/M_rel_Sprint.feather')
+    M_Sprint = pl.read_csv(f'{base_path}/M_rel_Sprint.csv')
     M_Sprint = M_Sprint.rename({'Pelo': 'Sprint_Pelo', 'Elo': 'Sprint_Elo'})
-    M_Sprint_C = pl.read_ipc(f'{base_path}/M_rel_Sprint_C.feather')
+    M_Sprint_C = pl.read_csv(f'{base_path}/M_rel_Sprint_C.csv')
     M_Sprint_C = M_Sprint_C.rename({'Pelo': 'Sprint_C_Pelo', 'Elo': 'Sprint_C_Elo'})
-    M_Sprint_F = pl.read_ipc(f'{base_path}/M_rel_Sprint_F.feather')
+    M_Sprint_F = pl.read_csv(f'{base_path}/M_rel_Sprint_F.csv')
     M_Sprint_F = M_Sprint_F.rename({'Pelo': 'Sprint_F_Pelo', 'Elo': 'Sprint_F_Elo'})
-    M_C = pl.read_ipc(f'{base_path}/M_rel_C.feather')
+    M_C = pl.read_csv(f'{base_path}/M_rel_C.csv')
     M_C = M_C.rename({'Pelo': 'Classic_Pelo', 'Elo': 'Classic_Elo'})
-    M_F = pl.read_ipc(f'{base_path}/M_rel_F.feather')
+    M_F = pl.read_csv(f'{base_path}/M_rel_F.csv')
     M_F = M_F.rename({'Pelo': 'Freestyle_Pelo', 'Elo': 'Freestyle_Elo'})
     print("Done reading men's files")
 
@@ -214,11 +214,7 @@ men_nation = mendf.select("Nation").unique().sort(["Nation"])
 print(ladies_nation)
 print(men_nation)
 
-# Save the final files
-ladiesdf.write_ipc("~/ski/elo/python/ski/polars/relay/excel365/ladies_chrono.feather")
-mendf.write_ipc("~/ski/elo/python/ski/polars/relay/excel365/men_chrono.feather")
-
-# Also save as CSV for easier viewing/sharing
+# Save the final files as CSV
 ladiesdf.write_csv("~/ski/elo/python/ski/polars/relay/excel365/ladies_chrono.csv")
 mendf.write_csv("~/ski/elo/python/ski/polars/relay/excel365/men_chrono.csv")
 

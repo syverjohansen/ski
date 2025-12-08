@@ -27,9 +27,9 @@ os.makedirs(output_dir, exist_ok=True)
 def sex(df, sex):
     """Load data for specified sex"""
     if(sex=="M"):
-        df = pl.read_ipc("~/ski/elo/python/biathlon/polars/relay/excel365/men_scrape_update.feather")
+        df = pl.read_csv("~/ski/elo/python/biathlon/polars/relay/excel365/men_scrape_update.csv")
     else:
-        df = pl.read_ipc("~/ski/elo/python/biathlon/polars/relay/excel365/ladies_scrape_update.feather")
+        df = pl.read_csv("~/ski/elo/python/biathlon/polars/relay/excel365/ladies_scrape_update.csv")
     
     # Cast columns to appropriate types
     df = df.with_columns([
@@ -607,7 +607,6 @@ def main():
     base_path = os.path.expanduser("~/ski/elo/python/biathlon/polars/relay/excel365")
     
     # Save both feather and CSV formats
-    elo_df.write_ipc(f"{base_path}/{file_string}.feather")
     elo_df.write_csv(f"{base_path}/{file_string}.csv")
     
     # Log execution time

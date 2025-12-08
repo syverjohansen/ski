@@ -19,8 +19,8 @@ def load_chrono_files():
     print("Loading chronological files...")
     
     try:
-        men_chrono = pl.read_ipc(base_path / "men_chrono.feather")
-        ladies_chrono = pl.read_ipc(base_path / "ladies_chrono.feather")
+        men_chrono = pl.read_csv(base_path / "men_chrono.csv")
+        ladies_chrono = pl.read_csv(base_path / "ladies_chrono.csv")
         print(f"Loaded men's chrono with {men_chrono.shape[0]} rows")
         print(f"Loaded ladies' chrono with {ladies_chrono.shape[0]} rows")
         return men_chrono, ladies_chrono
@@ -301,10 +301,6 @@ def save_dataframe(df, filename):
         return
     
     try:
-        # Save to feather (can handle nested data)
-        df.write_ipc(output_path / f"{filename}.feather")
-        print(f"Saved {filename}.feather with {df.shape[0]} rows")
-        
         # For CSV: Convert nested data to string representations
         csv_df = df.clone()
         for col in csv_df.columns:

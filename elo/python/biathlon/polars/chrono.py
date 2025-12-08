@@ -73,19 +73,19 @@ def ladies():
     base_path = '~/ski/elo/python/biathlon/polars/excel365'
     
     # Load the main Elo files
-    L = pl.read_ipc(f'{base_path}/L.feather')
+    L = pl.read_csv(f'{base_path}/L.csv')
     
     # Load and rename specific race type Elo files
-    L_Individual = pl.read_ipc(f'{base_path}/L_Individual.feather')
+    L_Individual = pl.read_csv(f'{base_path}/L_Individual.csv')
     L_Individual = L_Individual.rename({"Pelo": "Individual_Pelo", "Elo": "Individual_Elo"})
     
-    L_Sprint = pl.read_ipc(f'{base_path}/L_Sprint.feather')
+    L_Sprint = pl.read_csv(f'{base_path}/L_Sprint.csv')
     L_Sprint = L_Sprint.rename({"Pelo": "Sprint_Pelo", "Elo": "Sprint_Elo"})
     
-    L_Pursuit = pl.read_ipc(f'{base_path}/L_Pursuit.feather')
+    L_Pursuit = pl.read_csv(f'{base_path}/L_Pursuit.csv')
     L_Pursuit = L_Pursuit.rename({"Pelo": "Pursuit_Pelo", "Elo": "Pursuit_Elo"})
     
-    L_Mass_Start = pl.read_ipc(f'{base_path}/L_Mass_Start.feather')
+    L_Mass_Start = pl.read_csv(f'{base_path}/L_Mass_Start.csv')
     L_Mass_Start = L_Mass_Start.rename({"Pelo": "MassStart_Pelo", "Elo": "MassStart_Elo"})
     
     print("Done reading ladies files")
@@ -136,19 +136,19 @@ def men():
     base_path = '~/ski/elo/python/biathlon/polars/excel365'
     
     # Load the main Elo files
-    M = pl.read_ipc(f'{base_path}/M.feather')
+    M = pl.read_csv(f'{base_path}/M.csv')
     
     # Load and rename specific race type Elo files
-    M_Individual = pl.read_ipc(f'{base_path}/M_Individual.feather')
+    M_Individual = pl.read_csv(f'{base_path}/M_Individual.csv')
     M_Individual = M_Individual.rename({"Pelo": "Individual_Pelo", "Elo": "Individual_Elo"})
     
-    M_Sprint = pl.read_ipc(f'{base_path}/M_Sprint.feather')
+    M_Sprint = pl.read_csv(f'{base_path}/M_Sprint.csv')
     M_Sprint = M_Sprint.rename({"Pelo": "Sprint_Pelo", "Elo": "Sprint_Elo"})
     
-    M_Pursuit = pl.read_ipc(f'{base_path}/M_Pursuit.feather')
+    M_Pursuit = pl.read_csv(f'{base_path}/M_Pursuit.csv')
     M_Pursuit = M_Pursuit.rename({"Pelo": "Pursuit_Pelo", "Elo": "Pursuit_Elo"})
     
-    M_Mass_Start = pl.read_ipc(f'{base_path}/M_Mass_Start.feather')
+    M_Mass_Start = pl.read_csv(f'{base_path}/M_Mass_Start.csv')
     M_Mass_Start = M_Mass_Start.rename({"Pelo": "MassStart_Pelo", "Elo": "MassStart_Elo"})
     
     print("Done reading men's files")
@@ -206,10 +206,6 @@ print(ladies_nation)
 print(men_nation)
 
 # Save the final files
-ladiesdf.write_ipc("~/ski/elo/python/biathlon/polars/excel365/ladies_chrono.feather")
-mendf.write_ipc("~/ski/elo/python/biathlon/polars/excel365/men_chrono.feather")
-
-# Also save as CSV for easier viewing/sharing
 ladiesdf.write_csv("~/ski/elo/python/biathlon/polars/excel365/ladies_chrono.csv")
 mendf.write_csv("~/ski/elo/python/biathlon/polars/excel365/men_chrono.csv")
 

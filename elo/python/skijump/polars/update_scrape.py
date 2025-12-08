@@ -51,21 +51,21 @@ def load_and_process_data() -> Tuple[Optional[pl.DataFrame], Optional[pl.DataFra
     try:
         # Define file paths - using skijump path instead of nordic-combined
         base_path = Path("~/ski/elo/python/skijump/polars/excel365").expanduser()
-        men_path = base_path / "men_scrape.feather"
-        ladies_path = base_path / "ladies_scrape.feather"
+        men_path = base_path / "men_scrape.csv"
+        ladies_path = base_path / "ladies_scrape.csv"
         
         # Check if files exist
         men_df = None
         ladies_df = None
         
         if men_path.exists():
-            men_df = pl.scan_ipc(men_path).collect()
+            men_df = pl.scan_csv(men_path).collect()
             logging.info(f"Loaded men's data with {len(men_df)} rows")
         else:
             logging.warning("No existing men's data file found")
             
         if ladies_path.exists():
-            ladies_df = pl.scan_ipc(ladies_path).collect()
+            ladies_df = pl.scan_csv(ladies_path).collect()
             logging.info(f"Loaded ladies' data with {len(ladies_df)} rows")
         else:
             logging.warning("No existing ladies' data file found")
@@ -260,12 +260,10 @@ def save_data(men_df, ladies_df):
         base_path = Path("~/ski/elo/python/skijump/polars/excel365").expanduser()
         
         if men_df is not None and len(men_df) > 0:
-            men_df.write_ipc(base_path / "men_scrape_update.feather")
             men_df.write_csv(base_path / "men_scrape_update.csv")
             logging.info(f"Saved updated men's data with {len(men_df)} rows")
             
         if ladies_df is not None and len(ladies_df) > 0:
-            ladies_df.write_ipc(base_path / "ladies_scrape_update.feather")
             ladies_df.write_csv(base_path / "ladies_scrape_update.csv")
             logging.info(f"Saved updated ladies' data with {len(ladies_df)} rows")
             

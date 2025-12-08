@@ -67,50 +67,50 @@ def ladies():
     base_path = '~/ski/elo/python/skijump/polars/excel365'
     
     try:
-        L = pl.read_ipc(f'{base_path}/L.feather')
-        print("Successfully read L.feather")
+        L = pl.read_csv(f'{base_path}/L.csv')
+        print("Successfully read L.csv")
     except Exception as e:
-        print(f"Error reading L.feather: {e}")
+        print(f"Error reading L.csv: {e}")
         L = None
         
     try:
-        L_Small = pl.read_ipc(f'{base_path}/L_Small.feather')
+        L_Small = pl.read_csv(f'{base_path}/L_Small.csv')
         L_Small = L_Small.rename({"Pelo": "Small_Pelo", "Elo": "Small_Elo"})
-        print("Successfully read L_Small.feather")
+        print("Successfully read L_Small.csv")
     except Exception as e:
-        print(f"Error reading L_Small.feather: {e}")
+        print(f"Error reading L_Small.csv: {e}")
         L_Small = None
         
     try:
-        L_Medium = pl.read_ipc(f'{base_path}/L_Medium.feather')
+        L_Medium = pl.read_csv(f'{base_path}/L_Medium.csv')
         L_Medium = L_Medium.rename({'Pelo': 'Medium_Pelo', 'Elo': 'Medium_Elo'})
-        print("Successfully read L_Medium.feather")
+        print("Successfully read L_Medium.csv")
     except Exception as e:
-        print(f"Error reading L_Medium.feather: {e}")
+        print(f"Error reading L_Medium.csv: {e}")
         L_Medium = None
         
     try:
-        L_Normal = pl.read_ipc(f'{base_path}/L_Normal.feather')
+        L_Normal = pl.read_csv(f'{base_path}/L_Normal.csv')
         L_Normal = L_Normal.rename({'Pelo': 'Normal_Pelo', 'Elo': 'Normal_Elo'})
-        print("Successfully read L_Normal.feather")
+        print("Successfully read L_Normal.csv")
     except Exception as e:
-        print(f"Error reading L_Normal.feather: {e}")
+        print(f"Error reading L_Normal.csv: {e}")
         L_Normal = None
         
     try:
-        L_Large = pl.read_ipc(f'{base_path}/L_Large.feather')
+        L_Large = pl.read_csv(f'{base_path}/L_Large.csv')
         L_Large = L_Large.rename({'Pelo': 'Large_Pelo', 'Elo': 'Large_Elo'})
-        print("Successfully read L_Large.feather")
+        print("Successfully read L_Large.csv")
     except Exception as e:
-        print(f"Error reading L_Large.feather: {e}")
+        print(f"Error reading L_Large.csv: {e}")
         L_Large = None
         
     try:
-        L_Flying = pl.read_ipc(f'{base_path}/L_Flying.feather')
+        L_Flying = pl.read_csv(f'{base_path}/L_Flying.csv')
         L_Flying = L_Flying.rename({'Pelo': 'Flying_Pelo', 'Elo': 'Flying_Elo'})
-        print("Successfully read L_Flying.feather")
+        print("Successfully read L_Flying.csv")
     except Exception as e:
-        print(f"Error reading L_Flying.feather: {e}")
+        print(f"Error reading L_Flying.csv: {e}")
         L_Flying = None
     
     print("Done reading ladies files")
@@ -209,50 +209,50 @@ def men():
     base_path = '~/ski/elo/python/skijump/polars/excel365'
     
     try:
-        M = pl.read_ipc(f'{base_path}/M.feather')
-        print("Successfully read M.feather")
+        M = pl.read_csv(f'{base_path}/M.csv')
+        print("Successfully read M.csv")
     except Exception as e:
-        print(f"Error reading M.feather: {e}")
+        print(f"Error reading M.csv: {e}")
         M = None
         
     try:
-        M_Small = pl.read_ipc(f'{base_path}/M_Small.feather')
+        M_Small = pl.read_csv(f'{base_path}/M_Small.csv')
         M_Small = M_Small.rename({"Pelo": "Small_Pelo", "Elo": "Small_Elo"})
-        print("Successfully read M_Small.feather")
+        print("Successfully read M_Small.csv")
     except Exception as e:
-        print(f"Error reading M_Small.feather: {e}")
+        print(f"Error reading M_Small.csv: {e}")
         M_Small = None
         
     try:
-        M_Medium = pl.read_ipc(f'{base_path}/M_Medium.feather')
+        M_Medium = pl.read_csv(f'{base_path}/M_Medium.csv')
         M_Medium = M_Medium.rename({'Pelo': 'Medium_Pelo', 'Elo': 'Medium_Elo'})
-        print("Successfully read M_Medium.feather")
+        print("Successfully read M_Medium.csv")
     except Exception as e:
-        print(f"Error reading M_Medium.feather: {e}")
+        print(f"Error reading M_Medium.csv: {e}")
         M_Medium = None
         
     try:
-        M_Normal = pl.read_ipc(f'{base_path}/M_Normal.feather')
+        M_Normal = pl.read_csv(f'{base_path}/M_Normal.csv')
         M_Normal = M_Normal.rename({'Pelo': 'Normal_Pelo', 'Elo': 'Normal_Elo'})
-        print("Successfully read M_Normal.feather")
+        print("Successfully read M_Normal.csv")
     except Exception as e:
-        print(f"Error reading M_Normal.feather: {e}")
+        print(f"Error reading M_Normal.csv: {e}")
         M_Normal = None
         
     try:
-        M_Large = pl.read_ipc(f'{base_path}/M_Large.feather')
+        M_Large = pl.read_csv(f'{base_path}/M_Large.csv')
         M_Large = M_Large.rename({'Pelo': 'Large_Pelo', 'Elo': 'Large_Elo'})
-        print("Successfully read M_Large.feather")
+        print("Successfully read M_Large.csv")
     except Exception as e:
-        print(f"Error reading M_Large.feather: {e}")
+        print(f"Error reading M_Large.csv: {e}")
         M_Large = None
         
     try:
-        M_Flying = pl.read_ipc(f'{base_path}/M_Flying.feather')
+        M_Flying = pl.read_csv(f'{base_path}/M_Flying.csv')
         M_Flying = M_Flying.rename({'Pelo': 'Flying_Pelo', 'Elo': 'Flying_Elo'})
-        print("Successfully read M_Flying.feather")
+        print("Successfully read M_Flying.csv")
     except Exception as e:
-        print(f"Error reading M_Flying.feather: {e}")
+        print(f"Error reading M_Flying.csv: {e}")
         M_Flying = None
     
     print("Done reading men's files")
@@ -361,7 +361,6 @@ if __name__ == "__main__":
         print(ladies_nation)
         
         # Save the ladies files
-        ladiesdf.write_ipc("~/ski/elo/python/skijump/polars/excel365/ladies_chrono.feather")
         ladiesdf.write_csv("~/ski/elo/python/skijump/polars/excel365/ladies_chrono.csv")
         print("Saved ladies chrono files")
 
@@ -371,7 +370,6 @@ if __name__ == "__main__":
         print(men_nation)
         
         # Save the men's files
-        mendf.write_ipc("~/ski/elo/python/skijump/polars/excel365/men_chrono.feather")
         mendf.write_csv("~/ski/elo/python/skijump/polars/excel365/men_chrono.csv")
         print("Saved men's chrono files")
 

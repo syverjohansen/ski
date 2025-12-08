@@ -42,7 +42,7 @@ def get_existing_metadata(df: pl.DataFrame) -> Dict:
 def load_and_process_data(sex: str) -> Tuple[Optional[pl.DataFrame], Dict]:
     """Load existing data and extract metadata"""
     try:
-        filename = f"{'men' if sex=='M' else 'ladies'}_scrape.feather"
+        filename = f"{'men' if sex=='M' else 'ladies'}_scrape.csv"
         path = Path(f"~/ski/elo/python/ski/polars/relay/excel365/{filename}").expanduser()
         
         if not path.exists():
@@ -50,7 +50,7 @@ def load_and_process_data(sex: str) -> Tuple[Optional[pl.DataFrame], Dict]:
             return None, {'races': set(), 'experience': {}}
         
         # Load data in streaming mode for memory efficiency
-        df = pl.scan_ipc(path).collect()
+        df = pl.scan_csv(path).collect()
         metadata = get_existing_metadata(df)
         
         logging.info(f"Loaded existing {sex} data with {len(df)} rows")
@@ -199,7 +199,6 @@ def merge_and_save(old_df: Optional[pl.DataFrame],
         base_path = Path("~/ski/elo/python/ski/polars/relay/excel365").expanduser()
         prefix = 'men' if sex == 'M' else 'ladies'
         
-        final_df.write_ipc(base_path / f"{prefix}_scrape_update.feather")
         final_df.write_csv(base_path / f"{prefix}_scrape_update.csv")
         
         logging.info(f"Saved updated {sex} data with {len(final_df)} rows")

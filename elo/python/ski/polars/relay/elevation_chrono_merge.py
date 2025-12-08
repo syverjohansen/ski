@@ -61,8 +61,8 @@ def main():
     parent_excel365_dir = os.path.expanduser('~/ski/elo/python/ski/polars/excel365')
     
     # Input files - relay chrono data from relay/excel365, elevation from parent excel365
-    mens_chrono = os.path.join(excel365_dir, 'men_chrono.feather')
-    ladies_chrono = os.path.join(excel365_dir, 'ladies_chrono.feather')
+    mens_chrono = os.path.join(excel365_dir, 'men_chrono.csv')
+    ladies_chrono = os.path.join(excel365_dir, 'ladies_chrono.csv')
     elevation_csv = os.path.join(parent_excel365_dir, 'elevation.csv')
     
     # Output files
@@ -81,7 +81,7 @@ def main():
     # Process men's relay data
     try:
         logging.info("Processing men's relay data")
-        mens_df = pd.read_feather(mens_chrono)
+        mens_df = pd.read_csv(mens_chrono)
         logging.info(f"Men's relay chronological data shape: {mens_df.shape}")
         
         mens_with_elevation = merge_elevation_data(mens_df, elevation_df)
@@ -98,7 +98,7 @@ def main():
     # Process women's relay data
     try:
         logging.info("Processing women's relay data")
-        ladies_df = pd.read_feather(ladies_chrono)
+        ladies_df = pd.read_csv(ladies_chrono)
         logging.info(f"Women's relay chronological data shape: {ladies_df.shape}")
         
         ladies_with_elevation = merge_elevation_data(ladies_df, elevation_df)

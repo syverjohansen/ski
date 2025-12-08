@@ -60,8 +60,8 @@ def main():
     excel365_dir = os.path.join(base_dir, 'excel365')
     
     # Input files
-    mens_chrono = os.path.join(base_dir, 'excel365', 'men_chrono.feather')
-    ladies_chrono = os.path.join(base_dir, 'excel365', 'ladies_chrono.feather')
+    mens_chrono = os.path.join(base_dir, 'excel365', 'men_chrono.csv')
+    ladies_chrono = os.path.join(base_dir, 'excel365', 'ladies_chrono.csv')
     elevation_csv = os.path.join(base_dir, 'excel365', 'elevation.csv')
     
     # Output files
@@ -80,7 +80,7 @@ def main():
     # Process men's data
     try:
         logging.info("Processing men's data")
-        mens_df = pd.read_feather(mens_chrono)
+        mens_df = pd.read_csv(mens_chrono)
         logging.info(f"Men's chronological data shape: {mens_df.shape}")
         
         mens_with_elevation = merge_elevation_data(mens_df, elevation_df)
@@ -97,7 +97,7 @@ def main():
     # Process women's data
     try:
         logging.info("Processing women's data")
-        ladies_df = pd.read_feather(ladies_chrono)
+        ladies_df = pd.read_csv(ladies_chrono)
         logging.info(f"Women's chronological data shape: {ladies_df.shape}")
         
         ladies_with_elevation = merge_elevation_data(ladies_df, elevation_df)
