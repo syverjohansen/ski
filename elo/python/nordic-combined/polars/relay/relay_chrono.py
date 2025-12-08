@@ -19,8 +19,26 @@ def load_chrono_files():
     print("Loading chronological files...")
     
     try:
-        men_chrono = pl.read_csv(base_path / "men_chrono.csv")
-        ladies_chrono = pl.read_csv(base_path / "ladies_chrono.csv")
+        schema_overrides = {
+            "Distance": pl.String,
+            "MassStart": pl.String,
+            "Event": pl.String,
+            "Leg": pl.String,
+            "Elo": pl.Float64,
+            "Pelo": pl.Float64,
+            "Individual_Elo": pl.Float64,
+            "Individual_Pelo": pl.Float64,
+            "Sprint_Elo": pl.Float64,
+            "Sprint_Pelo": pl.Float64,
+            "Pursuit_Elo": pl.Float64,
+            "Pursuit_Pelo": pl.Float64,
+            "MassStart_Elo": pl.Float64,
+            "MassStart_Pelo": pl.Float64,
+            "IndividualCompact_Elo": pl.Float64,
+            "IndividualCompact_Pelo": pl.Float64
+        }
+        men_chrono = pl.read_csv(base_path / "men_chrono.csv", schema_overrides=schema_overrides)
+        ladies_chrono = pl.read_csv(base_path / "ladies_chrono.csv", schema_overrides=schema_overrides)
         print(f"Loaded men's chrono with {men_chrono.shape[0]} rows")
         print(f"Loaded ladies' chrono with {ladies_chrono.shape[0]} rows")
         return men_chrono, ladies_chrono

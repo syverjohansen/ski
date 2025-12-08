@@ -65,22 +65,45 @@ def ladies():
     # Read all ladies files with consistent path
     base_path = '~/ski/elo/python/ski/polars/relay/excel365'
     
-    L = pl.read_csv(f'{base_path}/L_rel.csv')
-    L_Distance = pl.read_csv(f'{base_path}/L_rel_Distance.csv')
+    # Define consistent schema for cross-country relay
+    schema_overrides = {
+        "Date": pl.String,
+        "City": pl.String,
+        "Country": pl.String,
+        "Sex": pl.String,
+        "Distance": pl.String,  # Mixed values like "7.5", "10", etc.
+        "Event": pl.String,
+        "MS": pl.Int64,  # Mass Start
+        "Technique": pl.String,
+        "Place": pl.Int64,
+        "Skier": pl.String,
+        "Nation": pl.String,
+        "ID": pl.Int64,
+        "Season": pl.Int64,
+        "Race": pl.Int64,
+        "Birthday": pl.String,
+        "Age": pl.String,
+        "Exp": pl.Int64,
+        "Elo": pl.Float64,
+        "Pelo": pl.Float64
+    }
+    
+    L = pl.read_csv(f'{base_path}/L_rel.csv', schema_overrides=schema_overrides)
+    L_Distance = pl.read_csv(f'{base_path}/L_rel_Distance.csv', schema_overrides=schema_overrides)
     L_Distance = L_Distance.rename({"Pelo": "Distance_Pelo", "Elo": "Distance_Elo"})
-    L_Distance_C = pl.read_csv(f'{base_path}/L_rel_Distance_C.csv')
+    L_Distance_C = pl.read_csv(f'{base_path}/L_rel_Distance_C.csv', schema_overrides=schema_overrides)
     L_Distance_C = L_Distance_C.rename({'Pelo': 'Distance_C_Pelo', 'Elo': 'Distance_C_Elo'})
-    L_Distance_F = pl.read_csv(f'{base_path}/L_rel_Distance_F.csv')
+    L_Distance_F = pl.read_csv(f'{base_path}/L_rel_Distance_F.csv', schema_overrides=schema_overrides)
     L_Distance_F = L_Distance_F.rename({'Pelo': 'Distance_F_Pelo', 'Elo': 'Distance_F_Elo'})
-    L_Sprint = pl.read_csv(f'{base_path}/L_rel_Sprint.csv')
+    L_Sprint = pl.read_csv(f'{base_path}/L_rel_Sprint.csv', schema_overrides=schema_overrides)
     L_Sprint = L_Sprint.rename({'Pelo': 'Sprint_Pelo', 'Elo': 'Sprint_Elo'})
-    L_Sprint_C = pl.read_csv(f'{base_path}/L_rel_Sprint_C.csv')
+    L_Sprint_C = pl.read_csv(f'{base_path}/L_rel_Sprint_C.csv', schema_overrides=schema_overrides)
     L_Sprint_C = L_Sprint_C.rename({'Pelo': 'Sprint_C_Pelo', 'Elo': 'Sprint_C_Elo'})
-    L_Sprint_F = pl.read_csv(f'{base_path}/L_rel_Sprint_F.csv')
+    L_Sprint_F = pl.read_csv(f'{base_path}/L_rel_Sprint_F.csv', schema_overrides=schema_overrides)
     L_Sprint_F = L_Sprint_F.rename({'Pelo': 'Sprint_F_Pelo', 'Elo': 'Sprint_F_Elo'})
-    L_C = pl.read_csv(f'{base_path}/L_rel_C.csv')
+    L_C = pl.read_csv(f'{base_path}/L_rel_C.csv', schema_overrides=schema_overrides)
     L_C = L_C.rename({'Pelo': 'Classic_Pelo', 'Elo': 'Classic_Elo'})
-    L_F = pl.read_csv(f'{base_path}/L_rel_F.csv')
+    L_F = pl.read_csv(f'{base_path}/L_rel_F.csv', schema_overrides=schema_overrides)
     L_F = L_F.rename({'Pelo': 'Freestyle_Pelo', 'Elo': 'Freestyle_Elo'})
     print("Done reading ladies files")
 
@@ -135,22 +158,45 @@ def men():
     # Read all men's files with consistent path
     base_path = '~/ski/elo/python/ski/polars/relay/excel365'
     
-    M = pl.read_csv(f'{base_path}/M_rel.csv')
-    M_Distance = pl.read_csv(f'{base_path}/M_rel_Distance.csv')
+    # Define consistent schema for cross-country relay
+    schema_overrides = {
+        "Date": pl.String,
+        "City": pl.String,
+        "Country": pl.String,
+        "Sex": pl.String,
+        "Distance": pl.String,  # Mixed values like "7.5", "10", etc.
+        "Event": pl.String,
+        "MS": pl.Int64,  # Mass Start
+        "Technique": pl.String,
+        "Place": pl.Int64,
+        "Skier": pl.String,
+        "Nation": pl.String,
+        "ID": pl.Int64,
+        "Season": pl.Int64,
+        "Race": pl.Int64,
+        "Birthday": pl.String,
+        "Age": pl.String,
+        "Exp": pl.Int64,
+        "Elo": pl.Float64,
+        "Pelo": pl.Float64
+    }
+    
+    M = pl.read_csv(f'{base_path}/M_rel.csv', schema_overrides=schema_overrides)
+    M_Distance = pl.read_csv(f'{base_path}/M_rel_Distance.csv', schema_overrides=schema_overrides)
     M_Distance = M_Distance.rename({"Pelo": "Distance_Pelo", "Elo": "Distance_Elo"})
-    M_Distance_C = pl.read_csv(f'{base_path}/M_rel_Distance_C.csv')
+    M_Distance_C = pl.read_csv(f'{base_path}/M_rel_Distance_C.csv', schema_overrides=schema_overrides)
     M_Distance_C = M_Distance_C.rename({'Pelo': 'Distance_C_Pelo', 'Elo': 'Distance_C_Elo'})
-    M_Distance_F = pl.read_csv(f'{base_path}/M_rel_Distance_F.csv')
+    M_Distance_F = pl.read_csv(f'{base_path}/M_rel_Distance_F.csv', schema_overrides=schema_overrides)
     M_Distance_F = M_Distance_F.rename({'Pelo': 'Distance_F_Pelo', 'Elo': 'Distance_F_Elo'})
-    M_Sprint = pl.read_csv(f'{base_path}/M_rel_Sprint.csv')
+    M_Sprint = pl.read_csv(f'{base_path}/M_rel_Sprint.csv', schema_overrides=schema_overrides)
     M_Sprint = M_Sprint.rename({'Pelo': 'Sprint_Pelo', 'Elo': 'Sprint_Elo'})
-    M_Sprint_C = pl.read_csv(f'{base_path}/M_rel_Sprint_C.csv')
+    M_Sprint_C = pl.read_csv(f'{base_path}/M_rel_Sprint_C.csv', schema_overrides=schema_overrides)
     M_Sprint_C = M_Sprint_C.rename({'Pelo': 'Sprint_C_Pelo', 'Elo': 'Sprint_C_Elo'})
-    M_Sprint_F = pl.read_csv(f'{base_path}/M_rel_Sprint_F.csv')
+    M_Sprint_F = pl.read_csv(f'{base_path}/M_rel_Sprint_F.csv', schema_overrides=schema_overrides)
     M_Sprint_F = M_Sprint_F.rename({'Pelo': 'Sprint_F_Pelo', 'Elo': 'Sprint_F_Elo'})
-    M_C = pl.read_csv(f'{base_path}/M_rel_C.csv')
+    M_C = pl.read_csv(f'{base_path}/M_rel_C.csv', schema_overrides=schema_overrides)
     M_C = M_C.rename({'Pelo': 'Classic_Pelo', 'Elo': 'Classic_Elo'})
-    M_F = pl.read_csv(f'{base_path}/M_rel_F.csv')
+    M_F = pl.read_csv(f'{base_path}/M_rel_F.csv', schema_overrides=schema_overrides)
     M_F = M_F.rename({'Pelo': 'Freestyle_Pelo', 'Elo': 'Freestyle_Elo'})
     print("Done reading men's files")
 

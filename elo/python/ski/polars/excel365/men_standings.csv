@@ -1,103 +1,125 @@
 Skier,ID,Nation,Ranking,Points
-Johannes Høsflot Klæbo,5164,Norway,1,275
-Harald Østberg Amundsen,5449,Norway,2,254
-Edvin Anger,14039,Sweden,3,221
-Martin Løwstrøm Nyenget,2295,Norway,4,197
-Mika Vermeulen,12673,Austria,4,197
-Mattis Stenshagen,5165,Norway,6,170
-Erik Valnes,5923,Norway,6,170
-Andreas Fjorden Ree,8678,Norway,8,136
-Mathis Desloges,12767,France,9,128
-Zak Ketterson,5988,USA,10,120
-Ristomatti Hakola,2553,Finland,11,118
-Hugo Lapalus,6018,France,12,117
-Alvar Myhlback,19652,Sweden,13,116
-Einar Hedegart,20631,Norway,14,103
-Gustaf Berglund,12178,Sweden,15,96
-Valerio Grond,12164,Switzerland,16,94
-Elia Barp,14042,Italy,17,92
-Ansgar Evensen,8246,Norway,18,91
-Davide Graz,12165,Italy,19,86
-Jules Chappaz,12181,France,20,85
-Iivo Niskanen,1470,Finland,21,80
-Lauri Vuorinen,2874,Finland,22,78
-Arsi Ruuskanen,8120,Finland,23,76
-Oskar Opstad Vike,19279,Norway,23,76
-Ben Ogden,9179,USA,25,75
-Emil Liekari,12440,Finland,26,72
-Andrew Musgrave,277,Great Britain,26,72
-Federico Pellegrino,44,Italy,26,72
-Joni Mäki,3586,Finland,29,70
-Martino Carollo,19980,Italy,30,69
-Even Northug,3590,Norway,30,69
-Didrik Tønseth,1446,Norway,30,69
-Beda Klee,3651,Switzerland,33,66
-Victor Lovera,17106,France,34,65
-Jason Rüesch,2732,Switzerland,34,65
-Benjamin Moser,5989,Austria,36,63
-Friedrich Moch,9323,Germany,37,61
-Janik Riebli,7725,Switzerland,37,61
-Gus Schumacher,9172,USA,37,61
-Markus Vuorela,5635,Finland,40,60
-Jan Thomas Jenssen,5406,Norway,41,58
-Clement Parisse,2353,France,42,56
-Edvard Sandvik,12332,Norway,42,56
-Ville Ahonen,2754,Finland,44,55
-Jiri Tuz,17348,Czechia,45,54
-Niko Anttola,17474,Finland,46,52
-Isai Näff,18916,Switzerland,46,52
-Olli Ahonen,5652,Finland,48,48
-Perttu Hyvärinen,1441,Finland,49,47
-Janosch Brugger,3657,Germany,50,46
-Simone Mocellini,12168,Italy,50,46
-Eero Rantala,17230,Finland,50,46
-Juuso Haarala,5645,Finland,53,44
-Ondrej Cerny,8094,Czechia,54,42
-Michael Föttinger,5978,Austria,54,42
-Johan Ekberg,13290,Sweden,56,40
-Jules Lapierre,3646,France,57,38
-Niilo Moilanen,12446,Finland,58,36
-Eric Rosjö,5940,Sweden,58,36
-Erik Engel,14049,Austria,60,34
-Florian Notz,1488,Germany,60,34
-Anian Sossau,9340,Germany,62,31
-Remi Bourdin,17445,France,63,28
-Emil Danielsson,12801,Sweden,64,26
-Alvar Johannes Alev,1996,Estonia,65,23
-Kevin Bolger,9159,USA,65,23
-Anton Grahn,18667,Sweden,67,22
-Kalle Parantainen,9714,Finland,67,22
-Simone Dapra,6019,Italy,69,20
-Thomas Hjalmar Westgård,5553,Ireland,69,20
-Veeti Pyykko,13223,Finland,71,19
-Dominik Bury,3623,Poland,72,16
-Matyas Bauer,18927,Czechia,73,15
-Ike Melnits,15495,Finland,73,15
-Ludek Seller,3525,Czechia,75,14
-Giacomo Gabrielli,5181,Italy,76,13
-Jack Young,14687,USA,77,12
-Naoto Baba,5186,Japan,78,11
-James Clugnet,3615,Great Britain,78,11
-Jaume Pueyo,12682,Spain,78,11
-Irineu Esteve Altimiras,3632,Andorra,81,10
-Marcus Grate,4225,Sweden,81,10
-Nejc Stern,18932,Slovenia,83,9
-Karl Sebastian Dremljuga,12667,Estonia,84,8
-Tobias Ganner,19084,Austria,84,8
-Wiljam Mattila,9732,Finland,86,7
-Alexander Ståhlberg,12449,Finland,86,7
-Johnny Hagenbuch,12699,USA,88,6
-Petteri Koivisto,8104,Finland,88,6
-Maciej Starega,139,Poland,88,6
-Sho Kasahara,13540,Japan,91,5
-Elias Keck,14056,Germany,91,5
-Qiang Wang,11198,China,91,5
-Martin Himma,8092,Estonia,94,4
-Johan Häggström,4399,Sweden,94,4
-Jan Stölben,14033,Germany,94,4
-Candide Pralong,1538,Switzerland,97,3
-Remi Lindholm,5702,Finland,98,2
-Zanden McMullen,12698,USA,98,2
-Paolo Ventura,6009,Italy,98,2
-Iver Tildheim Andersen,8590,Norway,101,1
-Vili Crv,5931,Slovenia,101,1
+Johannes Høsflot Klæbo,5164,Norway,1,580
+Harald Østberg Amundsen,5449,Norway,2,504
+Martin Løwstrøm Nyenget,2295,Norway,3,383
+Mattis Stenshagen,5165,Norway,4,358
+Mika Vermeulen,12673,Austria,5,339
+Erik Valnes,5923,Norway,6,331
+Andreas Fjorden Ree,8678,Norway,7,323
+Edvin Anger,14039,Sweden,8,293
+Alvar Myhlback,19652,Sweden,9,221
+Mathis Desloges,12767,France,10,210
+Einar Hedegart,20631,Norway,11,203
+Arsi Ruuskanen,8120,Finland,12,200
+Elia Barp,14042,Italy,13,196
+Lars Heggen,19104,Norway,14,188
+Jan Thomas Jenssen,5406,Norway,14,188
+Federico Pellegrino,44,Italy,16,184
+Emil Iversen,1467,Norway,17,179
+Hugo Lapalus,6018,France,17,179
+Gus Schumacher,9172,USA,17,179
+Oskar Opstad Vike,19279,Norway,17,179
+Ben Ogden,9179,USA,21,174
+Martino Carollo,19980,Italy,22,173
+Zak Ketterson,5988,USA,23,170
+Ansgar Evensen,8246,Norway,24,168
+Ristomatti Hakola,2553,Finland,25,161
+Davide Graz,12165,Italy,26,154
+Valerio Grond,12164,Switzerland,27,146
+Andrew Musgrave,277,Great Britain,28,142
+Lauri Vuorinen,2874,Finland,29,141
+Gustaf Berglund,12178,Sweden,30,139
+Victor Lovera,17106,France,30,139
+Jules Chappaz,12181,France,32,137
+Iver Tildheim Andersen,8590,Norway,33,136
+Joni Mäki,3586,Finland,33,136
+Iivo Niskanen,1470,Finland,35,134
+Friedrich Moch,9323,Germany,36,129
+Niko Anttola,17474,Finland,37,124
+Beda Klee,3651,Switzerland,37,124
+Jules Lapierre,3646,France,37,124
+Benjamin Moser,5989,Austria,40,112
+Simen Hegstad Krüger,2355,Norway,41,111
+Florian Notz,1488,Germany,42,110
+Even Northug,3590,Norway,43,99
+Ondrej Cerny,8094,Czechia,44,98
+Jiri Tuz,17348,Czechia,45,96
+Anton Grahn,18667,Sweden,46,94
+Emil Liekari,12440,Finland,47,91
+Niilo Moilanen,12446,Finland,47,91
+Simone Mocellini,12168,Italy,49,80
+Markus Vuorela,5635,Finland,50,77
+Jason Rüesch,2732,Switzerland,51,73
+Simone Dapra,6019,Italy,52,71
+Clement Parisse,2353,France,53,70
+Amund Korsæth,8597,Norway,54,69
+Didrik Tønseth,1446,Norway,54,69
+Ville Ahonen,2754,Finland,56,66
+Olli Ahonen,5652,Finland,57,65
+Johan Ekberg,13290,Sweden,58,63
+Alvar Johannes Alev,1996,Estonia,59,62
+Janik Riebli,7725,Switzerland,60,61
+Edvard Sandvik,12332,Norway,61,56
+Michael Föttinger,5978,Austria,62,55
+Eric Rosjö,5940,Sweden,62,55
+Mats Opsal,12359,Norway,64,54
+Isai Näff,18916,Switzerland,65,52
+Richard Jouve,2768,France,66,48
+Anian Sossau,9340,Germany,66,48
+Lars Michael Bjertnæs,19128,Norway,68,47
+Perttu Hyvärinen,1441,Finland,68,47
+Kevin Bolger,9159,USA,70,46
+Janosch Brugger,3657,Germany,70,46
+Eero Rantala,17230,Finland,70,46
+Juuso Haarala,5645,Finland,73,44
+William Poromaa,12573,Sweden,74,42
+Emil Danielsson,12801,Sweden,75,41
+Erik Engel,14049,Austria,76,40
+Remi Bourdin,17445,France,77,36
+Aleksander Holmboe,12900,Norway,77,36
+Kalle Parantainen,9714,Finland,79,33
+Dominik Bury,3623,Poland,80,32
+Nejc Stern,18932,Slovenia,81,31
+Thomas Linnebo Mollestad,18958,Norway,82,30
+Filip Skari,19114,Norway,82,30
+Naoto Baba,5186,Japan,84,28
+Irineu Esteve Altimiras,3632,Andorra,84,28
+James Clinton Schoonmaker,9201,USA,86,26
+George Ersson,12790,Sweden,87,24
+Johan Häggström,4399,Sweden,87,24
+Giacomo Gabrielli,5181,Italy,89,23
+Martin Himma,8092,Estonia,89,23
+Jan Stölben,14033,Germany,91,21
+Jack Young,14687,USA,91,21
+Thomas Hjalmar Westgård,5553,Ireland,93,20
+Veeti Pyykko,13223,Finland,94,19
+Ludek Seller,3525,Czechia,95,18
+Matyas Bauer,18927,Czechia,96,15
+Ike Melnits,15495,Finland,96,15
+Johnny Hagenbuch,12699,USA,98,13
+Lucas Chanavat,3582,France,99,11
+James Clugnet,3615,Great Britain,99,11
+Jaume Pueyo,12682,Spain,99,11
+Marcus Grate,4225,Sweden,102,10
+Zanden McMullen,12698,USA,102,10
+Karl Sebastian Dremljuga,12667,Estonia,104,8
+Tobias Ganner,19084,Austria,104,8
+Paolo Ventura,6009,Italy,104,8
+Wiljam Mattila,9732,Finland,107,7
+Maciej Starega,139,Poland,107,7
+Alexander Ståhlberg,12449,Finland,107,7
+Petteri Koivisto,8104,Finland,110,6
+Sho Kasahara,13540,Japan,111,5
+Elias Keck,14056,Germany,111,5
+Qiang Wang,11198,China,111,5
+Daito Yamazaki,18669,Japan,114,4
+Adam Fellner,2162,Czechia,115,3
+Ryo Hirose,12172,Japan,115,3
+Candide Pralong,1538,Switzerland,115,3
+Miha Simenc,2808,Slovenia,115,3
+Lucas Bögl,1540,Germany,119,2
+Remi Lindholm,5702,Finland,119,2
+Lukas Mrkonjic,9689,Austria,119,2
+Vili Crv,5931,Slovenia,122,1
+Francesco De Fabiani,1496,Italy,122,1
+Giovanni Ticco,12675,Italy,122,1

@@ -19,8 +19,31 @@ def load_chrono_files():
     print("Loading chronological files...")
     
     try:
-        men_chrono = pl.read_csv(base_path / "men_chrono.csv")
-        ladies_chrono = pl.read_csv(base_path / "ladies_chrono.csv")
+        # Define schema for skijump relay
+        schema_overrides = {
+            "HillSize": pl.String,
+            "TeamEvent": pl.String,
+            "Event": pl.String,
+            "Leg": pl.String,
+            "Length1": pl.Float64,
+            "Length2": pl.Float64,
+            "Points": pl.Float64,
+            "Elo": pl.Float64,
+            "Pelo": pl.Float64,
+            "Small_Elo": pl.Float64,
+            "Small_Pelo": pl.Float64,
+            "Medium_Elo": pl.Float64,
+            "Medium_Pelo": pl.Float64,
+            "Normal_Elo": pl.Float64,
+            "Normal_Pelo": pl.Float64,
+            "Large_Elo": pl.Float64,
+            "Large_Pelo": pl.Float64,
+            "Flying_Elo": pl.Float64,
+            "Flying_Pelo": pl.Float64
+        }
+        
+        men_chrono = pl.read_csv(base_path / "men_chrono.csv", schema_overrides=schema_overrides)
+        ladies_chrono = pl.read_csv(base_path / "ladies_chrono.csv", schema_overrides=schema_overrides)
         print(f"Loaded men's chrono with {men_chrono.shape[0]} rows")
         print(f"Loaded ladies' chrono with {ladies_chrono.shape[0]} rows")
         return men_chrono, ladies_chrono

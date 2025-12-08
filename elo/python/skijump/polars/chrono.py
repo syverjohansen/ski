@@ -66,15 +66,42 @@ def ladies():
     # Read all ladies files with consistent path
     base_path = '~/ski/elo/python/skijump/polars/excel365'
     
+    # Define consistent schema based on elo.py expectations
+    schema_overrides = {
+        "Date": pl.String,
+        "City": pl.String,
+        "Country": pl.String,
+        "Sex": pl.String,
+        "HillSize": pl.String,
+        "RaceType": pl.String,
+        "TeamEvent": pl.Int64,
+        "Event": pl.String,
+        "Place": pl.Int64,
+        "Skier": pl.String,
+        "Nation": pl.String,
+        "ID": pl.String,
+        "Season": pl.Int64,
+        "Race": pl.Int64,
+        "Birthday": pl.String,  # Will be cast to Datetime later
+        "Age": pl.Float64,
+        "Exp": pl.Int64,
+        "Leg": pl.Int64,
+        "Length1": pl.Float64,
+        "Length2": pl.Float64,
+        "Points": pl.Float64,
+        "Elo": pl.Float64,
+        "Pelo": pl.Float64
+    }
+    
     try:
-        L = pl.read_csv(f'{base_path}/L.csv')
+        L = pl.read_csv(f'{base_path}/L.csv', schema_overrides=schema_overrides)
         print("Successfully read L.csv")
     except Exception as e:
         print(f"Error reading L.csv: {e}")
         L = None
         
     try:
-        L_Small = pl.read_csv(f'{base_path}/L_Small.csv')
+        L_Small = pl.read_csv(f'{base_path}/L_Small.csv', schema_overrides=schema_overrides)
         L_Small = L_Small.rename({"Pelo": "Small_Pelo", "Elo": "Small_Elo"})
         print("Successfully read L_Small.csv")
     except Exception as e:
@@ -82,7 +109,7 @@ def ladies():
         L_Small = None
         
     try:
-        L_Medium = pl.read_csv(f'{base_path}/L_Medium.csv')
+        L_Medium = pl.read_csv(f'{base_path}/L_Medium.csv', schema_overrides=schema_overrides)
         L_Medium = L_Medium.rename({'Pelo': 'Medium_Pelo', 'Elo': 'Medium_Elo'})
         print("Successfully read L_Medium.csv")
     except Exception as e:
@@ -90,7 +117,7 @@ def ladies():
         L_Medium = None
         
     try:
-        L_Normal = pl.read_csv(f'{base_path}/L_Normal.csv')
+        L_Normal = pl.read_csv(f'{base_path}/L_Normal.csv', schema_overrides=schema_overrides)
         L_Normal = L_Normal.rename({'Pelo': 'Normal_Pelo', 'Elo': 'Normal_Elo'})
         print("Successfully read L_Normal.csv")
     except Exception as e:
@@ -98,7 +125,7 @@ def ladies():
         L_Normal = None
         
     try:
-        L_Large = pl.read_csv(f'{base_path}/L_Large.csv')
+        L_Large = pl.read_csv(f'{base_path}/L_Large.csv', schema_overrides=schema_overrides)
         L_Large = L_Large.rename({'Pelo': 'Large_Pelo', 'Elo': 'Large_Elo'})
         print("Successfully read L_Large.csv")
     except Exception as e:
@@ -106,7 +133,7 @@ def ladies():
         L_Large = None
         
     try:
-        L_Flying = pl.read_csv(f'{base_path}/L_Flying.csv')
+        L_Flying = pl.read_csv(f'{base_path}/L_Flying.csv', schema_overrides=schema_overrides)
         L_Flying = L_Flying.rename({'Pelo': 'Flying_Pelo', 'Elo': 'Flying_Elo'})
         print("Successfully read L_Flying.csv")
     except Exception as e:
@@ -208,15 +235,42 @@ def men():
     # Read all men's files with consistent path
     base_path = '~/ski/elo/python/skijump/polars/excel365'
     
+    # Define consistent schema based on elo.py expectations
+    schema_overrides = {
+        "Date": pl.String,
+        "City": pl.String,
+        "Country": pl.String,
+        "Sex": pl.String,
+        "HillSize": pl.String,
+        "RaceType": pl.String,
+        "TeamEvent": pl.Int64,
+        "Event": pl.String,
+        "Place": pl.Int64,
+        "Skier": pl.String,
+        "Nation": pl.String,
+        "ID": pl.String,
+        "Season": pl.Int64,
+        "Race": pl.Int64,
+        "Birthday": pl.String,  # Will be cast to Datetime later
+        "Age": pl.Float64,
+        "Exp": pl.Int64,
+        "Leg": pl.Int64,
+        "Length1": pl.Float64,
+        "Length2": pl.Float64,
+        "Points": pl.Float64,
+        "Elo": pl.Float64,
+        "Pelo": pl.Float64
+    }
+    
     try:
-        M = pl.read_csv(f'{base_path}/M.csv')
+        M = pl.read_csv(f'{base_path}/M.csv', schema_overrides=schema_overrides)
         print("Successfully read M.csv")
     except Exception as e:
         print(f"Error reading M.csv: {e}")
         M = None
         
     try:
-        M_Small = pl.read_csv(f'{base_path}/M_Small.csv')
+        M_Small = pl.read_csv(f'{base_path}/M_Small.csv', schema_overrides=schema_overrides)
         M_Small = M_Small.rename({"Pelo": "Small_Pelo", "Elo": "Small_Elo"})
         print("Successfully read M_Small.csv")
     except Exception as e:
@@ -224,7 +278,7 @@ def men():
         M_Small = None
         
     try:
-        M_Medium = pl.read_csv(f'{base_path}/M_Medium.csv')
+        M_Medium = pl.read_csv(f'{base_path}/M_Medium.csv', schema_overrides=schema_overrides)
         M_Medium = M_Medium.rename({'Pelo': 'Medium_Pelo', 'Elo': 'Medium_Elo'})
         print("Successfully read M_Medium.csv")
     except Exception as e:
@@ -232,7 +286,7 @@ def men():
         M_Medium = None
         
     try:
-        M_Normal = pl.read_csv(f'{base_path}/M_Normal.csv')
+        M_Normal = pl.read_csv(f'{base_path}/M_Normal.csv', schema_overrides=schema_overrides)
         M_Normal = M_Normal.rename({'Pelo': 'Normal_Pelo', 'Elo': 'Normal_Elo'})
         print("Successfully read M_Normal.csv")
     except Exception as e:
@@ -240,7 +294,7 @@ def men():
         M_Normal = None
         
     try:
-        M_Large = pl.read_csv(f'{base_path}/M_Large.csv')
+        M_Large = pl.read_csv(f'{base_path}/M_Large.csv', schema_overrides=schema_overrides)
         M_Large = M_Large.rename({'Pelo': 'Large_Pelo', 'Elo': 'Large_Elo'})
         print("Successfully read M_Large.csv")
     except Exception as e:
@@ -248,7 +302,7 @@ def men():
         M_Large = None
         
     try:
-        M_Flying = pl.read_csv(f'{base_path}/M_Flying.csv')
+        M_Flying = pl.read_csv(f'{base_path}/M_Flying.csv', schema_overrides=schema_overrides)
         M_Flying = M_Flying.rename({'Pelo': 'Flying_Pelo', 'Elo': 'Flying_Elo'})
         print("Successfully read M_Flying.csv")
     except Exception as e:

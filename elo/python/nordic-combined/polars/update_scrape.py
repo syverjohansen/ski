@@ -59,13 +59,13 @@ def load_and_process_data() -> Tuple[Optional[pl.DataFrame], Optional[pl.DataFra
         ladies_df = None
         
         if men_path.exists():
-            men_df = pl.scan_csv(men_path).collect()
+            men_df = pl.scan_csv(men_path, schema_overrides={"Distance": pl.String}).collect()
             logging.info(f"Loaded men's data with {len(men_df)} rows")
         else:
             logging.warning("No existing men's data file found")
             
         if ladies_path.exists():
-            ladies_df = pl.scan_csv(ladies_path).collect()
+            ladies_df = pl.scan_csv(ladies_path, schema_overrides={"Distance": pl.String}).collect()
             logging.info(f"Loaded ladies' data with {len(ladies_df)} rows")
         else:
             logging.warning("No existing ladies' data file found")

@@ -58,14 +58,36 @@ def load_and_process_data() -> Tuple[Optional[pl.DataFrame], Optional[pl.DataFra
         men_df = None
         ladies_df = None
         
+        # Define schema overrides for existing CSV files
+        schema_overrides = {
+            'HillSize': pl.String,
+            'Distance': pl.String,  # Handle "N/A" values
+            'RaceType': pl.String,
+            'MassStart': pl.Int64,
+            'TeamEvent': pl.Int64,
+            'Season': pl.Int64,
+            'Race': pl.Int64,
+            'Place': pl.Int64,
+            'Skier': pl.String,
+            'Nation': pl.String,
+            'ID': pl.String,
+            'Birthday': pl.Datetime,
+            'Leg': pl.Int64,
+            'TeamID': pl.String,
+            'SJ_Pos': pl.String,
+            'CC_Pos': pl.String,
+            'Age': pl.Float64,
+            'Exp': pl.Int32
+        }
+
         if men_path.exists():
-            men_df = pl.scan_csv(men_path).collect()
+            men_df = pl.read_csv(men_path, schema_overrides=schema_overrides)
             logging.info(f"Loaded men's data with {len(men_df)} rows")
         else:
             logging.warning("No existing men's data file found")
             
         if ladies_path.exists():
-            ladies_df = pl.scan_csv(ladies_path).collect()
+            ladies_df = pl.read_csv(ladies_path, schema_overrides=schema_overrides)
             logging.info(f"Loaded ladies' data with {len(ladies_df)} rows")
         else:
             logging.warning("No existing ladies' data file found")

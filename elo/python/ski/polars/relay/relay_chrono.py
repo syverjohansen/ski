@@ -19,8 +19,36 @@ def load_chrono_files():
     print("Loading chronological files...")
     
     try:
-        men_chrono = pl.read_csv(base_path / "men_chrono.csv")
-        ladies_chrono = pl.read_csv(base_path / "ladies_chrono.csv")
+        # Define schema for cross-country relay
+        schema_overrides = {
+            "Distance": pl.String,  # Mixed values like "7.5", "10", etc.
+            "Event": pl.String,
+            "MS": pl.String,  # May have mixed values
+            "Technique": pl.String,
+            "ID": pl.String,  # Keep as string for now to avoid issues
+            "Age": pl.String,
+            "Elo": pl.Float64,
+            "Pelo": pl.Float64,
+            "Distance_Elo": pl.Float64,
+            "Distance_Pelo": pl.Float64,
+            "Distance_C_Elo": pl.Float64,
+            "Distance_C_Pelo": pl.Float64,
+            "Distance_F_Elo": pl.Float64,
+            "Distance_F_Pelo": pl.Float64,
+            "Sprint_Elo": pl.Float64,
+            "Sprint_Pelo": pl.Float64,
+            "Sprint_C_Elo": pl.Float64,
+            "Sprint_C_Pelo": pl.Float64,
+            "Sprint_F_Elo": pl.Float64,
+            "Sprint_F_Pelo": pl.Float64,
+            "Classic_Elo": pl.Float64,
+            "Classic_Pelo": pl.Float64,
+            "Freestyle_Elo": pl.Float64,
+            "Freestyle_Pelo": pl.Float64
+        }
+        
+        men_chrono = pl.read_csv(base_path / "men_chrono.csv", schema_overrides=schema_overrides)
+        ladies_chrono = pl.read_csv(base_path / "ladies_chrono.csv", schema_overrides=schema_overrides)
         print(f"Loaded men's chrono with {men_chrono.shape[0]} rows")
         print(f"Loaded ladies' chrono with {ladies_chrono.shape[0]} rows")
         return men_chrono, ladies_chrono
@@ -164,8 +192,8 @@ def process_team_sprint(combined_df):
     """Process Team Sprint data"""
     print("Processing Team Sprint data...")
     
-    # Filter for Team Sprint races
-    team_sprint_df = combined_df.filter(pl.col("Event").str.contains("Team Sprint"))
+    # Filter for Team Sprint races using Distance column
+    team_sprint_df = combined_df.filter(pl.col("Distance").str.contains("Ts"))
     print(f"Found {team_sprint_df.shape[0]} rows for Team Sprint")
     
     if team_sprint_df.shape[0] == 0:
@@ -231,8 +259,8 @@ def process_relay(df, sex):
     """Process regular Relay data for a given sex"""
     print(f"Processing {sex} Relay data...")
     
-    # Filter for Relay races
-    relay_df = df.filter(pl.col("Event").str.contains("Relay") & ~pl.col("Event").str.contains("Mixed") & ~pl.col("Event").str.contains("Sprint"))
+    # Filter for Relay races using Distance column
+    relay_df = df.filter(pl.col("Distance").str.contains("Rel"))
     print(f"Found {relay_df.shape[0]} rows for {sex} Relay")
     
     if relay_df.shape[0] == 0:

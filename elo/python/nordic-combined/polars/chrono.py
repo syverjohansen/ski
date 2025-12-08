@@ -72,20 +72,44 @@ def ladies():
     # Read all ladies files with consistent path
     base_path = '~/ski/elo/python/nordic-combined/polars/excel365'
     
+    # Define consistent schema based on elo.py expectations
+    schema_overrides = {
+        "Date": pl.String,
+        "City": pl.String,
+        "Country": pl.String, 
+        "Sex": pl.String,
+        "Distance": pl.String,  # Mixed values like "7.5"
+        "RaceType": pl.String,
+        "MassStart": pl.Int64,
+        "Event": pl.String,
+        "Place": pl.Int64,
+        "Skier": pl.String,
+        "Nation": pl.String,
+        "ID": pl.String,
+        "Season": pl.Int64,
+        "Race": pl.Int64,
+        "Birthday": pl.String,  # Will be cast to Datetime later
+        "Age": pl.Float64,
+        "Exp": pl.Int64,
+        "Leg": pl.Int64,
+        "Elo": pl.Float64,
+        "Pelo": pl.Float64
+    }
+    
     # Load the main Elo files
-    L = pl.read_csv(f'{base_path}/L.csv')
+    L = pl.read_csv(f'{base_path}/L.csv', schema_overrides=schema_overrides)
     
     # Load and rename specific race type Elo files
-    L_Individual = pl.read_csv(f'{base_path}/L_Individual.csv')
+    L_Individual = pl.read_csv(f'{base_path}/L_Individual.csv', schema_overrides=schema_overrides)
     L_Individual = L_Individual.rename({"Pelo": "Individual_Pelo", "Elo": "Individual_Elo"})
     
-    L_Individual_Compact = pl.read_csv(f'{base_path}/L_Individual_Compact.csv')
+    L_Individual_Compact = pl.read_csv(f'{base_path}/L_Individual_Compact.csv', schema_overrides=schema_overrides)
     L_Individual_Compact = L_Individual_Compact.rename({"Pelo": "IndividualCompact_Pelo", "Elo": "IndividualCompact_Elo"})
     
-    L_Sprint = pl.read_csv(f'{base_path}/L_Sprint.csv')
+    L_Sprint = pl.read_csv(f'{base_path}/L_Sprint.csv', schema_overrides=schema_overrides)
     L_Sprint = L_Sprint.rename({"Pelo": "Sprint_Pelo", "Elo": "Sprint_Elo"})
     
-    L_Mass_Start = pl.read_csv(f'{base_path}/L_Mass_Start.csv')
+    L_Mass_Start = pl.read_csv(f'{base_path}/L_Mass_Start.csv', schema_overrides=schema_overrides)
     L_Mass_Start = L_Mass_Start.rename({"Pelo": "MassStart_Pelo", "Elo": "MassStart_Elo"})
     
     print("Done reading ladies files")
@@ -135,20 +159,44 @@ def men():
     # Read all men's files with consistent path
     base_path = '~/ski/elo/python/nordic-combined/polars/excel365'
     
+    # Define consistent schema based on elo.py expectations
+    schema_overrides = {
+        "Date": pl.String,
+        "City": pl.String,
+        "Country": pl.String, 
+        "Sex": pl.String,
+        "Distance": pl.String,  # Mixed values like "7.5"
+        "RaceType": pl.String,
+        "MassStart": pl.Int64,
+        "Event": pl.String,
+        "Place": pl.Int64,
+        "Skier": pl.String,
+        "Nation": pl.String,
+        "ID": pl.String,
+        "Season": pl.Int64,
+        "Race": pl.Int64,
+        "Birthday": pl.String,  # Will be cast to Datetime later
+        "Age": pl.Float64,
+        "Exp": pl.Int64,
+        "Leg": pl.Int64,
+        "Elo": pl.Float64,
+        "Pelo": pl.Float64
+    }
+    
     # Load the main Elo files
-    M = pl.read_csv(f'{base_path}/M.csv')
+    M = pl.read_csv(f'{base_path}/M.csv', schema_overrides=schema_overrides)
     
     # Load and rename specific race type Elo files
-    M_Individual = pl.read_csv(f'{base_path}/M_Individual.csv')
+    M_Individual = pl.read_csv(f'{base_path}/M_Individual.csv', schema_overrides=schema_overrides)
     M_Individual = M_Individual.rename({"Pelo": "Individual_Pelo", "Elo": "Individual_Elo"})
     
-    M_Individual_Compact = pl.read_csv(f'{base_path}/M_Individual_Compact.csv')
+    M_Individual_Compact = pl.read_csv(f'{base_path}/M_Individual_Compact.csv', schema_overrides=schema_overrides)
     M_Individual_Compact = M_Individual_Compact.rename({"Pelo": "IndividualCompact_Pelo", "Elo": "IndividualCompact_Elo"})
     
-    M_Sprint = pl.read_csv(f'{base_path}/M_Sprint.csv')
+    M_Sprint = pl.read_csv(f'{base_path}/M_Sprint.csv', schema_overrides=schema_overrides)
     M_Sprint = M_Sprint.rename({"Pelo": "Sprint_Pelo", "Elo": "Sprint_Elo"})
     
-    M_Mass_Start = pl.read_csv(f'{base_path}/M_Mass_Start.csv')
+    M_Mass_Start = pl.read_csv(f'{base_path}/M_Mass_Start.csv', schema_overrides=schema_overrides)
     M_Mass_Start = M_Mass_Start.rename({"Pelo": "MassStart_Pelo", "Elo": "MassStart_Elo"})
     
     print("Done reading men's files")
