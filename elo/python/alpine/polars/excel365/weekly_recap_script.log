@@ -6524,3 +6524,237 @@ alpine:weekly-recap:true'
 [2025-12-08 17:18:15 UTC] =======================================
 [2025-12-08 17:18:15 UTC] Weekly recap script completed successfully
 [2025-12-08 17:18:15 UTC] =======================================
+[2025-12-08 21:35:24 UTC] =======================================
+[2025-12-08 21:35:24 UTC] Starting weekly recap script
+[2025-12-08 21:35:24 UTC] =======================================
+[2025-12-08 21:35:24 UTC] Date information (UTC):
+[2025-12-08 21:35:24 UTC]   Today: 2025-12-08 (12/08/2025)
+[2025-12-08 21:35:24 UTC]   Yesterday: 2025-12-07 (12/07/2025)
+[2025-12-08 21:35:24 UTC]   7 days ago: 2025-12-01 (12/01/2025)
+[2025-12-08 21:35:24 UTC]   Today YYYYMMDD: 20251208
+[2025-12-08 21:35:24 UTC] =======================================
+[2025-12-08 21:35:24 UTC] Checking base directories:
+[2025-12-08 21:35:24 UTC]   BLOG_DIR: /Users/syverjohansen/blog/daehl-e (exists: yes)
+[2025-12-08 21:35:24 UTC]   SKI_DIR: /Users/syverjohansen/ski/elo/python (exists: yes)
+[2025-12-08 21:35:24 UTC]   CONTENT_DIR: /Users/syverjohansen/blog/daehl-e/content/post (exists: yes)
+[2025-12-08 21:35:24 UTC] =======================================
+[2025-12-08 21:35:24 UTC] Processing sports for weekly recaps
+[2025-12-08 21:35:24 UTC] =======================================
+[2025-12-08 21:35:24 UTC] --- Starting alpine processing ---
+[2025-12-08 21:35:24 UTC] Processing sport recap: alpine -> alpine
+[2025-12-08 21:35:24 UTC] Checking files for alpine:
+[2025-12-08 21:35:24 UTC]   Standings script: /Users/syverjohansen/ski/elo/python/alpine/polars/standings_scrape.py (exists: yes)
+[2025-12-08 21:35:24 UTC]   Races CSV: /Users/syverjohansen/ski/elo/python/alpine/polars/excel365/races.csv (exists: yes)
+[2025-12-08 21:35:24 UTC]   Recap R script: /Users/syverjohansen/blog/daehl-e/content/post/alpine/drafts/race-recap2.R (exists: yes)
+[2025-12-08 21:35:24 UTC] Running standings_scrape.py for alpine
+[2025-12-08 21:35:26 UTC] ✓ Successfully ran standings_scrape.py for alpine
+[2025-12-08 21:35:26 UTC] Checking for races in last 7 days in /Users/syverjohansen/ski/elo/python/alpine/polars/excel365/races.csv
+[2025-12-08 21:35:26 UTC] Checking dates: 12/01/2025 12/02/2025 12/03/2025 12/04/2025 12/05/2025 12/06/2025 12/07/2025
+[2025-12-08 21:35:26 UTC] ✓ Races found in last 7 days for alpine
+[2025-12-08 21:35:26 UTC] Running race-recap2.R for alpine
+[2025-12-08 21:39:21 UTC] ✓ Successfully ran race-recap2.R for alpine
+[2025-12-08 21:39:21 UTC] Processing weekly recap Excel files in /Users/syverjohansen/blog/daehl-e/content/post/alpine/drafts/weekly-recap/20251208
+[2025-12-08 21:39:21 UTC] Processing Excel file: men_elo_change.xlsx
+[2025-12-08 21:39:22 UTC] ✓ Successfully processed men_elo_change.xlsx
+[2025-12-08 21:39:22 UTC] Processing Excel file: men_standings_predictions.xlsx
+[2025-12-08 21:39:22 UTC] ✓ Successfully processed men_standings_predictions.xlsx
+[2025-12-08 21:39:22 UTC] Processing Excel file: men_magic_numbers.xlsx
+[2025-12-08 21:39:23 UTC] ✓ Successfully processed men_magic_numbers.xlsx
+[2025-12-08 21:39:23 UTC] Processing Excel file: ladies_elo_change.xlsx
+[2025-12-08 21:39:23 UTC] ✓ Successfully processed ladies_elo_change.xlsx
+[2025-12-08 21:39:23 UTC] Processing Excel file: ladies_standings_predictions.xlsx
+[2025-12-08 21:39:23 UTC] ✓ Successfully processed ladies_standings_predictions.xlsx
+[2025-12-08 21:39:23 UTC] Processing Excel file: ladies_magic_numbers.xlsx
+[2025-12-08 21:39:24 UTC] ✓ Successfully processed ladies_magic_numbers.xlsx
+[2025-12-08 21:39:24 UTC] Processed 6 out of 6 expected files for alpine
+[2025-12-08 21:39:24 UTC] ✓ alpine returned recap data: alpine:weekly-recap:true
+[2025-12-08 21:39:24 UTC] Added recap: alpine:weekly-recap:true
+[2025-12-08 21:39:24 UTC] --- Completed alpine processing ---
+[2025-12-08 21:39:24 UTC] 
+[2025-12-08 21:39:24 UTC] --- Starting biathlon processing ---
+[2025-12-08 21:39:24 UTC] Processing sport recap: biathlon -> biathlon
+[2025-12-08 21:39:24 UTC] Checking files for biathlon:
+[2025-12-08 21:39:24 UTC]   Standings script: /Users/syverjohansen/ski/elo/python/biathlon/polars/standings_scrape.py (exists: yes)
+[2025-12-08 21:39:24 UTC]   Races CSV: /Users/syverjohansen/ski/elo/python/biathlon/polars/excel365/races.csv (exists: yes)
+[2025-12-08 21:39:24 UTC]   Recap R script: /Users/syverjohansen/blog/daehl-e/content/post/biathlon/drafts/race-recap2.R (exists: yes)
+[2025-12-08 21:39:24 UTC] Running standings_scrape.py for biathlon
+[2025-12-08 21:39:25 UTC] ✓ Successfully ran standings_scrape.py for biathlon
+[2025-12-08 21:39:25 UTC] Checking for races in last 7 days in /Users/syverjohansen/ski/elo/python/biathlon/polars/excel365/races.csv
+[2025-12-08 21:39:25 UTC] Checking dates: 12/01/2025 12/02/2025 12/03/2025 12/04/2025 12/05/2025 12/06/2025 12/07/2025
+[2025-12-08 21:39:25 UTC] ✓ Races found in last 7 days for biathlon
+[2025-12-08 21:39:25 UTC] Running race-recap2.R for biathlon
+[2025-12-08 21:43:06 UTC] ✓ Successfully ran race-recap2.R for biathlon
+[2025-12-08 21:43:06 UTC] Processing weekly recap Excel files in /Users/syverjohansen/blog/daehl-e/content/post/biathlon/drafts/weekly-recap/20251208
+[2025-12-08 21:43:06 UTC] Processing Excel file: men_elo_change.xlsx
+[2025-12-08 21:43:07 UTC] ✓ Successfully processed men_elo_change.xlsx
+[2025-12-08 21:43:07 UTC] Processing Excel file: men_standings_predictions.xlsx
+[2025-12-08 21:43:07 UTC] ✓ Successfully processed men_standings_predictions.xlsx
+[2025-12-08 21:43:07 UTC] Processing Excel file: men_magic_numbers.xlsx
+[2025-12-08 21:43:08 UTC] ✓ Successfully processed men_magic_numbers.xlsx
+[2025-12-08 21:43:08 UTC] Processing Excel file: ladies_elo_change.xlsx
+[2025-12-08 21:43:08 UTC] ✓ Successfully processed ladies_elo_change.xlsx
+[2025-12-08 21:43:08 UTC] Processing Excel file: ladies_standings_predictions.xlsx
+[2025-12-08 21:43:09 UTC] ✓ Successfully processed ladies_standings_predictions.xlsx
+[2025-12-08 21:43:09 UTC] Processing Excel file: ladies_magic_numbers.xlsx
+[2025-12-08 21:43:09 UTC] ✓ Successfully processed ladies_magic_numbers.xlsx
+[2025-12-08 21:43:09 UTC] Processed 6 out of 6 expected files for biathlon
+[2025-12-08 21:43:09 UTC] ✓ biathlon returned recap data: biathlon:weekly-recap:true
+[2025-12-08 21:43:09 UTC] Added recap: biathlon:weekly-recap:true
+[2025-12-08 21:43:09 UTC] --- Completed biathlon processing ---
+[2025-12-08 21:43:09 UTC] 
+[2025-12-08 21:43:09 UTC] --- Starting nordic-combined processing ---
+[2025-12-08 21:43:09 UTC] Processing sport recap: nordic-combined -> nordic-combined
+[2025-12-08 21:43:09 UTC] Checking files for nordic-combined:
+[2025-12-08 21:43:09 UTC]   Standings script: /Users/syverjohansen/ski/elo/python/nordic-combined/polars/standings_scrape.py (exists: yes)
+[2025-12-08 21:43:09 UTC]   Races CSV: /Users/syverjohansen/ski/elo/python/nordic-combined/polars/excel365/races.csv (exists: yes)
+[2025-12-08 21:43:09 UTC]   Recap R script: /Users/syverjohansen/blog/daehl-e/content/post/nordic-combined/drafts/race-recap2.R (exists: yes)
+[2025-12-08 21:43:09 UTC] Running standings_scrape.py for nordic-combined
+[2025-12-08 21:43:10 UTC] ✓ Successfully ran standings_scrape.py for nordic-combined
+[2025-12-08 21:43:10 UTC] Checking for races in last 7 days in /Users/syverjohansen/ski/elo/python/nordic-combined/polars/excel365/races.csv
+[2025-12-08 21:43:10 UTC] Checking dates: 12/01/2025 12/02/2025 12/03/2025 12/04/2025 12/05/2025 12/06/2025 12/07/2025
+[2025-12-08 21:43:10 UTC] ✓ Races found in last 7 days for nordic-combined
+[2025-12-08 21:43:10 UTC] Running race-recap2.R for nordic-combined
+[2025-12-08 21:44:39 UTC] ✓ Successfully ran race-recap2.R for nordic-combined
+[2025-12-08 21:44:39 UTC] Processing weekly recap Excel files in /Users/syverjohansen/blog/daehl-e/content/post/nordic-combined/drafts/weekly-recap/20251208
+[2025-12-08 21:44:39 UTC] Processing Excel file: men_elo_change.xlsx
+[2025-12-08 21:44:39 UTC] ✓ Successfully processed men_elo_change.xlsx
+[2025-12-08 21:44:39 UTC] Processing Excel file: men_standings_predictions.xlsx
+[2025-12-08 21:44:40 UTC] ✓ Successfully processed men_standings_predictions.xlsx
+[2025-12-08 21:44:40 UTC] Processing Excel file: men_magic_numbers.xlsx
+[2025-12-08 21:44:40 UTC] ✓ Successfully processed men_magic_numbers.xlsx
+[2025-12-08 21:44:40 UTC] Processing Excel file: ladies_elo_change.xlsx
+[2025-12-08 21:44:40 UTC] ✓ Successfully processed ladies_elo_change.xlsx
+[2025-12-08 21:44:40 UTC] Processing Excel file: ladies_standings_predictions.xlsx
+[2025-12-08 21:44:41 UTC] ✓ Successfully processed ladies_standings_predictions.xlsx
+[2025-12-08 21:44:41 UTC] Processing Excel file: ladies_magic_numbers.xlsx
+[2025-12-08 21:44:41 UTC] ✓ Successfully processed ladies_magic_numbers.xlsx
+[2025-12-08 21:44:41 UTC] Processed 6 out of 6 expected files for nordic-combined
+[2025-12-08 21:44:41 UTC] ✓ nordic-combined returned recap data: nordic-combined:weekly-recap:true
+[2025-12-08 21:44:41 UTC] Added recap: nordic-combined:weekly-recap:true
+[2025-12-08 21:44:41 UTC] --- Completed nordic-combined processing ---
+[2025-12-08 21:44:41 UTC] 
+[2025-12-08 21:44:41 UTC] --- Starting ski processing ---
+[2025-12-08 21:44:41 UTC] Processing sport recap: ski -> cross-country
+[2025-12-08 21:44:41 UTC] Checking files for ski:
+[2025-12-08 21:44:41 UTC]   Standings script: /Users/syverjohansen/ski/elo/python/ski/polars/standings_scrape.py (exists: yes)
+[2025-12-08 21:44:41 UTC]   Races CSV: /Users/syverjohansen/ski/elo/python/ski/polars/excel365/races.csv (exists: yes)
+[2025-12-08 21:44:41 UTC]   Recap R script: /Users/syverjohansen/blog/daehl-e/content/post/cross-country/drafts/race-recap2.R (exists: yes)
+[2025-12-08 21:44:41 UTC] Running standings_scrape.py for ski
+[2025-12-08 21:44:42 UTC] ✓ Successfully ran standings_scrape.py for ski
+[2025-12-08 21:44:42 UTC] Checking for races in last 7 days in /Users/syverjohansen/ski/elo/python/ski/polars/excel365/races.csv
+[2025-12-08 21:44:42 UTC] Checking dates: 12/01/2025 12/02/2025 12/03/2025 12/04/2025 12/05/2025 12/06/2025 12/07/2025
+[2025-12-08 21:44:42 UTC] ✓ Races found in last 7 days for ski
+[2025-12-08 21:44:42 UTC] Running race-recap2.R for ski
+[2025-12-08 21:50:01 UTC] ✓ Successfully ran race-recap2.R for ski
+[2025-12-08 21:50:01 UTC] Processing weekly recap Excel files in /Users/syverjohansen/blog/daehl-e/content/post/cross-country/drafts/weekly-recap/20251208
+[2025-12-08 21:50:01 UTC] Processing Excel file: men_elo_change.xlsx
+[2025-12-08 21:50:01 UTC] ✓ Successfully processed men_elo_change.xlsx
+[2025-12-08 21:50:01 UTC] Processing Excel file: men_standings_predictions.xlsx
+[2025-12-08 21:50:02 UTC] ✓ Successfully processed men_standings_predictions.xlsx
+[2025-12-08 21:50:02 UTC] Processing Excel file: men_magic_numbers.xlsx
+[2025-12-08 21:50:02 UTC] ✓ Successfully processed men_magic_numbers.xlsx
+[2025-12-08 21:50:02 UTC] Processing Excel file: ladies_elo_change.xlsx
+[2025-12-08 21:50:03 UTC] ✓ Successfully processed ladies_elo_change.xlsx
+[2025-12-08 21:50:03 UTC] Processing Excel file: ladies_standings_predictions.xlsx
+[2025-12-08 21:50:03 UTC] ✓ Successfully processed ladies_standings_predictions.xlsx
+[2025-12-08 21:50:03 UTC] Processing Excel file: ladies_magic_numbers.xlsx
+[2025-12-08 21:50:04 UTC] ✓ Successfully processed ladies_magic_numbers.xlsx
+[2025-12-08 21:50:04 UTC] Processed 6 out of 6 expected files for ski
+[2025-12-08 21:50:04 UTC] ✓ ski returned recap data: cross-country:weekly-recap:true
+[2025-12-08 21:50:04 UTC] Added recap: cross-country:weekly-recap:true
+[2025-12-08 21:50:04 UTC] --- Completed ski processing ---
+[2025-12-08 21:50:04 UTC] 
+[2025-12-08 21:50:04 UTC] --- Starting skijump processing ---
+[2025-12-08 21:50:04 UTC] Processing sport recap: skijump -> skijump
+[2025-12-08 21:50:04 UTC] Checking files for skijump:
+[2025-12-08 21:50:04 UTC]   Standings script: /Users/syverjohansen/ski/elo/python/skijump/polars/standings_scrape.py (exists: yes)
+[2025-12-08 21:50:04 UTC]   Races CSV: /Users/syverjohansen/ski/elo/python/skijump/polars/excel365/races.csv (exists: yes)
+[2025-12-08 21:50:04 UTC]   Recap R script: /Users/syverjohansen/blog/daehl-e/content/post/skijump/drafts/race-recap2.R (exists: yes)
+[2025-12-08 21:50:04 UTC] Running standings_scrape.py for skijump
+[2025-12-08 21:50:05 UTC] ✓ Successfully ran standings_scrape.py for skijump
+[2025-12-08 21:50:05 UTC] Checking for races in last 7 days in /Users/syverjohansen/ski/elo/python/skijump/polars/excel365/races.csv
+[2025-12-08 21:50:05 UTC] Checking dates: 12/01/2025 12/02/2025 12/03/2025 12/04/2025 12/05/2025 12/06/2025 12/07/2025
+[2025-12-08 21:50:05 UTC] ✓ Races found in last 7 days for skijump
+[2025-12-08 21:50:05 UTC] Running race-recap2.R for skijump
+[2025-12-08 21:53:04 UTC] ✓ Successfully ran race-recap2.R for skijump
+[2025-12-08 21:53:04 UTC] Processing weekly recap Excel files in /Users/syverjohansen/blog/daehl-e/content/post/skijump/drafts/weekly-recap/20251208
+[2025-12-08 21:53:04 UTC] Processing Excel file: men_elo_change.xlsx
+[2025-12-08 21:53:05 UTC] ✓ Successfully processed men_elo_change.xlsx
+[2025-12-08 21:53:05 UTC] Processing Excel file: men_standings_predictions.xlsx
+[2025-12-08 21:53:05 UTC] ✓ Successfully processed men_standings_predictions.xlsx
+[2025-12-08 21:53:05 UTC] Processing Excel file: men_magic_numbers.xlsx
+[2025-12-08 21:53:05 UTC] ✓ Successfully processed men_magic_numbers.xlsx
+[2025-12-08 21:53:05 UTC] Processing Excel file: ladies_elo_change.xlsx
+[2025-12-08 21:53:06 UTC] ✓ Successfully processed ladies_elo_change.xlsx
+[2025-12-08 21:53:06 UTC] Processing Excel file: ladies_standings_predictions.xlsx
+[2025-12-08 21:53:06 UTC] ✓ Successfully processed ladies_standings_predictions.xlsx
+[2025-12-08 21:53:06 UTC] Processing Excel file: ladies_magic_numbers.xlsx
+[2025-12-08 21:53:07 UTC] ✓ Successfully processed ladies_magic_numbers.xlsx
+[2025-12-08 21:53:07 UTC] Processed 6 out of 6 expected files for skijump
+[2025-12-08 21:53:07 UTC] ✓ skijump returned recap data: skijump:weekly-recap:true
+[2025-12-08 21:53:07 UTC] Added recap: skijump:weekly-recap:true
+[2025-12-08 21:53:07 UTC] --- Completed skijump processing ---
+[2025-12-08 21:53:07 UTC] 
+[2025-12-08 21:53:07 UTC] =======================================
+[2025-12-08 21:53:07 UTC] Sport processing complete
+[2025-12-08 21:53:07 UTC] Sports with recaps: alpine:weekly-recap:true|biathlon:weekly-recap:true|nordic-combined:weekly-recap:true|cross-country:weekly-recap:true|skijump:weekly-recap:true
+[2025-12-08 21:53:07 UTC] =======================================
+[2025-12-08 21:53:07 UTC] Creating Hugo post for weekly recaps
+[2025-12-08 21:53:07 UTC] Sports with recaps to process: 'alpine:weekly-recap:true|biathlon:weekly-recap:true|nordic-combined:weekly-recap:true|cross-country:weekly-recap:true|skijump:weekly-recap:true'
+[2025-12-08 21:53:07 UTC] Recap post directory: /Users/syverjohansen/blog/daehl-e/content/post/weekly-recap (exists: yes)
+[2025-12-08 21:53:07 UTC] Recap post file: /Users/syverjohansen/blog/daehl-e/content/post/weekly-recap/20251208.md
+[2025-12-08 21:53:07 UTC] Created weekly recap post header
+[2025-12-08 21:53:07 UTC] Adding section for recap sport: alpine
+[2025-12-08 21:53:07 UTC] Creating section for sport: alpine
+[2025-12-08 21:53:07 UTC] Adding section for men in alpine
+[2025-12-08 21:53:07 UTC] Adding Elo Change section for men in alpine
+[2025-12-08 21:53:07 UTC] Adding Standings Predictions section for men in alpine
+[2025-12-08 21:53:07 UTC] Adding Magic Numbers section for men in alpine
+[2025-12-08 21:53:07 UTC] Adding section for ladies in alpine
+[2025-12-08 21:53:07 UTC] Adding Elo Change section for ladies in alpine
+[2025-12-08 21:53:07 UTC] Adding Standings Predictions section for ladies in alpine
+[2025-12-08 21:53:07 UTC] Adding Magic Numbers section for ladies in alpine
+[2025-12-08 21:53:07 UTC] Adding section for recap sport: biathlon
+[2025-12-08 21:53:07 UTC] Creating section for sport: biathlon
+[2025-12-08 21:53:07 UTC] Adding section for men in biathlon
+[2025-12-08 21:53:07 UTC] Adding Elo Change section for men in biathlon
+[2025-12-08 21:53:07 UTC] Adding Standings Predictions section for men in biathlon
+[2025-12-08 21:53:07 UTC] Adding Magic Numbers section for men in biathlon
+[2025-12-08 21:53:07 UTC] Adding section for ladies in biathlon
+[2025-12-08 21:53:07 UTC] Adding Elo Change section for ladies in biathlon
+[2025-12-08 21:53:07 UTC] Adding Standings Predictions section for ladies in biathlon
+[2025-12-08 21:53:07 UTC] Adding Magic Numbers section for ladies in biathlon
+[2025-12-08 21:53:07 UTC] Adding section for recap sport: nordic-combined
+[2025-12-08 21:53:07 UTC] Creating section for sport: nordic combined
+[2025-12-08 21:53:07 UTC] Adding section for men in nordic combined
+[2025-12-08 21:53:07 UTC] Adding Elo Change section for men in nordic combined
+[2025-12-08 21:53:07 UTC] Adding Standings Predictions section for men in nordic combined
+[2025-12-08 21:53:07 UTC] Adding Magic Numbers section for men in nordic combined
+[2025-12-08 21:53:07 UTC] Adding section for ladies in nordic combined
+[2025-12-08 21:53:07 UTC] Adding Elo Change section for ladies in nordic combined
+[2025-12-08 21:53:07 UTC] Adding Standings Predictions section for ladies in nordic combined
+[2025-12-08 21:53:07 UTC] Adding Magic Numbers section for ladies in nordic combined
+[2025-12-08 21:53:07 UTC] Adding section for recap sport: cross-country
+[2025-12-08 21:53:07 UTC] Creating section for sport: cross country
+[2025-12-08 21:53:07 UTC] Adding section for men in cross country
+[2025-12-08 21:53:07 UTC] Adding Elo Change section for men in cross country
+[2025-12-08 21:53:07 UTC] Adding Standings Predictions section for men in cross country
+[2025-12-08 21:53:07 UTC] Adding Magic Numbers section for men in cross country
+[2025-12-08 21:53:07 UTC] Adding section for ladies in cross country
+[2025-12-08 21:53:07 UTC] Adding Elo Change section for ladies in cross country
+[2025-12-08 21:53:07 UTC] Adding Standings Predictions section for ladies in cross country
+[2025-12-08 21:53:07 UTC] Adding Magic Numbers section for ladies in cross country
+[2025-12-08 21:53:07 UTC] Adding section for recap sport: skijump
+[2025-12-08 21:53:07 UTC] Creating section for sport: skijump
+[2025-12-08 21:53:07 UTC] Adding section for men in skijump
+[2025-12-08 21:53:07 UTC] Adding Elo Change section for men in skijump
+[2025-12-08 21:53:07 UTC] Adding Standings Predictions section for men in skijump
+[2025-12-08 21:53:07 UTC] Adding Magic Numbers section for men in skijump
+[2025-12-08 21:53:07 UTC] Adding section for ladies in skijump
+[2025-12-08 21:53:07 UTC] Adding Elo Change section for ladies in skijump
+[2025-12-08 21:53:07 UTC] Adding Standings Predictions section for ladies in skijump
+[2025-12-08 21:53:07 UTC] Adding Magic Numbers section for ladies in skijump
+[2025-12-08 21:53:07 UTC] ✓ Created weekly recap post: /Users/syverjohansen/blog/daehl-e/content/post/weekly-recap/20251208.md
+[2025-12-08 21:53:07 UTC] =======================================
+[2025-12-08 21:53:07 UTC] Weekly recap script completed successfully
+[2025-12-08 21:53:07 UTC] =======================================
