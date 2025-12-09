@@ -26,10 +26,32 @@ os.makedirs(output_dir, exist_ok=True)
 
 def sex(df, sex):
     """Load data for specified sex"""
+    # Define schema overrides to handle "N/A" values
+    schema_overrides = {
+        'HillSize': pl.String,
+        'Distance': pl.String,  # Handle "N/A" values
+        'RaceType': pl.String,
+        'MassStart': pl.Int64,
+        'TeamEvent': pl.Int64,
+        'Season': pl.Int64,
+        'Race': pl.Int64,
+        'Place': pl.Int64,
+        'Skier': pl.String,
+        'Nation': pl.String,
+        'ID': pl.String,
+        'Birthday': pl.Datetime,
+        'Leg': pl.Int64,
+        'TeamID': pl.String,
+        'SJ_Pos': pl.String,
+        'CC_Pos': pl.String,
+        'Age': pl.Float64,
+        'Exp': pl.Int32
+    }
+    
     if(sex=="M"):
-        df = pl.read_csv("~/ski/elo/python/nordic-combined/polars/excel365/men_scrape_update.csv")
+        df = pl.read_csv("~/ski/elo/python/nordic-combined/polars/excel365/men_scrape_update.csv", schema_overrides=schema_overrides, null_values=["N/A", ""])
     else:
-        df = pl.read_csv("~/ski/elo/python/nordic-combined/polars/excel365/ladies_scrape_update.csv")
+        df = pl.read_csv("~/ski/elo/python/nordic-combined/polars/excel365/ladies_scrape_update.csv", schema_overrides=schema_overrides, null_values=["N/A", ""])
     
     # Cast columns to appropriate types
     df = df.with_columns([
