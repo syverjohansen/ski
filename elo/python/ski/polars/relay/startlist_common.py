@@ -5,7 +5,7 @@ import polars as pl
 from thefuzz import fuzz
 from typing import Dict, List, Tuple, Optional
 import warnings
-from datetime import datetime
+from datetime import datetime, timezone
 import re
 warnings.filterwarnings('ignore')
 
@@ -417,13 +417,32 @@ def convert_to_last_first(name: str) -> List[str]:
     
     return formats
 
+def get_current_season_from_chronos(chronos: pd.DataFrame) -> int:
+    """Get the current (maximum) season from chronos data"""
+    try:
+        if 'Season' in chronos.columns:
+            current_season = chronos['Season'].max()
+            print(f"Current season determined from chronos data: {current_season}")
+            return current_season
+        else:
+            print("No Season column found in chronos data, defaulting to current year (UTC)")
+            from datetime import timezone
+            return datetime.now(timezone.utc).year
+    except Exception as e:
+        print(f"Error determining current season: {e}")
+        from datetime import timezone
+        return datetime.now(timezone.utc).year
+
 def get_additional_national_skiers(chronos: pd.DataFrame, elo_scores: pd.DataFrame, 
-                                fantasy_prices: Dict[str, int], nation: str) -> List[dict]:
-    """Get all skiers from a nation who competed in 2025"""
-    # Get all skiers from this nation in 2025
+                                fantasy_prices: Dict[str, int], nation: str, current_season: int = None) -> List[dict]:
+    """Get all skiers from a nation who competed in the current season"""
+    if current_season is None:
+        current_season = get_current_season_from_chronos(chronos)
+    
+    # Get all skiers from this nation in current season
     nation_skiers = chronos[
         (chronos['Nation'] == nation) & 
-        (chronos['Season'] == 2025)
+        (chronos['Season'] == current_season)
     ]['Skier'].unique()
     
     additional_data = []

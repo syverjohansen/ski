@@ -589,7 +589,8 @@ def get_recent_competitors(chronos: pd.DataFrame, race_info: Dict) -> set:
     try:
         # Filter to current season if Season column exists
         if 'Season' in chronos.columns:
-            current_season_data = chronos[chronos['Season'] == 2025]
+            current_season = get_current_season_from_chronos(chronos)
+            current_season_data = chronos[chronos['Season'] == current_season]
         else:
             current_season_data = chronos
         

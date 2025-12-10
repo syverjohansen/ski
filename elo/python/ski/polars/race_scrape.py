@@ -80,20 +80,24 @@ def determine_period(date_str):
         month = date_obj.month
         day = date_obj.day
         
-        # Before Christmas (period 1) - 2025 dates before Dec 25
-        if year == 2025 and (month < 12 or (month == 12 and day < 25)):
+        # Calculate current season and next season based on current UTC date
+        from datetime import timezone
+        current_utc_year = datetime.now(timezone.utc).year
+        
+        # Before Christmas (period 1) - current year dates before Dec 25
+        if year == current_utc_year and (month < 12 or (month == 12 and day < 25)):
             return "1"
-        # Christmas to January 7th (period 2) - Dec 25, 2025 to Jan 7, 2026
-        elif (year == 2025 and month == 12 and day >= 25) or (year == 2026 and month == 1 and day <= 7):
+        # Christmas to January 7th (period 2) - Dec 25 current year to Jan 7 next year
+        elif (year == current_utc_year and month == 12 and day >= 25) or (year == current_utc_year + 1 and month == 1 and day <= 7):
             return "2"
-        # After January 7th to before Olympics (period 3) - Jan 8 to Jan 31, 2026
-        elif year == 2026 and month == 1 and day > 7:
+        # After January 7th to before Olympics (period 3) - Jan 8 to Jan 31 next year
+        elif year == current_utc_year + 1 and month == 1 and day > 7:
             return "3"
-        # Olympics (period 4) - February 2026
-        elif year == 2026 and month == 2:
+        # Olympics (period 4) - February next year
+        elif year == current_utc_year + 1 and month == 2:
             return "4"
-        # After Olympics (period 5) - March 2026 and later
-        elif year == 2026 and month >= 3:
+        # After Olympics (period 5) - March next year and later
+        elif year == current_utc_year + 1 and month >= 3:
             return "5"
         else:
             return "1"  # Default fallback

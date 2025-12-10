@@ -549,7 +549,7 @@ def create_weekend_startlist(fis_url: str, elo_path: str, gender: str,
         fantasy_prices = get_fantasy_prices()
         
         if not fis_athletes:
-            print("FIS startlist is empty, using fallback logic with 2025 season skiers")
+            print("FIS startlist is empty, using fallback logic with current season skiers")
             return create_fallback_startlist(elo_path, gender, host_nation, prob_column, fantasy_prices)
         
 
@@ -743,26 +743,27 @@ def create_weekend_startlist(fis_url: str, elo_path: str, gender: str,
                 # Fallback to pandas if polars fails
                 chronos = pd.read_csv(elo_path, low_memory=False)
             
-            # Get all nations from 2025 season (the max year)
-            all_2025_nations = set(chronos[chronos['Season'] == 2025]['Nation'].unique())
+            # Get current season and all nations from that season
+            current_season = get_current_season_from_chronos(chronos)
+            all_current_nations = set(chronos[chronos['Season'] == current_season]['Nation'].unique())
             
             # Find nations that aren't in config
-            non_config_nations = {nation for nation in all_2025_nations if nation not in config_nations}
+            non_config_nations = {nation for nation in all_current_nations if nation not in config_nations}
             
-            print(f"Found {len(non_config_nations)} non-config nations from 2025 season")
+            print(f"Found {len(non_config_nations)} non-config nations from {current_season} season")
             
             # Process each non-config nation
             for nation in non_config_nations:
-                print(f"Processing all 2025 skiers for non-config nation: {nation}")
+                print(f"Processing all {current_season} skiers for non-config nation: {nation}")
                 
                 # Get current skiers for this nation (if any)
                 current_skiers = {row['Skier'] for row in data if row['Nation'] == nation}
                 
-                # Get all skiers from this nation who competed in 2025
+                # Get all skiers from this nation who competed in current season
                 nation_skiers = chronos[(chronos['Nation'] == nation) & 
-                                      (chronos['Season'] == 2025)]['Skier'].unique()
+                                      (chronos['Season'] == current_season)]['Skier'].unique()
                 
-                print(f"Found {len(nation_skiers)} skiers from {nation} who competed in 2025")
+                print(f"Found {len(nation_skiers)} skiers from {nation} who competed in {current_season}")
                 
                 # Process each skier from this nation
                 for skier_name in nation_skiers:
@@ -851,14 +852,14 @@ def create_weekend_startlist(fis_url: str, elo_path: str, gender: str,
 
 def create_fallback_startlist(elo_path: str, gender: str, host_nation: str, 
                              prob_column: str, fantasy_prices: Dict) -> pd.DataFrame:
-    """Creates fallback startlist with all skiers from the 2025 season"""
+    """Creates fallback startlist with all skiers from the current season"""
     try:
-        print(f"Creating fallback startlist with all skiers from the current season season for {gender}")
+        print(f"Creating fallback startlist with all skiers from the current season for {gender}")
         
         # Get the most recent ELO scores
         elo_scores = get_latest_elo_scores(elo_path)
         
-        # Get chronos data for finding 2025 skiers
+        # Get chronos data for finding current season skiers
         try:
             chronos = pl.read_csv(
                 elo_path,
@@ -871,9 +872,10 @@ def create_fallback_startlist(elo_path: str, gender: str, host_nation: str,
             # Fallback to pandas if polars fails
             chronos = pd.read_csv(elo_path, low_memory=False)
         
-        # Get all skiers from 2025 season
-        skiers_2025 = chronos[chronos['Season'] == max(chronos['Season'])]['Skier'].unique()
-        print(f"Found {len(skiers_2025)} skiers from the 2025 season")
+        # Get all skiers from current season
+        current_season = get_current_season_from_chronos(chronos)
+        current_season_skiers = chronos[chronos['Season'] == current_season]['Skier'].unique()
+        print(f"Found {len(current_season_skiers)} skiers from the {current_season} season")
         
         # Get list of nations in config
         ADDITIONAL_SKIERS = get_additional_skiers(gender)
@@ -890,8 +892,8 @@ def create_fallback_startlist(elo_path: str, gender: str, host_nation: str,
             'Classic_Elo', 'Freestyle_Elo'
         ]
         
-        # Process each 2025 skier
-        for skier_name in skiers_2025:
+        # Process each current season skier
+        for skier_name in current_season_skiers:
             if skier_name in processed_names:
                 continue
             
