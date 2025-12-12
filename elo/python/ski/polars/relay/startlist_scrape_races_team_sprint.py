@@ -207,7 +207,15 @@ def get_team_sprint_teams(url: str) -> List[Dict]:
     ]
     """
     try:
-        response = requests.get(url)
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.5',
+            'Accept-Encoding': 'gzip, deflate',
+            'Connection': 'keep-alive',
+            'Upgrade-Insecure-Requests': '1'
+        }
+        response = requests.get(url, headers=headers)
         response.raise_for_status()
         
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -285,7 +293,8 @@ def get_team_sprint_teams(url: str) -> List[Dict]:
                         athlete_row_div = current_element.select_one('.athlete-team-row')
                         if athlete_row_div:
                             # This is an athlete row for the current team
-                            athlete_name_elem = current_element.select_one('.g-lg-14.g-md-14.g-sm-11.g-xs-10.justify-left.bold')
+                            # Get just the athlete name, not the constructor name
+                            athlete_name_elem = current_element.select_one('.athlete-name')
                             if athlete_name_elem:
                                 athlete_name = athlete_name_elem.text.strip()
                                 
