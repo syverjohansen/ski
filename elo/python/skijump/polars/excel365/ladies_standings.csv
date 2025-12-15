@@ -1,45 +1,46 @@
 Skier,ID,Nation,Ranking,Points,Wins
-Nozomi Maruyama,222,Japan,1,490,3
-Nika Prevc,426,Slovenia,2,356,2
-Anna Odine Strøm,44,Norway,3,308,1
-Abigail Strate,289,Canada,4,276,0
-Lisa Eder,337,Austria,5,263,0
-Heidi Dyhre Tråserud,366,Norway,6,248,0
-Eirin Maria Kvandal,354,Norway,7,218,0
-Nika Kriznar,266,Slovenia,8,217,0
-Katharina Schmid,13,Germany,9,192,0
-Sara Takanashi,3,Japan,10,189,0
-Agnes Reisch,259,Germany,11,156,0
-Yuki Ito,5,Japan,12,148,0
-Selina Freitag,338,Germany,13,131,0
-Yuka Seto,32,Japan,14,117,0
-Julia Mühlbacher,400,Austria,15,105,0
-Juliane Seyfarth,63,Germany,16,94,0
-Frida Westman,296,Sweden,17,84,0
-Anna Twardosz,288,Poland,18,71,0
-Annika Sieff,377,Italy,19,60,0
-Klara Ulrichova,388,Czechia,20,57,0
-Sina Arnet,448,Switzerland,21,53,0
-Ringo Miyajima,427,Japan,22,49,0
-Heta Hirvonen,542,Finland,23,45,0
-Ping Zeng,438,China,24,44,0
-Ingvild Synnøve Midtskogen,479,Norway,25,43,0
-Anezka Indrackova,437,Czechia,26,40,0
-Yuzuki Sato,480,Japan,27,37,0
-Silje Opseth,221,Norway,28,29,0
-Jenny Rautionaho,145,Finland,29,26,0
-Gyda Westvold Hansen,382,Norway,30,23,0
-Paige Jones,365,USA,30,23,0
-Nicole Maurer,275,Canada,32,19,0
-Pola Beltowska,442,Poland,33,18,0
-Annika Belshaw,346,USA,34,14,0
-Martina Zanitzer,430,Italy,35,13,0
-Katra Komar,284,Slovenia,36,11,0
-Julia Kykkänen,11,Finland,36,11,0
-Minja Korhonen,506,Finland,38,9,0
-Yangning Weng,513,China,38,9,0
-Anna Rupprecht,67,Germany,40,5,0
-Sandra Sproch,501,USA,40,5,0
-Tinkara Komar,471,Slovenia,42,2,0
-Daniela Haralambie,43,Romania,43,1,0
-Maja Kovacic,511,Slovenia,43,1,0
+Nozomi Maruyama,222,Japan,1,670,4
+Nika Prevc,426,Slovenia,2,536,3
+Anna Odine Strøm,44,Norway,3,408,1
+Abigail Strate,289,Canada,4,361,0
+Lisa Eder,337,Austria,5,349,0
+Heidi Dyhre Tråserud,366,Norway,6,306,0
+Nika Kriznar,266,Slovenia,7,275,0
+Sara Takanashi,3,Japan,8,263,0
+Eirin Maria Kvandal,354,Norway,9,234,0
+Katharina Schmid,13,Germany,9,234,0
+Agnes Reisch,259,Germany,11,225,0
+Selina Freitag,338,Germany,12,217,0
+Yuki Ito,5,Japan,13,193,0
+Yuka Seto,32,Japan,14,150,0
+Julia Mühlbacher,400,Austria,15,132,0
+Frida Westman,296,Sweden,16,122,0
+Juliane Seyfarth,63,Germany,17,104,0
+Anna Twardosz,288,Poland,18,88,0
+Annika Sieff,377,Italy,19,85,0
+Ringo Miyajima,427,Japan,20,84,0
+Ingvild Synnøve Midtskogen,479,Norway,21,66,0
+Silje Opseth,221,Norway,22,65,0
+Sina Arnet,448,Switzerland,23,58,0
+Klara Ulrichova,388,Czechia,24,57,0
+Gyda Westvold Hansen,382,Norway,25,51,0
+Heta Hirvonen,542,Finland,26,45,0
+Ping Zeng,438,China,27,44,0
+Anezka Indrackova,437,Czechia,28,40,0
+Yuzuki Sato,480,Japan,29,37,0
+Paige Jones,365,USA,30,34,0
+Jenny Rautionaho,145,Finland,31,33,0
+Annika Belshaw,346,USA,32,26,0
+Nicole Maurer,275,Canada,33,22,0
+Katra Komar,284,Slovenia,34,21,0
+Maja Kovacic,511,Slovenia,35,19,0
+Pola Beltowska,442,Poland,36,18,0
+Julia Kykkänen,11,Finland,37,17,0
+Josie Johnson,446,USA,38,13,0
+Martina Zanitzer,430,Italy,38,13,0
+Minja Korhonen,506,Finland,40,9,0
+Yangning Weng,513,China,40,9,0
+Anna Rupprecht,67,Germany,42,6,0
+Sandra Sproch,501,USA,43,5,0
+Tinkara Komar,471,Slovenia,44,2,0
+Daniela Haralambie,43,Romania,45,1,0
