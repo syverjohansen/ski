@@ -7568,3 +7568,249 @@ INFO [2025-12-19 00:52:46] Final predictions calculated for ladies
 INFO [2025-12-19 00:52:46] Formatted position probabilities saved to ~/blog/daehl-e/content/post/nordic-combined/drafts/race-picks/20251219/ladies_position_probabilities.xlsx
 INFO [2025-12-19 00:52:46] Saved predictions to ~/blog/daehl-e/content/post/nordic-combined/drafts/race-picks/20251219/ladies.xlsx
 INFO [2025-12-19 00:52:46] Nordic Combined prediction workflow complete
+INFO [2025-12-20 01:03:27] Starting Nordic Combined race predictions process
+INFO [2025-12-20 01:03:27] Today's date: 12/20/2025
+INFO [2025-12-20 01:03:27] Found 2 races for today
+INFO [2025-12-20 01:03:28] Found 1 men's races, 1 ladies' races
+INFO [2025-12-20 01:03:28] Found 0 men's team races, 0 ladies' team races
+INFO [2025-12-20 01:03:28] Found 0 men's team sprint races, 0 ladies' team sprint races
+INFO [2025-12-20 01:03:28] Found 0 mixed team races
+INFO [2025-12-20 01:03:29] Running integrated Nordic Combined predictions workflow
+INFO [2025-12-20 01:03:29] Calculating race probabilities
+INFO [2025-12-20 01:03:29] Calculating race participation probabilities
+INFO [2025-12-20 01:03:29] Reading men's chronological data and startlist
+INFO [2025-12-20 01:03:30] Reading ladies' chronological data and startlist
+INFO [2025-12-20 01:03:30] Processing men's race probabilities
+INFO [2025-12-20 01:03:30] FIS startlist exists (at least one In_Startlist=True), keeping existing Race1_Prob values
+INFO [2025-12-20 01:03:30] Using existing Race1_Prob from FIS startlist, skipping calculation
+INFO [2025-12-20 01:03:30] Processing ladies' race probabilities
+INFO [2025-12-20 01:03:30] FIS startlist exists (at least one In_Startlist=True), keeping existing Race1_Prob values
+INFO [2025-12-20 01:03:30] Using existing Race1_Prob from FIS startlist, skipping calculation
+INFO [2025-12-20 01:03:30] Saving race probability results
+INFO [2025-12-20 01:03:30] Race probability calculation complete
+INFO [2025-12-20 01:03:30] Updating startlist variables with calculated probabilities
+INFO [2025-12-20 01:03:30] Men's startlist has 74 entries
+INFO [2025-12-20 01:03:30] Ladies' startlist has 38 entries
+INFO [2025-12-20 01:03:30] Men's team startlist has 0 entries
+INFO [2025-12-20 01:03:30] Ladies' team startlist has 0 entries
+INFO [2025-12-20 01:03:30] Men's team sprint startlist has 0 entries
+INFO [2025-12-20 01:03:30] Ladies' team sprint startlist has 0 entries
+INFO [2025-12-20 01:03:30] Mixed team startlist has 0 entries
+INFO [2025-12-20 01:03:30] Processing men's predictions
+INFO [2025-12-20 01:03:31] Using provided startlist_override with 74 entries
+INFO [2025-12-20 01:03:31] Using men's races: 1 races found
+INFO [2025-12-20 01:03:31] Selected startlist has 74 entries
+INFO [2025-12-20 01:03:31] Using chronological data from: ~/ski/elo/python/nordic-combined/polars/excel365/men_chrono_elevation.csv
+INFO [2025-12-20 01:03:31] Loading chronological data from ~/ski/elo/python/nordic-combined/polars/excel365/men_chrono_elevation.csv
+INFO [2025-12-20 01:03:34] Preprocessing complete - final dimensions: 11344 x 40
+INFO [2025-12-20 01:03:34] Final columns: Elo, Individual_Elo, IndividualCompact_Elo, Sprint_Elo, MassStart_Elo, Pelo, Individual_Pelo, IndividualCompact_Pelo, Sprint_Pelo, MassStart_Pelo ...
+INFO [2025-12-20 01:03:34] Chronological data dimensions: 11344 x 40
+INFO [2025-12-20 01:03:34] First few columns: Elo, Individual_Elo, IndividualCompact_Elo, Sprint_Elo, MassStart_Elo, Pelo, Individual_Pelo, IndividualCompact_Pelo, Sprint_Pelo, MassStart_Pelo
+INFO [2025-12-20 01:03:34] Race probability columns in startlist: Race1_Prob
+INFO [2025-12-20 01:03:34] Processing men race 1: Individual
+INFO [2025-12-20 01:03:34] Using World Cup points for this race
+INFO [2025-12-20 01:03:34] Race probability column Race1_Prob exists in startlist
+INFO [2025-12-20 01:03:34]   Mean: 0.810810810810811
+INFO [2025-12-20 01:03:34]   Sum: 60
+INFO [2025-12-20 01:03:34] Looking for RaceType: Individual -> cleaned: Individual
+INFO [2025-12-20 01:03:34] Available RaceTypes in df BEFORE cleaning: Offseason, Individual, Mass Start, Individual Compact
+INFO [2025-12-20 01:03:34] Available RaceTypes in df AFTER cleaning: Offseason, Individual, MassStart, IndividualCompact
+INFO [2025-12-20 01:03:34] Number of rows in df: 11344
+INFO [2025-12-20 01:03:34] Filtered race_df has 8966 rows
+INFO [2025-12-20 01:03:36] Creating model for top 1 positions
+INFO [2025-12-20 01:03:38] Brier score for threshold 1 : 0.0138
+INFO [2025-12-20 01:03:38] Variables selected for 1 position model: Prev_Points_Weighted, Elo_Pct
+INFO [2025-12-20 01:03:39] Creating model for top 3 positions
+INFO [2025-12-20 01:03:42] Brier score for threshold 3 : 0.0377
+INFO [2025-12-20 01:03:42] Variables selected for 3 position model: Prev_Points_Weighted, Elo_Pct
+INFO [2025-12-20 01:03:43] Creating model for top 5 positions
+INFO [2025-12-20 01:03:44] Brier score for threshold 5 : 0.0597
+INFO [2025-12-20 01:03:44] Variables selected for 5 position model: Prev_Points_Weighted
+INFO [2025-12-20 01:03:45] Creating model for top 10 positions
+INFO [2025-12-20 01:03:51] Brier score for threshold 10 : 0.0884
+INFO [2025-12-20 01:03:51] Variables selected for 10 position model: Prev_Points_Weighted, Individual_Elo_Pct, IndividualCompact_Elo_Pct, Elo_Pct
+INFO [2025-12-20 01:03:53] Creating model for top 30 positions
+INFO [2025-12-20 01:03:59] Brier score for threshold 30 : 0.1162
+INFO [2025-12-20 01:03:59] Variables selected for 30 position model: Individual_Elo_Pct, IndividualCompact_Elo_Pct, Elo_Pct
+INFO [2025-12-20 01:04:05] Preparing startlist data for Individual_Elo_Pct
+INFO [2025-12-20 01:04:05] Race probability columns found: Race1_Prob
+INFO [2025-12-20 01:04:05] Available elo columns: Skier, Sprint_Elo, Individual_Elo, MassStart_Elo, IndividualCompact_Elo, Elo
+INFO [2025-12-20 01:04:05] Calculating Sprint_Elo_Pct from Sprint_Elo
+INFO [2025-12-20 01:04:05] Calculating Individual_Elo_Pct from Individual_Elo
+INFO [2025-12-20 01:04:05] Calculating MassStart_Elo_Pct from MassStart_Elo
+INFO [2025-12-20 01:04:05] Calculating IndividualCompact_Elo_Pct from IndividualCompact_Elo
+INFO [2025-12-20 01:04:05] Calculating Elo_Pct from Elo
+INFO [2025-12-20 01:04:05] Converting Sprint_Elo to Sprint_Pelo_Pct using max Pelo = 1530.01550343729
+INFO [2025-12-20 01:04:05] Converting Individual_Elo to Individual_Pelo_Pct using max Pelo = 1873.53236733851
+INFO [2025-12-20 01:04:05] Converting MassStart_Elo to MassStart_Pelo_Pct using max Pelo = 1493.74829537845
+INFO [2025-12-20 01:04:05] Converting IndividualCompact_Elo to IndividualCompact_Pelo_Pct using max Pelo = 1505.62414224288
+INFO [2025-12-20 01:04:05] Converting Elo to Pelo_Pct using max Pelo = 1889.79084018352
+INFO [2025-12-20 01:04:05] Race probability column Race1_Prob summary:
+INFO [2025-12-20 01:04:05]   Mean: 0.810810810810811
+INFO [2025-12-20 01:04:05]   Sum: 60
+INFO [2025-12-20 01:04:05]   Max: 1
+INFO [2025-12-20 01:04:05] Final columns in result_df: Skier, ID, Nation, Sex, Race1_Prob, Sprint_Elo, Individual_Elo, MassStart_Elo, IndividualCompact_Elo, Elo, Prev_Points_Weighted, Sprint_Elo_Pct, Individual_Elo_Pct, MassStart_Elo_Pct, IndividualCompact_Elo_Pct, Elo_Pct, Sprint_Pelo_Pct, Individual_Pelo_Pct, MassStart_Pelo_Pct, IndividualCompact_Pelo_Pct, Pelo_Pct
+INFO [2025-12-20 01:04:05] Model for threshold 1 requires variables: Prev_Points_Weighted, Elo_Pct
+INFO [2025-12-20 01:04:05] Attempting prediction for threshold 1 with 74 rows
+INFO [2025-12-20 01:04:05] Made predictions with adjustments for position threshold 1
+INFO [2025-12-20 01:04:05] Model for threshold 3 requires variables: Prev_Points_Weighted, Elo_Pct
+INFO [2025-12-20 01:04:05] Attempting prediction for threshold 3 with 74 rows
+INFO [2025-12-20 01:04:05] Made predictions with adjustments for position threshold 3
+INFO [2025-12-20 01:04:05] Model for threshold 5 requires variables: Prev_Points_Weighted
+INFO [2025-12-20 01:04:05] Attempting prediction for threshold 5 with 74 rows
+INFO [2025-12-20 01:04:05] Made predictions with adjustments for position threshold 5
+INFO [2025-12-20 01:04:05] Model for threshold 10 requires variables: Prev_Points_Weighted, Individual_Elo_Pct, IndividualCompact_Elo_Pct, Elo_Pct
+INFO [2025-12-20 01:04:05] Attempting prediction for threshold 10 with 74 rows
+INFO [2025-12-20 01:04:05] Made predictions with adjustments for position threshold 10
+INFO [2025-12-20 01:04:05] Model for threshold 30 requires variables: Individual_Elo_Pct, IndividualCompact_Elo_Pct, Elo_Pct
+INFO [2025-12-20 01:04:05] Attempting prediction for threshold 30 with 74 rows
+INFO [2025-12-20 01:04:05] Made predictions with adjustments for position threshold 30
+INFO [2025-12-20 01:04:05] Position probability sums BEFORE normalization:
+INFO [2025-12-20 01:04:05]   prob_top1: 87.00% (target: 100%)
+INFO [2025-12-20 01:04:05]   prob_top3: 257.50% (target: 300%)
+INFO [2025-12-20 01:04:05]   prob_top5: 516.90% (target: 500%)
+INFO [2025-12-20 01:04:05]   prob_top10: 1038.10% (target: 1000%)
+INFO [2025-12-20 01:04:05]   prob_top30: 3604.10% (target: 3000%)
+INFO [2025-12-20 01:04:05]   prob_top1 after race prob adjustment: 87.00% (scaling by race participation)
+INFO [2025-12-20 01:04:05]   prob_top1 normalization: applied scaling factor of 1.1494
+INFO [2025-12-20 01:04:05]   prob_top3 after race prob adjustment: 256.90% (scaling by race participation)
+INFO [2025-12-20 01:04:05]   prob_top3 normalization: applied scaling factor of 1.1678
+INFO [2025-12-20 01:04:05]   prob_top5 after race prob adjustment: 508.70% (scaling by race participation)
+INFO [2025-12-20 01:04:05]   prob_top5 normalization: applied scaling factor of 0.9829
+INFO [2025-12-20 01:04:05]   prob_top10 after race prob adjustment: 1023.00% (scaling by race participation)
+INFO [2025-12-20 01:04:05]   prob_top10 normalization: applied scaling factor of 0.9775
+INFO [2025-12-20 01:04:05]   prob_top30 after race prob adjustment: 3327.50% (scaling by race participation)
+INFO [2025-12-20 01:04:05]   prob_top30 normalization: applied scaling factor of 0.9016
+INFO [2025-12-20 01:04:05] Applying monotonic constraints...
+INFO [2025-12-20 01:04:05] Re-normalizing after monotonic constraints...
+INFO [2025-12-20 01:04:05] Position probability sums AFTER normalization and monotonic constraints:
+INFO [2025-12-20 01:04:05]   prob_top1: 100.00% (target: 100%)
+INFO [2025-12-20 01:04:05]   prob_top3: 300.00% (target: 300%)
+INFO [2025-12-20 01:04:05]   prob_top5: 500.00% (target: 500%)
+INFO [2025-12-20 01:04:05]   prob_top10: 1000.00% (target: 1000%)
+INFO [2025-12-20 01:04:05]   prob_top30: 3000.00% (target: 3000%)
+INFO [2025-12-20 01:04:05] Race 1 position probability sums after normalization:
+INFO [2025-12-20 01:04:05]   prob_top1: 100.00% (should be 100%)
+INFO [2025-12-20 01:04:05]   prob_top3: 300.00% (should be 300%)
+INFO [2025-12-20 01:04:05]   prob_top5: 500.00% (should be 500%)
+INFO [2025-12-20 01:04:05]   prob_top10: 1000.00% (should be 1000%)
+INFO [2025-12-20 01:04:05]   prob_top30: 3000.00% (should be 3000%)
+INFO [2025-12-20 01:04:05] Race 1 probability check:
+INFO [2025-12-20 01:04:05] Combining race predictions
+INFO [2025-12-20 01:04:05] Starting with first race data
+INFO [2025-12-20 01:04:05] Probability column Race1_Probability exists in final predictions
+INFO [2025-12-20 01:04:05]   Mean: 0.810810810810811
+INFO [2025-12-20 01:04:05]   Sum: 60
+INFO [2025-12-20 01:04:05] Calculating totals with probability weighting
+INFO [2025-12-20 01:04:05] Returning final predictions
+INFO [2025-12-20 01:04:05] Final predictions calculated for men
+INFO [2025-12-20 01:04:06] Formatted position probabilities saved to ~/blog/daehl-e/content/post/nordic-combined/drafts/race-picks/20251220/men_position_probabilities.xlsx
+INFO [2025-12-20 01:04:06] Saved predictions to ~/blog/daehl-e/content/post/nordic-combined/drafts/race-picks/20251220/men.xlsx
+INFO [2025-12-20 01:04:06] Processing ladies' predictions
+INFO [2025-12-20 01:04:06] Using provided startlist_override with 38 entries
+INFO [2025-12-20 01:04:06] Using ladies' races: 1 races found
+INFO [2025-12-20 01:04:06] Selected startlist has 38 entries
+INFO [2025-12-20 01:04:06] Using chronological data from: ~/ski/elo/python/nordic-combined/polars/excel365/ladies_chrono_elevation.csv
+INFO [2025-12-20 01:04:06] Loading chronological data from ~/ski/elo/python/nordic-combined/polars/excel365/ladies_chrono_elevation.csv
+INFO [2025-12-20 01:04:06] Preprocessing complete - final dimensions: 1694 x 40
+INFO [2025-12-20 01:04:06] Final columns: Elo, Individual_Elo, IndividualCompact_Elo, Sprint_Elo, MassStart_Elo, Pelo, Individual_Pelo, IndividualCompact_Pelo, Sprint_Pelo, MassStart_Pelo ...
+INFO [2025-12-20 01:04:06] Chronological data dimensions: 1694 x 40
+INFO [2025-12-20 01:04:06] First few columns: Elo, Individual_Elo, IndividualCompact_Elo, Sprint_Elo, MassStart_Elo, Pelo, Individual_Pelo, IndividualCompact_Pelo, Sprint_Pelo, MassStart_Pelo
+INFO [2025-12-20 01:04:06] Race probability columns in startlist: Race1_Prob
+INFO [2025-12-20 01:04:06] Processing ladies race 1: Individual
+INFO [2025-12-20 01:04:06] Using World Cup points for this race
+INFO [2025-12-20 01:04:06] Race probability column Race1_Prob exists in startlist
+INFO [2025-12-20 01:04:06]   Mean: 0.921052631578947
+INFO [2025-12-20 01:04:06]   Sum: 35
+INFO [2025-12-20 01:04:06] Looking for RaceType: Individual -> cleaned: Individual
+INFO [2025-12-20 01:04:06] Available RaceTypes in df BEFORE cleaning: Offseason, Individual, Mass Start, Individual Compact
+INFO [2025-12-20 01:04:06] Available RaceTypes in df AFTER cleaning: Offseason, Individual, MassStart, IndividualCompact
+INFO [2025-12-20 01:04:06] Number of rows in df: 1694
+INFO [2025-12-20 01:04:06] Filtered race_df has 938 rows
+WARN [2025-12-20 01:04:06] Error in model selection: A term has fewer unique covariate combinations than specified maximum degrees of freedom
+WARN [2025-12-20 01:04:06] Error in fallback GAM model: A term has fewer unique covariate combinations than specified maximum degrees of freedom
+INFO [2025-12-20 01:04:06] Using linear model as final fallback
+INFO [2025-12-20 01:04:06] Creating model for top 1 positions
+INFO [2025-12-20 01:04:07] Brier score for threshold 1 : 0.013
+INFO [2025-12-20 01:04:07] Variables selected for 1 position model: Prev_Points_Weighted, MassStart_Elo_Pct
+INFO [2025-12-20 01:04:07] Creating model for top 3 positions
+WARN [2025-12-20 01:04:07] Error in position model for threshold 3 : A term has fewer unique covariate combinations than specified maximum degrees of freedom
+INFO [2025-12-20 01:04:07] Created fallback model for threshold 3 using variables: Prev_Points_Weighted, Individual_Elo_Pct
+INFO [2025-12-20 01:04:07] Creating model for top 5 positions
+WARN [2025-12-20 01:04:07] Error in position model for threshold 5 : A term has fewer unique covariate combinations than specified maximum degrees of freedom
+INFO [2025-12-20 01:04:07] Created fallback model for threshold 5 using variables: Prev_Points_Weighted, Individual_Elo_Pct
+INFO [2025-12-20 01:04:07] Creating model for top 10 positions
+WARN [2025-12-20 01:04:07] Error in position model for threshold 10 : A term has fewer unique covariate combinations than specified maximum degrees of freedom
+INFO [2025-12-20 01:04:07] Created fallback model for threshold 10 using variables: Prev_Points_Weighted, Individual_Elo_Pct
+INFO [2025-12-20 01:04:07] Creating model for top 30 positions
+INFO [2025-12-20 01:04:08] Brier score for threshold 30 : 0.0092
+INFO [2025-12-20 01:04:08] Variables selected for 30 position model: Prev_Points_Weighted, Elo_Pct
+INFO [2025-12-20 01:04:08] Preparing startlist data for Individual_Elo_Pct
+INFO [2025-12-20 01:04:08] Race probability columns found: Race1_Prob
+INFO [2025-12-20 01:04:08] Available elo columns: Skier, Sprint_Elo, Individual_Elo, MassStart_Elo, IndividualCompact_Elo, Elo
+INFO [2025-12-20 01:04:08] Using default value for Sprint_Elo_Pct (max value issue)
+INFO [2025-12-20 01:04:08] Calculating Individual_Elo_Pct from Individual_Elo
+INFO [2025-12-20 01:04:08] Calculating MassStart_Elo_Pct from MassStart_Elo
+INFO [2025-12-20 01:04:08] Calculating IndividualCompact_Elo_Pct from IndividualCompact_Elo
+INFO [2025-12-20 01:04:08] Calculating Elo_Pct from Elo
+WARN [2025-12-20 01:04:08] No valid max value for Sprint_Pelo using default
+INFO [2025-12-20 01:04:08] Converting Individual_Elo to Individual_Pelo_Pct using max Pelo = 1533.02280848148
+INFO [2025-12-20 01:04:08] Converting MassStart_Elo to MassStart_Pelo_Pct using max Pelo = 1356.38804687506
+INFO [2025-12-20 01:04:08] Converting IndividualCompact_Elo to IndividualCompact_Pelo_Pct using max Pelo = 1392.55554734318
+INFO [2025-12-20 01:04:08] Converting Elo to Pelo_Pct using max Pelo = 1584.62075436773
+INFO [2025-12-20 01:04:08] Race probability column Race1_Prob summary:
+INFO [2025-12-20 01:04:08]   Mean: 0.921052631578947
+INFO [2025-12-20 01:04:08]   Sum: 35
+INFO [2025-12-20 01:04:08]   Max: 1
+INFO [2025-12-20 01:04:08] Final columns in result_df: Skier, ID, Nation, Sex, Race1_Prob, Sprint_Elo, Individual_Elo, MassStart_Elo, IndividualCompact_Elo, Elo, Prev_Points_Weighted, Sprint_Elo_Pct, Individual_Elo_Pct, MassStart_Elo_Pct, IndividualCompact_Elo_Pct, Elo_Pct, Sprint_Pelo_Pct, Individual_Pelo_Pct, MassStart_Pelo_Pct, IndividualCompact_Pelo_Pct, Pelo_Pct
+INFO [2025-12-20 01:04:08] Model for threshold 1 requires variables: Prev_Points_Weighted, MassStart_Elo_Pct
+INFO [2025-12-20 01:04:08] Attempting prediction for threshold 1 with 38 rows
+INFO [2025-12-20 01:04:08] Made predictions with adjustments for position threshold 1
+WARN [2025-12-20 01:04:08] No model found for threshold 3
+WARN [2025-12-20 01:04:08] No model found for threshold 5
+WARN [2025-12-20 01:04:08] No model found for threshold 10
+INFO [2025-12-20 01:04:08] Model for threshold 30 requires variables: Prev_Points_Weighted, Elo_Pct
+INFO [2025-12-20 01:04:08] Attempting prediction for threshold 30 with 38 rows
+INFO [2025-12-20 01:04:08] Made predictions with adjustments for position threshold 30
+INFO [2025-12-20 01:04:08] Position probability sums BEFORE normalization:
+INFO [2025-12-20 01:04:08]   prob_top1: 51.30% (target: 100%)
+INFO [2025-12-20 01:04:08]   prob_top3: 0.00% (target: 300%)
+INFO [2025-12-20 01:04:08]   prob_top5: 0.00% (target: 500%)
+INFO [2025-12-20 01:04:08]   prob_top10: 0.00% (target: 1000%)
+INFO [2025-12-20 01:04:08]   prob_top30: 3531.70% (target: 3000%)
+INFO [2025-12-20 01:04:08]   prob_top1 after race prob adjustment: 46.40% (scaling by race participation)
+INFO [2025-12-20 01:04:08]   prob_top1 normalization: applied scaling factor of 2.1552
+INFO [2025-12-20 01:04:08]   prob_top3 after race prob adjustment: 0.00% (scaling by race participation)
+WARN [2025-12-20 01:04:08] Zero sum for prob_top3 - distributing evenly
+INFO [2025-12-20 01:04:08]   prob_top5 after race prob adjustment: 0.00% (scaling by race participation)
+WARN [2025-12-20 01:04:08] Zero sum for prob_top5 - distributing evenly
+INFO [2025-12-20 01:04:08]   prob_top10 after race prob adjustment: 0.00% (scaling by race participation)
+WARN [2025-12-20 01:04:08] Zero sum for prob_top10 - distributing evenly
+INFO [2025-12-20 01:04:08]   prob_top30 after race prob adjustment: 3323.00% (scaling by race participation)
+INFO [2025-12-20 01:04:08]   prob_top30 normalization: applied scaling factor of 0.9028
+INFO [2025-12-20 01:04:08] Applying monotonic constraints...
+INFO [2025-12-20 01:04:08] Re-normalizing after monotonic constraints...
+INFO [2025-12-20 01:04:08] Position probability sums AFTER normalization and monotonic constraints:
+INFO [2025-12-20 01:04:08]   prob_top1: 100.00% (target: 100%)
+INFO [2025-12-20 01:04:08]   prob_top3: 300.00% (target: 300%)
+INFO [2025-12-20 01:04:08]   prob_top5: 500.00% (target: 500%)
+INFO [2025-12-20 01:04:08]   prob_top10: 1000.00% (target: 1000%)
+INFO [2025-12-20 01:04:08]   prob_top30: 3000.00% (target: 3000%)
+INFO [2025-12-20 01:04:08] Race 1 position probability sums after normalization:
+INFO [2025-12-20 01:04:08]   prob_top1: 100.00% (should be 100%)
+INFO [2025-12-20 01:04:08]   prob_top3: 300.00% (should be 300%)
+INFO [2025-12-20 01:04:08]   prob_top5: 500.00% (should be 500%)
+INFO [2025-12-20 01:04:08]   prob_top10: 1000.00% (should be 1000%)
+INFO [2025-12-20 01:04:08]   prob_top30: 3000.00% (should be 3000%)
+INFO [2025-12-20 01:04:08] Race 1 probability check:
+INFO [2025-12-20 01:04:09] Combining race predictions
+INFO [2025-12-20 01:04:09] Starting with first race data
+INFO [2025-12-20 01:04:09] Probability column Race1_Probability exists in final predictions
+INFO [2025-12-20 01:04:09]   Mean: 0.921052631578947
+INFO [2025-12-20 01:04:09]   Sum: 35
+INFO [2025-12-20 01:04:09] Calculating totals with probability weighting
+INFO [2025-12-20 01:04:09] Returning final predictions
+INFO [2025-12-20 01:04:09] Final predictions calculated for ladies
+INFO [2025-12-20 01:04:09] Formatted position probabilities saved to ~/blog/daehl-e/content/post/nordic-combined/drafts/race-picks/20251220/ladies_position_probabilities.xlsx
+INFO [2025-12-20 01:04:09] Saved predictions to ~/blog/daehl-e/content/post/nordic-combined/drafts/race-picks/20251220/ladies.xlsx
+INFO [2025-12-20 01:04:09] Nordic Combined prediction workflow complete
