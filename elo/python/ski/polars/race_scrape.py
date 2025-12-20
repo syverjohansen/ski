@@ -404,6 +404,11 @@ def scrape_event_comprehensive(event_url, source_category, country_mapping, elev
             # 16. Elevation (fuzzy match)
             elevation = fuzzy_match_elevation(city, elevation_df)
             
+            # Skip Tour de Ski races
+            if city == "Tour de Ski":
+                print(f"Skipping Tour de Ski race: {race_date} ({sex}) {city}")
+                continue
+            
             # Create race entry
             race = {
                 'date': race_date,

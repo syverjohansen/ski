@@ -52,6 +52,8 @@ def call_r_script(script_type: str, race_type: str = None, gender: str = None) -
             r_script = "race-picks-relay.R"
         elif race_type == 'mixed_relay':
             r_script = "race-picks-mixed-relay.R"
+        elif race_type == 'final_climb':
+            r_script = "final_climb.R"
         else:
             print(f"Unknown race type: {race_type}")
             return
@@ -91,6 +93,78 @@ def is_relay_event(race: pd.Series) -> bool:
     """
     distance = str(race['Distance']).strip() if 'Distance' in race else ""
     return distance in ['Rel', 'Ts', 'Mix']
+
+def check_for_final_climb_today(races_df: pd.DataFrame) -> bool:
+    """Check if today's races include any Final Climb events"""
+    try:
+        today = datetime.now()
+        print(f"Checking for Final Climb events on {today.strftime('%Y-%m-%d')}")
+        
+        # Parse dates in the dataframe
+        if 'Date' in races_df.columns:
+            print(f"Found {len(races_df)} total races in data")
+            
+            # Handle different date formats (M/D/YYYY or YYYY-MM-DD)
+            races_df_copy = races_df.copy()
+            
+            # Try to parse dates with multiple formats
+            def parse_date_flexible(date_str):
+                try:
+                    # Try M/D/YYYY format first
+                    if '/' in str(date_str):
+                        return pd.to_datetime(date_str, format='%m/%d/%Y')
+                    # Try YYYY-MM-DD format
+                    else:
+                        return pd.to_datetime(date_str)
+                except:
+                    return None
+            
+            races_df_copy['Date_parsed'] = races_df_copy['Date'].apply(parse_date_flexible)
+            
+            # Filter out rows where date parsing failed
+            valid_dates = races_df_copy.dropna(subset=['Date_parsed'])
+            print(f"Successfully parsed {len(valid_dates)} race dates")
+            
+            # Check for today's date (allowing for some flexibility)
+            today_races = valid_dates[valid_dates['Date_parsed'].dt.date == today.date()]
+            
+            print(f"Found {len(today_races)} races for today ({today.strftime('%Y-%m-%d')})")
+            
+            if today_races.empty:
+                # Debug: show what dates we do have
+                if len(valid_dates) > 0:
+                    print("Available race dates:")
+                    unique_dates = valid_dates['Date_parsed'].dt.date.unique()[:5]  # Show first 5
+                    for date in unique_dates:
+                        print(f"  - {date}")
+                return False
+            
+            # Check for Final_Climb column and if any race has Final_Climb = 1
+            if 'Final_Climb' in today_races.columns:
+                # Convert Final_Climb to numeric to handle string/int issues
+                today_races_copy = today_races.copy()
+                today_races_copy['Final_Climb'] = pd.to_numeric(today_races_copy['Final_Climb'], errors='coerce')
+                
+                final_climb_races = today_races_copy[today_races_copy['Final_Climb'] == 1]
+                
+                if not final_climb_races.empty:
+                    print(f"Found {len(final_climb_races)} Final Climb races today:")
+                    for _, race in final_climb_races.iterrows():
+                        print(f"  - {race.get('Distance', 'Unknown')} {race.get('Sex', 'Unknown')} in {race.get('City', 'Unknown')}")
+                    return True
+                else:
+                    print("No Final Climb races found for today")
+                    print(f"Final_Climb values in today's races: {today_races['Final_Climb'].unique()}")
+                    return False
+            else:
+                print("Final_Climb column not found in races data")
+                print(f"Available columns: {list(today_races.columns)}")
+                return False
+                
+    except Exception as e:
+        print(f"Error checking for Final Climb events: {e}")
+        traceback.print_exc()
+        return False
 
 def get_relay_type(race: pd.Series) -> str:
     """Return the type of relay based on race data"""
@@ -227,7 +301,12 @@ def process_races() -> None:
     
     # Only call the standard race picks script if we have standard races
     if men_standard or ladies_standard:
-        call_r_script('races', 'standard')
+        # Check if today's races include Final Climb events
+        if check_for_final_climb_today(races_df):
+            print("Final Climb event detected - calling final_climb.R instead of race-picks.R")
+            call_r_script('races', 'final_climb')
+        else:
+            call_r_script('races', 'standard')
 
 def process_gender_specific_races(races_df: pd.DataFrame, target_gender: str) -> bool:
     """
@@ -336,6 +415,14 @@ def process_gender_races(races_df: pd.DataFrame, gender: str) -> None:
     """Process races for a specific gender"""
     print(f"\nProcessing {gender} races...")
     
+    # Get total number of races for this gender
+    total_gender_races = len(races_df)
+    print(f"Total {gender} races: {total_gender_races}")
+    
+    # Create enough probability columns for all races
+    all_prob_columns = [f'Race{i+1}_Prob' for i in range(total_gender_races)]
+    print(f"All probability columns: {all_prob_columns}")
+    
     # Get the ELO path
     elo_path = f"~/ski/elo/python/ski/polars/excel365/{gender}_chrono_elevation.csv"
     print(f"Using ELO path: {elo_path}")
@@ -346,19 +433,32 @@ def process_gender_races(races_df: pd.DataFrame, gender: str) -> None:
     # Process each race
     for i, (_, race) in enumerate(races_df.iterrows()):
         url = race['Startlist']
+        prob_column = all_prob_columns[i]
+        
+        print(f"Processing race {i+1} with probability column: {prob_column}")
         
         if not url or pd.isna(url):
-            print(f"No startlist URL for race {i+1}, skipping")
-            continue
-        
-        print(f"Processing race {i+1} from URL: {url}")
-        
-        # Create startlist for this race
-        race_df = create_race_startlist(
-            fis_url=url,
-            elo_path=elo_path,
-            race_info=race
-        )
+            print(f"No startlist URL for race {i+1}, using fallback logic with current season skiers")
+            
+            # Create fallback startlist with all skiers from current season
+            race_df = create_race_fallback_startlist(
+                elo_path=elo_path,
+                gender=gender,
+                race_info=race,
+                fantasy_prices=get_fantasy_prices(),
+                prob_column=prob_column
+            )
+        else:
+            print(f"Processing race {i+1} from URL: {url}")
+            
+            # Create startlist for this race from URL
+            race_df = create_race_startlist(
+                fis_url=url,
+                elo_path=elo_path,
+                race_info=race,
+                gender=gender,
+                prob_column=prob_column
+            )
         
         if race_df is None:
             print(f"Failed to create startlist for race {i+1}")
@@ -368,12 +468,52 @@ def process_gender_races(races_df: pd.DataFrame, gender: str) -> None:
         if consolidated_df is None:
             consolidated_df = race_df
         else:
-            # Merge with existing data
-            consolidated_df = pd.concat([consolidated_df, race_df], ignore_index=True)
-            consolidated_df = consolidated_df.drop_duplicates(subset=['Skier'], keep='first')
+            # Merge with existing data (ensuring we don't lose any athletes)
+            consolidated_df = merge_race_dataframes(consolidated_df, race_df, prob_column)
     
     # If we successfully processed at least one race
     if consolidated_df is not None:
+        # Ensure all race probability columns exist in the final dataframe
+        for i, col in enumerate(all_prob_columns):
+            if col not in consolidated_df.columns:
+                print(f"Adding missing column {col}")
+                consolidated_df[col] = 0.0
+        
+        # Create a comprehensive fallback startlist to ensure all current season skiers are included
+        print("Creating comprehensive fallback startlist to ensure all current season skiers are included")
+        fallback_df = create_race_fallback_startlist(
+            elo_path=elo_path,
+            gender=gender,
+            race_info=races_df.iloc[0],  # Use first race for race info
+            fantasy_prices=get_fantasy_prices(),
+            prob_column="temp_prob"  # Temporary column
+        )
+        
+        if fallback_df is not None:
+            # Get skiers already in the consolidated dataframe
+            existing_skiers = set(consolidated_df['Skier'])
+            
+            # Find skiers from fallback who aren't in the consolidated dataframe
+            missing_skiers_df = fallback_df[~fallback_df['Skier'].isin(existing_skiers)]
+            print(f"Found {len(missing_skiers_df)} skiers from current season not already in the startlist")
+            
+            # Drop the temp_prob column
+            missing_skiers_df = missing_skiers_df.drop(columns=['temp_prob'])
+            
+            # Add all race probability columns with 0
+            for col in all_prob_columns:
+                missing_skiers_df[col] = 0.0
+            
+            # Combine with the consolidated dataframe
+            if len(missing_skiers_df) > 0:
+                consolidated_df = pd.concat([consolidated_df, missing_skiers_df], ignore_index=True)
+                print(f"Added {len(missing_skiers_df)} skiers from current season to the startlist")
+        
+        # Make sure In_FIS_List is FALSE for skiers not on any startlist
+        # If a skier has 0 probability for all races, they weren't on any startlist
+        # Check row by row if all probability values are 0
+        consolidated_df.loc[consolidated_df[all_prob_columns].sum(axis=1) == 0, 'In_FIS_List'] = False
+        
         # Save the consolidated dataframe
         output_path = f"~/ski/elo/python/ski/polars/excel365/startlist_races_{gender}.csv"
         print(f"Saving consolidated {gender} startlist to {output_path}")
@@ -382,7 +522,7 @@ def process_gender_races(races_df: pd.DataFrame, gender: str) -> None:
     else:
         print(f"No startlist data was generated for {gender}")
 
-def create_race_startlist(fis_url: str, elo_path: str, race_info: pd.Series) -> Optional[pd.DataFrame]:
+def create_race_startlist(fis_url: str, elo_path: str, race_info: pd.Series, gender: str, prob_column: str) -> Optional[pd.DataFrame]:
     """Creates DataFrame with startlist, prices and ELO scores for an individual race"""
     try:
         # Get race information
@@ -390,12 +530,6 @@ def create_race_startlist(fis_url: str, elo_path: str, race_info: pd.Series) -> 
         country = race_info['Country']
         distance = race_info['Distance']
         technique = race_info['Technique']
-        gender = race_info['Sex']
-        # Convert gender to standard format if needed
-        if gender in ['M', 'Men']:
-            gender = 'men'
-        elif gender in ['L', 'Ladies', 'Women', 'F']:
-            gender = 'ladies'
         
         print(f"Race details: {distance}km {technique} in {city}, {country}")
         
@@ -403,11 +537,12 @@ def create_race_startlist(fis_url: str, elo_path: str, race_info: pd.Series) -> 
         fis_athletes = get_fis_startlist(fis_url)
         print(f"Found {len(fis_athletes)} athletes in FIS startlist")
         
-        if not fis_athletes:
-            print("FIS startlist is empty, skipping")
-            return None
-        
         fantasy_prices = get_fantasy_prices()
+        
+        if not fis_athletes:
+            print("FIS startlist is empty, using fallback logic with current season skiers")
+            return create_race_fallback_startlist(elo_path, gender, race_info, fantasy_prices, prob_column)
+        
         elo_scores = get_latest_elo_scores(elo_path)
         
         # Create data for DataFrame
@@ -494,6 +629,10 @@ def create_race_startlist(fis_url: str, elo_path: str, race_info: pd.Series) -> 
             row_data['Race_Elo'] = get_race_specific_elo(elo_data, elo_priority)
             row_data['Race_Type'] = f"{distance}km {technique}"
             
+            # Set race probability
+            if prob_column:
+                row_data[prob_column] = 1.0  # In startlist = 100% for this race
+            
             data.append(row_data)
             processed_names.add(original_name)
         
@@ -506,7 +645,7 @@ def create_race_startlist(fis_url: str, elo_path: str, race_info: pd.Series) -> 
             'Race_Date': race_info['Date']
         }
         
-        # Add chronos data for additional analysis
+        # Add chronos data for additional analysis and Last_5 features
         try:
             chronos = pd.read_csv(elo_path)
             
@@ -521,7 +660,7 @@ def create_race_startlist(fis_url: str, elo_path: str, race_info: pd.Series) -> 
         except Exception as e:
             print(f"Error processing chronos data: {e}")
             traceback.print_exc()
-            # Set all as not recent competitors if we can't process chronos
+            # Set defaults if we can't process chronos
             for row in data:
                 row['Recent_Competitor'] = False
         
@@ -539,6 +678,149 @@ def create_race_startlist(fis_url: str, elo_path: str, race_info: pd.Series) -> 
         
     except Exception as e:
         print(f"Error creating race startlist: {e}")
+        traceback.print_exc()
+        return None
+
+def create_race_fallback_startlist(elo_path: str, gender: str, race_info: pd.Series, fantasy_prices: Dict, prob_column: str) -> Optional[pd.DataFrame]:
+    """Creates fallback startlist with all skiers from the current season for race predictions"""
+    try:
+        print(f"Creating fallback race startlist with all skiers from the current season for {gender}")
+        
+        # Get race information
+        city = race_info['City']
+        country = race_info['Country']
+        distance = race_info['Distance']
+        technique = race_info['Technique']
+        
+        print(f"Race details: {distance}km {technique} in {city}, {country}")
+        
+        # Get the most recent ELO scores
+        elo_scores = get_latest_elo_scores(elo_path)
+        
+        # Get chronos data for finding current season skiers
+        try:
+            import polars as pl
+            chronos = pl.read_csv(
+                elo_path,
+                infer_schema_length=10000,
+                ignore_errors=True,
+                null_values=["", "NA", "NULL", "Sprint"]
+            ).to_pandas()
+        except Exception as csv_err:
+            print(f"Error with polars: {csv_err}")
+            # Fallback to pandas if polars fails
+            chronos = pd.read_csv(elo_path, low_memory=False)
+        
+        # Get all skiers from current season
+        current_season = get_current_season_from_chronos(chronos)
+        current_season_skiers = chronos[chronos['Season'] == current_season]['Skier'].unique()
+        print(f"Found {len(current_season_skiers)} skiers from the {current_season} season")
+        
+        # Create data for DataFrame
+        data = []
+        processed_names = set()
+        
+        # Define Elo columns
+        elo_columns = [
+            'Elo', 'Distance_Elo', 'Distance_C_Elo', 'Distance_F_Elo', 
+            'Sprint_Elo', 'Sprint_C_Elo', 'Sprint_F_Elo', 
+            'Classic_Elo', 'Freestyle_Elo'
+        ]
+        
+        # Determine which ELO columns to prioritize based on race type
+        try:
+            elo_priority = get_elo_priority(distance, technique)
+        except Exception as e:
+            print(f"Error determining ELO priority: {e}")
+            elo_priority = ['Elo']
+        
+        # Process each current season skier
+        for skier_name in current_season_skiers:
+            if skier_name in processed_names:
+                continue
+            
+            # Get the most recent record for this skier
+            recent_records = chronos[chronos['Skier'] == skier_name].sort_values('Date', ascending=False)
+            
+            if recent_records.empty:
+                continue
+                
+            # Get the most recent record
+            recent_record = recent_records.iloc[0]
+            nation = recent_record['Nation']
+            skier_id = recent_record['ID']
+            
+            # Match with ELO scores
+            elo_match = None
+            if 'Skier' in elo_scores.columns and skier_name in elo_scores['Skier'].values:
+                elo_match = skier_name
+            elif 'Skier' in elo_scores.columns:
+                # Try fuzzy matching if no exact match
+                elo_match = fuzzy_match_name(skier_name, elo_scores['Skier'].tolist())
+            
+            if elo_match and 'Skier' in elo_scores.columns:
+                elo_data = elo_scores[elo_scores['Skier'] == elo_match].iloc[0].to_dict()
+            else:
+                # Use Elo values directly from chronos data as fallback
+                elo_data = {}
+                # Get Elo values directly from recent record
+                for elo_col in elo_columns:
+                    if elo_col in recent_record and not pd.isna(recent_record[elo_col]):
+                        elo_data[elo_col] = float(recent_record[elo_col])
+                    else:
+                        elo_data[elo_col] = None
+            
+            # Get fantasy price
+            price = get_fantasy_price(skier_name, fantasy_prices)
+            
+            # Build row data
+            row_data = {
+                'FIS_Name': skier_name,
+                'Skier': skier_name,
+                'ID': skier_id,
+                'Nation': nation,
+                'In_FIS_List': False,  # Not in FIS list since this is fallback
+                'Price': price
+            }
+            
+            # Add ELO columns
+            for col in elo_columns:
+                row_data[col] = elo_data.get(col, None)
+            
+            # Add race-specific ELO and race type
+            row_data['Race_Elo'] = get_race_specific_elo(elo_data, elo_priority)
+            row_data['Race_Type'] = f"{distance}km {technique}"
+            
+            # Set race probability for fallback - will be calculated later in R
+            if prob_column:
+                row_data[prob_column] = 0.0  # Default to 0 for fallback, R will calculate realistic probability
+            
+            # Add race info
+            row_data.update({
+                'City': city,
+                'Country': country,
+                'Distance': distance,
+                'Technique': technique,
+                'Race_Date': race_info['Date']
+            })
+            
+            # Mark as not a recent competitor for fallback (we don't have startlist info)
+            row_data['Recent_Competitor'] = False
+            
+            data.append(row_data)
+            processed_names.add(skier_name)
+        
+        
+        # Create DataFrame and sort by race-specific ELO and price
+        df = pd.DataFrame(data)
+        if 'Race_Elo' in df.columns and 'Price' in df.columns:
+            df = df.sort_values(['Race_Elo', 'Price'], ascending=[False, False])
+        
+        print(f"Created fallback race startlist with {len(df)} athletes")
+        return df
+        
+    except Exception as e:
+        print(f"Error creating fallback race startlist: {e}")
         traceback.print_exc()
         return None
 
@@ -613,6 +895,40 @@ def get_recent_competitors(chronos: pd.DataFrame, race_info: Dict) -> set:
     except Exception as e:
         print(f"Error getting recent competitors: {e}")
         return set()
+
+
+def merge_race_dataframes(df1: pd.DataFrame, df2: pd.DataFrame, prob_column: str) -> pd.DataFrame:
+    """Merge two race dataframes, preserving unique athletes and combining probability columns"""
+    # Create a copy of df1 to avoid modifying the original
+    result = df1.copy()
+    
+    # Create a set of existing skiers in df1
+    existing_skiers = set(df1['Skier'])
+    
+    # For skiers that exist in both dataframes, update the probability column
+    common_skiers = set(df2['Skier']) & existing_skiers
+    for skier in common_skiers:
+        # Find the row index in result for this skier
+        idx = result[result['Skier'] == skier].index[0]
+        
+        # Get probability from df2
+        prob_value = df2[df2['Skier'] == skier][prob_column].values[0]
+        
+        # Update the probability in result
+        result.loc[idx, prob_column] = prob_value
+    
+    # For skiers that only exist in df2, add them to result
+    new_skiers = set(df2['Skier']) - existing_skiers
+    new_rows = df2[df2['Skier'].isin(new_skiers)]
+    
+    # Append the new rows to result
+    result = pd.concat([result, new_rows], ignore_index=True)
+    
+    # Sort the result by ELO and price
+    result = result.sort_values(['Race_Elo', 'Price'], ascending=[False, False])
+    
+    return result
+
 
 if __name__ == "__main__":
     process_races()

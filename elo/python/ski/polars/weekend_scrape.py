@@ -30,15 +30,17 @@ def create_weekends_from_races(input_file="excel365/races.csv", output_file="exc
         # Step 3: Create the new Date column based on weekend logic
         df['Date'] = ''
         
-        # Process ALL races (regular and championship) with city + event type grouping
+        # Process races based on championship status and period
         regular_mask = df['Championship'] == 0
         championship_mask = df['Championship'] == 1
+        period2_mask = df['Period'] == 2
         
-        print(f"Processing {regular_mask.sum()} regular races and {championship_mask.sum()} championship races")
+        print(f"Processing {regular_mask.sum()} regular races, {championship_mask.sum()} championship races, and {period2_mask.sum()} Period 2 races")
         
-        # Process regular races - group by city, event type, and time gaps
-        for city in df[regular_mask]['City'].unique():
-            city_races = df[(regular_mask) & (df['City'] == city)].copy()
+        # Process regular races (excluding Period 2) - group by city, event type, and time gaps  
+        regular_non_period2_mask = regular_mask & ~period2_mask
+        for city in df[regular_non_period2_mask]['City'].unique():
+            city_races = df[(regular_non_period2_mask) & (df['City'] == city)].copy()
             
             # Group by event type within the city
             individual_races = city_races[~city_races['Distance'].isin(['Rel', 'Ts'])]
@@ -131,6 +133,39 @@ def create_weekends_from_races(input_file="excel365/races.csv", output_file="exc
                     earliest_date = min(race['Race_Date_dt'] for race in group).strftime('%m/%d/%Y')
                     for race in group:
                         df.loc[race.name, 'Date'] = earliest_date
+        
+        # Process Period 2 races (use Olympic-style grouping) 
+        period2_non_championship_mask = period2_mask & ~championship_mask
+        for city in df[period2_non_championship_mask]['City'].unique():
+            city_period2_races = df[(period2_non_championship_mask) & (df['City'] == city)]
+            
+            # Group by event type first, then by discipline (Olympic-style)
+            individual_period2 = city_period2_races[~city_period2_races['Distance'].isin(['Rel', 'Ts'])]
+            relay_period2 = city_period2_races[city_period2_races['Distance'] == 'Rel'] 
+            team_sprint_period2 = city_period2_races[city_period2_races['Distance'] == 'Ts']
+            
+            # Process individual Period 2 races by distance+technique (Olympic-style)
+            if not individual_period2.empty:
+                individual_period2 = individual_period2.copy()
+                individual_period2['Technique'] = individual_period2['Technique'].fillna('N/A')
+                individual_period2['Technique'] = individual_period2['Technique'].replace('', 'N/A')
+                
+                for (distance, technique), group in individual_period2.groupby(['Distance', 'Technique']):
+                    earliest_date = group['Race_Date_dt'].min().strftime('%m/%d/%Y')
+                    for idx in group.index:
+                        df.loc[idx, 'Date'] = earliest_date
+            
+            # Process relay Period 2 races - all relays together
+            if not relay_period2.empty:
+                earliest_date = relay_period2['Race_Date_dt'].min().strftime('%m/%d/%Y')
+                for idx in relay_period2.index:
+                    df.loc[idx, 'Date'] = earliest_date
+            
+            # Process team sprint Period 2 races - all team sprints together
+            if not team_sprint_period2.empty:
+                earliest_date = team_sprint_period2['Race_Date_dt'].min().strftime('%m/%d/%Y')
+                for idx in team_sprint_period2.index:
+                    df.loc[idx, 'Date'] = earliest_date
         
         # Process championship races (group by city, event type, AND discipline combination)
         for city in df[championship_mask]['City'].unique():
