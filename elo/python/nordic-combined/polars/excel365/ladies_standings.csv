@@ -1,36 +1,39 @@
 Skier,ID,Nation,Ranking,Points,Wins
-Ida Marie Hagen,60,Norway,1,190,1
-Nathalie Armbruster,168,Germany,2,170,0
-Katharina Gruber,219,Austria,2,170,1
-Alexa Brabec,81,USA,4,150,0
-Minja Korhonen,200,Finland,5,120,0
-Yuna Kasai,161,Japan,6,107,0
-Heta Hirvonen,218,Finland,7,98,0
-Ingrid Låte,201,Norway,7,98,0
-Lisa Hirner,52,Austria,9,93,0
-Yuzuki Kainuma,239,Japan,10,89,0
-Jenny Nowak,25,Germany,11,81,0
-Marte Leinan Lund,7,Norway,12,80,0
-Trine Göpfert,107,Germany,13,72,0
-Ronja Loh,171,Germany,14,66,0
-Annika Malacinski,61,USA,15,62,0
-Masa Likozar Brankovic,243,Slovenia,16,54,0
-Tara Geraghty-Moats,58,USA,17,50,0
-Léna Brocard,53,France,18,46,0
-Annalena Slamik,41,Austria,18,46,0
-Mille Marie Hagen,180,Norway,20,44,0
-Teja Pavec,209,Slovenia,21,42,0
-Anna-Sophie Gredler,223,Austria,22,41,0
-Daniela Dejori,37,Italy,23,36,0
-Veronica Gianmoena,29,Italy,24,32,0
-Tia Malovrh,221,Slovenia,25,30,0
-Claudia Purker,177,Austria,25,30,0
-Marion Droz Vincent,229,France,27,28,0
-Jonna Kil,68,Poland,27,28,0
-Nora Helene Evans,231,Norway,29,27,0
-Greta Pinzani,96,Italy,30,26,0
-Romane Baud,206,France,31,24,0
-Hanna Midtsundstad,3,Norway,32,18,0
-Jolana Hradilova,87,Czechia,33,17,0
-Ingrid Græsli,248,Norway,34,16,0
-Tereza Koldovska,89,Czechia,35,6,0
+Ida Marie Hagen,60,Norway,1,390,3
+Alexa Brabec,81,USA,2,330,0
+Katharina Gruber,219,Austria,3,300,1
+Nathalie Armbruster,168,Germany,4,288,0
+Minja Korhonen,200,Finland,5,249,0
+Yuna Kasai,161,Japan,6,213,0
+Lisa Hirner,52,Austria,7,212,0
+Marte Leinan Lund,7,Norway,8,190,0
+Heta Hirvonen,218,Finland,9,187,0
+Ingrid Låte,201,Norway,10,180,0
+Jenny Nowak,25,Germany,11,169,0
+Yuzuki Kainuma,239,Japan,12,164,0
+Annika Malacinski,61,USA,13,142,0
+Trine Göpfert,107,Germany,14,122,0
+Ronja Loh,171,Germany,15,118,0
+Léna Brocard,53,France,16,114,0
+Teja Pavec,209,Slovenia,17,102,0
+Mille Marie Hagen,180,Norway,18,86,0
+Annalena Slamik,41,Austria,19,82,0
+Daniela Dejori,37,Italy,20,81,0
+Ema Volavsek,49,Slovenia,21,70,0
+Veronica Gianmoena,29,Italy,22,66,0
+Claudia Purker,177,Austria,23,64,0
+Jonna Kil,68,Poland,24,61,0
+Romane Baud,206,France,25,57,0
+Nora Helene Evans,231,Norway,26,54,0
+Masa Likozar Brankovic,243,Slovenia,26,54,0
+Tara Geraghty-Moats,58,USA,28,50,0
+Hanna Midtsundstad,3,Norway,29,48,0
+Anna-Sophie Gredler,223,Austria,30,41,0
+Greta Pinzani,96,Italy,30,41,0
+Jolana Hradilova,87,Czechia,32,40,0
+Tia Malovrh,221,Slovenia,33,30,0
+Karina Kozlova,246,Ukraine,34,29,0
+Marion Droz Vincent,229,France,35,28,0
+Anna Kerko,211,Finland,36,24,0
+Tereza Koldovska,89,Czechia,37,17,0
+Ingrid Græsli,248,Norway,38,16,0

@@ -1,46 +1,50 @@
 Skier,ID,Nation,Ranking,Points,Wins
-Nozomi Maruyama,222,Japan,1,670,4
-Nika Prevc,426,Slovenia,2,536,3
-Anna Odine Strøm,44,Norway,3,408,1
-Abigail Strate,289,Canada,4,361,0
-Lisa Eder,337,Austria,5,349,0
-Heidi Dyhre Tråserud,366,Norway,6,306,0
-Nika Kriznar,266,Slovenia,7,275,0
-Sara Takanashi,3,Japan,8,263,0
-Eirin Maria Kvandal,354,Norway,9,234,0
-Katharina Schmid,13,Germany,9,234,0
-Agnes Reisch,259,Germany,11,225,0
-Selina Freitag,338,Germany,12,217,0
-Yuki Ito,5,Japan,13,193,0
-Yuka Seto,32,Japan,14,150,0
-Julia Mühlbacher,400,Austria,15,132,0
-Frida Westman,296,Sweden,16,122,0
-Juliane Seyfarth,63,Germany,17,104,0
-Anna Twardosz,288,Poland,18,88,0
-Annika Sieff,377,Italy,19,85,0
-Ringo Miyajima,427,Japan,20,84,0
-Ingvild Synnøve Midtskogen,479,Norway,21,66,0
-Silje Opseth,221,Norway,22,65,0
-Sina Arnet,448,Switzerland,23,58,0
-Klara Ulrichova,388,Czechia,24,57,0
-Gyda Westvold Hansen,382,Norway,25,51,0
-Heta Hirvonen,542,Finland,26,45,0
-Ping Zeng,438,China,27,44,0
-Anezka Indrackova,437,Czechia,28,40,0
-Yuzuki Sato,480,Japan,29,37,0
-Paige Jones,365,USA,30,34,0
+Nozomi Maruyama,222,Japan,1,810,5
+Nika Prevc,426,Slovenia,2,716,4
+Anna Odine Strøm,44,Norway,3,548,1
+Abigail Strate,289,Canada,4,433,0
+Lisa Eder,337,Austria,5,413,0
+Heidi Dyhre Tråserud,366,Norway,6,332,0
+Agnes Reisch,259,Germany,7,320,0
+Katharina Schmid,13,Germany,8,316,0
+Sara Takanashi,3,Japan,8,316,0
+Nika Kriznar,266,Slovenia,10,305,0
+Selina Freitag,338,Germany,11,296,0
+Yuka Seto,32,Japan,12,235,0
+Eirin Maria Kvandal,354,Norway,13,234,0
+Yuki Ito,5,Japan,14,221,0
+Julia Mühlbacher,400,Austria,15,171,0
+Juliane Seyfarth,63,Germany,16,138,0
+Frida Westman,296,Sweden,17,130,0
+Ringo Miyajima,427,Japan,18,116,0
+Silje Opseth,221,Norway,19,111,0
+Anna Twardosz,288,Poland,20,108,0
+Annika Sieff,377,Italy,21,102,0
+Ping Zeng,438,China,22,77,0
+Sina Arnet,448,Switzerland,23,73,0
+Anezka Indrackova,437,Czechia,24,71,0
+Ingvild Synnøve Midtskogen,479,Norway,25,68,0
+Gyda Westvold Hansen,382,Norway,26,62,0
+Klara Ulrichova,388,Czechia,27,57,0
+Heta Hirvonen,542,Finland,28,45,0
+Yuzuki Sato,480,Japan,29,39,0
+Paige Jones,365,USA,30,38,0
 Jenny Rautionaho,145,Finland,31,33,0
-Annika Belshaw,346,USA,32,26,0
-Nicole Maurer,275,Canada,33,22,0
-Katra Komar,284,Slovenia,34,21,0
-Maja Kovacic,511,Slovenia,35,19,0
-Pola Beltowska,442,Poland,36,18,0
-Julia Kykkänen,11,Finland,37,17,0
-Josie Johnson,446,USA,38,13,0
-Martina Zanitzer,430,Italy,38,13,0
-Minja Korhonen,506,Finland,40,9,0
-Yangning Weng,513,China,40,9,0
-Anna Rupprecht,67,Germany,42,6,0
-Sandra Sproch,501,USA,43,5,0
-Tinkara Komar,471,Slovenia,44,2,0
-Daniela Haralambie,43,Romania,45,1,0
+Annika Belshaw,346,USA,32,32,0
+Nicole Maurer,275,Canada,32,32,0
+Maja Kovacic,511,Slovenia,34,26,0
+Julia Kykkänen,11,Finland,35,25,0
+Josie Johnson,446,USA,36,24,0
+Katra Komar,284,Slovenia,37,21,0
+Pola Beltowska,442,Poland,38,18,0
+Martina Zanitzer,430,Italy,39,13,0
+Josephine Pagnier,280,France,40,11,0
+Minja Korhonen,506,Finland,41,9,0
+Yangning Weng,513,China,41,9,0
+Qi Liu,62,China,43,6,0
+Anna Rupprecht,67,Germany,43,6,0
+Bing Dong,320,China,45,5,0
+Sandra Sproch,501,USA,45,5,0
+Emely Torazza,402,Germany,47,4,0
+Tinkara Komar,471,Slovenia,48,2,0
+Daniela Haralambie,43,Romania,49,1,0
