@@ -563,6 +563,18 @@ def create_tds_startlist(fis_url: str, elo_path: str, gender: str,
         # Create DataFrame and sort by price
         df = pd.DataFrame(data)
         df = df.drop_duplicates(subset=['Skier'], keep='first')
+        
+        # Check if there are any athletes with In_FIS_List = True
+        fis_athletes_exist = (df['In_FIS_List'] == True).any()
+        
+        if fis_athletes_exist:
+            print(f"Found athletes in FIS list - filtering to only include those athletes")
+            # Filter to only include athletes with In_FIS_List = True
+            df = df[df['In_FIS_List'] == True]
+            print(f"After filtering to FIS athletes only: {len(df)} athletes")
+        else:
+            print(f"No athletes found in FIS list - including all athletes as usual")
+        
         df = df.sort_values(['Price', 'Elo'], ascending=[False, False])
         
         print(f"Processed TdS startlist with {len(df)} athletes")
@@ -711,6 +723,9 @@ def merge_race_dataframes(df1: pd.DataFrame, df2: pd.DataFrame, prob_column: str
     # Create a copy of df1 to avoid modifying the original
     result = df1.copy()
     
+    # Check if we should only include FIS athletes (if df1 has any FIS athletes)
+    fis_athletes_exist_in_result = (result['In_FIS_List'] == True).any()
+    
     # Create a set of existing skiers in df1
     existing_skiers = set(df1['Skier'])
     
@@ -729,6 +744,12 @@ def merge_race_dataframes(df1: pd.DataFrame, df2: pd.DataFrame, prob_column: str
     # For skiers that only exist in df2, add them to result
     new_skiers = set(df2['Skier']) - existing_skiers
     new_rows = df2[df2['Skier'].isin(new_skiers)]
+    
+    # Apply FIS filtering to new rows if we're in FIS-only mode
+    if fis_athletes_exist_in_result and not new_rows.empty:
+        print(f"Filtering {len(new_rows)} new skiers to only include FIS athletes")
+        new_rows = new_rows[new_rows['In_FIS_List'] == True]
+        print(f"After FIS filtering: {len(new_rows)} new skiers remaining")
     
     # Append the new rows to result
     result = pd.concat([result, new_rows], ignore_index=True)
