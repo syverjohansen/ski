@@ -136,7 +136,8 @@ def parse_distance(distance_text, has_tspq=False):
             except:
                 continue
     
-    return ""
+    # Use "10" as fallback if no distance can be parsed
+    return "10"
 
 def parse_technique(distance_text, distance):
     """Parse technique from race description"""
