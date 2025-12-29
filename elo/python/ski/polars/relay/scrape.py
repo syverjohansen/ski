@@ -549,11 +549,36 @@ async def get_race_results_async(link: List[Any], sex: str) -> List[Dict]:
         # Find all rows
         rows = tables[0].find_all('td')
         
+        # Dynamically detect the number of columns by counting headers
+        header_rows = tables[0].find_all('th')
+        cols_per_row = len(header_rows)
+        
+        # Log the headers for debugging
+        header_names = [th.get_text().strip() for th in header_rows]
+        logging.info(f"Detected {cols_per_row} columns: {header_names}")
+        
+        # Determine column positions based on actual headers
+        name_col_idx = 2      # Default position for Name
+        nation_col_idx = 4    # Default position for Nation
+        leg_col_idx = 1       # Default position for BiB/Team-Leg info
+        
+        # Adjust if we have more/fewer columns than expected
+        for i, header in enumerate(header_names):
+            header_lower = header.lower()
+            if 'name' in header_lower:
+                name_col_idx = i
+            elif 'nation' in header_lower or 'country' in header_lower:
+                nation_col_idx = i
+            elif 'bib' in header_lower or 'team' in header_lower:
+                leg_col_idx = i
+        
+        logging.info(f"Using column positions - Name: {name_col_idx}, Nation: {nation_col_idx}, BiB/Team: {leg_col_idx}")
+        
         # First pass: collect all athlete IDs and basic info
         athletes_data = []
         athlete_ids = set()
         
-        for a in range(0, len(rows), 7):
+        for a in range(0, len(rows), cols_per_row):
             try:
                 place = rows[a].text.strip()
                 
@@ -562,7 +587,7 @@ async def get_race_results_async(link: List[Any], sex: str) -> List[Dict]:
                     continue
                     
                 # Extract team-leg information
-                leg_cell = str(rows[a+1])
+                leg_cell = str(rows[a + leg_col_idx])
                 leg_num = 0  # Default for non-relay races
                 
                 # Check if this is a relay/team race and extract leg number
@@ -574,13 +599,13 @@ async def get_race_results_async(link: List[Any], sex: str) -> List[Dict]:
                     except (IndexError, ValueError):
                         leg_num = 0
                 
-                skier_cell = str(rows[a+2])
+                skier_cell = str(rows[a + name_col_idx])
                 if 'id=' not in skier_cell:
                     continue
                     
                 ski_id = skier_cell.split('id=')[1].split('&')[0]
                 skier_name = skier_cell.split('title="')[1].split('"><span')[0]
-                nation = rows[a+4].text.strip()
+                nation = rows[a + nation_col_idx].text.strip()
                 
                 athletes_data.append({
                     'Place': int(place),
