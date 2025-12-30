@@ -571,6 +571,20 @@ async def get_race_results_async(link: List[Any], sex: str) -> List[Dict]:
                 nation_col_idx = i
             elif 'bib' in header_lower or 'team' in header_lower:
                 leg_col_idx = i
+                
+        # Special handling for sprint races (6 columns vs 7 columns for distance)
+        if cols_per_row == 6:
+            # Sprint format: Pos, BiB, Name, Born, Nation, WC
+            name_col_idx = 2
+            nation_col_idx = 4
+            leg_col_idx = 1
+            logging.info("Detected 6-column sprint format")
+        elif cols_per_row == 7:
+            # Distance format: Pos, BiB, Name, Born, Nation, Time, WC  
+            name_col_idx = 2
+            nation_col_idx = 4
+            leg_col_idx = 1
+            logging.info("Detected 7-column distance format")
         
         logging.info(f"Using column positions - Name: {name_col_idx}, Nation: {nation_col_idx}, BiB/Team: {leg_col_idx}")
         
