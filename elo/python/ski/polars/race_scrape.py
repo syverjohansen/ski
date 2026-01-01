@@ -80,24 +80,40 @@ def determine_period(date_str):
         month = date_obj.month
         day = date_obj.day
         
-        # Calculate current season and next season based on current UTC date
+        # Calculate current season based on current UTC date
         from datetime import timezone
-        current_utc_year = datetime.now(timezone.utc).year
+        current_utc_date = datetime.now(timezone.utc)
+        current_utc_year = current_utc_date.year
         
-        # Before Christmas (period 1) - current year dates before Dec 25
-        if year == current_utc_year and (month < 12 or (month == 12 and day < 25)):
+        # Determine the current ski season (starts in late fall of previous year)
+        # If we're in Jan-September, the season started last year
+        # If we're in Oct-December, the season started this year
+        if current_utc_date.month <= 9:
+            season_start_year = current_utc_year - 1
+        else:
+            season_start_year = current_utc_year
+        
+        # Period definitions for the current season:
+        # Period 1: Season start through Dec 24
+        # Period 2: Dec 25 through Jan 7 (Tour de Ski)  
+        # Period 3: Jan 8 through Jan 31
+        # Period 4: February (Olympics when applicable)
+        # Period 5: March onwards
+        
+        # Before Christmas (period 1) - season start year dates before Dec 25
+        if year == season_start_year and (month < 12 or (month == 12 and day < 25)):
             return "1"
-        # Christmas to January 7th (period 2) - Dec 25 current year to Jan 7 next year
-        elif (year == current_utc_year and month == 12 and day >= 25) or (year == current_utc_year + 1 and month == 1 and day <= 7):
+        # Christmas to January 7th (period 2) - Dec 25 season start year to Jan 7 next year  
+        elif (year == season_start_year and month == 12 and day >= 25) or (year == season_start_year + 1 and month == 1 and day <= 7):
             return "2"
         # After January 7th to before Olympics (period 3) - Jan 8 to Jan 31 next year
-        elif year == current_utc_year + 1 and month == 1 and day > 7:
+        elif year == season_start_year + 1 and month == 1 and day > 7:
             return "3"
         # Olympics (period 4) - February next year
-        elif year == current_utc_year + 1 and month == 2:
+        elif year == season_start_year + 1 and month == 2:
             return "4"
         # After Olympics (period 5) - March next year and later
-        elif year == current_utc_year + 1 and month >= 3:
+        elif year == season_start_year + 1 and month >= 3:
             return "5"
         else:
             return "1"  # Default fallback

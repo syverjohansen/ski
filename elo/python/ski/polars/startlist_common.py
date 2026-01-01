@@ -19,8 +19,6 @@ MANUAL_NAME_MAPPINGS = {
     'JC SCHOONMAKER': 'James Clinton Schoonmaker',
     'HAGENBUCH John Steel': 'Johnny Hagenbuch',
     'MALONEY WESTGAARD Thomas': 'Thomas Hjalmar Westgård',
-    'Katharina HENNIG DOTZLER': 'Katharina Hennig',
-    'HENNIG DOTZLER Katharina': 'Katharina Hennig',
     'Lars Michael Saab BJERTNAES':'Lars Michael Bjertnæs',
     'BJERTNAES Lars Michael Saab':  'Lars Michael Bjertnæs',
     'Anian SOSSAU-DAUBERMANN': 'Anian Sossau',
