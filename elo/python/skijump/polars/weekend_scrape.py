@@ -6,6 +6,10 @@ def create_weekends_from_races(input_file="excel365/races.csv", output_file="exc
     """
     Create weekends.csv from races.csv by grouping Ski Jumping races into weekends.
     
+    Supports both old and new date formats:
+    - Old format: Date column only (used for both qualification and final)
+    - New format: Date (qualification) + Final_Date columns
+    
     Logic:
     1. For regular races (Championship=0): Group by city, event type, with 14-day window
     2. For championship races (Championship=1): Group by city, event type, AND race type combination
@@ -21,11 +25,24 @@ def create_weekends_from_races(input_file="excel365/races.csv", output_file="exc
         df = pd.read_csv(input_file)
         print(f"Found {len(df)} races")
         
-        # Step 1: Rename Date to Race_Date
-        df = df.rename(columns={'Date': 'Race_Date'})
+        # Step 1: Handle new two-column date system
+        # Check if Final_Date column exists (new format)
+        has_final_date = 'Final_Date' in df.columns
+        
+        if has_final_date:
+            print("Detected new format with Final_Date column")
+            # Keep Date as Race_Date (qualification date) and preserve Final_Date
+            df = df.rename(columns={'Date': 'Race_Date'})
+            # Final_Date stays as is
+        else:
+            print("Detected old format, using Date as Race_Date")
+            # Old format: rename Date to Race_Date and create Final_Date as copy
+            df = df.rename(columns={'Date': 'Race_Date'})
+            df['Final_Date'] = df['Race_Date']  # Use same date for both
         
         # Step 2: Convert to datetime for processing
         df['Race_Date_dt'] = pd.to_datetime(df['Race_Date'], format='%m/%d/%Y')
+        df['Final_Date_dt'] = pd.to_datetime(df['Final_Date'], format='%m/%d/%Y')
         
         # Step 3: Create the new Date column based on weekend logic
         df['Date'] = ''
@@ -127,9 +144,9 @@ def create_weekends_from_races(input_file="excel365/races.csv", output_file="exc
                 for idx in team_champ.index:
                     df.loc[idx, 'Date'] = earliest_date
         
-        # Step 4: Reorder columns - Date first, then Race_Date, then everything else
-        other_cols = [col for col in df.columns if col not in ['Date', 'Race_Date', 'Race_Date_dt']]
-        df_final = df[['Date', 'Race_Date'] + other_cols]
+        # Step 4: Reorder columns - Date first, then Race_Date, then Final_Date, then everything else
+        other_cols = [col for col in df.columns if col not in ['Date', 'Race_Date', 'Final_Date', 'Race_Date_dt', 'Final_Date_dt']]
+        df_final = df[['Date', 'Race_Date', 'Final_Date'] + other_cols]
         
         # Step 5: Sort by Date, then Race_Date (using datetime for proper sorting)
         df_final['Date_dt'] = pd.to_datetime(df_final['Date'], format='%m/%d/%Y')
@@ -149,7 +166,8 @@ def create_weekends_from_races(input_file="excel365/races.csv", output_file="exc
         
         # Show sample of the output
         print("\nFirst 10 rows of output:")
-        print(df_final.head(10)[['Date', 'Race_Date', 'City', 'HillSize', 'RaceType', 'Championship']].to_string(index=False))
+        display_cols = ['Date', 'Race_Date', 'Final_Date', 'City', 'HillSize', 'RaceType', 'Championship']
+        print(df_final.head(10)[display_cols].to_string(index=False))
         
         return df_final
         

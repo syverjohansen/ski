@@ -313,6 +313,12 @@ def scrape_skijump_event(event_url, source_category, country_mapping, elevation_
             header_text = header.get_text().strip()
             if '(' in header_text and ')' in header_text:
                 city = header_text.split('(')[0].strip()
+                
+                # Skip tournament groupings that don't have actual races with startlists
+                if city in ["Two Nights Tour", "Four Hills Tournament"]:
+                    print(f"Skipping tournament grouping: {city}")
+                    return races
+                
                 country_code = header_text.split('(')[1].split(')')[0].strip()
                 country = country_mapping.get(country_code, "")
         
@@ -323,6 +329,9 @@ def scrape_skijump_event(event_url, source_category, country_mapping, elevation_
             return races
         
         race_rows = content_div.find_all('div', {'class': 'table-row'})
+        
+        # Group races by gender and race type to match qualification with final
+        race_data_by_group = {}
         
         for row in race_rows:
             # Check if race is cancelled first
@@ -398,22 +407,11 @@ def scrape_skijump_event(event_url, source_category, country_mapping, elevation_
             # Parse hill size and race type
             hill_size, race_type = parse_hill_size_and_racetype(race_text)
             
-            # For individual events: keep QUA and OWG, skip WC. For team events: keep all
-            if "Team" not in race_type:
-                # Individual event - keep qualification rounds or Olympic rounds
-                if has_competition and not has_qualification and not has_olympics:
-                    print(f"Skipping individual competition round (no startlist): {race_date} - {race_text}")
-                    continue
-            # Team events don't have qualification, so we keep them all
+            # Create group key for matching qualification with final
+            group_key = f"{sex}_{race_type}_{city}_{hill_size}"
             
-            # Determine championship
-            championship = "1" if source_category == "Olympics" else "0"
-            
-            # Get elevation
-            elevation = fuzzy_match_elevation(city, elevation_df)
-            
-            # Create race entry (period will be assigned later)
-            race = {
+            # Store race data for matching
+            race_data = {
                 'date': race_date,
                 'startlist_url': startlist_url,
                 'sex': sex,
@@ -421,13 +419,78 @@ def scrape_skijump_event(event_url, source_category, country_mapping, elevation_
                 'country': country,
                 'hill_size': hill_size,
                 'race_type': race_type,
-                'period': "",
-                'elevation': elevation,
-                'championship': championship
+                'elevation': fuzzy_match_elevation(city, elevation_df),
+                'championship': "1" if source_category == "Olympics" else "0",
+                'has_qualification': has_qualification,
+                'has_competition': has_competition,
+                'has_olympics': has_olympics
             }
             
-            races.append(race)
-            print(f"Found race: {race_date} ({sex}) {city} - {race_text[:50]}...")
+            # Group races for matching qualification with final
+            if group_key not in race_data_by_group:
+                race_data_by_group[group_key] = []
+            race_data_by_group[group_key].append(race_data)
+        
+        # Process grouped races to match qualification with final
+        for group_key, group_races in race_data_by_group.items():
+            qualification_race = None
+            final_race = None
+            
+            # Find qualification and final races
+            for race_data in group_races:
+                if "Team" in race_data['race_type']:
+                    # Team events don't have qualification, use the WC/OWG date for both
+                    if race_data['has_competition'] or race_data['has_olympics']:
+                        qualification_race = race_data
+                        final_race = race_data
+                        break
+                else:
+                    # Individual events: find QUA for startlist, WC/OWG for final
+                    if race_data['has_qualification']:
+                        qualification_race = race_data
+                    elif race_data['has_competition'] or race_data['has_olympics']:
+                        final_race = race_data
+            
+            # Create race entry with both dates
+            if qualification_race:
+                # For individual events, use qualification date as main date (for startlists)
+                # For team events, qualification_race and final_race are the same
+                final_date = final_race['date'] if final_race else qualification_race['date']
+                
+                race = {
+                    'date': qualification_race['date'],  # Date for startlists/predictions
+                    'final_date': final_date,  # Date for score scraping
+                    'startlist_url': qualification_race['startlist_url'],
+                    'sex': qualification_race['sex'],
+                    'city': qualification_race['city'],
+                    'country': qualification_race['country'],
+                    'hill_size': qualification_race['hill_size'],
+                    'race_type': qualification_race['race_type'],
+                    'period': "",
+                    'elevation': qualification_race['elevation'],
+                    'championship': qualification_race['championship']
+                }
+                
+                races.append(race)
+                print(f"Found race: {race['date']} -> {race['final_date']} ({race['sex']}) {race['city']} - {race['race_type']}")
+            elif final_race:
+                # Only final found, use same date for both (fallback case)
+                race = {
+                    'date': final_race['date'],
+                    'final_date': final_race['date'],
+                    'startlist_url': final_race['startlist_url'],
+                    'sex': final_race['sex'],
+                    'city': final_race['city'],
+                    'country': final_race['country'],
+                    'hill_size': final_race['hill_size'],
+                    'race_type': final_race['race_type'],
+                    'period': "",
+                    'elevation': final_race['elevation'],
+                    'championship': final_race['championship']
+                }
+                
+                races.append(race)
+                print(f"Found race (final only): {race['date']} ({race['sex']}) {race['city']} - {race['race_type']}")
     
     except Exception as e:
         print(f"Error processing event {event_url}: {str(e)}")
@@ -471,12 +534,13 @@ def save_skijump_races(races, output_file):
         writer = csv.writer(csvfile)
         
         # Header
-        writer.writerow(['Date', 'Startlist', 'Sex', 'City', 'Country', 'HillSize', 'RaceType', 'Period', 'Elevation', 'Championship', 'Race'])
+        writer.writerow(['Date', 'Final_Date', 'Startlist', 'Sex', 'City', 'Country', 'HillSize', 'RaceType', 'Period', 'Elevation', 'Championship', 'Race'])
         
         # Data rows
         for race in sorted_races:
             row = [
                 race['date'],
+                race['final_date'],
                 race['startlist_url'],
                 race['sex'],
                 race['city'],
