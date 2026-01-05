@@ -1,128 +1,135 @@
 Skier,ID,Nation,Ranking,Points
-Jessie Diggins,131,USA,1,685
-Moa Ilar,1866,Sweden,2,660
-Jonna Sundling,1486,Sweden,3,537
-Maja Dahlqvist,1673,Sweden,4,498
-Ebba Andersson,1789,Sweden,5,412
-Jasmi Joensuu,1675,Finland,6,381
-Karoline Simpson-Larsen,2300,Norway,7,380
-Heidi Weng,60,Norway,8,375
-Frida Karlsson,3998,Sweden,9,368
-Emma Ribom,1844,Sweden,10,360
-Anja Weber,6338,Switzerland,11,338
-Kristin Austgulen Fosnæs,4268,Norway,12,334
-Johanna Hagström,3212,Sweden,13,327
-Astrid Øyre Slind,115,Norway,14,322
-Nadine Fähndrich,1590,Switzerland,15,311
-Pia Fink,4004,Germany,16,301
-Helen Hoffmann,6691,Germany,17,295
-Mathilde Myhrvold,2298,Norway,18,284
-Teresa Stadlober,529,Austria,19,283
-Coletta Rydzek,3254,Germany,20,262
-Julie Bjervig Drivenes,3357,Norway,21,246
-Johanna Matintalo,1761,Finland,22,240
-Katerina Janatova,3198,Czechia,23,237
-Nora Sanness,6324,Norway,24,234
-Nadja Kälin,6639,Switzerland,25,222
-Kerttu Niskanen,37,Finland,26,200
-Kristine Stavås Skistad,3207,Norway,26,200
-Gina del Rio,10313,Andorra,28,195
-Laura Gimmler,1495,Germany,28,195
-Vilma Ryytty,6607,Finland,30,192
-Julia Kern,1846,USA,31,190
-Caterina Ganz,1721,Italy,32,188
-Linn Svahn,3190,Sweden,32,188
-Jasmin Kähärä,3528,Finland,34,180
-Vilma Nissinen,3034,Finland,35,179
-Patricijia Eiduka,3240,Latvia,36,175
-Krista Pärmäkoski,13,Finland,37,164
-Ingrid Bergene Aabrekk,6828,Norway,38,160
-Moa Lundgren,3211,Sweden,39,150
-Anne Kjersti Kalvå,1498,Norway,40,148
-Federica Cassol,9082,Italy,41,147
-Ane Appelkvist Stenseth,1829,Norway,42,142
-Katherine Sauerbrey,1727,Germany,43,139
-Milla Grosberghaugen Andreassen,10424,Norway,44,136
-Rosie Brennan,627,USA,45,129
-Lotta Udnes Weng,1671,Norway,46,127
-Hilla Niemelä,6296,Finland,47,120
-Tiril Udnes Weng,1668,Norway,47,120
-Iris De Martin Pinter,7422,Italy,49,115
-Katharina Hennig Dotzler,1618,Germany,50,112
-Maria Gismondi,10867,Italy,51,111
-Kathrine Stewart-Jones,1676,Canada,52,110
-Lea Fischer,2284,Switzerland,53,105
-Sofie Krehl,1695,Germany,54,103
-Amanda Saari,7905,Finland,55,102
-Rosie Fordham,6450,Australia,56,98
-Alayna Sonnesyn,1872,USA,57,88
-Leonie Perry,10413,France,58,85
-Nicole Monsorno,6631,Italy,59,83
-Magdalena Scherz,6707,Austria,60,80
-Hedda Bakkemo,6437,Norway,61,75
-Märta Rosenberg,6689,Sweden,62,71
-Anna Comarella,1724,Italy,63,68
-Anja Mandeljc,1868,Slovenia,64,63
-Izabela Marcisz,6327,Poland,64,63
-Delphine Claudel,1694,France,66,61
-Marina Kälin,7433,Switzerland,67,59
-Katri Lylynperä,1494,Finland,68,58
-Dariya Nepryaeva,6555,Russia,69,55
-Monika Skinder,6335,Poland,70,53
-Margrete Røssum Dyrhovd,1778,Norway,71,52
-Alina Meier,1680,Switzerland,71,52
-Silje Øyre Slind,458,Norway,71,52
-Lena Quintin,3252,France,74,51
-Eva Ingebrigtsen,10145,Norway,75,48
-Tereza Beranova,3618,Czechia,76,47
-Luci Anderson,4706,USA,77,43
-Giuliana Werro,3230,Switzerland,77,43
-Elina Rönnlund,1674,Sweden,79,40
-Vilma Jylhä,3050,Finland,80,36
-Marte Mikkelsplass,6793,Norway,81,33
-Keidy Kaasiku,4942,Estonia,82,32
-Chika Kobayashi,3524,Japan,83,30
-Anna-Kaisa Saari,3085,Finland,83,30
-Melissa Gal,4034,France,85,29
-Nora Kytäjä,6993,Finland,86,28
-Verena Veit,9317,Germany,87,27
-Fabienne Alder,11191,Switzerland,88,26
-Mariel Merlii Pulles,1969,Estonia,89,24
-Eliza Rucka,6328,Poland,89,24
-Kaidy Kaasiku,4943,Estonia,91,23
-Masae Tsuchiya,3498,Japan,91,23
-Katharina Brudermann,5040,Austria,93,22
-Anna-Maria Dietze,3214,Germany,93,22
-Nora Christine Hansen,10467,Norway,93,22
-Kendall Kramer,6650,USA,93,22
-Anna Pryce,6640,Great Britain,97,21
-Heidi Bucher,10823,Austria,98,20
-Lena Keck,4825,Germany,99,18
-Evelina Crusell,10880,Sweden,100,17
-Maiken Min Midtskogen,3375,Norway,100,17
-Anni Alakoski,3037,Finland,102,16
-Nora Elisabeth Falster,8959,Norway,102,16
-Julie Myhre,1841,Norway,102,16
-Barbora Antosova,6633,Czechia,105,15
-Anne Kyllönen,45,Finland,105,15
-Sophia Laukli,7369,USA,105,15
-Phoebe Cridland,5184,Australia,108,13
-Theresa Fürstenberg,6801,Germany,109,12
-Juliette Ducordeau,3218,France,110,10
-Margot Tirloy,10829,France,111,9
-Oona Kettunen,1914,Finland,112,8
-Kate Oldham,6453,USA,112,8
-Selene Rossi,10816,Finland,112,8
-Desiree Steiner,3220,Switzerland,112,8
-Clemence Didierlaurent,10690,France,116,6
-Anna Marie Jaklova,10190,Czechia,116,6
-Hanna Ray,6472,Finland,116,6
-Nadine Laurent,9319,Italy,119,5
-Olivia Bouffard-Nesbitt,1685,Canada,120,4
-Heidi Convard,11395,France,120,4
-Julie Pierrel,7444,France,122,3
-Teesi Tuul,3328,Estonia,122,3
-Justine Gaillard,11576,France,124,2
-Chika Honda,7087,Japan,124,2
-Liv Coupat,9321,France,126,1
-Elsa Torvinen,9382,Finland,126,1
+Jessie Diggins,131,USA,1,1216
+Moa Ilar,1866,Sweden,2,1032
+Ebba Andersson,1789,Sweden,3,803
+Heidi Weng,60,Norway,4,774
+Maja Dahlqvist,1673,Sweden,5,765
+Teresa Stadlober,529,Austria,6,716
+Jasmi Joensuu,1675,Finland,7,715
+Karoline Simpson-Larsen,2300,Norway,8,691
+Johanna Matintalo,1761,Finland,9,611
+Julie Bjervig Drivenes,3357,Norway,10,599
+Jonna Sundling,1486,Sweden,11,537
+Anja Weber,6338,Switzerland,12,535
+Helen Hoffmann,6691,Germany,13,511
+Nadine Fähndrich,1590,Switzerland,14,493
+Johanna Hagström,3212,Sweden,15,454
+Frida Karlsson,3998,Sweden,16,446
+Nora Sanness,6324,Norway,17,430
+Emma Ribom,1844,Sweden,18,429
+Julia Kern,1846,USA,19,410
+Moa Lundgren,3211,Sweden,20,408
+Caterina Ganz,1721,Italy,21,399
+Astrid Øyre Slind,115,Norway,22,394
+Katerina Janatova,3198,Czechia,23,393
+Nadja Kälin,6639,Switzerland,24,368
+Kristin Austgulen Fosnæs,4268,Norway,25,364
+Pia Fink,4004,Germany,26,352
+Vilma Ryytty,6607,Finland,26,352
+Dariya Nepryaeva,6555,Russia,28,328
+Katherine Sauerbrey,1727,Germany,29,317
+Patricijia Eiduka,3240,Latvia,30,308
+Vilma Nissinen,3034,Finland,31,299
+Mathilde Myhrvold,2298,Norway,32,290
+Coletta Rydzek,3254,Germany,32,290
+Kerttu Niskanen,37,Finland,34,288
+Alison Mackie,10185,Canada,35,249
+Leonie Perry,10413,France,36,220
+Jasmin Kähärä,3528,Finland,37,207
+Kristine Stavås Skistad,3207,Norway,38,205
+Gina del Rio,10313,Andorra,39,195
+Laura Gimmler,1495,Germany,39,195
+Sofie Krehl,1695,Germany,41,189
+Linn Svahn,3190,Sweden,42,188
+Krista Pärmäkoski,13,Finland,43,176
+Ingrid Bergene Aabrekk,6828,Norway,44,171
+Eliza Rucka-Michalek,6328,Poland,45,170
+Federica Cassol,9082,Italy,46,152
+Eva Ingebrigtsen,10145,Norway,46,152
+Anne Kjersti Kalvå,1498,Norway,48,148
+Monika Skinder,6335,Poland,48,148
+Ane Appelkvist Stenseth,1829,Norway,50,142
+Iris De Martin Pinter,7422,Italy,51,139
+Katharina Hennig Dotzler,1618,Germany,52,138
+Milla Grosberghaugen Andreassen,10424,Norway,53,136
+Rosie Brennan,627,USA,54,129
+Lotta Udnes Weng,1671,Norway,55,127
+Hilla Niemelä,6296,Finland,56,120
+Tiril Udnes Weng,1668,Norway,56,120
+Maria Gismondi,10867,Italy,58,111
+Anja Mandeljc,1868,Slovenia,58,111
+Kathrine Stewart-Jones,1676,Canada,60,110
+Lea Fischer,2284,Switzerland,61,105
+Amanda Saari,7905,Finland,62,102
+Nicole Monsorno,6631,Italy,63,101
+Melissa Gal,4034,France,64,99
+Rosie Fordham,6450,Australia,65,98
+Evelina Crusell,10880,Sweden,66,91
+Alayna Sonnesyn,1872,USA,67,88
+Märta Rosenberg,6689,Sweden,68,81
+Magdalena Scherz,6707,Austria,68,81
+Hedda Bakkemo,6437,Norway,70,75
+Julie Pierrel,7444,France,71,72
+Anna Comarella,1724,Italy,72,68
+Juliette Ducordeau,3218,France,73,67
+Marina Kälin,7433,Switzerland,74,63
+Izabela Marcisz,6327,Poland,74,63
+Delphine Claudel,1694,France,76,61
+Katri Lylynperä,1494,Finland,77,58
+Clemence Didierlaurent,10690,France,78,56
+Margrete Røssum Dyrhovd,1778,Norway,79,52
+Alina Meier,1680,Switzerland,79,52
+Silje Øyre Slind,458,Norway,79,52
+Lena Quintin,3252,France,82,51
+Tereza Beranova,3618,Czechia,83,47
+Margot Tirloy,10829,France,84,46
+Luci Anderson,4706,USA,85,43
+Giuliana Werro,3230,Switzerland,85,43
+Martina di Centa,9084,Italy,87,42
+Elina Rönnlund,1674,Sweden,88,40
+Vilma Jylhä,3050,Finland,89,36
+Hanna Karaliova,3225,Belarus,89,36
+Marte Mikkelsplass,6793,Norway,91,33
+Keidy Kaasiku,4942,Estonia,92,32
+Lisa Eriksson,9318,Sweden,93,30
+Chika Kobayashi,3524,Japan,93,30
+Anna-Kaisa Saari,3085,Finland,93,30
+Nora Kytäjä,6993,Finland,96,28
+Hanna Machakhina,7439,Belarus,97,27
+Verena Veit,9317,Germany,97,27
+Fabienne Alder,11191,Switzerland,99,26
+Aleksandra Kolodziej,8064,Poland,100,24
+Mariel Merlii Pulles,1969,Estonia,100,24
+Kaidy Kaasiku,4943,Estonia,102,23
+Masae Tsuchiya,3498,Japan,102,23
+Katharina Brudermann,5040,Austria,104,22
+Anna-Maria Dietze,3214,Germany,104,22
+Nora Christine Hansen,10467,Norway,104,22
+Kendall Kramer,6650,USA,104,22
+Magdalena Kobielusz,6458,Poland,108,21
+Anna Pryce,6640,Great Britain,108,21
+Heidi Bucher,10823,Austria,110,20
+Chika Honda,7087,Japan,110,20
+Lena Keck,4825,Germany,112,18
+Maiken Min Midtskogen,3375,Norway,113,17
+Anni Alakoski,3037,Finland,114,16
+Nora Elisabeth Falster,8959,Norway,114,16
+Julie Myhre,1841,Norway,114,16
+Barbora Antosova,6633,Czechia,117,15
+Anne Kyllönen,45,Finland,117,15
+Sophia Laukli,7369,USA,117,15
+Phoebe Cridland,5184,Australia,120,13
+Theresa Fürstenberg,6801,Germany,121,12
+Oona Kettunen,1914,Finland,122,8
+Kate Oldham,6453,USA,122,8
+Selene Rossi,10816,Finland,122,8
+Desiree Steiner,3220,Switzerland,122,8
+Anna Marie Jaklova,10190,Czechia,126,6
+Hanna Ray,6472,Finland,126,6
+Nadine Laurent,9319,Italy,128,5
+Olivia Bouffard-Nesbitt,1685,Canada,129,4
+Heidi Convard,11395,France,129,4
+Teesi Tuul,3328,Estonia,131,3
+Justine Gaillard,11576,France,132,2
+Liv Coupat,9321,France,133,1
+Elsa Torvinen,9382,Finland,133,1
