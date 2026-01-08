@@ -388,6 +388,11 @@ def scrape_nordic_event(event_url, source_category, country_mapping, elevation_d
                     race_text = text
                     break
             
+            # Skip races with empty race descriptions (likely provisional rounds or invalid entries)
+            if not race_text or race_text.strip() == "":
+                print(f"Skipping race with empty description for race ID: {startlist_url}")
+                continue
+                
             # Check for Provisional Round first - skip entire race
             if "Provisional Round" in race_text:
                 print(f"Skipping Provisional Round: {race_text}")
