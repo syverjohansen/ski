@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import csv
-from datetime import datetime
+from datetime import datetime, timedelta
 import re
 import time
 import random
@@ -355,16 +355,23 @@ def scrape_skijump_event(event_url, source_category, country_mapping, elevation_
             has_qualification = False
             has_competition = False
             has_olympics = False
-            split_rows = row.find_all('div', {'class': 'split-row__item'})
-            for split_row in split_rows:
-                text_div = split_row.find('div', class_='g-xs-12 justify-left')
-                if text_div:
-                    text = text_div.get_text().strip()
-                    if 'QUA' in text:
+            
+            # Look for category in multiple possible locations
+            category_selectors = [
+                'a[class*="justify-center"][class*="hidden-sm-down"]',  # Main category link
+                'div[class*="g-xs-12 justify-left"]',  # Mobile category
+                'div[class*="split-row__item"]'  # Other category locations
+            ]
+            
+            for selector in category_selectors:
+                category_elements = row.select(selector)
+                for element in category_elements:
+                    text = element.get_text().strip()
+                    if text in ['QUA', 'Qualification']:
                         has_qualification = True
-                    elif 'WC' in text:
+                    elif text in ['WC', 'World Cup']:
                         has_competition = True
-                    elif 'OWG' in text:
+                    elif text in ['OWG', 'Olympics']:
                         has_olympics = True
             
             # Extract startlist URL
@@ -408,7 +415,18 @@ def scrape_skijump_event(event_url, source_category, country_mapping, elevation_
             hill_size, race_type = parse_hill_size_and_racetype(race_text)
             
             # Create group key for matching qualification with final
-            group_key = f"{sex}_{race_type}_{city}_{hill_size}"
+            # Use a simpler approach: always use the earlier date for grouping
+            if has_qualification:
+                # This is a qualification race - use its own date
+                group_date = race_date
+            else:
+                # This is a competition race - use its own date for now
+                # The matching logic will handle finding the right qualification race
+                group_date = race_date
+            
+            date_key = datetime.strptime(group_date, '%m/%d/%Y').strftime('%Y%m%d')
+            group_key = f"{sex}_{race_type}_{city}_{hill_size}_{date_key}"
+            print(f"DEBUG: Race {race_date} - Group key: {group_key}, QUA:{has_qualification}, WC:{has_competition}")
             
             # Store race data for matching
             race_data = {
@@ -431,25 +449,74 @@ def scrape_skijump_event(event_url, source_category, country_mapping, elevation_
                 race_data_by_group[group_key] = []
             race_data_by_group[group_key].append(race_data)
         
-        # Process grouped races to match qualification with final
+        # Process all races to find qualification/competition pairs
+        # First, separate races by type
+        qualification_races = []
+        competition_races = []
+        standalone_races = []  # For races that don't fit the qual/competition pattern
+        
+        print(f"DEBUG: Total groups found: {len(race_data_by_group)}")
+        
         for group_key, group_races in race_data_by_group.items():
-            qualification_race = None
-            final_race = None
-            
-            # Find qualification and final races
+            print(f"DEBUG: Processing group {group_key} with {len(group_races)} races")
             for race_data in group_races:
+                print(f"DEBUG: Race {race_data['date']} - QUA:{race_data['has_qualification']}, WC:{race_data['has_competition']}, OWG:{race_data['has_olympics']}, Type:{race_data['race_type']}")
+                
                 if "Team" in race_data['race_type']:
-                    # Team events don't have qualification, use the WC/OWG date for both
+                    # Team events don't have qualification, treat as standalone competitions
                     if race_data['has_competition'] or race_data['has_olympics']:
-                        qualification_race = race_data
-                        final_race = race_data
-                        break
+                        competition_races.append(race_data)
+                        print(f"DEBUG: Added team race to competition_races")
+                    else:
+                        standalone_races.append(race_data)
+                        print(f"DEBUG: Added team race to standalone_races")
                 else:
-                    # Individual events: find QUA for startlist, WC/OWG for final
+                    # Individual events: separate QUA and WC/OWG
                     if race_data['has_qualification']:
-                        qualification_race = race_data
+                        qualification_races.append(race_data)
+                        print(f"DEBUG: Added individual race to qualification_races")
                     elif race_data['has_competition'] or race_data['has_olympics']:
-                        final_race = race_data
+                        competition_races.append(race_data)
+                        print(f"DEBUG: Added individual race to competition_races")
+                    else:
+                        # Race that doesn't have clear QUA/WC/OWG markers - treat as standalone
+                        standalone_races.append(race_data)
+                        print(f"DEBUG: Added unclassified race to standalone_races")
+        
+        print(f"DEBUG: Found {len(qualification_races)} qualification races, {len(competition_races)} competition races, and {len(standalone_races)} standalone races")
+        
+        # Match each competition race with the best qualification race
+        used_qualification_indices = set()  # Track indices instead of dict objects
+        
+        for final_race in competition_races:
+            qualification_race = None
+            best_match = None
+            best_match_index = None
+            min_date_diff = float('inf')
+            
+            # Find the best qualification race for this competition
+            final_date = datetime.strptime(final_race['date'], '%m/%d/%Y')
+            final_key = f"{final_race['sex']}_{final_race['race_type']}_{final_race['city']}_{final_race['hill_size']}"
+            
+            for i, qual_race in enumerate(qualification_races):
+                if i in used_qualification_indices:
+                    continue
+                    
+                qual_date = datetime.strptime(qual_race['date'], '%m/%d/%Y')
+                qual_key = f"{qual_race['sex']}_{qual_race['race_type']}_{qual_race['city']}_{qual_race['hill_size']}"
+                
+                # Check if they match (same event characteristics)
+                if qual_key == final_key:
+                    # Calculate date difference (qualification should be same day or 1 day before)
+                    date_diff = (final_date - qual_date).days
+                    if 0 <= date_diff <= 1 and date_diff < min_date_diff:
+                        min_date_diff = date_diff
+                        best_match = qual_race
+                        best_match_index = i
+            
+            if best_match:
+                qualification_race = best_match
+                used_qualification_indices.add(best_match_index)
             
             # Create race entry with both dates
             if qualification_race:
@@ -491,6 +558,47 @@ def scrape_skijump_event(event_url, source_category, country_mapping, elevation_
                 
                 races.append(race)
                 print(f"Found race (final only): {race['date']} ({race['sex']}) {race['city']} - {race['race_type']}")
+        
+        # Handle any unused qualification races (qualification without competition)
+        for i, qual_race in enumerate(qualification_races):
+            if i not in used_qualification_indices:
+                race = {
+                    'date': qual_race['date'],
+                    'final_date': qual_race['date'],
+                    'startlist_url': qual_race['startlist_url'],
+                    'sex': qual_race['sex'],
+                    'city': qual_race['city'],
+                    'country': qual_race['country'],
+                    'hill_size': qual_race['hill_size'],
+                    'race_type': qual_race['race_type'],
+                    'period': "",
+                    'elevation': qual_race['elevation'],
+                    'championship': qual_race['championship']
+                }
+                
+                races.append(race)
+                print(f"Found race (qualification only): {race['date']} ({race['sex']}) {race['city']} - {race['race_type']}")
+        
+        # Handle standalone races (races that don't fit the qual/competition pattern)
+        for standalone_race in standalone_races:
+            race = {
+                'date': standalone_race['date'],
+                'final_date': standalone_race['date'],
+                'startlist_url': standalone_race['startlist_url'],
+                'sex': standalone_race['sex'],
+                'city': standalone_race['city'],
+                'country': standalone_race['country'],
+                'hill_size': standalone_race['hill_size'],
+                'race_type': standalone_race['race_type'],
+                'period': "",
+                'elevation': standalone_race['elevation'],
+                'championship': standalone_race['championship']
+            }
+            
+            races.append(race)
+            print(f"Found race (standalone): {race['date']} ({race['sex']}) {race['city']} - {race['race_type']}")
+        
+        print(f"DEBUG: Total races created from this event: {len(races)}")
     
     except Exception as e:
         print(f"Error processing event {event_url}: {str(e)}")
