@@ -1,59 +1,64 @@
 Skier,ID,Nation,Ranking,Points,Wins
-Johannes Lamparter,1469,Austria,1,505,3
-Thomas Rettenegger,1467,Austria,2,438,2
-Julian Schmid,1348,Germany,3,399,0
-Ilkka Herola,97,Finland,4,382,0
-Wendelin Thannheimer,1461,Germany,5,337,0
-Franz-Josef Rehrl,72,Austria,6,333,0
-Jens Lurås Oftebro,1329,Norway,7,299,0
-Stefan Rettenegger,1775,Austria,8,270,0
-Johannes Rydzek,14,Germany,9,248,0
-Einar Lurås Oftebro,1217,Norway,10,236,0
-Martin Fritz,1090,Austria,11,233,0
-Vinzenz Geiger,1182,Germany,12,209,1
-Eero Hirvonen,1155,Finland,13,187,0
-Paul Walcher,1988,Austria,14,176,0
-David Mach,1468,Germany,15,172,0
-Laurent Muhlethaler,1146,France,16,158,0
-Richard Stenzel,2351,Germany,17,155,0
-Andreas Skoglund,1449,Norway,18,150,0
-Florian Kolb,1982,Austria,19,146,0
-Kristjan Ilves,403,Estonia,20,142,0
-Samuel Costa,84,Italy,21,129,0
-Marco Heinis,1903,France,22,128,0
-Terence Weber,1137,Germany,23,110,0
-Simon Mach,1981,Germany,24,108,0
-Aleksander Skoglund,1220,Norway,25,103,0
-Espen Andersen,345,Norway,26,94,0
-Akito Watabe,3,Japan,27,93,0
-Eidar Johan Strøm,2344,Norway,28,86,0
-Ryota Yamamoto,1154,Japan,29,76,0
-Lukas Greiderer,1088,Austria,30,71,0
-Jiri Konvalinka,2037,Czechia,31,69,0
-Jan Vytrval,1239,Czechia,32,66,0
-Niklas Malacinski,1429,USA,33,64,0
-Sora Yachi,1774,Japan,33,64,0
-Vid Vrhovnik,1196,Slovenia,35,47,0
-Edgar Vallet,1317,France,36,45,0
-Jens Dahlseide Kvamme,2364,Norway,37,38,0
-Atsushi Narita,2388,Japan,38,35,0
-Mael Tyrode,1318,France,39,32,0
-Andreas Gfrerer,2378,Austria,40,31,0
-Mario Seidl,88,Austria,40,31,0
-Fabio Obermeyr,1777,Austria,42,30,0
-Gael Blondeau,1485,France,43,28,0
-Herman Happonen,2346,Finland,43,28,0
-Kodai Kimura,1459,Japan,43,28,0
-Yoshito Watabe,32,Japan,46,26,0
-Tristan Sommerfeldt,1992,Germany,47,22,0
-Kasper Moen Flatla,1230,Norway,48,19,0
-Aaron Kostner,1193,Italy,49,17,0
-Alessandro Pittin,8,Italy,49,17,0
-Pascal Müller,1475,Switzerland,51,16,0
-Ben Loomis,1179,USA,52,15,0
-Simen Tiller,370,Norway,52,15,0
-Jørgen Berget Storsveen,2419,Norway,54,12,0
-Matteo Baud,1765,France,55,10,0
-Eemeli Kurttila,2455,Finland,56,8,0
-Jiawen Zhao,1705,China,57,5,0
-Gašper Brecl,1295,Slovenia,58,4,0
+Johannes Lamparter,1469,Austria,1,747,4
+Julian Schmid,1348,Germany,2,597,1
+Thomas Rettenegger,1467,Austria,3,585,2
+Jens Lurås Oftebro,1329,Norway,4,509,0
+Ilkka Herola,97,Finland,5,490,0
+Johannes Rydzek,14,Germany,6,488,0
+Einar Lurås Oftebro,1217,Norway,7,476,1
+Stefan Rettenegger,1775,Austria,8,429,0
+Wendelin Thannheimer,1461,Germany,9,415,0
+Vinzenz Geiger,1182,Germany,10,375,1
+Franz-Josef Rehrl,72,Austria,11,348,0
+Martin Fritz,1090,Austria,12,333,0
+Andreas Skoglund,1449,Norway,13,306,0
+Kristjan Ilves,403,Estonia,14,295,0
+Eero Hirvonen,1155,Finland,15,261,0
+David Mach,1468,Germany,16,254,0
+Paul Walcher,1988,Austria,17,220,0
+Ryota Yamamoto,1154,Japan,18,207,0
+Richard Stenzel,2351,Germany,19,199,0
+Laurent Muhlethaler,1146,France,20,184,0
+Lukas Greiderer,1088,Austria,21,169,0
+Samuel Costa,84,Italy,22,168,0
+Marco Heinis,1903,France,23,161,0
+Aleksander Skoglund,1220,Norway,24,157,0
+Eidar Johan Strøm,2344,Norway,25,154,0
+Simon Mach,1981,Germany,26,151,0
+Florian Kolb,1982,Austria,27,146,0
+Espen Andersen,345,Norway,28,138,0
+Fabio Obermeyr,1777,Austria,28,138,0
+Akito Watabe,3,Japan,30,122,0
+Jan Vytrval,1239,Czechia,31,121,0
+Niklas Malacinski,1429,USA,32,111,0
+Terence Weber,1137,Germany,33,110,0
+Vid Vrhovnik,1196,Slovenia,34,88,0
+Sora Yachi,1774,Japan,35,87,0
+Jiri Konvalinka,2037,Czechia,36,69,0
+Aaron Kostner,1193,Italy,37,56,0
+Ben Loomis,1179,USA,38,53,0
+Edgar Vallet,1317,France,39,49,0
+Manuel Faißt,36,Germany,40,42,0
+Kodai Kimura,1459,Japan,40,42,0
+Alessandro Pittin,8,Italy,42,39,0
+Jens Dahlseide Kvamme,2364,Norway,43,38,0
+Yoshito Watabe,32,Japan,44,37,0
+Atsushi Narita,2388,Japan,45,35,0
+Mael Tyrode,1318,France,46,32,0
+Andreas Gfrerer,2378,Austria,47,31,0
+Mario Seidl,88,Austria,47,31,0
+Herman Happonen,2346,Finland,49,30,0
+Gael Blondeau,1485,France,50,28,0
+Tristan Sommerfeldt,1992,Germany,51,22,0
+Kasper Moen Flatla,1230,Norway,52,19,0
+Pascal Müller,1475,Switzerland,53,16,0
+Simen Tiller,370,Norway,54,15,0
+Matteo Baud,1765,France,55,12,0
+Jørgen Berget Storsveen,2419,Norway,55,12,0
+Lukas Dolezal,2060,Czechia,57,9,0
+Eemeli Kurttila,2455,Finland,58,8,0
+Gašper Brecl,1295,Slovenia,59,7,0
+Erik Lynch,372,USA,59,7,0
+Henry Johnstone,1432,USA,61,6,0
+Jiawen Zhao,1705,China,62,5,0
+Otto Niittykoski,1347,Finland,63,2,0

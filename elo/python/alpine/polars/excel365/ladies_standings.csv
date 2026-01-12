@@ -1,125 +1,130 @@
 Skier,ID,Nation,Ranking,Points,Wins
 Mikaela Shiffrin,72,USA,1,823,5
 Camille Rast,3229,Switzerland,2,703,2
-Alice Robinson,3891,New Zealand,3,484,3
+Alice Robinson,3891,New Zealand,3,489,3
 Julia Scheib,2970,Austria,4,460,3
-Sofia Goggia,331,Italy,5,428,1
-Paula Moltzan,294,USA,6,422,0
-Emma Aicher,4194,Germany,7,413,1
-Lara Colturi,5268,Albania,8,402,0
-Sara Hector,133,Sweden,9,372,0
-Lindsey Vonn,2,USA,10,350,1
+Emma Aicher,4194,Germany,5,453,1
+Lindsey Vonn,2,USA,6,450,2
+Sofia Goggia,331,Italy,7,442,1
+Paula Moltzan,294,USA,8,422,0
+Lara Colturi,5268,Albania,9,402,0
+Sara Hector,133,Sweden,10,372,0
 Lena Dürr,28,Germany,11,337,0
 Wendy Holdener,78,Switzerland,12,327,0
 Zrinka Ljutic,4175,Croatia,13,279,0
-Katharina Truppe,1345,Austria,14,231,0
-Cornelia Hütter,94,Austria,15,224,1
-Lara Della Mea,3580,Italy,16,217,0
-Valerie Grenier,460,Canada,17,205,0
-Thea Louise Stjernesund,3019,Norway,18,200,0
-Katharina Liensberger,2921,Austria,19,189,0
-Romane Miradoli,196,France,20,187,0
-Anna Swenn-Larsson,76,Sweden,21,164,0
-Kira Weidle-Winkelmann,1340,Germany,21,164,0
-Laura Pirovano,2916,Italy,23,163,0
-Magdalena Egger,3962,Austria,24,152,0
-Maryna Gasienica Daniel,289,Poland,25,146,0
-Nina O'Brien,1346,USA,26,139,0
-Ilka Stuhec,43,Slovenia,27,126,0
-Mirjam Puchner,175,Austria,28,119,0
-Nina Ortlieb,386,Austria,29,118,0
-Kajsa Vickhoff Lie,2963,Norway,30,117,0
-Dzenifera Germane,4080,Latvia,31,116,0
-Marion Chevrier,4203,France,32,112,0
-Brett Richardson,4212,Canada,33,110,0
-Elena Curtoni,33,Italy,34,107,0
-Ester Ledecka,2957,Czechia,34,107,0
-Ariane Rädler,3633,Austria,36,103,0
-Breezy Johnson,497,USA,37,102,0
-Mina Fürst Holtmann,480,Norway,38,98,0
-Cornelia Öhlund,5016,Sweden,39,89,0
-Malorie Blanc,4978,Switzerland,40,88,0
-Estelle Alphand,197,Sweden,41,86,0
-Laurence St-Germain,379,Canada,42,82,0
-Katharina Gallhuber,2829,Austria,43,81,0
-Melanie Meillard,1322,Switzerland,44,74,0
-Hanna Aronsson Elfman,4063,Sweden,45,72,0
-Katharina Huber,1324,Austria,45,72,0
-Stephanie Brunner,234,Austria,47,71,0
-Clara Direz,252,France,48,68,0
-Eliane Christen,4471,Switzerland,49,67,0
-Laura Gauche,388,France,50,65,0
-Camille Cerutti,2964,France,51,63,0
-Asja Zenere,1325,Italy,51,63,0
-Keely Cashman,2975,USA,53,62,0
-Lara Gut-Behrami,10,Switzerland,54,60,0
-AJ Hurt,3886,USA,55,56,0
-Lisa Hörhager,4176,Austria,56,54,0
-Martina Peterlini,3892,Italy,57,53,0
-Nicol Delago,461,Italy,58,51,0
-Nina Astner,3959,Austria,59,50,0
-Ana Bucik Jogan,180,Slovenia,59,50,0
-Marte Monsen,3793,Norway,61,49,0
-Jasmina Suter,262,Switzerland,62,46,0
-Roberta Melesi,428,Italy,63,44,0
-Asa Ando,427,Japan,64,42,0
-Natalie Falch,4280,Austria,64,42,0
-Jasmine Flury,201,Switzerland,64,42,0
-Caitlin McFarlane,4104,France,64,42,0
-Neja Dvornik,3890,Slovenia,68,41,0
-Jacqueline Wiles,378,USA,69,40,0
-Franziska Gritsch,3694,Austria,70,39,0
-Madeleine Sylvester-Davik,5486,Norway,70,39,0
-Isabella Wright,3934,USA,72,35,0
-Anuk Brändli,5277,Switzerland,73,32,0
-Elisabeth Bocock,4761,USA,74,31,0
-Marie Lamure,3993,France,75,29,0
-Vanessa Kasper,3023,Switzerland,76,28,0
-Delia Durrer,4074,Switzerland,77,26,0
-Sue Piller,5832,Switzerland,78,25,0
-Haley Cutler,5280,USA,79,23,0
-Joana Hählen,169,Switzerland,79,23,0
-Katie Hensien,3887,USA,81,22,0
-Allison Mollin,4773,USA,81,22,0
-Erika Pykäläinen,3894,Finland,83,21,0
-Cassidy Gray,4154,Canada,84,19,0
-Ricarda Haaser,260,Austria,85,18,0
-Bianca Bakke Westhoff,4160,Norway,85,18,0
-Tricia Mangan,1341,USA,87,17,0
-Aline Danioth,1321,Switzerland,88,15,0
-Doriane Escane,3577,France,89,14,0
-Amelia Smart,2983,Canada,89,14,0
-Mary Bocock,4764,USA,91,13,0
-Hilma Lövblom,3985,Sweden,91,13,0
-Carla Mijares Ruf,4106,Andorra,91,13,0
-Giulia Valleriani,5329,Italy,91,13,0
-llaria Ghisalberti,4151,Italy,95,12,0
-Janine Schmitt,4140,Switzerland,95,12,0
-Aline Höpli,4226,Switzerland,97,11,0
-Lena Wechner,4141,Austria,97,11,0
-Nicole Good,3782,Switzerland,99,10,0
-Jessica Hilzinger,1339,Germany,100,9,0
-Chisaki Maeda,2985,Japan,100,9,0
-Victoria Olivier,4232,Austria,100,9,0
-Leona Popovic,1193,Croatia,100,9,0
-Fabiana Dorigo,4130,Germany,104,8,0
-Nadine Fest,2969,Austria,104,8,0
-Priska Ming-Nufer,170,Switzerland,104,8,0
-Emilia Mondinelli,4987,Italy,104,8,0
-Cande Moreno Becerra,3777,Andorra,104,8,0
-Christina Ager,390,Austria,109,7,0
-Jana Fritz,5269,Germany,109,7,0
-Elvedina Muzaferija,2989,Bosnia&Herzegovina,109,7,0
-Simone Wild,397,Switzerland,109,7,0
-Viktoria Bürgler,4323,Austria,113,6,0
-Nadia Delago,3013,Italy,113,6,0
-Moa Landström,5364,Sweden,113,6,0
-Zita Toth,3970,Hungary,113,6,0
-Sara Allemand,4144,France,117,5,0
-Justine Lamontagne,4286,Canada,117,5,0
-Alice Pazzaglia,4303,Italy,117,5,0
-Beatrice Sola,4229,Italy,117,5,0
-Dania Allenbach,6136,Switzerland,121,4,0
-Rosa Pohjolainen,4060,Finland,122,3,0
-Noa Szollos,4124,Israel,122,3,0
-Leonie Raich,5024,Austria,124,2,0
+Cornelia Hütter,94,Austria,14,235,1
+Katharina Truppe,1345,Austria,15,231,0
+Romane Miradoli,196,France,16,219,0
+Lara Della Mea,3580,Italy,17,217,0
+Laura Pirovano,2916,Italy,18,213,0
+Valerie Grenier,460,Canada,19,205,0
+Thea Louise Stjernesund,3019,Norway,20,200,0
+Kajsa Vickhoff Lie,2963,Norway,21,197,0
+Katharina Liensberger,2921,Austria,22,189,0
+Kira Weidle-Winkelmann,1340,Germany,23,186,0
+Anna Swenn-Larsson,76,Sweden,24,164,0
+Magdalena Egger,3962,Austria,25,152,0
+Maryna Gasienica Daniel,289,Poland,26,146,0
+Ilka Stuhec,43,Slovenia,27,141,0
+Nina O'Brien,1346,USA,28,139,0
+Breezy Johnson,497,USA,29,138,0
+Elena Curtoni,33,Italy,30,133,0
+Ester Ledecka,2957,Czechia,30,133,0
+Mirjam Puchner,175,Austria,32,121,0
+Nina Ortlieb,386,Austria,33,118,0
+Dzenifera Germane,4080,Latvia,34,116,0
+Marion Chevrier,4203,France,35,112,0
+Brett Richardson,4212,Canada,36,110,0
+Ariane Rädler,3633,Austria,36,110,0
+Malorie Blanc,4978,Switzerland,38,108,0
+Jacqueline Wiles,378,USA,39,100,0
+Mina Fürst Holtmann,480,Norway,40,98,0
+Cornelia Öhlund,5016,Sweden,41,89,0
+Estelle Alphand,197,Sweden,42,86,0
+Laurence St-Germain,379,Canada,43,82,0
+Katharina Gallhuber,2829,Austria,44,81,0
+Laura Gauche,388,France,44,81,0
+Nicol Delago,461,Italy,46,80,0
+Keely Cashman,2975,USA,47,75,0
+Melanie Meillard,1322,Switzerland,48,74,0
+Camille Cerutti,2964,France,49,73,0
+Hanna Aronsson Elfman,4063,Sweden,50,72,0
+Katharina Huber,1324,Austria,50,72,0
+Stephanie Brunner,234,Austria,52,71,0
+Clara Direz,252,France,53,68,0
+Eliane Christen,4471,Switzerland,54,67,0
+Asja Zenere,1325,Italy,55,63,0
+Lara Gut-Behrami,10,Switzerland,56,60,0
+Janine Schmitt,4140,Switzerland,57,57,0
+AJ Hurt,3886,USA,58,56,0
+Lisa Hörhager,4176,Austria,59,54,0
+Martina Peterlini,3892,Italy,60,53,0
+Nina Astner,3959,Austria,61,50,0
+Ana Bucik Jogan,180,Slovenia,61,50,0
+Marte Monsen,3793,Norway,63,49,0
+Jasmina Suter,262,Switzerland,64,46,0
+Roberta Melesi,428,Italy,65,44,0
+Asa Ando,427,Japan,66,42,0
+Natalie Falch,4280,Austria,66,42,0
+Jasmine Flury,201,Switzerland,66,42,0
+Caitlin McFarlane,4104,France,66,42,0
+Neja Dvornik,3890,Slovenia,70,41,0
+Allison Mollin,4773,USA,71,40,0
+Franziska Gritsch,3694,Austria,72,39,0
+Madeleine Sylvester-Davik,5486,Norway,72,39,0
+Isabella Wright,3934,USA,74,35,0
+Anuk Brändli,5277,Switzerland,75,32,0
+Elisabeth Bocock,4761,USA,76,31,0
+Marie Lamure,3993,France,77,29,0
+Vanessa Kasper,3023,Switzerland,78,28,0
+Delia Durrer,4074,Switzerland,79,26,0
+Sue Piller,5832,Switzerland,80,25,0
+Haley Cutler,5280,USA,81,23,0
+Joana Hählen,169,Switzerland,81,23,0
+Katie Hensien,3887,USA,83,22,0
+Erika Pykäläinen,3894,Finland,84,21,0
+Nadia Delago,3013,Italy,85,19,0
+Cassidy Gray,4154,Canada,85,19,0
+Ricarda Haaser,260,Austria,87,18,0
+Bianca Bakke Westhoff,4160,Norway,87,18,0
+Tricia Mangan,1341,USA,89,17,0
+Aline Danioth,1321,Switzerland,90,15,0
+Nadine Fest,2969,Austria,90,15,0
+Doriane Escane,3577,France,92,14,0
+Amelia Smart,2983,Canada,92,14,0
+Mary Bocock,4764,USA,94,13,0
+Hilma Lövblom,3985,Sweden,94,13,0
+Carla Mijares Ruf,4106,Andorra,94,13,0
+Giulia Valleriani,5329,Italy,94,13,0
+llaria Ghisalberti,4151,Italy,98,12,0
+Aline Höpli,4226,Switzerland,99,11,0
+Lena Wechner,4141,Austria,99,11,0
+Nicole Good,3782,Switzerland,101,10,0
+Jessica Hilzinger,1339,Germany,102,9,0
+Chisaki Maeda,2985,Japan,102,9,0
+Victoria Olivier,4232,Austria,102,9,0
+Leona Popovic,1193,Croatia,102,9,0
+Corinne Suter,177,Switzerland,102,9,0
+Fabiana Dorigo,4130,Germany,107,8,0
+Priska Ming-Nufer,170,Switzerland,107,8,0
+Emilia Mondinelli,4987,Italy,107,8,0
+Cande Moreno Becerra,3777,Andorra,107,8,0
+Sara Thaler,5054,Italy,107,8,0
+Christina Ager,390,Austria,112,7,0
+Jana Fritz,5269,Germany,112,7,0
+Elvedina Muzaferija,2989,Bosnia&Herzegovina,112,7,0
+Simone Wild,397,Switzerland,112,7,0
+Viktoria Bürgler,4323,Austria,116,6,0
+Moa Landström,5364,Sweden,116,6,0
+Zita Toth,3970,Hungary,116,6,0
+Sara Allemand,4144,France,119,5,0
+Justine Lamontagne,4286,Canada,119,5,0
+Alice Pazzaglia,4303,Italy,119,5,0
+Beatrice Sola,4229,Italy,119,5,0
+Dania Allenbach,6136,Switzerland,123,4,0
+Inni Holm Wembstad,4139,Norway,123,4,0
+Rosa Pohjolainen,4060,Finland,125,3,0
+Carmen Spielberger,5019,Austria,125,3,0
+Noa Szollos,4124,Israel,125,3,0
+Leonie Raich,5024,Austria,128,2,0
+Leonie Zegg,5539,Austria,129,1,0
