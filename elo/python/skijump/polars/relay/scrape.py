@@ -809,6 +809,13 @@ def construct_historical_df(tables, results_data):
                 }
                 all_results.append(row)
         
+        # Ensure consistent data types before creating DataFrame
+        # Convert None values to 0.0 for float columns to avoid type conflicts
+        for row in all_results:
+            for col in ['Length1', 'Length2', 'Points']:
+                if row.get(col) is None:
+                    row[col] = 0.0
+        
         # Create DataFrame from all results
         df = pl.DataFrame(all_results)
         
