@@ -117,7 +117,7 @@ def fetch_with_retry(url, max_retries=3, timeout=10):
     return None
 
 def fetch_season_links(year, sex='M'):
-    """Fetch all race links for a given season"""
+    """Fetch all race links for a given season (complete calendar with hva=k)"""
     base_url = f"https://firstskisport.com/cross-country/calendar.php?y={year}"
     if sex == 'L':
         base_url += "&g=w"

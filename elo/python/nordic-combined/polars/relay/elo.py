@@ -294,15 +294,26 @@ def calc_Evec(R_vector, basis=10, difference=400):
     return E_vector
 
 # Getting the K value for a season
-def k_finder(season_df, max_var_length):
-    """Calculate k-value for a season based on number of races"""
-    # Figuring out how many races there are for a given season
-    races = season_df.select(pl.col("Race").n_unique()).item()
-    # Calculating the k-value for that season
-    # The lowest k-value is 1. This is for the season with the most races
-    # The highest is 5
-    # Whatever is smallest between 5, most races in a season/2, and most races in a season/races in that season
-    k = max(1, min(5, float(max_var_length/2), float(max_var_length/races)))
+def k_finder(season_df, max_racers):
+    """Calculate k-value for a season based on number of racers"""
+    # RACERS APPROACH (current):
+    # Counting total race entries (rows) in the season
+    racers = season_df.height
+    # K is max_racers / current_racers, with minimum of 1 and maximum of 5
+    k = float(max_racers / racers)
+    k = min(k, 5)  # cap at 5
+    k = max(k, 1)  # floor at 1
+
+    # RACES APPROACH (commented out):
+    # """Calculate k-value for a season based on number of races"""
+    # # Figuring out how many races there are for a given season
+    # races = season_df.select(pl.col("Race").n_unique()).item()
+    # # Calculating the k-value for that season
+    # # The lowest k-value is 1. This is for the season with the most races
+    # # The highest is 5
+    # # Whatever is smallest between 5, most races in a season/2, and most races in a season/races in that season
+    # k = max(1, min(5, float(max_var_length/2), float(max_var_length/races)))
+
     logger.info(f"K value for season: {k}")
     return k
 
@@ -500,17 +511,27 @@ def elo(df, base_elo=1300, K=1, discount=.85):
     
     # Getting a list of all the seasons in the df
     seasons = df['Season'].unique().to_list()
-    max_var_length = 0
+
+    # RACERS APPROACH (current):
+    # Calculate max_racers (total race entries) across all seasons
+    max_racers = 0
     for season in seasons:
         season_df = df.filter(pl.col('Season') == season)
-        max_var_length = max(max_var_length, season_df['Race'].unique().shape[0])
+        max_racers = max(max_racers, season_df.height)
+
+    # RACES APPROACH (commented out):
+    # max_var_length = 0
+    # for season in seasons:
+    #     season_df = df.filter(pl.col('Season') == season)
+    #     max_var_length = max(max_var_length, season_df['Race'].unique().shape[0])
 
     for season in range(len(seasons)):
         # Creating a season df and sorting by Race and Place
         season_df = df.filter(pl.col('Season')==seasons[season]).sort(['Race', 'Place'])
-        
-        # Get the K value
-        K = k_finder(season_df, max_var_length)
+
+        # Get the K value based on number of racers
+        K = k_finder(season_df, max_racers)
+        # RACES APPROACH: K = k_finder(season_df, max_var_length)
         logger.info(f"Processing season {seasons[season]}")
 
         # Initialize season_elo_df with the same schema
