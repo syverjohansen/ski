@@ -1,15 +1,8 @@
 import polars as pl
-import pandas as pd
-from bs4 import BeautifulSoup
 import numpy as np
-from urllib.request import urlopen
 from datetime import datetime
-import concurrent.futures
-from concurrent.futures import ThreadPoolExecutor
-import re
+import bisect
 import time
-import logging
-import numpy as np
 import sys
 import json
 import warnings
@@ -256,25 +249,85 @@ def calc_Evec(R_vector, basis=10, difference=400):
         Output:
             E_vector: the expected value of each athlete winning against all the (n-1) athletes, an array of float values, [E1, E2, ... En]
     '''
-    
+
     #R_vector is the list of previous elo scores for each skier.  Going to convert to an array and get its size
     R_vector = np.array(R_vector)
     n = R_vector.size
-    
+
     #R_mat_col creates a matrix of the elo scores
     #Then we transpose the matrix.  Now each row is each skiers pelo, and each column represents all the pelos
     R_mat_col = np.tile(R_vector, (n,1))
     R_mat_row = np.transpose(R_mat_col)
-    
+
     #Now this computes the expected score for the Elo matchup
     E_matrix = 1/(1+basis**((R_mat_row-R_mat_col)/difference))
-    
+
     #We are not interested in self-matchups
     np.fill_diagonal(E_matrix, 0)
-    
+
     #Sum of expected scores for each player against all other players
     E_vector = np.sum(E_matrix, axis=0)
-    
+
+    return E_vector
+
+def calc_Svec_partial(Place_vector, has_real_elo, basis=10, difference=400):
+    '''
+        Calculate actual score only against opponents with real Elo.
+        For each skier, count wins/draws/losses only against skiers who have real Elo.
+        Vectorized implementation for performance.
+    '''
+    Place_vector = np.asarray(Place_vector)
+    has_real_elo = np.asarray(has_real_elo, dtype=bool)
+    n = len(Place_vector)
+
+    # Create matrices for comparison: place_i vs place_j
+    place_row = Place_vector.reshape(-1, 1)  # Column vector
+    place_col = Place_vector.reshape(1, -1)  # Row vector
+
+    # Wins: my_place < opponent_place (I beat them)
+    wins_matrix = (place_row < place_col).astype(float)
+    # Draws: my_place == opponent_place
+    draws_matrix = (place_row == place_col).astype(float) * 0.5
+
+    # Mask to only count comparisons against real Elo holders
+    # has_real_elo[j] must be True for column j to count
+    real_elo_mask = has_real_elo.reshape(1, -1)  # Broadcast across rows
+
+    # Zero out self-comparisons
+    np.fill_diagonal(wins_matrix, 0)
+    np.fill_diagonal(draws_matrix, 0)
+
+    # Apply mask and sum
+    S_vector = np.sum((wins_matrix + draws_matrix) * real_elo_mask, axis=1)
+
+    return S_vector
+
+def calc_Evec_partial(R_vector, has_real_elo, basis=10, difference=400):
+    '''
+        Calculate expected score only against opponents with real Elo.
+        For each skier, sum expected scores only against skiers who have real Elo.
+        Vectorized implementation for performance.
+    '''
+    R_vector = np.asarray(R_vector, dtype=float)
+    has_real_elo = np.asarray(has_real_elo, dtype=bool)
+    n = R_vector.size
+
+    # Create rating difference matrix: R[j] - R[i] for expected score formula
+    R_row = R_vector.reshape(-1, 1)  # My rating (column vector)
+    R_col = R_vector.reshape(1, -1)  # Opponent rating (row vector)
+
+    # Expected score: 1 / (1 + 10^((R_opp - R_me) / 400))
+    E_matrix = 1.0 / (1.0 + basis ** ((R_col - R_row) / difference))
+
+    # Zero out self-comparisons
+    np.fill_diagonal(E_matrix, 0)
+
+    # Mask to only count comparisons against real Elo holders
+    real_elo_mask = has_real_elo.reshape(1, -1)
+
+    # Apply mask and sum
+    E_vector = np.sum(E_matrix * real_elo_mask, axis=1)
+
     return E_vector
 
 #Getting the K value for a season
@@ -320,202 +373,276 @@ def init_elo_df():
             "Age": pl.Utf8,
             "Exp": pl.Int64,
             "Pelo": pl.Float64,
-            "Elo": pl.Float64
+            "Elo": pl.Float64,
+            "pred_Pelo": pl.Float64,
+            "pred_Elo": pl.Float64
         }
     )
 
 
-def process_skier(idd, season_df, id_dict, discount, base_elo, seasons, season, sex, elo_df_columns):
+def batch_process_end_of_season(season_df, wc_lookup, pred_id_dict, discount, base_elo, seasons, season, sex):
+    """
+    Batch process all skiers for end-of-season records.
+    Creates a single DataFrame for all skiers instead of one per skier.
+    """
     endseasondate = str(datetime(seasons[season], 5, 1))
-    endskier = season_df.filter(pl.col('ID') == idd)
-    endname = endskier['Skier'][-1]
-    endnation = endskier['Nation'][-1]
-    endpelo = id_dict[idd]
-    endelo = endpelo * discount + base_elo * (1 - discount)
-    endbirthday = str(endskier['Birthday'][-1])
-    endage = str(endskier['Age'][-1])
-    endexp = endskier['Exp'][-1]
-    
-    # Create DataFrame with all columns in the correct order
+
+    # Get unique skiers with their last record in the season
+    # Use group_by to get the last record per skier efficiently
+    last_records = season_df.group_by('ID').agg([
+        pl.col('Skier').last(),
+        pl.col('Nation').last(),
+        pl.col('Birthday').last(),
+        pl.col('Age').last(),
+        pl.col('Exp').last()
+    ])
+
+    n_skiers = last_records.height
+    ids = last_records['ID'].to_list()
+
+    # Build all the lists at once
+    pelo_list = []
+    elo_list = []
+    pred_pelo_list = []
+    pred_elo_list = []
+
+    for idd in ids:
+        # WC Elo lookup
+        endpelo, endelo = get_wc_elo_at_date(wc_lookup, idd, endseasondate)
+        pelo_list.append(endpelo)
+        elo_list.append(endelo)
+
+        # Predicted Elo discount
+        end_pred_pelo = pred_id_dict[idd]
+        end_pred_elo = end_pred_pelo * discount + base_elo * (1 - discount)
+        pred_id_dict[idd] = end_pred_elo
+        pred_pelo_list.append(end_pred_pelo)
+        pred_elo_list.append(end_pred_elo)
+
+    # Create single DataFrame for all skiers at once
     endf = pl.DataFrame({
-        "Date": [endseasondate],
-        "City": ["Summer"],
-        "Country": ["Break"],
-        "Sex": [sex],
-        "Distance": ["0"],
-        "Event": ["Offseason"],
-        "MS": [0],
-        "Technique": [""],
-        "Place": [0],
-        "Skier": [endname],
-        "Nation": [endnation],
-        "ID": [idd],
-        "Season": [seasons[season]],
-        "Race": [0],
-        "Birthday": [endbirthday],
-        "Age": [endage],
-        "Exp": [endexp],
-        "Pelo": [endpelo],
-        "Elo": [endelo]
+        "Date": [endseasondate] * n_skiers,
+        "City": ["Summer"] * n_skiers,
+        "Country": ["Break"] * n_skiers,
+        "Sex": [sex] * n_skiers,
+        "Distance": ["0"] * n_skiers,
+        "Event": ["Offseason"] * n_skiers,
+        "MS": [0] * n_skiers,
+        "Technique": [""] * n_skiers,
+        "Place": [0] * n_skiers,
+        "Skier": last_records['Skier'].to_list(),
+        "Nation": last_records['Nation'].to_list(),
+        "ID": ids,
+        "Season": [seasons[season]] * n_skiers,
+        "Race": [0] * n_skiers,
+        "Birthday": [str(b) for b in last_records['Birthday'].to_list()],
+        "Age": [str(a) for a in last_records['Age'].to_list()],
+        "Exp": last_records['Exp'].to_list(),
+        "Pelo": pelo_list,
+        "Elo": elo_list,
+        "pred_Pelo": pred_pelo_list,
+        "pred_Elo": pred_elo_list
     })
-    
-    # Ensure column order matches main DataFrame
-    if elo_df_columns:
-        endf = endf.select(elo_df_columns)
-    
-    id_dict[idd] = endelo
-    return endf
 
-def parallel_process_skiers(season_df, id_dict, discount, base_elo, seasons, season, sex, elo_df):
-    ski_ids_s = season_df['ID'].unique().to_list()
-    
-    # Get column names from main DataFrame if it exists
-    elo_df_columns = elo_df.columns if not elo_df.is_empty() else None
-    
-    results = []
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        futures = {
-            executor.submit(
-                process_skier, 
-                idd, 
-                season_df, 
-                id_dict, 
-                discount, 
-                base_elo, 
-                seasons, 
-                season, 
-                sex, 
-                elo_df_columns
-            ): idd for idd in ski_ids_s
-        }
-        
-        for future in concurrent.futures.as_completed(futures):
-            results.append(future.result())
-    
-    # Concatenate all the DataFrames returned by the parallel processing
-    new_rows = pl.concat(results)
-    
-    # If elo_df is empty, return new_rows directly
-    if elo_df.is_empty():
-        return new_rows, id_dict
-    
-    # Ensure both DataFrames have the same column order before concatenation
-    new_rows = new_rows.select(elo_df.columns)
-    return pl.concat([elo_df, new_rows]), id_dict
+    return endf, pred_id_dict
 
-#Creating the elo function
+#Creating the elo function with prediction capability
 #The initial score we are setting is 1300, arbitrary number that is subject to change from testing
 #K score is 1 by default, we will change this, and I want to do testing to determine the best overall K eventually
 #Discount is .85.  This is how much we will reduce an athletes elo by at the end of a season.  Again to be tested
-# Modify the elo function to include place sorting
-def elo(df, base_elo=1300, K=1, discount=.85):
+def build_wc_elo_lookup(wc_elo_df):
+    """
+    Build a lookup structure from WC elo data.
+    Returns a dict: {ID: (dates_list, pelos_list, elos_list)} sorted by date ascending.
+    Uses group_by for efficient single-pass construction.
+    """
+    if wc_elo_df is None or wc_elo_df.is_empty():
+        return {}, set()
+
+    # Ensure Date and ID columns match types with all-races data
+    wc_elo_df = wc_elo_df.with_columns([
+        pl.col('Date').cast(pl.Utf8),
+        pl.col('ID').cast(pl.Int64)
+    ])
+
+    # Sort once by ID and Date
+    wc_elo_df = wc_elo_df.sort(['ID', 'Date'])
+
+    # Get list of WC skier IDs
+    wc_ids = set(wc_elo_df['ID'].unique().to_list())
+    print(f"Built WC lookup with {len(wc_ids)} unique skier IDs")
+
+    # Use partition_by to group data by ID efficiently (single pass)
+    # This returns a list of DataFrames, one per ID
+    partitions = wc_elo_df.partition_by('ID', maintain_order=True)
+
+    lookup = {}
+    for partition in partitions:
+        skier_id = partition['ID'][0]
+        # Extract columns as lists (already sorted by Date from the sort above)
+        dates = partition['Date'].to_list()
+        pelos = partition['Pelo'].to_list()
+        elos = partition['Elo'].to_list()
+        lookup[skier_id] = (dates, pelos, elos)
+
+    return lookup, wc_ids
+
+def get_wc_elo_at_date(lookup, skier_id, race_date):
+    """
+    Get a skier's WC Elo as of a given date (most recent Elo before or on that date).
+    Returns (pelo, elo) or (None, None) if no WC data available yet.
+    Uses binary search for O(log n) lookup instead of O(n).
+    """
+    if skier_id not in lookup:
+        return None, None
+
+    dates, pelos, elos = lookup[skier_id]
+
+    # Binary search for the rightmost date <= race_date
+    # bisect_right gives us the insertion point, so index-1 is the last date <= race_date
+    idx = bisect.bisect_right(dates, race_date)
+
+    if idx == 0:
+        # All dates are after race_date, no WC data available yet
+        return None, None
+
+    # idx-1 is the index of the last date <= race_date
+    return pelos[idx - 1], elos[idx - 1]
+
+def elo(df, wc_elo_df, base_elo=1300, K=1, discount=.85):
     # Get the sex
     sex = df['Sex'][0]
-    
-    # Create an empty DataFrame with the correct schema
-    elo_df = init_elo_df()
 
-    
-    # Get column order from the initialized DataFrame
-    column_order = elo_df.columns
-    
+    # Get column order from the schema
+    column_order = list(init_elo_df().columns)
+
     # Sort the entire dataframe by Season, Race, and Place
     df = df.sort(['Season', 'Race', 'Place'])
-    
-    # Create a list of the IDs in the df
+
+    # Create a list of all IDs in the all-races df
     id_dict_list = df['ID'].unique().to_list()
-    
-    # Assign everyone a value of 1300 to start out with
-    id_dict = {k:1300.0 for k in id_dict_list}
-    
-    # Getting the maximum number of races in the df
-    max_races = df['Race'].max()
-    
-    # Getting a list of all the seasons in the df
-    seasons = df['Season'].unique().to_list()
 
-    # RACERS APPROACH (current):
-    # Calculate max_racers (total race entries) across all seasons
-    max_racers = 0
-    for season in seasons:
-        season_df = df.filter(pl.col('Season') == season)
-        max_racers = max(max_racers, season_df.height)
+    # Build WC Elo lookup structure (O(n) with partition_by + binary search)
+    wc_lookup, wc_ids = build_wc_elo_lookup(wc_elo_df)
 
-    # RACES APPROACH (commented out):
-    # max_var_length = 0
-    # for season in seasons:
-    #     season_df = df.filter(pl.col('Season') == season)
-    #     max_var_length = max(max_var_length, season_df['Race'].unique().shape[0])
+    # Initialize pred_id_dict: predicted Elo for all skiers (starts at 1300)
+    pred_id_dict = {k: 1300.0 for k in id_dict_list}
 
-    for season in range(len(seasons)):
-        # Creating a season df and sorting by Race and Place
-        season_df = df.filter(pl.col('Season')==seasons[season]).sort(['Race', 'Place'])
+    # Calculate max_racers using Polars aggregation (no Python loop)
+    max_racers = df.group_by('Season').agg(pl.len().alias('count'))['count'].max()
+
+    # Get list of seasons
+    seasons = df['Season'].unique().sort().to_list()
+
+    # Partition data by season once (instead of filtering repeatedly)
+    df_by_season = {s: df.filter(pl.col('Season') == s) for s in seasons}
+
+    # Collect all result DataFrames in a list (concat once at end)
+    all_results = []
+
+    for season_idx, season_year in enumerate(seasons):
+        season_df = df_by_season[season_year].sort(['Race', 'Place'])
 
         # Get the K value based on number of racers
         K = k_finder(season_df, max_racers)
-        # RACES APPROACH: K = k_finder(season_df, max_var_length)
-        print(seasons[season])
+        print(season_year)
 
-        # Initialize season_elo_df with the same schema
-        season_elo_df = init_elo_df()
-        
-        races = season_df['Race'].unique().to_list()
-        for race in range(len(races)):
-            # Isolate the race into a df and sort by Place
-            race_df = season_df.filter(pl.col('Race')==races[race]).sort('Place')
-            
-            # Create a list of all the IDs in that race
-            ski_ids_r = race_df['ID'].to_list()
-            
-            # Get the most recent elo score for each skier in the race
-            pelo_list = [id_dict[idd] for idd in ski_ids_r]
-            
-            # Get a list of all the places in the race
-            places_list = race_df['Place'].to_list()
-            
-            # Create a column called Pelo that has all the previous elo values
+        # Partition season data by race (instead of filtering repeatedly)
+        race_partitions = season_df.partition_by('Race', maintain_order=True)
+
+        # Collect race results for this season
+        season_results = []
+
+        for race_df in race_partitions:
+            race_df = race_df.sort('Place')
+
+            # Extract data as numpy arrays/lists for fast processing
+            ski_ids_r = race_df['ID'].to_numpy()
+            places_arr = race_df['Place'].to_numpy()
+            race_date = race_df['Date'][0]
+            distance_type = race_df['Distance'][0]
+
+            n_skiers = len(ski_ids_r)
+
+            # Build arrays for this race using numpy for speed
+            pelo_arr = np.empty(n_skiers, dtype=object)
+            elo_arr = np.empty(n_skiers, dtype=object)
+            pred_pelo_arr = np.empty(n_skiers, dtype=float)
+            has_real_elo_arr = np.zeros(n_skiers, dtype=bool)
+
+            for i, idd in enumerate(ski_ids_r):
+                pred_pelo_arr[i] = pred_id_dict[idd]
+                wc_pelo, wc_elo = get_wc_elo_at_date(wc_lookup, idd, race_date)
+                if wc_pelo is not None:
+                    pelo_arr[i] = wc_pelo
+                    elo_arr[i] = wc_elo
+                    has_real_elo_arr[i] = True
+                else:
+                    pelo_arr[i] = None
+                    elo_arr[i] = None
+
+            # Determine K modifier based on race type
+            if distance_type == "Ts":
+                K_mod = K / 2
+            elif distance_type == "Rel":
+                K_mod = K / 4
+            else:
+                K_mod = K
+
+            # Calculate pred_Elo for all skiers
+            n_real = has_real_elo_arr.sum()
+            if n_real > 0:
+                # Build comparison elos array
+                comparison_elos = np.where(
+                    has_real_elo_arr,
+                    np.array([e if e is not None else 0 for e in elo_arr], dtype=float),
+                    pred_pelo_arr
+                )
+
+                E_pred = calc_Evec_partial(comparison_elos, has_real_elo_arr)
+                S_pred = calc_Svec_partial(places_arr, has_real_elo_arr)
+                pred_elos = pred_pelo_arr + K_mod * (S_pred - E_pred)
+
+                # Build pred_elo array: WC skiers get their WC Elo, others get calculated
+                pred_elo_arr = np.where(
+                    has_real_elo_arr,
+                    np.array([e if e is not None else 0 for e in elo_arr], dtype=float),
+                    pred_elos
+                )
+
+                # Update pred_id_dict
+                for i, idd in enumerate(ski_ids_r):
+                    pred_id_dict[idd] = pred_elo_arr[i]
+            else:
+                # No WC Elo holders in this race
+                pred_elo_arr = pred_pelo_arr.copy()
+
+            # Add columns to race_df efficiently
             race_df = race_df.with_columns([
-                pl.Series(name="Pelo", values=pelo_list)
-            ])
+                pl.Series(name="Pelo", values=pelo_arr.tolist()),
+                pl.Series(name="Elo", values=elo_arr.tolist()),
+                pl.Series(name="pred_Pelo", values=pred_pelo_arr),
+                pl.Series(name="pred_Elo", values=pred_elo_arr)
+            ]).select(column_order)
 
-            # Calculate elo values based on race type
-            if race_df.select(pl.col("Distance")).row(0)[0] == "Ts":
-                K1 = K/2
-                E = calc_Evec(pelo_list)
-                S = calc_Svec(places_list)
-                elo_list = np.array(pelo_list) + K1 * (S-E)
-            elif race_df.select(pl.col("Distance")).row(0)[0] == "Rel":
-                K2 = K/4
-                E = calc_Evec(pelo_list)
-                S = calc_Svec(places_list)
-                elo_list = np.array(pelo_list) + K2 * (S-E)
-            else:            
-                E = calc_Evec(pelo_list)
-                S = calc_Svec(places_list)
-                elo_list = np.array(pelo_list) + K * (S - E)
+            season_results.append(race_df)
 
-            # Add Elo column
-            race_df = race_df.with_columns([
-                pl.Series(name="Elo", values=elo_list)
-            ])
+        # Concat all races for this season at once
+        if season_results:
+            all_results.append(pl.concat(season_results))
 
-            # Ensure race_df has all required columns in correct order
-            race_df = race_df.select(column_order)
-            
-            # Concatenate to season_elo_df
-            season_elo_df = pl.concat([season_elo_df, race_df])
-            
-            # Update id_dict with new elo values
-            id_dict.update({idd: elo_list[i] for i, idd in enumerate(ski_ids_r)})
+        # Add end of season records using batch processing
+        end_of_season_df, pred_id_dict = batch_process_end_of_season(
+            season_df, wc_lookup, pred_id_dict,
+            discount, base_elo, seasons, season_idx, sex
+        )
+        all_results.append(end_of_season_df.select(column_order))
 
-        # Concatenate season results to main DataFrame
-        elo_df = pl.concat([elo_df, season_elo_df])
-        
-        # Add end of season records
-        elo_df, id_dict = parallel_process_skiers(season_df, id_dict, discount, base_elo, seasons, season, sex, elo_df)
-    
-    # Final sort of the entire DataFrame
-    elo_df = elo_df.sort(['Date','Season', 'Race', 'Place'])
+    # Single concat at the end (instead of repeated concats)
+    elo_df = pl.concat(all_results)
+
+    # Final sort
+    elo_df = elo_df.sort(['Date', 'Season', 'Race', 'Place'])
     return elo_df
 
 df = pl.DataFrame()
@@ -546,13 +673,38 @@ if not file_string:
 
 
 #print(file_string)
-elo_df = elo(df)
+
+# Load the WC elo data to identify real Elo holders
+# The WC elo file should be based on sex (M.csv or L.csv)
+sex_value = data.get('sex', 'M')
+wc_elo_path = f"~/ski/elo/python/ski/polars/excel365/{sex_value}.csv"
+
+try:
+    # Specify schema to avoid inference issues (Distance can be "Sprint", "50", etc.)
+    wc_elo_df = pl.read_csv(
+        wc_elo_path,
+        schema_overrides={
+            "Date": pl.Utf8,
+            "Distance": pl.Utf8,
+            "ID": pl.Int64,
+            "Pelo": pl.Float64,
+            "Elo": pl.Float64
+        }
+    )
+    print(f"Loaded WC Elo data from {wc_elo_path} with {wc_elo_df.height} rows")
+except Exception as e:
+    print(f"Warning: Could not load WC Elo data from {wc_elo_path}: {e}")
+    wc_elo_df = None
+
+# Run elo calculation with WC data for real Elo identification
+elo_df = elo(df, wc_elo_df)
 #print(elo_df.filter(pl.col("City") == "Tour de Ski"))
 
 # Base path for output files
 base_path = "~/ski/elo/python/ski/polars/excel365"
 
-# Save CSV format
-elo_df.write_csv(f"{base_path}/{file_string}.csv")
+# Save CSV format with pred_ prefix to distinguish from WC elo files
+elo_df.write_csv(f"{base_path}/pred_{file_string}.csv")
+print(f"Saved to {base_path}/pred_{file_string}.csv")
 print(time.time() - start_time)
 
