@@ -20,9 +20,9 @@ start_time = time.time()
 # Modify the sex function in elo.py to use the updated scrape files:
 def sex(df, sex):
     if(sex=="M"):
-        df = pl.read_csv("~/ski/elo/python/ski/polars/relay/excel365/all_men_scrape_update.csv")
+        df = pl.read_csv("~/ski/elo/python/ski/polars/relay/excel365/combined_men_scrape.csv", schema_overrides={"Distance": pl.Utf8})
     else:
-        df = pl.read_csv("~/ski/elo/python/ski/polars/relay/excel365/all_ladies_scrape_update.csv")
+        df = pl.read_csv("~/ski/elo/python/ski/polars/relay/excel365/combined_ladies_scrape.csv", schema_overrides={"Distance": pl.Utf8})
     
     # Cast columns to appropriate types
     df = df.with_columns([
@@ -41,19 +41,21 @@ def sex(df, sex):
         pl.col("Season").cast(pl.Int64),
         pl.col("Race").cast(pl.Int64),
         pl.col("Birthday").cast(pl.Utf8),
-        pl.col("Leg").cast(pl.Int64),
         pl.col("Age").cast(pl.Utf8),
         pl.col("Exp").cast(pl.Int64)
     ])
+
     return df
 
 def relay(df, relay):
+  
     if(relay==1):
         return df
     else:
         print("hello")
         df = df.filter(pl.col("Distance")!="Rel")
         df = df.filter(pl.col("Distance")!="Ts")
+
         return df
 
 
@@ -91,6 +93,7 @@ def distance(df, distances):
     return df
 
 def technique(df, technique):
+
     if(technique == "F"):
         #df = df.loc[(df['Technique']=="F") | (df['City']=="Tour de Ski")]
         df = df.filter(pl.col('Technique')=="F") 
@@ -178,6 +181,7 @@ def handle_value(key, value, df):
         df = sex(df, value)
     elif key == "date1":
         df = date1(df, value)
+
     elif key == "date2":
         df = date2(df, value)
     elif key == "city":
@@ -189,7 +193,7 @@ def handle_value(key, value, df):
     elif key == "ms":
         df = ms(df, value)
     elif key == "technique":
-        df = technique(df, value)
+        df = technique(df, value)     
     elif key == "place1":
         df = place1(df, value)
     elif key == "place2":
@@ -205,9 +209,10 @@ def handle_value(key, value, df):
     elif key == "race1":
         df = race1(df, value)
     elif key == "race2":
-        df = race2(df, value)
-    elif key == "relay":
+        df = race2(df, value)     
+    elif key == "relay":   
         df = relay(df, value)
+
     return df
 
 
@@ -312,7 +317,6 @@ def init_elo_df():
             "Season": pl.Int64,
             "Race": pl.Int64,
             "Birthday": pl.Utf8,
-            "Leg": pl.Int64,
             "Age": pl.Utf8,
             "Exp": pl.Int64,
             "Pelo": pl.Float64,
@@ -335,8 +339,8 @@ def process_skier(idd, season_df, id_dict, discount, base_elo, seasons, season, 
     # Create DataFrame with all columns in the correct order
     endf = pl.DataFrame({
         "Date": [endseasondate],
-        "City": ["Post"],
-        "Country": ["Season"],
+        "City": ["Summer"],
+        "Country": ["Break"],
         "Sex": [sex],
         "Distance": ["0"],
         "Event": ["Offseason"],
@@ -349,7 +353,6 @@ def process_skier(idd, season_df, id_dict, discount, base_elo, seasons, season, 
         "Season": [seasons[season]],
         "Race": [0],
         "Birthday": [endbirthday],
-        "Leg": [0],
         "Age": [endage],
         "Exp": [endexp],
         "Pelo": [endpelo],
@@ -411,6 +414,7 @@ def elo(df, base_elo=1300, K=1, discount=.85):
     
     # Create an empty DataFrame with the correct schema
     elo_df = init_elo_df()
+
     
     # Get column order from the initialized DataFrame
     column_order = elo_df.columns
@@ -518,7 +522,7 @@ df = pl.DataFrame()
 
 json_str = sys.argv[1]
 data = json.loads(json_str)
-print(data)
+#print(data)
 
 # File string creation code remains the same
 file_string = ""
@@ -542,9 +546,11 @@ if not file_string:
 # Add "all_" prefix for complete calendar data
 file_string = "all_" + file_string
 
-print(file_string)
+
+
+#print(file_string)
 elo_df = elo(df)
-print(elo_df)
+#print(elo_df.filter(pl.col("City") == "Tour de Ski"))
 
 # Base path for output files
 base_path = "~/ski/elo/python/ski/polars/relay/excel365"

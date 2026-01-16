@@ -1,9 +1,11 @@
 #!/bin/bash
 
-# First run update_scrape.py to get the latest data
-#python3 update_scrape.py
+# First run the update scrapers and merge to get the latest combined data:
+#   python3 all_update_scrape.py      # Update FIS data
+#   python3 russia_update_scrape.py   # Update Russia data
+#   python3 merge_scrape.py           # Merge into combined_*_scrape.csv
 
-# Function to generate JSON and run elo script
+# Function to generate JSON and run elo_predict script
 run_elo() {
     local sex=$1
     local distance=$2
@@ -34,31 +36,32 @@ run_elo() {
 }
 EOF
 )
-    
-    echo "Processing $output_name..."
-    python3 all_elo.py "$json"
+
+    echo "Processing pred_$output_name..."
+    python3 elo_predict.py "$json"
 }
 
 # Process all combinations
+# Note: elo_predict.py adds "pred_" prefix to output files automatically
 for sex in "M" "L"; do
     # All results for sex
-    run_elo "$sex" null null "all_${sex}"
+    run_elo "$sex" null null "${sex}"
 
     # By technique
-    run_elo "$sex" null "F" "all_${sex}_F"
-    run_elo "$sex" null "C" "all_${sex}_C"
+    run_elo "$sex" null "F" "${sex}_F"
+    run_elo "$sex" null "C" "${sex}_C"
 
     # By distance type
-    run_elo "$sex" "Distance" null "all_${sex}_Distance"
-    run_elo "$sex" "Sprint" null "all_${sex}_Sprint"
+    run_elo "$sex" "Distance" null "${sex}_Distance"
+    run_elo "$sex" "Sprint" null "${sex}_Sprint"
 
     # Distance combinations
-    run_elo "$sex" "Distance" "F" "all_${sex}_Distance_F"
-    run_elo "$sex" "Distance" "C" "all_${sex}_Distance_C"
+    run_elo "$sex" "Distance" "F" "${sex}_Distance_F"
+    run_elo "$sex" "Distance" "C" "${sex}_Distance_C"
 
     # Sprint combinations
-    run_elo "$sex" "Sprint" "F" "all_${sex}_Sprint_F"
-    run_elo "$sex" "Sprint" "C" "all_${sex}_Sprint_C"
+    run_elo "$sex" "Sprint" "F" "${sex}_Sprint_F"
+    run_elo "$sex" "Sprint" "C" "${sex}_Sprint_C"
 done
 
-echo "All ELO calculations completed!"
+echo "All ELO predict calculations completed!"

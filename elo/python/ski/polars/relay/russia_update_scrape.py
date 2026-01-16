@@ -71,7 +71,7 @@ def load_and_process_data(sex: str) -> Tuple[Optional[pl.DataFrame], Dict]:
     """Load existing data and extract metadata"""
     try:
         filename = f"russia_{'men' if sex == 'M' else 'ladies'}_scrape.csv"
-        path = Path(f"~/ski/elo/python/ski/polars/excel365/{filename}").expanduser()
+        path = Path(f"~/ski/elo/python/ski/polars/relay/excel365/{filename}").expanduser()
 
         if not path.exists():
             logging.warning(f"No existing data file found for {sex}")
@@ -222,7 +222,7 @@ def merge_and_save(old_df: Optional[pl.DataFrame],
             final_df = final_df.sort(['ID', 'Date'])
 
         # Save results
-        base_path = Path("~/ski/elo/python/ski/polars/excel365").expanduser()
+        base_path = Path("~/ski/elo/python/ski/polars/relay/excel365").expanduser()
         prefix = f"russia_{'men' if sex == 'M' else 'ladies'}"
 
         final_df.write_csv(base_path / f"{prefix}_scrape.csv")
@@ -240,7 +240,7 @@ def main():
     current_season = get_current_season_year()
     logging.info(f"Updating Russia results for season {current_season}")
 
-    base_path = Path("~/ski/elo/python/ski/polars/excel365").expanduser()
+    base_path = Path("~/ski/elo/python/ski/polars/relay/excel365").expanduser()
 
     for sex in ['M', 'L']:
         sex_label = 'Men' if sex == 'M' else 'Ladies'

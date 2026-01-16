@@ -10,7 +10,7 @@ import concurrent.futures
 from typing import List, Any, Optional, Tuple
 
 # Import from scrape.py
-from scrape import (setup_cache_structure, fetch_season_links, get_race_data, 
+from all_scrape import (setup_cache_structure, fetch_season_links, get_race_data, 
                    get_race_results, construct_historical_df)
 
 def setup_logging():
@@ -43,14 +43,14 @@ def load_and_process_data(sex: str) -> Tuple[Optional[pl.DataFrame], Dict]:
     """Load existing data and extract metadata"""
     try:
         filename = f"all_{'men' if sex=='M' else 'ladies'}_scrape.csv"
-        path = Path(f"~/ski/elo/python/ski/polars/relay/excel365/{filename}").expanduser()
+        path = Path(f"~/ski/elo/python/ski/polars/excel365/{filename}").expanduser()
         
         if not path.exists():
             logging.warning(f"No existing data file found for {sex}")
             return None, {'races': set(), 'experience': {}}
         
         # Load data in streaming mode for memory efficiency
-        df = pl.scan_csv(path).collect()
+        df = pl.read_csv(path)
         metadata = get_existing_metadata(df)
         
         logging.info(f"Loaded existing {sex} data with {len(df)} rows")
@@ -163,18 +163,8 @@ def merge_and_save(old_df: Optional[pl.DataFrame],
                 'ID': pl.Int32,
                 'Birthday': pl.Datetime,
                 'Age': pl.Float64,
-                'Exp': pl.Int32,
-                'Leg': pl.Int32  # Added new Leg column
+                'Exp': pl.Int32
             }
-            
-            # Handle case where old_df doesn't have Leg column
-            if 'Leg' not in old_df.columns:
-                old_df = old_df.with_columns(
-                    pl.when(pl.col('Distance').is_in(['Rel', 'Ts']))
-                    .then(pl.lit(0))  # Default to 0 for existing relay races
-                    .otherwise(pl.lit(0))
-                    .alias('Leg')
-                )
             
             # Cast both dataframes to ensure consistent types
             old_df = old_df.with_columns([pl.col(col).cast(dtype) for col, dtype in type_mapping.items()])
@@ -184,9 +174,9 @@ def merge_and_save(old_df: Optional[pl.DataFrame],
             final_df = pl.concat([old_df, new_df])
             
             # Remove duplicates based on key columns that uniquely identify a race result
-            # For relay races, include Leg column as part of unique identification
+            # Use Date, City, Event, Distance, ID (skier), and Place to identify duplicates
             before_dedup = len(final_df)
-            final_df = final_df.unique(subset=['Date', 'City', 'Event', 'Distance', 'ID', 'Place', 'Leg'])
+            final_df = final_df.unique(subset=['Date', 'City', 'Event', 'Distance', 'ID', 'Place'])
             after_dedup = len(final_df)
             
             if before_dedup > after_dedup:
@@ -196,7 +186,7 @@ def merge_and_save(old_df: Optional[pl.DataFrame],
             final_df = final_df.sort(['ID', 'Date'])
         
         # Save results
-        base_path = Path("~/ski/elo/python/ski/polars/relay/excel365").expanduser()
+        base_path = Path("~/ski/elo/python/ski/polars/excel365").expanduser()
         prefix = 'all_men' if sex == 'M' else 'all_ladies'
         
         final_df.write_csv(base_path / f"{prefix}_scrape_update.csv")

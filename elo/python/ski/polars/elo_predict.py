@@ -10,9 +10,9 @@ warnings.filterwarnings('ignore')
 pl.Config.set_tbl_cols(100)
 start_time = time.time()
 
-# Modify the sex function in elo.py to use the combined scrape files (FIS + Russia):
-def sex(df, sex):
-    if(sex=="M"):
+# Load data based on sex (M or L) using the combined scrape files (FIS + Russia):
+def load_sex_data(df, sex_value):
+    if sex_value == "M":
         df = pl.read_csv("~/ski/elo/python/ski/polars/excel365/combined_men_scrape.csv", schema_overrides={"Distance": pl.Utf8})
     else:
         df = pl.read_csv("~/ski/elo/python/ski/polars/excel365/combined_ladies_scrape.csv", schema_overrides={"Distance": pl.Utf8})
@@ -41,137 +41,112 @@ def sex(df, sex):
     return df
 
 def relay(df, relay):
-  
-    if(relay==1):
+    if relay == 1:
         return df
     else:
-        print("hello")
-        df = df.filter(pl.col("Distance")!="Rel")
-        df = df.filter(pl.col("Distance")!="Ts")
-
+        df = df.filter(pl.col("Distance") != "Rel")
+        df = df.filter(pl.col("Distance") != "Ts")
         return df
 
 
 def date1(df, date1):
-    df = df.loc[df['Date']>=date1]
+    df = df.filter(pl.col('Date') >= date1)
     return df
 
 def date2(df, date2):
-    df = df.loc[df['Date']<=date2]
+    df = df.filter(pl.col('Date') <= date2)
     return df
 
 def city(df, cities):
-    df = df.loc[df['City'].isin(cities)]
+    df = df.filter(pl.col('City').is_in(cities))
     return df
 
 def country(df, countries):
-    df = df.loc[df['Country'].isin(countries)]
+    df = df.filter(pl.col('Country').is_in(countries))
     return df
 
 def event(df, events):
-    df = df.loc[df['Event'].isin(countries)]
+    df = df.filter(pl.col('Event').is_in(events))
     return df
 
 def distance(df, distances):
-   # print(pl.unique(df['Distance']))
-    if(distances=="Sprint"):
-
-        df = df.filter((pl.col('Distance')=="Sprint") | (pl.col("Distance")=="Ts"))
-        
-    elif(distances in df['Distance'].unique()):
-        print("true")
-        df = df.filter(pl.col('Distance')==distances)
+    if distances == "Sprint":
+        df = df.filter((pl.col('Distance') == "Sprint") | (pl.col("Distance") == "Ts"))
+    elif distances in df['Distance'].unique().to_list():
+        df = df.filter(pl.col('Distance') == distances)
     else:
         df = df.filter((pl.col('Distance') != "Sprint") & (pl.col('Distance') != "Ts"))
     return df
 
 def technique(df, technique):
-
-    if(technique == "F"):
-        #df = df.loc[(df['Technique']=="F") | (df['City']=="Tour de Ski")]
-        df = df.filter(pl.col('Technique')=="F") 
-    elif(technique =="P"):
-        df = df.filter(pl.col('Technique')=="P") 
+    if technique == "F":
+        df = df.filter(pl.col('Technique') == "F")
+    elif technique == "P":
+        df = df.filter(pl.col('Technique') == "P")
     else:
-        print(df['Technique'].unique())
-        df = df.filter((pl.col('Technique')=="N/A") | (pl.col("Technique")=="C") & (pl.col("Distance")!="Rel"))
-        df = df.filter(pl.col("Distance")!="0")
-        #df = df.filter(pl.col('Technique')!="F")
-        df = df.filter((pl.col('Distance')!="Stage") & (pl.col('Distance')!="Etappeløp"))
-        print(df)
+        # Classic technique: N/A or C, excluding relays
+        df = df.filter(
+            (pl.col('Technique') == "N/A") |
+            ((pl.col("Technique") == "C") & (pl.col("Distance") != "Rel"))
+        )
+        df = df.filter(pl.col("Distance") != "0")
+        df = df.filter((pl.col('Distance') != "Stage") & (pl.col('Distance') != "Etappeløp"))
     return df
 
 def ms(df, ms):
-    
     if(ms=="1"):
-        print("yo")
-        df = df.loc[df['MS']==1]
-       # print(df)
+        df = df.filter(pl.col('MS') == 1)
     else:
-        df = df.loc[df['MS']==0]
+        df = df.filter(pl.col('MS') == 0)
     return df
 
 def place1(df, place1):
-    df = df.loc[df['Place'] >= place1]
+    df = df.filter(pl.col('Place') >= place1)
     return df
 
-def place(df,  place2):
-    df = df.loc[df['Place'] <= place2]
+def place2(df, place2_val):
+    df = df.filter(pl.col('Place') <= place2_val)
     return df
 
-def names(df, names):
-    df = df.loc[df['Name'].isin(names)]
+def names(df, names_list):
+    df = df.filter(pl.col('Skier').is_in(names_list))
     return df
 
 def season1(df, season1):
-    df = df.loc[df['Season']>=season1]
+    df = df.filter(pl.col('Season') >= season1)
     return df
 
-def season(df,season2):
-    df = df.loc[df['Season']<=season2]
+def season2(df, season2_val):
+    df = df.filter(pl.col('Season') <= season2_val)
     return df
 
-def nation (df, nations):
-    df = df.loc[df['Nation'].isin(nations)]
+def nation(df, nations):
+    df = df.filter(pl.col('Nation').is_in(nations))
     return df
 
-def race1 (df, pct1):
-    seasons = (pl.unique(df['Season']))
-
-    pcts = []
-    for season in seasons:
-        seasondf = df.loc[seasondf['Season']==season]
-        seasondf['pct'] = seasondf['Race']
-        num_races = max(seasondf['Race'])
-        races = pl.unique(df['Race'])
-        for race in races:
-            pct = float(race/num_races)
-            seasondf['pct'].mask(seasondf['pct']==race, 'pct', inplace=True)
-        pcts.append(list(seasondf['pct']))
-    df['pct'] = pcts
-    df = df.loc[df['pct']>=pct1]
+def race1(df, pct1):
+    """Filter to races at or after pct1 percentage of the season."""
+    # Calculate max race per season and compute percentage
+    df = df.with_columns([
+        (pl.col('Race') / pl.col('Race').max().over('Season')).alias('race_pct')
+    ])
+    df = df.filter(pl.col('race_pct') >= pct1)
+    df = df.drop('race_pct')
     return df
 
-def race2 (df, pct2):
-    seasons = (pl.unique(df['Season']))
-
-    pcts = []
-    for season in seasons:
-        seasondf = df.loc[seasondf['Season']==season]
-        seasondf['pct'] = seasondf['Race']
-        num_races = max(seasondf['Race'])
-        races = pl.unique(df['Race'])
-        for race in races:
-            pct = float(race/num_races)
-            seasondf['pct'].mask(seasondf['pct']==race, 'pct', inplace=True)
-        pcts.append(list(seasondf['pct']))
-    df['pct'] = pcts
-    df = df.loc[df['pct']<=pct2]
+def race2(df, pct2):
+    """Filter to races at or before pct2 percentage of the season."""
+    # Calculate max race per season and compute percentage
+    df = df.with_columns([
+        (pl.col('Race') / pl.col('Race').max().over('Season')).alias('race_pct')
+    ])
+    df = df.filter(pl.col('race_pct') <= pct2)
+    df = df.drop('race_pct')
     return df
 
 def handle_value(key, value, df):
     if key == "sex":
-        df = sex(df, value)
+        df = load_sex_data(df, value)
     elif key == "date1":
         df = date1(df, value)
 
@@ -191,8 +166,8 @@ def handle_value(key, value, df):
         df = place1(df, value)
     elif key == "place2":
         df = place2(df, value)
-    elif key == "name":
-        df = name(df, value)
+    elif key == "names":
+        df = names(df, value)
     elif key == "season1":
         df = season1(df, value)
     elif key == "season2":
@@ -349,7 +324,6 @@ def k_finder(season_df, max_racers):
     # #What ever is smallest between 5, most races in a season/2, and most races in a season/races in that season
     # k = max(1, min(5, float(max_var_length/2), float(max_var_length/races)))
 
-    print(k)
     return k
 
 def init_elo_df():
@@ -457,37 +431,77 @@ def make_sort_key(season, race):
     """
     return season * 1000 + (999 if race == 0 else race)
 
-def build_wc_elo_lookup(wc_elo_df):
+def build_wc_elo_lookup(wc_elo_df, all_races_df):
     """
     Build a lookup structure from WC elo data.
+    Joins WC data with all-races data to get the all-races Race numbers.
     Returns a dict: {ID: (sort_keys_list, pelos_list, elos_list)} sorted by sort_key ascending.
-    Uses group_by for efficient single-pass construction.
     """
     if wc_elo_df is None or wc_elo_df.is_empty():
         return {}, set()
 
-    # Ensure ID column matches types with all-races data
+    # Ensure columns match types for joining
     wc_elo_df = wc_elo_df.with_columns([
         pl.col('ID').cast(pl.Int64),
         pl.col('Season').cast(pl.Int64),
-        pl.col('Race').cast(pl.Int64)
+        pl.col('Date').cast(pl.Utf8),
+        pl.col('City').cast(pl.Utf8),
+        pl.col('Country').cast(pl.Utf8),
+        pl.col('Distance').cast(pl.Utf8),
+        pl.col('Technique').cast(pl.Utf8)
     ])
 
-    # Create sort_key column: Race 0 (end of season) comes after all other races
-    wc_elo_df = wc_elo_df.with_columns([
-        (pl.col('Season') * 1000 + pl.when(pl.col('Race') == 0).then(999).otherwise(pl.col('Race'))).alias('sort_key')
+    # Get just the columns we need from all-races for joining
+    all_races_join = all_races_df.select([
+        pl.col('ID').cast(pl.Int64),
+        pl.col('Season').cast(pl.Int64),
+        pl.col('Race').cast(pl.Int64).alias('all_races_Race'),
+        pl.col('Date').cast(pl.Utf8),
+        pl.col('City').cast(pl.Utf8),
+        pl.col('Country').cast(pl.Utf8),
+        pl.col('Distance').cast(pl.Utf8),
+        pl.col('Technique').cast(pl.Utf8)
+    ])
+
+    # Join WC data with all-races data to get the all-races Race numbers
+    join_cols = ['ID', 'City', 'Country', 'Date', 'Distance', 'Technique', 'Season']
+
+    joined = wc_elo_df.join(
+        all_races_join,
+        on=join_cols,
+        how='left'
+    )
+
+    # For end-of-season records (Race 0 in WC data), keep Race 0
+    # For matched races, use the all-races Race number
+    joined = joined.with_columns([
+        pl.when(pl.col('Race') == 0)
+        .then(pl.lit(0))
+        .otherwise(pl.col('all_races_Race'))
+        .alias('lookup_race')
+    ])
+
+    # Filter out any WC races that didn't match (shouldn't happen, but just in case)
+    matched = joined.filter(pl.col('lookup_race').is_not_null())
+    unmatched_count = joined.filter(pl.col('lookup_race').is_null() & (pl.col('Race') != 0)).height
+    if unmatched_count > 0:
+        print(f"Warning: {unmatched_count} WC races didn't match to all-races data")
+
+    # Create sort_key column using all-races Race numbers
+    # Race 0 (end of season) comes after all other races
+    matched = matched.with_columns([
+        (pl.col('Season') * 1000 + pl.when(pl.col('lookup_race') == 0).then(999).otherwise(pl.col('lookup_race'))).alias('sort_key')
     ])
 
     # Sort once by ID and sort_key
-    wc_elo_df = wc_elo_df.sort(['ID', 'sort_key'])
+    matched = matched.sort(['ID', 'sort_key'])
 
     # Get list of WC skier IDs
-    wc_ids = set(wc_elo_df['ID'].unique().to_list())
+    wc_ids = set(matched['ID'].unique().to_list())
     print(f"Built WC lookup with {len(wc_ids)} unique skier IDs")
 
     # Use partition_by to group data by ID efficiently (single pass)
-    # This returns a list of DataFrames, one per ID
-    partitions = wc_elo_df.partition_by('ID', maintain_order=True)
+    partitions = matched.partition_by('ID', maintain_order=True)
 
     lookup = {}
     for partition in partitions:
@@ -502,8 +516,9 @@ def build_wc_elo_lookup(wc_elo_df):
 
 def get_wc_elo_at_race(lookup, skier_id, season, race):
     """
-    Get a skier's WC Elo as of a given season/race (most recent Elo before the current race).
-    Returns (pelo, elo) or (None, None) if no WC data available yet.
+    Get a skier's WC Elo as of a given season/race.
+    Returns (pelo, elo) from the most recent WC entry at or before the current race.
+    The Pelo represents the Elo GOING INTO that race, Elo is AFTER.
     Uses binary search for O(log n) lookup instead of O(n).
     """
     if skier_id not in lookup:
@@ -514,20 +529,20 @@ def get_wc_elo_at_race(lookup, skier_id, season, race):
     # Create sort_key for current race
     current_sort_key = make_sort_key(season, race)
 
-    # Binary search for the rightmost sort_key < current_sort_key
-    # bisect_left gives us the insertion point for current_sort_key
-    idx = bisect.bisect_left(sort_keys, current_sort_key)
+    # Binary search for the rightmost sort_key <= current_sort_key
+    # bisect_right gives us the insertion point AFTER any equal values
+    idx = bisect.bisect_right(sort_keys, current_sort_key)
 
     if idx == 0:
-        # All sort_keys are >= current, no WC data available yet
+        # All sort_keys are > current, no WC data available yet
         return None, None
 
-    # idx-1 is the index of the last sort_key < current_sort_key
+    # idx-1 is the index of the last sort_key <= current_sort_key
     return pelos[idx - 1], elos[idx - 1]
 
 def elo(df, wc_elo_df, base_elo=1300, K=1, discount=.85):
-    # Get the sex
-    sex = df['Sex'][0]
+    # Get the sex value from data
+    sex_val = df['Sex'][0]
 
     # Get column order from the schema
     column_order = list(init_elo_df().columns)
@@ -539,7 +554,8 @@ def elo(df, wc_elo_df, base_elo=1300, K=1, discount=.85):
     id_dict_list = df['ID'].unique().to_list()
 
     # Build WC Elo lookup structure (O(n) with partition_by + binary search)
-    wc_lookup, wc_ids = build_wc_elo_lookup(wc_elo_df)
+    # Pass all-races df to join and get correct Race numbers
+    wc_lookup, wc_ids = build_wc_elo_lookup(wc_elo_df, df)
 
     # Initialize pred_id_dict: predicted Elo for all skiers (starts at 1300)
     pred_id_dict = {k: 1300.0 for k in id_dict_list}
@@ -557,20 +573,20 @@ def elo(df, wc_elo_df, base_elo=1300, K=1, discount=.85):
     all_results = []
 
     for season_idx, season_year in enumerate(seasons):
-        season_df = df_by_season[season_year].sort(['Race', 'Place'])
+        season_df = df_by_season[season_year]  # Already sorted by Race, Place from initial sort
 
         # Get the K value based on number of racers
         K = k_finder(season_df, max_racers)
-        print(season_year)
+        print(f"({season_year}, {K})")
 
-        # Partition season data by race (instead of filtering repeatedly)
+        # Partition season data by race (maintains order from initial sort)
         race_partitions = season_df.partition_by('Race', maintain_order=True)
 
         # Collect race results for this season
         season_results = []
 
         for race_df in race_partitions:
-            race_df = race_df.sort('Place')
+            # Already sorted by Place from initial sort
 
             # Extract data as numpy arrays/lists for fast processing
             ski_ids_r = race_df['ID'].to_numpy()
@@ -608,23 +624,18 @@ def elo(df, wc_elo_df, base_elo=1300, K=1, discount=.85):
             # Calculate pred_Elo for all skiers
             n_real = has_real_elo_arr.sum()
             if n_real > 0:
-                # Build comparison elos array
-                comparison_elos = np.where(
-                    has_real_elo_arr,
-                    np.array([e if e is not None else 0 for e in elo_arr], dtype=float),
-                    pred_pelo_arr
-                )
+                # Convert elo_arr to float array once (reused below)
+                real_elo_floats = np.array([e if e is not None else 0 for e in elo_arr], dtype=float)
+
+                # Build comparison elos array: WC skiers use real Elo, others use predicted
+                comparison_elos = np.where(has_real_elo_arr, real_elo_floats, pred_pelo_arr)
 
                 E_pred = calc_Evec_partial(comparison_elos, has_real_elo_arr)
                 S_pred = calc_Svec_partial(places_arr, has_real_elo_arr)
                 pred_elos = pred_pelo_arr + K_mod * (S_pred - E_pred)
 
                 # Build pred_elo array: WC skiers get their WC Elo, others get calculated
-                pred_elo_arr = np.where(
-                    has_real_elo_arr,
-                    np.array([e if e is not None else 0 for e in elo_arr], dtype=float),
-                    pred_elos
-                )
+                pred_elo_arr = np.where(has_real_elo_arr, real_elo_floats, pred_elos)
 
                 # Update pred_id_dict
                 for i, idd in enumerate(ski_ids_r):
@@ -650,7 +661,7 @@ def elo(df, wc_elo_df, base_elo=1300, K=1, discount=.85):
         # Add end of season records using batch processing
         end_of_season_df, pred_id_dict = batch_process_end_of_season(
             season_df, wc_lookup, pred_id_dict,
-            discount, base_elo, seasons, season_idx, sex
+            discount, base_elo, seasons, season_idx, sex_val
         )
         all_results.append(end_of_season_df.select(column_order))
 

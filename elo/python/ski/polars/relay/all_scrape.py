@@ -130,7 +130,7 @@ def fetch_season_links(year, sex='M'):
         soup = BeautifulSoup(html_content, 'html.parser')
         links = []
         
-        # Find all race rows to get race links more comprehensively
+        # Find all race rows to get race links more comprehensively  
         race_rows = soup.find_all('tr')
         race_data_list = []
         
@@ -381,17 +381,9 @@ def parse_race_info(race_text, year):
         return "Duathlon", 1, "P"
     if any(x in race_text for x in ["4x", "3x", "Relay"]):
         return "Rel", 0, "N/A"
+    if "Team" in race_text:
+        return "Ts", 0, "N/A"
         
-    # Handle Team Sprint
-    if "Team Sprint" in race_text:
-        # Extract technique for team sprint
-        if "Classical" in race_text or "Classic" in race_text or " C" in race_text:
-            return "Ts", 0, "C"
-        elif "Freestyle" in race_text or " F" in race_text:
-            return "Ts", 0, "F"
-        else:
-            return "Ts", 0, "N/A"
-    
     # Extract distance
     distance_match = re.search(r'^(\d+)', race_text)
     if distance_match:
@@ -560,7 +552,6 @@ async def get_race_results_async(link: List[Any], sex: str) -> List[Dict]:
         # Determine column positions based on actual headers
         name_col_idx = 2      # Default position for Name
         nation_col_idx = 4    # Default position for Nation
-        leg_col_idx = 1       # Default position for BiB/Team-Leg info
         
         # Adjust if we have more/fewer columns than expected
         for i, header in enumerate(header_names):
@@ -569,24 +560,20 @@ async def get_race_results_async(link: List[Any], sex: str) -> List[Dict]:
                 name_col_idx = i
             elif 'nation' in header_lower or 'country' in header_lower:
                 nation_col_idx = i
-            elif 'bib' in header_lower or 'team' in header_lower:
-                leg_col_idx = i
                 
         # Special handling for sprint races (6 columns vs 7 columns for distance)
         if cols_per_row == 6:
             # Sprint format: Pos, BiB, Name, Born, Nation, WC
             name_col_idx = 2
             nation_col_idx = 4
-            leg_col_idx = 1
             logging.info("Detected 6-column sprint format")
         elif cols_per_row == 7:
             # Distance format: Pos, BiB, Name, Born, Nation, Time, WC  
             name_col_idx = 2
             nation_col_idx = 4
-            leg_col_idx = 1
             logging.info("Detected 7-column distance format")
         
-        logging.info(f"Using column positions - Name: {name_col_idx}, Nation: {nation_col_idx}, BiB/Team: {leg_col_idx}")
+        logging.info(f"Using column positions - Name: {name_col_idx}, Nation: {nation_col_idx}")
         
         # First pass: collect all athlete IDs and basic info
         athletes_data = []
@@ -599,34 +586,26 @@ async def get_race_results_async(link: List[Any], sex: str) -> List[Dict]:
                 # Skip non-finishing positions
                 if place in {"DNF", "DSQ", "DNS", "DNQ", "OOT", ""}:
                     continue
-                    
-                # Extract team-leg information
-                leg_cell = str(rows[a + leg_col_idx])
-                leg_num = 0  # Default for non-relay races
                 
-                # Check if this is a relay/team race and extract leg number
-                if 'smore' in leg_cell:
-                    try:
-                        # Extract the X-Y format where Y is the leg number
-                        leg_info = leg_cell.split('smore">')[1].split('<')[0]
-                        leg_num = int(leg_info.split('-')[1])
-                    except (IndexError, ValueError):
-                        leg_num = 0
-                
+                # Use dynamically determined column positions
                 skier_cell = str(rows[a + name_col_idx])
+                nation_col = a + nation_col_idx
+                
                 if 'id=' not in skier_cell:
                     continue
                     
                 ski_id = skier_cell.split('id=')[1].split('&')[0]
                 skier_name = skier_cell.split('title="')[1].split('"><span')[0]
-                nation = rows[a + nation_col_idx].text.strip()
+                nation = rows[nation_col].text.strip()
+                
+                # Standardize the name
+                #std_name = standardize_name(skier_name)
                 
                 athletes_data.append({
                     'Place': int(place),
                     'Skier': skier_name,
                     'Nation': nation,
-                    'ID': ski_id,
-                    'Leg': leg_num
+                    'ID': ski_id
                 })
                 athlete_ids.add(ski_id)
                 
@@ -648,8 +627,8 @@ async def get_race_results_async(link: List[Any], sex: str) -> List[Dict]:
         results = []
         for athlete in athletes_data:
             birthday = birthdays.get(athlete['ID']) or SKIER_INFO_CACHE['birthdays'].get((athlete['ID'], sex))
-            # Include all athletes, with or without birthday info
-            athlete['Birthday'] = birthday  # This will be None if no birthday was found
+            # Include all athletes, even those without birthdays
+            athlete['Birthday'] = birthday  # Can be None
             results.append(athlete)
             
             if not birthday:
@@ -713,23 +692,21 @@ def construct_historical_df(tables, results_data, sex):
                     'Skier': result['Skier'],
                     'Nation': result['Nation'],
                     'ID': result['ID'],
-                    'Birthday': result['Birthday'],
-                    'Leg': result['Leg']
+                    'Birthday': result['Birthday']
                 }
                 all_results.append(row)
         
         # Create DataFrame from all results
         df = pl.DataFrame(all_results)
         
-        # Convert types
+        # Convert types - handle None birthdays properly
         df = df.with_columns([
             pl.col('Date').str.strptime(pl.Date, format='%Y%m%d'),
-            pl.col('Birthday').cast(pl.Datetime),
+            pl.col('Birthday').cast(pl.Datetime),  # Polars handles None values automatically
             pl.col('Place').cast(pl.Int64),
             pl.col('MS').cast(pl.Int64),
             pl.col('Season').cast(pl.Int64),
-            pl.col('Race').cast(pl.Int64),
-            pl.col('Leg').cast(pl.Int64)
+            pl.col('Race').cast(pl.Int64)
         ])
         
         # Handle athletes with missing birthdays - estimate birthday based on first race
@@ -782,6 +759,7 @@ def construct_historical_df(tables, results_data, sex):
             .cum_count()
             .over(['ID'])
             .cast(pl.Int32)
+            #.add(1)
             .alias('Exp')
         ])
         
@@ -794,8 +772,8 @@ def construct_historical_df(tables, results_data, sex):
         return None
 
 
-def save_dataframes(men_df, ladies_df, base_path="~/ski/elo/python/ski/polars/relay/excel365"):
-    """Save DataFrames to CSV format"""
+def save_dataframes(men_df, ladies_df, base_path="~/ski/elo/python/ski/polars/excel365"):
+    """Save DataFrames to CSV formats"""
     try:
         if men_df is not None:
             men_df.write_csv(f"{base_path}/all_men_scrape.csv")

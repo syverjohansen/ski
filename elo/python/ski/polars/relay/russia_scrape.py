@@ -915,7 +915,7 @@ def main():
     """Main execution function."""
     logging.info("Starting Russia scraper (historical)")
 
-    base_path = os.path.expanduser("~/ski/elo/python/ski/polars/excel365")
+    base_path = os.path.expanduser("~/ski/elo/python/ski/polars/relay/excel365")
     start_year = 2022
     end_year = get_last_season_year()
 
