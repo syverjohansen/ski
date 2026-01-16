@@ -16,7 +16,7 @@ run_elo() {
     json=$(cat <<EOF
 {
     "sex": "$sex",
-    "relay": 0,
+    "relay": 1,
     "date1": null,
     "date2": null,
     "city": null,

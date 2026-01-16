@@ -13,9 +13,9 @@ start_time = time.time()
 # Load data based on sex (M or L) using the combined scrape files (FIS + Russia):
 def load_sex_data(df, sex_value):
     if sex_value == "M":
-        df = pl.read_csv("~/ski/elo/python/ski/polars/excel365/combined_men_scrape.csv", schema_overrides={"Distance": pl.Utf8})
+        df = pl.read_csv("~/ski/elo/python/ski/polars/relay/excel365/combined_men_scrape.csv", schema_overrides={"Distance": pl.Utf8})
     else:
-        df = pl.read_csv("~/ski/elo/python/ski/polars/excel365/combined_ladies_scrape.csv", schema_overrides={"Distance": pl.Utf8})
+        df = pl.read_csv("~/ski/elo/python/ski/polars/relay/excel365/combined_ladies_scrape.csv", schema_overrides={"Distance": pl.Utf8})
     
     # Cast columns to appropriate types
     df = df.with_columns([
@@ -734,7 +734,7 @@ if not file_string:
 # Load the WC elo data to identify real Elo holders
 # The WC elo file should be based on sex (M.csv or L.csv)
 sex_value = data.get('sex', 'M')
-wc_elo_path = f"~/ski/elo/python/ski/polars/excel365/{sex_value}.csv"
+wc_elo_path = f"~/ski/elo/python/ski/polars/relay/excel365/{sex_value}_rel.csv"
 
 try:
     # Specify schema to avoid inference issues (Distance can be "Sprint", "50", etc.)
@@ -758,7 +758,7 @@ elo_df = elo(df, wc_elo_df)
 #print(elo_df.filter(pl.col("City") == "Tour de Ski"))
 
 # Base path for output files
-base_path = "~/ski/elo/python/ski/polars/excel365"
+base_path = "~/ski/elo/python/ski/polars/relay/excel365"
 
 # Save CSV format with dyn_ prefix to distinguish from WC elo and pred files
 elo_df.write_csv(f"{base_path}/dyn_{file_string}.csv")
