@@ -20,9 +20,9 @@ start_time = time.time()
 # Modify the sex function in elo.py to use the updated scrape files:
 def sex(df, sex):
     if(sex=="M"):
-        df = pl.read_csv("~/ski/elo/python/ski/polars/excel365/all_men_scrape_update.csv")
+        df = pl.read_csv("~/ski/elo/python/ski/polars/excel365/combined_men_scrape.csv")
     else:
-        df = pl.read_csv("~/ski/elo/python/ski/polars/excel365/all_ladies_scrape_update.csv")
+        df = pl.read_csv("~/ski/elo/python/ski/polars/excel365/combined_men_scrape.csv")
     
     # Cast columns to appropriate types
     df = df.with_columns([

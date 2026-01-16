@@ -1,42 +1,27 @@
+"""
+russia_scrape.py - Scraper for Russian cross-country skiing results from flgr-results.ru
+
+Since Russia was banned from FIS events in 2022, this scraper collects results from
+the Russian Cup and national championships held domestically.
+"""
+
 import logging
 import ssl
 import re
-from urllib.request import urlopen
+import unicodedata
+from urllib.request import urlopen, Request
 from urllib.error import URLError
-from http.client import HTTPConnection, HTTPSConnection
+from http.client import RemoteDisconnected, IncompleteRead
 from bs4 import BeautifulSoup
 import time
 import polars as pl
-import numpy as np
-from datetime import datetime, timedelta
-from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime, timezone
 import warnings
-import traceback
-from collections import defaultdict
 import random
-import platform
-import sys
-from typing import List, Dict, Any, Optional
-import asyncio
-import aiohttp
-import logging
-import multiprocessing
-
-def check_environment():
-    """Check and log system environment information"""
-    try:
-        logging.info(f"Python version: {sys.version}")
-        logging.info(f"Platform: {platform.platform()}")
-        logging.info(f"Polars version: {pl.__version__}")
-        logging.info(f"NumPy version: {np.__version__}")
-        
-        # Test Polars functionality
-        test_df = pl.DataFrame({"a": [1, 2, 3]})
-        logging.info("Polars basic functionality test passed")
-    except Exception as e:
-        logging.error(f"Environment check failed: {e}")
-        logging.error(traceback.format_exc())
-        sys.exit(1)
+from typing import List, Dict, Any, Optional, Tuple
+from thefuzz import fuzz
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import os
 
 # Suppress warnings
 warnings.filterwarnings('ignore')
@@ -47,841 +32,942 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 # Global variables
 start_time = time.time()
-BIRTHDAY_CACHE = {}
-SKIER_INFO_CACHE = {}  # Cache for skier name standardization and other info
+BASE_URL = "https://flgr-results.ru"
+FIS_BAN_DATE = "2022-03-01"  # Russia banned from FIS starting this date
 
-def setup_cache_structure():
-    """Initialize the caching structure for skier data"""
-    global SKIER_INFO_CACHE
-    SKIER_INFO_CACHE = {
-        'birthdays': {},      # (id, sex) -> birthday
-        'name_variants': {},  # variant -> standardized name
-        'ids': {},           # (standardized_name, nation) -> id
-        'active_years': defaultdict(set)  # id -> set of years active
-    }
+# ============================================================================
+# CYRILLIC TO LATIN TRANSLITERATION (BGN/PCGN Standard)
+# ============================================================================
 
-class RateLimit:
-    """Simple rate limiter for API calls"""
-    def __init__(self, max_per_second=2):
-        self.delay = 1.0 / max_per_second
-        self.last_call = 0
+CYRILLIC_TO_LATIN = {
+    'А': 'A', 'а': 'a', 'Б': 'B', 'б': 'b', 'В': 'V', 'в': 'v',
+    'Г': 'G', 'г': 'g', 'Д': 'D', 'д': 'd', 'Е': 'E', 'е': 'e',
+    'Ё': 'Yo', 'ё': 'yo', 'Ж': 'Zh', 'ж': 'zh', 'З': 'Z', 'з': 'z',
+    'И': 'I', 'и': 'i', 'Й': 'Y', 'й': 'y', 'К': 'K', 'к': 'k',
+    'Л': 'L', 'л': 'l', 'М': 'M', 'м': 'm', 'Н': 'N', 'н': 'n',
+    'О': 'O', 'о': 'o', 'П': 'P', 'п': 'p', 'Р': 'R', 'р': 'r',
+    'С': 'S', 'с': 's', 'Т': 'T', 'т': 't', 'У': 'U', 'у': 'u',
+    'Ф': 'F', 'ф': 'f', 'Х': 'Kh', 'х': 'kh', 'Ц': 'Ts', 'ц': 'ts',
+    'Ч': 'Ch', 'ч': 'ch', 'Ш': 'Sh', 'ш': 'sh', 'Щ': 'Shch', 'щ': 'shch',
+    'Ъ': '', 'ъ': '', 'Ы': 'Y', 'ы': 'y', 'Ь': '', 'ь': '',
+    'Э': 'E', 'э': 'e', 'Ю': 'Yu', 'ю': 'yu', 'Я': 'Ya', 'я': 'ya',
+}
 
-    def wait(self):
-        now = time.time()
-        elapsed = now - self.last_call
-        if elapsed < self.delay:
-            time.sleep(self.delay - elapsed)
-        self.last_call = time.time()
+_TRANS_TABLE = str.maketrans({k: v for k, v in CYRILLIC_TO_LATIN.items() if len(v) <= 1})
+_MULTI_CHAR_MAP = {k: v for k, v in CYRILLIC_TO_LATIN.items() if len(v) > 1}
 
-# Initialize rate limiter
-rate_limiter = RateLimit(max_per_second=5)
+def romanize(text: str) -> str:
+    """Convert Cyrillic text to Latin using BGN/PCGN transliteration."""
+    for cyr, lat in _MULTI_CHAR_MAP.items():
+        text = text.replace(cyr, lat)
+    return text.translate(_TRANS_TABLE)
 
-def create_season_date(date_text, season_year):
-    """Create a comparable date that accounts for cross-country season spanning two years"""
-    try:
-        # Parse day and month from format like "06.01" or "24.03"
-        day, month = date_text.split('.')
-        day = int(day)
-        month = int(month)
-        
-        # Cross-country season logic:
-        # Races from October-December are in the first calendar year (season_year)
-        # Races from January-April are in the following calendar year (season_year + 1)
-        if month >= 10:  # October, November, December
-            actual_year = season_year
-        else:  # January through September (but realistically Jan-Apr for cross-country)
-            actual_year = season_year + 1
-            
-        return f"{actual_year:04d}{month:02d}{day:02d}"
-        
-    except Exception as e:
-        logging.warning(f"Error parsing date '{date_text}': {e}")
-        # Fallback to original date for sorting
-        return date_text
+def convert_name_format(cyrillic_name: str) -> str:
+    """Convert 'LASTNAME Firstname' to 'Firstname Lastname' and romanize."""
+    parts = cyrillic_name.strip().split()
+    if len(parts) >= 2:
+        lastname = romanize(parts[0].title())
+        firstname = romanize(' '.join(parts[1:]))
+        return f"{firstname} {lastname}"
+    elif len(parts) == 1:
+        return romanize(parts[0].title())
+    return romanize(cyrillic_name)
 
-def fetch_with_retry(url, max_retries=3, timeout=10):
-    """Fetch URL with retry logic and rate limiting"""
-    rate_limiter.wait()  # Respect rate limiting
-    
+# ============================================================================
+# TRANSLATION DICTIONARIES
+# ============================================================================
+
+TECHNIQUE_MAP = {
+    'СВ': 'F', 'св': 'F',  # Freestyle
+    'КЛ': 'C', 'кл': 'C',  # Classic
+}
+
+# Race types to skip
+RACE_TYPE_SKIP = frozenset({
+    'Кв', 'Кв.', 'Квал', 'Квал.', 'Квалификация',  # Qualification
+    'Полуфинал',  # Semi-final
+    'ПФ',  # Semi-final abbreviation (ПолуФинал)
+    'ЛР', 'Лыжероллеры',  # Roller ski
+    'Кросс',  # Cross-country running/roller ski variant
+})
+
+# Summer months (June-September) indicate roller ski races
+SUMMER_MONTHS = {6, 7, 8, 9}
+
+EVENT_MAP = {
+    'Чемпионат России': 'Russian Championship',
+    'Первенство России': 'Russian Youth Championship',
+    'Всероссийские соревнования': 'All-Russian Competition',
+}
+
+# Root-based patterns (handles grammatical case variations like Кубок/Кубка/Кубку)
+# List of tuples checked in order - more specific patterns first
+EVENT_ROOTS = [
+    ('первенство федеральн', 'Federal District Youth Championship'),
+    ('чемпионат федеральн', 'Federal District Championship'),
+    ('спартакиад', 'Spartakiad'),
+    ('универсиад', 'Universiade'),
+    ('кубк', 'Russian Cup'),  # Кубок, Кубка, Кубку...
+]
+
+CITY_MAP = {
+    'Москва': 'Moscow',
+    'Санкт-Петербург': 'Saint Petersburg',
+    'Тюмень': 'Tyumen',
+    'Сыктывкар': 'Syktyvkar',
+    'Красногорск': 'Krasnogorsk',
+    'Малиновка': 'Malinovka',
+    'Нижний Новгород': 'Nizhny Novgorod',
+    'Ханты-Мансийск': 'Khanty-Mansiysk',
+    'Мурманск': 'Murmansk',
+    'Архангельск': 'Arkhangelsk',
+    'Пересвет': 'Peresvet',
+    'Вершина Тёи': 'Vershina Tei',
+    'Кировск': 'Kirovsk',
+}
+
+def translate_city(city_cyrillic: str) -> str:
+    """Translate city name or romanize if not in dictionary."""
+    return CITY_MAP.get(city_cyrillic, romanize(city_cyrillic))
+
+def translate_event(event_cyrillic: str) -> str:
+    """Translate event name - extract just the event type."""
+    # Check for exact matches first
+    for rus, eng in EVENT_MAP.items():
+        if rus in event_cyrillic:
+            return eng
+    # Check root-based patterns (case-insensitive for grammatical variations)
+    event_lower = event_cyrillic.lower()
+    for root, eng in EVENT_ROOTS:
+        if root in event_lower:
+            return eng
+    # If not found, just romanize
+    return romanize(event_cyrillic)
+
+# ============================================================================
+# PRE-COMPILED REGEX PATTERNS
+# ============================================================================
+
+RE_RACE_LINK = re.compile(r'/results/(\d+)/(\d+)')
+RE_ATHLETE_LINK = re.compile(r'/athletes/(\d+)/')
+# Match distance: number followed by "км" (handles mixed Cyrillic к/Latin k and м/m)
+# Also handles various Unicode spaces and optional characters between number and km
+RE_DISTANCE = re.compile(r'(\d+(?:[.,]\d+)?)\s*[кk][мm]', re.IGNORECASE)
+# Fallback: just find numbers that look like distances (5-70 range, common ski distances)
+RE_DISTANCE_FALLBACK = re.compile(r'\b(\d{1,2}(?:[.,]\d)?)\s*(?:[кk][мm]|км)', re.IGNORECASE)
+RE_BIRTH_YEAR = re.compile(r'^\d{4}$')
+RE_DATE_RANGE = re.compile(r'(\d{1,2})-\d{1,2}\.(\d{1,2})(?:\.(\d{4}))?')
+RE_DATE_SINGLE = re.compile(r'(\d{1,2})\.(\d{1,2})(?:\.(\d{4}))?')
+
+# ============================================================================
+# RATE LIMITING AND FETCHING
+# ============================================================================
+
+HEADERS = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    'Accept-Language': 'en-US,en;q=0.5',
+    'Connection': 'keep-alive',
+}
+
+def fetch_with_retry(url: str, max_retries: int = 2, timeout: int = 10) -> Optional[str]:
+    """Fetch URL with retry logic."""
     for attempt in range(max_retries):
         try:
-            response = urlopen(url, timeout=timeout)
+            req = Request(url, headers=HEADERS)
+            response = urlopen(req, timeout=timeout)
             return response.read().decode('utf-8')
-        except (URLError, TimeoutError) as e:
+        except (URLError, TimeoutError, RemoteDisconnected, ConnectionResetError, IncompleteRead) as e:
             if attempt == max_retries - 1:
-                logging.error(f"Failed to fetch {url} after {max_retries} attempts: {e}")
-                raise
-            wait_time = (attempt + 1) * 2  # Progressive backoff
-            logging.warning(f"Attempt {attempt + 1} failed, waiting {wait_time}s...")
-            time.sleep(wait_time)
+                logging.error(f"Failed to fetch {url}: {e}")
+                return None
+            time.sleep(1)  # Brief retry delay
     return None
 
-def fetch_season_links(year, sex='M'):
-    """Fetch all race links for a given season (complete calendar with hva=k)"""
-    base_url = f"https://firstskisport.com/cross-country/calendar.php?y={year}&hva=k"
-    if sex == 'L':
-        base_url += "&g=w"
-    
-    try:
-        html_content = fetch_with_retry(base_url)
-        if not html_content:
-            return []
-            
-        soup = BeautifulSoup(html_content, 'html.parser')
-        links = []
-        
-        # Find all race rows to get race links more comprehensively
-        race_rows = soup.find_all('tr')
-        race_data_list = []
-        
-        for row_index, row in enumerate(race_rows):
-            cells = row.find_all('td')
-            if len(cells) < 4:  # Need at least 4 cells for a valid race row
-                continue
-                
-            # Extract date from first cell for sorting
-            date_cell = cells[0]
-            date_text = date_cell.get_text(strip=True)
-            
-            # Look for race links in either:
-            # 1. Discipline column (4th cell) with title="Results"
-            # 2. City column (3rd cell) with results.php link
-            discipline_cell = cells[3]
-            city_cell = cells[2]
-            
-            race_link = None
-            race_type_text = ""
-            
-            # First check discipline column for title="Results" links
-            discipline_link = discipline_cell.find('a', {'title': 'Results'})
-            if discipline_link and 'href' in discipline_link.attrs:
-                race_link = discipline_link['href']
-                race_type_text = discipline_link.get_text(strip=True)
-            else:
-                # Check city column for results.php links
-                city_link = city_cell.find('a', href=True)
-                if city_link and 'results.php?id=' in city_link['href']:
-                    race_link = city_link['href']
-                    # Get race type from discipline cell (plain text)
-                    race_type_text = discipline_cell.get_text(strip=True)
-            
-            if race_link:
-                # Extract race ID for tertiary sorting
-                race_id_match = re.search(r'id=(\d+)', race_link)
-                race_id = int(race_id_match.group(1)) if race_id_match else 0
-                
-                # Stage races should come after individual races with same date
-                is_stage_race = "Stage Race" in race_type_text
-                stage_priority = 1 if is_stage_race else 0
-                
-                # Create season-aware date for sorting
-                season_date = create_season_date(date_text, year)
-                
-                race_data_list.append({
-                    'date': date_text,
-                    'season_date': season_date,
-                    'stage_priority': stage_priority,
-                    'race_id': race_id,
-                    'row_index': row_index,
-                    'link': race_link,
-                    'race_type': race_type_text
-                })
-        
-        # Sort races by: season_date, stage priority (individual races first), then race ID, then row index
-        race_data_list.sort(key=lambda x: (x['season_date'], x['stage_priority'], x['race_id'], x['row_index']))
-        
-        # Remove duplicates while preserving sorted order
-        seen = set()
-        unique_race_data = []
-        for race_data in race_data_list:
-            if race_data['link'] not in seen:
-                seen.add(race_data['link'])
-                unique_race_data.append(race_data)
-        
-        # Assign race numbers based on sorted order and create links
-        links = []
-        for race_num, race_data in enumerate(unique_race_data, 1):
-            full_url = 'https://firstskisport.com/cross-country/' + race_data['link']
-            links.append([full_url, year, race_num])
-            
-        logging.info(f"Found {len(links)} races for {year} ({sex})")
-        return links
-        
-    except Exception as e:
-        logging.error(f"Error fetching season {year} ({sex}): {e}")
-        return []
+# ============================================================================
+# RACE PARSING
+# ============================================================================
 
-def standardize_name(name):
-    """Standardize skier names for consistent matching"""
-    # Remove extra whitespace
-    name = ' '.join(name.split())
-    
-    # Handle special characters
-    replacements = {
-        'æ': 'ae', 'Æ': 'Ae',
-        'ø': 'o', 'Ø': 'O',
-        'å': 'a', 'Å': 'A',
-        'ä': 'a', 'Ä': 'A',
-        'ö': 'o', 'Ö': 'O',
-        'ü': 'u', 'Ü': 'U'
-    }
-    
-    for old, new in replacements.items():
-        name = name.replace(old, new)
-    
-    return name
+def parse_race_info(race_text: str) -> Tuple[Optional[str], Optional[int], Optional[str]]:
+    """
+    Parse race information from Russian text.
+    Returns: (distance, mass_start, technique) or (None, None, None) to skip.
+    """
+    # Skip qualification, semi-final, roller ski, cross
+    for skip_term in RACE_TYPE_SKIP:
+        if skip_term in race_text:
+            return None, None, None
 
-def parse_birthday(text):
-    """Parse birthday from various text formats"""
-    try:
-        # Common patterns for birthday formats
-        patterns = [
-            # Standard format: "15.Jan 1990"
-            r"(\d{1,2})\.(\w{3}) (\d{4})",
-            # Alternative format: "15/01/1990"
-            r"(\d{1,2})/(\d{1,2})/(\d{4})",
-            # Year with age format: "1990 (32)"
-            r"(\d{4})\s*\((\d{1,2})\)",
-            # Just age format: "(32)"
-            r"\((\d{1,2})\)"
-        ]
-
-        month_map = {
-            'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6,
-            'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12
-        }
-
-        # Try each pattern
-        for pattern in patterns:
-            match = re.search(pattern, text)
-            if match:
-                if len(match.groups()) == 3:  # Full date
-                    if match.group(2) in month_map:  # Text month
-                        day = int(match.group(1))
-                        month = month_map[match.group(2)]
-                        year = int(match.group(3))
-                    else:  # Numeric month
-                        day = int(match.group(1))
-                        month = int(match.group(2))
-                        year = int(match.group(3))
-                    return datetime(year, month, day)
-                elif len(match.groups()) == 2 and pattern.endswith(r"(\d{4})\s*\((\d{1,2})\)"):
-                    # Year and age format
-                    year = int(match.group(1))
-                    return datetime(year, 1, 1)  # Default to January 1st
-                elif len(match.groups()) == 1:  # Just age
-                    age = int(match.group(1))
-                    current_year = datetime.now().year
-                    return datetime(current_year - age, 1, 1)  # Approximate
-
-        return None
-
-    except Exception as e:
-        logging.warning(f"Error parsing birthday '{text}': {e}")
-        return None
-
-def extract_athlete_info(soup, athlete_id, sex):
-    """Extract comprehensive athlete information from their page"""
-    try:
-        info = {
-            'id': athlete_id,
-            'sex': sex,
-            'birthday': None,
-            'nation': None,
-            'names': set(),
-            'active_years': set()
-        }
-
-        # Extract birthday
-        h2_text = soup.body.find('h2').text if soup.body.find('h2') else ""
-        info_parts = h2_text.split(",")
-        
-        if len(info_parts) >= 3:
-            birthday = parse_birthday(info_parts[2])
-            if birthday:
-                info['birthday'] = birthday
-
-        # Extract nation
-        if len(info_parts) >= 4:
-            info['nation'] = info_parts[3].strip()
-
-        # Extract name variants
-        name_elements = soup.find_all('h1')
-        for elem in name_elements:
-            name = elem.text.strip()
-            #if name:
-            #    info['names'].add(standardize_name(name))
-
-        # Extract active years from results table
-        results_table = soup.find('table', {'class': 'tablesorter sortTabell'})
-        if results_table:
-            for row in results_table.find_all('tr'):
-                cells = row.find_all('td')
-                if cells and len(cells) > 2:
-                    date_text = cells[0].text.strip()
-                    try:
-                        year = int(date_text.split('.')[-1])
-                        info['active_years'].add(year)
-                    except (ValueError, IndexError):
-                        continue
-
-        return info
-
-    except Exception as e:
-        logging.error(f"Error extracting athlete info for ID {athlete_id}: {e}")
-        return None
-
-def get_or_fetch_athlete_info(athlete_id, sex):
-    """Get athlete info from cache or fetch from website"""
-    cache_key = (athlete_id, sex)
-    
-    # Check cache first
-    if cache_key in SKIER_INFO_CACHE['birthdays']:
-        return SKIER_INFO_CACHE['birthdays'][cache_key]
-
-    # Fetch from website
-    try:
-        url = f"https://firstskisport.com/cross-country/athlete.php?id={athlete_id}"
-        if sex == 'L':
-            url += "&g=w"
-            
-        html_content = fetch_with_retry(url)
-        if not html_content:
-            return None
-            
-        soup = BeautifulSoup(html_content, 'html.parser')
-        info = extract_athlete_info(soup, athlete_id, sex)
-        
-        if info:
-            # Update various caches
-            SKIER_INFO_CACHE['birthdays'][cache_key] = info['birthday']
-            for name in info['names']:
-                SKIER_INFO_CACHE['name_variants'][name] = list(info['names'])[0]  # Use first name as standard
-            SKIER_INFO_CACHE['active_years'][athlete_id].update(info['active_years'])
-            
-            logging.info(f"Cached info for athlete {athlete_id} ({sex})")
-            return info['birthday']
-            
-    except Exception as e:
-        logging.error(f"Error fetching athlete {athlete_id}: {e}")
-        
-    return None
-
-def parse_race_info(race_text, year):
-    """Parse race information handling historical formats"""
-    distance = 0
+    distance = "N/A"
     technique = "N/A"
     mass_start = 0
-    
-    # Clean the text
-    race_text = race_text.strip()
-    
-    # Special cases first
-    if "Duathlon" in race_text:
-        return "Duathlon", 1, "P"
-    if any(x in race_text for x in ["4x", "3x", "Relay"]):
-        return "Rel", 0, "N/A"
-        
-    # Handle Team Sprint
-    if "Team Sprint" in race_text:
-        # Extract technique for team sprint
-        if "Classical" in race_text or "Classic" in race_text or " C" in race_text:
-            return "Ts", 0, "C"
-        elif "Freestyle" in race_text or " F" in race_text:
-            return "Ts", 0, "F"
-        else:
-            return "Ts", 0, "N/A"
-    
-    # Extract distance
-    distance_match = re.search(r'^(\d+)', race_text)
-    if distance_match:
-        distance = distance_match.group(1)
-    elif "Sprint" in race_text:
+
+    # Normalize: replace ALL Unicode whitespace with regular space
+    normalized = ''.join(
+        ' ' if unicodedata.category(c) in ('Zs', 'Zl', 'Zp') else c
+        for c in race_text
+    )
+
+    # Also normalize mixed Latin/Cyrillic characters
+    normalized = normalized.replace('e', 'е').replace('E', 'Е')  # Latin e -> Cyrillic е
+    normalized = normalized.replace('p', 'р').replace('P', 'Р')  # Latin p -> Cyrillic р
+    normalized = normalized.replace('o', 'о').replace('O', 'О')  # Latin o -> Cyrillic о
+    normalized = normalized.replace('a', 'а').replace('A', 'А')  # Latin a -> Cyrillic а
+    normalized = normalized.replace('c', 'с').replace('C', 'С')  # Latin c -> Cyrillic с
+    normalized = normalized.replace('x', 'х').replace('X', 'Х')  # Latin x -> Cyrillic х
+    normalized_lower = normalized.lower()
+
+    # Check for Overall Standings (Общий зачет, Итог) - set distance to 0
+    if 'общий зачет' in normalized_lower or 'общий зачёт' in normalized_lower:
+        return "0", 0, "N/A"
+    if 'итог' in normalized_lower:
+        # ТБВ - Итог, Минитур - Итог, etc.
+        return "0", 0, "N/A"
+
+    # Extract distance - try multiple patterns
+    dist_match = None
+
+    # Pattern 1: Standard regex on original and normalized text
+    for text in [race_text, normalized]:
+        if not dist_match:
+            dist_match = RE_DISTANCE.search(text)
+        if not dist_match:
+            dist_match = RE_DISTANCE_FALLBACK.search(text)
+
+    # Pattern 2: More aggressive - any number followed by anything that looks like "km"
+    if not dist_match:
+        # Try to match number + any 2-char combo that could be "km" in various encodings
+        for text in [race_text, normalized]:
+            match = re.search(r'(\d{1,2})\s*.{0,2}[кkКK][мmМM]', text)
+            if match:
+                dist_match = match
+                break
+
+    # Pattern 3: Ultimate fallback - just find a reasonable distance number (5-70)
+    # in context of skiathlon, pursuit, or standalone
+    if not dist_match:
+        # Look for numbers that are likely distances
+        all_numbers = re.findall(r'\b(\d{1,2})\b', race_text)
+        for num in all_numbers:
+            n = int(num)
+            # Common ski distances: 5, 7.5, 10, 15, 20, 30, 50, 70
+            if n in [5, 7, 10, 15, 20, 30, 50, 70]:
+                distance = num
+                break
+
+    if dist_match and distance == "N/A":
+        distance = dist_match.group(1).replace(',', '.')  # Handle comma decimal
+
+    # Extract technique - check for СВ (Freestyle) and КЛ (Classic)
+    # Check multiple variations to handle mixed Latin/Cyrillic
+    text_upper = race_text.upper()
+    normalized_upper = normalized.upper()
+
+    # Freestyle: СВ, CB, св
+    if any(x in text_upper for x in ['СВ', 'CB']) or any(x in normalized_upper for x in ['СВ', 'CB']):
+        technique = 'F'
+    # Classic: КЛ, KЛ, кл
+    elif any(x in text_upper for x in ['КЛ', 'KЛ']) or any(x in normalized_upper for x in ['КЛ', 'KЛ']):
+        technique = 'C'
+    # Also check lowercase
+    elif 'св' in normalized_lower or 'cb' in normalized_lower:
+        technique = 'F'
+    elif 'кл' in normalized_lower or 'kл' in normalized_lower:
+        technique = 'C'
+
+    # Check for sprint (overrides distance)
+    if 'спр' in normalized_lower or 'спринт' in normalized_lower:
         distance = "Sprint"
-    
-    # Determine mass start
-    mass_start = 1 if "Mass Start" in race_text else 0
-    
-    # Extract technique
-    # For races before 1985, we don't specify technique
-    if int(year) > 1985 and "Sprint" not in race_text:
-        if any(word in race_text for word in ["Classical", "C ", " C"]):
-            technique = "C"
-        elif any(word in race_text for word in ["Freestyle", "F ", " F"]):
-            technique = "F"
-    elif "Sprint" in race_text:
-        # For sprints, technique is usually the word after "Sprint"
-        sprint_parts = race_text.split("Sprint")
-        if len(sprint_parts) > 1 and sprint_parts[1].strip():
-            technique = sprint_parts[1].strip()[0]
-    
+
+    # Check for mass start
+    if 'мс' in normalized_lower or 'масстарт' in normalized_lower or 'масс-старт' in normalized_lower:
+        mass_start = 1
+
+    # Check for skiathlon - sets technique to P, keeps extracted distance
+    if 'скиатлон' in normalized_lower:
+        technique = 'P'
+        mass_start = 1
+
+    # Check for relay (overrides distance)
+    if 'эстафета' in normalized_lower or '4x' in normalized_lower or '3x' in normalized_lower:
+        distance = "Rel"
+
+    # Check for team sprint (overrides distance)
+    # КС = Командный Спринт (Team Sprint)
+    if 'командный спринт' in normalized_lower or 'ком. спр' in normalized_lower or 'кс ' in normalized_lower or normalized_lower.startswith('кс'):
+        distance = "Ts"
+
+    # Debug logging for cases where distance is still N/A
+    if distance == "N/A":
+        logging.warning(f"[parse_race_info] Could not extract distance from: {race_text!r}")
+
     return distance, mass_start, technique
 
-def get_race_data(link):
-    """Extract race information from race page"""
+def parse_date(date_text: str, season_year: int) -> Optional[str]:
+    """Parse date from Russian format and return YYYY-MM-DD string."""
     try:
-        season = link[1]
-        race_num = link[2]
-        url = link[0]
-        
-        html_content = fetch_with_retry(url)
-        if not html_content:
-            return None
-            
-        soup = BeautifulSoup(html_content, 'html.parser')
-        
-        # Get race header
-        race_city = soup.body.find('h1').text.strip()
-        date_country = soup.body.find('h2').text.split(", ")
-        
-        if len(date_country) < 4:
-            logging.error(f"Invalid date/country format: {date_country}")
-            return None
-        
-        # Parse date
-        date_parts = date_country[2].strip().split()
-        if len(date_parts) < 3:  # Need at least day, month abbreviation, and year
-            logging.error(f"Invalid date format: {date_country[2]}")
-            return None
-            
-        try:
-            day = date_parts[-2].split('.')[0]
-            month = date_parts[-2].split('.')[1]
-            year = date_parts[-1]
-            date_str = f"{day}.{month} {year}"
-            date_obj = datetime.strptime(date_str, "%d.%b %Y")
-            date = date_obj.strftime("%Y%m%d")
-        except Exception as e:
-            logging.error(f"Error parsing date {date_parts}: {e}")
-            return None
-        
-        # Parse location and race info
-        race_parts = race_city.split(" - ")
-        if len(race_parts) < 2:
-            logging.error(f"Invalid race city format: {race_city}")
-            return None
-            
-        race = race_parts[0].strip()
-        city = race_parts[1].strip()
-        
-        # Get event and country
-        event = date_country[1].strip()
-        country = date_country[3].strip()
-        
-        # Parse race details
-        distance, ms, technique = parse_race_info(race, date_obj.year)
-        
-        result = [date, city, country, event, distance, ms, technique, season, race_num]
-        logging.info(f"Extracted race data: {result}")
-        return result
-        
+        match = RE_DATE_RANGE.match(date_text)
+        if match:
+            day, month = int(match.group(1)), int(match.group(2))
+            year = int(match.group(3)) if match.group(3) else None
+        else:
+            match = RE_DATE_SINGLE.match(date_text)
+            if not match:
+                logging.warning(f"Could not parse date format: '{date_text}'")
+                return None
+            day, month = int(match.group(1)), int(match.group(2))
+            year = int(match.group(3)) if match.group(3) else None
+
+        if year is None:
+            year = season_year if month >= 10 else season_year + 1
+
+        return f"{year:04d}-{month:02d}-{day:02d}"
     except Exception as e:
-        logging.error(f"Error processing race {url}: {e}")
-        logging.error(traceback.format_exc())
+        logging.warning(f"Error parsing date '{date_text}': {e}")
         return None
 
-async def fetch_athlete_info_batch(session: aiohttp.ClientSession, athlete_ids: List[str], sex: str):
-    """Fetch athlete information in parallel batches"""
-    async def fetch_single_athlete(athlete_id: str):
-        cache_key = (athlete_id, sex)
-        
-        # Check cache first
-        if cache_key in SKIER_INFO_CACHE['birthdays']:
-            return athlete_id, SKIER_INFO_CACHE['birthdays'][cache_key]
-        
-        # Create SSL context
-        ssl_context = ssl.create_default_context()
-        ssl_context.check_hostname = False
-        ssl_context.verify_mode = ssl.CERT_NONE
-        
-        # Respect rate limiting
-        await asyncio.sleep(0.2)  # 2 requests per second rate limit
-        
-        url = f"https://firstskisport.com/cross-country/athlete.php?id={athlete_id}"
-        if sex == 'L':
-            url += "&g=w"
-            
-        try:
-            async with session.get(url, ssl=ssl_context) as response:
-                if response.status != 200:
-                    return athlete_id, None
-                    
-                html_content = await response.text()
-                soup = BeautifulSoup(html_content, 'html.parser')
-                info = extract_athlete_info(soup, athlete_id, sex)
-                
-                if info and info['birthday']:
-                    SKIER_INFO_CACHE['birthdays'][cache_key] = info['birthday']
-                    return athlete_id, info['birthday']
-                    
-        except Exception as e:
-            logging.error(f"Error fetching athlete {athlete_id}: {e}")
-            
-        return athlete_id, None
+# ============================================================================
+# SCRAPING FUNCTIONS
+# ============================================================================
 
-    # Create tasks for all uncached athletes
-    tasks = []
-    for athlete_id in athlete_ids:
-        if (athlete_id, sex) not in SKIER_INFO_CACHE['birthdays']:
-            tasks.append(fetch_single_athlete(athlete_id))
-    
-    # Execute all tasks in parallel
-    if tasks:
-        results = await asyncio.gather(*tasks)
-        return dict(results)
-    return {}
+def fetch_season_race_links(year: int, sex: str = 'M') -> List[Dict[str, Any]]:
+    """Fetch all race links for a given season and sex from the results page."""
+    url = f"{BASE_URL}/results?season={year}"
+    sex_label = 'Men' if sex == 'M' else 'Ladies'
+    logging.info(f"Fetching season {year} for {sex_label}")
 
-async def get_race_results_async(link: List[Any], sex: str) -> List[Dict]:
-    """Extract results from race page with batch processing of athlete info"""
-    try:
-        html_content = fetch_with_retry(link[0])
-        if not html_content:
-            return []
-            
-        soup = BeautifulSoup(html_content, 'html.parser')
-        
-        # Find results table
-        tables = soup.find_all('table', {'class': 'tablesorter sortTabell'})
-        if not tables:
-            logging.error(f"No results table found for {link[0]}")
-            return []
-            
-        # Find all rows
-        rows = tables[0].find_all('td')
-        
-        # Dynamically detect the number of columns by counting headers
-        header_rows = tables[0].find_all('th')
-        cols_per_row = len(header_rows)
-        
-        # Log the headers for debugging
-        header_names = [th.get_text().strip() for th in header_rows]
-        logging.info(f"Detected {cols_per_row} columns: {header_names}")
-        
-        # Determine column positions based on actual headers
-        name_col_idx = 2      # Default position for Name
-        nation_col_idx = 4    # Default position for Nation
-        leg_col_idx = 1       # Default position for BiB/Team-Leg info
-        
-        # Adjust if we have more/fewer columns than expected
-        for i, header in enumerate(header_names):
-            header_lower = header.lower()
-            if 'name' in header_lower:
-                name_col_idx = i
-            elif 'nation' in header_lower or 'country' in header_lower:
-                nation_col_idx = i
-            elif 'bib' in header_lower or 'team' in header_lower:
-                leg_col_idx = i
-                
-        # Special handling for sprint races (6 columns vs 7 columns for distance)
-        if cols_per_row == 6:
-            # Sprint format: Pos, BiB, Name, Born, Nation, WC
-            name_col_idx = 2
-            nation_col_idx = 4
-            leg_col_idx = 1
-            logging.info("Detected 6-column sprint format")
-        elif cols_per_row == 7:
-            # Distance format: Pos, BiB, Name, Born, Nation, Time, WC  
-            name_col_idx = 2
-            nation_col_idx = 4
-            leg_col_idx = 1
-            logging.info("Detected 7-column distance format")
-        
-        logging.info(f"Using column positions - Name: {name_col_idx}, Nation: {nation_col_idx}, BiB/Team: {leg_col_idx}")
-        
-        # First pass: collect all athlete IDs and basic info
-        athletes_data = []
-        athlete_ids = set()
-        
-        for a in range(0, len(rows), cols_per_row):
-            try:
-                place = rows[a].text.strip()
-                
-                # Skip non-finishing positions
-                if place in {"DNF", "DSQ", "DNS", "DNQ", "OOT", ""}:
-                    continue
-                    
-                # Extract team-leg information
-                leg_cell = str(rows[a + leg_col_idx])
-                leg_num = 0  # Default for non-relay races
-                
-                # Check if this is a relay/team race and extract leg number
-                if 'smore' in leg_cell:
-                    try:
-                        # Extract the X-Y format where Y is the leg number
-                        leg_info = leg_cell.split('smore">')[1].split('<')[0]
-                        leg_num = int(leg_info.split('-')[1])
-                    except (IndexError, ValueError):
-                        leg_num = 0
-                
-                skier_cell = str(rows[a + name_col_idx])
-                if 'id=' not in skier_cell:
-                    continue
-                    
-                ski_id = skier_cell.split('id=')[1].split('&')[0]
-                skier_name = skier_cell.split('title="')[1].split('"><span')[0]
-                nation = rows[a + nation_col_idx].text.strip()
-                
-                athletes_data.append({
-                    'Place': int(place),
-                    'Skier': skier_name,
-                    'Nation': nation,
-                    'ID': ski_id,
-                    'Leg': leg_num
-                })
-                athlete_ids.add(ski_id)
-                
-            except Exception as e:
-                logging.error(f"Error processing result row: {e}")
-                continue
-        
-        # Create SSL context for the session
-        ssl_context = ssl.create_default_context()
-        ssl_context.check_hostname = False
-        ssl_context.verify_mode = ssl.CERT_NONE
-        
-        # Batch fetch athlete info
-        connector = aiohttp.TCPConnector(ssl=ssl_context)
-        async with aiohttp.ClientSession(connector=connector) as session:
-            birthdays = await fetch_athlete_info_batch(session, list(athlete_ids), sex)
-        
-        # Combine results with fetched birthdays
-        results = []
-        for athlete in athletes_data:
-            birthday = birthdays.get(athlete['ID']) or SKIER_INFO_CACHE['birthdays'].get((athlete['ID'], sex))
-            # Include all athletes, with or without birthday info
-            athlete['Birthday'] = birthday  # This will be None if no birthday was found
-            results.append(athlete)
-            
-            if not birthday:
-                logging.warning(f"Could not determine birthday for {athlete['Skier']} (ID: {athlete['ID']})")
-        
-        logging.info(f"Processed {len(results)} results for race {link[0]}")
-        return results
-        
-    except Exception as e:
-        logging.error(f"Error processing race results for {link[0]}: {e}")
+    html_content = fetch_with_retry(url)
+    if not html_content:
         return []
 
-def get_race_results(link: List[Any], sex: str) -> List[Dict]:
-    """Synchronous wrapper for the async get_race_results function"""
-    return asyncio.run(get_race_results_async(link, sex))
+    soup = BeautifulSoup(html_content, 'html.parser')
+    race_links = []
+    seen = set()
 
-def construct_historical_df(tables, results_data, sex):
-    """Construct DataFrame from historical race data"""
+    # Men's races in column 5 (index 4), Women's in column 6 (index 5)
+    race_col_idx = 4 if sex == 'M' else 5
+
+    for row in soup.find_all('tr', class_='ant-table-row'):
+        cells = row.find_all('td')
+        if len(cells) <= race_col_idx:
+            continue
+
+        race_cell = cells[race_col_idx]
+
+        # Extract date and event from other columns
+        date_text = None
+        if len(cells) > 1:
+            date_div = cells[1].find('div')
+            if date_div:
+                date_text = date_div.get_text(strip=True)
+
+        event_text = None
+        if len(cells) > 2:
+            event_link = cells[2].find('a')
+            if event_link:
+                event_text = event_link.get_text(strip=True)
+
+        # Find all race links in this cell
+        for link in race_cell.find_all('a', href=True):
+            match = RE_RACE_LINK.match(link['href'])
+            if not match:
+                continue
+
+            comp_id, race_id = match.group(1), match.group(2)
+            key = (comp_id, race_id)
+            if key in seen:
+                continue
+            seen.add(key)
+
+            race_text = link.get_text(strip=True)
+            distance, ms, technique = parse_race_info(race_text)
+            if distance is None:
+                continue
+
+            race_links.append({
+                'comp_id': comp_id,
+                'race_id': race_id,
+                'race_text': race_text,
+                'distance': distance,
+                'mass_start': ms,
+                'technique': technique,
+                'date_text': date_text,
+                'event_text': event_text,
+                'url': f"{BASE_URL}{link['href']}"
+            })
+
+    # REVERSE the order - HTML shows most recent first, we want chronological
+    race_links.reverse()
+
+    logging.info(f"Found {len(race_links)} races for season {year} ({sex_label})")
+    return race_links
+
+def fetch_race_page(race_url: str) -> Optional[BeautifulSoup]:
+    """Fetch and parse a race page. Returns BeautifulSoup or None."""
+    html_content = fetch_with_retry(race_url)
+    if not html_content:
+        return None
+    return BeautifulSoup(html_content, 'html.parser')
+
+def extract_results_from_soup(soup: BeautifulSoup) -> List[Dict[str, Any]]:
+    """Extract athlete results from a parsed race page."""
+    results = []
+    place = 0
+    in_dnf_section = False
+
+    # Find the main results table, excluding sanctions table
+    # The sanctions table is inside div.race-sanctions
+    sanctions_div = soup.find('div', class_='race-sanctions')
+    sanctions_rows = set()
+    if sanctions_div:
+        for row in sanctions_div.find_all('tr', class_='ant-table-row'):
+            sanctions_rows.add(id(row))
+
+    for row in soup.find_all('tr', class_='ant-table-row'):
+        # Skip rows that are in the sanctions table
+        if id(row) in sanctions_rows:
+            continue
+        # Check for separator rows (DNF/DNS sections)
+        row_key = row.get('data-row-key', '')
+        if 'separator' in str(row_key):
+            in_dnf_section = True
+            continue
+
+        cells = row.find_all('td')
+        if len(cells) < 4:
+            continue
+
+        # Skip if place is "-", "-1", "999", or empty (DNF/DNS/DSQ)
+        first_cell_text = cells[0].get_text(strip=True)
+        if first_cell_text in ('-', '-1', '999', ''):
+            continue
+
+        # Skip if we're in DNF/DNS section
+        if in_dnf_section:
+            # Check if this row has a valid place number (means we're back to normal results)
+            try:
+                int(first_cell_text)
+                in_dnf_section = False
+            except ValueError:
+                continue
+
+        athlete_link = row.find('a', href=RE_ATHLETE_LINK)
+        if not athlete_link:
+            continue
+
+        # Get place from first cell
+        try:
+            place = int(first_cell_text)
+        except ValueError:
+            continue
+
+        # Extract athlete ID
+        id_match = RE_ATHLETE_LINK.search(athlete_link['href'])
+        russian_id = int(id_match.group(1)) if id_match else 0
+
+        # Extract and convert name
+        name_cyrillic = athlete_link.get_text(strip=True)
+        name_latin = convert_name_format(name_cyrillic)
+
+        # Find birth year
+        birth_year = None
+        for cell in cells:
+            cell_text = cell.get_text(strip=True)
+            if RE_BIRTH_YEAR.match(cell_text):
+                year_val = int(cell_text)
+                if 1950 <= year_val <= 2015:
+                    birth_year = year_val
+                    break
+
+        results.append({
+            'Place': place,
+            'Skier': name_latin,
+            'Russian_ID': russian_id,
+            'Birth_Year': birth_year,
+        })
+
+    return results
+
+def extract_metadata_from_soup(soup: BeautifulSoup, race_info: Dict[str, Any],
+                                season: int) -> Dict[str, Any]:
+    """Extract race metadata from a parsed race page."""
+    # Try to get event from title tag first (more reliable)
+    event = 'Russian Competition'
+    distance = race_info['distance']
+    technique = race_info['technique']
+
+    title_tag = soup.find('title')
+    title_text = ''
+    if title_tag:
+        title_text = title_tag.get_text(strip=True)
+        # Title format: "Event - Distance - Sex - City - Date"
+        # Extract just the first part (event type)
+        for rus_event, eng_event in EVENT_MAP.items():
+            if rus_event in title_text:
+                event = eng_event
+                break
+
+    # If distance is N/A, try to extract from title
+    if distance == "N/A" and title_text:
+        logging.warning(f"[extract_metadata] Distance N/A, trying title: {title_text!r}")
+        title_lower = title_text.lower()
+
+        # Check for Overall Standings in title - set distance to 0
+        if 'общий зачет' in title_lower or 'общий зачёт' in title_lower or 'итог' in title_lower:
+            distance = "0"
+            logging.warning(f"[extract_metadata] Detected overall standings, distance = 0")
+        else:
+            # Try to find distance in title
+            dist_match = RE_DISTANCE.search(title_text)
+            if dist_match:
+                distance = dist_match.group(1).replace(',', '.')
+                logging.warning(f"[extract_metadata] Extracted distance {distance} from title")
+            else:
+                # Fallback: look for common ski distances in title
+                all_numbers = re.findall(r'\b(\d{1,2})\b', title_text)
+                for num in all_numbers:
+                    n = int(num)
+                    if n in [5, 7, 10, 15, 20, 30, 50, 70]:
+                        distance = num
+                        logging.warning(f"[extract_metadata] Extracted distance {distance} via number fallback")
+                        break
+
+        # Still N/A? Log it
+        if distance == "N/A":
+            logging.warning(f"[extract_metadata] STILL N/A after title. Title: {title_text!r}")
+
+    # If technique is N/A, try to extract from title
+    if technique == "N/A" and title_text:
+        title_upper = title_text.upper()
+        if 'СВ' in title_upper or 'CB' in title_upper:
+            technique = 'F'
+        elif 'КЛ' in title_upper or 'KЛ' in title_upper:
+            technique = 'C'
+
+    # Extract date
+    date_str = None
+    date_elem = soup.find('div', class_='race-info__date')
+    if date_elem:
+        date_str = parse_date(date_elem.get_text(strip=True), season)
+
+    # Extract city
+    city = 'Unknown'
+    city_elem = soup.find('div', class_='race-info__place')
+    if city_elem:
+        city = translate_city(city_elem.get_text(strip=True))
+
+    return {
+        'Date': date_str,
+        'City': city,
+        'Country': 'Russia',
+        'Event': event,
+        'Distance': distance,
+        'MS': race_info['mass_start'],
+        'Technique': technique,
+        'Season': season
+    }
+
+# ============================================================================
+# FUZZY MATCHING WITH FIS DATA
+# ============================================================================
+
+def load_fis_reference_data(sex: str, base_path: str) -> List[Dict[str, Any]]:
+    """Load FIS reference data for Russian athletes as a list of dicts."""
+    filename = 'all_men_scrape.csv' if sex == 'M' else 'all_ladies_scrape.csv'
+    filepath = os.path.join(base_path, filename)
+
     try:
-        logging.info(f"Constructing DataFrame for {sex}")
-        
-        # Filter out None values and empty results
-        valid_data = [(table, results) 
-                     for table, results in zip(tables, results_data) 
-                     if table is not None and results]
-        
-        if not valid_data:
-            logging.error("No valid data to process")
-            return None
-            
-        tables, results_data = zip(*valid_data)
-        
-        # Create base race information DataFrame
-        table_df = pl.DataFrame(
-            data=tables,
-            schema=["Date", "City", "Country", "Event", "Distance", "MS", 
-                   "Technique", "Season", "Race"],
-            orient="row"
-        )
-        
-        # Add sex column
-        table_df = table_df.with_columns(pl.lit(sex).alias("Sex"))
-        
-        # Create results DataFrame
-        all_results = []
-        for idx, race_results in enumerate(results_data):
-            race_table = tables[idx]
-            for result in race_results:
-                row = {
-                    'Date': race_table[0],
-                    'City': race_table[1],
-                    'Country': race_table[2],
-                    'Event': race_table[3],
-                    'Distance': race_table[4],
-                    'MS': race_table[5],
-                    'Technique': race_table[6],
-                    'Season': race_table[7],
-                    'Race': race_table[8],
-                    'Sex': sex,
-                    'Place': result['Place'],
-                    'Skier': result['Skier'],
-                    'Nation': result['Nation'],
-                    'ID': result['ID'],
-                    'Birthday': result['Birthday'],
-                    'Leg': result['Leg']
-                }
-                all_results.append(row)
-        
-        # Create DataFrame from all results
-        df = pl.DataFrame(all_results)
-        
-        # Convert types
-        df = df.with_columns([
-            pl.col('Date').str.strptime(pl.Date, format='%Y%m%d'),
-            pl.col('Birthday').cast(pl.Datetime),
-            pl.col('Place').cast(pl.Int64),
-            pl.col('MS').cast(pl.Int64),
-            pl.col('Season').cast(pl.Int64),
-            pl.col('Race').cast(pl.Int64),
-            pl.col('Leg').cast(pl.Int64)
-        ])
-        
-        # Handle athletes with missing birthdays - estimate birthday based on first race
-        athletes_without_birthdays = df.filter(pl.col('Birthday').is_null()).select('ID').unique()
-        
-        if len(athletes_without_birthdays) > 0:
-            logging.info(f"Estimating birthdays for {len(athletes_without_birthdays)} athletes based on first race (assuming age 22 at debut)")
-            
-            # For each athlete without birthday, calculate estimated birthday
-            for athlete_row in athletes_without_birthdays.iter_rows():
-                athlete_id = athlete_row[0]
-                
-                # Find their earliest race date
-                athlete_races = df.filter(pl.col('ID') == athlete_id).sort('Date')
-                if len(athlete_races) > 0:
-                    first_race_date = athlete_races['Date'][0]
-                    
-                    # Calculate birthday assuming they were 22 years old at first race
-                    # Subtract 22 years from first race date
-                    try:
-                        estimated_birthday = datetime(first_race_date.year - 22, first_race_date.month, first_race_date.day)
-                    except ValueError:
-                        # Handle leap year issue - if Feb 29 doesn't exist in birth year, use Feb 28
-                        if first_race_date.month == 2 and first_race_date.day == 29:
-                            estimated_birthday = datetime(first_race_date.year - 22, 2, 28)
-                        else:
-                            raise  # Re-raise if it's a different date issue
-                    
-                    # Update all records for this athlete with the estimated birthday
-                    df = df.with_columns(
-                        pl.when(pl.col('ID') == athlete_id)
-                        .then(pl.lit(estimated_birthday))
-                        .otherwise(pl.col('Birthday'))
-                        .alias('Birthday')
-                    )
-                    
-                    logging.info(f"Set estimated birthday for athlete {athlete_id}: {estimated_birthday.strftime('%Y-%m-%d')} (22 years before first race on {first_race_date})")
-        
-        # Calculate age - now all athletes should have birthdays (actual or estimated)
-        df = df.with_columns(
-            ((pl.col('Date').cast(pl.Datetime) - pl.col('Birthday')).dt.total_days() / 365.25)
-            .cast(pl.Float64)
-            .alias('Age')
-        )
-        
-        # Calculate experience (races participated in)
-        df = df.sort(['ID', 'Date'])
-        df = df.with_columns([
-            pl.col('ID')
-            .cum_count()
-            .over(['ID'])
-            .cast(pl.Int32)
-            .alias('Exp')
-        ])
-        
-        logging.info(f"Created DataFrame with shape {df.shape}")
-        return df
-        
+        df = pl.read_csv(filepath)
+        russia_df = df.filter(pl.col('Nation') == 'Russia')
+        athletes = russia_df.select(['ID', 'Skier', 'Birthday']).unique()
+        result = athletes.to_dicts()
+        logging.info(f"Loaded {len(result)} Russian athletes from FIS data for {sex}")
+        return result
     except Exception as e:
-        logging.error(f"Error constructing DataFrame: {e}")
-        logging.error(traceback.format_exc())
+        logging.error(f"Error loading FIS reference data: {e}")
+        return []
+
+def build_id_mapping(russian_athletes: List[Dict[str, Any]],
+                     fis_athletes: List[Dict[str, Any]],
+                     threshold: int = 80) -> Tuple[Dict[int, int], Dict[int, str], Dict[int, Any]]:
+    """
+    Build mapping from Russian IDs to FIS IDs using fuzzy matching.
+    Returns: (id_mapping, name_mapping, birthday_mapping)
+    - id_mapping: Dict[russian_id, fis_id]
+    - name_mapping: Dict[russian_id, fis_name] (use FIS name when matched)
+    - birthday_mapping: Dict[russian_id, fis_birthday] (use FIS birthday when matched)
+
+    Uses greedy matching - best matches first, ensuring 1:1 mapping.
+    """
+    id_mapping = {}
+    name_mapping = {}
+    birthday_mapping = {}
+
+    if not fis_athletes:
+        for a in russian_athletes:
+            rid = a['Russian_ID']
+            id_mapping[rid] = -rid
+            name_mapping[rid] = a['Skier']
+            birthday_mapping[rid] = None
+        return id_mapping, name_mapping, birthday_mapping
+
+    # Pre-process FIS athletes
+    fis_processed = []
+    for fis in fis_athletes:
+        fis_year = None
+        if fis['Birthday']:
+            try:
+                bd = fis['Birthday']
+                fis_year = int(bd[:4]) if isinstance(bd, str) else bd.year
+            except:
+                pass
+        fis_processed.append({
+            'id': fis['ID'],
+            'name': fis['Skier'],
+            'name_lower': fis['Skier'].lower(),
+            'birth_year': fis_year,
+            'birthday': fis['Birthday'],
+            'matched': False
+        })
+
+    # Calculate all match scores
+    match_candidates = []
+    for athlete in russian_athletes:
+        russian_id = athlete['Russian_ID']
+        name_lower = athlete['Skier'].lower()
+        birth_year = athlete['Birth_Year']
+
+        for fis in fis_processed:
+            score = fuzz.token_sort_ratio(name_lower, fis['name_lower'])
+
+            # Boost score if birth years match
+            if birth_year and fis['birth_year'] and birth_year == fis['birth_year']:
+                score += 15
+
+            if score >= threshold:
+                match_candidates.append({
+                    'russian_id': russian_id,
+                    'russian_name': athlete['Skier'],
+                    'russian_birth_year': birth_year,
+                    'fis_idx': fis_processed.index(fis),
+                    'fis_id': fis['id'],
+                    'fis_name': fis['name'],
+                    'fis_birthday': fis['birthday'],
+                    'score': score
+                })
+
+    # Sort by score descending - best matches first
+    match_candidates.sort(key=lambda x: x['score'], reverse=True)
+
+    # Greedy matching - assign best matches first
+    matched_russian_ids = set()
+    matched_fis_ids = set()
+
+    for candidate in match_candidates:
+        rid = candidate['russian_id']
+        fid = candidate['fis_id']
+
+        # Skip if either already matched
+        if rid in matched_russian_ids or fid in matched_fis_ids:
+            continue
+
+        # Make the match
+        id_mapping[rid] = fid
+        name_mapping[rid] = candidate['fis_name']  # Use FIS name
+        birthday_mapping[rid] = candidate['fis_birthday']  # Use FIS birthday
+        matched_russian_ids.add(rid)
+        matched_fis_ids.add(fid)
+
+    # Assign negative IDs and original names to unmatched athletes
+    for athlete in russian_athletes:
+        rid = athlete['Russian_ID']
+        if rid not in id_mapping:
+            id_mapping[rid] = -rid
+            name_mapping[rid] = athlete['Skier']  # Use romanized name
+            birthday_mapping[rid] = None
+
+    matched = len(matched_russian_ids)
+    total = len(russian_athletes)
+    match_pct = (100 * matched / total) if total > 0 else 0
+    logging.info(f"Matched {matched}/{total} athletes ({match_pct:.1f}%)")
+    return id_mapping, name_mapping, birthday_mapping
+
+# ============================================================================
+# DATAFRAME CONSTRUCTION
+# ============================================================================
+
+def construct_dataframe(all_races: List[Dict[str, Any]],
+                        id_mapping: Dict[int, int],
+                        name_mapping: Dict[int, str],
+                        birthday_mapping: Dict[int, Any],
+                        sex: str) -> Optional[pl.DataFrame]:
+    """Construct the final DataFrame with all results."""
+    if not all_races:
         return None
 
+    all_rows = []
+    race_num = 0
 
-def save_dataframes(men_df, ladies_df, base_path="~/ski/elo/python/ski/polars/relay/excel365"):
-    """Save DataFrames to CSV format"""
-    try:
-        if men_df is not None:
-            men_df.write_csv(f"{base_path}/all_men_scrape.csv")
-            logging.info("Saved men's historical data")
-            
-        if ladies_df is not None:
-            ladies_df.write_csv(f"{base_path}/all_ladies_scrape.csv")
-            logging.info("Saved ladies' historical data")
-            
-    except Exception as e:
-        logging.error(f"Error saving data: {e}")
-        logging.error(traceback.format_exc())
-
-def process_year_range(start_year, end_year, sex):
-    """Process a range of years for given sex using parallel processing"""
-    all_tables = []
-    all_results = []
-    
-    def process_race(link):
-        """Process a single race"""
-        try:
-            # Get race data
-            table_data = get_race_data(link)
-            if table_data is None:
-                return None
-                
-            # Get results
-            results = get_race_results(link, sex)
-            if not results:
-                return None
-                
-            return (table_data, results)
-            
-        except Exception as e:
-            logging.error(f"Error processing race {link}: {e}")
-            return None
-
-    for year in range(start_year, end_year + 1):
-        logging.info(f"Processing year {year} for {sex}")
-        
-        # Get links for the season
-        season_links = fetch_season_links(year, sex)
-        if not season_links:
-            logging.warning(f"No races found for {year} ({sex})")
+    for race in all_races:
+        if not race['results']:
             continue
-        max_workers = min(32, multiprocessing.cpu_count() * 4)    
-        # Process races in parallel
-        with ThreadPoolExecutor(max_workers=max_workers) as executor:
-            race_results = list(executor.map(process_race, season_links))
-            
-        # Filter out None results and append valid ones
-        for result in race_results:
-            if result is not None:
-                table_data, race_results = result
-                all_tables.append(table_data)
-                all_results.append(race_results)
-                
-        # Delay between seasons
-        time.sleep(random.uniform(1, 2))
-    
-    return all_tables, all_results
+
+        metadata = race['metadata']
+
+        if not metadata.get('Date'):
+            logging.warning(f"Skipping race without date: {metadata.get('Event', 'Unknown')}")
+            continue
+
+        if metadata['Date'] < FIS_BAN_DATE:
+            logging.info(f"Skipping pre-ban race: {metadata['Date']}")
+            continue
+
+        # Skip summer months (June-September) - these are roller ski races
+        try:
+            race_month = int(metadata['Date'].split('-')[1])
+            if race_month in SUMMER_MONTHS:
+                logging.info(f"Skipping summer roller ski race: {metadata['Date']}")
+                continue
+        except (ValueError, IndexError):
+            pass  # If date parsing fails, continue with the race
+
+        race_num += 1
+
+        for result in race['results']:
+            russian_id = result['Russian_ID']
+            fis_id = id_mapping.get(russian_id, -russian_id)
+
+            # Use FIS name if matched, otherwise use romanized name
+            skier_name = name_mapping.get(russian_id, result['Skier'])
+
+            # Use FIS birthday if matched, otherwise use birth year from Russian data
+            fis_birthday = birthday_mapping.get(russian_id)
+            if fis_birthday:
+                # Parse FIS birthday
+                try:
+                    if isinstance(fis_birthday, str):
+                        birthday = datetime.strptime(fis_birthday[:10], '%Y-%m-%d')
+                    else:
+                        birthday = fis_birthday
+                except:
+                    birthday = datetime(result['Birth_Year'], 1, 1) if result['Birth_Year'] else None
+            elif result['Birth_Year']:
+                birthday = datetime(result['Birth_Year'], 1, 1)
+            else:
+                birthday = None
+
+            all_rows.append({
+                'Date': metadata['Date'],
+                'City': metadata['City'],
+                'Country': metadata['Country'],
+                'Event': metadata['Event'],
+                'Distance': str(metadata['Distance']),
+                'MS': metadata['MS'],
+                'Technique': metadata['Technique'],
+                'Season': metadata['Season'],
+                'Race': race_num,
+                'Sex': sex,
+                'Place': result['Place'],
+                'Skier': skier_name,
+                'Nation': 'Russia',
+                'ID': fis_id,
+                'Birthday': birthday
+            })
+
+    if not all_rows:
+        return None
+
+    df = pl.DataFrame(all_rows)
+
+    df = df.with_columns([
+        pl.col('Date').str.strptime(pl.Date, format='%Y-%m-%d'),
+        pl.col('Birthday').cast(pl.Datetime),
+        pl.col('Place').cast(pl.Int64),
+        pl.col('MS').cast(pl.Int64),
+        pl.col('Season').cast(pl.Int64),
+        pl.col('Race').cast(pl.Int64),
+        pl.col('ID').cast(pl.Int64)
+    ])
+
+    df = df.with_columns(
+        ((pl.col('Date').cast(pl.Datetime) - pl.col('Birthday')).dt.total_days() / 365.25)
+        .cast(pl.Float64)
+        .alias('Age')
+    )
+
+    df = df.sort(['ID', 'Date', 'Race']).with_columns(
+        pl.col('ID').cum_count().over('ID').cast(pl.Int32).alias('Exp')
+    )
+
+    return df
+
+# ============================================================================
+# MAIN PROCESSING
+# ============================================================================
+
+def process_single_race(race_info: Dict[str, Any], year: int) -> Optional[Dict[str, Any]]:
+    """Process a single race - for parallel execution."""
+    url = race_info['url']
+
+    soup = fetch_race_page(url)
+    if not soup:
+        return None
+
+    results = extract_results_from_soup(soup)
+    if not results:
+        return None
+
+    # Get metadata
+    date_str = None
+    if race_info.get('date_text'):
+        date_str = parse_date(race_info['date_text'], year)
+
+    event = 'Russian Competition'
+    if race_info.get('event_text'):
+        event = translate_event(race_info['event_text'])
+
+    metadata = {
+        'Date': date_str,
+        'City': 'Russia',
+        'Country': 'Russia',
+        'Event': event,
+        'Distance': race_info['distance'],
+        'MS': race_info['mass_start'],
+        'Technique': race_info['technique'],
+        'Season': year
+    }
+
+    # Enhance with data from race page
+    page_meta = extract_metadata_from_soup(soup, race_info, year)
+    if page_meta.get('Date'):
+        metadata['Date'] = page_meta['Date']
+    if page_meta.get('City') and page_meta['City'] != 'Unknown':
+        metadata['City'] = page_meta['City']
+    if page_meta.get('Event') and page_meta['Event'] != 'Russian Competition':
+        metadata['Event'] = page_meta['Event']
+    # Use Distance from page if link text didn't have it
+    if metadata['Distance'] == 'N/A' and page_meta.get('Distance') and page_meta['Distance'] != 'N/A':
+        metadata['Distance'] = page_meta['Distance']
+    # Use Technique from page if link text didn't have it
+    if metadata['Technique'] == 'N/A' and page_meta.get('Technique') and page_meta['Technique'] != 'N/A':
+        metadata['Technique'] = page_meta['Technique']
+
+    return {'metadata': metadata, 'results': results}
+
+def process_season(year: int, sex: str) -> List[Dict[str, Any]]:
+    """Process all races for a given season and sex using parallel execution."""
+    sex_label = 'Men' if sex == 'M' else 'Ladies'
+    logging.info(f"Processing season {year} for {sex_label}")
+
+    race_links = fetch_season_race_links(year, sex)
+    if not race_links:
+        return []
+
+    all_races = []
+    max_workers = 50  # High parallelism - no rate limiting
+
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = {
+            executor.submit(process_single_race, race_info, year): race_info
+            for race_info in race_links
+        }
+
+        for future in as_completed(futures):
+            race_info = futures[future]
+            try:
+                result = future.result()
+                if result:
+                    all_races.append(result)
+            except Exception as e:
+                logging.error(f"Error processing race {race_info.get('url', 'unknown')}: {e}")
+
+    # Sort by date to maintain chronological order (since parallel execution scrambles order)
+    all_races.sort(key=lambda x: x['metadata'].get('Date') or '9999-99-99')
+
+    logging.info(f"Processed {len(all_races)} races for season {year}")
+    return all_races
+
+def save_id_mapping(mapping: Dict[int, int], sex: str, base_path: str):
+    """Save the Russian ID to FIS ID mapping to CSV."""
+    rows = [{'Russian_ID': k, 'FIS_ID': v} for k, v in mapping.items()]
+    df = pl.DataFrame(rows)
+
+    sex_name = 'men' if sex == 'M' else 'ladies'
+    filepath = os.path.join(base_path, f"russia_{sex_name}_id_mapping.csv")
+    df.write_csv(filepath)
+    logging.info(f"Saved ID mapping to {filepath}")
+
+def get_last_season_year() -> int:
+    """
+    Determine the last completed season year based on current UTC date.
+    Ski seasons are named for the year they end in:
+    - Oct 1 - Dec 31: Year (current is Year+1, so last complete is Year)
+    - Jan 1 - Sep 30: Year - 1 (current is Year, so last complete is Year-1)
+    """
+    now = datetime.now(timezone.utc)
+    if now.month >= 10:  # Oct-Dec: new season (Year+1) has started
+        return now.year
+    else:  # Jan-Sep: in season Year
+        return now.year - 1
+
 
 def main():
-    """Main execution function"""
-    check_environment()
-    setup_cache_structure()
-    
-    # Process men's data
-    current_year = datetime.now().year
-    logging.info("Processing men's historical data")
-    men_tables, men_results = process_year_range(1924, current_year, 'M')
-    #men_tables, men_results = process_year_range(2019, 2019, 'M')
-    men_df = construct_historical_df(men_tables, men_results, 'M')
-    
-    # Process ladies' data
-    logging.info("Processing ladies' historical data")
-    ladies_tables, ladies_results = process_year_range(1924, current_year, 'L')
-    #ladies_tables, ladies_results = process_year_range(2019, 2019, 'L')
-    ladies_df = construct_historical_df(ladies_tables, ladies_results, 'L')
-    
-    # Save the data
-    save_dataframes(men_df, ladies_df)
-    
-    # Log execution time
-    execution_time = time.time() - start_time
-    logging.info(f"Total execution time: {execution_time:.2f} seconds")
+    """Main execution function."""
+    logging.info("Starting Russia scraper (historical)")
+
+    base_path = os.path.expanduser("~/ski/elo/python/ski/polars/excel365")
+    start_year = 2022
+    end_year = get_last_season_year()
+
+    logging.info(f"Scraping seasons {start_year} through {end_year}")
+
+    for sex in ['M', 'L']:
+        sex_label = 'Men' if sex == 'M' else 'Ladies'
+        logging.info(f"\n{'='*50}\nProcessing {sex_label}\n{'='*50}")
+
+        # Collect all races
+        all_races = []
+        for year in range(start_year, end_year + 1):
+            races = process_season(year, sex)
+            all_races.extend(races)
+
+        if not all_races:
+            logging.warning(f"No races found for {sex_label}")
+            continue
+
+        # Collect unique athletes for ID matching
+        athlete_map = {}
+        for race in all_races:
+            for result in race['results']:
+                rid = result['Russian_ID']
+                if rid not in athlete_map:
+                    athlete_map[rid] = {
+                        'Russian_ID': rid,
+                        'Skier': result['Skier'],
+                        'Birth_Year': result['Birth_Year']
+                    }
+        unique_athletes = list(athlete_map.values())
+
+        # Load FIS reference data and build ID mapping (80% threshold)
+        fis_athletes = load_fis_reference_data(sex, base_path)
+        id_mapping, name_mapping, birthday_mapping = build_id_mapping(
+            unique_athletes, fis_athletes, threshold=90
+        )
+
+        # Save ID mapping
+        save_id_mapping(id_mapping, sex, base_path)
+
+        # Construct and save final DataFrame
+        df = construct_dataframe(all_races, id_mapping, name_mapping, birthday_mapping, sex)
+        if df is not None:
+            sex_name = 'men' if sex == 'M' else 'ladies'
+            filepath = os.path.join(base_path, f"russia_{sex_name}_scrape.csv")
+            df.write_csv(filepath)
+            logging.info(f"Saved {len(df)} results to {filepath}")
+
+        time.sleep(2)
+
+    logging.info(f"\nTotal execution time: {time.time() - start_time:.2f} seconds")
 
 if __name__ == '__main__':
     main()

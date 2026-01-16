@@ -407,8 +407,8 @@ def batch_process_end_of_season(season_df, wc_lookup, pred_id_dict, discount, ba
     pred_elo_list = []
 
     for idd in ids:
-        # WC Elo lookup
-        endpelo, endelo = get_wc_elo_at_date(wc_lookup, idd, endseasondate)
+        # WC Elo lookup (Race 0 = end of season, so this gets the last race's Elo)
+        endpelo, endelo = get_wc_elo_at_race(wc_lookup, idd, seasons[season], 0)
         pelo_list.append(endpelo)
         elo_list.append(endelo)
 
@@ -450,23 +450,36 @@ def batch_process_end_of_season(season_df, wc_lookup, pred_id_dict, discount, ba
 #The initial score we are setting is 1300, arbitrary number that is subject to change from testing
 #K score is 1 by default, we will change this, and I want to do testing to determine the best overall K eventually
 #Discount is .85.  This is how much we will reduce an athletes elo by at the end of a season.  Again to be tested
+def make_sort_key(season, race):
+    """
+    Create a sort key from season and race.
+    Race 0 is end-of-season marker, so it should come after all other races.
+    """
+    return season * 1000 + (999 if race == 0 else race)
+
 def build_wc_elo_lookup(wc_elo_df):
     """
     Build a lookup structure from WC elo data.
-    Returns a dict: {ID: (dates_list, pelos_list, elos_list)} sorted by date ascending.
+    Returns a dict: {ID: (sort_keys_list, pelos_list, elos_list)} sorted by sort_key ascending.
     Uses group_by for efficient single-pass construction.
     """
     if wc_elo_df is None or wc_elo_df.is_empty():
         return {}, set()
 
-    # Ensure Date and ID columns match types with all-races data
+    # Ensure ID column matches types with all-races data
     wc_elo_df = wc_elo_df.with_columns([
-        pl.col('Date').cast(pl.Utf8),
-        pl.col('ID').cast(pl.Int64)
+        pl.col('ID').cast(pl.Int64),
+        pl.col('Season').cast(pl.Int64),
+        pl.col('Race').cast(pl.Int64)
     ])
 
-    # Sort once by ID and Date
-    wc_elo_df = wc_elo_df.sort(['ID', 'Date'])
+    # Create sort_key column: Race 0 (end of season) comes after all other races
+    wc_elo_df = wc_elo_df.with_columns([
+        (pl.col('Season') * 1000 + pl.when(pl.col('Race') == 0).then(999).otherwise(pl.col('Race'))).alias('sort_key')
+    ])
+
+    # Sort once by ID and sort_key
+    wc_elo_df = wc_elo_df.sort(['ID', 'sort_key'])
 
     # Get list of WC skier IDs
     wc_ids = set(wc_elo_df['ID'].unique().to_list())
@@ -479,34 +492,37 @@ def build_wc_elo_lookup(wc_elo_df):
     lookup = {}
     for partition in partitions:
         skier_id = partition['ID'][0]
-        # Extract columns as lists (already sorted by Date from the sort above)
-        dates = partition['Date'].to_list()
+        # Extract columns as lists (already sorted by sort_key from the sort above)
+        sort_keys = partition['sort_key'].to_list()
         pelos = partition['Pelo'].to_list()
         elos = partition['Elo'].to_list()
-        lookup[skier_id] = (dates, pelos, elos)
+        lookup[skier_id] = (sort_keys, pelos, elos)
 
     return lookup, wc_ids
 
-def get_wc_elo_at_date(lookup, skier_id, race_date):
+def get_wc_elo_at_race(lookup, skier_id, season, race):
     """
-    Get a skier's WC Elo as of a given date (most recent Elo before or on that date).
+    Get a skier's WC Elo as of a given season/race (most recent Elo before the current race).
     Returns (pelo, elo) or (None, None) if no WC data available yet.
     Uses binary search for O(log n) lookup instead of O(n).
     """
     if skier_id not in lookup:
         return None, None
 
-    dates, pelos, elos = lookup[skier_id]
+    sort_keys, pelos, elos = lookup[skier_id]
 
-    # Binary search for the rightmost date <= race_date
-    # bisect_right gives us the insertion point, so index-1 is the last date <= race_date
-    idx = bisect.bisect_right(dates, race_date)
+    # Create sort_key for current race
+    current_sort_key = make_sort_key(season, race)
+
+    # Binary search for the rightmost sort_key < current_sort_key
+    # bisect_left gives us the insertion point for current_sort_key
+    idx = bisect.bisect_left(sort_keys, current_sort_key)
 
     if idx == 0:
-        # All dates are after race_date, no WC data available yet
+        # All sort_keys are >= current, no WC data available yet
         return None, None
 
-    # idx-1 is the index of the last date <= race_date
+    # idx-1 is the index of the last sort_key < current_sort_key
     return pelos[idx - 1], elos[idx - 1]
 
 def elo(df, wc_elo_df, base_elo=1300, K=1, discount=.85):
@@ -559,7 +575,7 @@ def elo(df, wc_elo_df, base_elo=1300, K=1, discount=.85):
             # Extract data as numpy arrays/lists for fast processing
             ski_ids_r = race_df['ID'].to_numpy()
             places_arr = race_df['Place'].to_numpy()
-            race_date = race_df['Date'][0]
+            race_num = race_df['Race'][0]
             distance_type = race_df['Distance'][0]
 
             n_skiers = len(ski_ids_r)
@@ -572,7 +588,7 @@ def elo(df, wc_elo_df, base_elo=1300, K=1, discount=.85):
 
             for i, idd in enumerate(ski_ids_r):
                 pred_pelo_arr[i] = pred_id_dict[idd]
-                wc_pelo, wc_elo = get_wc_elo_at_date(wc_lookup, idd, race_date)
+                wc_pelo, wc_elo = get_wc_elo_at_race(wc_lookup, idd, season_year, race_num)
                 if wc_pelo is not None:
                     pelo_arr[i] = wc_pelo
                     elo_arr[i] = wc_elo
@@ -619,8 +635,8 @@ def elo(df, wc_elo_df, base_elo=1300, K=1, discount=.85):
 
             # Add columns to race_df efficiently
             race_df = race_df.with_columns([
-                pl.Series(name="Pelo", values=pelo_arr.tolist()),
-                pl.Series(name="Elo", values=elo_arr.tolist()),
+                pl.Series(name="Pelo", values=pelo_arr.tolist()).cast(pl.Float64),
+                pl.Series(name="Elo", values=elo_arr.tolist()).cast(pl.Float64),
                 pl.Series(name="pred_Pelo", values=pred_pelo_arr),
                 pl.Series(name="pred_Elo", values=pred_elo_arr)
             ]).select(column_order)
