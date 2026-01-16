@@ -10,12 +10,12 @@ warnings.filterwarnings('ignore')
 pl.Config.set_tbl_cols(100)
 start_time = time.time()
 
-# Modify the sex function in elo.py to use the updated scrape files:
+# Modify the sex function in elo.py to use the combined scrape files (FIS + Russia):
 def sex(df, sex):
     if(sex=="M"):
-        df = pl.read_csv("~/ski/elo/python/ski/polars/excel365/all_men_scrape_update.csv")
+        df = pl.read_csv("~/ski/elo/python/ski/polars/excel365/combined_men_scrape.csv", schema_overrides={"Distance": pl.Utf8})
     else:
-        df = pl.read_csv("~/ski/elo/python/ski/polars/excel365/all_ladies_scrape_update.csv")
+        df = pl.read_csv("~/ski/elo/python/ski/polars/excel365/combined_ladies_scrape.csv", schema_overrides={"Distance": pl.Utf8})
     
     # Cast columns to appropriate types
     df = df.with_columns([

@@ -274,3 +274,76 @@ Exp: Computed like scrape.py
 Other notes: We want to skip qualifications and roller ski races.  Квал wil lbe qualification and rollerski races which contains Лыжероллеры (or look like <a href="/results/2252/8895">ЛР - 20 км СВ< in the season page) should be skipped.
 
 After this is made (and the update scrape), we will want to merge it with the all scrape update.  Let's merge it and sort by race date.  Then we have to recompute the Race number so that the race gets +1 of the local version before it.
+
+
+
+Other changes: Полуфинал means semi-final which will be there for Team Sprints.  Let's not include those.  Moreover, Скиатлон means Skiathlon.  That should be used for P in technique instead of what we currently have for Pursuit.
+
+The FIS ban really began on March 1 2022, so let's have first season be 2022, but if date is before March 1 2022
+
+Also we should still have Team Sprints and Relays in the scrape.  They will be later filtered out anyway by the elo script.
+
+
+Ok let's parellize this because it is taking forever to run.
+Here is another error:
+Traceback (most recent call last):
+  File "/Users/syverjohansen/ski/elo/python/ski/polars/russia_scrape.py", line 715, in <module>
+    main()
+  File "/Users/syverjohansen/ski/elo/python/ski/polars/russia_scrape.py", line 675, in main
+    races = process_season(year, sex)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/syverjohansen/ski/elo/python/ski/polars/russia_scrape.py", line 608, in process_season
+    soup = fetch_race_page(url)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/syverjohansen/ski/elo/python/ski/polars/russia_scrape.py", line 340, in fetch_race_page
+    html_content = fetch_with_retry(race_url)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/syverjohansen/ski/elo/python/ski/polars/russia_scrape.py", line 176, in fetch_with_retry
+    return response.read().decode('utf-8')
+           ^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/http/client.py", line 495, in read
+    s = self._safe_read(self.length)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/http/client.py", line 642, in _safe_read
+    raise IncompleteRead(data, amt-len(data))
+http.client.IncompleteRead: IncompleteRead(195935 bytes read, 57908 more expected)
+
+This error was at the end of the womens scrape
+
+Then I found another issue.  Sometimes fuzzy matches apply to multiple people and there needs to be a better way to deconflict this.  I was thinking that maybe the best way is to find the closest match between a name and a person and then link the IDs.  For example, both Saveliy Korostelev and Saveliy Obrotov are getting linked to Saveliy Korostelev from the local version.  If there are multiple matches, you use the higher one.
+
+Then for names, let's use the local version.  For example we should use Alexander Bolshunov instead of Aleksandr Bolshunov.
+
+The event is right some of the time, other time it looks like this: Vserossiyskie sorevnovaniyaMuzhchiny - 10 km KLg. Kirovsk,Kod sorevnovaniya: 9394.  Here it is in the HTML <title>Всероссийские соревнования - 10 км КЛ - Мужчины - г. Кировск - 20 Ноября 2025.  Should be Всероссийские соревнования
+
+Birthdates should use the local version
+
+It appears that Races are in the wrong order.  THe HTML does most recent to least recent for the season view, so that should be switched.
+
+DNFs and DNSs and Sanctions are added when they shouldn't.  Here is the HTML
+<td style="text-align:center;">-</td></tr><tr data-row-key="separator-112" class="ant-table-row ant-table-row-level-0"><td colSpan="8" style="text-align:center;">Не закончили дистанцию</td><td style="text-align:center;"></td><td style="text-align:center;"></td><td><span to="[object Object]" class="table-link"></span></td><td style="text-align:center;"></td><td style="text-align:center;"><span class="app-table__classification"></span></td><td></td><td style="text-align:center;"></td></tr><tr data-row-key="703073" class="ant-table-row ant-table-row-level-0"><td colSpan="1" style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">103440</td><td><a href="/athletes/103440/" class="table-link">ГРЕБЕНЬКО Александр</a></td><td style="text-align:center;">1994</td><td style="text-align:center;"><span class="app-table__classification">мс</span></td><td>Мурманская область</td><td style="text-align:center;">-</td></tr><tr data-row-key="703074" class="ant-table-row ant-table-row-level-0"><td colSpan="1" style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">108402</td><td><a href="/athletes/108402/" class="table-link">КАРПАСЮК Данила</a></td><td style="text-align:center;">2001</td><td style="text-align:center;"><span class="app-table__classification">мс</span></td><td>Челябинская область - Красноярский край</td><td style="text-align:center;">-</td></tr><tr data-row-key="separator-114" class="ant-table-row ant-table-row-level-0"><td colSpan="8" style="text-align:center;">Не стартовали</td><td style="text-align:center;"></td><td style="text-align:center;"></td><td><span to="[object Object]" class="table-link"></span></td><td style="text-align:center;"></td><td style="text-align:center;"><span class="app-table__classification"></span></td><td></td><td style="text-align:center;"></td></tr><tr data-row-key="703075" class="ant-table-row ant-table-row-level-0"><td colSpan="1" style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">104763</td><td><a href="/athletes/104763/" class="table-link">КУДРЯВЦЕВ Евгений</a></td><td style="text-align:center;">1997</td><td style="text-align:center;"><span class="app-table__classification">мс</span></td><td>Ленинградская область</td><td style="text-align:center;">-</td></tr><tr data-row-key="703076" class="ant-table-row ant-table-row-level-0"><td colSpan="1" style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">107707</td><td><a href="/athletes/107707/" class="table-link">ВОЛКОВ Сергей</a></td><td style="text-align:center;">2001</td><td style="text-align:center;"><span class="app-table__classification">мс</span></td><td>Республика Татарстан (Татарстан)</td><td style="text-align:center;">-</td></tr><tr data-row-key="703077" class="ant-table-row ant-table-row-level-0"><td colSpan="1" style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">102608</td><td><a href="/athletes/102608/" class="table-link">МАЛЬЦЕВ Артем</a></td><td style="text-align:center;">1993</td><td style="text-align:center;"><span class="app-table__classification">мсмк</span></td><td>Тюменская область</td><td style="text-align:center;">-</td></tr><tr data-row-key="703078" class="ant-table-row ant-table-row-level-0"><td colSpan="1" style="text-align:center;">-</td><td style="text-align:center;">-</td><td style="text-align:center;">100527</td><td><a href="/athletes/100527/" class="table-link">ДУПЛИН Александр</a></td><td style="text-align:center;">2002</td><td style="text-align:center;"><span class="app-table__classification">мс</span></td><td>Московская область</td><td style="text-align:center;">-</td></tr></tbody></table></div></div></div></div></div></div> <div class="app-table__total">
+
+	Like roller skiing, Кросс should also be on the banned list since it also appears to be roller skiing.
+
+	For the Fuzzymatching let's up it to 80% and is there a way we can match birthyear from local files and with the russian scrape for date?  (and then use the local one in the final version like we do for ID).
+
+
+Examples of distances still getting NA:
+Мужчины - Скиатлон 30 км should be 30 for distance and P for technique
+Мужчины - 15 км КЛ (Пеpсьют) should be 15 and whatever КЛ is for technique
+Мужчины - Скиатлон 30 км should be 30 and P
+Мужчины - Скиатлон 30 км should be 30 and P
+Мужчины - Общий зачет минитура reads Overall Standings so Distance should be 0 (not sure if this one was read incorrectly or the next one since they have the same information)
+Мужчины - 15 км СВ (Пеpсьют) should read 15 and whatever СВ is for technique
+Мужчины - Скиатлон 30 км - 30 and P
+Мужчины - Общий зачет минитура 0 for Distance
+Мужчины - 15 км КЛ (Пeрсьют) - Чистое время 15 and whatever КЛ is for technique
+Мужчины - Общий зачет тура "Большой Вудъявр" should be 0 for Distance
+Мужчины - 10 км КЛ (Пeрсьют) - Чистое время should be 10 and whatever КЛ is for technique
+
+
+
+
+
+
+

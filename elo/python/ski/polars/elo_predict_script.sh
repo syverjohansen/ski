@@ -1,7 +1,9 @@
 #!/bin/bash
 
-# First run update_scrape.py to get the latest data
-#python3 update_scrape.py
+# First run the update scrapers and merge to get the latest combined data:
+#   python3 all_update_scrape.py      # Update FIS data
+#   python3 russia_update_scrape.py   # Update Russia data
+#   python3 merge_scrape.py           # Merge into combined_*_scrape.csv
 
 # Function to generate JSON and run elo_predict script
 run_elo() {
