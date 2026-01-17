@@ -320,7 +320,7 @@ def process_relay_teams(teams: List[Dict], race: pd.Series, gender: str) -> Tupl
     individual_data = []
     
     # Get the ELO scores
-    elo_path = f"~/ski/elo/python/ski/polars/excel365/{gender}_chrono_elevation.csv"
+    elo_path = f"~/ski/elo/python/ski/polars/excel365/{gender}_chrono_pred.csv"
     elo_scores = get_latest_elo_scores(elo_path)
     
     # Get fantasy prices and team prices

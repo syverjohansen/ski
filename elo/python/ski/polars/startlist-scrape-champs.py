@@ -185,7 +185,7 @@ def create_consolidated_individual_championships_startlist(gender: str, races_df
     print(f"Creating consolidated individual startlist for {gender}")
     
     # Get ELO data path (use elevation file like weekend scraper)
-    elo_path = f"~/ski/elo/python/ski/polars/excel365/{gender}_chrono_elevation.csv"
+    elo_path = f"~/ski/elo/python/ski/polars/excel365/{gender}_chrono_pred.csv"
     
     try:
         print("Loading ELO scores...")
@@ -430,7 +430,7 @@ def create_relay_championships_startlist(gender: str, races_df: pd.DataFrame) ->
     os.makedirs("relay/excel365", exist_ok=True)
     
     # Get ELO scores (use elevation file like weekend scraper)
-    elo_path = f"~/ski/elo/python/ski/polars/excel365/{gender}_chrono_elevation.csv"
+    elo_path = f"~/ski/elo/python/ski/polars/excel365/{gender}_chrono_pred.csv"
     
     try:
         print("Loading ELO scores...")

@@ -146,7 +146,7 @@ def process_gender_team_sprint_races(races_df: pd.DataFrame, gender: str) -> Non
     os.makedirs(os.path.dirname(os.path.expanduser(team_output_path)), exist_ok=True)
     
     # Get the ELO scores
-    elo_path = f"~/ski/elo/python/ski/polars/excel365/{gender}_chrono_elevation.csv"
+    elo_path = f"~/ski/elo/python/ski/polars/excel365/{gender}_chrono_pred.csv"
     elo_scores = get_latest_elo_scores(elo_path)
     
     # Get fantasy prices including team prices
@@ -570,7 +570,7 @@ def generate_fallback_data(
     # Rest of the function remains the same
     # ...
     # Get chronos data for finding skiers who competed in the most recent season
-    chronos_path = f"~/ski/elo/python/ski/polars/excel365/{gender}_chrono_elevation.csv"
+    chronos_path = f"~/ski/elo/python/ski/polars/excel365/{gender}_chrono_pred.csv"
     
     # Define Elo columns to work with
     elo_columns = [

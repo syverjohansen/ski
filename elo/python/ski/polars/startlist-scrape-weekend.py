@@ -375,8 +375,8 @@ def process_gender_races(races_df: pd.DataFrame, gender: str, host_nation: str, 
     
     print(f"Probability columns for {gender}: {prob_columns}")
     
-    # Get the ELO path
-    elo_path = f"~/ski/elo/python/ski/polars/excel365/{gender}_chrono_elevation.csv"
+    # Get the ELO path - use chrono_pred for most recent Elo values
+    elo_path = f"~/ski/elo/python/ski/polars/excel365/{gender}_chrono_pred.csv"
     
     # Check base ELO file for existing probability columns
     print(f"\n=== CHECKING BASE ELO FILE ===")

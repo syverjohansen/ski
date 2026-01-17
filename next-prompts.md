@@ -197,3 +197,266 @@ race_scrape.py → races.csv → startlist scrapers → predictions → race-pic
 4. **Documentation**: Inline documentation for complex algorithms
 
 This represents a mature ski prediction system with robust data collection, processing, and prediction capabilities across multiple winter sports disciplines.
+
+---
+
+## Cross-Country Skiing System (Current Focus)
+
+### Overview
+
+The cross-country skiing prediction system consists of:
+1. **Data scraping** (Python): FIS results, Russia results, startlists
+2. **ELO calculations** (Python): elo_predict.py processes ratings
+3. **Chrono files** (Python): chrono_dynamic.py and chrono_predict.py merge all ELO types
+4. **Predictions** (R): weekly-picks2.R and race-picks.R generate probabilities
+
+---
+
+### Data Pipeline Flow
+
+```
+all_scrape.py → all_{gender}_scrape.csv
+     ↓
+russia_scrape.py → russia_{gender}_scrape.csv
+     ↓
+merge_scrape.py → combined_{gender}_scrape.csv (FIS + Russia data)
+     ↓
+elo_predict.py → pred_{gender}.csv, pred_{gender}_{type}.csv (9 ELO types each)
+     ↓
+chrono_predict.py → {gender}_chrono_pred.csv (all ELOs merged)
+     ↓
+startlist-scrape-weekend.py → startlist_weekend_{gender}.csv
+     ↓
+weekly-picks2.R → race probabilities and predictions
+```
+
+---
+
+### Key Files - Python (~/ski/elo/python/ski/polars/)
+
+| File | Purpose |
+|------|---------|
+| `all_scrape.py` | Scrapes all FIS race results |
+| `all_update_scrape.py` | Updates scrape with new races |
+| `russia_scrape.py` | Scrapes Russian ski federation results |
+| `russia_update_scrape.py` | Updates Russia scrape |
+| `merge_scrape.py` | Merges FIS and Russia data into combined files |
+| `elo_predict.py` | Calculates ELO ratings (9 types: overall, distance, sprint, by technique) |
+| `chrono_dynamic.py` | Merges all dyn_* ELO files into {gender}_chrono_dyn.csv |
+| `chrono_predict.py` | Merges all pred_* ELO files into {gender}_chrono_pred.csv |
+| `startlist-scrape-weekend.py` | Scrapes FIS startlists, creates weekend startlist CSVs |
+| `startlist_common.py` | Shared utilities for startlist processing |
+| `config.py` | Nation quotas and additional skiers configuration |
+
+### Key Files - R (~/blog/daehl-e/content/post/cross-country/drafts/)
+
+| File | Purpose |
+|------|---------|
+| `weekly-picks2.R` | Weekend race probability calculations |
+| `race-picks.R` | Individual race predictions |
+
+---
+
+### ELO Types (9 per gender)
+
+1. **Overall**: `pred_{L/M}.csv` → Elo, Pelo
+2. **Distance**: `pred_{L/M}_Distance.csv` → Distance_Elo, Distance_Pelo
+3. **Distance Classic**: `pred_{L/M}_Distance_C.csv` → Distance_C_Elo, Distance_C_Pelo
+4. **Distance Freestyle**: `pred_{L/M}_Distance_F.csv` → Distance_F_Elo, Distance_F_Pelo
+5. **Sprint**: `pred_{L/M}_Sprint.csv` → Sprint_Elo, Sprint_Pelo
+6. **Sprint Classic**: `pred_{L/M}_Sprint_C.csv` → Sprint_C_Elo, Sprint_C_Pelo
+7. **Sprint Freestyle**: `pred_{L/M}_Sprint_F.csv` → Sprint_F_Elo, Sprint_F_Pelo
+8. **Classic**: `pred_{L/M}_C.csv` → Classic_Elo, Classic_Pelo
+9. **Freestyle**: `pred_{L/M}_F.csv` → Freestyle_Elo, Freestyle_Pelo
+
+---
+
+### Recent Fixes Applied
+
+#### 1. Race Probability Fixes in weekly-picks2.R (Lines ~337-420)
+
+**Problem**:
+- FIS list athletes (like Pellegrino) getting probability 0 instead of 1
+- Race2_Prob was 0 for everyone instead of being calculated
+
+**Root Cause**:
+The `config_non_included` block set probabilities to 0 for `Config_Nation && !In_Config` without checking `In_FIS_List`. The preservation check `existing_prob %in% c(0, 1)` preserved ALL 0s including ones that should be calculated.
+
+**Solution Applied**:
+
+1. **config_non_included block** (~line 345): Sets prob=0 ONLY for:
+   ```r
+   config_non_included <- which(startlist$Config_Nation & !startlist$In_Config & !in_fis_list)
+   ```
+
+2. **Preservation logic** (~lines 384-420): Only preserve 0 if:
+   - `prob == 1`: Always keep (confirmed racing)
+   - `prob == 0` AND `Config_Nation && !In_Config && !In_FIS_List`: Keep
+   - `prob == 0` AND `In_Config == TRUE`: Keep (explicit config no list)
+   - Otherwise: Calculate using `get_race_probability()`
+
+**Probability Rules**:
+| Condition | Probability |
+|-----------|-------------|
+| In_FIS_List = TRUE | 1.0 (confirmed racing) |
+| Config athlete with yes list | 1.0 |
+| Config athlete with no list | 0.0 |
+| Config_Nation && !In_Config && !In_FIS_List | 0.0 |
+| Non-config nation athletes | CALCULATE from history |
+| Config athletes without yes/no | CALCULATE from history |
+
+---
+
+#### 2. Elo Score Source Fix in race-picks.R (~line 423-440)
+
+**Problem**:
+`prepare_startlist_data` got Elo scores from `race_df` filtered by distance/technique. If last Sprint Freestyle was 6 months ago, Elo values were outdated.
+
+**Solution**:
+Read Elo scores from chrono_pred files (most recent values):
+
+```r
+chrono_pred_path <- if(gender == "men") {
+  "~/ski/elo/python/ski/polars/excel365/men_chrono_pred.csv"
+} else {
+  "~/ski/elo/python/ski/polars/excel365/ladies_chrono_pred.csv"
+}
+
+most_recent_elos <- chrono_pred %>%
+  filter(ID %in% base_df$ID) %>%
+  group_by(ID) %>%
+  arrange(Date, Season, Race) %>%
+  slice_tail(n = 1) %>%
+  ungroup() %>%
+  dplyr::select(ID, any_of(elo_cols))
+```
+
+**Key Changes**:
+- Uses **ID** instead of Skier for matching (handles duplicate names)
+- Weighted points still come from filtered `race_df` (race-type specific)
+- Join: Elos by ID, points by Skier
+
+---
+
+#### 3. Git Pre-commit Hook for Large Files
+
+**File**: `~/ski/.git/hooks/pre-commit`
+
+Automatically unstages files over 100MB:
+
+```bash
+#!/bin/bash
+MAX_SIZE=104857600  # 100MB in bytes
+staged_files=$(git diff --cached --name-only --diff-filter=ACM)
+
+for file in $staged_files; do
+    if [ -f "$file" ]; then
+        file_size=$(wc -c < "$file" | tr -d ' ')
+        if [ "$file_size" -gt "$MAX_SIZE" ]; then
+            size_mb=$((file_size / 1048576))
+            echo "Removing from commit (>${MAX_SIZE} bytes): $file (${size_mb}MB)"
+            git reset HEAD "$file" >/dev/null 2>&1
+        fi
+    fi
+done
+exit 0
+```
+
+**Also added to .gitignore**:
+```
+# Large chrono files (too big for GitHub)
+elo/python/ski/polars/excel365/ladies_chrono_pred.csv
+elo/python/ski/polars/excel365/men_chrono_pred.csv
+```
+
+---
+
+### Config.py Structure
+
+**Location**: `~/ski/elo/python/ski/polars/config.py`
+
+Contains:
+1. **Nation quotas**: How many athletes each nation can enter
+2. **Additional skiers**: Config for athletes with yes/no race lists
+
+```python
+def get_nation_quota(nation: str, gender: str, is_host: bool = False) -> int:
+    # Returns quota for nation (host nations get +1)
+
+def get_additional_skiers(gender: str) -> Dict[str, List]:
+    # Returns dict of nation -> list of skier entries
+    # Each entry can be string (name) or dict with yes/no lists:
+    # {"name": "Athlete Name", "yes": [1, 2], "no": [3]}
+    # yes = confirmed racing races 1,2
+    # no = confirmed NOT racing race 3
+```
+
+---
+
+### Startlist Processing Flow (startlist-scrape-weekend.py)
+
+1. **Read weekends.csv** for today's races
+2. **For each race**:
+   - Scrape FIS startlist → FIS athletes get prob = 1.0
+   - Add config athletes → prob based on yes/no or None
+   - Add non-config nation athletes from chronos → prob = 0.0 (Python default, R calculates)
+3. **Merge race dataframes** by Skier/ID
+4. **Output**: `startlist_weekend_{gender}.csv`
+
+---
+
+### Relay System (~/ski/elo/python/ski/polars/relay/)
+
+Parallel structure for relay races:
+- `all_scrape.py`, `russia_scrape.py`, `merge_scrape.py`
+- `elo_predict.py`
+- `chrono_dynamic.py`, `chrono_predict.py`
+- `startlist_scrape_weekend_relay.py`, `startlist_scrape_weekend_team_sprint.py`
+
+Output files go to `relay/excel365/`
+
+---
+
+### Running the Pipeline
+
+**Daily update sequence**:
+```bash
+cd ~/ski/elo/python/ski/polars
+
+# 1. Update scrapes
+python all_update_scrape.py
+python russia_update_scrape.py
+python merge_scrape.py
+
+# 2. Calculate ELOs
+python elo_predict.py
+
+# 3. Merge chrono files
+python chrono_predict.py
+
+# 4. Weekend startlists (run on race day)
+python startlist-scrape-weekend.py
+
+# 5. R predictions (called automatically by startlist script)
+# Or manually: Rscript ~/blog/daehl-e/content/post/cross-country/drafts/weekly-picks2.R
+```
+
+---
+
+### Debugging Tips
+
+1. **Check probability columns**: Look for Race1_Prob, Race2_Prob in startlist CSVs
+2. **Verify FIS list status**: In_FIS_List should be TRUE for athletes on FIS startlist
+3. **Config nation check**: Config_Nation = TRUE for major nations in config.py
+4. **In_Config check**: TRUE only if athlete explicitly listed in config
+5. **ELO freshness**: chrono_pred files should have recent dates for active athletes
+
+### Common Issues
+
+| Issue | Cause | Fix |
+|-------|-------|-----|
+| FIS athlete has prob=0 | config_non_included overwrote | Check In_FIS_List flag |
+| Race2_Prob all zeros | Same overwrite issue | Fixed in weekly-picks2.R |
+| Outdated Elo values | Reading from filtered race_df | Fixed in race-picks.R to use chrono_pred |
+| Large file push fails | Files >100MB | Pre-commit hook + .gitignore |
+| Duplicate skier names | Matching by name | Use ID for joins |

@@ -423,8 +423,8 @@ def process_gender_races(races_df: pd.DataFrame, gender: str) -> None:
     all_prob_columns = [f'Race{i+1}_Prob' for i in range(total_gender_races)]
     print(f"All probability columns: {all_prob_columns}")
     
-    # Get the ELO path
-    elo_path = f"~/ski/elo/python/ski/polars/excel365/{gender}_chrono_elevation.csv"
+    # Get the ELO path - use chrono_pred for most recent Elo values
+    elo_path = f"~/ski/elo/python/ski/polars/excel365/{gender}_chrono_pred.csv"
     print(f"Using ELO path: {elo_path}")
     
     # Initialize a consolidated dataframe

@@ -203,7 +203,7 @@ def process_tds_gender_races(races_df: pd.DataFrame, gender: str, host_nation: s
     print(f"Probability columns for {gender}: {prob_columns}")
     
     # Get the ELO path
-    elo_path = f"~/ski/elo/python/ski/polars/excel365/{gender}_chrono_elevation.csv"
+    elo_path = f"~/ski/elo/python/ski/polars/excel365/{gender}_chrono_pred.csv"
     
     # Initialize a consolidated dataframe
     consolidated_df = None

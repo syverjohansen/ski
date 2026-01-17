@@ -732,9 +732,10 @@ if not file_string:
 #print(file_string)
 
 # Load the WC elo data to identify real Elo holders
-# The WC elo file should be based on sex (M.csv or L.csv)
+# Use the type-specific file (e.g., M_Distance_F.csv for Distance Freestyle)
+# This ensures we look up the correct historical Elo values for the specific race type
 sex_value = data.get('sex', 'M')
-wc_elo_path = f"~/ski/elo/python/ski/polars/excel365/{sex_value}.csv"
+wc_elo_path = f"~/ski/elo/python/ski/polars/excel365/{file_string}.csv"
 
 try:
     # Specify schema to avoid inference issues (Distance can be "Sprint", "50", etc.)

@@ -359,8 +359,8 @@ def process_mixed_relay_teams(teams: List[Dict], race: pd.Series) -> Tuple[List[
     individual_data = []
     
     # Get the ELO scores for men and women
-    men_elo_path = "~/ski/elo/python/ski/polars/excel365/men_chrono_elevation.csv"
-    women_elo_path = "~/ski/elo/python/ski/polars/excel365/ladies_chrono_elevation.csv"
+    men_elo_path = "~/ski/elo/python/ski/polars/excel365/men_chrono_pred.csv"
+    women_elo_path = "~/ski/elo/python/ski/polars/excel365/ladies_chrono_pred.csv"
     
     men_elo_scores = get_latest_elo_scores(men_elo_path)
     women_elo_scores = get_latest_elo_scores(women_elo_path)

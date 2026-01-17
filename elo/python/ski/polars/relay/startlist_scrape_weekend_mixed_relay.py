@@ -255,8 +255,8 @@ def process_mixed_relay_races(races_df: pd.DataFrame) -> None:
     os.makedirs(os.path.dirname(os.path.expanduser(team_output_path)), exist_ok=True)
     
     # Get the ELO scores for both genders
-    men_elo_path = "~/ski/elo/python/ski/polars/excel365/men_chrono_elevation.csv"
-    women_elo_path = "~/ski/elo/python/ski/polars/excel365/ladies_chrono_elevation.csv"
+    men_elo_path = "~/ski/elo/python/ski/polars/excel365/men_chrono_pred.csv"
+    women_elo_path = "~/ski/elo/python/ski/polars/excel365/ladies_chrono_pred.csv"
     
     men_elo_scores = get_latest_elo_scores(men_elo_path)
     women_elo_scores = get_latest_elo_scores(women_elo_path)
@@ -943,8 +943,8 @@ def generate_fallback_data(
     ]
     
     # Get chronos data for finding skiers who competed in the most recent season
-    men_chronos_path = "~/ski/elo/python/ski/polars/excel365/men_chrono_elevation.csv"
-    women_chronos_path = "~/ski/elo/python/ski/polars/excel365/ladies_chrono_elevation.csv"
+    men_chronos_path = "~/ski/elo/python/ski/polars/excel365/men_chrono_pred.csv"
+    women_chronos_path = "~/ski/elo/python/ski/polars/excel365/ladies_chrono_pred.csv"
     
     # Define Elo columns to work with
     elo_columns = [

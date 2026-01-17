@@ -21,8 +21,6 @@ MANUAL_NAME_MAPPINGS = {
     'MALONEY WESTGAARD Thomas': 'Thomas Hjalmar Westgård',
     'Lars Michael Saab BJERTNAES':'Lars Michael Bjertnæs',
     'BJERTNAES Lars Michael Saab':  'Lars Michael Bjertnæs',
-    'Anian SOSSAU-DAUBERMANN': 'Anian Sossau',
-    'SOSSAU-DAUBERMANN Anian': 'Anian Sossau',
     'Amund August KORSAETH': 'Amund Korsæth',
     'KORSAETH Amund August': 'Amund Korsæth'
 }
@@ -248,22 +246,36 @@ def get_latest_elo_scores(file_path: str) -> pd.DataFrame:
                                                'Sprint_C_Elo', 'Sprint_F_Elo', 'Classic_Elo', 
                                                'Freestyle_Elo'])
         
-        # Sort by date if available
-# Sort by date if available
+        # Sort by Date, Season, Race if available (handles multiple races per day)
+        sort_cols = []
         if 'Date' in df.columns:
-            df = df.sort_values('Date')
-            # Remove future dates (any date after today)
+            sort_cols.append('Date')
+        if 'Season' in df.columns:
+            sort_cols.append('Season')
+        if 'Race' in df.columns:
+            sort_cols.append('Race')
+
+        if sort_cols:
+            df = df.sort_values(sort_cols)
+
+        # Remove future dates (any date after today)
+        if 'Date' in df.columns:
             today = datetime.now().strftime('%Y-%m-%d')
-            if 'Date' in df.columns:
-                # Convert to datetime for comparison
-                df['DateObj'] = pd.to_datetime(df['Date'], errors='coerce')
-                today_dt = pd.to_datetime(today)
-                # Keep only dates up to and including today
-                df = df[df['DateObj'] <= today_dt]
-                # Drop the temporary DateObj column
-                df = df.drop('DateObj', axis=1)        
-        # Get most recent scores for each athlete
-        if 'Skier' in df.columns:
+            # Convert to datetime for comparison
+            df['DateObj'] = pd.to_datetime(df['Date'], errors='coerce')
+            today_dt = pd.to_datetime(today)
+            # Keep only dates up to and including today
+            df = df[df['DateObj'] <= today_dt]
+            # Drop the temporary DateObj column
+            df = df.drop('DateObj', axis=1)        
+        # Get most recent scores for each athlete (by ID to handle duplicate names)
+        if 'ID' in df.columns:
+            try:
+                latest_scores = df.groupby('ID').last().reset_index()
+            except Exception as group_e:
+                print(f"Error grouping by ID: {group_e}")
+                latest_scores = df  # Use full dataset if grouping fails
+        elif 'Skier' in df.columns:
             try:
                 latest_scores = df.groupby('Skier').last().reset_index()
             except Exception as group_e:
