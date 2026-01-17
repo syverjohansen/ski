@@ -772,7 +772,7 @@ def construct_historical_df(tables, results_data, sex):
         return None
 
 
-def save_dataframes(men_df, ladies_df, base_path="~/ski/elo/python/ski/polars/excel365"):
+def save_dataframes(men_df, ladies_df, base_path="~/ski/elo/python/ski/polars/relay/excel365"):
     """Save DataFrames to CSV formats"""
     try:
         if men_df is not None:

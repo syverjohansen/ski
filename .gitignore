@@ -34,3 +34,7 @@ venv/
 env/
 myenv/
 EOF
+
+# Large chrono files (too big for GitHub)
+elo/python/ski/polars/excel365/ladies_chrono_pred.csv
+elo/python/ski/polars/excel365/men_chrono_pred.csv

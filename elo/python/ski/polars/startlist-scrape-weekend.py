@@ -652,12 +652,23 @@ def create_weekend_startlist(fis_url: str, elo_path: str, gender: str,
             data.append(row_data)
             processed_names.add(original_name)
         
+        # Extract current race number from prob_column (e.g., 'Race1_Prob' -> 1)
+        current_race_num = int(prob_column.replace('Race', '').replace('_Prob', '')) if prob_column else None
+
         # Process additional skiers from config
         for nation, skiers in ADDITIONAL_SKIERS.items():
             print(f"\nProcessing additional skiers for {nation}")
             for skier_entry in skiers:
-                name = skier_entry if isinstance(skier_entry, str) else skier_entry['name']
-                
+                # Handle both string format and dict format with yes/no lists
+                if isinstance(skier_entry, str):
+                    name = skier_entry
+                    yes_races = []  # Empty = no confirmed races
+                    no_races = []   # Empty = no confirmed non-races
+                else:
+                    name = skier_entry['name']
+                    yes_races = skier_entry.get('yes', [])  # Confirmed racing
+                    no_races = skier_entry.get('no', [])    # Confirmed NOT racing
+
                 print(f"\nProcessing additional skier: {name}")
                 
                 if name in processed_names:
@@ -720,13 +731,19 @@ def create_weekend_startlist(fis_url: str, elo_path: str, gender: str,
                     'Quota': total_quota
                 }
                 
-                # Set race probability
+                # Set race probability based on yes/no lists
+                # yes = confirmed racing (1.0), no = confirmed NOT racing (0.0), neither = calculate (None/NA)
                 if prob_column:
-                    row_data[prob_column] = 0.0  # Not in FIS list = 0% for this race
-                
+                    if current_race_num in yes_races:
+                        row_data[prob_column] = 1.0  # Confirmed racing this race
+                    elif current_race_num in no_races:
+                        row_data[prob_column] = 0.0  # Confirmed NOT racing this race
+                    else:
+                        row_data[prob_column] = None  # Unknown - R will calculate from history
+
                 data.append(row_data)
                 processed_names.add(original_name)
-        
+
         # Add processing for additional skiers from chronos data
         try:
             # Get chronos data for finding additional national skiers
