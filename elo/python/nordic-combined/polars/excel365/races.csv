@@ -19,12 +19,12 @@ Date,Startlist,Sex,City,Country,Distance,RaceType,Period,Elevation,Championship,
 01/17/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3511,L,Oberhof,Germany,1005.0,IndividualCompact,3,728,0,8
 01/18/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3514,M,Oberhof,Germany,10.0,Individual,3,728,0,11
 01/18/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3513,L,Oberhof,Germany,5.0,Individual,3,728,0,9
-01/30/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3518,M,Seefeld,Austria,10.0,Mass Start,3,1203,0,12
-01/30/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3517,L,Seefeld,Austria,5.0,Mass Start,4,1203,0,10
-01/31/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3520,M,Seefeld,Austria,7.5,IndividualCompact,3,1203,0,13
-01/31/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3519,L,Seefeld,Austria,5.0,IndividualCompact,4,1203,0,11
-02/01/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3522,M,Seefeld,Austria,12.5,Individual,3,1203,0,14
-02/01/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3521,L,Seefeld,Austria,7.5,Individual,4,1203,0,12
+01/30/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3518,M,Seefeld,Austria,0,Mass Start,3,1203,0,12
+01/30/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3517,L,Seefeld,Austria,0,Mass Start,4,1203,0,10
+01/31/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3520,M,Seefeld,Austria,5,IndividualCompact,3,1203,0,13
+01/31/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3519,L,Seefeld,Austria,0,IndividualCompact,4,1203,0,11
+02/01/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3522,M,Seefeld,Austria,5,Individual,3,1203,0,14
+02/01/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3521,L,Seefeld,Austria,5,Individual,4,1203,0,12
 02/11/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3534,M,Milano Cortina,Italy,10.0,Individual,4,1082,1,15
 02/17/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3535,M,Milano Cortina,Italy,10.0,Individual,4,1082,1,16
 02/19/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3536,M,Milano Cortina,Italy,N/A,Team Sprint,4,1082,1,17
