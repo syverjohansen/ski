@@ -1,139 +1,143 @@
 Skier,ID,Nation,Ranking,Points,Wins
-Marco Odermatt,3040,Switzerland,1,955,6
-Lucas Pinheiro Braathen,4748,Brazil,2,538,1
-Atle Lie McGrath,4711,Norway,3,478,1
-Marco Schwarz,2561,Austria,4,466,2
-Henrik Kristoffersen,2391,Norway,5,456,0
-Timon Haugan,3049,Norway,6,450,1
-Loic Meillard,2565,Switzerland,7,444,1
-Paco Rassat,5371,France,8,340,2
-Franjo Von Allmen,5674,Switzerland,9,319,1
-Clement Noel,2758,France,10,314,1
-Alex Vinatzer,4040,Italy,10,314,0
-Stefan Brennsteiner,2436,Austria,12,305,1
-Vincent Kriechmayr,1912,Austria,13,283,1
-Dominik Paris,91,Italy,14,265,0
-Raphael Haaser,4221,Austria,15,254,0
-Eduard Hallberg,6820,Finland,16,234,0
-River Radamus,2986,USA,17,227,0
-Nils Allegre,2395,France,18,188,0
-Alexis Monney,5493,Switzerland,19,185,0
-Giovanni Franzoni,5497,Italy,20,174,0
-Stefan Rogentin,3505,Switzerland,21,165,0
-Armand Marchant,2603,Belgium,22,161,0
-Luca Aerni,2392,Switzerland,23,159,0
-Steven Amiez,5409,France,24,154,0
-Tanguy Nef,3065,Switzerland,25,149,0
-Ryan Cochran-Siegle,1918,USA,26,146,0
-Jan Zabystran,2719,Czechia,27,138,1
-Stefan Babinsky,3039,Austria,28,134,0
-Florian Schieder,3043,Italy,28,134,0
-Fabian Gratz,4358,Germany,30,130,0
-Fredrik Møller,5758,Norway,31,126,0
-Zan Kranjec,1942,Slovenia,32,125,0
-Leo Anguenot,2997,France,33,124,0
-Sam Maes,3002,Belgium,34,123,0
-Eirik Hystad Solberg,6716,Norway,34,123,0
-Mattia Casse,158,Italy,36,114,0
-Thomas Tumler,2409,Switzerland,37,109,0
-Lukas Feurstein,5336,Austria,38,108,0
-Daniel Hemetsberger,4605,Austria,38,108,0
-Victor Muffat-Jeandet,2024,France,38,108,0
-Alexis Pinturault,232,France,41,103,0
-Oscar Andreas Sandvik,6803,Norway,41,103,0
-Michael Matt,2481,Austria,43,102,0
-Manuel Feller,2396,Austria,44,97,0
-Filip Zubcic,249,Croatia,45,96,0
-Nils Alphand,4310,France,46,95,0
-Thibaut Favrot,2493,France,46,95,0
-Laurie Taylor,4143,Great Britain,48,94,0
-Adrian Smiseth Sejersted,2386,Norway,49,91,0
-Albert Popov,2597,Bulgaria,50,81,0
-Linus Strasser,1932,Germany,51,80,0
-Dave Ryding,2375,Great Britain,52,78,0
-Fabio Gstrein,3066,Austria,53,77,0
-Stefan Eichberger,5604,Austria,54,76,0
-Simon Jocher,4305,Germany,54,76,0
-Patrick Feurstein,5295,Austria,56,75,0
-Guglielmo Bosca,2413,Italy,57,74,0
-Christof Innerhofer,13,Italy,57,74,0
-Elian Lehto,4054,Finland,59,72,0
-Tommaso Sala,2588,Italy,60,71,0
-Alessio Miggiano,5726,Switzerland,61,68,0
-Kyle Negomir,4714,USA,62,65,0
-James Crawford,2720,Canada,63,63,0
-Marco Kohler,3045,Switzerland,63,63,0
-Samuel Kolega,3029,Croatia,63,63,0
-Alban Elezi Cannaferina,5693,France,66,60,0
-Joan Verdu Sanchez,2551,Andorra,66,60,0
-Alexander Schmid,2410,Germany,68,59,0
-Niels Hintermann,2768,Switzerland,69,58,0
-Justin Murisier,67,Switzerland,69,58,0
-Dominik Raschner,2639,Austria,69,58,0
-Cameron Alexander,4306,Canada,72,56,0
-Daniel Yule,2404,Switzerland,73,53,0
-Matthieu Bailet,2742,France,74,48,0
-Miha Hrobat,2633,Slovenia,75,47,0
-Brodie Seger,2711,Canada,75,47,0
-Joshua Sturm,5399,Austria,77,46,0
-Anton Grammel,3004,Germany,78,45,0
-Flavio Vitale,7093,France,79,43,0
-Hans Grahl-Madsen,6712,Norway,80,40,0
-Billy Major,2607,Great Britain,81,37,0
-Loevan Parand,5340,France,82,36,0
-Johannes Strolz,2401,Austria,82,36,0
-Romed Baumann,10,Germany,84,35,0
-Aleksander Aamodt Kilde,2393,Norway,84,35,0
-Adrien Theaux,19,France,84,35,0
-Luca De Aliprandini,1799,Italy,87,32,0
-Tobias Kastlunger,5321,Italy,87,32,0
-Ryder Sarchett,6284,USA,87,32,0
-Jonas Stockinger,3030,Germany,87,32,0
-Matthias Iten,4712,Switzerland,91,30,0
-Benjamin Jacques Alliod,5631,Italy,92,29,0
-Maxence Muzaton,1990,France,93,28,0
-Fabian Ax Swartz,6700,Sweden,94,26,0
-Filippo Della Vite,5526,Italy,94,26,0
-Auguste Aulnette,5430,France,96,24,0
-Andreas Ploier,4998,Austria,96,24,0
-Riley Seger,4304,Canada,96,24,0
-Stefan Rieser,5303,Austria,99,23,0
-Hugo Desgrippes,5508,France,100,22,0
-Simon Rueland,3725,Austria,100,22,0
-Ramon Zenhäusern,2427,Switzerland,100,22,0
-Giovanni Borsotti,114,Italy,103,20,0
-Joaquim Salarich,2697,Spain,103,20,0
-Vincent Wieser,5486,Austria,103,20,0
-Jeffrey Read,2208,Canada,106,19,0
-Blaise Giezendanner,2476,France,107,18,0
-Antoine Azzolin,6717,France,108,15,0
-Albert Ortega,4313,Spain,109,14,0
-Bryce Bennett,2387,USA,110,13,0
-Lenz Hächler,6883,Switzerland,111,12,0
-Yohei Koyama,2447,Japan,111,12,0
-Luis Vogt,5613,Germany,111,12,0
-Sam Alphand,4183,France,114,11,0
-Tormis Laine,4056,Estonia,114,11,0
-Raphael Lessard,5312,Canada,114,11,0
-Matteo Canins,4739,Italy,117,10,0
-William Hansson,5403,Sweden,118,8,0
-Nicolo Molteni,4296,Italy,118,8,0
-Sam Morse,2636,USA,118,8,0
-Aleix Aubert Serracanta,6824,Spain,121,7,0
-Sebastian Holzmann,2425,Germany,121,7,0
-Marc Rochat,2812,Switzerland,121,7,0
-Shiro Aihara,4980,Japan,124,6,0
-Jared Goldberg,2445,USA,124,6,0
-Henrik Von Appen,2505,Chile,124,6,0
-Cooper Puckett,5567,USA,127,5,0
-Lars Rösti,4300,Switzerland,127,5,0
-Nejc Naralocnik,3001,Slovenia,129,4,0
-Erik Read,1920,Canada,129,4,0
-George Steffey,4295,USA,129,4,0
-Corrado Barbera,5644,Italy,132,3,0
-Livio Hiltbrand,7095,Switzerland,132,3,0
-Jesper Pohjolainen,5401,Finland,132,3,0
-Andreas Zampa,1973,Slovakia,132,3,0
-Max Perathoner,6656,Italy,136,2,0
-Jett Seymour,4992,USA,136,2,0
-Felix Monsén,2567,Sweden,138,1,0
+Marco Odermatt,3040,Switzerland,1,1105,7
+Lucas Pinheiro Braathen,4748,Brazil,2,618,1
+Atle Lie McGrath,4711,Norway,3,578,2
+Henrik Kristoffersen,2391,Norway,4,516,0
+Loic Meillard,2565,Switzerland,5,503,1
+Timon Haugan,3049,Norway,6,495,1
+Marco Schwarz,2561,Austria,7,466,2
+Franjo Von Allmen,5674,Switzerland,8,429,1
+Vincent Kriechmayr,1912,Austria,9,385,1
+Clement Noel,2758,France,10,343,1
+Paco Rassat,5371,France,11,340,2
+Giovanni Franzoni,5497,Italy,12,334,1
+Alex Vinatzer,4040,Italy,12,334,0
+Raphael Haaser,4221,Austria,14,311,0
+Stefan Brennsteiner,2436,Austria,15,305,1
+Dominik Paris,91,Italy,15,305,0
+Nils Allegre,2395,France,17,243,0
+Alexis Monney,5493,Switzerland,18,242,0
+Eduard Hallberg,6820,Finland,19,234,0
+River Radamus,2986,USA,20,232,0
+Stefan Rogentin,3505,Switzerland,21,219,0
+Stefan Babinsky,3039,Austria,22,214,0
+Ryan Cochran-Siegle,1918,USA,23,202,0
+Armand Marchant,2603,Belgium,24,167,0
+Daniel Hemetsberger,4605,Austria,25,164,0
+Florian Schieder,3043,Italy,26,162,0
+Luca Aerni,2392,Switzerland,27,159,0
+Jan Zabystran,2719,Czechia,28,156,1
+Steven Amiez,5409,France,29,154,0
+Mattia Casse,158,Italy,30,149,0
+Tanguy Nef,3065,Switzerland,30,149,0
+Eirik Hystad Solberg,6716,Norway,30,149,0
+Michael Matt,2481,Austria,33,138,0
+Sam Maes,3002,Belgium,34,133,0
+Filip Zubcic,249,Croatia,35,132,0
+Fabian Gratz,4358,Germany,36,130,0
+Lukas Feurstein,5336,Austria,37,128,0
+Victor Muffat-Jeandet,2024,France,38,126,0
+Fredrik Møller,5758,Norway,38,126,0
+Zan Kranjec,1942,Slovenia,40,125,0
+Leo Anguenot,2997,France,41,124,0
+Manuel Feller,2396,Austria,42,121,0
+Adrian Smiseth Sejersted,2386,Norway,43,120,0
+Oscar Andreas Sandvik,6803,Norway,44,111,0
+Christof Innerhofer,13,Italy,45,110,0
+Thomas Tumler,2409,Switzerland,46,109,0
+Linus Strasser,1932,Germany,47,104,0
+Alexis Pinturault,232,France,48,103,0
+Cameron Alexander,4306,Canada,49,99,0
+Nils Alphand,4310,France,50,95,0
+Thibaut Favrot,2493,France,50,95,0
+Laurie Taylor,4143,Great Britain,52,94,0
+Simon Jocher,4305,Germany,53,89,0
+Fabio Gstrein,3066,Austria,54,88,0
+Marco Kohler,3045,Switzerland,55,84,0
+Albert Popov,2597,Bulgaria,56,81,0
+Kyle Negomir,4714,USA,57,80,0
+James Crawford,2720,Canada,58,79,0
+Dave Ryding,2375,Great Britain,59,78,0
+Stefan Eichberger,5604,Austria,60,76,0
+Tommaso Sala,2588,Italy,60,76,0
+Patrick Feurstein,5295,Austria,62,75,0
+Justin Murisier,67,Switzerland,62,75,0
+Guglielmo Bosca,2413,Italy,64,74,0
+Elian Lehto,4054,Finland,64,74,0
+Matthias Iten,4712,Switzerland,66,70,0
+Niels Hintermann,2768,Switzerland,67,68,0
+Alessio Miggiano,5726,Switzerland,67,68,0
+Daniel Yule,2404,Switzerland,69,66,0
+Alban Elezi Cannaferina,5693,France,70,64,0
+Samuel Kolega,3029,Croatia,71,63,0
+Joshua Sturm,5399,Austria,72,61,0
+Joan Verdu Sanchez,2551,Andorra,73,60,0
+Alexander Schmid,2410,Germany,74,59,0
+Dominik Raschner,2639,Austria,75,58,0
+Hans Grahl-Madsen,6712,Norway,76,54,0
+Miha Hrobat,2633,Slovenia,76,54,0
+Maxence Muzaton,1990,France,78,52,0
+Benjamin Jacques Alliod,5631,Italy,79,50,0
+Matthieu Bailet,2742,France,80,48,0
+Brodie Seger,2711,Canada,81,47,0
+Anton Grammel,3004,Germany,82,45,0
+Andreas Ploier,4998,Austria,83,44,0
+Flavio Vitale,7093,France,84,43,0
+Johannes Strolz,2401,Austria,85,39,0
+Billy Major,2607,Great Britain,86,37,0
+Loevan Parand,5340,France,87,36,0
+Fabian Ax Swartz,6700,Sweden,88,35,0
+Romed Baumann,10,Germany,88,35,0
+Aleksander Aamodt Kilde,2393,Norway,88,35,0
+Adrien Theaux,19,France,88,35,0
+Luca De Aliprandini,1799,Italy,92,32,0
+Tobias Kastlunger,5321,Italy,92,32,0
+Ryder Sarchett,6284,USA,92,32,0
+Jonas Stockinger,3030,Germany,92,32,0
+Filippo Della Vite,5526,Italy,96,26,0
+Riley Seger,4304,Canada,96,26,0
+Auguste Aulnette,5430,France,98,24,0
+Bryce Bennett,2387,USA,98,24,0
+Sam Morse,2636,USA,98,24,0
+Stefan Rieser,5303,Austria,101,23,0
+Hugo Desgrippes,5508,France,102,22,0
+Simon Rueland,3725,Austria,102,22,0
+Ramon Zenhäusern,2427,Switzerland,102,22,0
+Henrik Von Appen,2505,Chile,105,21,0
+Giovanni Borsotti,114,Italy,106,20,0
+Joaquim Salarich,2697,Spain,106,20,0
+Vincent Wieser,5486,Austria,106,20,0
+Sam Alphand,4183,France,109,19,0
+Jeffrey Read,2208,Canada,109,19,0
+Blaise Giezendanner,2476,France,111,18,0
+Adrian Pertl,4172,Austria,111,18,0
+Antoine Azzolin,6717,France,113,15,0
+Sebastian Holzmann,2425,Germany,114,14,0
+Albert Ortega,4313,Spain,114,14,0
+Martin Cater,1919,Slovenia,116,13,0
+Lenz Hächler,6883,Switzerland,117,12,0
+Yohei Koyama,2447,Japan,117,12,0
+Istok Rodes,2454,Croatia,117,12,0
+Luis Vogt,5613,Germany,117,12,0
+Tormis Laine,4056,Estonia,121,11,0
+Raphael Lessard,5312,Canada,121,11,0
+Matteo Canins,4739,Italy,123,10,0
+William Hansson,5403,Sweden,124,8,0
+Nicolo Molteni,4296,Italy,124,8,0
+Aleix Aubert Serracanta,6824,Spain,126,7,0
+Marc Rochat,2812,Switzerland,126,7,0
+Shiro Aihara,4980,Japan,128,6,0
+Jared Goldberg,2445,USA,128,6,0
+Lars Rösti,4300,Switzerland,128,6,0
+Cooper Puckett,5567,USA,131,5,0
+Nejc Naralocnik,3001,Slovenia,132,4,0
+Erik Read,1920,Canada,132,4,0
+George Steffey,4295,USA,132,4,0
+Gustav Wissting,7109,Sweden,132,4,0
+Corrado Barbera,5644,Italy,136,3,0
+Livio Hiltbrand,7095,Switzerland,136,3,0
+Jesper Pohjolainen,5401,Finland,136,3,0
+Andreas Zampa,1973,Slovakia,136,3,0
+Max Perathoner,6656,Italy,140,2,0
+Jett Seymour,4992,USA,140,2,0
+Felix Monsén,2567,Sweden,142,1,0
