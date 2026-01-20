@@ -14,8 +14,6 @@ MANUAL_NAME_MAPPINGS = {
     'Thomas MALONEY WESTGAARD': 'Thomas Hjalmar Westgård',
     'John Steel HAGENBUCH': 'Johnny Hagenbuch',
     'Imanol ROJO GARCIA': 'Imanol Rojo',
-    'Sammy SMITH': 'Samantha Smith',
-    'SMITH Sammy': 'Samantha Smith',
     'JC SCHOONMAKER': 'James Clinton Schoonmaker',
     'HAGENBUCH John Steel': 'Johnny Hagenbuch',
     'MALONEY WESTGAARD Thomas': 'Thomas Hjalmar Westgård',
