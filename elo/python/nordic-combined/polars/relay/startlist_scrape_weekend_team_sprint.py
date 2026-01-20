@@ -78,7 +78,7 @@ def process_gender_team_sprint_races(races_df: pd.DataFrame, gender: str) -> Non
     os.makedirs(os.path.dirname(os.path.expanduser(team_output_path)), exist_ok=True)
     
     # Get the ELO scores
-    elo_path = f"~/ski/elo/python/nordic-combined/polars/excel365/{gender}_chrono.csv"
+    elo_path = f"~/ski/elo/python/nordic-combined/polars/excel365/{gender}_chrono_pred.csv"
     elo_scores = get_latest_elo_scores(elo_path)
     
     # Process each team sprint race

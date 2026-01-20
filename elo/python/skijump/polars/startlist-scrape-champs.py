@@ -112,7 +112,7 @@ def create_individual_championships_startlist(gender: str, races_df: pd.DataFram
     print(f"Creating individual startlist for {gender}")
     
     # Get ELO data path (using individual elevation data)
-    elo_path = f"~/ski/elo/python/skijump/polars/excel365/{gender}_chrono_elevation.csv"
+    elo_path = f"~/ski/elo/python/skijump/polars/excel365/{gender}_chrono_pred.csv"
     
     try:
         print("Loading ELO scores...")
@@ -229,7 +229,7 @@ def create_team_championships_startlist(gender: str, races_df: pd.DataFrame) -> 
     print(f"Creating team startlist for {gender}")
     
     # Use individual ELO data (like weekend scraper does)
-    elo_path = f"~/ski/elo/python/skijump/polars/excel365/{gender}_chrono_elevation.csv"
+    elo_path = f"~/ski/elo/python/skijump/polars/excel365/{gender}_chrono_pred.csv"
     
     try:
         print("Loading ELO scores...")
@@ -324,10 +324,10 @@ def create_mixed_team_championships_startlist(races_df: pd.DataFrame) -> None:
     # Load both gender ELO data
     try:
         print("Loading men's ELO scores...")
-        men_elo = get_latest_elo_scores("~/ski/elo/python/skijump/polars/excel365/men_chrono_elevation.csv")
+        men_elo = get_latest_elo_scores("~/ski/elo/python/skijump/polars/excel365/men_chrono_pred.csv")
         
         print("Loading ladies' ELO scores...")
-        ladies_elo = get_latest_elo_scores("~/ski/elo/python/skijump/polars/excel365/ladies_chrono_elevation.csv")
+        ladies_elo = get_latest_elo_scores("~/ski/elo/python/skijump/polars/excel365/ladies_chrono_pred.csv")
         
         if men_elo is None or men_elo.empty or ladies_elo is None or ladies_elo.empty:
             print("Missing ELO data for mixed teams")

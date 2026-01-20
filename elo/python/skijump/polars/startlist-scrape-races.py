@@ -236,7 +236,7 @@ def create_season_startlist(elo_path: str, race_info: pd.Series, gender: str,
         print(f"Creating season startlist for {race_type} in {city}, {country} (Hill: {hill_size})")
         
         # Get chronological data to find current season skiers
-        chrono_path = f"~/ski/elo/python/skijump/polars/excel365/{gender}_chrono.csv"
+        chrono_path = f"~/ski/elo/python/skijump/polars/excel365/{gender}_chrono_pred.csv"
         try:
             # First try to read chronological data
             chrono_df = pd.read_csv(chrono_path)
@@ -510,7 +510,7 @@ def process_gender_races(races_df: pd.DataFrame, gender: str, host_nation: str) 
     print(f"All probability columns: {all_prob_columns}")
     
     # Get the ELO path
-    elo_path = f"~/ski/elo/python/skijump/polars/excel365/{gender}_chrono.csv"
+    elo_path = f"~/ski/elo/python/skijump/polars/excel365/{gender}_chrono_pred.csv"
     
     # Initialize a consolidated dataframe
     consolidated_df = None

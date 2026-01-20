@@ -75,7 +75,7 @@ def process_gender_relay_races(races_df: pd.DataFrame, gender: str) -> None:
     os.makedirs(os.path.dirname(os.path.expanduser(team_output_path)), exist_ok=True)
     
     # Get the ELO scores
-    elo_path = f"~/ski/elo/python/biathlon/polars/excel365/{gender}_chrono.csv"
+    elo_path = f"~/ski/elo/python/biathlon/polars/relay/excel365/{gender}_chrono_pred.csv"
     elo_scores = get_latest_elo_scores(elo_path)
     
     # Process each relay race
@@ -154,7 +154,7 @@ def process_relay_teams(teams: List[Dict], race: pd.Series, gender: str) -> List
     team_data = []
     
     # Get the ELO scores
-    elo_path = f"~/ski/elo/python/biathlon/polars/excel365/{gender}_chrono.csv"
+    elo_path = f"~/ski/elo/python/biathlon/polars/relay/excel365/{gender}_chrono_pred.csv"
     elo_scores = get_latest_elo_scores(elo_path)
     
     # Define Elo columns to work with

@@ -80,7 +80,7 @@ def create_simple_championships_startlist(gender: str, races_df: pd.DataFrame) -
     print(f"Creating simple startlist for {gender}")
     
     # Get ELO data path
-    elo_path = f"~/ski/elo/python/alpine/polars/excel365/{gender}_chrono.csv"
+    elo_path = f"~/ski/elo/python/alpine/polars/excel365/{gender}_chrono_pred.csv"
     
     try:
         print("Loading ELO scores...")

@@ -898,7 +898,7 @@ def get_gender_specific_elo_scores(gender: str, base_path: str = None) -> pd.Dat
     
     # Construct path if not provided
     if base_path is None:
-        base_path = f"~/ski/elo/python/nordic-combined/polars/excel365/{gender_normalized}_chrono.csv"
+        base_path = f"~/ski/elo/python/nordic-combined/polars/excel365/{gender_normalized}_chrono_pred.csv"
     
     return get_latest_elo_scores(base_path)
 

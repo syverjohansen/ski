@@ -65,7 +65,7 @@ def main():
     elevation_csv = os.path.join(excel365_dir, 'elevation.csv')
     
     # Output files
-    mens_output = os.path.join(excel365_dir, 'men_chrono_elevation.csv')
+    mens_output = os.path.join(excel365_dir, 'men_chrono_pred_elevation.csv')
     ladies_output = os.path.join(excel365_dir, 'ladies_chrono_elevation.csv')
     
     # Read elevation data
