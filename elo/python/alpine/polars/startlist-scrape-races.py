@@ -239,7 +239,7 @@ def create_season_startlist(elo_path: str, race_info: pd.Series, gender: str,
             }
             
             # Add ELO columns for alpine skiing (using correct column names with dots)
-            for col in ['Elo', 'Downhill_Elo', 'Super.G_Elo', 'Giant.Slalom_Elo', 'Slalom_Elo', 'Combined_Elo', 'Tech_Elo', 'Speed_Elo']:
+            for col in ['Elo', 'Downhill_Elo', 'Super G_Elo', 'Giant Slalom_Elo', 'Slalom_Elo', 'Combined_Elo', 'Tech_Elo', 'Speed_Elo']:
                 if col in elo_data:
                     row_data[col] = elo_data.get(col)
             
@@ -363,7 +363,7 @@ def create_race_startlist(race_id: str, elo_path: str, race_info: pd.Series, gen
             }
             
             # Add ELO columns if available (using correct column names with dots)
-            for col in ['Elo', 'Downhill_Elo', 'Super.G_Elo', 'Giant.Slalom_Elo', 'Slalom_Elo', 'Combined_Elo', 'Tech_Elo', 'Speed_Elo']:
+            for col in ['Elo', 'Downhill_Elo', 'Super G_Elo', 'Giant Slalom_Elo', 'Slalom_Elo', 'Combined_Elo', 'Tech_Elo', 'Speed_Elo']:
                 if col in elo_data:
                     row_data[col] = elo_data.get(col)
             

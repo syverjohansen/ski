@@ -563,15 +563,33 @@ df = pl.DataFrame()
 json_str = sys.argv[1]
 data = json.loads(json_str)
 
-# Build file string and apply filters
-file_string = ""
-file_string += data.get('sex', '')
+# Build file strings for WC elo lookup and output
+# WC elo files use abbreviated names (SuperG, GS, SL)
+# Output files use original names with underscores (Super_G, Giant_Slalom, Slalom)
+wc_file_string = ""
+output_file_string = ""
+wc_file_string += data.get('sex', '')
+output_file_string += data.get('sex', '')
+
+# Mapping from all_scrape Distance names to WC elo file naming convention
+distance_to_wc_filename = {
+    "Super G": "SuperG",
+    "Giant Slalom": "GS",
+    "Slalom": "SL",
+    "Downhill": "Downhill",
+    "Combined": "Combined",
+    "Speed": "Speed",
+    "Tech": "Tech"
+}
 
 # Add distance if specified
 if data.get('distance') not in (None, "null"):
     distance_str = data.get('distance')
-    distance_str = distance_str.replace(" ", "_")
-    file_string += f"_{distance_str}"
+    # WC file uses abbreviated names
+    wc_distance_str = distance_to_wc_filename.get(distance_str, distance_str.replace(" ", "_"))
+    wc_file_string += f"_{wc_distance_str}"
+    # Output file uses original names with underscores
+    output_file_string += f"_{distance_str.replace(' ', '_')}"
 
 # Apply all filters
 for key, value in data.items():
@@ -580,7 +598,7 @@ for key, value in data.items():
 
 # Load the WC elo data to identify real Elo holders
 # Use the regular WC elo file (from elo.py, not all_elo.py)
-wc_elo_path = os.path.expanduser(f"~/ski/elo/python/alpine/polars/excel365/{file_string}.csv")
+wc_elo_path = os.path.expanduser(f"~/ski/elo/python/alpine/polars/excel365/{wc_file_string}.csv")
 
 try:
     wc_elo_df = pl.read_csv(
@@ -608,6 +626,6 @@ elo_df = elo(df, wc_elo_df)
 base_path = os.path.expanduser("~/ski/elo/python/alpine/polars/excel365")
 
 # Save CSV format with dyn_ prefix to distinguish from WC elo and pred files
-elo_df.write_csv(f"{base_path}/dyn_{file_string}.csv")
-print(f"Saved to {base_path}/dyn_{file_string}.csv")
+elo_df.write_csv(f"{base_path}/dyn_{output_file_string}.csv")
+print(f"Saved to {base_path}/dyn_{output_file_string}.csv")
 print(time.time() - start_time)

@@ -491,8 +491,19 @@ def elo(df, wc_elo_df, base_elo=1300, K=1, discount=.85):
     # Initialize pred_id_dict: predicted Elo for all skiers (starts at 1300)
     pred_id_dict = {k: 1300.0 for k in id_dict_list}
 
-    # Calculate max_racers using Polars aggregation
-    max_racers = df.group_by('Season').agg(pl.len().alias('count'))['count'].max()
+    # Calculate K values from WC data for each season (for consistency with base ELO)
+    k_values = {}
+    if wc_elo_df is not None and not wc_elo_df.is_empty():
+        # Filter out end-of-season markers (Race == 0) - only count actual races
+        wc_races_only = wc_elo_df.filter(pl.col('Race') != 0)
+        wc_season_counts = wc_races_only.group_by('Season').agg(pl.len().alias('count'))
+        wc_max_racers = wc_season_counts['count'].max()
+        for row in wc_season_counts.iter_rows():
+            season, count = row
+            k = float(wc_max_racers / count)
+            k = min(k, 5)
+            k = max(k, 1)
+            k_values[season] = k
 
     # Get list of seasons
     seasons = df['Season'].unique().sort().to_list()
@@ -506,7 +517,8 @@ def elo(df, wc_elo_df, base_elo=1300, K=1, discount=.85):
     for season_idx, season_year in enumerate(seasons):
         season_df = df_by_season[season_year]
 
-        K = k_finder(season_df, max_racers)
+        # Get K from WC-based values; default to 5 if no WC races in this season
+        K = k_values.get(season_year, 5)
         print(f"({season_year}, {K})")
 
         # Partition season data by race
@@ -595,15 +607,33 @@ df = pl.DataFrame()
 json_str = sys.argv[1]
 data = json.loads(json_str)
 
-# Build file string and apply filters
-file_string = ""
-file_string += data.get('sex', '')
+# Build file strings for WC elo lookup and output
+# WC elo files use abbreviated names (SuperG, GS, SL)
+# Output files use original names with underscores (Super_G, Giant_Slalom, Slalom)
+wc_file_string = ""
+output_file_string = ""
+wc_file_string += data.get('sex', '')
+output_file_string += data.get('sex', '')
+
+# Mapping from all_scrape Distance names to WC elo file naming convention
+distance_to_wc_filename = {
+    "Super G": "SuperG",
+    "Giant Slalom": "GS",
+    "Slalom": "SL",
+    "Downhill": "Downhill",
+    "Combined": "Combined",
+    "Speed": "Speed",
+    "Tech": "Tech"
+}
 
 # Add distance if specified
 if data.get('distance') not in (None, "null"):
     distance_str = data.get('distance')
-    distance_str = distance_str.replace(" ", "_")
-    file_string += f"_{distance_str}"
+    # WC file uses abbreviated names
+    wc_distance_str = distance_to_wc_filename.get(distance_str, distance_str.replace(" ", "_"))
+    wc_file_string += f"_{wc_distance_str}"
+    # Output file uses original names with underscores
+    output_file_string += f"_{distance_str.replace(' ', '_')}"
 
 # Apply all filters
 for key, value in data.items():
@@ -612,7 +642,7 @@ for key, value in data.items():
 
 # Load the WC elo data to identify real Elo holders
 # Use the regular WC elo file (from elo.py, not all_elo.py)
-wc_elo_path = os.path.expanduser(f"~/ski/elo/python/alpine/polars/excel365/{file_string}.csv")
+wc_elo_path = os.path.expanduser(f"~/ski/elo/python/alpine/polars/excel365/{wc_file_string}.csv")
 
 try:
     wc_elo_df = pl.read_csv(
@@ -640,6 +670,6 @@ elo_df = elo(df, wc_elo_df)
 base_path = os.path.expanduser("~/ski/elo/python/alpine/polars/excel365")
 
 # Save CSV format with pred_ prefix to distinguish from WC elo files
-elo_df.write_csv(f"{base_path}/pred_{file_string}.csv")
-print(f"Saved to {base_path}/pred_{file_string}.csv")
+elo_df.write_csv(f"{base_path}/pred_{output_file_string}.csv")
+print(f"Saved to {base_path}/pred_{output_file_string}.csv")
 print(time.time() - start_time)

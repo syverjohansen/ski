@@ -198,10 +198,8 @@ def merge_and_save(old_df: Optional[pl.DataFrame],
         base_path = Path("~/ski/elo/python/alpine/polars/excel365").expanduser()
         prefix = 'men' if sex == 'M' else 'ladies'
 
-        # Save both the regular and update versions
+        # Save to all_men_scrape.csv or all_ladies_scrape.csv
         final_df.write_csv(base_path / f"all_{prefix}_scrape.csv")
-
-        final_df.write_csv(base_path / f"all_{prefix}_scrape_update.csv")
         
         logging.info(f"Saved updated {sex} data with {len(final_df)} rows")
         

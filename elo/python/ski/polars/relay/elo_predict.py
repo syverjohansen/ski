@@ -560,8 +560,19 @@ def elo(df, wc_elo_df, base_elo=1300, K=1, discount=.85):
     # Initialize pred_id_dict: predicted Elo for all skiers (starts at 1300)
     pred_id_dict = {k: 1300.0 for k in id_dict_list}
 
-    # Calculate max_racers using Polars aggregation (no Python loop)
-    max_racers = df.group_by('Season').agg(pl.len().alias('count'))['count'].max()
+    # Calculate K values from WC data for each season (for consistency with base ELO)
+    k_values = {}
+    if wc_elo_df is not None and not wc_elo_df.is_empty():
+        # Filter out end-of-season markers (Race == 0) - only count actual races
+        wc_races_only = wc_elo_df.filter(pl.col('Race') != 0)
+        wc_season_counts = wc_races_only.group_by('Season').agg(pl.len().alias('count'))
+        wc_max_racers = wc_season_counts['count'].max()
+        for row in wc_season_counts.iter_rows():
+            season, count = row
+            k = float(wc_max_racers / count)
+            k = min(k, 5)
+            k = max(k, 1)
+            k_values[season] = k
 
     # Get list of seasons
     seasons = df['Season'].unique().sort().to_list()
@@ -575,8 +586,8 @@ def elo(df, wc_elo_df, base_elo=1300, K=1, discount=.85):
     for season_idx, season_year in enumerate(seasons):
         season_df = df_by_season[season_year]  # Already sorted by Race, Place from initial sort
 
-        # Get the K value based on number of racers
-        K = k_finder(season_df, max_racers)
+        # Get K from WC-based values; default to 5 if no WC races in this season
+        K = k_values.get(season_year, 5)
         print(f"({season_year}, {K})")
 
         # Partition season data by race (maintains order from initial sort)
