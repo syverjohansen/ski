@@ -102,7 +102,7 @@ ADDITIONAL_SKIERS = ADDITIONAL_SKIERS_MEN
 
 # Cross-country Championships Athletes (4 per nation maximum)
 CHAMPS_ATHLETES_MEN_XC = {
-    'Andorra': ['Irineu Esteve Alti'],
+    'Andorra': ['Irineu Esteve Altimiras'],
     'Argentina': ['Mateo Lorenzo Sauma', 'Franco Dal Farra'],
     'Armenia': ['Mikayel Mikayelyan'],
     'Australia': ['Lars Young Vik', 'Hugo Hinckfuss', 'Seve De Campo'],
@@ -143,7 +143,7 @@ CHAMPS_ATHLETES_MEN_XC = {
     'Montenegro': ['Aleksandar Grbovic'],
     'Nigeria': ['Samuel Uduigowme Ikpefan'],
     'North Macedonia': ['Darko Damjanovski'],
-    'Norway': ['Johannes Høsflot Klæbo', 'Harald Østberg Amundsen', 'Martin Løwstrøm Nyenget', 'Erik Valnes', 'Simen Hegstad Krüger', 'Andreas Fjorden Ree', 'Even Northug'],
+    'Norway': ['Johannes Høsflot Klæbo', 'Harald Østberg Amundsen', 'Martin Løwstrøm Nyenget', 'Erik Valnes', 'Einar Hedegart', 'Mattis Stenshagen', 'Emil Iversen', 'Oscar Opstad Vike'],
     'Poland': ['Dominik Bury', 'Maciej Starega', 'Piotr Jarecki'],
     'Portugal': ['Jose Cabeca'],
     'Romania': ['Gabriel Cojocaru', 'Ionut Alexandru Costea'],
@@ -191,7 +191,7 @@ CHAMPS_ATHLETES_LADIES_XC = {
     'Lithuania': ['Egle Savickaite', 'Ieva Dainyte'],
     'Mexico': ['Karla Schleske'],
     'Mongolia': ['Ariunbold Tumur'],
-    'Norway': ['Heidi Weng', 'Astrid Øyre Slind', 'Kristine Stavås Skistad', 'Lotta Udnes Weng', 'Kristin Austgulen Fosnæs', 'Julie Myhre', 'Mathilde Myhrvold', 'Nora Sanness'],
+    'Norway': ['Heidi Weng', 'Astrid Øyre Slind', 'Kristine Stavås Skistad', 'Milla Grosberghaugen Andreassen', 'Kristin Austgulen Fosnæs', 'Karoline Simpson-Larsen', 'Julie Bjervig Drivenes', 'Ingrid Bergene Aabrekk'],
     'Poland': ['Izabela Marcisz', 'Monika Skinder', 'Aleksandra Kolodziej', 'Andzelika Szyszka'],
     'Romania': ['Delia Ioana Reit'],
     'Serbia': ['Anja Ilic'],

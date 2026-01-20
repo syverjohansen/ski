@@ -20,7 +20,9 @@ MANUAL_NAME_MAPPINGS = {
     'Lars Michael Saab BJERTNAES':'Lars Michael Bjertnæs',
     'BJERTNAES Lars Michael Saab':  'Lars Michael Bjertnæs',
     'Amund August KORSAETH': 'Amund Korsæth',
-    'KORSAETH Amund August': 'Amund Korsæth'
+    'KORSAETH Amund August': 'Amund Korsæth',
+    'Samantha SMITH': 'Sammy Smith',
+    'SMITH Samantha': 'Sammy Smith'
 }
 
 def get_fantasy_price(name: str, fantasy_prices: Dict[str, int]) -> int:
