@@ -50,8 +50,9 @@ def get_current_season_year() -> int:
 def get_existing_metadata(df: pl.DataFrame) -> Dict:
     """Extract metadata from existing DataFrame"""
     try:
-        # Get unique races (Date, City, Event)
-        races = set(df.select(["Date", "City", "Event"]).unique().rows())
+        # Get unique races (Date, City, Event, Distance, Technique, Sex)
+        # This ensures we don't skip different races on the same day
+        races = set(df.select(["Date", "City", "Event", "Distance", "Technique", "Sex"]).unique().rows())
 
         # Get max experience per ID
         max_exp = (df.group_by('ID')
@@ -88,22 +89,25 @@ def load_and_process_data(sex: str) -> Tuple[Optional[pl.DataFrame], Dict]:
         return None, {'races': set(), 'experience': {}}
 
 
-def process_race(race_info: Dict[str, Any], year: int, metadata: Dict) -> Optional[Dict]:
+def process_race(race_info: Dict[str, Any], year: int, metadata: Dict, sex: str) -> Optional[Dict]:
     """Process a single race with its results, skipping if already exists"""
     try:
         result = process_single_race(race_info, year)
         if result is None:
             return None
 
-        # Check if race exists based on Date, City, Event
+        # Check if race exists based on Date, City, Event, Distance, Technique, Sex
+        # This ensures we don't skip different races on the same day
         race_date = result['metadata'].get('Date')
         race_city = result['metadata'].get('City')
         race_event = result['metadata'].get('Event')
+        race_distance = result['metadata'].get('Distance')
+        race_technique = result['metadata'].get('Technique')
 
         if race_date:
-            race_key = (race_date, race_city, race_event)
+            race_key = (race_date, race_city, race_event, race_distance, race_technique, sex)
             if race_key in metadata['races']:
-                logging.info(f"Skipping existing race: {race_key}")
+                logging.info(f"Skipping existing race: {race_date} {race_city} {race_distance} {race_technique}")
                 return None
 
         return result
@@ -130,7 +134,7 @@ def process_new_season(sex: str, metadata: Dict) -> Tuple[List[Dict], List[Dict]
 
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         future_to_link = {
-            executor.submit(process_race, race_info, current_year, metadata): race_info
+            executor.submit(process_race, race_info, current_year, metadata, sex): race_info
             for race_info in race_links
         }
 
