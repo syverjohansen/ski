@@ -88,13 +88,13 @@ def call_r_script(script_type: str, race_type: str = None, gender: str = None) -
 def process_team_sprint_races(races_file: str = None, gender: str = None) -> None:
     """
     Main function to process team sprint races
-    
+
     Args:
         races_file: Optional path to a CSV containing specific races to process
         gender: Optional gender filter ('men' or 'ladies')
     """
     print(f"Processing team sprint races{' for ' + gender if gender else ''}")
-    
+
     # Load races from file if provided, otherwise from standard location
     if races_file and os.path.exists(races_file):
         races_df = pd.read_csv(races_file)
@@ -107,89 +107,101 @@ def process_team_sprint_races(races_file: str = None, gender: str = None) -> Non
             races_path = '~/ski/elo/python/ski/polars/excel365/weekends.csv'
         else:
             races_path = '~/ski/elo/python/ski/polars/excel365/races.csv'
-        
+
         try:
             races_df = pd.read_csv(races_path)
             print(f"Loaded {len(races_df)} races from {races_path}")
-            
+
             # Filter to only team sprint races
             races_df = races_df[races_df['Distance'] == 'Ts']
             print(f"Filtered to {len(races_df)} team sprint races")
-            
-            # Further filter by gender if specified
-            if gender:
-                gender_code = 'M' if gender == 'men' else 'L' if gender == 'ladies' else None
-                if gender_code:
-                    races_df = races_df[races_df['Sex'] == gender_code]
-                    print(f"Filtered to {len(races_df)} {gender} team sprint races")
-            
+
             # Find next race date
             next_date = find_next_race_date(races_df)
-            
+
             # Filter to races on the next date
             races_df = filter_races_by_date(races_df, next_date)
             print(f"Found {len(races_df)} team sprint races on {next_date}")
-            
+
         except Exception as e:
             print(f"Error loading races from {races_path}: {e}")
             traceback.print_exc()
             return
-    
-    # Initialize data collections for all races
+
+    # Process each gender separately to avoid mixing data
+    if gender:
+        # If gender specified, only process that gender
+        gender_code = 'M' if gender == 'men' else 'L'
+        gender_races = races_df[races_df['Sex'] == gender_code]
+        if not gender_races.empty:
+            process_gender_team_sprint_races(gender_races, gender)
+    else:
+        # Process both genders separately
+        men_races = races_df[races_df['Sex'] == 'M']
+        ladies_races = races_df[races_df['Sex'] == 'L']
+
+        if not men_races.empty:
+            process_gender_team_sprint_races(men_races, 'men')
+
+        if not ladies_races.empty:
+            process_gender_team_sprint_races(ladies_races, 'ladies')
+
+
+def process_gender_team_sprint_races(races_df: pd.DataFrame, gender: str) -> None:
+    """
+    Process team sprint races for a specific gender
+
+    Args:
+        races_df: DataFrame containing races for this gender
+        gender: 'men' or 'ladies'
+    """
+    print(f"\n{'='*50}\nProcessing {gender} team sprint races\n{'='*50}")
+
+    # Initialize data collections for this gender
     all_teams_data = []
     all_individuals_data = []
-    current_gender = None
-    
+
     # Process each team sprint race
     for idx, (_, race) in enumerate(races_df.iterrows()):
         startlist_url = race['Startlist']
         if pd.isna(startlist_url) or not startlist_url:
             print(f"No startlist URL for race {idx+1}, skipping")
             continue
-        
-        print(f"Processing team sprint race {idx+1}: {race['City']} ({race['Date']})")
-        
-        # Determine gender of this race
-        race_gender = 'men' if race['Sex'] == 'M' else 'ladies'
-        if gender and race_gender != gender:
-            print(f"Skipping {race_gender} race (filtered to {gender})")
-            continue
-        
-        # Set current gender for saving files
-        current_gender = race_gender
-        
+
+        print(f"Processing {gender} team sprint race {idx+1}: {race['City']} ({race['Date']})")
+
         # Get teams from the FIS startlist
         teams = get_team_sprint_teams(startlist_url)
         if not teams:
             print(f"No teams found for race {idx+1}, skipping")
             continue
-        
+
         # Process the teams and create team and individual data
-        teams_data, individuals_data = process_team_sprint_teams(teams, race, race_gender)
-        
+        teams_data, individuals_data = process_team_sprint_teams(teams, race, gender)
+
         # Add the data to our collections
         all_teams_data.extend(teams_data)
         all_individuals_data.extend(individuals_data)
-    
-    # Save team data
+
+    # Save team data for this gender
     if all_teams_data:
         team_df = pd.DataFrame(all_teams_data)
-        save_team_sprint_team_data(team_df, gender or current_gender)
+        save_team_sprint_team_data(team_df, gender)
     else:
-        print(f"No team data generated")
-    
-    # Save individual data
+        print(f"No team data generated for {gender}")
+
+    # Save individual data for this gender
     if all_individuals_data:
         individual_df = pd.DataFrame(all_individuals_data)
-        save_team_sprint_individual_data(individual_df, gender or current_gender)
+        save_team_sprint_individual_data(individual_df, gender)
     else:
-        print(f"No individual data generated")
+        print(f"No individual data generated for {gender}")
 
 # Update the get_team_sprint_teams function to add team_number
 def get_team_sprint_teams(url: str) -> List[Dict]:
     """
     Get teams from FIS team sprint startlist - FIXED VERSION
-    
+
     Returns list of teams with structure:
     [
         {
@@ -217,18 +229,18 @@ def get_team_sprint_teams(url: str) -> List[Dict]:
         }
         response = requests.get(url, headers=headers)
         response.raise_for_status()
-        
+
         soup = BeautifulSoup(response.text, 'html.parser')
         teams = []
-        
+
         # Track team numbers by nation
         nation_team_counts = {}
-        
+
         # Find all team rows (main rows) - these have class 'table-row_theme_main'
         team_rows = soup.select('.table-row.table-row_theme_main')
-        
+
         print(f"Found {len(team_rows)} team rows")
-        
+
         for team_row in team_rows:
             try:
                 # Get team rank
@@ -237,37 +249,37 @@ def get_team_sprint_teams(url: str) -> List[Dict]:
                     print("No rank element found, skipping row")
                     continue
                 team_rank = rank_elem.text.strip()
-                
+
                 # Get team name (country name)
                 team_name_elem = team_row.select_one('.g-lg-14.g-md-14.g-sm-11.g-xs-10.justify-left.bold')
                 if not team_name_elem:
                     print("No team name element found, skipping row")
                     continue
                 team_name = team_name_elem.text.strip()
-                
+
                 # Get nation code
                 nation_elem = team_row.select_one('.country__name-short')
                 if not nation_elem:
                     print(f"No nation code found for team {team_name}, skipping")
                     continue
                 nation = nation_elem.text.strip()
-                
+
                 # Get team time
                 team_time = ""
                 time_elem = team_row.select_one('.g-lg-2.g-md-2.justify-right.blue.bold.hidden-sm.hidden-xs')
                 if time_elem:
                     team_time = time_elem.text.strip()
-                
+
                 # Update team counter for this nation
                 if nation not in nation_team_counts:
                     nation_team_counts[nation] = 1
                 else:
                     nation_team_counts[nation] += 1
-                
+
                 team_number = nation_team_counts[nation]
-                
+
                 print(f"Processing team: {team_name} ({nation}) - Rank {team_rank}, Time: {team_time}")
-                
+
                 team_data = {
                     'team_name': team_name,
                     'nation': nation,
@@ -276,18 +288,18 @@ def get_team_sprint_teams(url: str) -> List[Dict]:
                     'team_number': team_number,
                     'members': []
                 }
-                
+
                 # Find the athlete rows that follow this team row
                 # Athlete rows have class 'table-row_theme_additional' and contain 'athlete-team-row'
                 current_element = team_row
                 athletes_found = 0
-                
+
                 while current_element and athletes_found < 2:  # Team sprint has exactly 2 athletes
                     current_element = current_element.find_next_sibling('a')
-                    
+
                     if not current_element:
                         break
-                    
+
                     # Check if this is an athlete row
                     if 'table-row_theme_additional' in current_element.get('class', []):
                         athlete_row_div = current_element.select_one('.athlete-team-row')
@@ -297,44 +309,208 @@ def get_team_sprint_teams(url: str) -> List[Dict]:
                             athlete_name_elem = current_element.select_one('.athlete-name')
                             if athlete_name_elem:
                                 athlete_name = athlete_name_elem.text.strip()
-                                
+
                                 # Get birth year
                                 year_elem = current_element.select_one('.g-lg-1.g-md-1.g-sm-2.g-xs-3.justify-left')
                                 year = year_elem.text.strip() if year_elem else ''
-                                
+
                                 # Get bib number
                                 bib_elem = current_element.select_one('.bib')
                                 bib = bib_elem.text.strip() if bib_elem else ''
-                                
+
                                 team_data['members'].append({
                                     'name': athlete_name,
                                     'nation': nation,  # Use team's nation
                                     'year': year,
                                     'bib': bib
                                 })
-                                
+
                                 athletes_found += 1
                                 print(f"  Added athlete: {athlete_name} (bib: {bib}, year: {year})")
-                            
+
                     elif 'table-row_theme_main' in current_element.get('class', []):
                         # We've reached the next team, stop looking for athletes
                         break
-                
+
                 if len(team_data['members']) > 0:
                     teams.append(team_data)
                     print(f"Added team {team_name} with {len(team_data['members'])} members")
                 else:
                     print(f"Warning: No athletes found for team {team_name}")
-                    
+
             except Exception as e:
                 print(f"Error processing team row: {e}")
                 continue
-        
+
         print(f"Found {len(teams)} teams with {sum(len(team['members']) for team in teams)} total athletes")
+
+        # If primary method found no teams, try fallback method for individual athlete listing
+        if not teams:
+            print("Primary method found no teams. Trying fallback method for individual athlete listing...")
+            teams = get_team_sprint_teams_fallback(soup)
+
         return teams
-        
+
     except Exception as e:
         print(f"Error getting team sprint teams: {e}")
+        traceback.print_exc()
+        return []
+
+
+def get_team_sprint_teams_fallback(soup: BeautifulSoup) -> List[Dict]:
+    """
+    Fallback method for parsing team sprint startlists where athletes are listed individually.
+
+    In this format, each athlete is a separate row with an order number. With N total athletes,
+    there are N/2 teams. Skier at position i pairs with skier at position i + N/2.
+
+    For example, with 46 skiers (23 teams):
+    - Position 1 pairs with position 24
+    - Position 2 pairs with position 25
+    - Position 23 pairs with position 46
+    """
+    try:
+        teams = []
+        athletes = []
+
+        # Find all athlete rows - these are 'a' tags with class 'table-row' that link to athlete biographies
+        athlete_rows = soup.select('a.table-row[href*="athlete-biography"]')
+
+        print(f"Fallback: Found {len(athlete_rows)} athlete biography rows")
+
+        for row in athlete_rows:
+            try:
+                # Get order/position number - try multiple selectors
+                order_elem = row.select_one('.g-lg-1.g-md-1.g-sm-1.g-xs-2.justify-right.pr-1.bold')
+                if not order_elem:
+                    order_elem = row.select_one('.g-lg-1.g-md-1.g-sm-1.g-xs-2.justify-right.bold.pr-1')
+                if not order_elem:
+                    # Try finding any element with justify-right and bold that contains a number
+                    for elem in row.select('.justify-right.bold'):
+                        text = elem.text.strip()
+                        if text.isdigit():
+                            order_elem = elem
+                            break
+                if not order_elem:
+                    print(f"Fallback: No order element found for row")
+                    continue
+
+                order = order_elem.text.strip()
+                if not order.isdigit():
+                    continue
+                order = int(order)
+
+                # Get athlete name - try multiple selectors
+                name_elem = row.select_one('.athlete-name')
+                if not name_elem:
+                    # Try the actual class from FIS HTML
+                    name_elem = row.select_one('.g-lg-19.g-md-19.g-sm-17.g-xs-16.justify-left.bold')
+                if not name_elem:
+                    # Try finding any large column with justify-left and bold
+                    for elem in row.select('.justify-left.bold'):
+                        text = elem.text.strip()
+                        # Name should be longer than just a number and contain letters
+                        if len(text) > 2 and any(c.isalpha() for c in text):
+                            name_elem = elem
+                            break
+                if not name_elem:
+                    print(f"Fallback: No name element found for order {order}")
+                    continue
+                name = name_elem.text.strip()
+
+                # Get nation
+                nation_elem = row.select_one('.country__name-short')
+                if not nation_elem:
+                    print(f"Fallback: No nation element found for {name}")
+                    continue
+                nation = nation_elem.text.strip()
+
+                # Get birth year (may not be present in all formats)
+                year_elem = row.select_one('.g-lg-1.g-md-1.g-sm-2.g-xs-3.justify-left')
+                year = year_elem.text.strip() if year_elem else ''
+
+                athletes.append({
+                    'order': order,
+                    'name': name,
+                    'nation': nation,
+                    'year': year
+                })
+                print(f"Fallback: Parsed athlete {order}: {name} ({nation})")
+
+            except Exception as e:
+                print(f"Fallback: Error parsing athlete row: {e}")
+                continue
+
+        if not athletes:
+            print("Fallback: No athletes found")
+            return []
+
+        # Sort by order to ensure correct pairing
+        athletes.sort(key=lambda x: x['order'])
+
+        n_athletes = len(athletes)
+        n_teams = n_athletes // 2
+
+        print(f"Fallback: Found {n_athletes} athletes, forming {n_teams} teams")
+
+        if n_athletes % 2 != 0:
+            print(f"Fallback: Warning - odd number of athletes ({n_athletes}), last athlete will be ignored")
+
+        # Track team numbers by nation
+        nation_team_counts = {}
+
+        # Pair athletes: position i pairs with position i + n_teams
+        for i in range(n_teams):
+            athlete1 = athletes[i]
+            athlete2 = athletes[i + n_teams]
+
+            # Both athletes should be from the same nation for a team sprint
+            nation = athlete1['nation']
+            if athlete1['nation'] != athlete2['nation']:
+                print(f"Fallback: Warning - athletes from different nations paired: {athlete1['name']} ({athlete1['nation']}) and {athlete2['name']} ({athlete2['nation']})")
+                # Use the first athlete's nation
+
+            # Update team counter for this nation
+            if nation not in nation_team_counts:
+                nation_team_counts[nation] = 1
+            else:
+                nation_team_counts[nation] += 1
+
+            team_number = nation_team_counts[nation]
+
+            # Generate team name from nation
+            team_name = nation  # Will be mapped to full name later
+
+            team_data = {
+                'team_name': team_name,
+                'nation': nation,
+                'team_rank': str(i + 1),  # Use position as initial rank
+                'team_time': '',
+                'team_number': team_number,
+                'members': [
+                    {
+                        'name': athlete1['name'],
+                        'nation': nation,
+                        'year': athlete1['year'],
+                        'bib': f"{i+1}-1"  # Generate bib from position
+                    },
+                    {
+                        'name': athlete2['name'],
+                        'nation': nation,
+                        'year': athlete2['year'],
+                        'bib': f"{i+1}-2"
+                    }
+                ]
+            }
+
+            teams.append(team_data)
+            print(f"Fallback: Created team {nation} #{team_number}: {athlete1['name']} + {athlete2['name']}")
+
+        print(f"Fallback: Created {len(teams)} teams with {sum(len(team['members']) for team in teams)} total athletes")
+        return teams
+
+    except Exception as e:
+        print(f"Error in fallback team sprint parsing: {e}")
         traceback.print_exc()
         return []
 
