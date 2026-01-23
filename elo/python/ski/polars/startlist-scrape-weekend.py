@@ -518,26 +518,8 @@ def process_gender_races(races_df: pd.DataFrame, gender: str, host_nation: str, 
         print(f"\nSaving consolidated {gender} startlist to {output_path}")
         consolidated_df.to_csv(output_path, index=False)
         print(f"Saved {len(consolidated_df)} {gender} athletes with {len(consolidated_df.columns)} columns")
-        
-        # Verify what was actually saved
-        print(f"\n=== VERIFICATION ===")
-        try:
-            saved_df = pd.read_csv(output_path)
-            saved_prob_cols = [col for col in saved_df.columns if 'Race' in col and 'Prob' in col]
-            print(f"File actually saved with probability columns: {saved_prob_cols}")
-            
-            if len(saved_prob_cols) != len(prob_columns):
-                print(f"⚠️  SAVE VERIFICATION FAILED!")
-                print(f"Expected to save {len(prob_columns)} columns, file contains {len(saved_prob_cols)}")
-            else:
-                print(f"✓ Save verification successful")
-                
-        except Exception as e:
-            print(f"Could not verify saved file: {e}")
     else:
-        print(f"❌ No data to save for {gender}")
-    
-    print(f"=== END {gender.upper()} DEBUG ===\n")
+        print(f"No data to save for {gender}")
 
 def create_weekend_startlist(fis_url: str, elo_path: str, gender: str, 
                            host_nation: str, prob_column: str) -> Optional[pd.DataFrame]:
@@ -554,11 +536,24 @@ def create_weekend_startlist(fis_url: str, elo_path: str, gender: str,
         
 
         elo_scores = get_latest_elo_scores(elo_path)
-        
+
         # Get list of nations in config
         ADDITIONAL_SKIERS = get_additional_skiers(gender)
         config_nations = list(ADDITIONAL_SKIERS.keys())
-        
+
+        # Build lookup of config athletes with their yes/no lists
+        config_skier_lookup = {}  # name -> {'yes': [], 'no': [], 'nation': str}
+        for nation, skiers in ADDITIONAL_SKIERS.items():
+            for skier_entry in skiers:
+                if isinstance(skier_entry, str):
+                    config_skier_lookup[skier_entry] = {'yes': [], 'no': [], 'nation': nation}
+                else:
+                    config_skier_lookup[skier_entry['name']] = {
+                        'yes': skier_entry.get('yes', []),
+                        'no': skier_entry.get('no', []),
+                        'nation': nation
+                    }
+
         # Create data for DataFrame
         data = []
         processed_names = set()
@@ -621,7 +616,16 @@ def create_weekend_startlist(fis_url: str, elo_path: str, gender: str,
             base_quota = get_nation_quota(nation, gender)
             is_host = (nation == host_nation)
             total_quota = get_nation_quota(nation, gender, is_host=is_host)
-            
+
+            # Check if this FIS athlete is also in the config (check multiple name variants)
+            in_config = False
+            config_info = None
+            for name_variant in [fis_name, processed_name, original_name]:
+                if name_variant in config_skier_lookup:
+                    in_config = True
+                    config_info = config_skier_lookup[name_variant]
+                    break
+
             row_data = {
                 'FIS_Name': fis_name,
                 'Skier': original_name,
@@ -629,7 +633,7 @@ def create_weekend_startlist(fis_url: str, elo_path: str, gender: str,
                 'Nation': nation,
                 'In_FIS_List': True,
                 'Config_Nation': nation in config_nations,
-                'In_Config': False,
+                'In_Config': in_config,
                 'Price': price,
                 'Elo': elo_data.get('Elo', None),
                 'Distance_Elo': elo_data.get('Distance_Elo', None),
@@ -644,11 +648,11 @@ def create_weekend_startlist(fis_url: str, elo_path: str, gender: str,
                 'Is_Host_Nation': is_host,
                 'Quota': total_quota
             }
-            
-            # Set race probability
+
+            # Set race probability - FIS list athletes get 1.0 for this race
             if prob_column:
-                row_data[prob_column] = 1.0  # In FIS list = 100% for this race
-            
+                row_data[prob_column] = 1.0
+
             data.append(row_data)
             processed_names.add(original_name)
         
@@ -867,15 +871,21 @@ def create_weekend_startlist(fis_url: str, elo_path: str, gender: str,
         return None
 
 
-def create_fallback_startlist(elo_path: str, gender: str, host_nation: str, 
+def create_fallback_startlist(elo_path: str, gender: str, host_nation: str,
                              prob_column: str, fantasy_prices: Dict) -> pd.DataFrame:
-    """Creates fallback startlist with all skiers from the current season"""
+    """Creates fallback startlist when no FIS startlist is available.
+
+    Probability logic:
+    - Config athletes (In_Config=True): based on yes/no lists, or None if neither
+    - Config nation but not in config (Config_Nation=True, In_Config=False): 0.0
+    - Non-config nation athletes: None (R calculates from history)
+    """
     try:
-        print(f"Creating fallback startlist with all skiers from the current season for {gender}")
-        
+        print(f"Creating fallback startlist (no FIS startlist) for {gender}")
+
         # Get the most recent ELO scores
         elo_scores = get_latest_elo_scores(elo_path)
-        
+
         # Get chronos data for finding current season skiers
         try:
             chronos = pl.read_csv(
@@ -886,81 +896,142 @@ def create_fallback_startlist(elo_path: str, gender: str, host_nation: str,
             ).to_pandas()
         except Exception as csv_err:
             print(f"Error with polars: {csv_err}")
-            # Fallback to pandas if polars fails
             chronos = pd.read_csv(elo_path, low_memory=False)
-        
+
         # Get all skiers from current season
         current_season = get_current_season_from_chronos(chronos)
-        current_season_skiers = chronos[chronos['Season'] == current_season]['Skier'].unique()
+        current_season_skiers = set(chronos[chronos['Season'] == current_season]['Skier'].unique())
         print(f"Found {len(current_season_skiers)} skiers from the {current_season} season")
-        
-        # Get list of nations in config
+
+        # Get config data
         ADDITIONAL_SKIERS = get_additional_skiers(gender)
         config_nations = list(ADDITIONAL_SKIERS.keys())
-        
+
+        # Build lookup of config athletes with their yes/no lists
+        config_skier_lookup = {}
+        for nation, skiers in ADDITIONAL_SKIERS.items():
+            for skier_entry in skiers:
+                if isinstance(skier_entry, str):
+                    config_skier_lookup[skier_entry] = {'yes': [], 'no': [], 'nation': nation}
+                else:
+                    config_skier_lookup[skier_entry['name']] = {
+                        'yes': skier_entry.get('yes', []),
+                        'no': skier_entry.get('no', []),
+                        'nation': nation
+                    }
+
+        # Extract current race number from prob_column
+        current_race_num = int(prob_column.replace('Race', '').replace('_Prob', '')) if prob_column else None
+
         # Create data for DataFrame
         data = []
         processed_names = set()
-        
+
         # Define Elo columns
         elo_columns = [
-            'Elo', 'Distance_Elo', 'Distance_C_Elo', 'Distance_F_Elo', 
-            'Sprint_Elo', 'Sprint_C_Elo', 'Sprint_F_Elo', 
+            'Elo', 'Distance_Elo', 'Distance_C_Elo', 'Distance_F_Elo',
+            'Sprint_Elo', 'Sprint_C_Elo', 'Sprint_F_Elo',
             'Classic_Elo', 'Freestyle_Elo'
         ]
-        
-        # Process each current season skier
-        for skier_name in current_season_skiers:
-            if skier_name in processed_names:
-                continue
-            
-            # Get the most recent record for this skier
-            recent_records = chronos[chronos['Skier'] == skier_name].sort_values('Date', ascending=False)
-            
-            if recent_records.empty:
-                continue
-                
-            # Get the most recent record
-            recent_record = recent_records.iloc[0]
-            nation = recent_record['Nation']
-            skier_id = recent_record['ID']
-            
-            # Match with ELO scores
-            elo_match = None
+
+        def get_elo_data_for_skier(skier_name):
+            """Helper to get ELO data for a skier"""
             if skier_name in elo_scores['Skier'].values:
-                elo_match = skier_name
-            else:
-                # Try fuzzy matching if no exact match
-                elo_match = fuzzy_match_name(skier_name, elo_scores['Skier'].tolist())
-            
+                return elo_scores[elo_scores['Skier'] == skier_name].iloc[0].to_dict(), skier_name
+            elo_match = fuzzy_match_name(skier_name, elo_scores['Skier'].tolist())
             if elo_match:
-                elo_data = elo_scores[elo_scores['Skier'] == elo_match].iloc[0].to_dict()
-            else:
-                # Use Elo values directly from chronos data as fallback
-                elo_data = {}
-                # Get Elo values directly
-                for elo_col in elo_columns:
-                    if elo_col in recent_record and not pd.isna(recent_record[elo_col]):
-                        elo_data[elo_col] = float(recent_record[elo_col])
-                    else:
-                        elo_data[elo_col] = None
-            
-            # Get fantasy price
-            price = get_fantasy_price(skier_name, fantasy_prices)
-            
-            # Calculate nation quota
+                return elo_scores[elo_scores['Skier'] == elo_match].iloc[0].to_dict(), elo_match
+            return {}, skier_name
+
+        # STEP 1: Process config athletes first
+        print(f"Processing {len(config_skier_lookup)} config athletes...")
+        for config_name, config_info in config_skier_lookup.items():
+            if config_name in processed_names:
+                continue
+
+            yes_races = config_info['yes']
+            no_races = config_info['no']
+            config_nation = config_info['nation']
+
+            elo_data, matched_name = get_elo_data_for_skier(config_name)
+            skier_id = elo_data.get('ID', None)
+            nation = elo_data.get('Nation', config_nation)
+
+            price = get_fantasy_price(matched_name, fantasy_prices)
             base_quota = get_nation_quota(nation, gender)
             is_host = (nation == host_nation)
             total_quota = get_nation_quota(nation, gender, is_host=is_host)
-            
-            # Create skier data
+
+            skier_data = {
+                'FIS_Name': config_name,
+                'Skier': matched_name,
+                'ID': skier_id,
+                'Nation': nation,
+                'In_FIS_List': False,
+                'Config_Nation': True,
+                'In_Config': True,
+                'Price': price,
+                'Elo': elo_data.get('Elo', None),
+                'Distance_Elo': elo_data.get('Distance_Elo', None),
+                'Distance_C_Elo': elo_data.get('Distance_C_Elo', None),
+                'Distance_F_Elo': elo_data.get('Distance_F_Elo', None),
+                'Sprint_Elo': elo_data.get('Sprint_Elo', None),
+                'Sprint_C_Elo': elo_data.get('Sprint_C_Elo', None),
+                'Sprint_F_Elo': elo_data.get('Sprint_F_Elo', None),
+                'Classic_Elo': elo_data.get('Classic_Elo', None),
+                'Freestyle_Elo': elo_data.get('Freestyle_Elo', None),
+                'Base_Quota': base_quota,
+                'Is_Host_Nation': is_host,
+                'Quota': total_quota
+            }
+
+            # Set probability based on yes/no lists
+            if prob_column and current_race_num:
+                if current_race_num in yes_races:
+                    skier_data[prob_column] = 1.0
+                elif current_race_num in no_races:
+                    skier_data[prob_column] = 0.0
+                else:
+                    skier_data[prob_column] = None  # R calculates from history
+
+            data.append(skier_data)
+            processed_names.add(matched_name)
+
+        # STEP 2: Process remaining current season skiers
+        print(f"Processing remaining current season skiers...")
+        for skier_name in current_season_skiers:
+            if skier_name in processed_names:
+                continue
+
+            recent_records = chronos[chronos['Skier'] == skier_name].sort_values('Date', ascending=False)
+            if recent_records.empty:
+                continue
+
+            recent_record = recent_records.iloc[0]
+            nation = recent_record['Nation']
+            skier_id = recent_record['ID']
+
+            elo_data, matched_name = get_elo_data_for_skier(skier_name)
+            if not elo_data:
+                elo_data = {}
+                for elo_col in elo_columns:
+                    if elo_col in recent_record and not pd.isna(recent_record[elo_col]):
+                        elo_data[elo_col] = float(recent_record[elo_col])
+
+            price = get_fantasy_price(skier_name, fantasy_prices)
+            base_quota = get_nation_quota(nation, gender)
+            is_host = (nation == host_nation)
+            total_quota = get_nation_quota(nation, gender, is_host=is_host)
+
+            is_config_nation = nation in config_nations
+
             skier_data = {
                 'FIS_Name': skier_name,
                 'Skier': skier_name,
                 'ID': skier_id,
                 'Nation': nation,
-                'In_FIS_List': False,  # Not in FIS list since this is fallback
-                'Config_Nation': nation in config_nations,
+                'In_FIS_List': False,
+                'Config_Nation': is_config_nation,
                 'In_Config': False,
                 'Price': price,
                 'Elo': elo_data.get('Elo', None),
@@ -976,22 +1047,26 @@ def create_fallback_startlist(elo_path: str, gender: str, host_nation: str,
                 'Is_Host_Nation': is_host,
                 'Quota': total_quota
             }
-            
-            # Set race probability
+
+            # Set probability based on config nation status
             if prob_column:
-                # Set lower probability for fallback skiers
-                skier_data[prob_column] = 0.0
-            
+                if is_config_nation:
+                    # Config nation but not in config = not announced = 0.0
+                    skier_data[prob_column] = 0.0
+                else:
+                    # Non-config nation = R calculates from history
+                    skier_data[prob_column] = None
+
             data.append(skier_data)
             processed_names.add(skier_name)
-        
-        # Create DataFrame and sort by Elo
+
+        # Create DataFrame and sort
         df = pd.DataFrame(data)
         df = df.sort_values(['Price', 'Elo'], ascending=[False, False])
-        
-        print(f"Created fallback startlist with {len(df)} athletes")
+
+        print(f"Created fallback startlist with {len(df)} athletes ({len(config_skier_lookup)} from config)")
         return df
-        
+
     except Exception as e:
         print(f"Error creating fallback startlist: {e}")
         traceback.print_exc()
