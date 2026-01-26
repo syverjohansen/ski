@@ -144,7 +144,7 @@ CHAMPS_ATHLETES_MEN_XC = {
     'Montenegro': ['Aleksandar Grbovic'],
     'Nigeria': ['Samuel Uduigowme Ikpefan'],
     'North Macedonia': ['Darko Damjanovski'],
-    'Norway': ['Johannes Høsflot Klæbo', 'Harald Østberg Amundsen', 'Martin Løwstrøm Nyenget', 'Erik Valnes', 'Einar Hedegart', 'Mattis Stenshagen', 'Emil Iversen', 'Oscar Opstad Vike'],
+    'Norway': ['Johannes Høsflot Klæbo', 'Harald Østberg Amundsen', 'Martin Løwstrøm Nyenget', 'Erik Valnes', 'Einar Hedegart', 'Mattis Stenshagen', 'Emil Iversen', 'Oskar Opstad Vike'],
     'Poland': ['Dominik Bury', 'Maciej Starega', 'Piotr Jarecki'],
     'Portugal': ['Jose Cabeca'],
     'Romania': ['Gabriel Cojocaru', 'Ionut Alexandru Costea'],
