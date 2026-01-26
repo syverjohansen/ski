@@ -100,7 +100,7 @@ DEFAULT_CHAMPS_QUOTA = {'men': 4, 'ladies': 4}
 # Championships athlete lists (populate with actual athlete names as needed)
 CHAMPS_ATHLETES_MEN = {
     # Major ski jumping nations (4 athletes - full quota)
-    'Austria': ['Jan Hörl', 'Stefan Kraft', 'Daniel Tschofenig', 'Manuel Fettner'],
+    'Austria': ['Stephan Embacher', 'Jan Hörl', 'Stefan Kraft', 'Daniel Tschofenig'],
     'Germany': ['Andreas Wellinger', 'Karl Geiger', 'Pius Paschke', 'Philipp Raimund'],
     'Norway': ['Johann Forfang', 'Kristoffer Eriksen Sundal', 'Marius Lindvik', 'Halvor Egner Granerud'],
     'Poland': ['Pawel Wasek', 'Aleksander Zniszczol', 'Kamil Stoch', 'Dawid Kubacki'],
@@ -113,7 +113,7 @@ CHAMPS_ATHLETES_MEN = {
     'Italy': ['Alex Insam', 'Francesco Cecon'],
     'France': ['Valentin Foubert', 'Enzo Milesi'],
     'Czechia': ['Roman Koudelka'],
-    'USA': ['Tate Frantz', 'Kevin Bickner', 'Jason Colby', 'Erik Belshaw'],
+    'USA': ['Kevin Bickner','Jason Colby', 'Tate Frantz'],
     'Canada': [],
     'Sweden': [],
     
@@ -152,7 +152,7 @@ CHAMPS_ATHLETES_MEN = {
 
 CHAMPS_ATHLETES_LADIES = {
     # Major ski jumping nations (4 athletes - full quota)
-    'Austria': ['Eva Pinkelnig', 'Jacqueline Seifriedsberger', 'Lisa Eder', 'Marita Kramer'],
+    'Austria': ['Lisa Eder', 'Lisa Hirner', 'Julia Mühlbacher', 'Meghann Wadsak'],
     'Germany': ['Selina Freitag', 'Katharina Schmid', 'Agnes Reisch', 'Juliane Seyfarth'],
     'Norway': ['Eirin Maria Kvandal', 'Anna Odine Strøm', 'Thea Minyan Bjørseth', 'Silje Opseth'],
     'Slovenia': ['Nika Prevc', 'Ema Klinec', 'Nika Kriznar', 'Jerica Jesenko'],
@@ -165,7 +165,7 @@ CHAMPS_ATHLETES_LADIES = {
     'Italy': ['Lara Malsiner', 'Annika Sieff', 'Martina Zanitzer', 'Jessica Malsiner'],
     'France': ['Josephine Pagnier', 'Emma Chervet'],
     'Czechia': ['Veronika Jencova', 'Karolina Indrackova', 'Anezka Indrackova', 'Klara Ulrichova'],
-    'USA': ['Sandra Sproch', 'Annika Belshaw', 'Josie Johnson', 'Samantha Macuga'],
+    'USA': ['Annika Belshaw', 'Josie Johnson', 'Paige Jones'],
     'Canada': ['Alexandria Loutitt', 'Abigail Strate', 'Nicole Maurer'],
     'Sweden': ['Frida Westman'],
     

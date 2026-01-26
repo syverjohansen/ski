@@ -95,11 +95,11 @@ ADDITIONAL_SKIERS = ADDITIONAL_SKIERS_MEN
 # ============================================================================
 
 # Championships quota settings - 6 athletes per nation for biathlon championships
-CHAMPS_BASE_QUOTA = {'men': 6, 'ladies': 6}
+CHAMPS_BASE_QUOTA = {'men': 4, 'ladies': 4}
 
 # Championships athlete rosters
 CHAMPS_ATHLETES_MEN = {
-    'Austria': ['Simon Eder', 'David Komatz', 'Felix Leitner', 'Fabian Müllauer'],
+    'Austria': ['Simon Eder', 'Patrick Jacob' 'Fabian Müllauer', 'Dominic Unterweger'],
     'Belgium': ['Florent Claude', 'Thierry Langer', 'Marek Mackels', 'Cesar Beauvais'],
     'Bulgaria': ['Blagoy Todev', 'Vladimir Iliev', 'Konstantin Vasilev', 'Vasil Zashev'],
     'Canada': ['Adam Runnalls', 'Gavin Johnston', 'Daniel Gilfillan', 'Jasper Fleming'],
@@ -126,12 +126,12 @@ CHAMPS_ATHLETES_MEN = {
     'Sweden': ['Sebastian Samuelsson', 'Martin Ponsiluoma', 'Jesper Nelin', 'Victor Brandt', 'Emil Nykvist', 'Malte Stefansson'],
     'Switzerland': ['Niklas Hartweg', 'Joscha Burkhalter', 'Sebastian Stalder', 'Jeremy Finello', 'James Pacal'],
     'Ukraine': ['Dmytro Pidruchnyi', 'Vitalii Mandzyn', 'Anton Dudchenko', 'Artem Tyshchenko', 'Denys Nasyko'],
-    'USA': ['Campbell Wright', 'Jake Brown', 'Sean Doherty', 'Maxime Germain'],
+    'USA': ['Sean Doherty', 'Maxime Germain', 'Paul Schommer', 'Campbell Wright'],
 }
 
 CHAMPS_ATHLETES_LADIES = {
     'Australia': ['Darcie Morton'],
-    'Austria': ['Lisa Theresa Hauser', 'Anna Gandler', 'Tamara Steiner', 'Lea Rothschopf', 'Anna Andexer'],
+    'Austria': ['Anna Andexer', 'Anna Gandler', 'Lisa Theresa Hauser', 'Anna Juppe', 'Tamara Steiner'],
     'Belgium': ['Lotte Lie', 'Maya Cloetens', 'Marisa Emonts', 'Rieke de Maeyer'],
     'Brazil': ['Gaia Brunello'],
     'Bulgaria': ['Milena Todorova', 'Lora Hristova', 'Valentina Dimitrova', 'Stefani Yolova'],
@@ -157,7 +157,7 @@ CHAMPS_ATHLETES_LADIES = {
     'Sweden': ['Elvira Öberg', 'Hanna Öberg', 'Anna Magnusson', 'Ella Halvarsson', 'Sara Andersson', 'Anna-Karin Heijdenberg'],
     'Switzerland': ['Aita Gasparin', 'Amy Baserga', 'Lena Häcki-Gross', 'Elisa Gasparin', 'Lea Meier'],
     'Ukraine': ['Yuliia Dzhima', 'Khrystyna Dmytrenko', 'Olena Horodna', 'Liliia Steblyna', 'Anastasiya Merkushyna'],
-    'USA': ['Deedra Irwin', 'Lucinda Anderson', 'Tara Geraghty-Moats', 'Chloe Levins'],
+    'USA': ['Lucinda Anderson', 'Margie Freed', 'Deedra Irwin', 'Joanne Reid'],
 }
 
 def get_champs_athletes(nation, gender):

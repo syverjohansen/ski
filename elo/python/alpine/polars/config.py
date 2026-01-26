@@ -99,67 +99,84 @@ DEFAULT_CHAMPS_QUOTA = {'men': 4, 'ladies': 4}
 
 # Championships athlete lists (populate with actual athlete names as needed)
 CHAMPS_ATHLETES_MEN = {
-    # Major alpine nations (4 athletes - full quota)
+    # Major alpine nations
     'Austria': ['Vincent Kriechmayr', 'Stefan Brennsteiner', 'Manuel Feller', 'Marco Schwarz', 'Fabio Gstrein', 'Raphael Haaser', 'Daniel Hemetsberger', 'Patrick Feurstein', 'Stefan Babinsky', 'Johannes Strolz', 'Stefan Eichberger'],
-    'Switzerland': ['Marco Odermatt', 'Loic Meillard', 'Franjo Von Allmen', 'Stefan Rogentin', 'Thomas Tumler', 'Alexis Monney', 'Tanguy Nef', 'Justin Murisier', 'Gino Caviezel', 'Daniel Yule', 'Marc Rochat'],
-    'Norway': ['Henrik Kristoffersen', 'Timon Haugan', 'Atle Lie McGrath', 'Adrian Smiseth Sejersted', 'Alexander Steen Olsen', 'Fredrik Møller', 'Rasmus Windingstad', 'Rasmus Bakkevig', 'Oscar Andreas Sandvik', 'Jesper Wahlqvist'],
+    'Canada': ['Cameron Alexander', 'James Crawford', 'Jeffrey Read', 'Brodie Seger', 'Riley Seger'],
+    'France': ['Nils Allegre', 'Nils Alphand', 'Steven Amiez', 'Leo Anguenot', 'Maxence Muzaton', 'Clement Noel', 'Paco Rassat'],
     'Italy': ['Dominik Paris', 'Luca De Aliprandini', 'Mattia Casse', 'Alex Vinatzer', 'Florian Schieder', 'Filippo Della Vite', 'Tommaso Sala', 'Christof Innerhofer', 'Giovanni Borsotti', 'Stefano Gross', 'Giovanni Franzoni'],
+    'Norway': ['Aleksander Aamodt Kilde', 'Hans Grahl-Madsen', 'Timon Haugan', 'Henrik Kristoffersen',  'Atle Lie McGrath', 'Fredrik Møller', 'Oscar Andreas Sandvik', 'Adrian Smiseth Sejersted', 'Eirik Hystad Solberg'],
+    'Switzerland': ['Luca Aerni', 'Niels Hintermann', 'Matthias Iten', 'Loic Meillard', 'Alexis Monney', 'Tanguy Nef', 'Marco Odermatt', 'Stefan Rogentin', 'Thomas Tumler', 'Franjo Von Allmen', 'Daniel Yule'],
+    'USA': ['Bryce Bennett', 'Ryan Cochran-Siegle', 'Sam Morse', 'Kyle Negomir', 'River Radamus', 'Ryder Sarchett'],
     
-    # Medium nations (2-3 athletes - partial quota)
-    'France': ['Nils Allegre', 'Cyprien Sarrazin', 'Thibaut Favrot', 'Clement Noel', 'Alexis Pinturault', 'Steven Amiez', 'Victor Muffat-Jeandet', 'Blaise Giezendanner', 'Paco Rassat', 'Leo Anguenot'],
-    'Slovenia': ['Zan Kranjec', 'Miha Hrobat', 'Anze Gartner', 'Nejc Naralocnik'],
-    'Germany': ['Linus Strasser', 'Alexander Schmid', 'Simon Jocher', 'Romed Baumann', 'Fabian Gratz'],
-    
-    # Small nations (1 athlete)
+    # Medium nations
+    'Andorra': ['Joan Verdu Sanchez', 'Alex Rius Gimenez'],
     'Croatia': ['Filip Zubcic', 'Samuel Kolega', 'Istok Rodes'],
-    'Canada': ['Cameron Alexander', 'James Crawford', 'Jeffrey Read', 'Brodie Seger', 'Jesse Kertesz-Knight', 'Erik Read'],
-    'USA': ['Ryan Cochran-Siegle', 'River Radamus', 'Tommy Ford', 'Benjamin Ritchie', 'Bryce Bennett', 'Jared Goldberg'],
-    'Sweden': ['Kristoffer Jakobsen', 'Felix Monsen', 'Adam Hofstedt', 'Emil Pettersson'],
     'Czechia': ['Jan Zabystran', 'Patryk Forejtek'],
     'Finland': ['Elian Lehto', 'Eduard Hallberg', 'Jaakko Tapanainen'],
+    'Germany': ['Linus Strasser', 'Alexander Schmid', 'Simon Jocher', 'Romed Baumann', 'Fabian Gratz'],
+    'Slovenia': ['Zan Kranjec', 'Miha Hrobat', 'Anze Gartner', 'Nejc Naralocnik'],
+    'Sweden': ['Kristoffer Jakobsen', 'Felix Monsen', 'Adam Hofstedt', 'Emil Pettersson'],
+ 
+    # Small nations (more than 2 men/women)
     'Albania': ['Denni Xhepa'],
-    'Andorra': ['Joan Verdu Sanchez', 'Alex Rius Gimenez'],
-    'Belgium': ['Sam Maes', 'Armand Marchant'],
-    'Brazil': ['Lucas Pinheiro Braathen', 'Giovanni Ongaro'],
-    'New Zealand': ['Sam Hadley'],
-    'Slovakia': ['Adam Novacek'],
     'Argentina': ['Nicolas Quintero'],
     'Australia': ['Hugh McAdam'],
-    'Bosnia and Herzegovina': ['Dino Terzic'],
+    'Belgium': ['Sam Maes', 'Armand Marchant'],
+    'Bosnia&Herzegovina': ['Dino Terzic'],
+    'Brazil': ['Lucas Pinheiro Braathen', 'Giovanni Ongaro'],
     'Bulgaria': ['Albert Popov', 'Konstantin Stoilov'],
     'Estonia': ['Tormis Laine', 'Juhan Luik'],
     'Great Britain': ['Dave Ryding', 'Billy Major'],
-    'Poland': ['Piotr Habdas']
+    'Latvia': [],
+    'New Zealand': ['Sam Hadley'],
+    'Poland': ['Piotr Habdas'],
+    'Russia': [],
+    'Slovakia': ['Adam Novacek'],
+    'South Korea': []
+
+    # Charity Cases (1-2 athletes)
 }
 
 CHAMPS_ATHLETES_LADIES = {
-    # Major alpine nations (4 athletes - full quota)
-    'Switzerland': ['Lara Gut-Behrami', 'Wendy Holdener', 'Michelle Gisin', 'Camille Rast'],
+    # Major alpine nations
     'Austria': ['Cornelia Hütter', 'Katharina Liensberger', 'Stephanie Venier', 'Mirjam Puchner', 'Ariane Raedler', 'Julia Scheib', 'Ricarda Haaser', 'Katharina Gallhuber', 'Stephanie Brunner', 'Nina Ortlieb', 'Katharina Truppe'],
+    'Canada': ['Kiara Alexander', 'Cassidy Gray', 'Valerie Grenier', 'Justine Lamontagne', 'Ali Nullmeyer', 'Britt Richardson',  'Amelia Smart', 'Laurence St-Germain'],
+    'France': ['Camille Cerutti', 'Marion Chevrier', 'Clara Direz','Doriane Escane', 'Laura Gauche', 'Marie Lamure', 'Caitlin McFarlane', 'Romane Miradoli'],
     'Italy': ['Federica Brignone', 'Sofia Goggia', 'Elena Curtoni', 'Marta Bassino', 'Laura Pirovano', 'Martina Peterlini', 'Lara Della Mea', 'Marta Rossetti', 'Nicol Delago', 'Asja Zenere', 'Roberta Melesi'],
-    'USA': ['Mikaela Shiffrin', 'Paula Moltzan', 'Lindsey Vonn', 'Lauren Macuga', 'AJ Hurt', 'Breezy Johnson', 'Nina O\'Brien', 'Katie Hensien', 'Jacqueline Wiles', 'Isabella Wright', 'Mia Hunt'],
+    'Norway': ['Mina Fürst Holtmann', 'Kajsa Vickhoff Lie', 'Marte Monsen', 'Thea Louise Stjernesund', 'Madeline Sylvester-Davik', 'Bianca Bakke Westhoff'],
+    'Switzerland': ['Malorie Blanc', 'Eliane Christen', 'Delia Durrer', 'Jasmine Flury', 'Michelle Gisin', 'Wendy Holdener',  'Vanessa Kasper', 'Melanie Meillard', 'Sue Piller', 'Camille Rast', 'Janine Schmitt', 'Corinne Suter'],    
+    'USA': ['Mary Bocock', 'Keely Cashman', 'Katie Hensien','AJ Hurt', 'Breezy Johnson', 'Paula Moltzan', 'Nina O\'Brien', 'Mikaela Shiffrin', 'Lindsey Vonn',  'Jacqueline Wiles', 'Isabella Wright'],
     
-    # Medium nations (2-3 athletes - partial quota)
-    'Slovenia': ['Neja Dvornik', 'Ilka Stuhec', 'Ana Bucik Jogan', 'Andreja Slokar', 'Anja Oplotnik', 'Nika Tomsic'],
-    'France': ['Romane Miradoli', 'Laura Gauche', 'Marie Lamure', 'Clara Direz', 'Chiara Pogneaux', 'Marion Chevrier', 'Clarisse Breche', 'June Brand'],
-    'Germany': ['Lena Dürr', 'Kira Weidle-Winkelmann', 'Emma Aicher', 'Jessica Hilzinger', 'Jana Fritz', 'Anna Schillinger', 'Fabiana Dorigo'],
-    
-    # Small nations (1 athlete)
-    'Slovakia': ['Petra Vlhova'],
-    'Sweden': ['Sara Hector', 'Anna Swenn-Larsson', 'Cornelia Öhlund', 'Estelle Alphand', 'Hanna Aronsson Elfman', 'Elsa Fermbäck', 'Lisa Nyberg'],
-    'Norway': ['Kajsa Vickhoff Lie', 'Mina Fürst Holtmann', 'Thea Louise Stjernesund', 'Bianca Bakke Westhoff', 'Madeline Sylvester-Davik', 'Marte Monsen', 'Kristin Lysdahl'],
-    'Canada': ['Valerie Grenier', 'Brett Richardson', 'Ali Nullmeyer', 'Laurence St-Germain', 'Amelia Smart', 'Cassidy Gray'],
+    # Medium nations
+    'Andorra': ['Cande Moreno Becerra'],
     'Croatia': ['Zrinka Ljutic', 'Leona Popovic'],
     'Czechia': ['Ester Ledecka', 'Martina Dubovska', 'Barbora Novakova'],
     'Finland': ['Aada Kanto', 'Silja Koskinen'],
+    'Germany': ['Lena Dürr', 'Kira Weidle-Winkelmann', 'Emma Aicher', 'Jessica Hilzinger', 'Jana Fritz', 'Anna Schillinger', 'Fabiana Dorigo'],
+    'Slovenia': ['Neja Dvornik', 'Ilka Stuhec', 'Ana Bucik Jogan', 'Andreja Slokar', 'Anja Oplotnik', 'Nika Tomsic'],
+    'Sweden': ['Sara Hector', 'Anna Swenn-Larsson', 'Cornelia Öhlund', 'Estelle Alphand', 'Hanna Aronsson Elfman', 'Elsa Fermbäck', 'Lisa Nyberg'],
+    
+
+    # Small nations (1 athlete)
     'Albania': ['Lara Colturi'],
-    'Andorra': ['Cande Moreno Becerra'],
-    'New Zealand': ['Alice Robinson'],
-    'Slovakia': ['Rebeka Jancova'],
     'Argentina': ['Francesca Baruzzi Farriol'],
-    'Bosnia and Herzegovina': ['Esma Alic', 'Nikolina Dragljevic'],
+    'Australia': [],
+    'Belgium': [],
+    'Bosnia&Herzegovina': ['Esma Alic', 'Nikolina Dragljevic'],
+    'Brazil': [],
+    'Bulgaria': [],
+    'Estonia': [],
     'Great Britain': ['Victoria Palla'],
-    'Poland': ['Maryna Gasienica Daniel', 'Magdalena Luczak']
+    'Latvia': [],
+    'New Zealand': ['Alice Robinson'],
+    'Poland': ['Maryna Gasienica Daniel', 'Magdalena Luczak'],
+    'Russia': [],
+    'Slovakia': ['Petra Vlhova'],
+    'South Korea': []
+
+    
+    #Charity Cases
+    
 }
 
 def get_champs_quota(nation: str, gender: str) -> int:

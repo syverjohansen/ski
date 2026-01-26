@@ -100,7 +100,7 @@ DEFAULT_CHAMPS_QUOTA = {'men': 3, 'ladies': 3}
 # Championships athlete lists (populate with actual athlete names as needed)
 CHAMPS_ATHLETES_MEN = {
     # Major nordic combined nations (3 athletes - full quota)
-    'Austria': ['Johannes Lamparter', 'Stefan Rettenegger', 'Franz-Josef Rehrl'],
+    'Austria': ['Johannes Lamparter', 'Stefan Rettenegger', 'Thomas Rettenegger'],
     'Germany': ['Vinzenz Geiger', 'Julian Schmid', 'Johannes Rydzek'],
     'Norway': ['Jens Lurås Oftebro', 'Jørgen Graabak', 'Espen Bjørnstad'],
     'Finland': ['Ilkka Herola', 'Eero Hirvonen', 'Otto Niittykoski'],
@@ -111,7 +111,7 @@ CHAMPS_ATHLETES_MEN = {
     'Poland': ['Kacper Jarzabek', 'Pawel Szyndlar', 'Andrzej Waliczek'],
     'Slovenia': ['Vid Vrhovnik', 'Matic Garbajs', 'Gašper Brecl'],
     'Ukraine': ['Ruslan Shumanskyi', 'Oleksandr Shovkoplias', 'Dmytro Mazurchuk'],
-    'USA': ['Ben Loomis', 'Niklas Malacinski', 'Henry Johnstone'],
+    'USA': ['Ben Loomis', 'Niklas Malacinski'],
     
     # Medium nations (2 athletes - partial quota)
     'Czechia': ['Jan Vytrval', 'Jiri Konvalinka'],
