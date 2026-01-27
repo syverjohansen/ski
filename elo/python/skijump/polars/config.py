@@ -99,105 +99,57 @@ DEFAULT_CHAMPS_QUOTA = {'men': 4, 'ladies': 4}
 
 # Championships athlete lists (populate with actual athlete names as needed)
 CHAMPS_ATHLETES_MEN = {
-    # Major ski jumping nations (4 athletes - full quota)
+    # Major ski jumping nations (6 or more athletes total)
     'Austria': ['Stephan Embacher', 'Jan Hörl', 'Stefan Kraft', 'Daniel Tschofenig'],
-    'Germany': ['Andreas Wellinger', 'Karl Geiger', 'Pius Paschke', 'Philipp Raimund'],
-    'Norway': ['Johann Forfang', 'Marius Lindvik', 'Kristoffer Eriksen Sundal'],
-    'Poland': ['Kamil Stoch', 'Kacper Tomasiak', 'Pawel Wasek'],
-    'Slovenia': ['Anze Lanisek', 'Domen Prevc', 'Timi Zajc'],
-    'Switzerland': ['Gregor Deschwanden', 'Killian Peier', 'Sandro Hauswirth', 'Yannick Wasser'],
-    'Japan': ['Ryoyu Kobayashi', 'Ren Nikaido', 'Naoki Nakamura', 'Yukiya Sato'],
-    
-    # Medium nations (2-3 athletes - partial quota)
     'Finland': ['Antti Aalto', 'Tomas Kuisma', 'Paavo Romppainen', 'Vilho Palosaari'],
+    'Germany': ['Andreas Wellinger', 'Karl Geiger', 'Pius Paschke', 'Philipp Raimund'],
     'Italy': ['Giovanni Bresadola', 'Francesco Cecon', 'Alex Insam'],
-    'France': ['Valentin Foubert', 'Enzo Milesi'],
-    'Czechia': ['Roman Koudelka'],
+    'Japan': ['Ryoyu Kobayashi', 'Ren Nikaido', 'Naoki Nakamura', 'Yukiya Sato'],
+    'Norway': ['Johann Forfang', 'Marius Lindvik', 'Kristoffer Eriksen Sundal'],
+    'Slovenia': ['Anze Lanisek', 'Domen Prevc', 'Timi Zajc'],
     'USA': ['Kevin Bickner','Jason Colby', 'Tate Frantz'],
+
+    # Medium nations (4-5 athletes total)
     'Canada': [],
-    'Sweden': [],
-    
-    # Small nations (1-2 athletes)
-    'Estonia': ['Artti Aigro', 'Kaimar Vagul'],
-    'Latvia': [],
-    'Lithuania': [],
-    'Russia': [],
-    'Ukraine': ['Vitaliy Kalinichenko', 'Yevhen Marusiak'],
-    'South Korea': [],
     'China': ['Qiwu Song'],
-    'Kazakhstan': ['Ilya Mizernykh', 'Danil Vassilyev'],
+    'Czechia': ['Roman Koudelka'],
+    'France': ['Valentin Foubert', 'Enzo Milesi'],
+    'Poland': ['Kamil Stoch', 'Kacper Tomasiak', 'Pawel Wasek'],
     'Romania': [],
-    'Slovakia': ['Hektor Kapustik'],
+    'Switzerland': ['Gregor Deschwanden', 'Killian Peier', 'Sandro Hauswirth', 'Yannick Wasser'],
+    
+    # Small nations (3 or fewer athletes)
     'Bulgaria': ['Vladimir Zografski'],
-    'Great Britain': [],
-    'Netherlands': [],
-    'Belgium': [],
-    'Denmark': [],
-    'Iceland': [],
-    'Belarus': [],
-    'Spain': [],
-    'Andorra': [],
+    'Estonia': ['Artti Aigro', 'Kaimar Vagul'],
+    'Kazakhstan': ['Ilya Mizernykh', 'Danil Vassilyev'],
+    'Slovakia': ['Hektor Kapustik'],
     'Turkey': ['Muhammed Ali Bedir', 'Fatih Arda Ipcioglu'],
-    'Greece': [],
-    'Serbia': [],
-    'Croatia': [],
-    'Montenegro': [],
-    'Bosnia and Herzegovina': [],
-    'North Macedonia': [],
-    'Moldova': [],
-    'Georgia': [],
-    'Armenia': [],
-    'Azerbaijan': []
+    'Ukraine': ['Vitaliy Kalinichenko', 'Yevhen Marusiak']
 }
 
 CHAMPS_ATHLETES_LADIES = {
-    # Major ski jumping nations (4 athletes - full quota)
+    # Major ski jumping nations (6 or more athletes total)
     'Austria': ['Lisa Eder', 'Lisa Hirner', 'Julia Mühlbacher', 'Meghann Wadsak'],
+    'Finland': ['Jenny Rautionaho', 'Heta Hirvonen', 'Oosa Thure', 'Julia Kykkänen'],
     'Germany': ['Selina Freitag', 'Katharina Schmid', 'Agnes Reisch', 'Juliane Seyfarth'],
+    'Italy': ['Martina Ambrosi', 'Jessica Malsiner', 'Annika Sieff', 'Martina Zanitzer'],
+    'Japan': ['Sara Takanashi', 'Yuki Ito', 'Nozomi Maruyama', 'Yuka Seto'],
     'Norway': ['Eirin Maria Kvandal', 'Silje Opseth', 'Anna Odine Strøm', 'Hyde Dyhre Tråserud'],
     'Slovenia': ['Katra Komar', 'Maja Kovacic', 'Nika Prevc', 'Nika Vodan'],
-    'Switzerland': ['Rea Kindlimann', 'Sina Arnet'],
-    'Japan': ['Sara Takanashi', 'Yuki Ito', 'Nozomi Maruyama', 'Yuka Seto'],
-    
-    # Medium nations (2-3 athletes - partial quota)
-    'Poland': ['Pola Beltowska', 'Anna Twardosz'],
-    'Finland': ['Jenny Rautionaho', 'Heta Hirvonen', 'Oosa Thure', 'Julia Kykkänen'],
-    'Italy': ['Martina Ambrosi', 'Jessica Malsiner', 'Annika Sieff', 'Martina Zanitzer'],
-    'France': ['Josephine Pagnier', 'Emma Chervet'],
-    'Czechia': ['Veronika Jencova', 'Karolina Indrackova', 'Anezka Indrackova', 'Klara Ulrichova'],
     'USA': ['Annika Belshaw', 'Josie Johnson', 'Paige Jones'],
+
+    # Medium nations (4-5 athletes total)
     'Canada': ['Alexandria Loutitt', 'Abigail Strate', 'Nicole Maurer'],
-    'Sweden': ['Frida Westman'],
-    
-    # Small nations (1-2 athletes)
-    'Estonia': [],
-    'Latvia': [],
-    'Lithuania': [],
-    'Russia': [],
-    'Ukraine': ['Zhanna Hlukhova'],
-    'South Korea': [],
     'China': ['Bing Dong', 'Qi Liu', 'Yangning Weng', 'Ping Zeng'],
-    'Kazakhstan': ['Ilya Mizernykh', 'Danil Vassilyev'],
+    'Czechia': ['Veronika Jencova', 'Karolina Indrackova', 'Anezka Indrackova', 'Klara Ulrichova'],
+    'France': ['Josephine Pagnier', 'Emma Chervet'],
+    'Poland': ['Pola Beltowska', 'Anna Twardosz'],
     'Romania': ['Delia Anamaria Folea', 'Daniela Haralambie'],
+    'Switzerland': ['Rea Kindlimann', 'Sina Arnet'],
+
+    # Small nations (3 or fewer athletes)
     'Slovakia': ['Kira Maria Kapustikova', 'Tamara Mesikova'],
-    'Bulgaria': [],
-    'Great Britain': [],
-    'Netherlands': [],
-    'Belgium': [],
-    'Denmark': [],
-    'Iceland': [],
-    'Belarus': [],
-    'Spain': [],
-    'Turkey': [],
-    'Serbia': [],
-    'Croatia': [],
-    'Montenegro': [],
-    'Bosnia and Herzegovina': [],
-    'North Macedonia': [],
-    'Moldova': [],
-    'Georgia': [],
-    'Armenia': [],
-    'Azerbaijan': []
+    'Sweden': ['Frida Westman']
 }
 
 def get_champs_quota(nation: str, gender: str) -> int:

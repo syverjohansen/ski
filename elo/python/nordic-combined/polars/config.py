@@ -101,26 +101,25 @@ DEFAULT_CHAMPS_QUOTA = {'men': 3, 'ladies': 3}
 CHAMPS_ATHLETES_MEN = {
     # Major nordic combined nations (3 athletes - full quota)
     'Austria': ['Johannes Lamparter', 'Stefan Rettenegger', 'Thomas Rettenegger'],
-    'Germany': ['Vinzenz Geiger', 'Julian Schmid', 'Johannes Rydzek'],
-    'Norway': ['Einar Lurås Oftebro', 'Jens Lurås Oftebro', 'Andreas Skoglund'],
     'Finland': ['Ilkka Herola', 'Eero Hirvonen', 'Otto Niittykoski'],
     'France': ['Laurent Muhlethaler', 'Matteo Baud', 'Gael Blondeau'],
+    'Germany': ['Vinzenz Geiger', 'Julian Schmid', 'Johannes Rydzek'],
     'Italy': ['Samuel Costa', 'Aaron Kostner', 'Alessandro Pittin'],
     'Japan': ['Ryota Yamamoto', 'Akito Watabe', 'Sora Yachi'],
+    'Norway': ['Einar Lurås Oftebro', 'Jens Lurås Oftebro', 'Andreas Skoglund'],
+
+    # Medium nations (2 athletes - partial quota)
     'China': ['Jiawen Zhao', 'Zihe Zhao'],
+    'Czechia': ['Jan Vytrval', 'Jiri Konvalinka'],
+    'Estonia': ['Kristjan Ilves'],
     'Poland': ['Kacper Jarzabek', 'Milosz Kzempek'],
     'Slovenia': ['Gašper Brecl', 'Vid Vrhovnik'],
     'Ukraine': ['Dmytro Mazurchuk', 'Oleksandr Shumbarets'],
     'USA': ['Ben Loomis', 'Niklas Malacinski'],
     
-    # Medium nations (2 athletes - partial quota)
-    'Czechia': ['Jan Vytrval', 'Jiri Konvalinka'],
-    'Kazakhstan': ['Chingiz Rakparov'],
     
     # Small nations (1 athlete)
-    'Estonia': ['Kristjan Ilves'],
-    'Latvia': ['Karlis Svede'],
-    'Switzerland': ['Pascal Müller']
+    'Kazakhstan': ['Chingiz Rakparov']
 }
 
 CHAMPS_ATHLETES_LADIES = {

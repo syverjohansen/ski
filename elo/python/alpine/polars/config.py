@@ -99,7 +99,7 @@ DEFAULT_CHAMPS_QUOTA = {'men': 4, 'ladies': 4}
 
 # Championships athlete lists (populate with actual athlete names as needed)
 CHAMPS_ATHLETES_MEN = {
-    # Major alpine nations
+    # Major alpine nations (More than 10)
     'Austria': ['Vincent Kriechmayr', 'Stefan Brennsteiner', 'Manuel Feller', 'Marco Schwarz', 'Fabio Gstrein', 'Raphael Haaser', 'Daniel Hemetsberger', 'Patrick Feurstein', 'Stefan Babinsky', 'Johannes Strolz', 'Stefan Eichberger'],
     'Canada': ['Cameron Alexander', 'James Crawford', 'Jeffrey Read', 'Brodie Seger', 'Riley Seger'],
     'France': ['Nils Allegre', 'Nils Alphand', 'Steven Amiez', 'Leo Anguenot', 'Maxence Muzaton', 'Clement Noel', 'Paco Rassat'],
@@ -108,7 +108,7 @@ CHAMPS_ATHLETES_MEN = {
     'Switzerland': ['Luca Aerni', 'Niels Hintermann', 'Matthias Iten', 'Loic Meillard', 'Alexis Monney', 'Tanguy Nef', 'Marco Odermatt', 'Stefan Rogentin', 'Thomas Tumler', 'Franjo Von Allmen', 'Daniel Yule'],
     'USA': ['Bryce Bennett', 'Ryan Cochran-Siegle', 'Sam Morse', 'Kyle Negomir', 'River Radamus', 'Ryder Sarchett'],
     
-    # Medium nations
+    # Medium nations (More than 4)
     'Andorra': ['Joan Verdu Sanchez', 'Alex Rius Gimenez'],
     'Croatia': ['Filip Zubcic', 'Samuel Kolega', 'Istok Rodes'],
     'Czechia': ['Jan Zabystran', 'Patryk Forejtek'],
@@ -135,9 +135,16 @@ CHAMPS_ATHLETES_MEN = {
     'South Korea': [],
 
     # Charity Cases (1-2 athletes)
+    'Armenia': [],
+    'Benin': [],
+    'Chile': [],
     'China': ['Xiaochen Liu'],
+    'Denmark': [],
+    'Eritrea': [],
+    'Estonia': [],
     'Kazakhstan': ['Rotislav Khokhlov']
     'Romania': ['Alexandru Stefanescu'],
+    'Taiwan': [],
     'Ukraine': ['Dmytro Shepiuk']
 }
 
@@ -161,7 +168,7 @@ CHAMPS_ATHLETES_LADIES = {
     'Sweden': ['Sara Hector', 'Anna Swenn-Larsson', 'Cornelia Öhlund', 'Estelle Alphand', 'Hanna Aronsson Elfman', 'Elsa Fermbäck', 'Lisa Nyberg'],
     
 
-    # Small nations (1 athlete)
+    # Small nations (More than 2 athletes)
     'Albania': ['Lara Colturi'],
     'Argentina': ['Francesca Baruzzi Farriol'],
     'Australia': [],
@@ -180,6 +187,7 @@ CHAMPS_ATHLETES_LADIES = {
 
     
     #Charity Cases
+    'Azerbaijan': [],
     'China': ['Yuying Zhang'],
     'Kazakhstan': ['Alexandra Skorokhodova'],
     'Romania': ['Sofia Moldovan'],

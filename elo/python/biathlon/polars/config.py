@@ -99,67 +99,79 @@ CHAMPS_BASE_QUOTA = {'men': 4, 'ladies': 4}
 
 # Championships athlete rosters
 CHAMPS_ATHLETES_MEN = {
+    #Major nations
+    'Czechia': ['Petr Hak', 'Vitezslav Hornig', 'Michal Krcmar',  'Mikulas Karlik', 'Tomas Mikyska'],
+    'Finland': ['Tuomas Harjula', 'Olli Hiidensalo', 'Otto Invenius', 'Jimi Klemettinen', 'Tero Seppälä'],
+    'France': ['Emilien Claude', 'Fabien Claude', 'Quentin Fillon Maillet', 'Emilien Jacquelin', 'Oscar Lombardot', 'Eric Perrot'],
+    'Germany': ['Lucas Fratzscher', 'Philipp Horn', 'Philipp Nawrath', 'Justus Strelow', 'David Zobel'],
+    'Italy': ['Patrick Braunhofer', 'Tommaso Giacomel', 'Lukas Hofer',  'Nicola Romanin', 'Elia Zeni'],
+    'Norway': ['Johan-Olav Botn', 'Vetle Sjåstad Christiansen', 'Johannes Dale-Skjevdal', 'Isak Leknes Frey', 'Sturla Holm Lægreid', 'Martin Uldal'],
+    'Sweden': ['Victor Brandt','Jesper Nelin', 'Martin Ponsiluoma', 'Sebastian Samuelsson', 'Henning Sjökvist', 'Malte Stefansson'],
+    'Switzerland': ['Joscha Burkhalter', 'Jeremy Finello', 'Niklas Hartweg',   'James Pacal', 'Sebastian Stalder'],
+    'Ukraine': ['Dmytro Pidruchnyi', 'Vitalii Mandzyn', 'Anton Dudchenko', 'Artem Tyshchenko', 'Denys Nasyko'],
+
+    #Medium nations
     'Austria': ['Simon Eder', 'Patrick Jacob', 'Fabian Müllauer', 'Dominic Unterweger'],
     'Belgium': ['Florent Claude', 'Thierry Langer', 'Marek Mackels', 'Sam Parmantier'],
     'Bulgaria': ['Vladimir Iliev', 'Anton Sinapov', 'Blagoy Todev', 'Konstantin Vasilev'],
     'Canada': ['Zachary Connelly', 'Jasper Fleming', 'Logan Pletz', 'Adam Runnalls' ],
-    'China': ['Xingyuan Yan'],
-    'Croatia': ['Kresimir Crnkovic', 'Matija Legovic'],
-    'Czechia': ['Petr Hak', 'Vitezslav Hornig', 'Michal Krcmar',  'Mikulas Karlik', 'Tomas Mikyska'],
     'Estonia': ['Mark-Markos Kehva', 'Jakob Kulbin',  'Kristo Siimer',  'Rene Zahkna'],
-    'Finland': ['Tuomas Harjula', 'Olli Hiidensalo', 'Otto Invenius', 'Jimi Klemettinen', 'Tero Seppälä'],
-    'France': ['Emilien Claude', 'Fabien Claude', 'Quentin Fillon Maillet', 'Emilien Jacquelin', 'Oscar Lombardot', 'Eric Perrot'],
-    'Germany': ['Lucas Fratzscher', 'Philipp Horn', 'Philipp Nawrath', 'Justus Strelow', 'David Zobel'],
-    'Greenland': ['Sondre Slettemark'],
-    'Italy': ['Patrick Braunhofer', 'Tommaso Giacomel', 'Lukas Hofer',  'Nicola Romanin', 'Elia Zeni'],
-    'Japan': ['Mikito Tachizaki'],
     'Kazakhstan': ['Asset Dyussenov', 'Vladislav Kireyev'],
     'Latvia': ['Renars Birkentals', 'Rihards Lozbers', 'Edgars Mise', 'Andrejs Rastorgujevs'],
     'Lithuania': ['Nikita Cigak', 'Karol Dombrovski', 'Maksim Fomin', 'Vytautas Strolia'],
-    'Moldova': ['Iulian Lukin', 'Pavel Magazeev', 'Maksim Makarov'],
-    'Norway': ['Johan-Olav Botn', 'Vetle Sjåstad Christiansen', 'Johannes Dale-Skjevdal', 'Isak Leknes Frey', 'Sturla Holm Lægreid', 'Martin Uldal'],
     'Poland': ['Konrad Badacz', 'Grzegorz Galica', 'Jan Gunka', 'Marcin Zawot'],
     'Romania': ['George Buta', 'George Coltea', 'Raul Flore', 'Dmitrii Shamaev'],
     'Slovakia': ['Simon Adamov', 'Jakub Borgula'],
     'Slovenia': ['Miha Dovzan', 'Jakov Fak',  'Lovro Planko', 'Matic Repnik', 'Anton Vidmar'],
-    'South Korea': ['Timofei Lapshin'],
-    'Sweden': ['Victor Brandt','Jesper Nelin', 'Martin Ponsiluoma', 'Sebastian Samuelsson', 'Henning Sjökvist', 'Malte Stefansson'],
-    'Switzerland': ['Joscha Burkhalter', 'Jeremy Finello', 'Niklas Hartweg',   'James Pacal', 'Sebastian Stalder'],
-    'Ukraine': ['Dmytro Pidruchnyi', 'Vitalii Mandzyn', 'Anton Dudchenko', 'Artem Tyshchenko', 'Denys Nasyko'],
     'USA': ['Sean Doherty', 'Maxime Germain', 'Paul Schommer', 'Campbell Wright'],
+
+    #Fewer than 4 total athletes Nations
+    'China': ['Xingyuan Yan'],
+    'Croatia': ['Kresimir Crnkovic', 'Matija Legovic'],
+    'Great Britain': [],
+    'Greenland': ['Sondre Slettemark'],
+    'Moldova': ['Iulian Lukin', 'Pavel Magazeev', 'Maksim Makarov'],
+    'South Korea': ['Timofei Lapshin']
+
 }
 
 CHAMPS_ATHLETES_LADIES = {
-    'Australia': ['Darcie Morton'],
-    'Austria': ['Anna Andexer', 'Anna Gandler', 'Lisa Theresa Hauser', 'Anna Juppe', 'Tamara Steiner'],
-    'Belgium': [ 'Eve Bouvard', 'Maya Cloetens', 'Marisa Emonts', 'Lotte Lie'],
-    'Brazil': ['Gaia Brunello'],
-    'Bulgaria': ['Valentina Dimitrova','Lora Hristova', 'Milena Todorova',   'Maria Zdravkova'],
-    'Canada': ['Nadia Moser', 'Pascale Paradis', 'Benita Peiffer', 'Shilo Rousseau'],
-    'China': ['Yuanmeng Chu', 'Fanqi Meng'],
-    'Croatia': ['Anika Kozica'],
+    #Major Nations (10 or more)
     'Czechia': ['Lucie Charvatova', 'Marketa Davidova', 'Jessica Jislova', 'Tereza Vinklarkova', 'Tereza Vobornikova'],
-    'Denmark': ['Anne de Besche', 'Ukaleq Slettemark'],
-    'Estonia': ['Regina Ermits','Susan Külm', 'Johanna Talihaerm', 'Tuuli Tomingas'],
     'Finland': ['Inka Hämäläinen', 'Noora Kaisa Keränen', 'Venla Lehtonen', 'Sonja Leinamo', 'Suvi Minkkinen'],
-    'France': ['Camille Bened', 'Justine Braisaz-Bouchet', 'Lou Jeanmonnot', 'Oceane Michelon', 'Jeanne Richard', 'Julia Simon'],
-    'Germany': ['Selina Grotian', 'Janina Hettich-Walz', 'Franziska Preuss',  'Julia Tannheimer', 'Vanessa Voigt',  'Anna Weidel'],
-    'Greenland': ['Ukaleq Slettemark'],
     'Italy': ['Hannah Auchentaller','Michela Carrara', 'Rebecca Passler', 'Lisa Vittozzi', 'Dorothea Wierer'],
-    'Kazakhstan': ['Milana Geneva', 'Aisha Rakisheva'],
-    'Latvia': ['Baiba Bendika', 'Sanita Bulina', 'Annija Sabule', 'Estere Volfa'],
-    'Lithuania': ['Natalja Kocergina', 'Judita Traubaite', 'Sara Urumova', 'Lidiia Zhurauskaite'],
-    'Moldova': ['Alina Stremous', 'Aliona Makarova'],
     'Norway': ['Juni Arnekleiv', 'Marthe Kråkstad Johansen', 'Maren Kirkeeide', 'Karoline Offigstad Knotten', 'Ingrid Landmark Tandrevold'],
-    'Poland': ['Joanna Jakiela', 'Anna Maka', 'Natalia Sidorowicz', 'Kamila Zuk'],
-    'Romania': ['Andreea Mezdrea', 'Anastasia Tolmacheva'],
-    'Slovakia': ['Paulina Batovska Fialkova', 'Ema Kapustova', 'Anastasiya Kuzmina',  'Maria Remenova'],
-    'Slovenia': ['Manca Caserman', 'Polona Klemencic', 'Anamarija Lampic',  'Lena Repinc'],
-    'South Korea': ['Ekaterina Avvakumova'],
     'Sweden': ['Linn Gestblom', 'Ella Halvarsson', 'Anna-Karin Heijdenberg', 'Anna Magnusson', 'Elvira Öberg', 'Hanna Öberg'],
     'Switzerland': ['Amy Baserga', 'Aita Gasparin',  'Lena Häcki-Gross', 'Lea Meier', 'Lydia Mettler'],
     'Ukraine': ['Yuliia Dzhima', 'Khrystyna Dmytrenko', 'Olena Horodna', 'Liliia Steblyna', 'Anastasiya Merkushyna'],
+
+    #Medium Nations
+    'Austria': ['Anna Andexer', 'Anna Gandler', 'Lisa Theresa Hauser', 'Anna Juppe', 'Tamara Steiner'],
+    'Belgium': [ 'Eve Bouvard', 'Maya Cloetens', 'Marisa Emonts', 'Lotte Lie'],
+    'Bulgaria': ['Valentina Dimitrova','Lora Hristova', 'Milena Todorova',   'Maria Zdravkova'],
+    'Canada': ['Nadia Moser', 'Pascale Paradis', 'Benita Peiffer', 'Shilo Rousseau'],
+    'Estonia': ['Regina Ermits','Susan Külm', 'Johanna Talihaerm', 'Tuuli Tomingas'],
+    'France': ['Camille Bened', 'Justine Braisaz-Bouchet', 'Lou Jeanmonnot', 'Oceane Michelon', 'Jeanne Richard', 'Julia Simon'],
+    'Germany': ['Selina Grotian', 'Janina Hettich-Walz', 'Franziska Preuss',  'Julia Tannheimer', 'Vanessa Voigt',  'Anna Weidel'],
+    'Kazakhstan': ['Milana Geneva', 'Aisha Rakisheva'],
+    'Latvia': ['Baiba Bendika', 'Sanita Bulina', 'Annija Sabule', 'Estere Volfa'],
+    'Lithuania': ['Natalja Kocergina', 'Judita Traubaite', 'Sara Urumova', 'Lidiia Zhurauskaite'],
+    'Poland': ['Joanna Jakiela', 'Anna Maka', 'Natalia Sidorowicz', 'Kamila Zuk'],
+    'Romania': ['Andreea Mezdrea', 'Anastasia Tolmacheva'],
+    'Slovakia': ['Paulina Batovska Fialkova', 'Ema Kapustova', 'Anastasiya Kuzmina',  'Maria Remenova'],
+    'Slovenia': ['Manca Caserman', 'Polona Klemencic', 'Anamarija Lampic',  'Lena Repinc'], 
     'USA': ['Lucinda Anderson', 'Margie Freed', 'Deedra Irwin', 'Joanne Reid'],
+
+    #Minor nations (fewer than 4)
+    'Australia': ['Darcie Morton'],
+    'China': ['Yuanmeng Chu', 'Fanqi Meng'],
+    'Croatia': ['Anika Kozica'],
+    'Denmark': ['Anne de Besche'],
+    'Greenland': ['Ukaleq Slettemark'],
+    'Moldova': ['Alina Stremous', 'Aliona Makarova'],
+    'South Korea': ['Ekaterina Avvakumova']
+    
+    
 }
 
 def get_champs_athletes(nation, gender):
