@@ -61,12 +61,22 @@ def process_championships() -> None:
     men_individual = individual_races[individual_races['Sex'] == 'M']
     ladies_individual = individual_races[individual_races['Sex'] == 'L']
     
-    # Process team races
-    men_teams = team_races[team_races['Sex'] == 'M']
-    ladies_teams = team_races[team_races['Sex'] == 'L']
-    mixed_teams = team_races[team_races['Sex'] == 'Mixed']
-    
+    # Separate Team Sprint (2-person) from regular Team (4-person) events
+    team_sprint_races = team_races[team_races['RaceType'].str.contains('Sprint', case=False, na=False)]
+    regular_team_races = team_races[~team_races['RaceType'].str.contains('Sprint', case=False, na=False)]
+
+    # Team Sprint by gender
+    men_team_sprint = team_sprint_races[team_sprint_races['Sex'] == 'M']
+    ladies_team_sprint = team_sprint_races[team_sprint_races['Sex'] == 'L']
+    mixed_team_sprint = team_sprint_races[team_sprint_races['Sex'] == 'Mixed']
+
+    # Regular Team by gender
+    men_teams = regular_team_races[regular_team_races['Sex'] == 'M']
+    ladies_teams = regular_team_races[regular_team_races['Sex'] == 'L']
+    mixed_teams = regular_team_races[regular_team_races['Sex'] == 'Mixed']
+
     print(f"Individual races: {len(men_individual)} men, {len(ladies_individual)} ladies")
+    print(f"Team Sprint races: {len(men_team_sprint)} men, {len(ladies_team_sprint)} ladies, {len(mixed_team_sprint)} mixed")
     print(f"Team races: {len(men_teams)} men, {len(ladies_teams)} ladies, {len(mixed_teams)} mixed")
     
     # Process individual startlists
@@ -86,51 +96,50 @@ def process_championships() -> None:
             print(f"Error processing ladies' individual championships: {e}")
             traceback.print_exc()
     
-    # Process team startlists (if any team races exist)
-    if not team_races.empty:
+    # Process Team Sprint startlists (2-person teams)
+    if not team_sprint_races.empty:
+        try:
+            print("\\n=== Processing Team Sprint Championships ===")
+
+            # Process men's team sprint
+            if not men_team_sprint.empty:
+                print("Processing men's team sprint races...")
+                create_team_championships_startlist('men', men_team_sprint)
+
+            # Process ladies' team sprint
+            if not ladies_team_sprint.empty:
+                print("Processing ladies' team sprint races...")
+                create_team_championships_startlist('ladies', ladies_team_sprint)
+
+            # Process mixed team sprint
+            if not mixed_team_sprint.empty:
+                print("Processing mixed team sprint races...")
+                create_mixed_team_championships_startlist(mixed_team_sprint)
+
+        except Exception as e:
+            print(f"Error processing team sprint championships: {e}")
+            traceback.print_exc()
+
+    # Process regular Team startlists (4-person teams)
+    if not regular_team_races.empty:
         try:
             print("\\n=== Processing Team Championships ===")
-            # Import team functions from relay directory
-            sys.path.append('relay')
-            
-            # Try to import team functions - if they don't exist, skip team processing
-            try:
-                from startlist_common import create_team_startlist_from_config
-                
-                # Process men's teams
-                if not men_teams.empty:
-                    print("Processing men's team races...")
-                    create_team_startlist_from_config('men', 'champs')
-                
-                # Process ladies' teams  
-                if not ladies_teams.empty:
-                    print("Processing ladies' team races...")
-                    create_team_startlist_from_config('ladies', 'champs')
-                    
-                # Process mixed teams
-                if not mixed_teams.empty:
-                    print("Processing mixed team races...")
-                    create_team_startlist_from_config('mixed', 'champs')
-                    
-            except ImportError as import_err:
-                print(f"Team functions not available in relay directory, using local implementation: {import_err}")
-                
-                # Use local team processing functions
-                # Process men's teams
-                if not men_teams.empty:
-                    print("Processing men's team races...")
-                    create_team_championships_startlist('men', men_teams)
-                
-                # Process ladies' teams  
-                if not ladies_teams.empty:
-                    print("Processing ladies' team races...")
-                    create_team_championships_startlist('ladies', ladies_teams)
-                    
-                # Process mixed teams
-                if not mixed_teams.empty:
-                    print("Processing mixed team races...")
-                    create_mixed_team_championships_startlist(mixed_teams)
-                
+
+            # Process men's teams
+            if not men_teams.empty:
+                print("Processing men's team races...")
+                create_team_championships_startlist('men', men_teams)
+
+            # Process ladies' teams
+            if not ladies_teams.empty:
+                print("Processing ladies' team races...")
+                create_team_championships_startlist('ladies', ladies_teams)
+
+            # Process mixed teams
+            if not mixed_teams.empty:
+                print("Processing mixed team races...")
+                create_mixed_team_championships_startlist(mixed_teams)
+
         except Exception as e:
             print(f"Error processing team championships: {e}")
             traceback.print_exc()
@@ -244,22 +253,30 @@ def create_team_championships_startlist(gender: str, races_df: pd.DataFrame) -> 
             return
         
         team_data = []
-        
-        # Get qualifying nations from config (3+ athletes for team competitions in Nordic Combined)
+
+        # Get qualifying nations from config
         from config import CHAMPS_ATHLETES_MEN, CHAMPS_ATHLETES_LADIES
-        
+
         if gender == 'men':
             all_nations = set(CHAMPS_ATHLETES_MEN.keys())
         else:
             all_nations = set(CHAMPS_ATHLETES_LADIES.keys())
-        
+
+        # Determine minimum athletes needed based on race type
+        race_info = races_df.iloc[0]
+        race_type = race_info['RaceType']
+        if 'Sprint' in race_type:
+            min_athletes = 2  # Team Sprint needs 2 athletes
+        else:
+            min_athletes = 4  # Regular Team needs 4 athletes (or 3 in some formats)
+
         qualifying_nations = []
         for nation in all_nations:
             athletes = get_champs_athletes(nation, gender)
-            if len(athletes) >= 3:  # Nordic Combined uses 3-person minimum for teams
+            if len(athletes) >= min_athletes:
                 qualifying_nations.append(nation)
-        
-        print(f"Found {len(qualifying_nations)} qualifying nations with 3+ {gender} athletes")
+
+        print(f"Found {len(qualifying_nations)} qualifying nations with {min_athletes}+ {gender} athletes for {race_type}")
         
         for nation in sorted(qualifying_nations):
             athletes = get_champs_athletes(nation, gender)
@@ -352,15 +369,23 @@ def create_mixed_team_championships_startlist(races_df: pd.DataFrame) -> None:
         ladies_nations = set(CHAMPS_ATHLETES_LADIES.keys())
         qualifying_nations = men_nations.intersection(ladies_nations)
         
-        # Filter for nations with sufficient athletes (at least 2 men and 2 ladies typically)
+        # Determine minimum athletes needed based on race type
+        race_info = races_df.iloc[0]
+        race_type = race_info['RaceType']
+        if 'Sprint' in race_type:
+            min_per_gender = 1  # Mixed Team Sprint needs 1 man + 1 lady
+        else:
+            min_per_gender = 2  # Regular Mixed Team needs 2 men + 2 ladies
+
+        # Filter for nations with sufficient athletes
         final_nations = []
         for nation in qualifying_nations:
             men_athletes = get_champs_athletes(nation, 'men')
             ladies_athletes = get_champs_athletes(nation, 'ladies')
-            if len(men_athletes) >= 2 and len(ladies_athletes) >= 2:
+            if len(men_athletes) >= min_per_gender and len(ladies_athletes) >= min_per_gender:
                 final_nations.append(nation)
-        
-        print(f"Found {len(final_nations)} qualifying nations for mixed teams")
+
+        print(f"Found {len(final_nations)} qualifying nations for {race_type}")
         
         for nation in sorted(final_nations):
             # Get top 2 men by ELO

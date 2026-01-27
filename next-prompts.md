@@ -1,4 +1,29 @@
-# Task: Update K Calculation in elo_predict.py Files
+# About This Document
+
+This file serves as a **handoff document between Claude conversation sessions**. Since each conversation starts fresh without memory of previous sessions, this file provides:
+
+1. **Persistent context** - Background on the current problem being solved and why
+2. **Implementation reference** - Exact code patterns to follow for consistency
+3. **Progress tracker** - Checklist showing what's done and what remains
+4. **Quick onboarding** - User can say "read next-prompts.md" to bring Claude up to speed instantly
+
+## IMPORTANT: Continuous Updates Required
+
+**Claude must update this document continuously and proactively throughout each session without being prompted by the user.** This includes:
+
+- Updating progress checklists as tasks are completed
+- Adding new tasks or sub-tasks as they are discovered
+- Documenting decisions made during implementation
+- Recording any blockers or issues encountered
+- Clearing completed projects and adding new ones as work shifts
+
+The goal is for this document to always reflect the current state of the project, so the next session can pick up seamlessly.
+
+---
+
+# Current Task: Update K Calculation in elo_predict.py Files
+
+**Status: COMPLETE**
 
 ## Background
 
