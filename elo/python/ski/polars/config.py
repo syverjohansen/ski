@@ -131,9 +131,9 @@ CHAMPS_ATHLETES_MEN_XC = {
     'India': ['Shubam Parihar'],
     'Iran': ['Seyed Ahmad Reza Seyd'],
     'Ireland': ['Thomas Hjalmar Westgård', 'Dylan Longridge'],
-    'Italy': ['Federico Pellegrino', 'Davide Graz', 'Elia Barp', 'Michael Hellweger', 'Giovanni Ticco'],
+    'Italy': ['Elia Barp', 'Martino Carollo', 'Simone Dapra', 'Davide Graz', 'Simone Mocellini', 'Federico Pellegrino'],
     'Japan': ['Naoto Baba', 'Ryo Hirose', 'Haruki Yamashita'],
-    'Kazakhstan': ['Svyatoslav Matassov', 'Vitaliy Pukhkalo', 'Sultan Bazarbekov'],
+    'Kazakhstan': ['Nail Bashmakov', 'Amirgali Muratbekov', 'Vitaliy Pukhkalo'],
     'Kyrgyzstan': ['Artur Saparbekov'],
     'Latvia': ['Raimo Vigants', 'Jekabs Skolnieks', 'Sandijs Suhanovs'],
     'Liechtenstein': ['Micha Büchel'],
@@ -146,7 +146,7 @@ CHAMPS_ATHLETES_MEN_XC = {
     'Norway': ['Harald Østberg Amundsen', 'Einar Hedegart', 'Emil Iversen', 'Johannes Høsflot Klæbo', 'Martin Løwstrøm Nyenget', 'Mattis Stenshagen', 'Erik Valnes', 'Oskar Opstad Vike'],
     'Poland': ['Sebastian Bryja', 'Dominik Bury', 'Maciej Starega'],
     'Portugal': ['Jose Cabeca'],
-    'Romania': ['Gabriel Cojocaru', 'Ionut Alexandru Costea'],
+    'Romania': ['Gabriel Cojocaru', 'Paul Constantin Pepene'],
     'Russia': ['Saveliy Korostelev'],
     'Saudi Arabia': ['Rakan Alireza'],
     'Serbia': ['Rejhan Smrkovic'],
@@ -160,7 +160,7 @@ CHAMPS_ATHLETES_MEN_XC = {
     'Taiwan': ['Chieh-Han Lee'],
     'Thailand': ['Tanathip Bunrit'],
     'Turkey': ['Abdullah Yilmaz'],
-    'Ukraine': ['Ruslan Denysenko', 'Andriy Dotsenko'],
+    'Ukraine': ['Dmytro Dragun', 'Oleksandr Lisohor'],
     'USA': ['Johnny Hagenbuch', 'Zak Ketterson', 'Zanden McMullen', 'Ben Ogden', 'Gus Schumacher', 'James Clinton Schoonmaker', 'Hunter Wonders', 'Jack Young']
 }
 
@@ -173,7 +173,7 @@ CHAMPS_ATHLETES_LADIES_XC = {
     'Brazil': ['Bruna Moura', 'Eduarda Ribera'],
     'Bulgaria': ['Kalina Nedyalkova'],
     'Canada': ['Jasmine Drolet', 'Liliane Gagnon', 'Alison Mackie', 'Sonjaa Schmidt', 'Kathrine Stewart-Jones', 'Amelia Wells'],
-    'China': ['Bayani Jialin', 'Lingshuang Chen', 'Dinigeer Yilamujiang'],
+    'China': ['Chunxue Chi', 'Kaile He', 'Yundi Wang', 'Dinigeer Yilamujiang'],
     'Croatia': ['Ema Sobol', 'Leona Garac'],
     'Czechia': ['Barbora Antosova', 'Tereza Beranova','Barbora Havlickova','Anna Marie Jaklova', 'Katerina Janatova', 'Anna Milerska', 'Sandra Schutzova'],
     'Estonia': ['Kaidy Kaasiku', 'Keidy Kaasiku', 'Teiloora Ojaste', 'Mariel Merlii Pulles', 'Teesi Tuul'],
@@ -185,9 +185,9 @@ CHAMPS_ATHLETES_LADIES_XC = {
     'Hungary': ['Sara Ponya', 'Larissza Vanda Bere'],
     'Iceland': ['Kristrun Gudnadottir'],
     'Iran': ['Atefah Salehi'],
-    'Italy': ['Caterina Ganz', 'Federica Cassol', 'Nicole Monsorno', 'Anna Comarella', 'Maria Gismondi', 'Cristina Pittin'],
+    'Italy': ['Federica Cassol', 'Anna Comarella', 'Iris De Martin Pinter', 'Martina Di Centa', 'Caterina Ganz',  'Maria Gismondi', 'Nicole Monsorno'],
     'Japan': ['Masae Tsuchiya', 'Chika Honda', 'Chika Kobayashi'],
-    'Kazakhstan': ['Yelizaveta Tolmachyova', 'Laura Kinybaeyeva', 'Darya Ryazhko', 'Angelina Shuryga'],
+    'Kazakhstan': ['Anna Melnik', 'Darya Ryazhko', 'Kseniya Shalygina', 'Nadezhda Stepashkina'],
     'Latvia': ['Patricijia Eiduka', 'Adriana Suminska', 'Linda Kaparkaleja'],
     'Liechtenstein': ['Nina Riedener'],
     'Lithuania': ['Egle Savickaite', 'Ieva Dainyte'],
@@ -204,7 +204,7 @@ CHAMPS_ATHLETES_LADIES_XC = {
     'Sweden': ['Ebba Andersson', 'Maja Dahlqvist', 'Johanna Hagström', 'Moa Ilar', 'Frida Karlsson', 'Emma Ribom', 'Jonna Sundling', 'Linn Svahn'],
     'Switzerland': ['Fabienne Alder', 'Nadine Fähndrich', 'Lea Fischer', 'Marina Kälin', 'Nadja Kälin', 'Alina Meier', 'Anja Weber'],
     'Turkey': ['Rabia Akyol'],
-    'Ukraine': ['Yelizaveta Nopriienko', 'Sofiia Shkatula', 'Anastasiia Nikon'],
+    'Ukraine': ['Daryna Mihal', 'Anastasiia Nikon', 'Yelizaveta Nopriienko', 'Sofiia Shkatula'],
     'USA': ['Rosie Brennan', 'Jessie Diggins', 'Lauren Jortberg', 'Julia Kern',  'Kendall Kramer', 'Novie McCabe', 'Sammy Smith', 'Hailey Swirbul']
 }
 

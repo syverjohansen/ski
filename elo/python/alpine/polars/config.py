@@ -103,7 +103,7 @@ CHAMPS_ATHLETES_MEN = {
     'Austria': ['Vincent Kriechmayr', 'Stefan Brennsteiner', 'Manuel Feller', 'Marco Schwarz', 'Fabio Gstrein', 'Raphael Haaser', 'Daniel Hemetsberger', 'Patrick Feurstein', 'Stefan Babinsky', 'Johannes Strolz', 'Stefan Eichberger'],
     'Canada': ['Cameron Alexander', 'James Crawford', 'Jeffrey Read', 'Brodie Seger', 'Riley Seger'],
     'France': ['Nils Allegre', 'Nils Alphand', 'Steven Amiez', 'Leo Anguenot', 'Maxence Muzaton', 'Clement Noel', 'Paco Rassat'],
-    'Italy': ['Dominik Paris', 'Luca De Aliprandini', 'Mattia Casse', 'Alex Vinatzer', 'Florian Schieder', 'Filippo Della Vite', 'Tommaso Sala', 'Christof Innerhofer', 'Giovanni Borsotti', 'Stefano Gross', 'Giovanni Franzoni'],
+    'Italy': ['Mattia Casse', 'Luca De Aliprandini', 'Giovanni Franzoni', 'Christof Innerhofer', 'Tobias Kastlunger', 'Dominik Paris',  'Tommasso Saccardi', 'Florian Schieder', 'Alex Vinatzer'],
     'Norway': ['Aleksander Aamodt Kilde', 'Hans Grahl-Madsen', 'Timon Haugan', 'Henrik Kristoffersen',  'Atle Lie McGrath', 'Fredrik Møller', 'Oscar Andreas Sandvik', 'Adrian Smiseth Sejersted', 'Eirik Hystad Solberg'],
     'Switzerland': ['Luca Aerni', 'Niels Hintermann', 'Matthias Iten', 'Loic Meillard', 'Alexis Monney', 'Tanguy Nef', 'Marco Odermatt', 'Stefan Rogentin', 'Thomas Tumler', 'Franjo Von Allmen', 'Daniel Yule'],
     'USA': ['Bryce Bennett', 'Ryan Cochran-Siegle', 'Sam Morse', 'Kyle Negomir', 'River Radamus', 'Ryder Sarchett'],
@@ -132,9 +132,13 @@ CHAMPS_ATHLETES_MEN = {
     'Poland': ['Piotr Habdas'],
     'Russia': [],
     'Slovakia': ['Adam Novacek'],
-    'South Korea': []
+    'South Korea': [],
 
     # Charity Cases (1-2 athletes)
+    'China': ['Xiaochen Liu'],
+    'Kazakhstan': ['Rotislav Khokhlov']
+    'Romania': ['Alexandru Stefanescu'],
+    'Ukraine': ['Dmytro Shepiuk']
 }
 
 CHAMPS_ATHLETES_LADIES = {
@@ -142,7 +146,7 @@ CHAMPS_ATHLETES_LADIES = {
     'Austria': ['Cornelia Hütter', 'Katharina Liensberger', 'Stephanie Venier', 'Mirjam Puchner', 'Ariane Raedler', 'Julia Scheib', 'Ricarda Haaser', 'Katharina Gallhuber', 'Stephanie Brunner', 'Nina Ortlieb', 'Katharina Truppe'],
     'Canada': ['Kiara Alexander', 'Cassidy Gray', 'Valerie Grenier', 'Justine Lamontagne', 'Ali Nullmeyer', 'Britt Richardson',  'Amelia Smart', 'Laurence St-Germain'],
     'France': ['Camille Cerutti', 'Marion Chevrier', 'Clara Direz','Doriane Escane', 'Laura Gauche', 'Marie Lamure', 'Caitlin McFarlane', 'Romane Miradoli'],
-    'Italy': ['Federica Brignone', 'Sofia Goggia', 'Elena Curtoni', 'Marta Bassino', 'Laura Pirovano', 'Martina Peterlini', 'Lara Della Mea', 'Marta Rossetti', 'Nicol Delago', 'Asja Zenere', 'Roberta Melesi'],
+    'Italy': ['Federica Brignone', 'Elena Curtoni', 'Giada D\'Antonio', 'Nadia Delago', 'Nicol Delago', 'Lara Della Mea', 'Sofia Goggia',  'Martina Peterlini', 'Laura Pirovano', 'Anna Trocker', 'Asja Zenere'],
     'Norway': ['Mina Fürst Holtmann', 'Kajsa Vickhoff Lie', 'Marte Monsen', 'Thea Louise Stjernesund', 'Madeline Sylvester-Davik', 'Bianca Bakke Westhoff'],
     'Switzerland': ['Malorie Blanc', 'Eliane Christen', 'Delia Durrer', 'Jasmine Flury', 'Michelle Gisin', 'Wendy Holdener',  'Vanessa Kasper', 'Melanie Meillard', 'Sue Piller', 'Camille Rast', 'Janine Schmitt', 'Corinne Suter'],    
     'USA': ['Mary Bocock', 'Keely Cashman', 'Katie Hensien','AJ Hurt', 'Breezy Johnson', 'Paula Moltzan', 'Nina O\'Brien', 'Mikaela Shiffrin', 'Lindsey Vonn',  'Jacqueline Wiles', 'Isabella Wright'],
@@ -172,10 +176,14 @@ CHAMPS_ATHLETES_LADIES = {
     'Poland': ['Maryna Gasienica Daniel', 'Magdalena Luczak'],
     'Russia': [],
     'Slovakia': ['Petra Vlhova'],
-    'South Korea': []
+    'South Korea': [],
 
     
     #Charity Cases
+    'China': ['Yuying Zhang'],
+    'Kazakhstan': ['Alexandra Skorokhodova'],
+    'Romania': ['Sofia Moldovan'],
+    'Ukraine': ['Anastasiya Shepilenko']
     
 }
 
