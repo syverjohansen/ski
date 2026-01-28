@@ -100,7 +100,7 @@ DEFAULT_CHAMPS_QUOTA = {'men': 4, 'ladies': 4}
 # Championships athlete lists (populate with actual athlete names as needed)
 CHAMPS_ATHLETES_MEN = {
     # Major alpine nations (More than 10)
-    'Austria': ['Vincent Kriechmayr', 'Stefan Brennsteiner', 'Manuel Feller', 'Marco Schwarz', 'Fabio Gstrein', 'Raphael Haaser', 'Daniel Hemetsberger', 'Patrick Feurstein', 'Stefan Babinsky', 'Johannes Strolz', 'Stefan Eichberger'],
+    'Austria': ['Stefan Babinsky', 'Stefan Brennsteiner', 'Manuel Feller', 'Lukas Feurstein', 'Patrick Feurstein', 'Fabio Gstrein','Raphael Haaser', 'Daniel Hemetsberger', 'Vincent Kriechmayr',  'Michael Matt', 'Marco Schwarz'],
     'Canada': ['Cameron Alexander', 'James Crawford', 'Jeffrey Read', 'Brodie Seger', 'Riley Seger'],
     'France': ['Nils Allegre', 'Nils Alphand', 'Steven Amiez', 'Leo Anguenot', 'Maxence Muzaton', 'Clement Noel', 'Paco Rassat'],
     'Italy': ['Mattia Casse', 'Luca De Aliprandini', 'Giovanni Franzoni', 'Christof Innerhofer', 'Tobias Kastlunger', 'Dominik Paris',  'Tommasso Saccardi', 'Florian Schieder', 'Alex Vinatzer'],
@@ -110,12 +110,12 @@ CHAMPS_ATHLETES_MEN = {
     
     # Medium nations (More than 4)
     'Andorra': ['Joan Verdu Sanchez', 'Alex Rius Gimenez'],
-    'Croatia': ['Filip Zubcic', 'Samuel Kolega', 'Istok Rodes'],
-    'Czechia': ['Jan Zabystran', 'Patryk Forejtek'],
-    'Finland': ['Elian Lehto', 'Eduard Hallberg', 'Jaakko Tapanainen'],
+    'Croatia': ['Samuel Kolega', 'Istok Rodes', 'Filip Zubcic'],
+    'Czechia': ['Marek Müller', 'Jan Zabystran'],
+    'Finland': ['Eduard Hallberg', 'Elian Lehto',  'Jesper Pohjolainen'],
     'Germany': ['Linus Strasser', 'Alexander Schmid', 'Simon Jocher', 'Romed Baumann', 'Fabian Gratz'],
-    'Slovenia': ['Zan Kranjec', 'Miha Hrobat', 'Anze Gartner', 'Nejc Naralocnik'],
-    'Sweden': ['Kristoffer Jakobsen', 'Felix Monsen', 'Adam Hofstedt', 'Emil Pettersson'],
+    'Slovenia': ['Martin Cater', 'Miha Hrobat', 'Zan Kranjec'],
+    'Sweden': ['Fabian Ax Swartz', 'Kristoffer Jakobsen'],
  
     # Small nations (more than 2 men/women)
     'Albania': ['Denni Xhepa'],
@@ -125,7 +125,6 @@ CHAMPS_ATHLETES_MEN = {
     'Bosnia&Herzegovina': ['Dino Terzic'],
     'Brazil': ['Lucas Pinheiro Braathen', 'Giovanni Ongaro'],
     'Bulgaria': ['Albert Popov', 'Konstantin Stoilov'],
-    'Estonia': ['Tormis Laine', 'Juhan Luik'],
     'Great Britain': ['Dave Ryding', 'Billy Major'],
     'Latvia': [],
     'New Zealand': ['Sam Hadley'],
@@ -136,16 +135,60 @@ CHAMPS_ATHLETES_MEN = {
 
     # Charity Cases (1-2 athletes)
     'Armenia': [],
+    'Belarus': [],
     'Benin': [],
     'Chile': [],
     'China': ['Xiaochen Liu'],
+    'Cyprus': [],
     'Denmark': [],
     'Eritrea': [],
     'Estonia': [],
-    'Kazakhstan': ['Rotislav Khokhlov']
+    'Georgia': [],
+    'Greece': [],
+    'Guinea-Bissau': [],
+    'Haiti': [],
+    'Hong Kong': [],
+    'Hungary':[],
+    'Iceland': [],
+    'Iran': [],
+    'Ireland': [],
+    'Israel': [],
+    'Jamaica': [],
+    'Japan': [],
+    'Kazakhstan': ['Rotislav Khokhlov'],
+    'Kenya': [],
+    'Kosovo': [],
+    'Kyrgyzstan': [],
+    'Lebanon': [],
+    'Liechtenstein': [],
+    'Lithuania': [],
+    'Luxembourg': [],
+    'Madagascar': [],
+    'Mexico': [],
+    'Monaco': [],
+    'Mongolia': [],
+    'Montenegro': [],
+    'Morocco': [],
+    'North Macedonia': [],
+    'Pakistan': [],
+    'Philippines': [],
+    'Portugal': [],
     'Romania': ['Alexandru Stefanescu'],
+    'Russia': [],
+    'San Marino': [],
+    'Saudi Arabia': [],
+    'Serbia': [],
+    'Singapore': [],
+    'South Africa': [],
+    'Spain': [],
     'Taiwan': [],
-    'Ukraine': ['Dmytro Shepiuk']
+    'Thailand': [],
+    'Trinidad & Tobago': [],
+    'Turkey': [],
+    'Ukraine': ['Dmytro Shepiuk'],
+    'UAE': ['Alexander Astridge'],
+    'Uruguay': [],
+    'Uzbekistan': []
 }
 
 CHAMPS_ATHLETES_LADIES = {
@@ -160,12 +203,12 @@ CHAMPS_ATHLETES_LADIES = {
     
     # Medium nations
     'Andorra': ['Cande Moreno Becerra'],
-    'Croatia': ['Zrinka Ljutic', 'Leona Popovic'],
-    'Czechia': ['Ester Ledecka', 'Martina Dubovska', 'Barbora Novakova'],
-    'Finland': ['Aada Kanto', 'Silja Koskinen'],
-    'Germany': ['Lena Dürr', 'Kira Weidle-Winkelmann', 'Emma Aicher', 'Jessica Hilzinger', 'Jana Fritz', 'Anna Schillinger', 'Fabiana Dorigo'],
-    'Slovenia': ['Neja Dvornik', 'Ilka Stuhec', 'Ana Bucik Jogan', 'Andreja Slokar', 'Anja Oplotnik', 'Nika Tomsic'],
-    'Sweden': ['Sara Hector', 'Anna Swenn-Larsson', 'Cornelia Öhlund', 'Estelle Alphand', 'Hanna Aronsson Elfman', 'Elsa Fermbäck', 'Lisa Nyberg'],
+    'Croatia': ['Zrinka Ljutic', 'Leona Popovic', 'Pia Vucinic'],
+    'Czechia': ['Martina Dubovska', 'Elisa Maria Negri', 'Alena Labastova', 'Ester Ledecka',  'Barbora Novakova'],
+    'Finland': ['Silja Koskinen', 'Rosa Pohjolainen', 'Erika Pykäläinen'],
+    'Germany': ['Emma Aicher', 'Lena Dürr', 'Jessica Hilzinger', 'Kira Weidle-Winkelmann'],
+    'Slovenia': ['Ana Bucik Jogan', 'Lila Lapanja', 'Caterina Sinigoi', 'Ilka Stuhec', 'Nika Tomsic'],
+    'Sweden': ['Estelle Alphand', 'Hanna Aronsson Elfman', 'Sara Hector', 'Cornelia Öhlund', 'Anna Swenn-Larsson'],
     
 
     # Small nations (More than 2 athletes)
@@ -176,22 +219,52 @@ CHAMPS_ATHLETES_LADIES = {
     'Bosnia&Herzegovina': ['Esma Alic', 'Nikolina Dragljevic'],
     'Brazil': [],
     'Bulgaria': [],
-    'Estonia': [],
     'Great Britain': ['Victoria Palla'],
     'Latvia': [],
-    'New Zealand': ['Alice Robinson'],
     'Poland': ['Maryna Gasienica Daniel', 'Magdalena Luczak'],
-    'Russia': [],
     'Slovakia': ['Petra Vlhova'],
     'South Korea': [],
 
     
     #Charity Cases
     'Azerbaijan': [],
+    'Belarus': [],
+    'Chile': [],
     'China': ['Yuying Zhang'],
+    'Cyprus': [],
+    'Denmark': [],
+    'Estonia': [],
+    'Georgia': [],
+    'Greece': [],
+    'Hong Kong': [],
+    'Hungary':[],
+    'Iceland': [],
+    'Iran': [],
+    'Ireland': [],
+    'Israel': [],
+    'Japan': [],
     'Kazakhstan': ['Alexandra Skorokhodova'],
+    'Kenya': [],
+    'Kosovo': [],
+    'Liechtenstein': [],
+    'Lithuania': [],
+    'Luxembourg': [],
+    'Madagascar': [],
+    'Malaysia': [],
+    'Mexico': [],
+    'New Zealand': ['Alice Robinson'],
+    'North Macedonia': [],
+    'Philippines': [],
+    'Portugal': [],
     'Romania': ['Sofia Moldovan'],
-    'Ukraine': ['Anastasiya Shepilenko']
+    'Russia': [],
+    'South Africa': [],
+    'Spain': [],
+    'Taiwan': [],
+    'Trinidad & Tobago': [],
+    'Turkey': [],
+    'Ukraine': ['Anastasiya Shepilenko'],
+    'UAE': ['Piera Hudson']
     
 }
 

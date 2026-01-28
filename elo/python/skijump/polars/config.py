@@ -101,7 +101,7 @@ DEFAULT_CHAMPS_QUOTA = {'men': 4, 'ladies': 4}
 CHAMPS_ATHLETES_MEN = {
     # Major ski jumping nations (6 or more athletes total)
     'Austria': ['Stephan Embacher', 'Jan Hörl', 'Stefan Kraft', 'Daniel Tschofenig'],
-    'Finland': ['Antti Aalto', 'Tomas Kuisma', 'Paavo Romppainen', 'Vilho Palosaari'],
+    'Finland': ['Antti Aalto', 'Niko Kytösaho' ,'Vilho Palosaari'],
     'Germany': ['Andreas Wellinger', 'Karl Geiger', 'Pius Paschke', 'Philipp Raimund'],
     'Italy': ['Giovanni Bresadola', 'Francesco Cecon', 'Alex Insam'],
     'Japan': ['Ryoyu Kobayashi', 'Ren Nikaido', 'Naoki Nakamura', 'Yukiya Sato'],
@@ -130,7 +130,7 @@ CHAMPS_ATHLETES_MEN = {
 CHAMPS_ATHLETES_LADIES = {
     # Major ski jumping nations (6 or more athletes total)
     'Austria': ['Lisa Eder', 'Lisa Hirner', 'Julia Mühlbacher', 'Meghann Wadsak'],
-    'Finland': ['Jenny Rautionaho', 'Heta Hirvonen', 'Oosa Thure', 'Julia Kykkänen'],
+    'Finland': ['Heta Hirvonen', 'Minja Korhonen', 'Sofia Mattila', 'Jenny Rautionaho'],
     'Germany': ['Selina Freitag', 'Katharina Schmid', 'Agnes Reisch', 'Juliane Seyfarth'],
     'Italy': ['Martina Ambrosi', 'Jessica Malsiner', 'Annika Sieff', 'Martina Zanitzer'],
     'Japan': ['Sara Takanashi', 'Yuki Ito', 'Nozomi Maruyama', 'Yuka Seto'],

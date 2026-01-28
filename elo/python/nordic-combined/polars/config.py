@@ -101,7 +101,7 @@ DEFAULT_CHAMPS_QUOTA = {'men': 3, 'ladies': 3}
 CHAMPS_ATHLETES_MEN = {
     # Major nordic combined nations (3 athletes - full quota)
     'Austria': ['Johannes Lamparter', 'Stefan Rettenegger', 'Thomas Rettenegger'],
-    'Finland': ['Ilkka Herola', 'Eero Hirvonen', 'Otto Niittykoski'],
+    'Finland': ['Ilkka Herola', 'Eero Hirvonen'],
     'France': ['Laurent Muhlethaler', 'Matteo Baud', 'Gael Blondeau'],
     'Germany': ['Vinzenz Geiger', 'Julian Schmid', 'Johannes Rydzek'],
     'Italy': ['Samuel Costa', 'Aaron Kostner', 'Alessandro Pittin'],

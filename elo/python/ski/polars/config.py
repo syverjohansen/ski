@@ -209,7 +209,7 @@ CHAMPS_ATHLETES_LADIES_XC = {
     #Minor Nations (3 or more)
     'Brazil': ['Bruna Moura', 'Eduarda Ribera'],
     'Bulgaria': ['Kalina Nedyalkova'],
-    'Croatia': ['Ema Sobol', 'Leona Garac'],
+    'Croatia': ['Tena Hadzic', 'Ema Sobol'],
     'Greece': ['Konstantina Charalampidou', 'Maria Dimitra Tsiarka'],
     'Romania': ['Delia Ioana Reit'],
     'Slovakia': ['Maria Danielova'],

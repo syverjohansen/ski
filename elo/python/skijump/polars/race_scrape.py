@@ -92,7 +92,10 @@ def parse_hill_size_and_racetype(race_text):
         hill_size = hill_match.group(1)
     
     # Determine race type
-    if "Team" in race_text:
+    # Note: Mixed events are always team events, even if FIS mislabels them (e.g., "Mixed Mixed" instead of "Mixed Team")
+    is_team_event = "Team" in race_text or "Mixed" in race_text
+
+    if is_team_event:
         if "Large" in race_text or "Flying" in race_text:
             race_type = "Team Large"
         elif "Normal" in race_text:
@@ -105,7 +108,7 @@ def parse_hill_size_and_racetype(race_text):
         race_type = "Large"
     elif "Normal" in race_text:
         race_type = "Normal"
-    
+
     return hill_size, race_type
 
 def assign_periods_by_race_count(races):

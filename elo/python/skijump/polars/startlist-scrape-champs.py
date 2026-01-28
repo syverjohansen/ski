@@ -240,21 +240,21 @@ def create_team_championships_startlist(gender: str, races_df: pd.DataFrame) -> 
         
         team_data = []
         
-        # Get qualifying nations from config (4+ athletes for team competitions)
+        # Get qualifying nations from config (2+ athletes for team competitions - Olympics uses 2-person teams)
         from config import CHAMPS_ATHLETES_MEN, CHAMPS_ATHLETES_LADIES
-        
+
         if gender == 'men':
             all_nations = set(CHAMPS_ATHLETES_MEN.keys())
         else:
             all_nations = set(CHAMPS_ATHLETES_LADIES.keys())
-        
+
         qualifying_nations = []
         for nation in all_nations:
             athletes = get_champs_athletes(nation, gender)
-            if len(athletes) >= 4:  # Minimum team size requirement
+            if len(athletes) >= 2:  # Minimum team size requirement (Olympics uses 2-person teams)
                 qualifying_nations.append(nation)
-        
-        print(f"Found {len(qualifying_nations)} qualifying nations with 4+ {gender} athletes")
+
+        print(f"Found {len(qualifying_nations)} qualifying nations with 2+ {gender} athletes")
         
         for nation in sorted(qualifying_nations):
             athletes = get_champs_athletes(nation, gender)
@@ -278,11 +278,11 @@ def create_team_championships_startlist(gender: str, races_df: pd.DataFrame) -> 
                     # No ELO match - assign low value
                     athlete_elos.append((athlete_name, 0))
             
-            # Sort by ELO (highest first) and select top 4 athletes
+            # Sort by ELO (highest first) and select top 2 athletes (Olympics uses 2-person teams)
             athlete_elos.sort(key=lambda x: x[1], reverse=True)
-            team_athletes = [athlete for athlete, elo in athlete_elos[:4]]
-            
-            print(f"Creating team for {nation} with top 4 athletes by ELO: {team_athletes}")
+            team_athletes = [athlete for athlete, elo in athlete_elos[:2]]
+
+            print(f"Creating team for {nation} with top 2 athletes by ELO: {team_athletes}")
             
             # Create team record using highest ELO athletes
             team_record = create_team_record_from_config(
@@ -443,16 +443,17 @@ def create_team_record_from_config(nation: str, athletes: List[str], elo_scores:
     
     # Add team-level fields
     team_record['Team_Points'] = ''
-    
+    team_record['TeamMembers'] = ','.join(athletes)  # Comma-separated athlete names
+
     # Initialize all Elo sums and averages
     for col in elo_columns:
         team_record[f'Total_{col}'] = 0
         team_record[f'Avg_{col}'] = 0
     
     valid_member_count = 0
-    
-    # Process team members (up to 4)
-    for i in range(4):
+
+    # Process team members (up to 2 for Olympics)
+    for i in range(2):
         member_index = i + 1
         
         if i < len(athletes):
@@ -527,16 +528,17 @@ def create_mixed_team_record(nation: str, men_athletes: List[str], ladies_athlet
     }
     
     team_record['Team_Points'] = ''
-    
+
+    # Process 2 men + 2 ladies (4 total members)
+    all_athletes = men_athletes + ladies_athletes
+    team_record['TeamMembers'] = ','.join(all_athletes)  # Comma-separated athlete names
+
     # Initialize totals
     for col in elo_columns:
         team_record[f'Total_{col}'] = 0
         team_record[f'Avg_{col}'] = 0
-    
+
     valid_member_count = 0
-    
-    # Process 2 men + 2 ladies (4 total members)
-    all_athletes = men_athletes + ladies_athletes
     all_elos = [men_elo, men_elo, ladies_elo, ladies_elo]  # Match genders
     
     for i in range(4):
