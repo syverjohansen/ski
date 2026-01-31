@@ -14,6 +14,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,21,Trine Göpfert,Germany,107,2005-06-19T00:00:00.000000,0,"",21,18,20.56399726214921,13
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,22,Trine Göpfert,Germany,107,2005-06-19T00:00:00.000000,0,"",23,19,20.580424366872005,14
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,23,Trine Göpfert,Germany,107,2005-06-19T00:00:00.000000,0,"",23,24,20.583162217659137,15
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,19,Trine Göpfert,Germany,107,2005-06-19T00:00:00.000000,0,"",19,18,20.61601642710472,16
 2022-03-12,Schonach,Germany,World Cup,106,5,Individual,0,0,2022,7,L,19,Magdalena Burger,Germany,108,2005-11-05T00:00:00.000000,0,"",18,16,16.347707049965777,1
 2022-03-13,Schonach,Germany,World Cup,106,5,Individual,0,0,2022,8,L,16,Magdalena Burger,Germany,108,2005-11-05T00:00:00.000000,0,"",13,19,16.35044490075291,2
 2022-12-02,Lillehammer,Norway,World Cup,100,5,Individual,0,0,2023,1,L,11,Magdalena Burger,Germany,108,2005-11-05T00:00:00.000000,0,"",11,10,17.073237508555785,3
@@ -98,6 +99,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,8,Yuna Kasai,Japan,161,2004-02-04T00:00:00.000000,0,"",9,8,21.935660506502394,57
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,7,Yuna Kasai,Japan,161,2004-02-04T00:00:00.000000,0,"",13,8,21.95208761122519,58
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,10,Yuna Kasai,Japan,161,2004-02-04T00:00:00.000000,0,"",9,14,21.95482546201232,59
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,5,Yuna Kasai,Japan,161,2004-02-04T00:00:00.000000,0,"",7,10,21.987679671457904,60
 2020-12-18,Ramsau,Austria,World Cup,98,N/A,Individual,0,0,2021,1,L,23,Sana Azegami,Japan,162,2001-11-04T00:00:00.000000,0,"",28,12,19.121149897330596,1
 2021-02-27,Oberstdorf,Germany,World Championship,106,N/A,Individual,0,0,2021,2,L,12,Sana Azegami,Japan,162,2001-11-04T00:00:00.000000,0,"",16,9,19.315537303216974,2
 2022-12-02,Lillehammer,Norway,World Cup,100,5,Individual,0,0,2023,1,L,16,Sana Azegami,Japan,162,2001-11-04T00:00:00.000000,0,"",16,17,21.075975359342916,3
@@ -221,6 +223,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-10,Otepää,Estonia,World Cup,97,5,Individual,0,0,2026,6,L,7,Nathalie Armbruster,Germany,168,2006-01-02T00:00:00.000000,0,"",11,6,20.021902806297057,50
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,2,Nathalie Armbruster,Germany,168,2006-01-02T00:00:00.000000,0,"",4,3,20.041067761806982,51
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,3,Nathalie Armbruster,Germany,168,2006-01-02T00:00:00.000000,0,"",4,4,20.043805612594113,52
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,4,Nathalie Armbruster,Germany,168,2006-01-02T00:00:00.000000,0,"",11,4,20.076659822039698,53
 2024-01-13,Oberstdorf,Germany,World Cup,106,5,Individual,0,0,2024,5,L,17,Ronja Loh,Germany,171,2005-04-21T00:00:00.000000,0,"",13,24,18.729637234770706,1
 2024-01-14,Oberstdorf,Germany,World Cup,N/A,N/A,Individual Compact,0,0,2024,6,L,24,Ronja Loh,Germany,171,2005-04-21T00:00:00.000000,0,"",25,22,18.732375085557837,2
 2024-01-27,Schonach,Germany,World Cup,100,5,Individual,0,0,2024,7,L,15,Ronja Loh,Germany,171,2005-04-21T00:00:00.000000,0,"",11,25,18.767967145790553,3
@@ -247,6 +250,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,27,Ronja Loh,Germany,171,2005-04-21T00:00:00.000000,0,"",13,29,20.725530458590008,24
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,23,Ronja Loh,Germany,171,2005-04-21T00:00:00.000000,0,"",6,23,20.7419575633128,25
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,17,Ronja Loh,Germany,171,2005-04-21T00:00:00.000000,0,"",14,22,20.74469541409993,26
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,17,Ronja Loh,Germany,171,2005-04-21T00:00:00.000000,0,"",12,23,20.777549623545518,27
 2020-12-18,Ramsau,Austria,World Cup,98,N/A,Individual,0,0,2021,1,L,26,Claudia Purker,Austria,177,1999-01-15T00:00:00.000000,0,"",4,30,21.924709103353866,1
 2021-02-27,Oberstdorf,Germany,World Championship,106,N/A,Individual,0,0,2021,2,L,25,Claudia Purker,Austria,177,1999-01-15T00:00:00.000000,0,"",12,28,22.119096509240247,2
 2022-12-02,Lillehammer,Norway,World Cup,100,5,Individual,0,0,2023,1,L,18,Claudia Purker,Austria,177,1999-01-15T00:00:00.000000,0,"",9,30,23.879534565366185,3
@@ -294,6 +298,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,12,Claudia Purker,Austria,177,1999-01-15T00:00:00.000000,0,"",6,23,26.989733059548254,45
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,18,Claudia Purker,Austria,177,1999-01-15T00:00:00.000000,0,"",14,20,27.006160164271048,46
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,9,Claudia Purker,Austria,177,1999-01-15T00:00:00.000000,0,"",8,15,27.00889801505818,47
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,16,Claudia Purker,Austria,177,1999-01-15T00:00:00.000000,0,"",14,19,27.041752224503764,48
 2022-12-02,Lillehammer,Norway,World Cup,100,5,Individual,0,0,2023,1,L,20,Alva Thors,Finland,178,2005-06-14T00:00:00.000000,0,"",18,25,17.467488021902806,1
 2022-12-03,Lillehammer,Norway,World Cup,100,5,Individual,0,0,2023,2,L,22,Alva Thors,Finland,178,2005-06-14T00:00:00.000000,0,"",21,23,17.470225872689937,2
 2023-02-24,Planica,Slovenia,World Championship,100,5,Individual,0,0,2023,10,L,27,Alva Thors,Finland,178,2005-06-14T00:00:00.000000,0,"",21,29,17.697467488021903,3
@@ -333,6 +338,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,20,Mille Marie Hagen,Norway,180,2002-12-13T00:00:00.000000,0,"",32,7,23.080082135523615,33
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,16,Mille Marie Hagen,Norway,180,2002-12-13T00:00:00.000000,0,"",28,10,23.096509240246405,34
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,18,Mille Marie Hagen,Norway,180,2002-12-13T00:00:00.000000,0,"",25,10,23.09924709103354,35
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,23,Mille Marie Hagen,Norway,180,2002-12-13T00:00:00.000000,0,"",27,13,23.132101300479125,36
 2022-03-12,Schonach,Germany,World Cup,106,5,Individual,0,0,2022,7,L,8,Hazuki Ikeda,Japan,194,2005-08-20T00:00:00.000000,0,"",14,8,16.55852156057495,1
 2022-03-13,Schonach,Germany,World Cup,106,5,Individual,0,0,2022,8,L,11,Hazuki Ikeda,Japan,194,2005-08-20T00:00:00.000000,0,"",12,10,16.56125941136208,2
 2022-12-02,Lillehammer,Norway,World Cup,100,5,Individual,0,0,2023,1,L,22,Minja Korhonen,Finland,200,2007-05-19T00:00:00.000000,0,"",24,16,15.540041067761807,1
@@ -374,6 +380,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,2,Minja Korhonen,Finland,200,2007-05-19T00:00:00.000000,0,"",2,9,18.650239561943874,37
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,3,Minja Korhonen,Finland,200,2007-05-19T00:00:00.000000,0,"",3,7,18.666666666666668,38
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,2,Minja Korhonen,Finland,200,2007-05-19T00:00:00.000000,0,"",1,5,18.6694045174538,39
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,13,Minja Korhonen,Finland,200,2007-05-19T00:00:00.000000,0,"",18,8,18.702258726899384,40
 2023-03-11,Holmenkollen,Norway,World Cup,106,5,Individual,0,0,2023,11,L,13,Ingrid Låte,Norway,201,2007-07-23T00:00:00.000000,0,"",12,22,15.633127994524298,1
 2023-12-01,Lillehammer,Norway,World Cup,98,5,Individual,0,0,2024,1,L,20,Ingrid Låte,Norway,201,2007-07-23T00:00:00.000000,0,"",13,25,16.358658453114305,2
 2023-12-02,Lillehammer,Norway,World Cup,98,5,Individual,0,0,2024,2,L,24,Ingrid Låte,Norway,201,2007-07-23T00:00:00.000000,0,"",16,24,16.361396303901437,3
@@ -389,6 +396,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-10,Otepää,Estonia,World Cup,97,5,Individual,0,0,2026,6,L,5,Ingrid Låte,Norway,201,2007-07-23T00:00:00.000000,0,"",1,24,18.469541409993155,13
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,13,Ingrid Låte,Norway,201,2007-07-23T00:00:00.000000,0,"",1,27,18.472279260780287,14
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,24,Ingrid Låte,Norway,201,2007-07-23T00:00:00.000000,0,"",2,26,18.48870636550308,15
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,8,Ingrid Låte,Norway,201,2007-07-23T00:00:00.000000,0,"",1,27,18.524298425735797,16
 2023-03-11,Holmenkollen,Norway,World Cup,106,5,Individual,0,0,2023,11,L,21,Kjersti Græsli,Norway,202,2007-12-01T00:00:00.000000,0,"",11,26,15.274469541409992,1
 2024-03-17,Trondheim,Norway,World Cup,100,7.5,Individual,0,0,2024,15,L,28,Romane Baud,France,206,2006-09-23T00:00:00.000000,0,"",19,31,17.481177275838466,1
 2025-01-31,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2025,7,L,23,Romane Baud,France,206,2006-09-23T00:00:00.000000,0,"",19,28,18.357289527720738,2
@@ -399,6 +407,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2025-12-20,Ramsau,Austria,World Cup,98,5,Individual,0,0,2026,4,L,23,Romane Baud,France,206,2006-09-23T00:00:00.000000,0,"",21,25,19.241615331964407,7
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,26,Romane Baud,France,206,2006-09-23T00:00:00.000000,0,"",18,24,19.318275154004105,8
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,22,Romane Baud,France,206,2006-09-23T00:00:00.000000,0,"",18,25,19.32101300479124,9
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,21,Romane Baud,France,206,2006-09-23T00:00:00.000000,0,"",17,25,19.353867214236825,10
 2024-12-06,Lillehammer,Norway,World Cup,98,5,Individual,0,0,2025,1,L,32,Anna Senoner,Italy,208,2007-11-14T00:00:00.000000,0,"",30,32,17.062286105407257,1
 2024-12-07,Lillehammer,Norway,World Cup,98,5,Individual Compact,0,0,2025,2,L,32,Anna Senoner,Italy,208,2007-11-14T00:00:00.000000,0,"",27,32,17.065023956194388,2
 2025-02-27,Trondheim,Norway,World Championship,102,5,Mass Start,1,0,2025,13,L,32,Anna Senoner,Italy,208,2007-11-14T00:00:00.000000,0,"",31,31,17.28952772073922,3
@@ -425,12 +434,14 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,18,Teja Pavec,Slovenia,209,2007-04-15T00:00:00.000000,0,"",8,25,18.743326488706366,20
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,10,Teja Pavec,Slovenia,209,2007-04-15T00:00:00.000000,0,"",10,14,18.759753593429156,21
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,14,Teja Pavec,Slovenia,209,2007-04-15T00:00:00.000000,0,"",15,18,18.76249144421629,22
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,18,Teja Pavec,Slovenia,209,2007-04-15T00:00:00.000000,0,"",15,22,18.795345653661876,23
 2023-02-24,Planica,Slovenia,World Championship,100,5,Individual,0,0,2023,10,L,31,Anna Kerko,Finland,211,2007-08-25T00:00:00.000000,0,"",28,30,15.501711156741957,1
 2024-12-20,Ramsau,Austria,World Cup,96,5,Mass Start,1,0,2025,3,L,25,Anna Kerko,Finland,211,2007-08-25T00:00:00.000000,0,"",25,28,17.322381930184804,2
 2025-12-19,Ramsau,Austria,World Cup,98,5,Mass Start,1,0,2026,3,L,19,Anna Kerko,Finland,211,2007-08-25T00:00:00.000000,0,"",21,17,18.31895961670089,3
 2026-01-09,Otepää,Estonia,World Cup,97,5,Mass Start,1,0,2026,5,L,24,Anna Kerko,Finland,211,2007-08-25T00:00:00.000000,0,"",23,20,18.376454483230663,4
 2026-01-10,Otepää,Estonia,World Cup,97,5,Individual,0,0,2026,6,L,23,Anna Kerko,Finland,211,2007-08-25T00:00:00.000000,0,"",22,23,18.379192334017795,5
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,25,Anna Kerko,Finland,211,2007-08-25T00:00:00.000000,0,"",30,21,18.38193018480493,6
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,26,Anna Kerko,Finland,211,2007-08-25T00:00:00.000000,0,"",26,21,18.43394934976044,7
 2026-01-09,Otepää,Estonia,World Cup,97,5,Mass Start,1,0,2026,5,L,28,Sofia Eggensberger,Germany,213,2007-08-24T00:00:00.000000,0,"",26,28,18.379192334017795,1
 2026-01-10,Otepää,Estonia,World Cup,97,5,Individual,0,0,2026,6,L,26,Sofia Eggensberger,Germany,213,2007-08-24T00:00:00.000000,0,"",25,28,18.38193018480493,2
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,31,Sofia Eggensberger,Germany,213,2007-08-24T00:00:00.000000,0,"",24,31,18.38466803559206,3
@@ -463,6 +474,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2025-12-06,Trondheim,Norway,World Cup,102,5,Mass Start,1,0,2026,2,L,7,Heta Hirvonen,Finland,218,2008-10-16T00:00:00.000000,0,"",3,25,17.138945927446954,20
 2025-12-19,Ramsau,Austria,World Cup,98,5,Mass Start,1,0,2026,3,L,9,Heta Hirvonen,Finland,218,2008-10-16T00:00:00.000000,0,"",7,18,17.17453798767967,21
 2025-12-20,Ramsau,Austria,World Cup,98,5,Individual,0,0,2026,4,L,10,Heta Hirvonen,Finland,218,2008-10-16T00:00:00.000000,0,"",5,20,17.1772758384668,22
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,15,Heta Hirvonen,Finland,218,2008-10-16T00:00:00.000000,0,"",4,26,17.28952772073922,23
 2024-12-20,Ramsau,Austria,World Cup,96,5,Mass Start,1,0,2025,3,L,19,Katharina Gruber,Austria,219,2008-08-26T00:00:00.000000,0,"",18,23,16.317590691307323,1
 2024-12-21,Ramsau,Austria,World Cup,96,5,Individual Compact,0,0,2025,4,L,24,Katharina Gruber,Austria,219,2008-08-26T00:00:00.000000,0,"",18,23,16.320328542094455,2
 2025-01-31,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2025,7,L,20,Katharina Gruber,Austria,219,2008-08-26T00:00:00.000000,0,"",23,16,16.432580424366872,3
@@ -479,6 +491,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,11,Katharina Gruber,Austria,219,2008-08-26T00:00:00.000000,0,"",7,14,17.377138945927445,14
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,14,Katharina Gruber,Austria,219,2008-08-26T00:00:00.000000,0,"",8,22,17.39356605065024,15
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,5,Katharina Gruber,Austria,219,2008-08-26T00:00:00.000000,0,"",6,8,17.39630390143737,16
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,10,Katharina Gruber,Austria,219,2008-08-26T00:00:00.000000,0,"",5,17,17.429158110882955,17
 2024-03-17,Trondheim,Norway,World Cup,100,7.5,Individual,0,0,2024,15,L,22,Tia Malovrh,Slovenia,221,2008-07-16T00:00:00.000000,0,"",20,20,15.668720054757015,1
 2024-12-06,Lillehammer,Norway,World Cup,98,5,Individual,0,0,2025,1,L,16,Tia Malovrh,Slovenia,221,2008-07-16T00:00:00.000000,0,"",12,24,16.39151266255989,2
 2024-12-07,Lillehammer,Norway,World Cup,98,5,Individual Compact,0,0,2025,2,L,18,Tia Malovrh,Slovenia,221,2008-07-16T00:00:00.000000,0,"",16,19,16.39425051334702,3
@@ -561,6 +574,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,15,Yuzuki Kainuma,Japan,239,2007-07-22T00:00:00.000000,0,"",17,15,18.475017111567418,17
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,21,Yuzuki Kainuma,Japan,239,2007-07-22T00:00:00.000000,0,"",17,21,18.491444216290212,18
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,16,Yuzuki Kainuma,Japan,239,2007-07-22T00:00:00.000000,0,"",16,19,18.494182067077343,19
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,6,Yuzuki Kainuma,Japan,239,2007-07-22T00:00:00.000000,0,"",6,12,18.527036276522928,20
 2020-12-18,Ramsau,Austria,World Cup,98,N/A,Individual,0,0,2021,1,L,25,Svetlana Gladikova,Russia,24,1992-05-25T00:00:00.000000,0,"",25,27,28.566735112936346,1
 2021-02-27,Oberstdorf,Germany,World Championship,106,N/A,Individual,0,0,2021,2,L,24,Svetlana Gladikova,Russia,24,1992-05-25T00:00:00.000000,0,"",23,26,28.761122518822724,2
 2021-12-11,Otepää,Estonia,World Cup,97,5,Mass Start,1,0,2022,3,L,20,Svetlana Gladikova,Russia,24,1992-05-25T00:00:00.000000,0,"",19,24,29.546885694729635,3
@@ -639,6 +653,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,9,Jenny Nowak,Germany,25,2002-08-20T00:00:00.000000,0,"",4,16,23.394934976043807,56
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,11,Jenny Nowak,Germany,25,2002-08-20T00:00:00.000000,0,"",16,11,23.411362080766597,57
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,13,Jenny Nowak,Germany,25,2002-08-20T00:00:00.000000,0,"",13,16,23.41409993155373,58
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,14,Jenny Nowak,Germany,25,2002-08-20T00:00:00.000000,0,"",20,6,23.446954140999313,59
 2020-12-18,Ramsau,Austria,World Cup,98,N/A,Individual,0,0,2021,1,L,15,Stefaniya Nadymova,Russia,27,1994-12-01T00:00:00.000000,0,"",13,19,26.04791238877481,1
 2021-02-27,Oberstdorf,Germany,World Championship,106,N/A,Individual,0,0,2021,2,L,13,Stefaniya Nadymova,Russia,27,1994-12-01T00:00:00.000000,0,"",8,22,26.24229979466119,2
 2021-12-03,Lillehammer,Norway,World Cup,98,5,Individual,0,0,2022,1,L,10,Stefaniya Nadymova,Russia,27,1994-12-01T00:00:00.000000,0,"",10,15,27.006160164271048,3
@@ -700,6 +715,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,14,Veronica Gianmoena,Italy,29,1995-10-25T00:00:00.000000,0,"",26,6,30.21492128678987,50
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,17,Veronica Gianmoena,Italy,29,1995-10-25T00:00:00.000000,0,"",25,13,30.23134839151266,51
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,20,Veronica Gianmoena,Italy,29,1995-10-25T00:00:00.000000,0,"",21,20,30.234086242299796,52
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,20,Veronica Gianmoena,Italy,29,1995-10-25T00:00:00.000000,0,"",21,16,30.26694045174538,53
 2020-12-18,Ramsau,Austria,World Cup,98,N/A,Individual,0,0,2021,1,L,11,Hanna Midtsundstad,Norway,3,1999-09-22T00:00:00.000000,0,"",24,6,21.24024640657084,1
 2021-12-03,Lillehammer,Norway,World Cup,98,5,Individual,0,0,2022,1,L,20,Hanna Midtsundstad,Norway,3,1999-09-22T00:00:00.000000,0,"",23,11,22.198494182067076,2
 2021-12-04,Lillehammer,Norway,World Cup,98,5,Individual,0,0,2022,2,L,20,Hanna Midtsundstad,Norway,3,1999-09-22T00:00:00.000000,0,"",21,9,22.201232032854207,3
@@ -733,6 +749,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,23,Hanna Midtsundstad,Norway,3,1999-09-22T00:00:00.000000,0,"",31,12,26.305270362765228,31
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,12,Hanna Midtsundstad,Norway,3,1999-09-22T00:00:00.000000,0,"",31,5,26.321697467488022,32
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,29,Hanna Midtsundstad,Norway,3,1999-09-22T00:00:00.000000,0,"",30,9,26.324435318275153,33
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,27,Hanna Midtsundstad,Norway,3,1999-09-22T00:00:00.000000,0,"",31,5,26.357289527720738,34
 2020-12-18,Ramsau,Austria,World Cup,98,N/A,Individual,0,0,2021,1,L,30,Tess Arnone,USA,36,2003-10-13T00:00:00.000000,0,"",31,23,17.182751540041068,1
 2021-02-27,Oberstdorf,Germany,World Championship,106,N/A,Individual,0,0,2021,2,L,28,Tess Arnone,USA,36,2003-10-13T00:00:00.000000,0,"",29,23,17.377138945927445,2
 2020-12-18,Ramsau,Austria,World Cup,98,N/A,Individual,0,0,2021,1,L,12,Daniela Dejori,Italy,37,2002-08-01T00:00:00.000000,0,"",9,15,18.38193018480493,1
@@ -784,6 +801,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,22,Daniela Dejori,Italy,37,2002-08-01T00:00:00.000000,0,"",22,17,23.446954140999313,47
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,20,Daniela Dejori,Italy,37,2002-08-01T00:00:00.000000,0,"",24,17,23.463381245722108,48
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,19,Daniela Dejori,Italy,37,2002-08-01T00:00:00.000000,0,"",20,21,23.46611909650924,49
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,28,Daniela Dejori,Italy,37,2002-08-01T00:00:00.000000,0,"",24,24,23.498973305954824,50
 2020-12-18,Ramsau,Austria,World Cup,98,N/A,Individual,0,0,2021,1,L,2,Gyda Westvold Hansen,Norway,4,2002-04-20T00:00:00.000000,0,"",1,3,18.663928815879533,1
 2021-02-27,Oberstdorf,Germany,World Championship,106,N/A,Individual,0,0,2021,2,L,1,Gyda Westvold Hansen,Norway,4,2002-04-20T00:00:00.000000,0,"",2,4,18.858316221765914,2
 2021-12-03,Lillehammer,Norway,World Cup,98,5,Individual,0,0,2022,1,L,1,Gyda Westvold Hansen,Norway,4,2002-04-20T00:00:00.000000,0,"",3,1,19.62217659137577,3
@@ -866,6 +884,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2024-12-21,Ramsau,Austria,World Cup,96,5,Individual Compact,0,0,2025,4,L,26,Silva Verbič,Slovenia,40,2002-03-31T00:00:00.000000,0,"",25,25,22.72689938398357,33
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,25,Silva Verbič,Slovenia,40,2002-03-31T00:00:00.000000,0,"",9,27,23.800136892539356,34
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,24,Silva Verbič,Slovenia,40,2002-03-31T00:00:00.000000,0,"",11,30,23.802874743326488,35
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,22,Silva Verbič,Slovenia,40,2002-03-31T00:00:00.000000,0,"",9,29,23.835728952772072,36
 2020-12-18,Ramsau,Austria,World Cup,98,N/A,Individual,0,0,2021,1,L,19,Annalena Slamik,Austria,41,2003-03-23T00:00:00.000000,0,"",17,20,17.741273100616016,1
 2021-02-27,Oberstdorf,Germany,World Championship,106,N/A,Individual,0,0,2021,2,L,14,Annalena Slamik,Austria,41,2003-03-23T00:00:00.000000,0,"",7,25,17.935660506502394,2
 2022-03-12,Schonach,Germany,World Cup,106,5,Individual,0,0,2022,7,L,12,Annalena Slamik,Austria,41,2003-03-23T00:00:00.000000,0,"",11,15,18.97056810403833,3
@@ -919,6 +938,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,30,Annalena Slamik,Austria,41,2003-03-23T00:00:00.000000,0,"",27,30,22.806297056810404,51
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,28,Annalena Slamik,Austria,41,2003-03-23T00:00:00.000000,0,"",20,28,22.822724161533195,52
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,25,Annalena Slamik,Austria,41,2003-03-23T00:00:00.000000,0,"",22,27,22.82546201232033,53
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,29,Annalena Slamik,Austria,41,2003-03-23T00:00:00.000000,0,"",22,28,22.858316221765914,54
 2020-12-18,Ramsau,Austria,World Cup,98,N/A,Individual,0,0,2021,1,L,10,Anastasia Goncharova,Russia,45,1999-10-10T00:00:00.000000,0,"",26,5,21.190965092402465,1
 2021-12-03,Lillehammer,Norway,World Cup,98,5,Individual,0,0,2022,1,L,16,Anastasia Goncharova,Russia,45,1999-10-10T00:00:00.000000,0,"",22,3,22.1492128678987,2
 2021-12-04,Lillehammer,Norway,World Cup,98,5,Individual,0,0,2022,2,L,14,Anastasia Goncharova,Russia,45,1999-10-10T00:00:00.000000,0,"",18,7,22.151950718685832,3
@@ -986,6 +1006,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,7,Ema Volavsek,Slovenia,49,2002-12-15T00:00:00.000000,0,"",19,3,23.07460643394935,37
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,5,Ema Volavsek,Slovenia,49,2002-12-15T00:00:00.000000,0,"",15,4,23.091033538672143,38
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,8,Ema Volavsek,Slovenia,49,2002-12-15T00:00:00.000000,0,"",12,3,23.093771389459274,39
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,2,Ema Volavsek,Slovenia,49,2002-12-15T00:00:00.000000,0,"",2,7,23.12662559890486,40
 2021-12-11,Otepää,Estonia,World Cup,97,5,Mass Start,1,0,2022,3,L,19,Alexandra Glazunova,Russia,50,2000-04-27T00:00:00.000000,0,"",20,18,21.623545516769337,1
 2021-12-12,Otepää,Estonia,World Cup,97,5,Individual,0,0,2022,4,L,22,Alexandra Glazunova,Russia,50,2000-04-27T00:00:00.000000,0,"",21,23,21.626283367556468,2
 2020-12-18,Ramsau,Austria,World Cup,98,N/A,Individual,0,0,2021,1,L,6,Lisa Hirner,Austria,52,2003-10-03T00:00:00.000000,0,"",8,7,17.21013004791239,1
@@ -1095,6 +1116,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-10,Otepää,Estonia,World Cup,97,5,Individual,0,0,2026,6,L,21,Léna Brocard,France,53,2000-05-19T00:00:00.000000,0,"",21,19,25.645448323066393,57
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,24,Léna Brocard,France,53,2000-05-19T00:00:00.000000,0,"",23,24,25.648186173853524,58
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,6,Léna Brocard,France,53,2000-05-19T00:00:00.000000,0,"",5,11,25.66735112936345,59
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,9,Léna Brocard,France,53,2000-05-19T00:00:00.000000,0,"",8,14,25.700205338809035,60
 2020-12-18,Ramsau,Austria,World Cup,98,N/A,Individual,0,0,2021,1,L,1,Tara Geraghty-Moats,USA,58,1993-04-12T00:00:00.000000,0,"",6,1,27.685147159479808,1
 2021-02-27,Oberstdorf,Germany,World Championship,106,N/A,Individual,0,0,2021,2,L,5,Tara Geraghty-Moats,USA,58,1993-04-12T00:00:00.000000,0,"",18,1,27.879534565366185,2
 2025-12-05,Trondheim,Norway,World Cup,102,5,Individual Compact,0,0,2026,1,L,19,Tara Geraghty-Moats,USA,58,1993-04-12T00:00:00.000000,0,"",30,2,32.648870636550306,3
@@ -1104,6 +1126,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,6,Tara Geraghty-Moats,USA,58,1993-04-12T00:00:00.000000,0,"",20,2,32.75017111567419,7
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,8,Tara Geraghty-Moats,USA,58,1993-04-12T00:00:00.000000,0,"",26,2,32.766598220396986,8
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,15,Tara Geraghty-Moats,USA,58,1993-04-12T00:00:00.000000,0,"",26,2,32.76933607118412,9
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,11,Tara Geraghty-Moats,USA,58,1993-04-12T00:00:00.000000,0,"",15,9,32.8021902806297,10
 2021-12-17,Ramsau,Austria,World Cup,98,5,Individual,0,0,2022,5,L,17,Eva Hubinger,Austria,59,1993-05-03T00:00:00.000000,0,"",7,23,28.62422997946612,1
 2022-01-08,Val di Fiemme,Italy,World Cup,104,5,Mass Start,1,0,2022,6,L,19,Eva Hubinger,Austria,59,1993-05-03T00:00:00.000000,0,"",7,21,28.684462696783026,2
 2021-12-03,Lillehammer,Norway,World Cup,98,5,Individual,0,0,2022,1,L,26,Thea Øihaugen,Norway,6,2001-05-11T00:00:00.000000,0,"",25,25,20.56399726214921,1
@@ -1167,6 +1190,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,1,Ida Marie Hagen,Norway,60,2000-08-18T00:00:00.000000,0,"",3,1,25.399041752224502,55
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,1,Ida Marie Hagen,Norway,60,2000-08-18T00:00:00.000000,0,"",5,1,25.415468856947296,56
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,1,Ida Marie Hagen,Norway,60,2000-08-18T00:00:00.000000,0,"",3,1,25.418206707734427,57
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,3,Ida Marie Hagen,Norway,60,2000-08-18T00:00:00.000000,0,"",13,1,25.451060917180012,58
 2020-12-18,Ramsau,Austria,World Cup,98,N/A,Individual,0,0,2021,1,L,28,Annika Malacinski,USA,61,2001-05-09T00:00:00.000000,0,"",29,22,19.61122518822724,1
 2021-02-27,Oberstdorf,Germany,World Championship,106,N/A,Individual,0,0,2021,2,L,23,Annika Malacinski,USA,61,2001-05-09T00:00:00.000000,0,"",26,20,19.80561259411362,2
 2021-12-03,Lillehammer,Norway,World Cup,98,5,Individual,0,0,2022,1,L,17,Annika Malacinski,USA,61,2001-05-09T00:00:00.000000,0,"",17,17,20.569472963723477,3
@@ -1226,6 +1250,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,10,Annika Malacinski,USA,61,2001-05-09T00:00:00.000000,0,"",9,11,24.67624914442163,57
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,13,Annika Malacinski,USA,61,2001-05-09T00:00:00.000000,0,"",12,18,24.692676249144423,58
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,11,Annika Malacinski,USA,61,2001-05-09T00:00:00.000000,0,"",10,13,24.695414099931554,59
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,6,Annika Malacinski,USA,61,2001-05-09T00:00:00.000000,0,"",10,11,24.72826830937714,60
 2021-12-11,Otepää,Estonia,World Cup,97,5,Mass Start,1,0,2022,3,L,17,Annamarija Oinas,Finland,62,2003-01-10T00:00:00.000000,0,"",14,22,18.918548939082818,1
 2021-12-12,Otepää,Estonia,World Cup,97,5,Individual,0,0,2022,4,L,16,Annamarija Oinas,Finland,62,2003-01-10T00:00:00.000000,0,"",11,18,18.921286789869953,2
 2022-12-02,Lillehammer,Norway,World Cup,100,5,Individual,0,0,2023,1,L,30,Annamarija Oinas,Finland,62,2003-01-10T00:00:00.000000,0,"",30,24,19.89322381930185,3
@@ -1358,6 +1383,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,17,Jonna Kil,Poland,68,2000-07-09T00:00:00.000000,0,"",25,13,25.508555783709788,37
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,15,Jonna Kil,Poland,68,2000-07-09T00:00:00.000000,0,"",21,15,25.52498288843258,38
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,21,Jonna Kil,Poland,68,2000-07-09T00:00:00.000000,0,"",24,17,25.527720739219713,39
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,25,Jonna Kil,Poland,68,2000-07-09T00:00:00.000000,0,"",28,15,25.560574948665298,40
 2020-12-18,Ramsau,Austria,World Cup,98,N/A,Individual,0,0,2021,1,L,4,Marte Leinan Lund,Norway,7,2001-04-01T00:00:00.000000,0,"",12,4,19.71526351813826,1
 2021-02-27,Oberstdorf,Germany,World Championship,106,N/A,Individual,0,0,2021,2,L,3,Marte Leinan Lund,Norway,7,2001-04-01T00:00:00.000000,0,"",4,5,19.90965092402464,2
 2021-12-03,Lillehammer,Norway,World Cup,98,5,Individual,0,0,2022,1,L,6,Marte Leinan Lund,Norway,7,2001-04-01T00:00:00.000000,0,"",7,6,20.673511293634498,3
@@ -1410,6 +1436,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,5,Marte Leinan Lund,Norway,7,2001-04-01T00:00:00.000000,0,"",14,4,24.78028747433265,50
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,9,Marte Leinan Lund,Norway,7,2001-04-01T00:00:00.000000,0,"",22,6,24.79671457905544,51
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,12,Marte Leinan Lund,Norway,7,2001-04-01T00:00:00.000000,0,"",17,6,24.799452429842574,52
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,12,Marte Leinan Lund,Norway,7,2001-04-01T00:00:00.000000,0,"",23,2,24.83230663928816,53
 2021-12-03,Lillehammer,Norway,World Cup,98,5,Individual,0,0,2022,1,L,24,Chulpan Valieva,Russia,73,2001-01-27T00:00:00.000000,0,"",21,22,20.84873374401095,1
 2021-12-04,Lillehammer,Norway,World Cup,98,5,Individual,0,0,2022,2,L,23,Chulpan Valieva,Russia,73,2001-01-27T00:00:00.000000,0,"",23,22,20.851471594798085,2
 2021-12-12,Otepää,Estonia,World Cup,97,5,Individual,0,0,2022,4,L,21,Chulpan Valieva,Russia,73,2001-01-27T00:00:00.000000,0,"",22,20,20.87337440109514,3
@@ -1510,6 +1537,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,3,Alexa Brabec,USA,81,2004-10-08T00:00:00.000000,0,"",5,10,21.259411362080765,40
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,4,Alexa Brabec,USA,81,2004-10-08T00:00:00.000000,0,"",1,12,21.27583846680356,41
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,4,Alexa Brabec,USA,81,2004-10-08T00:00:00.000000,0,"",2,7,21.27857631759069,42
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,1,Alexa Brabec,USA,81,2004-10-08T00:00:00.000000,0,"",3,3,21.311430527036276,43
 2022-12-02,Lillehammer,Norway,World Cup,100,5,Individual,0,0,2023,1,L,29,Jolana Hradilova,Czechia,87,2004-06-29T00:00:00.000000,0,"",28,29,18.425735797399042,1
 2022-12-03,Lillehammer,Norway,World Cup,100,5,Individual,0,0,2023,2,L,29,Jolana Hradilova,Czechia,87,2004-06-29T00:00:00.000000,0,"",25,30,18.428473648186174,2
 2022-12-16,Ramsau,Austria,World Cup,97,5,Individual,0,0,2023,3,L,25,Jolana Hradilova,Czechia,87,2004-06-29T00:00:00.000000,0,"",26,24,18.46406570841889,3
@@ -1525,6 +1553,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-09,Otepää,Estonia,World Cup,97,5,Mass Start,1,0,2026,5,L,32,Jolana Hradilova,Czechia,87,2004-06-29T00:00:00.000000,0,"",31,33,21.530458590006845,13
 2026-01-10,Otepää,Estonia,World Cup,97,5,Individual,0,0,2026,6,L,30,Jolana Hradilova,Czechia,87,2004-06-29T00:00:00.000000,0,"",31,29,21.533196440793976,14
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,29,Jolana Hradilova,Czechia,87,2004-06-29T00:00:00.000000,0,"",29,28,21.535934291581107,15
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,31,Jolana Hradilova,Czechia,87,2004-06-29T00:00:00.000000,0,"",29,31,21.587953456536617,16
 2022-03-12,Schonach,Germany,World Cup,106,5,Individual,0,0,2022,7,L,2,Haruka Kasai,Japan,88,2004-02-04T00:00:00.000000,0,"",2,6,18.099931553730322,1
 2022-03-13,Schonach,Germany,World Cup,106,5,Individual,0,0,2022,8,L,2,Haruka Kasai,Japan,88,2004-02-04T00:00:00.000000,0,"",2,5,18.102669404517453,2
 2022-12-02,Lillehammer,Norway,World Cup,100,5,Individual,0,0,2023,1,L,9,Haruka Kasai,Japan,88,2004-02-04T00:00:00.000000,0,"",12,6,18.82546201232033,3
@@ -1603,6 +1632,7 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2025-12-20,Ramsau,Austria,World Cup,98,5,Individual,0,0,2026,4,L,30,Tereza Koldovska,Czechia,89,2004-10-19T00:00:00.000000,0,"",31,29,21.169062286105408,32
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,30,Tereza Koldovska,Czechia,89,2004-10-19T00:00:00.000000,0,"",30,30,21.245722108145106,33
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,30,Tereza Koldovska,Czechia,89,2004-10-19T00:00:00.000000,0,"",29,28,21.248459958932237,34
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,30,Tereza Koldovska,Czechia,89,2004-10-19T00:00:00.000000,0,"",30,30,21.281314168377822,35
 2021-12-03,Lillehammer,Norway,World Cup,98,5,Individual,0,0,2022,1,L,27,Oda Leiråmo,Norway,92,2003-03-06T00:00:00.000000,0,"",27,13,18.746064339493497,1
 2021-12-04,Lillehammer,Norway,World Cup,98,5,Individual,0,0,2022,2,L,27,Oda Leiråmo,Norway,92,2003-03-06T00:00:00.000000,0,"",27,16,18.748802190280628,2
 2023-12-15,Ramsau,Austria,World Cup,98,5,Individual,0,0,2024,3,L,25,Laura Pletz,Austria,95,2005-07-14T00:00:00.000000,0,"",27,23,18.420260095824776,1
@@ -1632,5 +1662,6 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-11,Otepää,Estonia,World Cup,97,5,Individual Compact,0,0,2026,7,L,19,Greta Pinzani,Italy,96,2005-02-14T00:00:00.000000,0,"",15,19,20.906228610540726,20
 2026-01-17,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,8,L,19,Greta Pinzani,Italy,96,2005-02-14T00:00:00.000000,0,"",27,16,20.922655715263517,21
 2026-01-18,Oberhof,Germany,World Cup,100,5,Individual,0,0,2026,9,L,27,Greta Pinzani,Italy,96,2005-02-14T00:00:00.000000,0,"",27,23,20.92539356605065,22
+2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,10,L,24,Greta Pinzani,Italy,96,2005-02-14T00:00:00.000000,0,"",25,20,20.958247775496236,23
 2023-12-15,Ramsau,Austria,World Cup,98,5,Individual,0,0,2024,3,L,28,Clara Mentil,Austria,99,2006-08-02T00:00:00.000000,0,"",28,28,17.36892539356605,1
 2023-12-16,Ramsau,Austria,World Cup,N/A,N/A,Individual Compact,0,0,2024,4,L,28,Clara Mentil,Austria,99,2006-08-02T00:00:00.000000,0,"",25,28,17.371663244353183,2
