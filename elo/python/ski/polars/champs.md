@@ -1,0 +1,9 @@
+I would like to create a data pipeline that predicts major championships for each of the sports that works like predict_script.sh in ~/blog/daehl-e, but only for the startlist-scrape-weekend.py/weekly-pick2.R and has does the following.
+
+1) Reads in weekends.csv for that sport in excel365 and filters for Championship column being 1
+
+2) Carries out the weekend-startlist-prediction for the championship based on what races there are with the following modification.  1) ALl the races are predicted at once for the championship regardless of what their Date is in weekends.csv.  2) They can read in a config for a quota specified for the championships and the athletes associated with it.  There should be nothing of the sort of using all skiers who have competed this season.  Only the ones on the list.
+
+3) Does the picks just like weekly-picks2.R would do, except doesn't try to read in what races are tomorrow.  Just looks at the Championship column and filters for 1.
+
+In order for you to carry this out I would like you to understand the current dataflow for all of the sports and how they differ between cross-country and the others.  To do this you would start in ~/blog/daehl-e/master_automation.sh and specifically focus on predict_script.sh and then specifically there on the weekend picks.  Write a .md file in ~/ski/elo/python/ski/polars that compares and contrasts the difference in how cross-country (or ski) operates from nordic-combined from alpine from biathlon from skijump and nordic-combined.  Then the next step is to implement a strategy to build the pipeline for the olympics predictions.  The plan should be to just run a .sh file that will then be able to do everything from the config to the startlist-scrape to the R file to generating a markdown file, just like the weekly picks are done.  We can have a conversation throughout to make sure we're on the same page.  I don't want you to assume to do things I never asked.
