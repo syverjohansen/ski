@@ -1,0 +1,44 @@
+.git/objects/ff/8d46e49a73cc87aed06283f969e240d33cffcc
+birkie/
+birkie2/
+birkie2022/
+
+
+#*.xlsx
+*.Rdata
+*.pkl
+#*.xlsx
+#*.xls
+*.pkl
+*.pickle
+*.db
+*.sqlite
+*.sqlite3
+#*.feather
+# Large directories
+#excel365/
+archive/
+logs/
+
+# Other common large files
+*.log
+*.tmp
+*.cache
+
+# System files
+.DS_Store
+__pycache__/
+
+# Virtual environments  
+venv/
+env/
+myenv/
+EOF
+
+# Large chrono files (too big for GitHub)
+elo/python/ski/polars/excel365/ladies_chrono_pred.csv
+elo/python/ski/polars/excel365/men_chrono_pred.csv
+
+# All prediction CSV files
+*pred*.csv
+.RData
