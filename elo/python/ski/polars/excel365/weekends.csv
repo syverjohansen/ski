@@ -27,8 +27,8 @@ Date,Race_Date,Startlist,Sex,City,Country,Distance,Technique,MS,Period,Pursuit,S
 01/01/2026,01/01/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49540,L,Toblach,Italy,20,C,0,2,1,1,0,1214,13,0
 01/03/2026,01/03/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49542,L,Val Di Fiemme,Italy,Sprint,C,0,2,0,1,0,903,14,0
 01/03/2026,01/03/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49543,M,Val Di Fiemme,Italy,Sprint,C,0,2,0,1,0,903,14,0
-01/04/2026,01/04/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49546,L,Val Di Fiemme,Italy,10,F,1,2,0,1,1,903,15,0
 01/04/2026,01/04/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49547,M,Val Di Fiemme,Italy,10,F,1,2,0,1,1,903,15,0
+01/04/2026,01/04/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49546,L,Val Di Fiemme,Italy,10,F,1,2,0,1,1,903,15,0
 01/17/2026,01/17/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49490,L,Oberhof,Germany,Sprint,F,0,3,0,0,0,823,16,0
 01/17/2026,01/17/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49491,M,Oberhof,Germany,Sprint,F,0,3,0,0,0,823,16,0
 01/17/2026,01/18/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49495,M,Oberhof,Germany,10,C,0,3,0,0,0,823,17,0
@@ -41,8 +41,8 @@ Date,Race_Date,Startlist,Sex,City,Country,Distance,Technique,MS,Period,Pursuit,S
 01/24/2026,01/25/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49505,M,Goms,Switzerland,20,C,1,3,0,0,0,1341,20,0
 02/07/2026,02/07/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49722,L,Milano Cortina,Italy,20,P,1,4,0,0,0,903,21,1
 02/07/2026,02/08/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49723,M,Milano Cortina,Italy,20,P,1,4,0,0,0,903,21,1
-02/10/2026,02/10/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49725,M,Milano Cortina,Italy,Sprint,C,0,4,0,0,0,903,22,1
 02/10/2026,02/10/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49724,L,Milano Cortina,Italy,Sprint,C,0,4,0,0,0,903,22,1
+02/10/2026,02/10/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49725,M,Milano Cortina,Italy,Sprint,C,0,4,0,0,0,903,22,1
 02/12/2026,02/12/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49728,L,Milano Cortina,Italy,10,F,0,4,0,0,0,903,23,1
 02/12/2026,02/13/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49729,M,Milano Cortina,Italy,10,F,0,4,0,0,0,903,23,1
 02/14/2026,02/14/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49730,L,Milano Cortina,Italy,Rel,,0,4,0,0,0,903,24,1
@@ -57,14 +57,14 @@ Date,Race_Date,Startlist,Sex,City,Country,Distance,Technique,MS,Period,Pursuit,S
 02/28/2026,03/01/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49510,L,Falun,Sweden,20,P,1,5,0,0,0,240,28,0
 03/07/2026,03/07/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49513,M,Lahti,Finland,Sprint,F,0,5,0,0,0,99,29,0
 03/07/2026,03/07/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49512,L,Lahti,Finland,Sprint,F,0,5,0,0,0,99,29,0
-03/07/2026,03/08/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49517,M,Lahti,Finland,10,C,0,5,0,0,0,99,30,0
 03/07/2026,03/08/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49516,L,Lahti,Finland,10,C,0,5,0,0,0,99,30,0
+03/07/2026,03/08/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49517,M,Lahti,Finland,10,C,0,5,0,0,0,99,30,0
 03/12/2026,03/12/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49519,M,Drammen,Norway,Sprint,C,0,5,0,0,0,11,31,0
 03/12/2026,03/12/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49518,L,Drammen,Norway,Sprint,C,0,5,0,0,0,11,31,0
 03/14/2026,03/14/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49522,M,Oslo,Norway,50,F,1,5,0,0,0,335,32,0
 03/14/2026,03/14/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49523,L,Oslo,Norway,50,F,1,5,0,0,0,335,32,0
-03/20/2026,03/20/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49525,M,Lake Placid,USA,10,C,0,5,0,0,0,618,33,0
 03/20/2026,03/20/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49524,L,Lake Placid,USA,10,C,0,5,0,0,0,618,33,0
+03/20/2026,03/20/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49525,M,Lake Placid,USA,10,C,0,5,0,0,0,618,33,0
 03/20/2026,03/21/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49527,M,Lake Placid,USA,Sprint,F,0,5,0,0,0,618,34,0
 03/20/2026,03/21/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49526,L,Lake Placid,USA,Sprint,F,0,5,0,0,0,618,34,0
 03/20/2026,03/22/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=49531,M,Lake Placid,USA,20,F,1,5,0,0,0,618,35,0
