@@ -1549,43 +1549,44 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,1,Ida Marie Hagen,NOR,60,2000-08-18T00:00:00.000000,0,,,,25.700205338809035,4
 2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,2,Alexa Brabec,USA,81,2004-10-08T00:00:00.000000,0,,,,21.560574948665298,5
 2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,3,Minja Korhonen,FIN,200,2007-05-19T00:00:00.000000,0,,,,18.951403148528406,3
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,4,Katharina Gruber,AUT,219,2008-08-26T00:00:00.000000,0,,,,17.678302532511978,1
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,5,Nathalie Armbruster,GER,168,2006-01-02T00:00:00.000000,0,,,,20.32580424366872,4
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,6,Yuna Kasai,JPN,161,2004-02-04T00:00:00.000000,0,,,,22.236824093086927,5
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,4,Nathalie Armbruster,GER,168,2006-01-02T00:00:00.000000,0,,,,20.32580424366872,4
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,5,Yuna Kasai,JPN,161,2004-02-04T00:00:00.000000,0,,,,22.236824093086927,5
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,6,Katharina Gruber,AUT,219,2008-08-26T00:00:00.000000,0,,,,17.678302532511978,1
 2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,7,Marte Leinan Lund,NOR,7,2001-04-01T00:00:00.000000,0,,,,25.08145106091718,5
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,8,Ingrid Låte,NOR,201,2007-07-23T00:00:00.000000,0,,,,18.77344284736482,3
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,9,Lisa-Marie Hirner,AUT,52,2003-10-03T00:00:00.000000,0,,,,22.576317590691307,5
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,10,Jenny Nowak,GER,25,2002-08-20T00:00:00.000000,0,,,,23.696098562628336,5
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,11,Yuzuki Kainuma,JPN,239,2007-07-22T00:00:00.000000,0,,,,18.77618069815195,1
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,12,Annika Malacinski,USA,61,2001-05-09T00:00:00.000000,0,,,,24.97741273100616,5
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,13,Trine Göpfert,GER,107,2005-06-19T00:00:00.000000,0,,,,20.865160848733744,1
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,14,Ema Volavsek,SLO,49,2002-12-15T00:00:00.000000,0,,,,23.37577002053388,5
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,15,Heta Hirvonen,FIN,218,2008-10-16T00:00:00.000000,0,,,,17.53867214236824,2
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,16,Ronja Loh,GER,171,2005-04-21T00:00:00.000000,0,,,,21.026694045174537,2
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,17,Claudia Purker,AUT,177,1999-01-15T00:00:00.000000,0,,,,27.290896646132786,4
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,18,Léna Brocard,FRA,53,2000-05-19T00:00:00.000000,0,,,,25.949349760438057,5
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,19,Teja Pavec,SLO,209,2007-04-15T00:00:00.000000,0,,,,19.044490075290895,2
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,20,Tara Geraghty-Moats,USA,58,1993-04-12T00:00:00.000000,0,,,,33.05133470225873,1
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,20,Mille Marie Hagen,NOR,180,2002-12-13T00:00:00.000000,0,,,,23.381245722108144,4
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,22,Veronica Gianmoena,ITA,29,1995-10-25T00:00:00.000000,0,,,,30.5160848733744,5
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,23,Daniela Dejori,ITA,37,2002-08-01T00:00:00.000000,0,,,,23.748117727583846,5
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,24,Jonna Kil,POL,68,2000-07-09T00:00:00.000000,0,,,,25.809719370294317,3
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,25,Annalena Slamik,AUT,41,2003-03-23T00:00:00.000000,0,,,,23.107460643394933,5
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,26,Tia Malovrh,SLO,221,2008-07-16T00:00:00.000000,0,,,,17.790554414784395,2
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,27,Hanna Midtsundstad,NOR,3,1999-09-22T00:00:00.000000,0,,,,26.60643394934976,5
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,28,Greta Pinzani,ITA,96,2005-02-14T00:00:00.000000,0,,,,21.207392197125255,3
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,29,Nora Helene Evans,NOR,231,2008-09-11T00:00:00.000000,0,,,,17.634496919917865,2
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,30,Anna Kerko,FIN,211,2007-08-25T00:00:00.000000,0,,,,18.68309377138946,1
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,31,Jolana Hradilova,CZE,87,2004-06-29T00:00:00.000000,0,,,,21.83709787816564,2
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,32,Anna-Sophie Gredler,AUT,223,2008-01-21T00:00:00.000000,0,,,,18.275154004106778,1
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,33,Romane Baud,FRA,206,2006-09-23T00:00:00.000000,0,,,,19.603011635865844,2
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,34,Masa Likozar Brankovic,SLO,243,2009-04-13T00:00:00.000000,0,,,,17.048596851471594,0
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,35,Maja Loh,GER,215,2007-04-18T00:00:00.000000,0,,,,19.0362765229295,0
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,36,Sofia Eggensberger,GER,213,2007-08-24T00:00:00.000000,0,,,,18.68583162217659,0
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,37,Karina Kozlova,UKR,246,2009-05-01T00:00:00.000000,0,,,,16.999315537303218,0
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,38,Marion Droz Vincent,FRA,229,2008-01-08T00:00:00.000000,0,,,,18.310746064339494,1
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,39,Tereza Koldovska,CZE,89,2004-10-19T00:00:00.000000,0,,,,21.530458590006845,4
-2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,40,Ingrid Græsli,NOR,248,2009-09-04T00:00:00.000000,0,,,,16.654346338124572,0
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,8,Ema Volavsek,SLO,49,2002-12-15T00:00:00.000000,0,,,,23.37577002053388,5
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,9,Jenny Nowak,GER,25,2002-08-20T00:00:00.000000,0,,,,23.696098562628336,5
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,10,Annika Malacinski,USA,61,2001-05-09T00:00:00.000000,0,,,,24.97741273100616,5
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,11,Tara Geraghty-Moats,USA,58,1993-04-12T00:00:00.000000,0,,,,33.05133470225873,1
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,12,Yuzuki Kainuma,JPN,239,2007-07-22T00:00:00.000000,0,,,,18.77618069815195,1
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,13,Lisa-Marie Hirner,AUT,52,2003-10-03T00:00:00.000000,0,,,,22.576317590691307,5
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,14,Ingrid Låte,NOR,201,2007-07-23T00:00:00.000000,0,,,,18.77344284736482,3
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,15,Léna Brocard,FRA,53,2000-05-19T00:00:00.000000,0,,,,25.949349760438057,5
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,16,Claudia Purker,AUT,177,1999-01-15T00:00:00.000000,0,,,,27.290896646132786,4
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,17,Trine Göpfert,GER,107,2005-06-19T00:00:00.000000,0,,,,20.865160848733744,1
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,18,Heta Hirvonen,FIN,218,2008-10-16T00:00:00.000000,0,,,,17.53867214236824,2
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,19,Mille Marie Hagen,NOR,180,2002-12-13T00:00:00.000000,0,,,,23.381245722108144,4
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,20,Jonna Kil,POL,68,2000-07-09T00:00:00.000000,0,,,,25.809719370294317,3
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,21,Teja Pavec,SLO,209,2007-04-15T00:00:00.000000,0,,,,19.044490075290895,2
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,22,Ronja Loh,GER,171,2005-04-21T00:00:00.000000,0,,,,21.026694045174537,2
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,23,Veronica Gianmoena,ITA,29,1995-10-25T00:00:00.000000,0,,,,30.5160848733744,5
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,24,Daniela Dejori,ITA,37,2002-08-01T00:00:00.000000,0,,,,23.748117727583846,5
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,25,Hanna Midtsundstad,NOR,3,1999-09-22T00:00:00.000000,0,,,,26.60643394934976,5
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,26,Annalena Slamik,AUT,41,2003-03-23T00:00:00.000000,0,,,,23.107460643394933,5
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,27,Greta Pinzani,ITA,96,2005-02-14T00:00:00.000000,0,,,,21.207392197125255,3
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,28,Romane Baud,FRA,206,2006-09-23T00:00:00.000000,0,,,,19.603011635865844,2
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,29,Anna Kerko,FIN,211,2007-08-25T00:00:00.000000,0,,,,18.68309377138946,1
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,30,Tia Malovrh,SLO,221,2008-07-16T00:00:00.000000,0,,,,17.790554414784395,2
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,31,Silva Verbič,SLO,40,2002-03-31T00:00:00.000000,0,,,,24.084873374401095,5
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,32,Nora Helene Evans,NOR,231,2008-09-11T00:00:00.000000,0,,,,17.634496919917865,2
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,33,Tereza Koldovska,CZE,89,2004-10-19T00:00:00.000000,0,,,,21.530458590006845,4
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,34,Jolana Hradilova,CZE,87,2004-06-29T00:00:00.000000,0,,,,21.83709787816564,2
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,35,Sofia Eggensberger,GER,213,2007-08-24T00:00:00.000000,0,,,,18.68583162217659,0
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,36,Maja Loh,GER,215,2007-04-18T00:00:00.000000,0,,,,19.0362765229295,0
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,37,Anna-Sophie Gredler,AUT,223,2008-01-21T00:00:00.000000,0,,,,18.275154004106778,1
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,38,Masa Likozar Brankovic,SLO,243,2009-04-13T00:00:00.000000,0,,,,17.048596851471594,0
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,39,Karina Kozlova,UKR,246,2009-05-01T00:00:00.000000,0,,,,16.999315537303218,0
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,40,Marion Droz Vincent,FRA,229,2008-01-08T00:00:00.000000,0,,,,18.310746064339494,1
+2026-05-01,Offseason,Offseason,Standings,,0,Standings,0,,2026,0,L,41,Ingrid Græsli,NOR,248,2009-09-04T00:00:00.000000,0,,,,16.654346338124572,0
 2025-12-05,Trondheim,Norway,World Cup,102.0,5.0,Individual Compact,0,0.0,2026,1,L,1,Ida Marie Hagen,Norway,60,2000-08-18T00:00:00.000000,0,,6.0,1.0,25.297741273100616,49
 2025-12-05,Trondheim,Norway,World Cup,102.0,5.0,Individual Compact,0,0.0,2026,1,L,2,Nathalie Armbruster,Germany,168,2006-01-02T00:00:00.000000,0,,3.0,3.0,19.923340177960306,45
 2025-12-05,Trondheim,Norway,World Cup,102.0,5.0,Individual Compact,0,0.0,2026,1,L,3,Alexa Brabec,USA,81,2004-10-08T00:00:00.000000,0,,5.0,5.0,21.15811088295688,34
@@ -1808,3 +1809,150 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-11,Otepää,Estonia,World Cup,97.0,5.0,Individual Compact,0,0.0,2026,7,L,29,Jolana Hradilova,Czechia,87,2004-06-29T00:00:00.000000,0,,29.0,28.0,21.535934291581107,15
 2026-01-11,Otepää,Estonia,World Cup,97.0,5.0,Individual Compact,0,0.0,2026,7,L,30,Annalena Slamik,Austria,41,2003-03-23T00:00:00.000000,0,,27.0,30.0,22.806297056810404,51
 2026-01-11,Otepää,Estonia,World Cup,97.0,5.0,Individual Compact,0,0.0,2026,7,L,31,Sofia Eggensberger,Germany,213,2007-08-24T00:00:00.000000,0,,24.0,31.0,18.38466803559206,3
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,1,Ida Marie Hagen,Norway,60,2000-08-18T00:00:00.000000,0,,5.0,1.0,25.415468856947296,56
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,2,Nathalie Armbruster,Germany,168,2006-01-02T00:00:00.000000,0,,4.0,3.0,20.041067761806985,51
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,3,Minja Korhonen,Finland,200,2007-05-19T00:00:00.000000,0,,3.0,7.0,18.666666666666668,38
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,4,Alexa Brabec,USA,81,2004-10-08T00:00:00.000000,0,,1.0,12.0,21.27583846680356,41
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,5,Ema Volavsek,Slovenia,49,2002-12-15T00:00:00.000000,0,,15.0,4.0,23.091033538672143,38
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,6,Lisa-Marie Hirner,Austria,52,2003-10-03T00:00:00.000000,0,,10.0,9.0,22.29158110882957,47
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,7,Yuna Kasai,Japan,161,2004-02-04T00:00:00.000000,0,,13.0,8.0,21.95208761122519,58
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,8,Tara Geraghty-Moats,USA,58,1993-04-12T00:00:00.000000,0,,26.0,2.0,32.766598220396986,8
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,9,Marte Leinan Lund,Norway,7,2001-04-01T00:00:00.000000,0,,22.0,6.0,24.79671457905544,51
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,10,Teja Pavec,Slovenia,209,2007-04-15T00:00:00.000000,0,,10.0,14.0,18.75975359342916,21
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,11,Jenny Nowak,Germany,25,2002-08-20T00:00:00.000000,0,,16.0,11.0,23.4113620807666,57
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,12,Hanna Midtsundstad,Norway,3,1999-09-22T00:00:00.000000,0,,31.0,5.0,26.321697467488026,32
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,13,Annika Malacinski,USA,61,2001-05-09T00:00:00.000000,0,,12.0,18.0,24.692676249144423,58
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,14,Katharina Gruber,Austria,219,2008-08-26T00:00:00.000000,0,,8.0,22.0,17.39356605065024,15
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,15,Jonna Kil,Poland,68,2000-07-09T00:00:00.000000,0,,21.0,15.0,25.52498288843258,38
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,16,Mille Marie Hagen,Norway,180,2002-12-13T00:00:00.000000,0,,28.0,10.0,23.096509240246405,34
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,17,Veronica Gianmoena,Italy,29,1995-10-25T00:00:00.000000,0,,25.0,13.0,30.23134839151266,51
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,18,Claudia Purker,Austria,177,1999-01-15T00:00:00.000000,0,,14.0,20.0,27.006160164271048,46
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,19,Greta Pinzani,Italy,96,2005-02-14T00:00:00.000000,0,,27.0,16.0,20.92265571526352,21
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,20,Daniela Dejori,Italy,37,2002-08-01T00:00:00.000000,0,,24.0,17.0,23.463381245722108,48
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,21,Yuzuki Kainuma,Japan,239,2007-07-22T00:00:00.000000,0,,17.0,21.0,18.49144421629021,18
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,22,Trine Göpfert,Germany,107,2005-06-19T00:00:00.000000,0,,23.0,19.0,20.580424366872005,14
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,23,Ronja Loh,Germany,171,2005-04-21T00:00:00.000000,0,,6.0,23.0,20.7419575633128,25
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,24,Ingrid Låte,Norway,201,2007-07-23T00:00:00.000000,0,,2.0,26.0,18.48870636550308,15
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,25,Silva Verbič,Slovenia,40,2002-03-31T00:00:00.000000,0,,9.0,27.0,23.80013689253936,34
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,26,Romane Baud,France,206,2006-09-23T00:00:00.000000,0,,18.0,24.0,19.318275154004105,8
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,27,Sofia Eggensberger,Germany,213,2007-08-24T00:00:00.000000,0,,19.0,25.0,18.40109514031485,4
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,28,Annalena Slamik,Austria,41,2003-03-23T00:00:00.000000,0,,20.0,28.0,22.822724161533195,52
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,29,Maja Loh,Germany,215,2007-04-18T00:00:00.000000,0,,29.0,29.0,18.751540041067763,4
+2026-01-17,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,8,L,30,Tereza Koldovska,Czechia,89,2004-10-19T00:00:00.000000,0,,30.0,30.0,21.245722108145102,33
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,1,Ida Marie Hagen,Norway,60,2000-08-18T00:00:00.000000,0,,3.0,1.0,25.418206707734427,57
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,2,Minja Korhonen,Finland,200,2007-05-19T00:00:00.000000,0,,1.0,5.0,18.6694045174538,39
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,3,Nathalie Armbruster,Germany,168,2006-01-02T00:00:00.000000,0,,4.0,4.0,20.043805612594117,52
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,4,Alexa Brabec,USA,81,2004-10-08T00:00:00.000000,0,,2.0,7.0,21.27857631759069,42
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,5,Katharina Gruber,Austria,219,2008-08-26T00:00:00.000000,0,,6.0,8.0,17.39630390143737,16
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,6,Léna Brocard,France,53,2000-05-19T00:00:00.000000,0,,5.0,11.0,25.66735112936345,59
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,7,Lisa-Marie Hirner,Austria,52,2003-10-03T00:00:00.000000,0,,7.0,12.0,22.2943189596167,48
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,8,Ema Volavsek,Slovenia,49,2002-12-15T00:00:00.000000,0,,12.0,3.0,23.093771389459278,39
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,9,Claudia Purker,Austria,177,1999-01-15T00:00:00.000000,0,,8.0,15.0,27.00889801505818,47
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,10,Yuna Kasai,Japan,161,2004-02-04T00:00:00.000000,0,,9.0,14.0,21.95482546201232,59
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,11,Annika Malacinski,USA,61,2001-05-09T00:00:00.000000,0,,10.0,13.0,24.695414099931558,59
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,12,Marte Leinan Lund,Norway,7,2001-04-01T00:00:00.000000,0,,17.0,6.0,24.79945242984257,52
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,13,Jenny Nowak,Germany,25,2002-08-20T00:00:00.000000,0,,13.0,16.0,23.41409993155373,58
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,14,Teja Pavec,Slovenia,209,2007-04-15T00:00:00.000000,0,,15.0,18.0,18.76249144421629,22
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,15,Tara Geraghty-Moats,USA,58,1993-04-12T00:00:00.000000,0,,26.0,2.0,32.76933607118412,9
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,16,Yuzuki Kainuma,Japan,239,2007-07-22T00:00:00.000000,0,,16.0,19.0,18.494182067077343,19
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,17,Ronja Loh,Germany,171,2005-04-21T00:00:00.000000,0,,14.0,22.0,20.74469541409993,26
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,18,Mille Marie Hagen,Norway,180,2002-12-13T00:00:00.000000,0,,25.0,10.0,23.09924709103354,35
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,19,Daniela Dejori,Italy,37,2002-08-01T00:00:00.000000,0,,20.0,21.0,23.46611909650924,49
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,20,Veronica Gianmoena,Italy,29,1995-10-25T00:00:00.000000,0,,21.0,20.0,30.2340862422998,52
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,21,Jonna Kil,Poland,68,2000-07-09T00:00:00.000000,0,,24.0,17.0,25.527720739219717,39
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,22,Romane Baud,France,206,2006-09-23T00:00:00.000000,0,,18.0,25.0,19.32101300479124,9
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,23,Trine Göpfert,Germany,107,2005-06-19T00:00:00.000000,0,,23.0,24.0,20.583162217659137,15
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,24,Silva Verbič,Slovenia,40,2002-03-31T00:00:00.000000,0,,11.0,30.0,23.802874743326488,35
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,25,Annalena Slamik,Austria,41,2003-03-23T00:00:00.000000,0,,22.0,27.0,22.82546201232033,53
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,26,Sofia Eggensberger,Germany,213,2007-08-24T00:00:00.000000,0,,19.0,29.0,18.403832991101982,5
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,27,Greta Pinzani,Italy,96,2005-02-14T00:00:00.000000,0,,27.0,23.0,20.92539356605065,22
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,28,Maja Loh,Germany,215,2007-04-18T00:00:00.000000,0,,28.0,26.0,18.75427789185489,5
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,29,Hanna Midtsundstad,Norway,3,1999-09-22T00:00:00.000000,0,,30.0,9.0,26.324435318275157,33
+2026-01-18,Oberhof,Germany,World Cup,100.0,5.0,Individual,0,0.0,2026,9,L,30,Tereza Koldovska,Czechia,89,2004-10-19T00:00:00.000000,0,,29.0,28.0,21.24845995893224,34
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,1,Alexa Brabec,USA,81,2004-10-08T00:00:00.000000,0,,3.0,3.0,21.31143052703628,43
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,2,Ema Volavsek,Slovenia,49,2002-12-15T00:00:00.000000,0,,2.0,7.0,23.12662559890486,40
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,3,Ida Marie Hagen,Norway,60,2000-08-18T00:00:00.000000,0,,13.0,1.0,25.45106091718001,58
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,4,Nathalie Armbruster,Germany,168,2006-01-02T00:00:00.000000,0,,11.0,4.0,20.076659822039694,53
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,5,Yuna Kasai,Japan,161,2004-02-04T00:00:00.000000,0,,7.0,10.0,21.987679671457904,60
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,6,Yuzuki Kainuma,Japan,239,2007-07-22T00:00:00.000000,0,,6.0,12.0,18.527036276522928,20
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,6,Annika Malacinski,USA,61,2001-05-09T00:00:00.000000,0,,10.0,11.0,24.72826830937714,60
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,8,Ingrid Låte,Norway,201,2007-07-23T00:00:00.000000,0,,1.0,27.0,18.5242984257358,16
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,9,Léna Brocard,France,53,2000-05-19T00:00:00.000000,0,,8.0,14.0,25.700205338809035,60
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,10,Katharina Gruber,Austria,219,2008-08-26T00:00:00.000000,0,,5.0,17.0,17.429158110882955,17
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,11,Tara Geraghty-Moats,USA,58,1993-04-12T00:00:00.000000,0,,15.0,9.0,32.8021902806297,10
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,12,Marte Leinan Lund,Norway,7,2001-04-01T00:00:00.000000,0,,23.0,2.0,24.83230663928816,53
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,13,Minja Korhonen,Finland,200,2007-05-19T00:00:00.000000,0,,18.0,8.0,18.702258726899384,40
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,14,Jenny Nowak,Germany,25,2002-08-20T00:00:00.000000,0,,20.0,6.0,23.446954140999317,59
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,15,Heta Hirvonen,Finland,218,2008-10-16T00:00:00.000000,0,,4.0,26.0,17.28952772073922,23
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,16,Claudia Purker,Austria,177,1999-01-15T00:00:00.000000,0,,14.0,19.0,27.041752224503764,48
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,17,Ronja Loh,Germany,171,2005-04-21T00:00:00.000000,0,,12.0,23.0,20.77754962354552,27
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,18,Teja Pavec,Slovenia,209,2007-04-15T00:00:00.000000,0,,15.0,22.0,18.79534565366188,23
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,19,Trine Göpfert,Germany,107,2005-06-19T00:00:00.000000,0,,19.0,18.0,20.61601642710472,16
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,20,Veronica Gianmoena,Italy,29,1995-10-25T00:00:00.000000,0,,21.0,16.0,30.26694045174538,53
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,21,Romane Baud,France,206,2006-09-23T00:00:00.000000,0,,17.0,25.0,19.353867214236825,10
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,22,Silva Verbič,Slovenia,40,2002-03-31T00:00:00.000000,0,,9.0,29.0,23.835728952772072,36
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,23,Mille Marie Hagen,Norway,180,2002-12-13T00:00:00.000000,0,,27.0,13.0,23.132101300479125,36
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,24,Greta Pinzani,Italy,96,2005-02-14T00:00:00.000000,0,,25.0,20.0,20.95824777549624,23
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,25,Jonna Kil,Poland,68,2000-07-09T00:00:00.000000,0,,28.0,15.0,25.560574948665295,40
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,26,Anna Kerko,Finland,211,2007-08-25T00:00:00.000000,0,,26.0,21.0,18.43394934976044,7
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,27,Hanna Midtsundstad,Norway,3,1999-09-22T00:00:00.000000,0,,31.0,5.0,26.357289527720734,34
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,28,Daniela Dejori,Italy,37,2002-08-01T00:00:00.000000,0,,24.0,24.0,23.498973305954824,50
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,29,Annalena Slamik,Austria,41,2003-03-23T00:00:00.000000,0,,22.0,28.0,22.858316221765914,54
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,30,Tereza Koldovska,Czechia,89,2004-10-19T00:00:00.000000,0,,30.0,30.0,21.281314168377826,35
+2026-01-30,Seefeld,Austria,World Cup,109.0,5.0,Mass Start,1,0.0,2026,10,L,31,Jolana Hradilova,Czechia,87,2004-06-29T00:00:00.000000,0,,29.0,31.0,21.587953456536617,16
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,1,Ida Marie Hagen,Norway,60,2000-08-18T00:00:00.000000,0,,2.0,1.0,25.453798767967147,59
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,2,Alexa Brabec,USA,81,2004-10-08T00:00:00.000000,0,,1.0,6.0,21.314168377823407,44
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,3,Nathalie Armbruster,Germany,168,2006-01-02T00:00:00.000000,0,,5.0,5.0,20.07939767282683,54
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,4,Marte Leinan Lund,Norway,7,2001-04-01T00:00:00.000000,0,,17.0,2.0,24.83504449007529,54
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,5,Tara Geraghty-Moats,USA,58,1993-04-12T00:00:00.000000,0,,12.0,3.0,32.80492813141684,11
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,6,Yuna Kasai,Japan,161,2004-02-04T00:00:00.000000,0,,6.0,7.0,21.99041752224504,61
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,7,Ema Volavsek,Slovenia,49,2002-12-15T00:00:00.000000,0,,3.0,11.0,23.12936344969199,41
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,8,Minja Korhonen,Finland,200,2007-05-19T00:00:00.000000,0,,14.0,9.0,18.704996577686515,41
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,9,Annika Malacinski,USA,61,2001-05-09T00:00:00.000000,0,,8.0,13.0,24.73100616016427,61
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,10,Katharina Gruber,Austria,219,2008-08-26T00:00:00.000000,0,,7.0,15.0,17.43189596167009,18
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,11,Hanna Midtsundstad,Norway,3,1999-09-22T00:00:00.000000,0,,29.0,4.0,26.36002737850787,35
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,12,Jenny Nowak,Germany,25,2002-08-20T00:00:00.000000,0,,18.0,9.0,23.449691991786448,60
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,13,Jonna Kil,Poland,68,2000-07-09T00:00:00.000000,0,,22.0,8.0,25.56331279945243,41
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,14,Léna Brocard,France,53,2000-05-19T00:00:00.000000,0,,11.0,14.0,25.70294318959617,61
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,15,Yuzuki Kainuma,Japan,239,2007-07-22T00:00:00.000000,0,,10.0,16.0,18.529774127310063,21
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,16,Veronica Gianmoena,Italy,29,1995-10-25T00:00:00.000000,0,,23.0,12.0,30.269678302532512,54
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,17,Heta Hirvonen,Finland,218,2008-10-16T00:00:00.000000,0,,9.0,21.0,17.29226557152635,24
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,18,Claudia Purker,Austria,177,1999-01-15T00:00:00.000000,0,,13.0,20.0,27.04449007529089,49
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,19,Trine Göpfert,Germany,107,2005-06-19T00:00:00.000000,0,,21.0,18.0,20.618754277891856,17
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,20,Mille Marie Hagen,Norway,180,2002-12-13T00:00:00.000000,0,,26.0,17.0,23.134839151266256,37
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,21,Ronja Loh,Germany,171,2005-04-21T00:00:00.000000,0,,15.0,26.0,20.78028747433265,28
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,22,Anna Kerko,Finland,211,2007-08-25T00:00:00.000000,0,,27.0,22.0,18.43668720054757,8
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,23,Romane Baud,France,206,2006-09-23T00:00:00.000000,0,,20.0,25.0,19.35660506502396,11
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,24,Daniela Dejori,Italy,37,2002-08-01T00:00:00.000000,0,,28.0,19.0,23.50171115674196,51
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,25,Greta Pinzani,Italy,96,2005-02-14T00:00:00.000000,0,,25.0,23.0,20.960985626283367,24
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,26,Annalena Slamik,Austria,41,2003-03-23T00:00:00.000000,0,,24.0,24.0,22.86105407255305,55
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,27,Teja Pavec,Slovenia,209,2007-04-15T00:00:00.000000,0,,16.0,27.0,18.798083504449007,24
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,28,Silva Verbič,Slovenia,40,2002-03-31T00:00:00.000000,0,,19.0,28.0,23.838466803559207,37
+2026-01-31,Seefeld,Austria,World Cup,109.0,5.0,Individual Compact,0,0.0,2026,11,L,29,Tereza Koldovska,Czechia,89,2004-10-19T00:00:00.000000,0,,30.0,29.0,21.28405201916496,36
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,1,Ida Marie Hagen,Norway,60,2000-08-18T00:00:00.000000,0,,1.0,1.0,25.45653661875428,60
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,2,Alexa Brabec,USA,81,2004-10-08T00:00:00.000000,0,,2.0,2.0,21.31690622861054,45
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,3,Tara Geraghty-Moats,USA,58,1993-04-12T00:00:00.000000,0,,3.0,3.0,32.80766598220397,12
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,4,Ema Volavsek,Slovenia,49,2002-12-15T00:00:00.000000,0,,4.0,6.0,23.132101300479125,42
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,5,Nathalie Armbruster,Germany,168,2006-01-02T00:00:00.000000,0,,6.0,4.0,20.082135523613964,55
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,6,Yuna Kasai,Japan,161,2004-02-04T00:00:00.000000,0,,5.0,7.0,21.99315537303217,62
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,7,Marte Leinan Lund,Norway,7,2001-04-01T00:00:00.000000,0,,12.0,5.0,24.83778234086242,55
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,8,Minja Korhonen,Finland,200,2007-05-19T00:00:00.000000,0,,10.0,9.0,18.70773442847365,42
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,9,Katharina Gruber,Austria,219,2008-08-26T00:00:00.000000,0,,7.0,14.0,17.43463381245722,19
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,10,Annika Malacinski,USA,61,2001-05-09T00:00:00.000000,0,,11.0,12.0,24.7337440109514,62
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,11,Léna Brocard,France,53,2000-05-19T00:00:00.000000,0,,9.0,17.0,25.7056810403833,62
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,12,Heta Hirvonen,Finland,218,2008-10-16T00:00:00.000000,0,,8.0,20.0,17.295003422313485,25
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,13,Yuzuki Kainuma,Japan,239,2007-07-22T00:00:00.000000,0,,13.0,15.0,18.532511978097197,22
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,14,Jenny Nowak,Germany,25,2002-08-20T00:00:00.000000,0,,15.0,12.0,23.45242984257358,61
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,15,Jonna Kil,Poland,68,2000-07-09T00:00:00.000000,0,,16.0,8.0,25.56605065023956,42
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,16,Claudia Purker,Austria,177,1999-01-15T00:00:00.000000,0,,14.0,21.0,27.04722792607803,50
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,17,Trine Göpfert,Germany,107,2005-06-19T00:00:00.000000,0,,22.0,18.0,20.621492128678987,18
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,18,Mille Marie Hagen,Norway,180,2002-12-13T00:00:00.000000,0,,24.0,11.0,23.137577002053387,38
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,19,Greta Pinzani,Italy,96,2005-02-14T00:00:00.000000,0,,25.0,19.0,20.9637234770705,25
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,20,Romane Baud,France,206,2006-09-23T00:00:00.000000,0,,17.0,23.0,19.359342915811087,12
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,21,Hanna Midtsundstad,Norway,3,1999-09-22T00:00:00.000000,0,,27.0,10.0,26.362765229295004,36
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,22,Silva Verbič,Slovenia,40,2002-03-31T00:00:00.000000,0,,21.0,24.0,23.84120465434634,38
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,23,Daniela Dejori,Italy,37,2002-08-01T00:00:00.000000,0,,26.0,22.0,23.50444900752909,52
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,24,Anna Kerko,Finland,211,2007-08-25T00:00:00.000000,0,,28.0,16.0,18.439425051334705,9
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,25,Annalena Slamik,Austria,41,2003-03-23T00:00:00.000000,0,,23.0,25.0,22.863791923340177,56
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,26,Veronica Gianmoena,Italy,29,1995-10-25T00:00:00.000000,0,,20.0,27.0,30.272416153319643,55
+2026-02-01,Seefeld,Austria,World Cup,109.0,7.5,Individual,0,0.0,2026,12,L,27,Tereza Koldovska,Czechia,89,2004-10-19T00:00:00.000000,0,,29.0,26.0,21.286789869952088,37
