@@ -153,7 +153,7 @@ def main():
         logging.info(f"\n{'='*50}\nMerging {sex_label}\n{'='*50}")
 
         # Load FIS data
-        fis_path = base_path / f"all_{sex_name}_scrape.csv"
+        fis_path = base_path / f"all_{sex_name}_scrape_update.csv"
         fis_df = load_csv(fis_path)
 
         # Load Russia data
