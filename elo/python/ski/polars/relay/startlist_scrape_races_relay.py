@@ -204,7 +204,10 @@ def get_relay_teams(url: str) -> List[Dict]:
     ]
     """
     try:
-        response = requests.get(url)
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        }
+        response = requests.get(url, headers=headers)
         response.raise_for_status()
         
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -268,8 +271,8 @@ def get_relay_teams(url: str) -> List[Dict]:
                 if 'table-row_theme_additional' in current_element.get('class', []):
                     # Verify it's an athlete row by checking for the athlete-team-row class
                     if current_element.select_one('.athlete-team-row'):
-                        # Extract athlete information
-                        athlete_name_elem = current_element.select_one('.g-lg-14.g-md-14.g-sm-11.g-xs-10.justify-left.bold')
+                        # Extract athlete information - target .athlete-name directly to avoid sponsor
+                        athlete_name_elem = current_element.select_one('.athlete-name')
                         if athlete_name_elem:
                             athlete_name = athlete_name_elem.text.strip()
                             

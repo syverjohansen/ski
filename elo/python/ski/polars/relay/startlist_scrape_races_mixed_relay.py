@@ -276,12 +276,12 @@ def get_mixed_relay_teams(url: str, fantasy_prices: Dict[str, Dict] = None) -> L
                 if 'table-row_theme_additional' in current_element.get('class', []):
                     # This is an athlete row
                     try:
-                        # Get athlete name
-                        athlete_name_elem = current_element.select_one('.g-lg-14.g-md-14.g-sm-11.g-xs-10.justify-left.bold')
+                        # Get athlete name - target .athlete-name directly to avoid sponsor
+                        athlete_name_elem = current_element.select_one('.athlete-name')
                         if not athlete_name_elem:
                             print("No athlete name found in athlete row")
                             continue
-                        
+
                         athlete_name = athlete_name_elem.text.strip()
                         
                         # Get birth year
