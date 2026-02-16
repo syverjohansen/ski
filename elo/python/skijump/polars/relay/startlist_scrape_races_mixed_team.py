@@ -74,9 +74,9 @@ def process_mixed_team_races(races_df: pd.DataFrame) -> None:
     # Create output directory if it doesn't exist
     os.makedirs(os.path.dirname(os.path.expanduser(team_output_path)), exist_ok=True)
     
-    # Get the ELO scores for both genders
-    men_elo_path = "~/ski/elo/python/skijump/polars/relay/excel365/men_chrono_pred.csv"
-    women_elo_path = "~/ski/elo/python/skijump/polars/relay/excel365/ladies_chrono_pred.csv"
+    # Get the ELO scores for both genders (chrono_pred files are in the main excel365 directory, not relay)
+    men_elo_path = "~/ski/elo/python/skijump/polars/excel365/men_chrono_pred.csv"
+    women_elo_path = "~/ski/elo/python/skijump/polars/excel365/ladies_chrono_pred.csv"
     
     men_elo_scores = get_latest_elo_scores(men_elo_path)
     women_elo_scores = get_latest_elo_scores(women_elo_path)

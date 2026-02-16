@@ -176,21 +176,12 @@ def get_fis_race_data(race_id: str, sector_code: str = 'JP') -> Tuple[List[Dict]
             # Check if there are team rows in the results
             team_main_rows = soup.select('.table-row_theme_main')
             team_additional_rows = soup.select('.table-row_theme_additional')
-            
-            # If we have both main and additional rows, it's likely a team event
+
+            # If we have both main and additional rows, it's a team event
+            # Team events have main rows (teams) and additional rows (members)
             if len(team_main_rows) > 0 and len(team_additional_rows) > 0:
-                # Further check: see if main rows contain country names
-                for main_row in team_main_rows[:3]:  # Check first few rows
-                    name_elem = main_row.select_one('.g-lg.g-md.g-sm.g-xs.justify-left.bold')
-                    if name_elem:
-                        name = name_elem.text.strip().upper()
-                        # Common country names in ski jumping
-                        if name in ['NORWAY', 'GERMANY', 'AUSTRIA', 'POLAND', 'SLOVENIA', 
-                                   'JAPAN', 'SWITZERLAND', 'FINLAND', 'ITALY', 'FRANCE', 
-                                   'USA', 'CANADA', 'RUSSIA', 'UKRAINE', 'CZECH REPUBLIC']:
-                            is_team_event = True
-                            print(f"Detected team event from country name: {name}")
-                            break
+                is_team_event = True
+                print(f"Detected team event from HTML structure: {len(team_main_rows)} teams, {len(team_additional_rows)} member rows")
         
         # Store event type flags
         event_info['IsTeamEvent'] = is_team_event

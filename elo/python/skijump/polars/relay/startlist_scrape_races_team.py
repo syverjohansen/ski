@@ -80,8 +80,8 @@ def process_gender_team_races(races_df: pd.DataFrame, gender: str) -> None:
     # Create output directory if it doesn't exist
     os.makedirs(os.path.dirname(os.path.expanduser(team_output_path)), exist_ok=True)
     
-    # Get the ELO scores
-    elo_path = f"~/ski/elo/python/skijump/polars/relay/excel365/{gender}_chrono_pred.csv"
+    # Get the ELO scores (chrono_pred files are in the main excel365 directory, not relay)
+    elo_path = f"~/ski/elo/python/skijump/polars/excel365/{gender}_chrono_pred.csv"
     elo_scores = get_latest_elo_scores(elo_path)
     
     # Process each team race
