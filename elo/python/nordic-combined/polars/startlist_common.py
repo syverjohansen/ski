@@ -321,8 +321,8 @@ def extract_team_results(soup: BeautifulSoup) -> List[Dict]:
                 
                 rank = rank_elem.text.strip()
                 
-                # Get team name
-                name_elem = team_row.select_one('.g-lg-13.g-md-13.g-sm-10.g-xs-10.justify-left.bold, .g-lg-8.g-md-8.g-sm-5.g-xs-9.justify-left.bold')
+                # Get team name - check multiple grid patterns (g-lg-16 for team sprint, g-lg-13, g-lg-8)
+                name_elem = team_row.select_one('.g-lg-16.g-md-16.g-sm-12.g-xs-14.justify-left.bold, .g-lg-13.g-md-13.g-sm-10.g-xs-10.justify-left.bold, .g-lg-8.g-md-8.g-sm-5.g-xs-9.justify-left.bold')
                 team_name = name_elem.text.strip() if name_elem else ""
                 
                 # Get nation
@@ -384,8 +384,8 @@ def extract_team_results(soup: BeautifulSoup) -> List[Dict]:
                         fis_code_elem = member_row.select_one('.g-lg-2.g-md-2.g-sm-3.hidden-xs.justify-right.gray.pr-1')
                         fis_code = fis_code_elem.text.strip() if fis_code_elem else ""
                         
-                        # Get name
-                        name_elem = member_row.select_one('.g-lg-13.g-md-13.g-sm-10.g-xs-10.justify-left.bold, .g-lg-8.g-md-8.g-sm-5.g-xs-9.justify-left.bold')
+                        # Get name - check multiple grid patterns (g-lg-16 for team sprint, g-lg-13, g-lg-8)
+                        name_elem = member_row.select_one('.g-lg-16.g-md-16.g-sm-12.g-xs-14.justify-left.bold, .g-lg-13.g-md-13.g-sm-10.g-xs-10.justify-left.bold, .g-lg-8.g-md-8.g-sm-5.g-xs-9.justify-left.bold')
                         name = name_elem.text.strip() if name_elem else ""
                         
                         # Get birth year

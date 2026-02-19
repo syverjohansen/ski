@@ -390,8 +390,9 @@ def extract_team_results(soup: BeautifulSoup, is_mixed_team: bool = False) -> Li
                 fis_code_elem = team_row.select_one('.g-lg-2.g-md-2.g-sm-3.hidden-xs.justify-right.gray.pr-1')
                 fis_code = fis_code_elem.text.strip() if fis_code_elem else ""
                 
-                # Get team name (country name)
-                name_elem = team_row.select_one('.g-lg-8.g-md-8.g-sm-5.g-xs-9.justify-left.bold')
+                # Get team name (country name) - check both grid patterns (g-lg-8 and g-lg-16)
+                name_elem = team_row.select_one('.g-lg-16.g-md-16.g-sm-12.g-xs-14.justify-left.bold') or \
+                            team_row.select_one('.g-lg-8.g-md-8.g-sm-5.g-xs-9.justify-left.bold')
                 team_name = name_elem.text.strip() if name_elem else ""
                 
                 # Get nation code
@@ -453,8 +454,9 @@ def extract_team_results(soup: BeautifulSoup, is_mixed_team: bool = False) -> Li
                             fis_code_elem = next_elem.select_one('.g-lg-2.g-md-2.g-sm-3.hidden-xs.justify-right.gray.pr-1')
                             member_fis_code = fis_code_elem.text.strip() if fis_code_elem else ""
                             
-                            # Get athlete name
-                            name_elem = next_elem.select_one('.g-lg-8.g-md-8.g-sm-5.g-xs-9.justify-left.bold')
+                            # Get athlete name - check both grid patterns (g-lg-8 and g-lg-16)
+                            name_elem = next_elem.select_one('.g-lg-16.g-md-16.g-sm-12.g-xs-14.justify-left.bold') or \
+                                        next_elem.select_one('.g-lg-8.g-md-8.g-sm-5.g-xs-9.justify-left.bold')
                             name = name_elem.text.strip() if name_elem else ""
                             
                             # Get birth year
