@@ -1013,8 +1013,8 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2023-01-24,Planica,Slovenia,European Youth Olympic Festival,102,4,Individual,0,0,2023,21,L,5,Giada Delugan,Italy,184,2006-01-01T00:00:00.000000,0,"",9,5,17.062286105407257,13
 2023-02-11,Harrachov,Czechia,Saturday 11.Feb 2023,100,5,Individual,0,0,2023,25,L,3,Giada Delugan,Italy,184,2006-01-01T00:00:00.000000,0,"",6,4,17.111567419575632,14
 2023-02-12,Harrachov,Czechia,Sunday 12.Feb 2023,100,2.5,Individual,0,0,2023,27,L,5,Giada Delugan,Italy,184,2006-01-01T00:00:00.000000,0,"",8,5,17.114305270362767,15
-2023-02-18,Rena,Norway,Saturday 18.Feb 2023,109,1,Sprint,0,0,2023,29,L,11,Giada Delugan,Italy,184,2006-01-01T00:00:00.000000,0,"",6,15,17.130732375085557,16
 2023-02-18,Rena,Norway,Saturday 18.Feb 2023,109,5,Individual,0,0,2023,30,L,13,Giada Delugan,Italy,184,2006-01-01T00:00:00.000000,0,"",11,14,17.130732375085557,17
+2023-02-18,Rena,Norway,Saturday 18.Feb 2023,109,1,Sprint,0,0,2023,29,L,11,Giada Delugan,Italy,184,2006-01-01T00:00:00.000000,0,"",6,15,17.130732375085557,16
 2023-02-19,Rena,Norway,Sunday 19.Feb 2023,109,5,Individual,0,0,2023,31,L,9,Giada Delugan,Italy,184,2006-01-01T00:00:00.000000,0,"",4,12,17.13347022587269,18
 2023-03-11,Oberhof,Germany,Saturday 11.Mar 2023,100,5,Individual,0,0,2023,35,L,9,Giada Delugan,Italy,184,2006-01-01T00:00:00.000000,0,"",13,4,17.188227241615333,19
 2023-03-12,Oberhof,Germany,Sunday 12.Mar 2023,100,2.5,Individual,0,0,2023,37,L,13,Giada Delugan,Italy,184,2006-01-01T00:00:00.000000,0,"",14,10,17.190965092402465,20
@@ -1285,13 +1285,13 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2026-01-30,Seefeld,Austria,World Cup,109,5,Mass Start,1,0,2026,18,L,8,Ingrid Låte,Norway,201,2007-07-23T00:00:00.000000,0,"",1,27,18.524298425735797,39
 2022-12-09,Lillehammer,Norway,Friday 9.Dec 2022,100,5,Individual,0,0,2023,12,L,16,Kjersti Græsli,Norway,202,2007-12-01T00:00:00.000000,0,"",12,15,15.02258726899384,1
 2023-02-03,Whistler,Canada,Junior World Championship,104,5,Individual,0,0,2023,24,L,16,Kjersti Græsli,Norway,202,2007-12-01T00:00:00.000000,0,"",8,23,15.175906913073238,2
-2023-02-18,Rena,Norway,Saturday 18.Feb 2023,109,5,Individual,0,0,2023,30,L,7,Kjersti Græsli,Norway,202,2007-12-01T00:00:00.000000,0,"",1,16,15.216974674880218,3
 2023-02-18,Rena,Norway,Saturday 18.Feb 2023,109,1,Sprint,0,0,2023,29,L,6,Kjersti Græsli,Norway,202,2007-12-01T00:00:00.000000,0,"",2,16,15.216974674880218,4
+2023-02-18,Rena,Norway,Saturday 18.Feb 2023,109,5,Individual,0,0,2023,30,L,7,Kjersti Græsli,Norway,202,2007-12-01T00:00:00.000000,0,"",1,16,15.216974674880218,3
 2023-02-19,Rena,Norway,Sunday 19.Feb 2023,109,5,Individual,0,0,2023,31,L,5,Kjersti Græsli,Norway,202,2007-12-01T00:00:00.000000,0,"",1,14,15.219712525667351,5
 2023-03-11,Holmenkollen,Norway,World Cup,106,5,Individual,0,0,2023,36,L,21,Kjersti Græsli,Norway,202,2007-12-01T00:00:00.000000,0,"",11,26,15.274469541409992,6
 2023-02-03,Whistler,Canada,Junior World Championship,104,5,Individual,0,0,2023,24,L,12,Ingvild Synnøve Midtskogen,Norway,203,2007-12-21T00:00:00.000000,0,"",1,22,15.121149897330595,1
-2023-02-18,Rena,Norway,Saturday 18.Feb 2023,109,1,Sprint,0,0,2023,29,L,8,Ingvild Synnøve Midtskogen,Norway,203,2007-12-21T00:00:00.000000,0,"",1,18,15.162217659137577,3
 2023-02-18,Rena,Norway,Saturday 18.Feb 2023,109,5,Individual,0,0,2023,30,L,10,Ingvild Synnøve Midtskogen,Norway,203,2007-12-21T00:00:00.000000,0,"",5,18,15.162217659137577,2
+2023-02-18,Rena,Norway,Saturday 18.Feb 2023,109,1,Sprint,0,0,2023,29,L,8,Ingvild Synnøve Midtskogen,Norway,203,2007-12-21T00:00:00.000000,0,"",1,18,15.162217659137577,3
 2023-01-24,Planica,Slovenia,European Youth Olympic Festival,102,4,Individual,0,0,2023,21,L,7,Ursa Vidmar,Slovenia,204,2006-08-22T00:00:00.000000,0,"",2,16,16.424366872005475,1
 2022-09-17,Degenfeld,Germany,Saturday 17.Sep 2022,83,5,Individual,0,0,2023,6,L,18,Zala Mihelcic,Slovenia,205,2005-07-05T00:00:00.000000,0,"",11,22,17.201916495550993,1
 2022-09-18,Degenfeld,Germany,Sunday 18.Sep 2022,83,2.5,Individual,0,0,2023,7,L,11,Zala Mihelcic,Slovenia,205,2005-07-05T00:00:00.000000,0,"",8,14,17.204654346338124,2
@@ -2780,8 +2780,8 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2021-12-03,Lillehammer,Norway,World Cup,98,5,Individual,0,0,2022,14,L,20,Hanna Midtsundstad,Norway,3,1999-09-22T00:00:00.000000,0,"",23,11,22.198494182067076,31
 2021-12-04,Lillehammer,Norway,World Cup,98,5,Individual,0,0,2022,15,L,20,Hanna Midtsundstad,Norway,3,1999-09-22T00:00:00.000000,0,"",21,9,22.201232032854207,32
 2021-12-17,Ramsau,Austria,World Cup,98,5,Individual,0,0,2022,18,L,14,Hanna Midtsundstad,Norway,3,1999-09-22T00:00:00.000000,0,"",18,8,22.236824093086927,33
-2023-02-18,Rena,Norway,Saturday 18.Feb 2023,109,5,Individual,0,0,2023,30,L,9,Hanna Midtsundstad,Norway,3,1999-09-22T00:00:00.000000,0,"",13,2,23.408624229979466,35
 2023-02-18,Rena,Norway,Saturday 18.Feb 2023,109,1,Sprint,0,0,2023,29,L,10,Hanna Midtsundstad,Norway,3,1999-09-22T00:00:00.000000,0,"",12,6,23.408624229979466,34
+2023-02-18,Rena,Norway,Saturday 18.Feb 2023,109,5,Individual,0,0,2023,30,L,9,Hanna Midtsundstad,Norway,3,1999-09-22T00:00:00.000000,0,"",13,2,23.408624229979466,35
 2023-02-19,Rena,Norway,Sunday 19.Feb 2023,109,5,Individual,0,0,2023,31,L,8,Hanna Midtsundstad,Norway,3,1999-09-22T00:00:00.000000,0,"",10,3,23.411362080766597,36
 2023-03-03,Eisenerz,Austria,Friday 3.Mar 2023,109,5,Individual,0,0,2023,33,L,15,Hanna Midtsundstad,Norway,3,1999-09-22T00:00:00.000000,0,"",22,1,23.444216290212182,37
 2023-03-05,Eisenerz,Austria,Sunday 5.Mar 2023,109,5,Individual,0,0,2023,34,L,4,Hanna Midtsundstad,Norway,3,1999-09-22T00:00:00.000000,0,"",14,1,23.449691991786448,38
@@ -2993,8 +2993,8 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2023-01-13,Lake Placid NY,USA,Friday 13.Jan 2023,100,5,Individual,0,0,2023,19,L,5,Tess Arnone,USA,36,2003-10-13T00:00:00.000000,0,"",6,5,19.252566735112936,28
 2023-01-15,Lake Placid NY,USA,Sunday 15.Jan 2023,100,5,Mass Start,1,0,2023,20,L,6,Tess Arnone,USA,36,2003-10-13T00:00:00.000000,0,"",6,4,19.2580424366872,29
 2023-02-03,Whistler,Canada,Junior World Championship,104,5,Individual,0,0,2023,24,L,19,Tess Arnone,USA,36,2003-10-13T00:00:00.000000,0,"",23,12,19.310061601642712,30
-2023-02-18,Rena,Norway,Saturday 18.Feb 2023,109,1,Sprint,0,0,2023,29,L,18,Tess Arnone,USA,36,2003-10-13T00:00:00.000000,0,"",18,12,19.35112936344969,31
 2023-02-18,Rena,Norway,Saturday 18.Feb 2023,109,5,Individual,0,0,2023,30,L,18,Tess Arnone,USA,36,2003-10-13T00:00:00.000000,0,"",18,9,19.35112936344969,32
+2023-02-18,Rena,Norway,Saturday 18.Feb 2023,109,1,Sprint,0,0,2023,29,L,18,Tess Arnone,USA,36,2003-10-13T00:00:00.000000,0,"",18,12,19.35112936344969,31
 2023-02-19,Rena,Norway,Sunday 19.Feb 2023,109,5,Individual,0,0,2023,31,L,13,Tess Arnone,USA,36,2003-10-13T00:00:00.000000,0,"",15,7,19.353867214236825,33
 2023-03-03,Eisenerz,Austria,Friday 3.Mar 2023,109,5,Individual,0,0,2023,33,L,23,Tess Arnone,USA,36,2003-10-13T00:00:00.000000,0,"",24,13,19.38672142368241,34
 2023-03-05,Eisenerz,Austria,Sunday 5.Mar 2023,109,5,Individual,0,0,2023,34,L,15,Tess Arnone,USA,36,2003-10-13T00:00:00.000000,0,"",21,4,19.392197125256672,35
@@ -4203,8 +4203,8 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2022-08-28,Oberwiesenthal,Germany,Sunday 28.Aug 2022,105,5,Individual,0,0,2023,2,L,17,Eva Hubinger,Austria,59,1993-05-03T00:00:00.000000,0,"",18,19,29.319644079397673,17
 2022-09-03,Tschagguns,Austria,Saturday 3.Sep 2022,108,5,Individual,0,0,2023,4,L,16,Eva Hubinger,Austria,59,1993-05-03T00:00:00.000000,0,"",12,18,29.336071184120463,18
 2022-09-04,Tschagguns,Austria,Sunday 4.Sep 2022,108,5,Individual,0,0,2023,5,L,14,Eva Hubinger,Austria,59,1993-05-03T00:00:00.000000,0,"",11,16,29.338809034907598,19
-2023-02-18,Rena,Norway,Saturday 18.Feb 2023,109,5,Individual,0,0,2023,30,L,11,Eva Hubinger,Austria,59,1993-05-03T00:00:00.000000,0,"",6,17,29.796030116358658,20
 2023-02-18,Rena,Norway,Saturday 18.Feb 2023,109,1,Sprint,0,0,2023,29,L,12,Eva Hubinger,Austria,59,1993-05-03T00:00:00.000000,0,"",11,16,29.796030116358658,21
+2023-02-18,Rena,Norway,Saturday 18.Feb 2023,109,5,Individual,0,0,2023,30,L,11,Eva Hubinger,Austria,59,1993-05-03T00:00:00.000000,0,"",6,17,29.796030116358658,20
 2025-01-17,Eisenerz,Austria,Friday 17.Jan 2025,109,5,Individual,0,0,2025,15,L,19,Eva Hubinger,Austria,59,1993-05-03T00:00:00.000000,0,"",18,17,31.709787816563995,22
 2025-01-19,Eisenerz,Austria,Sunday 19.Jan 2025,109,5,Individual,0,0,2025,18,L,18,Eva Hubinger,Austria,59,1993-05-03T00:00:00.000000,0,"",18,17,31.71526351813826,23
 2015-03-18,Lierberget,Norway,Wednesday 18.Mar 2015,70,4,Individual,0,0,2015,3,L,8,Thea Øihaugen,Norway,6,2001-05-11T00:00:00.000000,0,"",8,6,13.850787132101301,1
@@ -4380,8 +4380,8 @@ Date,City,Country,Event,HillSize,Distance,RaceType,MassStart,TeamEvent,Season,Ra
 2023-01-28,Seefeld,Austria,World Cup,109,5,Individual,0,0,2023,23,L,19,Annika Malacinski,USA,61,2001-05-09T00:00:00.000000,0,"",20,16,21.72210814510609,43
 2023-02-11,Schonach,Germany,World Cup,100,5,Individual,0,0,2023,26,L,23,Annika Malacinski,USA,61,2001-05-09T00:00:00.000000,0,"",25,13,21.760438056125942,44
 2023-02-12,Schonach,Germany,World Cup,100,5,Individual,0,0,2023,28,L,22,Annika Malacinski,USA,61,2001-05-09T00:00:00.000000,0,"",23,16,21.763175906913073,45
-2023-02-18,Rena,Norway,Saturday 18.Feb 2023,109,5,Individual,0,0,2023,30,L,2,Annika Malacinski,USA,61,2001-05-09T00:00:00.000000,0,"",10,1,21.779603011635867,46
 2023-02-18,Rena,Norway,Saturday 18.Feb 2023,109,1,Sprint,0,0,2023,29,L,4,Annika Malacinski,USA,61,2001-05-09T00:00:00.000000,0,"",9,4,21.779603011635867,47
+2023-02-18,Rena,Norway,Saturday 18.Feb 2023,109,5,Individual,0,0,2023,30,L,2,Annika Malacinski,USA,61,2001-05-09T00:00:00.000000,0,"",10,1,21.779603011635867,46
 2023-02-19,Rena,Norway,Sunday 19.Feb 2023,109,5,Individual,0,0,2023,31,L,3,Annika Malacinski,USA,61,2001-05-09T00:00:00.000000,0,"",7,2,21.782340862423,48
 2023-02-24,Planica,Slovenia,World Championship,100,5,Individual,0,0,2023,32,L,22,Annika Malacinski,USA,61,2001-05-09T00:00:00.000000,0,"",25,22,21.796030116358658,49
 2023-03-03,Eisenerz,Austria,Friday 3.Mar 2023,109,5,Individual,0,0,2023,33,L,13,Annika Malacinski,USA,61,2001-05-09T00:00:00.000000,0,"",17,4,21.815195071868583,50
