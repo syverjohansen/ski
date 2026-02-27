@@ -10,6 +10,12 @@ import subprocess
 import requests
 warnings.filterwarnings('ignore')
 
+# Add parent directories to path for shared config
+sys.path.insert(0, os.path.expanduser('~/ski/elo/python'))
+
+# Import pipeline config for TEST_MODE and file paths
+from pipeline_config import TEST_MODE, get_weekends_file
+
 # Import the races version, as we'll extend it
 from startlist_scrape_races_relay import process_relay_races, get_relay_teams, process_relay_athlete
 
@@ -101,9 +107,10 @@ def process_weekend_relay_races(races_file: str = None) -> None:
         races_df = pd.read_csv(races_file)
         print(f"Loaded {len(races_df)} races from {races_file}")
     else:
-        # Default to weekends.csv
-        races_path = '~/ski/elo/python/ski/polars/excel365/weekends.csv'
-        
+        # Default to weekends.csv (uses test file if TEST_MODE is enabled in .env)
+        races_path = get_weekends_file('ski')
+        print(f"Loading from {races_path}..." + (" [TEST MODE]" if TEST_MODE else ""))
+
         try:
             races_df = pd.read_csv(races_path)
             print(f"Loaded {len(races_df)} races from {races_path}")

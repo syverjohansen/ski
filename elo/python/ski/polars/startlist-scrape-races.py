@@ -9,6 +9,12 @@ import traceback
 import subprocess
 warnings.filterwarnings('ignore')
 
+# Add parent directories to path for shared config
+sys.path.insert(0, os.path.expanduser('~/ski/elo/python'))
+
+# Import pipeline config for TEST_MODE and file paths
+from pipeline_config import TEST_MODE, get_races_file
+
 # Import common utility functions
 from startlist_common import *
 
@@ -263,22 +269,16 @@ def handle_relay_races(races_df: pd.DataFrame) -> bool:
 
 def process_races() -> None:
     """Main function to process individual races"""
-    # Read races CSV
-    print("Reading races.csv...")
+    # Read races CSV (uses test file if TEST_MODE is enabled in .env)
+    races_file = get_races_file('ski')
+    print(f"Reading {races_file}..." + (" [TEST MODE]" if TEST_MODE else ""))
     try:
-        races_df = pd.read_csv('~/ski/elo/python/ski/polars/excel365/races.csv')
-        print(f"Successfully read races.csv with {len(races_df)} rows")
+        races_df = pd.read_csv(races_file)
+        print(f"Successfully read {races_file.name} with {len(races_df)} rows")
     except Exception as e:
-        print(f"Error reading races.csv: {e}")
+        print(f"Error reading {races_file}: {e}")
         traceback.print_exc()
-        try:
-            # Try relative path as fallback
-            races_df = pd.read_csv('races.csv')
-            print(f"Successfully read races.csv with {len(races_df)} rows")
-        except Exception as e:
-            print(f"Error reading races.csv with relative path: {e}")
-            traceback.print_exc()
-            return
+        return
     
     # Check for mixed gender events first
     mixed_races = races_df[races_df['Sex'].isin(['Mixed', 'Mix'])]

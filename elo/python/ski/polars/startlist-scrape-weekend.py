@@ -9,6 +9,12 @@ import traceback
 import subprocess
 warnings.filterwarnings('ignore')
 
+# Add parent directories to path for shared config
+sys.path.insert(0, os.path.expanduser('~/ski/elo/python'))
+
+# Import pipeline config for TEST_MODE and file paths
+from pipeline_config import TEST_MODE, get_weekends_file
+
 # Import common utility functions
 from startlist_common import *
 
@@ -187,13 +193,14 @@ def get_today_utc_date() -> str:
 
 def process_weekend_races() -> None:
     """Main function to process weekend races - relays first, then individuals"""
-    # Read weekends CSV
-    print("Reading weekends.csv...")
+    # Read weekends CSV (uses test file if TEST_MODE is enabled in .env)
+    weekends_file = get_weekends_file('ski')
+    print(f"Reading {weekends_file}..." + (" [TEST MODE]" if TEST_MODE else ""))
     try:
-        weekends_df = pd.read_csv('~/ski/elo/python/ski/polars/excel365/weekends.csv')
-        print(f"Successfully read weekends.csv with {len(weekends_df)} rows")
+        weekends_df = pd.read_csv(weekends_file)
+        print(f"Successfully read {weekends_file.name} with {len(weekends_df)} rows")
     except Exception as e:
-        print(f"Error reading weekends.csv: {e}")
+        print(f"Error reading {weekends_file}: {e}")
         traceback.print_exc()
         return
     
