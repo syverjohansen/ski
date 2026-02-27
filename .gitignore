@@ -25,6 +25,10 @@ logs/
 *.tmp
 *.cache
 
+# Environment files
+.env
+*.env
+
 # System files
 .DS_Store
 __pycache__/
