@@ -1,40 +1,40 @@
 Skier,ID,Nation,Ranking,Points,Wins
-Johannes Lamparter,1469,Austria,1,1122,5
-Jens Lurås Oftebro,1329,Norway,2,979,3
-Julian Schmid,1348,Germany,3,853,1
-Einar Lurås Oftebro,1217,Norway,4,840,1
-Stefan Rettenegger,1775,Austria,5,819,0
-Thomas Rettenegger,1467,Austria,6,802,2
-Ilkka Herola,97,Finland,7,758,0
-Johannes Rydzek,14,Germany,8,745,0
-Vinzenz Geiger,1182,Germany,9,678,2
-Wendelin Thannheimer,1461,Germany,10,606,0
-Andreas Skoglund,1449,Norway,11,520,0
-Kristjan Ilves,403,Estonia,12,509,0
-Martin Fritz,1090,Austria,13,450,0
-Franz-Josef Rehrl,72,Austria,14,437,0
-Eero Hirvonen,1155,Finland,15,410,0
-Richard Stenzel,2351,Germany,16,348,0
-David Mach,1468,Germany,17,339,0
-Lukas Greiderer,1088,Austria,18,300,0
-Samuel Costa,84,Italy,19,298,0
-Fabio Obermeyr,1777,Austria,20,296,0
-Paul Walcher,1988,Austria,21,294,0
-Ryota Yamamoto,1154,Japan,22,270,0
+Johannes Lamparter,1469,Austria,1,1212,5
+Jens Lurås Oftebro,1329,Norway,2,1039,3
+Einar Lurås Oftebro,1217,Norway,3,910,1
+Julian Schmid,1348,Germany,4,899,1
+Ilkka Herola,97,Finland,5,858,1
+Stefan Rettenegger,1775,Austria,6,849,0
+Thomas Rettenegger,1467,Austria,7,842,2
+Johannes Rydzek,14,Germany,8,825,0
+Vinzenz Geiger,1182,Germany,9,706,2
+Wendelin Thannheimer,1461,Germany,10,655,0
+Andreas Skoglund,1449,Norway,11,572,0
+Kristjan Ilves,403,Estonia,12,547,0
+Martin Fritz,1090,Austria,13,470,0
+Eero Hirvonen,1155,Finland,14,465,0
+Franz-Josef Rehrl,72,Austria,15,459,0
+David Mach,1468,Germany,16,371,0
+Richard Stenzel,2351,Germany,17,364,0
+Lukas Greiderer,1088,Austria,18,343,0
+Paul Walcher,1988,Austria,19,328,0
+Samuel Costa,84,Italy,20,298,0
+Fabio Obermeyr,1777,Austria,21,296,0
+Ryota Yamamoto,1154,Japan,21,296,0
 Aleksander Skoglund,1220,Norway,23,264,0
-Simon Mach,1981,Germany,24,238,0
-Eidar Johan Strøm,2344,Norway,25,214,0
-Florian Kolb,1982,Austria,26,210,0
-Niklas Malacinski,1429,USA,27,209,0
-Akito Watabe,3,Japan,28,188,0
-Espen Andersen,345,Norway,29,185,0
-Laurent Muhlethaler,1146,France,30,184,0
-Marco Heinis,1903,France,31,177,0
-Jan Vytrval,1239,Czechia,32,162,0
+Simon Mach,1981,Germany,24,262,0
+Niklas Malacinski,1429,USA,25,226,0
+Eidar Johan Strøm,2344,Norway,25,226,0
+Florian Kolb,1982,Austria,27,224,0
+Marco Heinis,1903,France,28,213,0
+Espen Andersen,345,Norway,29,203,0
+Akito Watabe,3,Japan,30,188,0
+Laurent Muhlethaler,1146,France,31,184,0
+Jan Vytrval,1239,Czechia,32,177,0
 Aaron Kostner,1193,Italy,33,148,0
 Terence Weber,1137,Germany,34,130,0
 Ben Loomis,1179,USA,35,122,0
-Jiri Konvalinka,2037,Czechia,36,91,0
+Jiri Konvalinka,2037,Czechia,36,104,0
 Vid Vrhovnik,1196,Slovenia,37,90,0
 Alessandro Pittin,8,Italy,38,89,0
 Sora Yachi,1774,Japan,39,87,0
@@ -52,17 +52,17 @@ Mario Seidl,88,Austria,50,32,0
 Herman Happonen,2346,Finland,51,30,0
 Gael Blondeau,1485,France,52,28,0
 Wille Karhumaa,1250,Finland,53,21,0
-Kasper Moen Flatla,1230,Norway,54,19,0
-Henry Johnstone,1432,USA,55,18,0
-Raffaele Buzzi,1103,Italy,56,17,0
-Pascal Müller,1475,Switzerland,57,16,0
-Simen Tiller,370,Norway,58,15,0
-Erik Lynch,372,USA,59,13,0
-Jørgen Berget Storsveen,2419,Norway,60,12,0
-Lukas Dolezal,2060,Czechia,61,9,0
-Eemeli Kurttila,2455,Finland,62,8,0
-Gašper Brecl,1295,Slovenia,63,7,0
-Jiawen Zhao,1705,China,64,5,0
-Felix Brieden,2441,Germany,65,2,0
-Otto Niittykoski,1347,Finland,65,2,0
-Shogo Azegami,2307,Japan,67,1,0
+Otto Niittykoski,1347,Finland,53,21,0
+Kasper Moen Flatla,1230,Norway,55,19,0
+Henry Johnstone,1432,USA,56,18,0
+Raffaele Buzzi,1103,Italy,57,17,0
+Pascal Müller,1475,Switzerland,58,16,0
+Simen Tiller,370,Norway,59,15,0
+Erik Lynch,372,USA,60,13,0
+Shogo Azegami,2307,Japan,61,12,0
+Jørgen Berget Storsveen,2419,Norway,61,12,0
+Lukas Dolezal,2060,Czechia,63,9,0
+Eemeli Kurttila,2455,Finland,64,8,0
+Gašper Brecl,1295,Slovenia,65,7,0
+Jiawen Zhao,1705,China,66,5,0
+Felix Brieden,2441,Germany,67,2,0
