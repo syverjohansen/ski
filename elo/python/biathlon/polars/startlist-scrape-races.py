@@ -4,21 +4,28 @@ import sys
 import os
 from typing import List, Dict, Tuple, Optional
 import warnings
-from datetime import datetime
+from datetime import datetime, timezone
 import traceback
 import subprocess
 warnings.filterwarnings('ignore')
+
+# Add parent directories to path for shared config
+sys.path.insert(0, os.path.expanduser('~/ski/elo/python'))
+
+# Import pipeline config for TEST_MODE and file paths
+from pipeline_config import TEST_MODE, get_races_file
 
 # Import common utility functions
 from startlist_common import *
 
 def process_races() -> None:
     """Main function to process races from races.csv"""
-    # Read races CSV
-    print("Reading races.csv...")
+    # Read races CSV (uses test file if TEST_MODE is enabled in .env)
+    races_file = get_races_file('biathlon')
+    print(f"Reading {races_file}..." + (" [TEST MODE]" if TEST_MODE else ""))
     try:
-        races_df = pd.read_csv('~/ski/elo/python/biathlon/polars/excel365/races.csv')
-        print(f"Successfully read races.csv with {len(races_df)} rows")
+        races_df = pd.read_csv(races_file)
+        print(f"Successfully read {races_file.name} with {len(races_df)} rows")
     except Exception as e:
         print(f"Error reading races.csv: {e}")
         traceback.print_exc()
