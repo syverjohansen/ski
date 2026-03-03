@@ -157,29 +157,9 @@ def process_tds_races() -> None:
             print(f"Error processing {gender_name} races: {e}")
             traceback.print_exc()
     
-    # Call the TdS R script
-    print(f"\n===== CALLING TDS R SCRIPT =====")
-    try:
-        # Set the base path to the R scripts
-        r_script_base_path = "~/blog/daehl-e/content/post/cross-country/drafts"
-        r_script_path = os.path.expanduser(f"{r_script_base_path}/tds-picks.R")
-        
-        # Command to execute the R script
-        command = ["Rscript", r_script_path]
-        
-        print(f"Calling TdS R script: {' '.join(command)}")
-        
-        # Call the R script
-        result = subprocess.run(command, check=True, capture_output=True, text=True)
-        print(f"TdS R script output:\n{result.stdout}")
-        if result.stderr:
-            print(f"TdS R script error:\n{result.stderr}")
-    except subprocess.CalledProcessError as e:
-        print(f"Error calling TdS R script: {e}")
-        print(f"Script output: {e.stdout}")
-        print(f"Script error: {e.stderr}")
-    except FileNotFoundError:
-        print(f"TdS R script not found: {r_script_path}")
+    # Disabled: predict_script.sh owns the Tour de Ski simulation invocation.
+    print("\n===== SKIPPING TDS R SCRIPT =====")
+    print("predict_script.sh will run tds-picks-simulation.R")
     
     print("Tour de Ski processing complete!")
 

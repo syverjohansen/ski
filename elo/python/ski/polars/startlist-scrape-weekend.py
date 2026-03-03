@@ -351,10 +351,10 @@ def process_weekend_races() -> None:
     else:
         print("No individual races found for today")
     
-    # STEP 3: Call the main R script only if we processed individual races
+    # Disabled: predict_script.sh owns the cross-country weekly simulation invocation.
     if not individual_races.empty:
-        print(f"\n===== CALLING MAIN R SCRIPT =====")
-        call_r_script('weekend', 'standard')
+        print("\n===== SKIPPING MAIN R SCRIPT =====")
+        print("predict_script.sh will run weekly-picks-simulation.R")
     else:
         print("No individual races to process - skipping main R script")
     

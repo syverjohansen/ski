@@ -68,9 +68,15 @@ def process_races_mixed_team(races_file: str = None) -> None:
 def process_mixed_team_races(races_df: pd.DataFrame) -> None:
     """Process mixed team races, creating team CSV"""
     print("\nProcessing mixed team races")
-    
-    # Get path for output file
-    team_output_path = "~/ski/elo/python/nordic-combined/polars/relay/excel365/startlist_mixed_team_races_teams.csv"
+
+    is_team_sprint = False
+    if not races_df.empty and 'RaceType' in races_df.columns:
+        is_team_sprint = races_df['RaceType'].astype(str).str.contains("Team Sprint", na=False).all()
+
+    if is_team_sprint:
+        team_output_path = "~/ski/elo/python/nordic-combined/polars/relay/excel365/startlist_mixed_team_sprint_races_teams.csv"
+    else:
+        team_output_path = "~/ski/elo/python/nordic-combined/polars/relay/excel365/startlist_mixed_team_races_teams.csv"
     
     # Create output directory if it doesn't exist
     os.makedirs(os.path.dirname(os.path.expanduser(team_output_path)), exist_ok=True)
@@ -131,7 +137,7 @@ def process_mixed_team_races(races_df: pd.DataFrame) -> None:
                 'Date': datetime.now(timezone.utc).strftime('%Y-%m-%d'),
                 'City': 'Unknown',
                 'Country': 'Unknown',
-                'RaceType': 'Mixed Team'
+                'RaceType': 'Mixed Team Sprint' if is_team_sprint else 'Mixed Team'
             })
         
         # Generate fallback data
@@ -143,7 +149,8 @@ def process_mixed_team_races(races_df: pd.DataFrame) -> None:
     if all_teams_data:
         team_df = pd.DataFrame(all_teams_data)
         team_df.to_csv(os.path.expanduser(team_output_path), index=False)
-        print(f"Saved {len(team_df)} mixed team entries to {team_output_path}")
+        event_label = "mixed team sprint" if is_team_sprint else "mixed team"
+        print(f"Saved {len(team_df)} {event_label} entries to {team_output_path}")
     else:
         print(f"No team data generated")
 

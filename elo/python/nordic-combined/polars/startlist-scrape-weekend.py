@@ -42,7 +42,10 @@ def process_weekend_races() -> None:
     team_races = next_races[(next_races['RaceType'].str.contains("Team", na=False)) & 
                           (~next_races['RaceType'].str.contains("Sprint", na=False)) &
                           (next_races['Sex'] != 'Mixed')]
-    team_sprint_races = next_races[next_races['RaceType'].str.contains("Team Sprint", na=False)]
+    team_sprint_races = next_races[(next_races['RaceType'].str.contains("Team Sprint", na=False)) &
+                                   (next_races['Sex'] != 'Mixed')]
+    mixed_team_sprint_races = next_races[(next_races['RaceType'].str.contains("Team Sprint", na=False)) &
+                                         (next_races['Sex'] == 'Mixed')]
     mixed_team_races = next_races[(next_races['RaceType'].str.contains("Team", na=False)) & 
                                    (~next_races['RaceType'].str.contains("Sprint", na=False)) &
                                    (next_races['Sex'] == 'Mixed')]
@@ -51,6 +54,7 @@ def process_weekend_races() -> None:
     print(f"Found {len(team_races)} team races")
     print(f"Found {len(team_sprint_races)} team sprint races")
     print(f"Found {len(mixed_team_races)} mixed team races")
+    print(f"Found {len(mixed_team_sprint_races)} mixed team sprint races")
     
     # Process individual races if available
     if not individual_races.empty:
@@ -121,6 +125,25 @@ def process_weekend_races() -> None:
             print("Successfully processed mixed team races")
         except subprocess.CalledProcessError as e:
             print(f"Error calling mixed team race script: {e}")
+
+    # Process mixed team sprint races if available
+    if not mixed_team_sprint_races.empty:
+        temp_file = "/tmp/weekend_mixed_team_sprint_races.csv"
+        mixed_team_sprint_races.to_csv(temp_file, index=False)
+
+        try:
+            env = os.environ.copy()
+            env["SKIP_WEEKLY_PICKS"] = "1"
+
+            script_path = os.path.expanduser("~/ski/elo/python/nordic-combined/polars/relay/startlist_scrape_weekend_mixed_team.py")
+            subprocess.run(
+                [sys.executable, script_path, temp_file],
+                check=True,
+                env=env
+            )
+            print("Successfully processed mixed team sprint races")
+        except subprocess.CalledProcessError as e:
+            print(f"Error calling mixed team sprint race script: {e}")
     # Check if there are races today, and if so, run the R script once
     today_utc = datetime.now(timezone.utc).strftime('%m/%d/%Y')
     today_races = weekends_df[weekends_df['Date'] == today_utc]

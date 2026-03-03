@@ -175,25 +175,8 @@ def process_races() -> None:
         except subprocess.CalledProcessError as e:
             print(f"Error calling mixed team race script: {e}")
     
-    # Run the R script once at the end
-    print("\n=== All startlists have been scraped. Running race-picks.R ===")
-    r_script_path = os.path.expanduser('~/blog/daehl-e/content/post/skijump/drafts/race-picks.R')
-    
-    try:
-        # Run the R script
-        result = subprocess.run(
-            ["Rscript", r_script_path],
-            check=True,
-            capture_output=True,
-            text=True
-        )
-        print("R script executed successfully")
-        print("Output:")
-        print(result.stdout)
-    except subprocess.CalledProcessError as e:
-        print(f"Error running R script: {e}")
-        print("Error output:")
-        print(e.stderr)
+    # Disabled: predict_script.sh owns the race-picks R invocation.
+    print("\n=== All startlists have been scraped. Skipping scraper-side R call; predict_script.sh will run race-picks-simulation.R ===")
 
 def process_individual_races(valid_races: pd.DataFrame) -> None:
     """Process individual races"""

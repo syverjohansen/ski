@@ -299,14 +299,12 @@ def process_races() -> None:
     men_standard = process_gender_specific_races(races_df, 'men')
     ladies_standard = process_gender_specific_races(races_df, 'ladies')
     
-    # Only call the standard race picks script if we have standard races
+    # Disabled: predict_script.sh owns the cross-country race-day simulation invocation.
     if men_standard or ladies_standard:
-        # Check if today's races include Final Climb events
         if check_for_final_climb_today(races_df):
-            print("Final Climb event detected - calling final_climb.R instead of race-picks.R")
-            call_r_script('races', 'final_climb')
+            print("Final Climb event detected - scraper-side R call skipped; predict_script.sh will run final_climb-simulation.R")
         else:
-            call_r_script('races', 'standard')
+            print("Standard race event detected - scraper-side R call skipped; predict_script.sh will run race-picks-simulation.R")
 
 def process_gender_specific_races(races_df: pd.DataFrame, target_gender: str) -> bool:
     """
