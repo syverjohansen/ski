@@ -46,3 +46,4 @@ elo/python/ski/polars/excel365/men_chrono_pred.csv
 # All prediction CSV files
 *pred*.csv
 .RData
+elo/.env
