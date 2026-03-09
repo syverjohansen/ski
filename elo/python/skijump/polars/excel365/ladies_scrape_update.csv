@@ -10,8 +10,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2012-02-05,Hinzenbach,Austria,World Cup,94,Normal,0,2012,7,L,39,Coline Mattel,France,10,1995-11-03T00:00:00.000000,0,"",75.0,,86.8,16.257357973990416,9
 2012-02-11,Ljubno,Slovenia,World Cup,95,Normal,0,2012,8,L,14,Coline Mattel,France,10,1995-11-03T00:00:00.000000,0,"",83.5,80.0,18.0,16.27378507871321,10
 2012-02-12,Ljubno,Slovenia,World Cup,95,Normal,0,2012,9,L,22,Coline Mattel,France,10,1995-11-03T00:00:00.000000,0,"",74.5,78.5,9.0,16.27652292950034,11
-2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,11,L,5,Coline Mattel,France,10,1995-11-03T00:00:00.000000,0,"",87.5,,45.0,16.331279945242983,12
 2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,10,L,22,Coline Mattel,France,10,1995-11-03T00:00:00.000000,0,"",81.5,85.5,9.0,16.331279945242983,13
+2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,11,L,5,Coline Mattel,France,10,1995-11-03T00:00:00.000000,0,"",87.5,,45.0,16.331279945242983,12
 2012-03-04,Zao,Japan,World Cup,100,Normal,0,2012,12,L,7,Coline Mattel,France,10,1995-11-03T00:00:00.000000,0,"",84.0,88.5,36.0,16.334017796030118,14
 2012-03-09,Midtstubakken,Norway,World Cup,106,Normal,0,2012,13,L,15,Coline Mattel,France,10,1995-11-03T00:00:00.000000,0,"",93.0,83.0,16.0,16.347707049965777,15
 2012-11-24,Lillehammer,Norway,World Cup,100,Normal,0,2013,1,L,7,Coline Mattel,France,10,1995-11-03T00:00:00.000000,0,"",98.0,92.0,36.0,17.059548254620122,16
@@ -108,8 +108,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2013-01-13,Hinterzarten,Germany,World Cup,108,Normal,0,2013,8,L,25,Melanie Faißt,Germany,100,1990-02-12T00:00:00.000000,0,"",85.5,89.0,6.0,22.918548939082818,21
 2013-02-02,Sapporo,Japan,World Cup,100,Normal,0,2013,9,L,37,Melanie Faißt,Germany,100,1990-02-12T00:00:00.000000,0,"",77.5,,73.3,22.973305954825463,22
 2013-02-03,Sapporo,Japan,World Cup,100,Normal,0,2013,10,L,38,Melanie Faißt,Germany,100,1990-02-12T00:00:00.000000,0,"",70.0,,71.8,22.976043805612594,23
-2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,12,L,25,Melanie Faißt,Germany,100,1990-02-12T00:00:00.000000,0,"",80.0,77.5,6.0,22.99520876112252,24
 2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,11,L,22,Melanie Faißt,Germany,100,1990-02-12T00:00:00.000000,0,"",81.0,82.5,9.0,22.99520876112252,25
+2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,12,L,25,Melanie Faißt,Germany,100,1990-02-12T00:00:00.000000,0,"",80.0,77.5,6.0,22.99520876112252,24
 2013-02-16,Ljubno,Slovenia,World Cup,95,Normal,0,2013,13,L,14,Melanie Faißt,Germany,100,1990-02-12T00:00:00.000000,0,"",77.0,79.0,18.0,23.01163586584531,26
 2013-02-17,Ljubno,Slovenia,World Cup,95,Normal,0,2013,14,L,15,Melanie Faißt,Germany,100,1990-02-12T00:00:00.000000,0,"",82.5,83.0,16.0,23.014373716632445,27
 2013-03-15,Trondheim,Norway,World Cup,105,Normal,0,2013,16,L,24,Melanie Faißt,Germany,100,1990-02-12T00:00:00.000000,0,"",89.0,90.0,7.0,23.085557837097877,28
@@ -148,8 +148,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2013-01-13,Hinterzarten,Germany,World Cup,108,Normal,0,2013,8,L,17,Anja Tepes,Slovenia,102,1991-02-27T00:00:00.000000,0,"",93.5,89.5,14.0,21.87816563997262,16
 2013-02-02,Sapporo,Japan,World Cup,100,Normal,0,2013,9,L,18,Anja Tepes,Slovenia,102,1991-02-27T00:00:00.000000,0,"",78.5,,13.0,21.932922655715263,17
 2013-02-03,Sapporo,Japan,World Cup,100,Normal,0,2013,10,L,25,Anja Tepes,Slovenia,102,1991-02-27T00:00:00.000000,0,"",91.0,80.0,6.0,21.935660506502394,18
-2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,12,L,13,Anja Tepes,Slovenia,102,1991-02-27T00:00:00.000000,0,"",82.5,86.5,20.0,21.95482546201232,20
 2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,11,L,16,Anja Tepes,Slovenia,102,1991-02-27T00:00:00.000000,0,"",79.5,86.5,15.0,21.95482546201232,19
+2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,12,L,13,Anja Tepes,Slovenia,102,1991-02-27T00:00:00.000000,0,"",82.5,86.5,20.0,21.95482546201232,20
 2013-02-16,Ljubno,Slovenia,World Cup,95,Normal,0,2013,13,L,17,Anja Tepes,Slovenia,102,1991-02-27T00:00:00.000000,0,"",76.0,76.0,14.0,21.971252566735114,21
 2013-02-17,Ljubno,Slovenia,World Cup,95,Normal,0,2013,14,L,8,Anja Tepes,Slovenia,102,1991-02-27T00:00:00.000000,0,"",84.0,84.5,32.0,21.973990417522245,22
 2013-03-15,Trondheim,Norway,World Cup,105,Normal,0,2013,16,L,20,Anja Tepes,Slovenia,102,1991-02-27T00:00:00.000000,0,"",91.5,92.5,11.0,22.04517453798768,23
@@ -267,8 +267,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2012-02-05,Hinzenbach,Austria,World Cup,94,Normal,0,2012,7,L,15,Julia Kykkänen,Finland,11,1994-04-17T00:00:00.000000,0,"",83.0,85.0,16.0,17.804243668720055,9
 2012-02-11,Ljubno,Slovenia,World Cup,95,Normal,0,2012,8,L,32,Julia Kykkänen,Finland,11,1994-04-17T00:00:00.000000,0,"",73.0,,89.0,17.820670773442846,10
 2012-02-12,Ljubno,Slovenia,World Cup,95,Normal,0,2012,9,L,24,Julia Kykkänen,Finland,11,1994-04-17T00:00:00.000000,0,"",79.5,72.0,7.0,17.82340862422998,11
-2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,10,L,26,Julia Kykkänen,Finland,11,1994-04-17T00:00:00.000000,0,"",84.5,79.5,5.0,17.87816563997262,13
 2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,11,L,25,Julia Kykkänen,Finland,11,1994-04-17T00:00:00.000000,0,"",80.5,,6.0,17.87816563997262,12
+2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,10,L,26,Julia Kykkänen,Finland,11,1994-04-17T00:00:00.000000,0,"",84.5,79.5,5.0,17.87816563997262,13
 2012-03-04,Zao,Japan,World Cup,100,Normal,0,2012,12,L,38,Julia Kykkänen,Finland,11,1994-04-17T00:00:00.000000,0,"",74.5,,70.1,17.880903490759753,14
 2012-03-09,Midtstubakken,Norway,World Cup,106,Normal,0,2012,13,L,38,Julia Kykkänen,Finland,11,1994-04-17T00:00:00.000000,0,"",83.0,,78.0,17.894592744695412,15
 2012-11-24,Lillehammer,Norway,World Cup,100,Normal,0,2013,1,L,22,Julia Kykkänen,Finland,11,1994-04-17T00:00:00.000000,0,"",90.0,89.5,9.0,18.60643394934976,16
@@ -533,8 +533,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2013-01-06,Schonach,Germany,World Cup,106,Normal,0,2013,6,L,30,Yurika Hirayama,Japan,113,1990-11-16T00:00:00.000000,0,"",92.5,80.5,1.0,22.140999315537304,8
 2013-02-02,Sapporo,Japan,World Cup,100,Normal,0,2013,9,L,14,Yurika Hirayama,Japan,113,1990-11-16T00:00:00.000000,0,"",87.5,,18.0,22.21492128678987,9
 2013-02-03,Sapporo,Japan,World Cup,100,Normal,0,2013,10,L,30,Yurika Hirayama,Japan,113,1990-11-16T00:00:00.000000,0,"",81.5,78.5,1.0,22.217659137577,10
-2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,12,L,21,Yurika Hirayama,Japan,113,1990-11-16T00:00:00.000000,0,"",80.5,81.0,10.0,22.236824093086927,12
 2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,11,L,13,Yurika Hirayama,Japan,113,1990-11-16T00:00:00.000000,0,"",83.0,84.0,20.0,22.236824093086927,11
+2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,12,L,21,Yurika Hirayama,Japan,113,1990-11-16T00:00:00.000000,0,"",80.5,81.0,10.0,22.236824093086927,12
 2013-02-16,Ljubno,Slovenia,World Cup,95,Normal,0,2013,13,L,28,Yurika Hirayama,Japan,113,1990-11-16T00:00:00.000000,0,"",75.0,73.0,3.0,22.253251197809718,13
 2013-02-17,Ljubno,Slovenia,World Cup,95,Normal,0,2013,14,L,18,Yurika Hirayama,Japan,113,1990-11-16T00:00:00.000000,0,"",82.5,80.0,13.0,22.255989048596852,14
 2013-02-22,Predazzo,Italy,World Championship,106,Normal,0,2013,15,L,24,Yurika Hirayama,Japan,113,1990-11-16T00:00:00.000000,0,"",90.5,86.5,188.0,22.269678302532512,15
@@ -592,8 +592,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2012-02-05,Hinzenbach,Austria,World Cup,94,Normal,0,2012,7,L,13,Jessica Jerome,USA,12,1987-02-08T00:00:00.000000,0,"",84.5,84.0,20.0,24.99110198494182,9
 2012-02-11,Ljubno,Slovenia,World Cup,95,Normal,0,2012,8,L,5,Jessica Jerome,USA,12,1987-02-08T00:00:00.000000,0,"",85.5,83.5,45.0,25.00752908966461,10
 2012-02-12,Ljubno,Slovenia,World Cup,95,Normal,0,2012,9,L,8,Jessica Jerome,USA,12,1987-02-08T00:00:00.000000,0,"",83.5,81.0,32.0,25.010266940451746,11
-2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,10,L,9,Jessica Jerome,USA,12,1987-02-08T00:00:00.000000,0,"",93.5,86.5,29.0,25.065023956194388,13
 2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,11,L,6,Jessica Jerome,USA,12,1987-02-08T00:00:00.000000,0,"",88.0,,40.0,25.065023956194388,12
+2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,10,L,9,Jessica Jerome,USA,12,1987-02-08T00:00:00.000000,0,"",93.5,86.5,29.0,25.065023956194388,13
 2012-03-04,Zao,Japan,World Cup,100,Normal,0,2012,12,L,5,Jessica Jerome,USA,12,1987-02-08T00:00:00.000000,0,"",89.5,91.5,45.0,25.06776180698152,14
 2012-03-09,Midtstubakken,Norway,World Cup,106,Normal,0,2012,13,L,13,Jessica Jerome,USA,12,1987-02-08T00:00:00.000000,0,"",92.5,90.0,20.0,25.08145106091718,15
 2012-11-24,Lillehammer,Norway,World Cup,100,Normal,0,2013,1,L,13,Jessica Jerome,USA,12,1987-02-08T00:00:00.000000,0,"",90.0,91.5,20.0,25.793292265571527,16
@@ -712,8 +712,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2012-02-05,Hinzenbach,Austria,World Cup,94,Normal,0,2012,7,L,8,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,"",85.0,87.5,32.0,15.704312114989733,5
 2012-02-11,Ljubno,Slovenia,World Cup,95,Normal,0,2012,8,L,25,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,"",76.5,73.5,6.0,15.720739219712526,6
 2012-02-12,Ljubno,Slovenia,World Cup,95,Normal,0,2012,9,L,23,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,"",79.5,72.0,8.0,15.723477070499657,7
-2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,10,L,27,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,"",84.5,78.5,4.0,15.7782340862423,8
 2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,11,L,33,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,"",74.0,,73.6,15.7782340862423,9
+2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,10,L,27,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,"",84.5,78.5,4.0,15.7782340862423,8
 2012-03-04,Zao,Japan,World Cup,100,Normal,0,2012,12,L,20,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,"",87.5,83.5,11.0,15.780971937029431,10
 2012-03-09,Midtstubakken,Norway,World Cup,106,Normal,0,2012,13,L,19,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,"",92.5,90.0,12.0,15.794661190965092,11
 2012-11-24,Lillehammer,Norway,World Cup,100,Normal,0,2013,1,L,45,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,"",84.0,,97.3,16.50650239561944,12
@@ -725,8 +725,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2013-01-12,Hinterzarten,Germany,World Cup,108,Normal,0,2013,7,L,19,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,"",90.0,93.0,12.0,16.640657084188913,18
 2013-02-02,Sapporo,Japan,World Cup,100,Normal,0,2013,9,L,9,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,"",88.5,,29.0,16.698151950718685,19
 2013-02-03,Sapporo,Japan,World Cup,100,Normal,0,2013,10,L,19,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,"",88.5,92.5,12.0,16.700889801505816,20
-2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,12,L,18,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,"",86.5,80.0,13.0,16.720054757015742,21
 2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,11,L,17,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,"",82.0,85.0,14.0,16.720054757015742,22
+2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,12,L,18,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,"",86.5,80.0,13.0,16.720054757015742,21
 2013-02-22,Predazzo,Italy,World Championship,106,Normal,0,2013,15,L,32,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,"",82.0,,80.4,16.752908966461327,23
 2013-03-15,Trondheim,Norway,World Cup,105,Normal,0,2013,16,L,19,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,"",90.0,92.5,12.0,16.810403832991103,24
 2013-03-17,Holmenkollen,Norway,World Cup,134,Large,0,2013,17,L,24,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,"",109.0,113.0,7.0,16.815879534565365,25
@@ -869,8 +869,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2021-03-20,Nizhny Tagil,Russia,World Cup,97,Normal,0,2021,14,L,9,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,"",86.5,92.0,29.0,24.824093086926762,162
 2021-03-21,Nizhny Tagil,Russia,World Cup,97,Normal,0,2021,15,L,7,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,"",,,36.0,24.826830937713893,163
 2021-03-26,Chaikovsky,Russia,World Cup,102,Normal,0,2021,16,L,12,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,"",,,22.0,24.840520191649556,164
-2021-03-28,Chaikovsky,Russia,World Cup,140,Large,0,2021,18,L,10,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,"",,,26.0,24.84599589322382,166
 2021-03-28,Chaikovsky,Russia,World Cup,102,Team Normal,1,2021,17,L,3,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,1,5,86.5,,336.5,24.84599589322382,165
+2021-03-28,Chaikovsky,Russia,World Cup,140,Large,0,2021,18,L,10,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,"",,,26.0,24.84599589322382,166
 2021-11-26,Nizhny Tagil,Russia,World Cup,97,Normal,0,2022,1,L,5,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,"",,,45.0,25.51129363449692,167
 2021-11-27,Nizhny Tagil,Russia,World Cup,97,Normal,0,2022,2,L,3,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,"",,,60.0,25.51403148528405,168
 2021-12-04,Lillehammer,Norway,World Cup,98,Normal,0,2022,3,L,1,Katharina Schmid,Germany,13,1996-05-23T00:00:00.000000,0,"",,,100.0,25.533196440793976,169
@@ -1422,8 +1422,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2012-02-05,Hinzenbach,Austria,World Cup,94,Normal,0,2012,7,L,4,Ulrike Gräßler,Germany,16,1987-05-17T00:00:00.000000,0,"",86.5,88.5,50.0,24.722792607802873,9
 2012-02-11,Ljubno,Slovenia,World Cup,95,Normal,0,2012,8,L,4,Ulrike Gräßler,Germany,16,1987-05-17T00:00:00.000000,0,"",85.0,88.0,50.0,24.739219712525667,10
 2012-02-12,Ljubno,Slovenia,World Cup,95,Normal,0,2012,9,L,4,Ulrike Gräßler,Germany,16,1987-05-17T00:00:00.000000,0,"",87.5,85.5,50.0,24.7419575633128,11
-2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,11,L,3,Ulrike Gräßler,Germany,16,1987-05-17T00:00:00.000000,0,"",95.0,,60.0,24.79671457905544,13
 2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,10,L,6,Ulrike Gräßler,Germany,16,1987-05-17T00:00:00.000000,0,"",92.0,91.5,40.0,24.79671457905544,12
+2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,11,L,3,Ulrike Gräßler,Germany,16,1987-05-17T00:00:00.000000,0,"",95.0,,60.0,24.79671457905544,13
 2012-03-04,Zao,Japan,World Cup,100,Normal,0,2012,12,L,4,Ulrike Gräßler,Germany,16,1987-05-17T00:00:00.000000,0,"",90.5,93.5,50.0,24.799452429842574,14
 2012-03-09,Midtstubakken,Norway,World Cup,106,Normal,0,2012,13,L,7,Ulrike Gräßler,Germany,16,1987-05-17T00:00:00.000000,0,"",98.5,98.5,36.0,24.813141683778234,15
 2012-11-24,Lillehammer,Norway,World Cup,100,Normal,0,2013,1,L,36,Ulrike Gräßler,Germany,16,1987-05-17T00:00:00.000000,0,"",86.5,,105.0,25.52498288843258,16
@@ -1786,8 +1786,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2012-02-05,Hinzenbach,Austria,World Cup,94,Normal,0,2012,7,L,34,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,0,"",77.5,,92.1,17.242984257357975,9
 2012-02-11,Ljubno,Slovenia,World Cup,95,Normal,0,2012,8,L,13,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,0,"",83.0,81.0,20.0,17.259411362080765,10
 2012-02-12,Ljubno,Slovenia,World Cup,95,Normal,0,2012,9,L,14,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,0,"",79.5,79.5,18.0,17.2621492128679,11
-2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,11,L,16,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,0,"",83.0,,15.0,17.31690622861054,13
 2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,10,L,19,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,0,"",86.5,83.0,12.0,17.31690622861054,12
+2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,11,L,16,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,0,"",83.0,,15.0,17.31690622861054,13
 2012-03-04,Zao,Japan,World Cup,100,Normal,0,2012,12,L,25,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,0,"",78.0,85.0,6.0,17.319644079397673,14
 2012-03-09,Midtstubakken,Norway,World Cup,106,Normal,0,2012,13,L,21,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,0,"",95.0,88.0,10.0,17.333333333333332,15
 2012-11-24,Lillehammer,Norway,World Cup,100,Normal,0,2013,1,L,21,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,0,"",94.0,86.0,10.0,18.04517453798768,16
@@ -1800,8 +1800,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2013-01-13,Hinterzarten,Germany,World Cup,108,Normal,0,2013,8,L,7,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,0,"",97.0,97.0,36.0,18.182067077344286,23
 2013-02-02,Sapporo,Japan,World Cup,100,Normal,0,2013,9,L,22,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,0,"",79.0,,9.0,18.236824093086927,24
 2013-02-03,Sapporo,Japan,World Cup,100,Normal,0,2013,10,L,4,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,0,"",93.0,97.5,50.0,18.239561943874058,25
-2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,11,L,6,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,0,"",84.5,90.5,40.0,18.258726899383984,26
 2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,12,L,17,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,0,"",85.5,77.5,14.0,18.258726899383984,27
+2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,11,L,6,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,0,"",84.5,90.5,40.0,18.258726899383984,26
 2013-02-16,Ljubno,Slovenia,World Cup,95,Normal,0,2013,13,L,4,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,0,"",83.0,82.5,50.0,18.275154004106774,28
 2013-02-17,Ljubno,Slovenia,World Cup,95,Normal,0,2013,14,L,6,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,0,"",87.0,84.5,40.0,18.27789185489391,29
 2013-02-22,Predazzo,Italy,World Championship,106,Normal,0,2013,15,L,13,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,0,"",91.0,93.5,200.4,18.29158110882957,30
@@ -1943,8 +1943,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2021-03-20,Nizhny Tagil,Russia,World Cup,97,Normal,0,2021,14,L,13,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,0,"",89.0,88.5,20.0,26.362765229295004,166
 2021-03-21,Nizhny Tagil,Russia,World Cup,97,Normal,0,2021,15,L,13,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,0,"",,,20.0,26.365503080082135,167
 2021-03-26,Chaikovsky,Russia,World Cup,102,Normal,0,2021,16,L,6,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,0,"",,,40.0,26.379192334017795,168
-2021-03-28,Chaikovsky,Russia,World Cup,140,Large,0,2021,18,L,14,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,0,"",,,18.0,26.38466803559206,170
 2021-03-28,Chaikovsky,Russia,World Cup,102,Team Normal,1,2021,17,L,2,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,1,8,86.5,,348.5,26.38466803559206,169
+2021-03-28,Chaikovsky,Russia,World Cup,140,Large,0,2021,18,L,14,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,0,"",,,18.0,26.38466803559206,170
 2021-11-26,Nizhny Tagil,Russia,World Cup,97,Normal,0,2022,1,L,39,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,0,"",,,62.4,27.04996577686516,171
 2021-11-27,Nizhny Tagil,Russia,World Cup,97,Normal,0,2022,2,L,24,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,0,"",,,7.0,27.052703627652292,172
 2021-12-04,Lillehammer,Norway,World Cup,98,Normal,0,2022,3,L,15,Spela Rogelj,Slovenia,19,1994-11-08T00:00:00.000000,0,"",,,16.0,27.071868583162217,173
@@ -1977,8 +1977,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2012-02-05,Hinzenbach,Austria,World Cup,94,Normal,0,2012,7,L,7,Anette Sagen,Norway,2,1985-01-10T00:00:00.000000,0,"",84.5,85.5,36.0,27.069130732375086,9
 2012-02-11,Ljubno,Slovenia,World Cup,95,Normal,0,2012,8,L,9,Anette Sagen,Norway,2,1985-01-10T00:00:00.000000,0,"",84.5,81.5,29.0,27.085557837097877,10
 2012-02-12,Ljubno,Slovenia,World Cup,95,Normal,0,2012,9,L,6,Anette Sagen,Norway,2,1985-01-10T00:00:00.000000,0,"",85.5,79.0,40.0,27.088295687885008,11
-2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,11,L,10,Anette Sagen,Norway,2,1985-01-10T00:00:00.000000,0,"",88.0,,26.0,27.143052703627653,12
 2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,10,L,33,Anette Sagen,Norway,2,1985-01-10T00:00:00.000000,0,"",87.0,,86.5,27.143052703627653,13
+2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,11,L,10,Anette Sagen,Norway,2,1985-01-10T00:00:00.000000,0,"",88.0,,26.0,27.143052703627653,12
 2012-03-04,Zao,Japan,World Cup,100,Normal,0,2012,12,L,6,Anette Sagen,Norway,2,1985-01-10T00:00:00.000000,0,"",94.0,87.0,40.0,27.145790554414784,14
 2012-03-09,Midtstubakken,Norway,World Cup,106,Normal,0,2012,13,L,3,Anette Sagen,Norway,2,1985-01-10T00:00:00.000000,0,"",102.0,97.0,60.0,27.159479808350444,15
 2012-11-24,Lillehammer,Norway,World Cup,100,Normal,0,2013,1,L,3,Anette Sagen,Norway,2,1985-01-10T00:00:00.000000,0,"",99.5,97.0,60.0,27.871321013004792,16
@@ -2599,8 +2599,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2021-03-20,Nizhny Tagil,Russia,World Cup,97,Normal,0,2021,14,L,4,Silje Opseth,Norway,221,1999-04-28T00:00:00.000000,0,"",90.5,93.0,50.0,21.894592744695412,89
 2021-03-21,Nizhny Tagil,Russia,World Cup,97,Normal,0,2021,15,L,6,Silje Opseth,Norway,221,1999-04-28T00:00:00.000000,0,"",,,40.0,21.897330595482547,90
 2021-03-26,Chaikovsky,Russia,World Cup,102,Normal,0,2021,16,L,5,Silje Opseth,Norway,221,1999-04-28T00:00:00.000000,0,"",,,45.0,21.911019849418206,91
-2021-03-28,Chaikovsky,Russia,World Cup,140,Large,0,2021,18,L,2,Silje Opseth,Norway,221,1999-04-28T00:00:00.000000,0,"",,,80.0,21.91649555099247,92
 2021-03-28,Chaikovsky,Russia,World Cup,102,Team Normal,1,2021,17,L,4,Silje Opseth,Norway,221,1999-04-28T00:00:00.000000,4,7,95.5,,324.5,21.91649555099247,93
+2021-03-28,Chaikovsky,Russia,World Cup,140,Large,0,2021,18,L,2,Silje Opseth,Norway,221,1999-04-28T00:00:00.000000,0,"",,,80.0,21.91649555099247,92
 2021-11-26,Nizhny Tagil,Russia,World Cup,97,Normal,0,2022,1,L,15,Silje Opseth,Norway,221,1999-04-28T00:00:00.000000,0,"",,,16.0,22.581793292265573,94
 2021-11-27,Nizhny Tagil,Russia,World Cup,97,Normal,0,2022,2,L,8,Silje Opseth,Norway,221,1999-04-28T00:00:00.000000,0,"",,,32.0,22.584531143052704,95
 2021-12-04,Lillehammer,Norway,World Cup,98,Normal,0,2022,3,L,4,Silje Opseth,Norway,221,1999-04-28T00:00:00.000000,0,"",,,50.0,22.60369609856263,96
@@ -2893,8 +2893,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2012-02-05,Hinzenbach,Austria,World Cup,94,Normal,0,2012,7,L,9,Evelyn Insam,Italy,23,1994-02-10T00:00:00.000000,0,"",84.5,88.5,29.0,17.984941820670773,9
 2012-02-11,Ljubno,Slovenia,World Cup,95,Normal,0,2012,8,L,12,Evelyn Insam,Italy,23,1994-02-10T00:00:00.000000,0,"",81.5,78.5,22.0,18.001368925393567,10
 2012-02-12,Ljubno,Slovenia,World Cup,95,Normal,0,2012,9,L,11,Evelyn Insam,Italy,23,1994-02-10T00:00:00.000000,0,"",80.0,80.0,24.0,18.0041067761807,11
-2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,10,L,14,Evelyn Insam,Italy,23,1994-02-10T00:00:00.000000,0,"",85.5,89.5,18.0,18.05886379192334,12
 2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,11,L,27,Evelyn Insam,Italy,23,1994-02-10T00:00:00.000000,0,"",80.0,,4.0,18.05886379192334,13
+2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,10,L,14,Evelyn Insam,Italy,23,1994-02-10T00:00:00.000000,0,"",85.5,89.5,18.0,18.05886379192334,12
 2012-03-04,Zao,Japan,World Cup,100,Normal,0,2012,12,L,21,Evelyn Insam,Italy,23,1994-02-10T00:00:00.000000,0,"",84.0,80.0,10.0,18.06160164271047,14
 2012-03-09,Midtstubakken,Norway,World Cup,106,Normal,0,2012,13,L,8,Evelyn Insam,Italy,23,1994-02-10T00:00:00.000000,0,"",98.0,96.5,32.0,18.075290896646134,15
 2012-11-24,Lillehammer,Norway,World Cup,100,Normal,0,2013,1,L,5,Evelyn Insam,Italy,23,1994-02-10T00:00:00.000000,0,"",103.0,96.5,45.0,18.78713210130048,16
@@ -4112,8 +4112,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2021-03-20,Nizhny Tagil,Russia,World Cup,97,Normal,0,2021,14,L,23,Sofya Tikhonova,Russia,27,1998-11-16T00:00:00.000000,0,"",83.5,79.5,8.0,22.340862422997947,133
 2021-03-21,Nizhny Tagil,Russia,World Cup,97,Normal,0,2021,15,L,20,Sofya Tikhonova,Russia,27,1998-11-16T00:00:00.000000,0,"",,,11.0,22.34360027378508,134
 2021-03-26,Chaikovsky,Russia,World Cup,102,Normal,0,2021,16,L,21,Sofya Tikhonova,Russia,27,1998-11-16T00:00:00.000000,0,"",,,10.0,22.357289527720738,135
-2021-03-28,Chaikovsky,Russia,World Cup,102,Team Normal,1,2021,17,L,5,Sofya Tikhonova,Russia,27,1998-11-16T00:00:00.000000,3,4,86.5,,293.9,22.362765229295004,136
 2021-03-28,Chaikovsky,Russia,World Cup,140,Large,0,2021,18,L,26,Sofya Tikhonova,Russia,27,1998-11-16T00:00:00.000000,0,"",,,5.0,22.362765229295004,137
+2021-03-28,Chaikovsky,Russia,World Cup,102,Team Normal,1,2021,17,L,5,Sofya Tikhonova,Russia,27,1998-11-16T00:00:00.000000,3,4,86.5,,293.9,22.362765229295004,136
 2021-11-26,Nizhny Tagil,Russia,World Cup,97,Normal,0,2022,1,L,27,Sofya Tikhonova,Russia,27,1998-11-16T00:00:00.000000,0,"",,,4.0,23.028062970568104,138
 2021-12-10,Klingenthal,Germany,World Cup,140,Large,0,2022,5,L,34,Sofya Tikhonova,Russia,27,1998-11-16T00:00:00.000000,0,"",,,66.9,23.06639288158795,139
 2021-12-11,Klingenthal,Germany,World Cup,140,Large,0,2022,6,L,33,Sofya Tikhonova,Russia,27,1998-11-16T00:00:00.000000,0,"",,,64.5,23.069130732375086,140
@@ -4687,8 +4687,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2021-03-20,Nizhny Tagil,Russia,World Cup,97,Normal,0,2021,14,L,19,Katra Komar,Slovenia,284,2001-05-16T00:00:00.000000,0,"",83.0,82.5,12.0,19.84394250513347,40
 2021-03-21,Nizhny Tagil,Russia,World Cup,97,Normal,0,2021,15,L,33,Katra Komar,Slovenia,284,2001-05-16T00:00:00.000000,0,"",,,82.5,19.8466803559206,41
 2021-03-26,Chaikovsky,Russia,World Cup,102,Normal,0,2021,16,L,17,Katra Komar,Slovenia,284,2001-05-16T00:00:00.000000,0,"",,,14.0,19.860369609856264,42
-2021-03-28,Chaikovsky,Russia,World Cup,102,Team Normal,1,2021,17,L,2,Katra Komar,Slovenia,284,2001-05-16T00:00:00.000000,2,8,85.5,,348.5,19.865845311430526,44
 2021-03-28,Chaikovsky,Russia,World Cup,140,Large,0,2021,18,L,29,Katra Komar,Slovenia,284,2001-05-16T00:00:00.000000,0,"",,,2.0,19.865845311430526,43
+2021-03-28,Chaikovsky,Russia,World Cup,102,Team Normal,1,2021,17,L,2,Katra Komar,Slovenia,284,2001-05-16T00:00:00.000000,2,8,85.5,,348.5,19.865845311430526,44
 2021-12-31,Ljubno,Slovenia,World Cup,94,Normal,0,2022,8,L,43,Katra Komar,Slovenia,284,2001-05-16T00:00:00.000000,0,"",,,94.3,20.62696783025325,45
 2022-01-01,Ljubno,Slovenia,World Cup,94,Normal,0,2022,9,L,39,Katra Komar,Slovenia,284,2001-05-16T00:00:00.000000,0,"",,,97.7,20.629705681040384,46
 2022-02-26,Hinzenbach,Austria,World Cup,90,Normal,0,2022,14,L,25,Katra Komar,Slovenia,284,2001-05-16T00:00:00.000000,0,"",,,6.0,20.78302532511978,47
@@ -5202,8 +5202,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2021-03-20,Nizhny Tagil,Russia,World Cup,97,Normal,0,2021,14,L,1,Marita Kramer,Austria,299,2001-10-25T00:00:00.000000,0,"",96.5,96.0,100.0,19.40041067761807,34
 2021-03-21,Nizhny Tagil,Russia,World Cup,97,Normal,0,2021,15,L,1,Marita Kramer,Austria,299,2001-10-25T00:00:00.000000,0,"",,,100.0,19.4031485284052,35
 2021-03-26,Chaikovsky,Russia,World Cup,102,Normal,0,2021,16,L,1,Marita Kramer,Austria,299,2001-10-25T00:00:00.000000,0,"",,,100.0,19.416837782340863,36
-2021-03-28,Chaikovsky,Russia,World Cup,140,Large,0,2021,18,L,1,Marita Kramer,Austria,299,2001-10-25T00:00:00.000000,0,"",,,100.0,19.422313483915126,38
 2021-03-28,Chaikovsky,Russia,World Cup,102,Team Normal,1,2021,17,L,1,Marita Kramer,Austria,299,2001-10-25T00:00:00.000000,4,9,98.0,,373.7,19.422313483915126,37
+2021-03-28,Chaikovsky,Russia,World Cup,140,Large,0,2021,18,L,1,Marita Kramer,Austria,299,2001-10-25T00:00:00.000000,0,"",,,100.0,19.422313483915126,38
 2021-11-26,Nizhny Tagil,Russia,World Cup,97,Normal,0,2022,1,L,1,Marita Kramer,Austria,299,2001-10-25T00:00:00.000000,0,"",,,100.0,20.087611225188226,39
 2021-11-27,Nizhny Tagil,Russia,World Cup,97,Normal,0,2022,2,L,4,Marita Kramer,Austria,299,2001-10-25T00:00:00.000000,0,"",,,50.0,20.090349075975357,40
 2021-12-04,Lillehammer,Norway,World Cup,98,Normal,0,2022,3,L,2,Marita Kramer,Austria,299,2001-10-25T00:00:00.000000,0,"",,,80.0,20.109514031485283,41
@@ -5274,8 +5274,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2012-01-08,Hinterzarten,Germany,World Cup,108,Normal,0,2012,3,L,2,Sara Takanashi,Japan,3,1996-10-08T00:00:00.000000,0,"",100.5,99.5,80.0,15.249828884325805,4
 2012-02-11,Ljubno,Slovenia,World Cup,95,Normal,0,2012,8,L,2,Sara Takanashi,Japan,3,1996-10-08T00:00:00.000000,0,"",86.5,88.5,80.0,15.342915811088295,5
 2012-02-12,Ljubno,Slovenia,World Cup,95,Normal,0,2012,9,L,2,Sara Takanashi,Japan,3,1996-10-08T00:00:00.000000,0,"",90.0,90.5,80.0,15.345653661875428,6
-2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,10,L,2,Sara Takanashi,Japan,3,1996-10-08T00:00:00.000000,0,"",98.5,99.5,80.0,15.40041067761807,7
 2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,11,L,1,Sara Takanashi,Japan,3,1996-10-08T00:00:00.000000,0,"",102.5,,100.0,15.40041067761807,8
+2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,10,L,2,Sara Takanashi,Japan,3,1996-10-08T00:00:00.000000,0,"",98.5,99.5,80.0,15.40041067761807,7
 2012-03-04,Zao,Japan,World Cup,100,Normal,0,2012,12,L,2,Sara Takanashi,Japan,3,1996-10-08T00:00:00.000000,0,"",99.5,89.5,80.0,15.403148528405202,9
 2012-03-09,Midtstubakken,Norway,World Cup,106,Normal,0,2012,13,L,2,Sara Takanashi,Japan,3,1996-10-08T00:00:00.000000,0,"",100.5,108.0,80.0,15.416837782340862,10
 2012-11-24,Lillehammer,Norway,World Cup,100,Normal,0,2013,1,L,1,Sara Takanashi,Japan,3,1996-10-08T00:00:00.000000,0,"",96.0,98.0,100.0,16.128678986995208,11
@@ -5440,8 +5440,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2021-03-20,Nizhny Tagil,Russia,World Cup,97,Normal,0,2021,14,L,2,Sara Takanashi,Japan,3,1996-10-08T00:00:00.000000,0,"",92.5,95.5,80.0,24.44626967830253,171
 2021-03-21,Nizhny Tagil,Russia,World Cup,97,Normal,0,2021,15,L,3,Sara Takanashi,Japan,3,1996-10-08T00:00:00.000000,0,"",,,60.0,24.449007529089663,172
 2021-03-26,Chaikovsky,Russia,World Cup,102,Normal,0,2021,16,L,2,Sara Takanashi,Japan,3,1996-10-08T00:00:00.000000,0,"",,,80.0,24.462696783025326,173
-2021-03-28,Chaikovsky,Russia,World Cup,102,Team Normal,1,2021,17,L,6,Sara Takanashi,Japan,3,1996-10-08T00:00:00.000000,4,6,92.5,,292.6,24.468172484599588,174
 2021-03-28,Chaikovsky,Russia,World Cup,140,Large,0,2021,18,L,7,Sara Takanashi,Japan,3,1996-10-08T00:00:00.000000,0,"",,,36.0,24.468172484599588,175
+2021-03-28,Chaikovsky,Russia,World Cup,102,Team Normal,1,2021,17,L,6,Sara Takanashi,Japan,3,1996-10-08T00:00:00.000000,4,6,92.5,,292.6,24.468172484599588,174
 2021-11-26,Nizhny Tagil,Russia,World Cup,97,Normal,0,2022,1,L,6,Sara Takanashi,Japan,3,1996-10-08T00:00:00.000000,0,"",,,40.0,25.13347022587269,176
 2021-11-27,Nizhny Tagil,Russia,World Cup,97,Normal,0,2022,2,L,5,Sara Takanashi,Japan,3,1996-10-08T00:00:00.000000,0,"",,,45.0,25.136208076659823,177
 2021-12-04,Lillehammer,Norway,World Cup,98,Normal,0,2022,3,L,6,Sara Takanashi,Japan,3,1996-10-08T00:00:00.000000,0,"",,,40.0,25.155373032169745,178
@@ -5693,8 +5693,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2013-01-13,Hinterzarten,Germany,World Cup,108,Normal,0,2013,8,L,8,Katja Pozun,Slovenia,31,1993-04-07T00:00:00.000000,0,"",97.0,96.5,32.0,19.770020533880903,20
 2013-02-02,Sapporo,Japan,World Cup,100,Normal,0,2013,9,L,10,Katja Pozun,Slovenia,31,1993-04-07T00:00:00.000000,0,"",77.0,,26.0,19.824777549623544,21
 2013-02-03,Sapporo,Japan,World Cup,100,Normal,0,2013,10,L,10,Katja Pozun,Slovenia,31,1993-04-07T00:00:00.000000,0,"",96.0,84.0,26.0,19.82751540041068,22
-2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,12,L,7,Katja Pozun,Slovenia,31,1993-04-07T00:00:00.000000,0,"",86.0,87.0,36.0,19.8466803559206,24
 2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,11,L,10,Katja Pozun,Slovenia,31,1993-04-07T00:00:00.000000,0,"",77.5,88.5,26.0,19.8466803559206,23
+2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,12,L,7,Katja Pozun,Slovenia,31,1993-04-07T00:00:00.000000,0,"",86.0,87.0,36.0,19.8466803559206,24
 2013-02-16,Ljubno,Slovenia,World Cup,95,Normal,0,2013,13,L,5,Katja Pozun,Slovenia,31,1993-04-07T00:00:00.000000,0,"",83.0,82.5,45.0,19.863107460643395,25
 2013-02-17,Ljubno,Slovenia,World Cup,95,Normal,0,2013,14,L,4,Katja Pozun,Slovenia,31,1993-04-07T00:00:00.000000,0,"",87.5,85.5,50.0,19.865845311430526,26
 2013-02-22,Predazzo,Italy,World Championship,106,Normal,0,2013,15,L,18,Katja Pozun,Slovenia,31,1993-04-07T00:00:00.000000,0,"",91.0,90.5,195.0,19.879534565366185,27
@@ -5903,8 +5903,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2021-03-20,Nizhny Tagil,Russia,World Cup,97,Normal,0,2021,14,L,19,Yuka Seto,Japan,32,1997-02-22T00:00:00.000000,0,"",87.0,83.5,12.0,24.071184120465436,112
 2021-03-21,Nizhny Tagil,Russia,World Cup,97,Normal,0,2021,15,L,25,Yuka Seto,Japan,32,1997-02-22T00:00:00.000000,0,"",,,6.0,24.073921971252567,113
 2021-03-26,Chaikovsky,Russia,World Cup,102,Normal,0,2021,16,L,20,Yuka Seto,Japan,32,1997-02-22T00:00:00.000000,0,"",,,11.0,24.087611225188226,114
-2021-03-28,Chaikovsky,Russia,World Cup,102,Team Normal,1,2021,17,L,6,Yuka Seto,Japan,32,1997-02-22T00:00:00.000000,2,6,,,292.6,24.093086926762492,115
 2021-03-28,Chaikovsky,Russia,World Cup,140,Large,0,2021,18,L,19,Yuka Seto,Japan,32,1997-02-22T00:00:00.000000,0,"",,,12.0,24.093086926762492,116
+2021-03-28,Chaikovsky,Russia,World Cup,102,Team Normal,1,2021,17,L,6,Yuka Seto,Japan,32,1997-02-22T00:00:00.000000,2,6,,,292.6,24.093086926762492,115
 2021-11-27,Nizhny Tagil,Russia,World Cup,97,Normal,0,2022,2,L,32,Yuka Seto,Japan,32,1997-02-22T00:00:00.000000,0,"",,,77.9,24.761122518822724,117
 2021-12-04,Lillehammer,Norway,World Cup,98,Normal,0,2022,3,L,27,Yuka Seto,Japan,32,1997-02-22T00:00:00.000000,0,"",,,4.0,24.78028747433265,118
 2021-12-05,Lillehammer,Norway,World Cup,140,Large,0,2022,4,L,31,Yuka Seto,Japan,32,1997-02-22T00:00:00.000000,0,"",,,72.5,24.78302532511978,119
@@ -7074,8 +7074,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2021-03-20,Nizhny Tagil,Russia,World Cup,97,Normal,0,2021,14,L,37,Kristina Prokopieva,Russia,361,2000-07-16T00:00:00.000000,0,"",79.5,,74.8,20.67624914442163,9
 2021-03-21,Nizhny Tagil,Russia,World Cup,97,Normal,0,2021,15,L,24,Kristina Prokopieva,Russia,361,2000-07-16T00:00:00.000000,0,"",,,7.0,20.67898699520876,10
 2021-03-26,Chaikovsky,Russia,World Cup,102,Normal,0,2021,16,L,37,Kristina Prokopieva,Russia,361,2000-07-16T00:00:00.000000,0,"",,,75.7,20.692676249144423,11
-2021-03-28,Chaikovsky,Russia,World Cup,140,Large,0,2021,18,L,25,Kristina Prokopieva,Russia,361,2000-07-16T00:00:00.000000,0,"",,,6.0,20.698151950718685,13
 2021-03-28,Chaikovsky,Russia,World Cup,102,Team Normal,1,2021,17,L,5,Kristina Prokopieva,Russia,361,2000-07-16T00:00:00.000000,1,4,73.0,,293.9,20.698151950718685,12
+2021-03-28,Chaikovsky,Russia,World Cup,140,Large,0,2021,18,L,25,Kristina Prokopieva,Russia,361,2000-07-16T00:00:00.000000,0,"",,,6.0,20.698151950718685,13
 2021-11-26,Nizhny Tagil,Russia,World Cup,97,Normal,0,2022,1,L,23,Kristina Prokopieva,Russia,361,2000-07-16T00:00:00.000000,0,"",,,8.0,21.363449691991786,14
 2021-11-27,Nizhny Tagil,Russia,World Cup,97,Normal,0,2022,2,L,14,Kristina Prokopieva,Russia,361,2000-07-16T00:00:00.000000,0,"",,,18.0,21.366187542778917,15
 2021-12-04,Lillehammer,Norway,World Cup,98,Normal,0,2022,3,L,36,Kristina Prokopieva,Russia,361,2000-07-16T00:00:00.000000,0,"",,,95.1,21.385352498288842,16
@@ -7617,8 +7617,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2021-03-20,Nizhny Tagil,Russia,World Cup,97,Normal,0,2021,14,L,7,Thea Minyan Bjørseth,Norway,389,2003-10-30T00:00:00.000000,0,"",93.5,88.5,36.0,17.388090349075974,17
 2021-03-21,Nizhny Tagil,Russia,World Cup,97,Normal,0,2021,15,L,8,Thea Minyan Bjørseth,Norway,389,2003-10-30T00:00:00.000000,0,"",,,32.0,17.39082819986311,18
 2021-03-26,Chaikovsky,Russia,World Cup,102,Normal,0,2021,16,L,15,Thea Minyan Bjørseth,Norway,389,2003-10-30T00:00:00.000000,0,"",,,16.0,17.404517453798768,19
-2021-03-28,Chaikovsky,Russia,World Cup,140,Large,0,2021,18,L,13,Thea Minyan Bjørseth,Norway,389,2003-10-30T00:00:00.000000,0,"",,,20.0,17.409993155373034,20
 2021-03-28,Chaikovsky,Russia,World Cup,102,Team Normal,1,2021,17,L,4,Thea Minyan Bjørseth,Norway,389,2003-10-30T00:00:00.000000,1,7,85.0,,324.5,17.409993155373034,21
+2021-03-28,Chaikovsky,Russia,World Cup,140,Large,0,2021,18,L,13,Thea Minyan Bjørseth,Norway,389,2003-10-30T00:00:00.000000,0,"",,,20.0,17.409993155373034,20
 2021-11-26,Nizhny Tagil,Russia,World Cup,97,Normal,0,2022,1,L,32,Thea Minyan Bjørseth,Norway,389,2003-10-30T00:00:00.000000,0,"",,,75.0,18.075290896646134,22
 2021-11-27,Nizhny Tagil,Russia,World Cup,97,Normal,0,2022,2,L,25,Thea Minyan Bjørseth,Norway,389,2003-10-30T00:00:00.000000,0,"",,,6.0,18.078028747433265,23
 2021-12-04,Lillehammer,Norway,World Cup,98,Normal,0,2022,3,L,18,Thea Minyan Bjørseth,Norway,389,2003-10-30T00:00:00.000000,0,"",,,13.0,18.09719370294319,24
@@ -7724,8 +7724,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2012-02-05,Hinzenbach,Austria,World Cup,94,Normal,0,2012,7,L,17,Elena Runggaldier,Italy,39,1990-07-10T00:00:00.000000,0,"",83.0,83.5,14.0,21.574264202600958,9
 2012-02-11,Ljubno,Slovenia,World Cup,95,Normal,0,2012,8,L,42,Elena Runggaldier,Italy,39,1990-07-10T00:00:00.000000,0,"",68.5,,76.1,21.590691307323752,10
 2012-02-12,Ljubno,Slovenia,World Cup,95,Normal,0,2012,9,L,25,Elena Runggaldier,Italy,39,1990-07-10T00:00:00.000000,0,"",77.0,73.5,6.0,21.593429158110883,11
-2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,10,L,20,Elena Runggaldier,Italy,39,1990-07-10T00:00:00.000000,0,"",87.0,79.0,11.0,21.648186173853524,13
 2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,11,L,31,Elena Runggaldier,Italy,39,1990-07-10T00:00:00.000000,0,"",78.5,,77.9,21.648186173853524,12
+2012-03-03,Zao,Japan,World Cup,100,Normal,0,2012,10,L,20,Elena Runggaldier,Italy,39,1990-07-10T00:00:00.000000,0,"",87.0,79.0,11.0,21.648186173853524,13
 2012-03-04,Zao,Japan,World Cup,100,Normal,0,2012,12,L,23,Elena Runggaldier,Italy,39,1990-07-10T00:00:00.000000,0,"",81.0,81.0,8.0,21.650924024640656,14
 2012-03-09,Midtstubakken,Norway,World Cup,106,Normal,0,2012,13,L,28,Elena Runggaldier,Italy,39,1990-07-10T00:00:00.000000,0,"",86.5,87.0,3.0,21.66461327857632,15
 2012-11-24,Lillehammer,Norway,World Cup,100,Normal,0,2013,1,L,14,Elena Runggaldier,Italy,39,1990-07-10T00:00:00.000000,0,"",94.0,88.0,18.0,22.376454483230663,16
@@ -8259,8 +8259,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2021-03-20,Nizhny Tagil,Russia,World Cup,97,Normal,0,2021,14,L,22,Irma Makhinia,Russia,401,2002-09-06T00:00:00.000000,0,"",80.0,79.5,9.0,18.535249828884325,18
 2021-03-21,Nizhny Tagil,Russia,World Cup,97,Normal,0,2021,15,L,36,Irma Makhinia,Russia,401,2002-09-06T00:00:00.000000,0,"",,,81.5,18.537987679671456,19
 2021-03-26,Chaikovsky,Russia,World Cup,102,Normal,0,2021,16,L,32,Irma Makhinia,Russia,401,2002-09-06T00:00:00.000000,0,"",,,81.2,18.55167693360712,20
-2021-03-28,Chaikovsky,Russia,World Cup,140,Large,0,2021,18,L,28,Irma Makhinia,Russia,401,2002-09-06T00:00:00.000000,0,"",,,3.0,18.55715263518138,22
 2021-03-28,Chaikovsky,Russia,World Cup,102,Team Normal,1,2021,17,L,5,Irma Makhinia,Russia,401,2002-09-06T00:00:00.000000,2,4,81.5,,293.9,18.55715263518138,21
+2021-03-28,Chaikovsky,Russia,World Cup,140,Large,0,2021,18,L,28,Irma Makhinia,Russia,401,2002-09-06T00:00:00.000000,0,"",,,3.0,18.55715263518138,22
 2021-11-26,Nizhny Tagil,Russia,World Cup,97,Normal,0,2022,1,L,31,Irma Makhinia,Russia,401,2002-09-06T00:00:00.000000,0,"",,,75.1,19.222450376454482,23
 2021-11-27,Nizhny Tagil,Russia,World Cup,97,Normal,0,2022,2,L,29,Irma Makhinia,Russia,401,2002-09-06T00:00:00.000000,0,"",,,2.0,19.225188227241617,24
 2021-12-04,Lillehammer,Norway,World Cup,98,Normal,0,2022,3,L,28,Irma Makhinia,Russia,401,2002-09-06T00:00:00.000000,0,"",,,3.0,19.24435318275154,25
@@ -9717,8 +9717,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2013-01-13,Hinterzarten,Germany,World Cup,108,Normal,0,2013,8,L,12,Yuki Ito,Japan,5,1994-05-10T00:00:00.000000,0,"",98.5,91.5,22.0,18.680355920602327,18
 2013-02-02,Sapporo,Japan,World Cup,100,Normal,0,2013,9,L,16,Yuki Ito,Japan,5,1994-05-10T00:00:00.000000,0,"",79.5,,15.0,18.73511293634497,19
 2013-02-03,Sapporo,Japan,World Cup,100,Normal,0,2013,10,L,11,Yuki Ito,Japan,5,1994-05-10T00:00:00.000000,0,"",89.0,90.0,24.0,18.7378507871321,20
-2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,11,L,26,Yuki Ito,Japan,5,1994-05-10T00:00:00.000000,0,"",78.0,85.0,5.0,18.757015742642025,21
 2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,12,L,14,Yuki Ito,Japan,5,1994-05-10T00:00:00.000000,0,"",79.5,89.0,18.0,18.757015742642025,22
+2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,11,L,26,Yuki Ito,Japan,5,1994-05-10T00:00:00.000000,0,"",78.0,85.0,5.0,18.757015742642025,21
 2013-02-16,Ljubno,Slovenia,World Cup,95,Normal,0,2013,13,L,22,Yuki Ito,Japan,5,1994-05-10T00:00:00.000000,0,"",75.5,74.0,9.0,18.77344284736482,23
 2013-02-17,Ljubno,Slovenia,World Cup,95,Normal,0,2013,14,L,24,Yuki Ito,Japan,5,1994-05-10T00:00:00.000000,0,"",81.5,79.0,7.0,18.77618069815195,24
 2013-02-22,Predazzo,Italy,World Championship,106,Normal,0,2013,15,L,20,Yuki Ito,Japan,5,1994-05-10T00:00:00.000000,0,"",90.5,91.0,194.3,18.78986995208761,25
@@ -10256,8 +10256,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2026-02-15,Predazzo,Italy,Olympic Games,143,Large,0,2026,26,L,43,Kira Maria Kapustikova,Slovakia,547,2009-04-13T00:00:00.000000,0,"",0.0,0.0,79.7,16.843258042436688,11
 2009-02-20,Liberec,Czechia,World Championship,100,Normal,0,2009,1,L,21,Ayuka Takeda,Japan,55,1990-01-23T00:00:00.000000,0,"",64.5,75.0,130.5,19.07734428473648,1
 2013-02-02,Sapporo,Japan,World Cup,100,Normal,0,2013,9,L,22,Ayuka Takeda,Japan,55,1990-01-23T00:00:00.000000,0,"",81.0,,9.0,23.028062970568104,2
-2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,12,L,27,Ayuka Takeda,Japan,55,1990-01-23T00:00:00.000000,0,"",77.5,79.0,4.0,23.04996577686516,3
 2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,11,L,28,Ayuka Takeda,Japan,55,1990-01-23T00:00:00.000000,0,"",79.0,83.0,3.0,23.04996577686516,4
+2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,12,L,27,Ayuka Takeda,Japan,55,1990-01-23T00:00:00.000000,0,"",77.5,79.0,4.0,23.04996577686516,3
 2014-01-11,Sapporo,Japan,World Cup,100,Normal,0,2014,6,L,50,Ayuka Takeda,Japan,55,1990-01-23T00:00:00.000000,0,"",67.5,,60.4,23.967145790554415,5
 2014-01-18,Zao,Japan,World Cup,100,Normal,0,2014,8,L,34,Ayuka Takeda,Japan,55,1990-01-23T00:00:00.000000,0,"",74.0,,72.5,23.98631074606434,6
 2014-03-01,Rasnov,Romania,World Cup,100,Normal,0,2014,15,L,34,Ayuka Takeda,Japan,55,1990-01-23T00:00:00.000000,0,"",78.0,,78.9,24.101300479123886,7
@@ -11379,8 +11379,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2012-12-09,Sochi,Russia,World Cup,106,Normal,0,2013,3,L,35,Taylor Henrich,Canada,76,1995-11-01T00:00:00.000000,0,"",88.5,,93.4,17.10609171800137,7
 2013-02-02,Sapporo,Japan,World Cup,100,Normal,0,2013,9,L,35,Taylor Henrich,Canada,76,1995-11-01T00:00:00.000000,0,"",75.0,,77.7,17.256673511293634,8
 2013-02-03,Sapporo,Japan,World Cup,100,Normal,0,2013,10,L,17,Taylor Henrich,Canada,76,1995-11-01T00:00:00.000000,0,"",87.5,91.0,14.0,17.259411362080765,9
-2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,11,L,27,Taylor Henrich,Canada,76,1995-11-01T00:00:00.000000,0,"",79.0,78.0,4.0,17.27857631759069,10
 2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,12,L,24,Taylor Henrich,Canada,76,1995-11-01T00:00:00.000000,0,"",78.0,83.0,7.0,17.27857631759069,11
+2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,11,L,27,Taylor Henrich,Canada,76,1995-11-01T00:00:00.000000,0,"",79.0,78.0,4.0,17.27857631759069,10
 2013-02-16,Ljubno,Slovenia,World Cup,95,Normal,0,2013,13,L,33,Taylor Henrich,Canada,76,1995-11-01T00:00:00.000000,0,"",70.5,,87.9,17.295003422313485,12
 2013-02-17,Ljubno,Slovenia,World Cup,95,Normal,0,2013,14,L,20,Taylor Henrich,Canada,76,1995-11-01T00:00:00.000000,0,"",81.5,81.0,11.0,17.297741273100616,13
 2013-02-22,Predazzo,Italy,World Championship,106,Normal,0,2013,15,L,41,Taylor Henrich,Canada,76,1995-11-01T00:00:00.000000,0,"",67.0,,49.7,17.311430527036276,14
@@ -11480,8 +11480,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2013-01-13,Hinterzarten,Germany,World Cup,108,Normal,0,2013,8,L,29,Ramona Straub,Germany,79,1993-09-19T00:00:00.000000,0,"",88.0,84.0,2.0,19.318275154004105,8
 2013-02-02,Sapporo,Japan,World Cup,100,Normal,0,2013,9,L,31,Ramona Straub,Germany,79,1993-09-19T00:00:00.000000,0,"",79.5,,85.7,19.37303216974675,9
 2013-02-03,Sapporo,Japan,World Cup,100,Normal,0,2013,10,L,23,Ramona Straub,Germany,79,1993-09-19T00:00:00.000000,0,"",81.0,81.5,8.0,19.37577002053388,10
-2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,11,L,24,Ramona Straub,Germany,79,1993-09-19T00:00:00.000000,0,"",77.5,83.0,7.0,19.394934976043807,11
 2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,12,L,23,Ramona Straub,Germany,79,1993-09-19T00:00:00.000000,0,"",75.0,84.0,8.0,19.394934976043807,12
+2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,11,L,24,Ramona Straub,Germany,79,1993-09-19T00:00:00.000000,0,"",77.5,83.0,7.0,19.394934976043807,11
 2013-02-16,Ljubno,Slovenia,World Cup,95,Normal,0,2013,13,L,18,Ramona Straub,Germany,79,1993-09-19T00:00:00.000000,0,"",77.5,74.0,13.0,19.411362080766597,13
 2013-02-17,Ljubno,Slovenia,World Cup,95,Normal,0,2013,14,L,29,Ramona Straub,Germany,79,1993-09-19T00:00:00.000000,0,"",78.5,78.0,2.0,19.41409993155373,14
 2013-12-21,Hinterzarten,Germany,World Cup,108,Normal,0,2014,2,L,19,Ramona Straub,Germany,79,1993-09-19T00:00:00.000000,0,"",91.5,96.5,12.0,20.254620123203285,15
@@ -12306,8 +12306,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2013-01-13,Hinterzarten,Germany,World Cup,108,Normal,0,2013,8,L,19,Bigna Windmüller,Switzerland,91,1991-02-27T00:00:00.000000,0,"",88.5,93.0,12.0,21.87816563997262,9
 2013-02-02,Sapporo,Japan,World Cup,100,Normal,0,2013,9,L,24,Bigna Windmüller,Switzerland,91,1991-02-27T00:00:00.000000,0,"",85.5,,7.0,21.932922655715263,10
 2013-02-03,Sapporo,Japan,World Cup,100,Normal,0,2013,10,L,37,Bigna Windmüller,Switzerland,91,1991-02-27T00:00:00.000000,0,"",77.5,,79.3,21.935660506502394,11
-2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,11,L,19,Bigna Windmüller,Switzerland,91,1991-02-27T00:00:00.000000,0,"",80.0,84.0,12.0,21.95482546201232,13
 2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,12,L,30,Bigna Windmüller,Switzerland,91,1991-02-27T00:00:00.000000,0,"",73.5,75.0,1.0,21.95482546201232,12
+2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,11,L,19,Bigna Windmüller,Switzerland,91,1991-02-27T00:00:00.000000,0,"",80.0,84.0,12.0,21.95482546201232,13
 2013-02-16,Ljubno,Slovenia,World Cup,95,Normal,0,2013,13,L,35,Bigna Windmüller,Switzerland,91,1991-02-27T00:00:00.000000,0,"",70.5,,86.0,21.971252566735114,14
 2013-02-17,Ljubno,Slovenia,World Cup,95,Normal,0,2013,14,L,20,Bigna Windmüller,Switzerland,91,1991-02-27T00:00:00.000000,0,"",81.5,81.5,11.0,21.973990417522245,15
 2013-02-22,Predazzo,Italy,World Championship,106,Normal,0,2013,15,L,23,Bigna Windmüller,Switzerland,91,1991-02-27T00:00:00.000000,0,"",89.5,87.5,189.6,21.987679671457904,16
@@ -12406,8 +12406,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2013-01-13,Hinterzarten,Germany,World Cup,108,Normal,0,2013,8,L,16,Atsuko Tanaka,Canada,94,1992-01-25T00:00:00.000000,0,"",92.5,93.0,15.0,20.969199178644764,11
 2013-02-02,Sapporo,Japan,World Cup,100,Normal,0,2013,9,L,8,Atsuko Tanaka,Canada,94,1992-01-25T00:00:00.000000,0,"",93.5,,32.0,21.023956194387406,12
 2013-02-03,Sapporo,Japan,World Cup,100,Normal,0,2013,10,L,14,Atsuko Tanaka,Canada,94,1992-01-25T00:00:00.000000,0,"",84.0,90.0,18.0,21.026694045174537,13
-2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,11,L,8,Atsuko Tanaka,Canada,94,1992-01-25T00:00:00.000000,0,"",84.0,85.0,32.0,21.045859000684462,14
 2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,12,L,12,Atsuko Tanaka,Canada,94,1992-01-25T00:00:00.000000,0,"",87.0,84.0,22.0,21.045859000684462,15
+2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,11,L,8,Atsuko Tanaka,Canada,94,1992-01-25T00:00:00.000000,0,"",84.0,85.0,32.0,21.045859000684462,14
 2013-02-17,Ljubno,Slovenia,World Cup,95,Normal,0,2013,14,L,14,Atsuko Tanaka,Canada,94,1992-01-25T00:00:00.000000,0,"",84.5,83.0,18.0,21.065023956194388,16
 2013-02-22,Predazzo,Italy,World Championship,106,Normal,0,2013,15,L,15,Atsuko Tanaka,Canada,94,1992-01-25T00:00:00.000000,0,"",92.0,93.0,200.2,21.078713210130047,17
 2013-03-15,Trondheim,Norway,World Cup,105,Normal,0,2013,16,L,23,Atsuko Tanaka,Canada,94,1992-01-25T00:00:00.000000,0,"",88.5,91.5,8.0,21.136208076659823,18
@@ -12600,8 +12600,8 @@ Date,City,Country,Event,HillSize,RaceType,TeamEvent,Season,Race,Sex,Place,Skier,
 2013-01-13,Hinterzarten,Germany,World Cup,108,Normal,0,2013,8,L,24,Wendy Vuik,Netherlands,98,1988-11-25T00:00:00.000000,0,"",87.5,89.0,7.0,24.134154688569474,23
 2013-02-02,Sapporo,Japan,World Cup,100,Normal,0,2013,9,L,15,Wendy Vuik,Netherlands,98,1988-11-25T00:00:00.000000,0,"",87.5,,16.0,24.188911704312115,24
 2013-02-03,Sapporo,Japan,World Cup,100,Normal,0,2013,10,L,28,Wendy Vuik,Netherlands,98,1988-11-25T00:00:00.000000,0,"",83.0,75.5,3.0,24.191649555099247,25
-2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,12,L,20,Wendy Vuik,Netherlands,98,1988-11-25T00:00:00.000000,0,"",78.0,83.5,11.0,24.210814510609172,27
 2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,11,L,21,Wendy Vuik,Netherlands,98,1988-11-25T00:00:00.000000,0,"",79.0,81.5,10.0,24.210814510609172,26
+2013-02-10,Zao,Japan,World Cup,100,Normal,0,2013,12,L,20,Wendy Vuik,Netherlands,98,1988-11-25T00:00:00.000000,0,"",78.0,83.5,11.0,24.210814510609172,27
 2013-02-16,Ljubno,Slovenia,World Cup,95,Normal,0,2013,13,L,24,Wendy Vuik,Netherlands,98,1988-11-25T00:00:00.000000,0,"",75.0,76.5,7.0,24.227241615331963,28
 2013-02-17,Ljubno,Slovenia,World Cup,95,Normal,0,2013,14,L,27,Wendy Vuik,Netherlands,98,1988-11-25T00:00:00.000000,0,"",78.5,79.5,4.0,24.229979466119097,29
 2013-02-22,Predazzo,Italy,World Championship,106,Normal,0,2013,15,L,27,Wendy Vuik,Netherlands,98,1988-11-25T00:00:00.000000,0,"",88.5,85.5,177.8,24.243668720054757,30
