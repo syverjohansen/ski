@@ -1,63 +1,63 @@
 Skier,ID,Nation,Ranking,Points,Wins
-Nika Prevc,426,Slovenia,1,2296,16
-Nozomi Maruyama,222,Japan,2,1614,6
-Lisa Eder,337,Austria,3,1380,2
-Anna Odine Strøm,44,Norway,4,1353,1
-Selina Freitag,338,Germany,5,1132,0
-Abigail Strate,289,Canada,6,1063,1
-Agnes Reisch,259,Germany,7,911,0
-Sara Takanashi,3,Japan,8,814,0
-Nika Vodan,266,Slovenia,9,756,0
-Heidi Dyhre Tråserud,366,Norway,10,743,0
-Katharina Schmid,13,Germany,11,730,0
-Eirin Maria Kvandal,354,Norway,12,614,2
-Julia Mühlbacher,400,Austria,13,546,0
-Yuka Seto,32,Japan,14,520,0
-Yuki Ito,5,Japan,15,471,0
+Nika Prevc,426,Slovenia,1,2436,17
+Nozomi Maruyama,222,Japan,2,1774,6
+Anna Odine Strøm,44,Norway,3,1473,1
+Lisa Eder,337,Austria,4,1417,2
+Selina Freitag,338,Germany,5,1182,0
+Abigail Strate,289,Canada,6,1128,1
+Agnes Reisch,259,Germany,7,993,0
+Sara Takanashi,3,Japan,8,869,0
+Heidi Dyhre Tråserud,366,Norway,9,819,0
+Nika Vodan,266,Slovenia,10,792,0
+Katharina Schmid,13,Germany,11,756,0
+Eirin Maria Kvandal,354,Norway,12,700,2
+Yuki Ito,5,Japan,13,595,1
+Julia Mühlbacher,400,Austria,14,572,0
+Yuka Seto,32,Japan,15,548,0
 Ping Zeng,438,China,16,434,0
-Silje Opseth,221,Norway,17,358,0
-Ringo Miyajima,427,Japan,18,356,0
-Juliane Seyfarth,63,Germany,19,352,0
+Silje Opseth,221,Norway,17,432,0
+Juliane Seyfarth,63,Germany,18,387,0
+Ringo Miyajima,427,Japan,19,381,0
 Gyda Westvold Hansen,382,Norway,20,298,0
-Frida Westman,296,Sweden,21,269,0
-Annika Sieff,377,Italy,22,263,0
-Jenny Rautionaho,145,Finland,23,262,0
-Anna Twardosz,288,Poland,24,217,0
-Josephine Pagnier,280,France,25,194,0
+Annika Sieff,377,Italy,21,296,0
+Jenny Rautionaho,145,Finland,22,284,0
+Frida Westman,296,Sweden,23,282,0
+Anna Twardosz,288,Poland,24,229,0
+Josephine Pagnier,280,France,25,218,0
 Annika Belshaw,346,USA,26,176,0
-Katra Komar,284,Slovenia,27,142,0
-Josie Johnson,446,USA,28,140,0
-Ingvild Synnøve Midtskogen,479,Norway,29,135,0
-Anna Rupprecht,67,Germany,30,124,0
+Ingvild Synnøve Midtskogen,479,Norway,27,154,0
+Katra Komar,284,Slovenia,28,142,0
+Josie Johnson,446,USA,29,140,0
+Anna Rupprecht,67,Germany,30,128,0
 Paige Jones,365,USA,31,118,0
-Sina Arnet,448,Switzerland,32,114,0
+Sina Arnet,448,Switzerland,32,117,0
 Anezka Indrackova,437,Czechia,33,105,0
-Nicole Maurer,275,Canada,34,95,0
-Klara Ulrichova,388,Czechia,35,94,0
-Maja Kovacic,511,Slovenia,36,91,0
+Klara Ulrichova,388,Czechia,34,98,0
+Maja Kovacic,511,Slovenia,35,95,0
+Nicole Maurer,275,Canada,35,95,0
 Yuzuki Sato,480,Japan,37,89,0
 Bing Dong,320,China,38,81,0
 Kurumi Ichinohe,429,Japan,39,75,0
 Heta Hirvonen,542,Finland,40,68,0
 Qi Liu,62,China,41,58,0
-Martina Zanitzer,430,Italy,42,57,0
+Martina Zanitzer,430,Italy,41,58,0
 Julia Kykkänen,11,Finland,43,52,0
 Minja Korhonen,506,Finland,44,50,0
-Daniela Haralambie,43,Romania,45,41,0
-Jerica Jesenko,486,Slovenia,46,31,0
-Taja Terbovsek,574,Slovenia,47,28,0
-Emely Torazza,402,Germany,48,26,0
-Sofia Mattila,441,Finland,49,23,0
-Kira Maria Kapustikova,547,Slovakia,50,21,0
-Pola Beltowska,442,Poland,51,19,0
-Ema Klinec,89,Slovenia,51,19,0
-Liangyao Wang,418,China,51,19,0
-Shiyu Zhou,518,China,51,19,0
-Meghann Wadsak,487,Austria,55,11,0
-Yu Saito,509,Japan,56,9,0
-Yangning Weng,513,China,56,9,0
-Julia Aikia,470,Finland,58,7,0
-Taja Bodlaj,449,Slovenia,58,7,0
+Ema Klinec,89,Slovenia,45,49,0
+Daniela Haralambie,43,Romania,46,41,0
+Sofia Mattila,441,Finland,47,39,0
+Jerica Jesenko,486,Slovenia,48,31,0
+Taja Terbovsek,574,Slovenia,49,28,0
+Emely Torazza,402,Germany,50,26,0
+Kira Maria Kapustikova,547,Slovakia,51,21,0
+Pola Beltowska,442,Poland,52,19,0
+Liangyao Wang,418,China,52,19,0
+Shiyu Zhou,518,China,52,19,0
+Taja Bodlaj,449,Slovenia,55,16,0
+Meghann Wadsak,487,Austria,56,11,0
+Yu Saito,509,Japan,57,9,0
+Yangning Weng,513,China,57,9,0
+Julia Aikia,470,Finland,59,7,0
 Julina Kreibich,545,Germany,60,5,0
 Nagomi Nakayama,454,Japan,60,5,0
 Sandra Sproch,501,USA,60,5,0
