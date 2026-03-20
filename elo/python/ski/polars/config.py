@@ -82,192 +82,25 @@ def get_nation_quota(nation: str, gender: str, is_host: bool = False) -> int:
 #   {'name': 'Skier', 'no': [1]}           # Race 1 not racing, race 2 calculated
 #   {'name': 'Skier', 'yes': [2], 'no': [1]}  # Race 2 confirmed, race 1 not racing
 ADDITIONAL_SKIERS_MEN = {
-    'Norway': [
-        {'name': 'Harald Østberg Amundsen', 'yes': [1, 2]},
-        {'name': 'Even Northug', 'yes': [1], 'no': [2]},
-        {'name': 'Ansgar Evensen', 'yes': [1], 'no': [2]},
-        {'name': 'Lars Heggen', 'yes': [1, 2]},
-        {'name': 'Kristian Kollerud', 'yes': [1], 'no': [2]},
-        {'name': 'Simen Myhre', 'yes': [1], 'no': [2]},
-        {'name': 'Johannes Høsflot Klæbo', 'yes': [1, 2]},
-        {'name': 'Jørgen Schjølberg', 'yes': [1], 'no': [2]},
-        {'name': 'Harald Astrup Arnesen', 'yes': [1], 'no': [2]},
-        {'name': 'Aron Åkre Rysstad', 'yes': [1], 'no': [2]},
-        {'name': 'Filip Skari', 'yes': [1], 'no': [2]},
-        {'name': 'Lars Michael Saab Bjertnæs', 'yes': [1], 'no': [2]},
-        {'name': 'Martin Løwstrøm Nyenget', 'yes': [2], 'no': [1]},
-        {'name': 'Einar Hedegart', 'yes': [2], 'no': [1]},
-        {'name': 'Andreas Fjorden Ree', 'yes': [2], 'no': [1]},
-        {'name': 'Kasper Andersson', 'yes': [2], 'no': [1]},
-        {'name': 'Mattis Stenshagen', 'yes': [2], 'no': [1]},
-        {'name': 'Håvard Moseby', 'yes': [2], 'no': [1]},
-        {'name': 'Iver Tildheim Andersen', 'yes': [2], 'no': [1]},
-        {'name': 'Simen Hegstad Krüger', 'yes': [2], 'no': [1]},
-        {'name': 'Casper Kvam Grindhagen', 'yes': [2], 'no': [1]}
-    ],
-    'Sweden': [
-        {'name': 'Erik Bergström', 'yes': [1], 'no': [2]},
-        {'name': 'Anton Grahn', 'yes': [1], 'no': [2]},
-        {'name': 'Marcus Grate', 'yes': [1], 'no': [2]},
-        {'name': 'Erik Johansson', 'yes': [1], 'no': [2]},
-        {'name': 'Alvar Myhlback', 'yes': [1], 'no': [2]},
-        {'name': 'Jesper Persson', 'yes': [1, 2]},
-        {'name': 'Gustaf Berglund', 'yes': [2], 'no': [1]},
-        {'name': 'Johan Ekberg', 'yes': [2], 'no': [1]},
-        {'name': 'Truls Gisselman', 'yes': [2], 'no': [1]},
-        {'name': 'Leo Johansson', 'yes': [2], 'no': [1]},
-        {'name': 'Eric Rosjö', 'yes': [2], 'no': [1]}
-    ],
-    'Italy': [
-        'Federico Pellegrino',
-        'Martino Carollo',
-        'Elia Barp',
-        'Davide Graz',
-        'Simone Daprà',
-        'Simone Mocellini'
-    ],
-    'Finland': [
-        {'name': 'Ville Ahonen', 'yes': [1], 'no': [2]},
-        {'name': 'Juuso Haarala', 'yes': [1], 'no': [2]},
-        {'name': 'Emil Liekari', 'yes': [1], 'no': [2]},
-        {'name': 'Joni Mäki', 'yes': [1], 'no': [2]},
-        {'name': 'Eero Rantala', 'yes': [1], 'no': [2]},
-        {'name': 'Lauri Vuorinen', 'yes': [1], 'no': [2]},
-        {'name': 'Niko Anttola', 'yes': [2], 'no': [1]},
-        {'name': 'Petteri Koivisto', 'yes': [2], 'no': [1]},
-        {'name': 'Remi Lindholm', 'yes': [2], 'no': [1]},
-        {'name': 'Arsi Ruuskanen', 'yes': [2], 'no': [1]},
-        {'name': 'Alexander Ståhlberg', 'yes': [2], 'no': [1]},
-        {'name': 'Markus Vuorela', 'yes': [2], 'no': [1]}
-    ],
-    'Germany': [
-        'Lucas Bögl',
-        'Jannis Grimmecke',
-        'Friedrich Moch',
-        'Florian Notz',
-        'Anian Sossau-Daubermann',
-        'Jan Stölben',
-        'Jakob Walther'
-    ],
-    'Austria': [
-        {'name': 'Erik Engel', 'yes': [1], 'no': [2]},
-        {'name': 'Michael Föttinger', 'yes': [1], 'no': [2]},
-        {'name': 'Benjamin Moser', 'yes': [1], 'no': [2]},
-        {'name': 'Lukas Mrkonjic', 'yes': [1], 'no': [2]},
-        {'name': 'Tobias Ganner', 'yes': [2], 'no': [1]},
-        {'name': 'Mika Vermeulen', 'yes': [2], 'no': [1]}
-    ],
-    'France': [
-        {'name': 'Rémi Bourdin', 'yes': [1, 2]},
-        {'name': 'Lucas Chanavat', 'yes': [1], 'no': [2]},
-        {'name': 'Jules Chappaz', 'yes': [1], 'no': [2]},
-        {'name': 'Ivan Essonier', 'yes': [1], 'no': [2]},
-        {'name': 'Théo Schely', 'yes': [1], 'no': [2]},
-        {'name': 'Victor Cullet Calderini', 'yes': [2], 'no': [1]},
-        {'name': 'Mathis Desloges', 'yes': [2], 'no': [1]},
-        {'name': 'Hugo Lapalus', 'yes': [2], 'no': [1]},
-        {'name': 'Jules Lapierre', 'yes': [2], 'no': [1]},
-        {'name': 'Victor Lovera', 'yes': [2], 'no': [1]},
-        {'name': 'Clément Parisse', 'yes': [2], 'no': [1]}
-    ],
-    'Switzerland': [
-        'Roman Alder',
-        'Valerio Grond',
-        'Isai Näff',
-        'Noe Näff',
-        'Janik Riebli'
-    ]
+    'Austria': ['Mika Vermeulen', 'Benjamin Moser'],
+    'Finland': ['Emil Liekari', 'Arsi Ruuskanen', 'Niko Anttola', 'Lauri Vuorinen', 'Ville Ahonen'],
+    'France': ['Lucas Chanavat', 'Jules Chappaz', 'Mathis Desloges', 'Hugo Lapalus', 'Jules Lapierre', 'Victor Lovera', 'Théo Schely'],
+    'Germany': ['Elias Keck', 'Friedrich Moch', 'Jakob Moch', 'Florian Notz', 'Jan Stölben'],
+    'Italy': ['Federico Pellegrino', 'Martino Carollo', 'Elia Barp', 'Davide Graz', 'Simone Mocellini'],
+    'Norway': ['Harald Østberg Amundsen', 'Martin Løwstrøm Nyenget', 'Einar Hedegart', 'Andreas Fjorden Ree', 'Mattis Stenshagen', 'Emil Iversen', 'Lars Heggen', 'Even Northug', 'Ansgar Evensen', 'Even Solem Michelsen', 'Johannes Høsflot Klæbo'],
+    'Sweden': ['Gustaf Berglund', 'Erik Johansson', 'Anton Grahn', 'George Ersson', 'Truls Gisselman', 'Johan Ekberg', 'Leo Johansson', 'Eric Rosjö'],
+    'Switzerland': ['Roman Alder', 'Valerio Grond', 'Beda Klee', 'Noe Näff', 'Janik Riebli', 'Jason Rüesch'],
 }
 
 ADDITIONAL_SKIERS_LADIES = {
-    'Norway': [
-        {'name': 'Kristine Stavås Skistad', 'yes': [1], 'no': [2]},
-        {'name': 'Julie Bjervig Drivenes', 'yes': [1, 2]},
-        {'name': 'Ingrid Bergene Aabrekk', 'yes': [1], 'no': [2]},
-        {'name': 'Mathilde Myhrvold', 'yes': [1], 'no': [2]},
-        {'name': 'Tiril Udnes Weng', 'yes': [1], 'no': [2]},
-        {'name': 'Julie Myhre', 'yes': [1], 'no': [2]},
-        {'name': 'Iselin Bjervig Drivnes', 'yes': [1], 'no': [2]},
-        {'name': 'Margrete Røssum Dyrhovd', 'yes': [1], 'no': [2]},
-        {'name': 'Hedda Bakkemo', 'yes': [1], 'no': [2]},
-        {'name': 'Ane Appelkvist Stenseth', 'yes': [1], 'no': [2]},
-        {'name': 'Milla Grosberghaugen Andreassen', 'yes': [1], 'no': [2]},
-        {'name': 'Helene Ekrheim Haugen', 'yes': [1], 'no': [2]},
-        {'name': 'Astrid Øyre Slind', 'yes': [2], 'no': [1]},
-        {'name': 'Heidi Weng', 'yes': [2], 'no': [1]},
-        {'name': 'Kristin Austgulen Fosnæs', 'yes': [2], 'no': [1]},
-        {'name': 'Karoline Simpson-Larsen', 'yes': [2], 'no': [1]},
-        {'name': 'Nora Sanness', 'yes': [2], 'no': [1]},
-        {'name': 'Karoline Grøtting', 'yes': [2], 'no': [1]},
-        {'name': 'Nora Elisabeth Falster', 'yes': [2], 'no': [1]},
-        {'name': 'Margrethe Bergane', 'yes': [2], 'no': [1]},
-        {'name': 'Marte Mikkelsplass', 'yes': [2], 'no': [1]},
-        {'name': 'Oline Vestad', 'yes': [2], 'no': [1]},
-        {'name': 'Eva Ingebrigtsen', 'yes': [2], 'no': [1]}
-    ],
-    'Sweden': [
-        {'name': 'Maja Dahlqvist', 'yes': [1, 2]},
-        {'name': 'Johanna Hagström', 'yes': [1], 'no': [2]},
-        {'name': 'Moa Ilar', 'yes': [1, 2]},
-        {'name': 'Moa Lundgren', 'yes': [1], 'no': [2]},
-        {'name': 'Jonna Sundling', 'yes': [1, 2]},
-        {'name': 'Linn Svahn', 'yes': [1, 2]},
-        {'name': 'Ebba Andersson', 'yes': [2], 'no': [1]},
-        {'name': 'Frida Karlsson', 'yes': [2], 'no': [1]}
-    ],
-    'Italy': [
-        'Caterina Ganz',
-        'Federica Cassol',
-        'Iris De Martin Pinter',
-        'Nicole Monsorno'
-    ],
-    'Finland': [
-        {'name': 'Jasmi Joensuu', 'yes': [1], 'no': [2]},
-        {'name': 'Jasmin Kähärä', 'yes': [1], 'no': [2]},
-        {'name': 'Johanna Matintalo', 'yes': [1], 'no': [2]},
-        {'name': 'Hilla Niemelä', 'yes': [1, 2]},
-        {'name': 'Tiia Olkkonen', 'yes': [1], 'no': [2]},
-        {'name': 'Amanda Saari', 'yes': [1], 'no': [2]},
-        {'name': 'Kerttu Niskanen', 'yes': [2], 'no': [1]},
-        {'name': 'Vilma Nissinen', 'yes': [2], 'no': [1]},
-        {'name': 'Krista Pärmäkoski', 'yes': [2], 'no': [1]},
-        {'name': 'Vilma Ryytty', 'yes': [2], 'no': [1]}
-    ],
-    'Germany': [
-        'Anna-Maria Dietze',
-        'Pia Fink',
-        'Theresa Fürstenberg',
-        'Laura Gimmler',
-        'Kim Hager',
-        'Katharina Hennig-Dotzler',
-        'Helen Hoffmann',
-        'Sofie Krehl',
-        'Saskia Nürnberger',
-        'Coletta Rydzek'
-    ],
-    'Austria': [
-        {'name': 'Heidi Bucher', 'yes': [1], 'no': [2]},
-        {'name': 'Magdalena Scherz', 'yes': [1], 'no': [2]},
-        {'name': 'Teresa Stadlober', 'yes': [2], 'no': [1]}
-    ],
-    'France': [
-        {'name': 'Melissa Gal', 'yes': [1], 'no': [2]},
-        {'name': 'Justine Gaillard', 'yes': [1], 'no': [2]},
-        {'name': 'Daphné Patois', 'yes': [1], 'no': [2]},
-        {'name': 'Léonie Perry', 'yes': [1, 2]},
-        {'name': 'Julie Pierrel', 'yes': [1, 2]},
-        {'name': 'Léna Quintin', 'yes': [1], 'no': [2]},
-        {'name': 'Delphine Claudel', 'yes': [2], 'no': [1]},
-        {'name': 'Juliette Ducordeau', 'yes': [2], 'no': [1]},
-        {'name': 'Cloé Pagnier', 'yes': [2], 'no': [1]}
-    ],
-    'Switzerland': [
-        'Fabienne Alder',
-        'Nadine Fähndrich',
-        'Lea Fischer',
-        'Alina Meier',
-        'Anja Weber'
-    ]
+    'Austria': ['Teresa Stadlober', 'Magdalena Scherz'],
+    'Finland': ['Kerttu Niskanen', 'Johanna Matintalo', 'Jasmin Kähärä', 'Jasmi Joensuu'],
+    'France': ['Léonie Perry'],
+    'Germany': ['Pia Fink', 'Laura Gimmler', 'Helen Hoffmann', 'Katharina Hennig-Dotzler', 'Coletta Rydzek', 'Katherine Sauerbrey'],
+    'Italy': ['Caterina Ganz', 'Federica Cassol', 'Iris De Martin Pinter'],
+    'Norway': ['Astrid Øyre Slind', 'Heidi Weng', 'Kristin Austgulen Fosnæs', 'Karoline Simpson-Larsen', 'Nora Sanness', 'Karoline Grøtting', 'Julie Bjervig Drivenes', 'Tiril Udnes Weng', 'Julie Myhre', 'Lotta Udnes Weng', 'Milla Grosberghaugen Andreassen'],
+    'Sweden': ['Maja Dahlqvist', 'Frida Karlsson', 'Johanna Hagström', 'Moa Ilar', 'Emma Ribom', 'Jonna Sundling', 'Linn Svahn'],
+    'Switzerland': ['Nadine Fähndrich', 'Lea Fischer', 'Marina Kälin', 'Nadja Kälin', 'Alina Meier', 'Anja Weber'],
 }
 
 def get_additional_skiers(gender: str) -> dict:
