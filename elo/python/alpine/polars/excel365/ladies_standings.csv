@@ -1,46 +1,46 @@
 Skier,ID,Nation,Ranking,Points,Wins
 Mikaela Shiffrin,72,USA,1,1286,8
-Emma Aicher,4194,Germany,2,1146,3
+Emma Aicher,4194,Germany,2,1241,3
 Camille Rast,3229,Switzerland,3,989,2
-Sofia Goggia,331,Italy,4,853,2
+Sofia Goggia,331,Italy,4,982,3
 Alice Robinson,3891,New Zealand,5,779,3
-Paula Moltzan,294,USA,6,739,0
-Julia Scheib,2970,Austria,7,672,5
-Laura Pirovano,2916,Italy,8,625,2
-Sara Hector,133,Sweden,9,606,1
-Lindsey Vonn,2,USA,10,590,2
-Kajsa Vickhoff Lie,2963,Norway,11,561,0
-Cornelia Hütter,94,Austria,12,543,1
-Lara Colturi,5268,Albania,13,535,0
-Kira Weidle-Winkelmann,1340,Germany,14,520,0
-Wendy Holdener,78,Switzerland,15,500,0
-Romane Miradoli,196,France,16,433,0
-Ester Ledecka,2957,Czechia,17,424,0
-Breezy Johnson,497,USA,18,407,0
-Lena Dürr,28,Germany,19,403,0
-Katharina Truppe,1345,Austria,20,391,0
-Corinne Suter,177,Switzerland,21,362,1
-Nina Ortlieb,386,Austria,22,338,0
-Lara Della Mea,3580,Italy,23,335,0
-Elena Curtoni,33,Italy,24,328,1
-Zrinka Ljutic,4175,Croatia,25,326,0
-Malorie Blanc,4978,Switzerland,26,318,1
-Ilka Stuhec,43,Slovenia,27,293,0
-Ariane Rädler,3633,Austria,28,290,0
-Valerie Grenier,460,Canada,29,284,0
-Thea Louise Stjernesund,3019,Norway,30,281,0
-Mirjam Puchner,175,Austria,31,265,0
-Anna Swenn-Larsson,76,Sweden,32,264,0
-Nicol Delago,461,Italy,33,251,1
-Nina O'Brien,1346,USA,34,220,0
-Jacqueline Wiles,378,USA,35,218,0
-Keely Cashman,2975,USA,36,193,0
+Laura Pirovano,2916,Italy,6,745,3
+Paula Moltzan,294,USA,7,739,0
+Julia Scheib,2970,Austria,8,672,5
+Kira Weidle-Winkelmann,1340,Germany,9,640,0
+Cornelia Hütter,94,Austria,10,620,1
+Sara Hector,133,Sweden,11,606,1
+Lindsey Vonn,2,USA,12,590,2
+Kajsa Vickhoff Lie,2963,Norway,13,577,0
+Lara Colturi,5268,Albania,14,535,0
+Breezy Johnson,497,USA,15,505,0
+Wendy Holdener,78,Switzerland,16,500,0
+Ester Ledecka,2957,Czechia,17,493,0
+Corinne Suter,177,Switzerland,18,482,1
+Romane Miradoli,196,France,19,433,0
+Lena Dürr,28,Germany,20,403,0
+Katharina Truppe,1345,Austria,21,391,0
+Ariane Rädler,3633,Austria,22,376,0
+Elena Curtoni,33,Italy,23,360,1
+Nina Ortlieb,386,Austria,23,360,0
+Malorie Blanc,4978,Switzerland,25,347,1
+Lara Della Mea,3580,Italy,26,335,0
+Zrinka Ljutic,4175,Croatia,27,326,0
+Mirjam Puchner,175,Austria,28,307,0
+Ilka Stuhec,43,Slovenia,29,293,0
+Nicol Delago,461,Italy,30,287,1
+Valerie Grenier,460,Canada,31,284,0
+Thea Louise Stjernesund,3019,Norway,32,281,0
+Anna Swenn-Larsson,76,Sweden,33,264,0
+Jacqueline Wiles,378,USA,34,236,0
+Nina O'Brien,1346,USA,35,220,0
+Keely Cashman,2975,USA,36,219,0
 Maryna Gasienica Daniel,289,Poland,37,191,0
 Katharina Liensberger,2921,Austria,38,189,0
-Roberta Melesi,428,Italy,39,174,0
-Asja Zenere,1325,Italy,40,173,0
-Brett Richardson,4212,Canada,41,163,0
-Laura Gauche,388,France,42,162,0
+Asja Zenere,1325,Italy,38,189,0
+Laura Gauche,388,France,40,186,0
+Roberta Melesi,428,Italy,41,174,0
+Brett Richardson,4212,Canada,42,163,0
 Marion Chevrier,4203,France,43,161,0
 Cornelia Öhlund,5016,Sweden,43,161,0
 Camille Cerutti,2964,France,45,158,0
@@ -55,16 +55,16 @@ Stephanie Brunner,234,Austria,53,122,0
 Eliane Christen,4471,Switzerland,54,115,0
 Katharina Gallhuber,2829,Austria,55,114,0
 Estelle Alphand,197,Sweden,56,109,0
-Melanie Meillard,1322,Switzerland,57,104,0
-Allison Mollin,4773,USA,57,104,0
-Federica Brignone,127,Italy,59,101,0
-Laurence St-Germain,379,Canada,60,91,0
-Nadine Fest,2969,Austria,61,89,0
-Janine Schmitt,4140,Switzerland,61,89,0
-Ana Bucik Jogan,180,Slovenia,63,86,0
-Nina Astner,3959,Austria,64,85,0
-Vanessa Kasper,3023,Switzerland,64,85,0
-Nadia Delago,3013,Italy,66,84,0
+Nadia Delago,3013,Italy,57,108,0
+Melanie Meillard,1322,Switzerland,58,104,0
+Allison Mollin,4773,USA,58,104,0
+Federica Brignone,127,Italy,60,101,0
+Laurence St-Germain,379,Canada,61,91,0
+Nadine Fest,2969,Austria,62,89,0
+Janine Schmitt,4140,Switzerland,62,89,0
+Ana Bucik Jogan,180,Slovenia,64,86,0
+Nina Astner,3959,Austria,65,85,0
+Vanessa Kasper,3023,Switzerland,65,85,0
 Caitlin McFarlane,4104,France,67,82,0
 Mary Bocock,4764,USA,68,81,0
 Jasmine Flury,201,Switzerland,69,80,0
