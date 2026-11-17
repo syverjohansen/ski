@@ -51,7 +51,7 @@ class AlpineResultsGapTest(unittest.TestCase):
             self.assertEqual(completed, 2)
             self.assertEqual([(race.sex, race.race) for race in missing], [("L", 1)])
 
-    def test_repository_snapshot_has_four_known_gaps(self) -> None:
+    def test_repository_snapshot_has_no_completed_gaps(self) -> None:
         data = HERE / "excel365"
         missing, completed = find_missing_races(
             data / "races.csv",
@@ -60,17 +60,9 @@ class AlpineResultsGapTest(unittest.TestCase):
             date(2026, 11, 17),
         )
         self.assertEqual(completed, 4)
-        self.assertEqual(
-            [(race.date, race.sex, race.city) for race in missing],
-            [
-                ("2026-10-24", "L", "Soelden"),
-                ("2026-10-25", "M", "Soelden"),
-                ("2026-11-14", "L", "Levi"),
-                ("2026-11-15", "M", "Levi"),
-            ],
-        )
+        self.assertEqual(missing, [])
         report = build_report(missing, as_of=date(2026, 11, 17), completed_count=completed)
-        self.assertEqual(report["missing_race_count"], 4)
+        self.assertEqual(report["missing_race_count"], 0)
 
     def test_cli_writes_report_and_can_fail_on_gaps(self) -> None:
         data = HERE / "excel365"
@@ -89,9 +81,9 @@ class AlpineResultsGapTest(unittest.TestCase):
                 ],
                 check=False,
             )
-            self.assertEqual(completed.returncode, 2)
+            self.assertEqual(completed.returncode, 0)
             report = json.loads(report_path.read_text(encoding="utf-8"))
-            self.assertEqual(report["missing_race_count"], 4)
+            self.assertEqual(report["missing_race_count"], 0)
 
 
 if __name__ == "__main__":
