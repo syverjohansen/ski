@@ -25,6 +25,8 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qs, urlparse
 
+from schedule_sources import championship_category
+
 
 RACES_COLUMNS = (
     "Date",
@@ -41,7 +43,9 @@ WEEKENDS_COLUMNS = ("Date", "Race_Date", *RACES_COLUMNS[1:])
 ALLOWED_SEXES = {"M", "L"}
 ALLOWED_CHAMPIONSHIP = {"0", "1"}
 ALLOWED_PERIODS = {"1", "2", "3", "4", "5"}
-REPORT_SCHEMA = "nordicnumbers.alpine-schedule-shadow/v1"
+REPORT_SCHEMA = "nordicnumbers.alpine-schedule-shadow/v2"
+MIN_ROLLOVER_ROW_FRACTION = 0.75
+MIN_ROLLOVER_SPAN_DAYS = 120
 
 
 class ScheduleContractError(RuntimeError):
@@ -177,6 +181,114 @@ def validate_races(rows: list[dict[str, str]]) -> dict[str, Any]:
         "first_date": min(dates).isoformat(),
         "last_date": max(dates).isoformat(),
         "identities": sorted(identities),
+    }
+
+
+def infer_fis_season(rows: list[dict[str, str]]) -> int:
+    """Infer the FIS season from a schedule spanning July through June."""
+    dates = [
+        parse_date(row["Date"], field="Date", row_number=index)
+        for index, row in enumerate(rows, start=2)
+    ]
+    season = max(value.year for value in dates)
+    season_start = date(season - 1, 7, 1)
+    season_end = date(season, 6, 30)
+    outside = [value for value in dates if not season_start <= value <= season_end]
+    if outside:
+        raise ScheduleContractError(
+            f"race dates fall outside inferred FIS season {season}: {outside[:3]}"
+        )
+    return season
+
+
+def validate_season_structure(
+    rows: list[dict[str, str]],
+    *,
+    expected_season: int | None = None,
+) -> dict[str, Any]:
+    """Validate season boundaries, sex coverage, and championship periods."""
+    dated_rows = [
+        (
+            parse_date(row["Date"], field="Date", row_number=index),
+            row,
+        )
+        for index, row in enumerate(rows, start=2)
+    ]
+    if expected_season is None:
+        season = infer_fis_season(rows)
+    else:
+        season = expected_season
+        season_start = date(season - 1, 7, 1)
+        season_end = date(season, 6, 30)
+        outside = [
+            race_date
+            for race_date, _ in dated_rows
+            if not season_start <= race_date <= season_end
+        ]
+        if outside:
+            raise ScheduleContractError(
+                f"race dates fall outside requested FIS season {season}: "
+                f"{outside[:3]}"
+            )
+    sex_counts = {
+        sex: sum(1 for row in rows if row["Sex"] == sex)
+        for sex in sorted(ALLOWED_SEXES)
+    }
+    missing_sexes = [sex for sex, count in sex_counts.items() if count == 0]
+    if missing_sexes:
+        raise ScheduleContractError(
+            f"season {season} is missing races for sexes: {missing_sexes}"
+        )
+
+    championship_rows = [
+        (race_date, row)
+        for race_date, row in dated_rows
+        if row["Championship"] == "1"
+    ]
+    expects_championship = championship_category(season) is not None
+    if expects_championship and not championship_rows:
+        raise ScheduleContractError(
+            f"season {season} is missing its championship races"
+        )
+    if not expects_championship and championship_rows:
+        raise ScheduleContractError(
+            f"season {season} unexpectedly contains championship races"
+        )
+    if any(row["Period"] != "4" for _, row in championship_rows):
+        raise ScheduleContractError("championship races must use Period 4")
+
+    championship_end = (
+        max(race_date for race_date, _ in championship_rows)
+        if championship_rows
+        else None
+    )
+    for race_date, row in dated_rows:
+        if row["Championship"] == "1":
+            continue
+        expected_periods = (
+            {"5"}
+            if championship_end and race_date > championship_end
+            else {"1", "2", "3"}
+        )
+        if row["Period"] not in expected_periods:
+            raise ScheduleContractError(
+                f"invalid period around championship at {row['Date']}: "
+                f"{row['Period']}"
+            )
+
+    first_date = min(value for value, _ in dated_rows)
+    last_date = max(value for value, _ in dated_rows)
+    return {
+        "status": "passed",
+        "season": season,
+        "first_date": first_date.isoformat(),
+        "last_date": last_date.isoformat(),
+        "span_days": (last_date - first_date).days,
+        "sex_counts": sex_counts,
+        "championship_rows": len(championship_rows),
+        "championship_category": (
+            championship_category(season)[0] if expects_championship else None
+        ),
     }
 
 
@@ -336,6 +448,59 @@ def compare_races(
     }
 
 
+def assess_season_transition(
+    candidate_rows: list[dict[str, str]],
+    accepted_rows: list[dict[str, str]],
+    candidate_structure: dict[str, Any],
+    accepted_structure: dict[str, Any],
+) -> dict[str, Any]:
+    """Classify same-season updates separately from intentional rollovers."""
+    candidate_season = candidate_structure["season"]
+    accepted_season = accepted_structure["season"]
+    if candidate_season == accepted_season:
+        return {
+            "kind": "same_season",
+            "accepted_season": accepted_season,
+            "candidate_season": candidate_season,
+            "valid": True,
+            "approval_required": False,
+            "checks": {},
+        }
+
+    candidate_keys = {race_key(row) for row in candidate_rows}
+    accepted_keys = {race_key(row) for row in accepted_rows}
+    row_fraction = len(candidate_rows) / len(accepted_rows)
+    checks = {
+        "is_next_season": candidate_season == accepted_season + 1,
+        "row_fraction": round(row_fraction, 6),
+        "minimum_row_fraction": MIN_ROLLOVER_ROW_FRACTION,
+        "row_count_sufficient": row_fraction >= MIN_ROLLOVER_ROW_FRACTION,
+        "span_days": candidate_structure["span_days"],
+        "minimum_span_days": MIN_ROLLOVER_SPAN_DAYS,
+        "span_sufficient": candidate_structure["span_days"]
+        >= MIN_ROLLOVER_SPAN_DAYS,
+        "identity_overlap": len(candidate_keys & accepted_keys),
+        "identities_are_new": not (candidate_keys & accepted_keys),
+    }
+    valid = all(
+        checks[name]
+        for name in (
+            "is_next_season",
+            "row_count_sufficient",
+            "span_sufficient",
+            "identities_are_new",
+        )
+    )
+    return {
+        "kind": "next_season" if checks["is_next_season"] else "unsupported",
+        "accepted_season": accepted_season,
+        "candidate_season": candidate_season,
+        "valid": valid,
+        "approval_required": valid,
+        "checks": checks,
+    }
+
+
 def write_json_atomic(path: Path, document: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.NamedTemporaryFile(
@@ -359,6 +524,7 @@ def build_shadow(
     output_root: Path,
     *,
     max_removed_fraction: float = 0.1,
+    expected_candidate_season: int | None = None,
 ) -> dict[str, Any]:
     if not 0 <= max_removed_fraction <= 1:
         raise ScheduleContractError("max_removed_fraction must be between 0 and 1")
@@ -366,6 +532,11 @@ def build_shadow(
     accepted_rows = read_csv(accepted_races, RACES_COLUMNS)
     candidate_validation = validate_races(candidate_rows)
     accepted_validation = validate_races(accepted_rows)
+    candidate_structure = validate_season_structure(
+        candidate_rows,
+        expected_season=expected_candidate_season,
+    )
+    accepted_structure = validate_season_structure(accepted_rows)
 
     candidate_dir = output_root / "candidate"
     isolated_races = candidate_dir / "races.csv"
@@ -384,17 +555,37 @@ def build_shadow(
         accepted_rows,
         max_removed_fraction=max_removed_fraction,
     )
+    transition = assess_season_transition(
+        candidate_rows,
+        accepted_rows,
+        candidate_structure,
+        accepted_structure,
+    )
+    if transition["kind"] == "same_season":
+        promotion_status = (
+            "eligible" if comparison["within_removal_limit"] else "blocked"
+        )
+        promotion_reason = "same-season candidate passed shadow validation"
+    elif transition["valid"]:
+        promotion_status = "approval_required"
+        promotion_reason = (
+            "valid season rollover requires explicit human approval"
+        )
+    else:
+        promotion_status = "blocked"
+        promotion_reason = "candidate does not satisfy season rollover gates"
     report = {
         "schema_version": REPORT_SCHEMA,
         "status": "passed",
         "promotion": {
-            "status": "eligible" if comparison["within_removal_limit"] else "blocked",
+            "status": promotion_status,
             "performed": False,
-            "reason": "shadow validation never mutates accepted schedules",
+            "reason": promotion_reason,
         },
         "candidate": {
             "races": {
                 **candidate_validation,
+                "season_structure": candidate_structure,
                 "file": str(isolated_races),
                 "sha256": file_sha256(isolated_races),
             },
@@ -405,8 +596,12 @@ def build_shadow(
                 "derived_from_races_sha256": file_sha256(isolated_races),
             },
         },
-        "accepted": accepted_validation,
+        "accepted": {
+            **accepted_validation,
+            "season_structure": accepted_structure,
+        },
         "comparison": comparison,
+        "season_transition": transition,
     }
     report_path = output_root / "reports/schedule-shadow.json"
     write_json_atomic(report_path, report)
@@ -421,6 +616,7 @@ def parse_args() -> argparse.Namespace:
     shadow.add_argument("--accepted-races", required=True, type=Path)
     shadow.add_argument("--output-root", required=True, type=Path)
     shadow.add_argument("--max-removed-fraction", type=float, default=0.1)
+    shadow.add_argument("--candidate-season", type=int)
     return parser.parse_args()
 
 
@@ -432,6 +628,7 @@ def main() -> int:
             args.accepted_races.expanduser().resolve(),
             args.output_root.expanduser().resolve(),
             max_removed_fraction=args.max_removed_fraction,
+            expected_candidate_season=args.candidate_season,
         )
     except ScheduleContractError as exc:
         print(json.dumps({"status": "failed", "error": str(exc)}, indent=2))
