@@ -33,6 +33,16 @@ class ScheduleContractTests(unittest.TestCase):
             validate_relationship(races, expected),
         )
 
+    def test_shadow_weekends_reproduce_accepted_bytes(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="alpine-weekend-bytes-") as text:
+            output_root = Path(text)
+            build_shadow(ACCEPTED_RACES, ACCEPTED_RACES, output_root)
+            generated = output_root / "candidate" / "weekends.csv"
+            self.assertEqual(
+                ACCEPTED_WEEKENDS.read_bytes(),
+                generated.read_bytes(),
+            )
+
     def test_identical_shadow_pair_is_eligible_without_promotion(self) -> None:
         with tempfile.TemporaryDirectory(prefix="alpine-schedule-shadow-") as text:
             output_root = Path(text)
