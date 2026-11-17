@@ -14,10 +14,12 @@ from schedule_contract import (
     ScheduleContractError,
     build_shadow,
     derive_weekends,
+    infer_fis_season,
     read_csv,
     validate_relationship,
     write_csv_atomic,
 )
+from schedule_sources import championship_category
 
 
 ROOT = Path(__file__).resolve().parent
@@ -42,6 +44,35 @@ def shift_season(
             row["Startlist"],
         )
         shifted.append(changed)
+    target_season = infer_fis_season(shifted)
+    if championship_category(target_season) is None:
+        for row in shifted:
+            row["Championship"] = "0"
+            row["Period"] = "1"
+        return shifted
+
+    championship_indices = {
+        index
+        for index, row in enumerate(shifted)
+        if row["Championship"] == "1"
+    }
+    if not championship_indices:
+        middle = len(shifted) // 2
+        championship_indices = set(
+            range(max(0, middle - 4), min(len(shifted), middle + 4))
+        )
+    championship_end = max(
+        datetime.strptime(shifted[index]["Date"], "%m/%d/%Y")
+        for index in championship_indices
+    )
+    for index, row in enumerate(shifted):
+        race_date = datetime.strptime(row["Date"], "%m/%d/%Y")
+        row["Championship"] = "1" if index in championship_indices else "0"
+        row["Period"] = (
+            "4"
+            if index in championship_indices
+            else "5" if race_date > championship_end else "1"
+        )
     return shifted
 
 
@@ -95,6 +126,7 @@ class ScheduleContractTests(unittest.TestCase):
 
     def test_valid_next_season_requires_human_approval(self) -> None:
         races = read_csv(ACCEPTED_RACES, RACES_COLUMNS)
+        candidate_season = infer_fis_season(races) + 1
         with tempfile.TemporaryDirectory(prefix="alpine-rollover-") as text:
             root = Path(text)
             candidate = root / "candidate.csv"
@@ -103,7 +135,7 @@ class ScheduleContractTests(unittest.TestCase):
                 candidate,
                 ACCEPTED_RACES,
                 root / "output",
-                expected_candidate_season=2027,
+                expected_candidate_season=candidate_season,
             )
             self.assertEqual(
                 "nordicnumbers.alpine-schedule-shadow/v3",
@@ -115,7 +147,9 @@ class ScheduleContractTests(unittest.TestCase):
             self.assertTrue(result["season_transition"]["valid"])
 
     def test_incomplete_next_season_is_blocked(self) -> None:
-        races = shift_season(read_csv(ACCEPTED_RACES, RACES_COLUMNS), 1)
+        accepted = read_csv(ACCEPTED_RACES, RACES_COLUMNS)
+        candidate_season = infer_fis_season(accepted) + 1
+        races = shift_season(accepted, 1)
         candidate_rows = (
             races[:10]
             + [row for row in races if row["Championship"] == "1"]
@@ -129,7 +163,7 @@ class ScheduleContractTests(unittest.TestCase):
                 candidate,
                 ACCEPTED_RACES,
                 root / "output",
-                expected_candidate_season=2027,
+                expected_candidate_season=candidate_season,
             )
             self.assertEqual("blocked", result["promotion"]["status"])
             self.assertFalse(result["season_transition"]["valid"])
@@ -139,6 +173,7 @@ class ScheduleContractTests(unittest.TestCase):
 
     def test_skipped_season_transition_is_blocked(self) -> None:
         races = read_csv(ACCEPTED_RACES, RACES_COLUMNS)
+        candidate_season = infer_fis_season(races) + 4
         with tempfile.TemporaryDirectory(prefix="alpine-rollover-skip-") as text:
             root = Path(text)
             candidate = root / "candidate.csv"
@@ -147,26 +182,27 @@ class ScheduleContractTests(unittest.TestCase):
                 candidate,
                 ACCEPTED_RACES,
                 root / "output",
-                expected_candidate_season=2030,
+                expected_candidate_season=candidate_season,
             )
             self.assertEqual("blocked", result["promotion"]["status"])
             self.assertEqual("unsupported", result["season_transition"]["kind"])
 
     def test_requested_season_must_match_candidate_dates(self) -> None:
         races = read_csv(ACCEPTED_RACES, RACES_COLUMNS)
+        wrong_season = infer_fis_season(races) + 2
         with tempfile.TemporaryDirectory(prefix="alpine-rollover-mismatch-") as text:
             root = Path(text)
             candidate = root / "candidate.csv"
             write_csv_atomic(candidate, RACES_COLUMNS, shift_season(races, 1))
             with self.assertRaisesRegex(
                 ScheduleContractError,
-                "outside requested FIS season 2028",
+                f"outside requested FIS season {wrong_season}",
             ):
                 build_shadow(
                     candidate,
                     ACCEPTED_RACES,
                     root / "output",
-                    expected_candidate_season=2028,
+                    expected_candidate_season=wrong_season,
                 )
 
     def test_relationship_rejects_changed_canonical_fields(self) -> None:
