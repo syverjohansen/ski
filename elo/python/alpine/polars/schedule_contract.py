@@ -78,6 +78,8 @@ def write_csv_atomic(
     path: Path,
     columns: tuple[str, ...],
     rows: list[dict[str, str]],
+    *,
+    lineterminator: str = "\r\n",
 ) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.NamedTemporaryFile(
@@ -89,7 +91,11 @@ def write_csv_atomic(
         delete=False,
     ) as handle:
         temporary = Path(handle.name)
-        writer = csv.DictWriter(handle, fieldnames=columns)
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=columns,
+            lineterminator=lineterminator,
+        )
         writer.writeheader()
         writer.writerows(rows)
         handle.flush()
@@ -366,7 +372,12 @@ def build_shadow(
     write_csv_atomic(isolated_races, RACES_COLUMNS, candidate_rows)
     weekend_rows = derive_weekends(candidate_rows)
     isolated_weekends = candidate_dir / "weekends.csv"
-    write_csv_atomic(isolated_weekends, WEEKENDS_COLUMNS, weekend_rows)
+    write_csv_atomic(
+        isolated_weekends,
+        WEEKENDS_COLUMNS,
+        weekend_rows,
+        lineterminator="\n",
+    )
     relationship = validate_relationship(candidate_rows, weekend_rows)
     comparison = compare_races(
         candidate_rows,
