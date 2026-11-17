@@ -1,8 +1,6 @@
-name: Alpine automatic results update
+name: Alpine results update
 
 on:
-  schedule:
-    - cron: "17 7 * * *"
   workflow_dispatch:
     inputs:
       as_of:

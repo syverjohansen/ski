@@ -7,10 +7,11 @@ WORKFLOW = ROOT / ".github/workflows/alpine-results-update.yml"
 
 
 class AlpineResultsUpdateWorkflowTest(unittest.TestCase):
-    def test_workflow_is_scheduled_manual_and_publishes_only_after_validation(self) -> None:
+    def test_workflow_is_manual_recovery_and_publishes_only_after_validation(self) -> None:
         source = WORKFLOW.read_text(encoding="utf-8")
-        self.assertIn("schedule:", source)
         self.assertIn("workflow_dispatch:", source)
+        trigger = source.split("on:\n", 1)[1].split("\npermissions:", 1)[0]
+        self.assertNotIn("schedule:", trigger)
         self.assertIn("contents: write", source)
         self.assertIn("python -m unittest discover", source)
         self.assertIn("git push origin HEAD:main", source)
