@@ -14,9 +14,11 @@ from schedule_contract import (
     ScheduleContractError,
     build_shadow,
     file_sha256,
+    infer_fis_season,
     read_csv,
     write_csv_atomic,
 )
+from schedule_sources import championship_category
 
 
 ROOT = Path(__file__).resolve().parent
@@ -40,10 +42,43 @@ def shift_season(
             row["Startlist"],
         )
         shifted.append(changed)
+    target_season = infer_fis_season(shifted)
+    if championship_category(target_season) is None:
+        for row in shifted:
+            row["Championship"] = "0"
+            row["Period"] = "1"
+        return shifted
+
+    championship_indices = {
+        index
+        for index, row in enumerate(shifted)
+        if row["Championship"] == "1"
+    }
+    if not championship_indices:
+        middle = len(shifted) // 2
+        championship_indices = set(
+            range(max(0, middle - 4), min(len(shifted), middle + 4))
+        )
+    championship_end = max(
+        datetime.strptime(shifted[index]["Date"], "%m/%d/%Y")
+        for index in championship_indices
+    )
+    for index, row in enumerate(shifted):
+        race_date = datetime.strptime(row["Date"], "%m/%d/%Y")
+        row["Championship"] = "1" if index in championship_indices else "0"
+        row["Period"] = (
+            "4"
+            if index in championship_indices
+            else "5" if race_date > championship_end else "1"
+        )
     return shifted
 
 
 class PromoteScheduleTests(unittest.TestCase):
+    target_season = infer_fis_season(
+        read_csv(SOURCE_ACCEPTED / "races.csv", RACES_COLUMNS)
+    ) + 1
+
     def prepare_rollover(self, root: Path) -> tuple[Path, Path, Path]:
         accepted_dir = root / "accepted"
         accepted_dir.mkdir()
@@ -67,7 +102,7 @@ class PromoteScheduleTests(unittest.TestCase):
             candidate,
             accepted_dir / "races.csv",
             output_root,
-            expected_candidate_season=2027,
+            expected_candidate_season=self.target_season,
         )
         report = Path(result["report"])
         return accepted_dir, report, output_root
@@ -84,12 +119,12 @@ class PromoteScheduleTests(unittest.TestCase):
                 report,
                 expected_report_sha256=file_sha256(report),
                 accepted_dir=accepted_dir,
-                approve_season=2027,
+                approve_season=self.target_season,
                 receipt_path=receipt_path,
             )
 
             self.assertTrue(result["performed"])
-            self.assertEqual(2027, result["approved_season"])
+            self.assertEqual(self.target_season, result["approved_season"])
             self.assertNotEqual(old_races, file_sha256(accepted_dir / "races.csv"))
             self.assertNotEqual(
                 old_weekends,
@@ -115,7 +150,7 @@ class PromoteScheduleTests(unittest.TestCase):
                     report,
                     expected_report_sha256="0" * 64,
                     accepted_dir=accepted_dir,
-                    approve_season=2027,
+                    approve_season=self.target_season,
                     receipt_path=root / "receipt.json",
                 )
             self.assertEqual(before, (accepted_dir / "races.csv").read_bytes())
@@ -129,7 +164,7 @@ class PromoteScheduleTests(unittest.TestCase):
                     report,
                     expected_report_sha256=file_sha256(report),
                     accepted_dir=accepted_dir,
-                    approve_season=2028,
+                    approve_season=self.target_season + 1,
                     receipt_path=root / "receipt.json",
                 )
 
@@ -144,7 +179,7 @@ class PromoteScheduleTests(unittest.TestCase):
                     report,
                     expected_report_sha256=file_sha256(report),
                     accepted_dir=accepted_dir,
-                    approve_season=2027,
+                    approve_season=self.target_season,
                     receipt_path=root / "receipt.json",
                 )
 
@@ -170,7 +205,7 @@ class PromoteScheduleTests(unittest.TestCase):
                         report,
                         expected_report_sha256=file_sha256(report),
                         accepted_dir=accepted_dir,
-                        approve_season=2027,
+                        approve_season=self.target_season,
                         receipt_path=root / "receipt.json",
                     )
             self.assertEqual(before_races, (accepted_dir / "races.csv").read_bytes())
@@ -195,7 +230,7 @@ class PromoteScheduleTests(unittest.TestCase):
                         report,
                         expected_report_sha256=file_sha256(report),
                         accepted_dir=accepted_dir,
-                        approve_season=2027,
+                        approve_season=self.target_season,
                         receipt_path=root / "receipt.json",
                     )
             self.assertEqual(before_races, (accepted_dir / "races.csv").read_bytes())

@@ -47,3 +47,7 @@ elo/python/ski/polars/excel365/men_chrono_pred.csv
 *pred*.csv
 .RData
 elo/.env
+
+# Local audit/rollback artifacts from guarded schedule promotion
+**/excel365/.schedule-promotion.lock
+**/excel365/.schedule-backups/
