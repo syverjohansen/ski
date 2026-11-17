@@ -14,6 +14,7 @@ import argparse
 import json
 import os
 import re
+import shutil
 import tempfile
 from collections.abc import Callable, Iterable
 from pathlib import Path
@@ -21,6 +22,7 @@ from pathlib import Path
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+
 from startlist_common import (
     determine_discipline_from_race_type,
     extract_individual_results,
@@ -53,6 +55,19 @@ RESULT_ONLY_FIELDS = ("Rank", "Run1", "Run2", "Time", "Points")
 
 class ReplayError(RuntimeError):
     """Raised when a replay input cannot satisfy the prediction contract."""
+
+
+def validate_isolated_output(output_dir: Path, source_paths: Iterable[Path]) -> None:
+    """Prevent a shadow replay from writing beside accepted source artifacts."""
+
+    resolved_output = output_dir.expanduser().resolve()
+    for source in source_paths:
+        source_root = source.expanduser().resolve().parent
+        if resolved_output == source_root or source_root in resolved_output.parents:
+            raise ReplayError(
+                f"shadow output {resolved_output} cannot be inside source directory "
+                f"{source_root}"
+            )
 
 
 def normalize_id(value: object) -> str:
@@ -375,6 +390,51 @@ def build_replay(
     return report
 
 
+def build_replay_atomic(
+    *,
+    logical_date: str,
+    races_path: Path,
+    men_history_path: Path,
+    ladies_history_path: Path,
+    output_dir: Path,
+    fixture_dir: Path | None = None,
+    allow_network: bool = False,
+    fetch_fn: Callable[[str], str] = fetch_html,
+) -> dict:
+    """Build a replay off-path, then expose the completed directory at once."""
+
+    validate_isolated_output(
+        output_dir,
+        (races_path, men_history_path, ladies_history_path),
+    )
+    output_dir = output_dir.expanduser().resolve()
+    if output_dir.exists():
+        raise ReplayError(f"shadow output already exists: {output_dir}")
+    output_dir.parent.mkdir(parents=True, exist_ok=True)
+    staging = Path(
+        tempfile.mkdtemp(
+            prefix=f".{output_dir.name}.staging.",
+            dir=output_dir.parent,
+        )
+    )
+    try:
+        report = build_replay(
+            logical_date=logical_date,
+            races_path=races_path,
+            men_history_path=men_history_path,
+            ladies_history_path=ladies_history_path,
+            output_dir=staging,
+            fixture_dir=fixture_dir,
+            allow_network=allow_network,
+            fetch_fn=fetch_fn,
+        )
+        os.replace(staging, output_dir)
+        return report
+    except Exception:
+        shutil.rmtree(staging, ignore_errors=True)
+        raise
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--logical-date", required=True)
@@ -389,7 +449,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
-    report = build_replay(
+    report = build_replay_atomic(
         logical_date=args.logical_date,
         races_path=args.races,
         men_history_path=args.men_history,
