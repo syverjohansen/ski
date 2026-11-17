@@ -204,6 +204,13 @@ class ScrapeScheduleShadowTests(unittest.TestCase):
                     output_root=accepted_dir,
                     scrape_fn=lambda **_: sample_races(),
                 )
+            with self.assertRaisesRegex(ScheduleContractError, "isolated"):
+                run_shadow_acquisition(
+                    season=2026,
+                    accepted_races=accepted,
+                    output_root=accepted_dir / "shadow",
+                    scrape_fn=lambda **_: sample_races(),
+                )
 
 
 if __name__ == "__main__":

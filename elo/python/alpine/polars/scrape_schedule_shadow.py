@@ -33,7 +33,7 @@ def _contains(parent: Path, child: Path) -> bool:
 def validate_isolated_output(output_root: Path, accepted_races: Path) -> None:
     output = output_root.expanduser().resolve()
     accepted = accepted_races.expanduser().resolve()
-    if output == accepted.parent or _contains(output, accepted):
+    if _contains(accepted.parent, output) or _contains(output, accepted):
         raise ScheduleContractError(
             "output_root must be isolated from the accepted schedule directory"
         )
