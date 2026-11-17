@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - ".github/workflows/alpine-startlist-replay.yml"
+      - ".github/workflows/alpine-results-update.yml"
       - "elo/python/alpine/polars/**"
   workflow_dispatch:
 
