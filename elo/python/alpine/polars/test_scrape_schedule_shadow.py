@@ -11,9 +11,13 @@ from pathlib import Path
 from unittest.mock import patch
 
 from scrape_schedule_shadow import run_shadow_acquisition
-from race_schedule_output import save_alpine_races
+from race_schedule_output import assign_periods_by_race_count, save_alpine_races
 from schedule_contract import ScheduleContractError
-from schedule_sources import calendar_sources
+from schedule_sources import (
+    calendar_sources,
+    championship_value,
+    prediction_discipline,
+)
 
 
 ROOT = Path(__file__).resolve().parent
@@ -118,10 +122,40 @@ class ScrapeScheduleShadowTests(unittest.TestCase):
             self.assertEqual(accepted.read_bytes(), candidate.read_bytes())
 
     def test_calendar_sources_are_parameterized(self) -> None:
-        sources = calendar_sources(2030, include_olympics=True)
+        sources = calendar_sources(2030, include_championships=True)
         self.assertEqual(["World Cup", "Olympics"], [item[1] for item in sources])
         self.assertTrue(all("seasoncode=2030" in item[0] for item in sources))
-        self.assertEqual(1, len(calendar_sources(2031, include_olympics=False)))
+        worlds = calendar_sources(2027, include_championships=True)
+        self.assertEqual(
+            ["World Cup", "World Championships"],
+            [item[1] for item in worlds],
+        )
+        self.assertIn("categorycode=WSC", worlds[1][0])
+        self.assertEqual(1, len(calendar_sources(2028, include_championships=True)))
+        self.assertEqual(1, len(calendar_sources(2031, include_championships=False)))
+
+    def test_only_prediction_races_are_selected(self) -> None:
+        self.assertEqual("Giant Slalom", prediction_discipline("Giant Slalom"))
+        self.assertEqual("", prediction_discipline("Giant Slalom Qualification"))
+        self.assertEqual("", prediction_discipline("Slalom Training"))
+        self.assertEqual("", prediction_discipline("Team Combined"))
+
+    def test_world_championships_use_championship_periods(self) -> None:
+        races = [
+            {"date": "01/01/2027", "championship": "0"},
+            {"date": "01/02/2027", "championship": "0"},
+            {"date": "02/04/2027", "championship": "1"},
+            {"date": "02/14/2027", "championship": "1"},
+            {"date": "02/20/2027", "championship": "0"},
+        ]
+        assigned = assign_periods_by_race_count(races)
+        periods_by_date = {race["date"]: race["period"] for race in assigned}
+        self.assertEqual("4", periods_by_date["02/04/2027"])
+        self.assertEqual("4", periods_by_date["02/14/2027"])
+        self.assertEqual("5", periods_by_date["02/20/2027"])
+        self.assertEqual("1", championship_value("World Championships"))
+        self.assertEqual("1", championship_value("Olympics"))
+        self.assertEqual("0", championship_value("World Cup"))
 
     def test_selected_fis_source_without_calendar_data_fails_closed(self) -> None:
         fake_requests = types.ModuleType("requests")
@@ -144,7 +178,7 @@ class ScrapeScheduleShadowTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "World Cup"):
                 scraper.scrape_alpine_races(
                     season=2026,
-                    include_olympics=False,
+                    include_championships=False,
                     request_fn=lambda *args, **kwargs: response,
                     sleep_fn=lambda _: None,
                 )

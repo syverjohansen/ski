@@ -6,7 +6,11 @@ import time
 import random
 
 from race_schedule_output import save_alpine_races
-from schedule_sources import calendar_sources
+from schedule_sources import (
+    calendar_sources,
+    championship_value,
+    prediction_discipline,
+)
 
 def create_country_mapping():
     """Create mapping of country codes to full names"""
@@ -38,9 +42,7 @@ def create_country_mapping():
 
 def determine_championship(source_category):
     """Determine if championship race"""
-    if source_category == "Olympics":
-        return "1"
-    return "0"
+    return championship_value(source_category)
 
 def make_request_with_retry(url, headers, max_retries=3):
     """Make HTTP request with retry logic and exponential backoff"""
@@ -65,7 +67,7 @@ def make_request_with_retry(url, headers, max_retries=3):
 def scrape_alpine_races(
     season=2026,
     *,
-    include_olympics=True,
+    include_championships=True,
     request_fn=make_request_with_retry,
     sleep_fn=time.sleep,
 ):
@@ -74,7 +76,7 @@ def scrape_alpine_races(
     country_mapping = create_country_mapping()
     all_races = []
     
-    for url, category in calendar_sources(season, include_olympics):
+    for url, category in calendar_sources(season, include_championships):
         print(f"Scraping {category} calendar...")
         category_start_count = len(all_races)
         
@@ -228,16 +230,12 @@ def scrape_alpine_event(
             clip_divs = row.find_all('div', {'class': 'clip'})
             for div in clip_divs:
                 text = div.get_text().strip()
-                # Skip training sessions
-                if "Training" in text:
-                    continue
-                # Look for alpine disciplines
-                if any(keyword in text for keyword in ['Slalom', 'Giant Slalom', 'Super G', 'Downhill', 'Combined', 'Alpine Combined']):
-                    distance = text
+                distance = prediction_discipline(text)
+                if distance:
                     break
             
-            # Skip if no valid distance found, if it's training, or if it's a team event
-            if not distance or "Training" in distance or "Team" in distance:
+            # Skip training, qualification, team, and unrelated event rows.
+            if not distance:
                 continue
             
             # Determine championship
