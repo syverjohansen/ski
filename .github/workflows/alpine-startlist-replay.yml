@@ -1,0 +1,27 @@
+name: Alpine startlist replay tests
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/alpine-startlist-replay.yml"
+      - "elo/python/alpine/polars/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: elo/python/alpine/polars
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: Run Alpine offline tests
+        run: >-
+          uv run --isolated --python 3.12
+          --with-requirements requirements-startlist-replay.txt
+          python -m unittest discover -s . -p 'test_*.py' -v
