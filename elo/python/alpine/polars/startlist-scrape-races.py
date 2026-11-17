@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
+import argparse
 import pandas as pd
 import sys
 import os
+from pathlib import Path
 from typing import List, Dict, Tuple, Optional
 import warnings
 from datetime import datetime, timezone
@@ -9,14 +11,16 @@ import traceback
 import subprocess
 warnings.filterwarnings('ignore')
 
-# Add parent directories to path for shared config
-sys.path.insert(0, os.path.expanduser('~/ski/elo/python'))
+# Add the packaged repository Python directory for shared config. This keeps the
+# scraper runnable from a checkout that is not installed at ~/ski.
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 # Import pipeline config for TEST_MODE and file paths
 from pipeline_config import TEST_MODE, get_races_file
 
 # Import common utility functions
 from startlist_common import *
+from alpine_startlist_replay import build_replay_atomic
 
 def process_races() -> None:
     """Main function to process races from races.csv"""
@@ -539,5 +543,41 @@ def process_gender_races(races_df: pd.DataFrame, gender: str, host_nation: str) 
     else:
         print(f"No startlist data was generated for {gender}")
 
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="Build Alpine race startlists")
+    subparsers = parser.add_subparsers(dest="command")
+    shadow = subparsers.add_parser(
+        "shadow",
+        help="build isolated, leak-free startlist inputs without changing accepted files",
+    )
+    shadow.add_argument("--logical-date", required=True)
+    shadow.add_argument("--races", type=Path, required=True)
+    shadow.add_argument("--men-history", type=Path, required=True)
+    shadow.add_argument("--ladies-history", type=Path, required=True)
+    shadow.add_argument("--output-dir", type=Path, required=True)
+    shadow.add_argument("--fixture-dir", type=Path)
+    shadow.add_argument("--allow-network", action="store_true")
+    return parser
+
+
+def main(argv: Optional[List[str]] = None) -> int:
+    args = build_parser().parse_args(argv)
+    if args.command != "shadow":
+        # Preserve the existing production entrypoint exactly: invoking the
+        # script without a subcommand still runs the legacy accepted-path flow.
+        process_races()
+        return 0
+    build_replay_atomic(
+        logical_date=args.logical_date,
+        races_path=args.races,
+        men_history_path=args.men_history,
+        ladies_history_path=args.ladies_history,
+        output_dir=args.output_dir,
+        fixture_dir=args.fixture_dir,
+        allow_network=args.allow_network,
+    )
+    return 0
+
+
 if __name__ == "__main__":
-    process_races()
+    raise SystemExit(main())

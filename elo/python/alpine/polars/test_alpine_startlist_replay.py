@@ -1,14 +1,17 @@
 from __future__ import annotations
 
+import importlib.util
 import json
 import tempfile
 import unittest
 from pathlib import Path
 
 import pandas as pd
+
 from alpine_startlist_replay import (
     RESULT_ONLY_FIELDS,
     build_replay,
+    build_replay_atomic,
     filter_history_before,
     merge_startlists,
     parse_archived_results,
@@ -204,6 +207,80 @@ class AlpineStartlistReplayTests(unittest.TestCase):
                     output_dir=root / "output",
                     fixture_dir=FIXTURES,
                 )
+
+    def test_atomic_replay_cleans_staging_after_failure(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="alpine-atomic-failure-") as text:
+            root = Path(text)
+            races, men, ladies = write_inputs(root)
+            output = root.parent / f"{root.name}-output"
+            with self.assertRaisesRegex(RuntimeError, "no Alpine races"):
+                build_replay_atomic(
+                    logical_date="11/13/2026",
+                    races_path=races,
+                    men_history_path=men,
+                    ladies_history_path=ladies,
+                    output_dir=output,
+                    fixture_dir=FIXTURES,
+                )
+            self.assertFalse(output.exists())
+            self.assertEqual([], list(output.parent.glob(f".{output.name}.staging.*")))
+
+    def test_shadow_output_cannot_pollute_source_directory(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="alpine-isolation-") as text:
+            root = Path(text)
+            races, men, ladies = write_inputs(root)
+            with self.assertRaisesRegex(RuntimeError, "cannot be inside source"):
+                build_replay_atomic(
+                    logical_date="11/14/2026",
+                    races_path=races,
+                    men_history_path=men,
+                    ladies_history_path=ladies,
+                    output_dir=root / "shadow-output",
+                    fixture_dir=FIXTURES,
+                )
+
+    def test_live_scraper_shadow_subcommand_preserves_sources(self) -> None:
+        spec = importlib.util.spec_from_file_location(
+            "alpine_startlist_scraper",
+            ROOT / "startlist-scrape-races.py",
+        )
+        assert spec and spec.loader
+        scraper = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(scraper)
+
+        with tempfile.TemporaryDirectory(prefix="alpine-live-shadow-") as text:
+            root = Path(text)
+            source = root / "source"
+            source.mkdir()
+            races, men, ladies = write_inputs(source)
+            before = {path: path.read_bytes() for path in (races, men, ladies)}
+            output = root / "runs" / "replay"
+
+            exit_code = scraper.main(
+                [
+                    "shadow",
+                    "--logical-date",
+                    "11/14/2026",
+                    "--races",
+                    str(races),
+                    "--men-history",
+                    str(men),
+                    "--ladies-history",
+                    str(ladies),
+                    "--output-dir",
+                    str(output),
+                    "--fixture-dir",
+                    str(FIXTURES),
+                ]
+            )
+
+            self.assertEqual(0, exit_code)
+            self.assertTrue((output / "startlist_races_ladies.csv").is_file())
+            self.assertTrue((output / "reports" / "replay.json").is_file())
+            self.assertEqual(
+                before,
+                {path: path.read_bytes() for path in (races, men, ladies)},
+            )
 
 
 if __name__ == "__main__":
