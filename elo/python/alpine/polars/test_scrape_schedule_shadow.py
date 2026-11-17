@@ -12,7 +12,14 @@ from unittest.mock import patch
 
 from scrape_schedule_shadow import run_shadow_acquisition
 from race_schedule_output import assign_periods_by_race_count, save_alpine_races
-from schedule_contract import ScheduleContractError
+from schedule_contract import (
+    RACES_COLUMNS,
+    WEEKENDS_COLUMNS,
+    ScheduleContractError,
+    derive_weekends,
+    read_csv,
+    write_csv_atomic,
+)
 from schedule_sources import (
     calendar_sources,
     championship_value,
@@ -95,6 +102,12 @@ def write_accepted(path: Path) -> bytes:
                 "1",
             ]
         )
+    write_csv_atomic(
+        path.with_name("weekends.csv"),
+        WEEKENDS_COLUMNS,
+        derive_weekends(read_csv(path, RACES_COLUMNS)),
+        lineterminator="\n",
+    )
     return path.read_bytes()
 
 
