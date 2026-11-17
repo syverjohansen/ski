@@ -6,32 +6,32 @@ from datetime import datetime
 
 def assign_periods_by_race_count(races):
     """Assign prediction periods around the championship portion of a season."""
-    olympic_end_date = None
+    championship_end_date = None
     for race in races:
         if race["championship"] == "1":
             race_date = datetime.strptime(race["date"], "%m/%d/%Y")
-            if olympic_end_date is None or race_date > olympic_end_date:
-                olympic_end_date = race_date
+            if championship_end_date is None or race_date > championship_end_date:
+                championship_end_date = race_date
 
-    olympic_races = []
-    non_olympic_races = []
-    post_olympic_races = []
+    championship_races = []
+    pre_championship_races = []
+    post_championship_races = []
     for race in races:
         if race["championship"] == "1":
-            olympic_races.append(race)
+            championship_races.append(race)
             race["period"] = "4"
         else:
             race_date = datetime.strptime(race["date"], "%m/%d/%Y")
-            if olympic_end_date and race_date > olympic_end_date:
-                post_olympic_races.append(race)
+            if championship_end_date and race_date > championship_end_date:
+                post_championship_races.append(race)
                 race["period"] = "5"
             else:
-                non_olympic_races.append(race)
+                pre_championship_races.append(race)
 
-    non_olympic_races.sort(
+    pre_championship_races.sort(
         key=lambda item: datetime.strptime(item["date"], "%m/%d/%Y")
     )
-    total_races = len(non_olympic_races)
+    total_races = len(pre_championship_races)
     if total_races:
         races_per_period, remainder = divmod(total_races, 3)
         offset = 0
@@ -41,9 +41,9 @@ def assign_periods_by_race_count(races):
             else:
                 end = offset + races_per_period + (1 if remainder >= extra else 0)
             for index in range(offset, end):
-                non_olympic_races[index]["period"] = period
+                pre_championship_races[index]["period"] = period
             offset = end
-    return non_olympic_races + olympic_races + post_olympic_races
+    return pre_championship_races + championship_races + post_championship_races
 
 
 def assign_race_numbers(races):

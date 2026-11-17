@@ -44,7 +44,7 @@ def run_shadow_acquisition(
     season: int,
     accepted_races: Path,
     output_root: Path,
-    include_olympics: bool = True,
+    include_championships: bool = True,
     max_removed_fraction: float = 0.1,
     scrape_fn: Callable[..., list[dict[str, str]]] | None = None,
 ) -> dict[str, Any]:
@@ -62,7 +62,10 @@ def run_shadow_acquisition(
             ) from exc
 
         scrape_fn = scrape_alpine_races
-    races = scrape_fn(season=season, include_olympics=include_olympics)
+    races = scrape_fn(
+        season=season,
+        include_championships=include_championships,
+    )
     if not races:
         raise ScheduleContractError("FIS acquisition returned no Alpine races")
 
@@ -80,10 +83,10 @@ def run_shadow_acquisition(
         "schema_version": REPORT_SCHEMA,
         "status": "passed",
         "season": season,
-        "include_olympics": include_olympics,
+        "include_championships": include_championships,
         "sources": [
             {"category": category, "url": url}
-            for url, category in calendar_sources(season, include_olympics)
+            for url, category in calendar_sources(season, include_championships)
         ],
         "started_at": started_at.isoformat(),
         "completed_at": datetime.now(timezone.utc).isoformat(),
@@ -124,7 +127,7 @@ def main() -> int:
             season=args.season,
             accepted_races=args.accepted_races.expanduser().resolve(),
             output_root=output_root,
-            include_olympics=not args.world_cup_only,
+            include_championships=not args.world_cup_only,
             max_removed_fraction=args.max_removed_fraction,
         )
     except (OSError, RuntimeError, ScheduleContractError, ValueError) as exc:
