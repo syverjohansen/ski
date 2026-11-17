@@ -43,7 +43,7 @@ WEEKENDS_COLUMNS = ("Date", "Race_Date", *RACES_COLUMNS[1:])
 ALLOWED_SEXES = {"M", "L"}
 ALLOWED_CHAMPIONSHIP = {"0", "1"}
 ALLOWED_PERIODS = {"1", "2", "3", "4", "5"}
-REPORT_SCHEMA = "nordicnumbers.alpine-schedule-shadow/v2"
+REPORT_SCHEMA = "nordicnumbers.alpine-schedule-shadow/v3"
 MIN_ROLLOVER_ROW_FRACTION = 0.75
 MIN_ROLLOVER_SPAN_DAYS = 120
 
@@ -523,6 +523,7 @@ def build_shadow(
     accepted_races: Path,
     output_root: Path,
     *,
+    accepted_weekends: Path | None = None,
     max_removed_fraction: float = 0.1,
     expected_candidate_season: int | None = None,
 ) -> dict[str, Any]:
@@ -530,8 +531,14 @@ def build_shadow(
         raise ScheduleContractError("max_removed_fraction must be between 0 and 1")
     candidate_rows = read_csv(candidate_races, RACES_COLUMNS)
     accepted_rows = read_csv(accepted_races, RACES_COLUMNS)
+    accepted_weekends = accepted_weekends or accepted_races.with_name("weekends.csv")
+    accepted_weekend_rows = read_csv(accepted_weekends, WEEKENDS_COLUMNS)
     candidate_validation = validate_races(candidate_rows)
     accepted_validation = validate_races(accepted_rows)
+    accepted_relationship = validate_relationship(
+        accepted_rows,
+        accepted_weekend_rows,
+    )
     candidate_structure = validate_season_structure(
         candidate_rows,
         expected_season=expected_candidate_season,
@@ -597,7 +604,17 @@ def build_shadow(
             },
         },
         "accepted": {
-            **accepted_validation,
+            "races": {
+                **accepted_validation,
+                "file": str(accepted_races),
+                "sha256": file_sha256(accepted_races),
+            },
+            "weekends": {
+                **accepted_relationship,
+                "file": str(accepted_weekends),
+                "sha256": file_sha256(accepted_weekends),
+                "derived_from_races_sha256": file_sha256(accepted_races),
+            },
             "season_structure": accepted_structure,
         },
         "comparison": comparison,

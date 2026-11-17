@@ -106,7 +106,7 @@ class ScheduleContractTests(unittest.TestCase):
                 expected_candidate_season=2027,
             )
             self.assertEqual(
-                "nordicnumbers.alpine-schedule-shadow/v2",
+                "nordicnumbers.alpine-schedule-shadow/v3",
                 result["schema_version"],
             )
             self.assertEqual("approval_required", result["promotion"]["status"])
