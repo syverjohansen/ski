@@ -47,7 +47,7 @@ def sample_races() -> list[dict[str, str]]:
             "country": "Norway",
             "distance": "Giant Slalom",
             "period": "",
-            "championship": "0",
+            "championship": "1",
         },
     ]
 
@@ -90,8 +90,8 @@ def write_accepted(path: Path) -> bytes:
                 "Example",
                 "Norway",
                 "Giant Slalom",
-                "2",
-                "0",
+                "4",
+                "1",
                 "1",
             ]
         )
@@ -199,6 +199,10 @@ class ScrapeScheduleShadowTests(unittest.TestCase):
             )
 
             self.assertEqual(original, accepted.read_bytes())
+            self.assertEqual(
+                "nordicnumbers.alpine-schedule-acquisition/v2",
+                result["schema_version"],
+            )
             self.assertEqual("eligible", result["promotion"]["status"])
             self.assertFalse(result["promotion"]["performed"])
             self.assertTrue((output / "candidate" / "races.csv").is_file())

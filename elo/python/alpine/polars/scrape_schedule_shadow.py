@@ -19,7 +19,7 @@ from schedule_contract import (
 )
 
 
-REPORT_SCHEMA = "nordicnumbers.alpine-schedule-acquisition/v1"
+REPORT_SCHEMA = "nordicnumbers.alpine-schedule-acquisition/v2"
 
 
 def _contains(parent: Path, child: Path) -> bool:
@@ -78,6 +78,7 @@ def run_shadow_acquisition(
         accepted_races,
         output_root,
         max_removed_fraction=max_removed_fraction,
+        expected_candidate_season=season,
     )
     acquisition = {
         "schema_version": REPORT_SCHEMA,
@@ -97,6 +98,7 @@ def run_shadow_acquisition(
         },
         "candidate": shadow["candidate"],
         "comparison": shadow["comparison"],
+        "season_transition": shadow["season_transition"],
         "promotion": shadow["promotion"],
     }
     report_path = output_root / "reports" / "acquisition.json"
