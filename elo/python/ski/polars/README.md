@@ -213,6 +213,26 @@ schedule's technique and race-format metadata. It never modifies accepted
 schedule, scrape, or chrono files. If no completed gaps exist—such as before
 the 2027 opener—it exits without fetching anything.
 
+### Athlete identity mapping (`cross_country_results_identity.py`)
+
+Before Elo replay, map acquired FIS identities to existing Nordic Numbers IDs:
+
+```bash
+python cross_country_results_identity.py \
+  --results /tmp/cross-country-results-candidate/results.csv \
+  --men-chrono excel365/men_chrono.csv \
+  --ladies-chrono excel365/ladies_chrono.csv \
+  --aliases excel365/fis_identity_aliases.csv \
+  --output-dir /tmp/cross-country-identity-candidate
+```
+
+An automatic match is allowed only when the normalized FIS name resolves to
+exactly one historical athlete of the same sex. Nordic characters and FIS
+transliterations are normalized deterministically. New spellings require an
+exact reviewed alias binding the FIS competitor ID, FIS code, and FIS name to an
+existing Nordic Numbers ID. Unknown, changed, or ambiguous identities fail the
+whole candidate; accepted histories are never modified.
+
 ### Comprehensive Race Scraper (`race_scrape.py`)
 **Purpose:** Extract detailed race information from FIS calendars
 
