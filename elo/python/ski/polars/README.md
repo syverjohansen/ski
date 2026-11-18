@@ -156,6 +156,21 @@ Olympic calendars, uses stable FIS race IDs, and then runs the candidate through
 the same contract. Missing calendars, unknown venues, ambiguous event metadata,
 or incomplete schedules fail closed. Promotion remains a separate operation.
 
+An approved next-season shadow can be promoted with its exact report digest:
+
+```bash
+python promote_schedule.py \
+  --shadow-report /path/to/shadow/reports/schedule-shadow.json \
+  --expected-report-sha256 <sha256> \
+  --accepted-dir excel365 \
+  --approve-season 2027 \
+  --receipt /path/to/receipts/cross-country-2027.json
+```
+
+Promotion revalidates the candidate and unchanged accepted pair, creates a
+timestamped backup, replaces both schedule files atomically, verifies their
+hashes, and restores both originals if replacement or receipt writing fails.
+
 ### Comprehensive Race Scraper (`race_scrape.py`)
 **Purpose:** Extract detailed race information from FIS calendars
 
