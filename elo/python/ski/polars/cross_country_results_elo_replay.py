@@ -125,6 +125,13 @@ def _rating_value(row: dict[str, str], column: str) -> float:
     return float(raw) if raw else BASE_ELO
 
 
+def regress_rating(rating: float, season_boundaries: int) -> float:
+    """Apply one offseason regression for every missed season boundary."""
+    for _ in range(season_boundaries):
+        rating = rating * ROLLOVER_DISCOUNT + BASE_ELO * (1.0 - ROLLOVER_DISCOUNT)
+    return rating
+
+
 def load_starting_states(
     chrono: Path, candidate_season: int
 ) -> tuple[list[str], dict[str, AthleteState], list[dict[str, str]]]:
@@ -157,18 +164,12 @@ def load_starting_states(
     states: dict[str, AthleteState] = {}
     for athlete_id, row in latest.items():
         ratings: dict[str, float] = {}
+        row_season = int(row["Season"])
+        season_boundaries = max(0, candidate_season - row_season)
         for elo_column, pelo_column in PREVIOUS_COLUMNS.items():
-            if (
-                row["Event"] == "Offseason"
-                and int(row["Season"]) == candidate_season - 1
-            ):
-                previous = _rating_value(row, pelo_column)
-                ratings[elo_column] = (
-                    previous * ROLLOVER_DISCOUNT
-                    + BASE_ELO * (1.0 - ROLLOVER_DISCOUNT)
-                )
-            else:
-                ratings[elo_column] = _rating_value(row, elo_column)
+            starting_column = pelo_column if row["Event"] == "Offseason" else elo_column
+            previous = _rating_value(row, starting_column)
+            ratings[elo_column] = regress_rating(previous, season_boundaries)
         states[athlete_id] = AthleteState(
             name=row["Skier"].strip(),
             nation=row["Nation"].strip(),

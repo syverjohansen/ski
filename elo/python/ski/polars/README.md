@@ -254,6 +254,31 @@ duplicate races, invalid metadata, unknown canonical athletes, and output paths
 inside accepted source directories. It hashes accepted histories before and
 after replay and writes only incremental candidate rows.
 
+### Promotion candidate (`cross_country_results_promote.py`)
+
+Build complete candidate histories only after isolated replay succeeds:
+
+```bash
+python cross_country_results_promote.py \
+  --men-chrono excel365/men_chrono.csv \
+  --ladies-chrono excel365/ladies_chrono.csv \
+  --men-rows /tmp/cross-country-elo-candidate/men_elo_rows.csv \
+  --ladies-rows /tmp/cross-country-elo-candidate/ladies_elo_rows.csv \
+  --expected-season 2027 \
+  --output-dir /tmp/cross-country-promotion-candidate
+```
+
+The candidate begins with the exact accepted history bytes and appends only
+newer validated race rows. Race=0 archive rows remain unchanged and
+undiscounted; the first new race row carries the discounted starting `Pelo`.
+Returning athletes receive one offseason regression for every season boundary
+they missed.
+The command rejects duplicate or out-of-order results, mismatched headers,
+incorrect season dates, and first-race ratings that do not match the replayed
+offseason state. A header-only increment is allowed when only one sex races,
+but a complete promotion cannot contain zero new rows. Accepted files are never
+modified by this step.
+
 ### Comprehensive Race Scraper (`race_scrape.py`)
 **Purpose:** Extract detailed race information from FIS calendars
 

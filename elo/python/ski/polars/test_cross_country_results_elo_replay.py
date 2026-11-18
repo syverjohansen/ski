@@ -9,6 +9,7 @@ from cross_country_results_elo_replay import (
     _event_for,
     actual_scores,
     expected_scores,
+    regress_rating,
     replay_results,
     stream_includes,
     update_ratings,
@@ -30,6 +31,10 @@ class CrossCountryResultsEloReplayTests(unittest.TestCase):
             update_ratings([1300.0] * 3, [1, 2, 3], 5.0),
             [1305.0, 1300.0, 1295.0],
         )
+
+    def test_returning_athlete_receives_each_missed_offseason_discount(self) -> None:
+        self.assertAlmostEqual(regress_rating(1400.0, 1), 1385.0)
+        self.assertAlmostEqual(regress_rating(1400.0, 2), 1372.25)
 
     def test_stream_rules_match_cross_country_contract(self) -> None:
         self.assertTrue(stream_includes("Distance_C_Elo", "10", "C"))
