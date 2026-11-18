@@ -121,6 +121,28 @@ These additional skiers are used as fallback athletes when FIS startlists are un
 
 ## Data Collection Scripts
 
+### Schedule contract (`schedule_contract.py`)
+
+`excel365/races.csv` is the canonical one-row-per-race schedule.
+`excel365/weekends.csv` is a deterministic compatibility view derived from it;
+it is not a second source of truth. The contract preserves the existing Tour de
+Ski, relay, team-sprint, and championship grouping behavior while validating
+schema, FIS cross-country URLs, race identities, season coverage, and rollover
+safety.
+
+Run a local, non-promoting shadow validation with:
+
+```bash
+python schedule_contract.py shadow \
+  --candidate-races excel365/races.csv \
+  --accepted-races excel365/races.csv \
+  --output-root /tmp/nordicnumbers-xc-schedule-shadow
+```
+
+The command writes only beneath `--output-root`. A same-season candidate may be
+reported as eligible; a complete next-season candidate is reported as requiring
+approval. The command never modifies `excel365` itself.
+
 ### Comprehensive Race Scraper (`race_scrape.py`)
 **Purpose:** Extract detailed race information from FIS calendars
 
