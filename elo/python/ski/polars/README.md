@@ -446,6 +446,13 @@ packaged startlist builders with absolute paths and the active Python
 interpreter. This replaces machine-specific `~/blog/...` paths and prevents a
 failed relay or team-sprint prediction from being reported as successful.
 
+Before running a model, validate the paired team and individual startlists with
+`relay/team_startlist_contract.py`. The contract requires exactly four members
+per relay team or two per team-sprint team, confirms every athlete against the
+FIS-derived individual list, rejects duplicate assignments, and verifies that
+the team Elo equals the sum of its member ratings. The checked-in 2026 relay
+and Olympic team-sprint startlists are regression fixtures for this contract.
+
 ## Data Flow
 
 ```
