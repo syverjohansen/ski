@@ -6,7 +6,8 @@ from typing import List, Dict, Tuple, Optional
 import warnings
 from datetime import datetime, timedelta
 import traceback
-import subprocess
+import tempfile
+from pathlib import Path
 warnings.filterwarnings('ignore')
 
 # Add parent directories to path for shared config
@@ -17,80 +18,7 @@ from pipeline_config import TEST_MODE, get_races_file
 
 # Import common utility functions
 from startlist_common import *
-
-# Add this function to each main script file to call the appropriate R script
-def call_r_script(script_type: str, race_type: str = None, gender: str = None) -> None:
-    """
-    Call the appropriate R script after processing race data
-    
-    Args:
-        script_type: 'weekend' or 'races' (determines weekly picks or race picks)
-        race_type: 'standard', 'team_sprint', 'relay', or 'mixed_relay'
-        gender: 'men', 'ladies', or None for mixed events
-    """
-    import subprocess
-    import os
-    
-    # Set the base path to the R scripts
-    r_script_base_path = "~/blog/daehl-e/content/post/cross-country/drafts"
-    
-    # Determine which R script to call based on script type and race type
-    if script_type == 'weekend':
-        # Weekly picks scripts
-        if race_type == 'standard':
-            r_script = "weekly-picks2.R"
-        elif race_type == 'team_sprint':
-            r_script = "weekly-picks-team-sprint.R"
-        elif race_type == 'relay':
-            r_script = "weekly-picks-relay.R"
-        elif race_type == 'mixed_relay':
-            r_script = "weekly-picks-mixed-relay.R"
-        else:
-            print(f"Unknown race type: {race_type}")
-            return
-    elif script_type == 'races':
-        # Race picks scripts
-        if race_type == 'standard':
-            r_script = "race-picks.R"
-        elif race_type == 'team_sprint':
-            r_script = "race-picks-team-sprint.R"
-        elif race_type == 'relay':
-            r_script = "race-picks-relay.R"
-        elif race_type == 'mixed_relay':
-            r_script = "race-picks-mixed-relay.R"
-        elif race_type == 'final_climb':
-            r_script = "final_climb.R"
-        else:
-            print(f"Unknown race type: {race_type}")
-            return
-    else:
-        print(f"Unknown script type: {script_type}")
-        return
-    
-    # Full path to the R script
-    r_script_path = os.path.expanduser(f"{r_script_base_path}/{r_script}")
-    
-    # Command to execute the R script
-    command = ["Rscript", r_script_path]
-    
-    # Add gender parameter if specified
-    if gender:
-        command.append(gender)
-    
-    print(f"Calling R script: {' '.join(command)}")
-    
-    try:
-        # Call the R script
-        result = subprocess.run(command, check=True, capture_output=True, text=True)
-        print(f"R script output:\n{result.stdout}")
-        if result.stderr:
-            print(f"R script error:\n{result.stderr}")
-    except subprocess.CalledProcessError as e:
-        print(f"Error calling R script: {e}")
-        print(f"Script output: {e.stdout}")
-        print(f"Script error: {e.stderr}")
-    except FileNotFoundError:
-        print(f"R script not found: {r_script_path}")
+from relay.team_event_dispatch import run_startlist_builder
 
 def is_relay_event(race: pd.Series) -> bool:
     """
@@ -214,11 +142,9 @@ def handle_relay_races(races_df: pd.DataFrame) -> bool:
     print(f"Relay events detected: {relay_types}")
     
     # Call the appropriate relay script for each type
-    success = False
+    handled = 0
     for relay_type in relay_types:
         if relay_type != 'unknown':
-            relay_script_path = f"relay/startlist_scrape_races_{relay_type}.py"
-            
             # Determine which distance value corresponds to this relay type
             relay_distance = None
             if relay_type == 'relay' or relay_type == 'mixed_relay':
@@ -240,32 +166,23 @@ def handle_relay_races(races_df: pd.DataFrame) -> bool:
                         (~races_df['Sex'].isin(['Mixed', 'Mix']))
                     ]
             
-            # Save to temporary CSV for the relay script to use
-            temp_csv_path = f"/tmp/weekend_relay_{relay_type}_races.csv"
-            relay_specific_races.to_csv(temp_csv_path, index=False)
-            
-            print(f"Calling relay script for {relay_type}: {relay_script_path}")
+            if relay_specific_races.empty:
+                continue
+            with tempfile.NamedTemporaryFile(
+                mode="w", suffix=".csv", delete=False, newline=""
+            ) as handle:
+                temp_csv_path = Path(handle.name)
+                relay_specific_races.to_csv(handle, index=False)
             try:
-                # Call the relay script with the temporary CSV as an argument
-                result = subprocess.run(
-                    ["python3", relay_script_path, temp_csv_path], 
-                    check=True, 
-                    capture_output=True, 
-                    text=True
-                )
-                print(f"Relay script output:\n{result.stdout}")
+                result = run_startlist_builder(relay_type, temp_csv_path)
+                print(f"Team-event startlist output:\n{result.stdout}")
                 if result.stderr:
-                    print(f"Relay script error:\n{result.stderr}")
-                
-                success = True
-            except subprocess.CalledProcessError as e:
-                print(f"Error calling relay script: {e}")
-                print(f"Script output: {e.stdout}")
-                print(f"Script error: {e.stderr}")
-            except FileNotFoundError:
-                print(f"Relay script not found: {relay_script_path}")
-                
-    return success
+                    print(f"Team-event startlist diagnostics:\n{result.stderr}")
+                handled += 1
+            finally:
+                temp_csv_path.unlink(missing_ok=True)
+
+    return handled > 0
 
 def process_races() -> None:
     """Main function to process individual races"""

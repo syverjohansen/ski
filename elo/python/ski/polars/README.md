@@ -438,6 +438,14 @@ The `relay/` subdirectory contains specialized scripts for team events:
   - Traditional relay (4×10km men, 4×5km women)
 - **`update_scrape.py`** - Relay data updates
 
+Team-event race predictions use `relay/prediction_runner.py`. The runner
+requires `NORDIC_BLOG_ROOT` to identify the checked-out blog repository,
+resolves the requested R script beneath that root, and propagates missing
+scripts and non-zero R exits. `relay/team_event_dispatch.py` similarly invokes
+packaged startlist builders with absolute paths and the active Python
+interpreter. This replaces machine-specific `~/blog/...` paths and prevents a
+failed relay or team-sprint prediction from being reported as successful.
+
 ## Data Flow
 
 ```
