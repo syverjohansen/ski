@@ -10,11 +10,12 @@ import tempfile
 from pathlib import Path
 warnings.filterwarnings('ignore')
 
-# Add parent directories to path for shared config
-sys.path.insert(0, os.path.expanduser('~/ski/elo/python'))
+# Add the packaged Python root for shared config, independent of checkout path.
+python_root = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(python_root))
 
 # Import pipeline config for TEST_MODE and file paths
-from pipeline_config import TEST_MODE, get_races_file
+from pipeline_config import TEST_MODE, get_excel_dir, get_races_file
 
 # Import common utility functions
 from startlist_common import *
@@ -339,7 +340,8 @@ def process_gender_races(races_df: pd.DataFrame, gender: str) -> None:
     print(f"All probability columns: {all_prob_columns}")
     
     # Get the ELO path - use chrono_pred for most recent Elo values
-    elo_path = f"~/ski/elo/python/ski/polars/excel365/{gender}_chrono_pred.csv"
+    excel_dir = get_excel_dir("ski")
+    elo_path = excel_dir / f"{gender}_chrono_pred.csv"
     print(f"Using ELO path: {elo_path}")
     
     # Initialize a consolidated dataframe
@@ -430,7 +432,7 @@ def process_gender_races(races_df: pd.DataFrame, gender: str) -> None:
         consolidated_df.loc[consolidated_df[all_prob_columns].sum(axis=1) == 0, 'In_FIS_List'] = False
         
         # Save the consolidated dataframe
-        output_path = f"~/ski/elo/python/ski/polars/excel365/startlist_races_{gender}.csv"
+        output_path = excel_dir / f"startlist_races_{gender}.csv"
         print(f"Saving consolidated {gender} startlist to {output_path}")
         consolidated_df.to_csv(output_path, index=False)
         print(f"Saved {len(consolidated_df)} {gender} athletes")

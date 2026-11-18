@@ -18,13 +18,16 @@ Usage:
 import os
 from pathlib import Path
 
+REPOSITORY_ELO_BASE = Path(__file__).resolve().parent.parent
+
 # Find and load .env file
 def _load_env():
     """Load environment variables from .env file."""
-    env_paths = [
+    configured_env = os.getenv("NORDIC_ENV_FILE")
+    env_paths = ([Path(configured_env).expanduser()] if configured_env else []) + [
+        REPOSITORY_ELO_BASE / ".env",
         Path.home() / "ski" / "elo" / ".env",
         Path.home() / ".env",
-        Path(__file__).parent.parent / ".env",  # ~/ski/elo/.env relative to this file
     ]
 
     for env_path in env_paths:
@@ -47,9 +50,13 @@ _env_file = _load_env()
 TEST_MODE = os.getenv('TEST_MODE', 'false').lower() == 'true'
 
 # Base paths
-SKI_ELO_BASE = Path.home() / "ski" / "elo"
+SKI_ELO_BASE = Path(
+    os.getenv("NORDIC_SKI_ELO_ROOT", str(REPOSITORY_ELO_BASE))
+).expanduser().resolve()
 PYTHON_BASE = SKI_ELO_BASE / "python"
-BLOG_BASE = Path.home() / "blog" / "daehl-e"
+BLOG_BASE = Path(
+    os.getenv("NORDIC_BLOG_ROOT", str(Path.home() / "blog" / "daehl-e"))
+).expanduser().resolve()
 
 # Sport directory names
 SPORTS = {
