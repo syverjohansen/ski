@@ -37,6 +37,14 @@ class ScheduleRace:
     city: str
     country: str
     distance: str
+    technique: str
+    mass_start: str
+    period: str
+    pursuit: str
+    stage: str
+    final_climb: str
+    elevation: str
+    championship: str
     results_url: str
 
 
@@ -144,6 +152,14 @@ def audit_results(
                         city=(row.get("City") or "").strip(),
                         country=(row.get("Country") or "").strip(),
                         distance=distance,
+                        technique=(row.get("Technique") or "").strip(),
+                        mass_start=(row.get("MS") or "").strip(),
+                        period=(row.get("Period") or "").strip(),
+                        pursuit=(row.get("Pursuit") or "").strip(),
+                        stage=(row.get("Stage") or "").strip(),
+                        final_climb=(row.get("Final_Climb") or "").strip(),
+                        elevation=(row.get("Elevation") or "").strip(),
+                        championship=(row.get("Championship") or "").strip(),
                         results_url=(row.get("Startlist") or "").strip(),
                     )
                 )

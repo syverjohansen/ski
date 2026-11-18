@@ -192,6 +192,27 @@ separately. Completed legacy rows with incomplete schedule metadata are counted
 without being mistaken for absent result rows. The command does not fetch or
 modify data.
 
+### Isolated results acquisition (`cross_country_results_backfill.py`)
+
+When the audit reports completed individual gaps, acquire only those FIS result
+pages into a candidate directory outside `excel365`:
+
+```bash
+python cross_country_results_backfill.py \
+  --schedule excel365/races.csv \
+  --men-chrono excel365/men_chrono.csv \
+  --ladies-chrono excel365/ladies_chrono.csv \
+  --as-of 2026-11-27 \
+  --output-dir /tmp/cross-country-results-candidate \
+  --allow-network
+```
+
+The command accepts only `fis-ski.com` cross-country result URLs, checks the
+page city and season, records SHA-256 source evidence, and preserves the
+schedule's technique and race-format metadata. It never modifies accepted
+schedule, scrape, or chrono files. If no completed gaps exist—such as before
+the 2027 opener—it exits without fetching anything.
+
 ### Comprehensive Race Scraper (`race_scrape.py`)
 **Purpose:** Extract detailed race information from FIS calendars
 
