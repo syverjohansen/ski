@@ -171,6 +171,27 @@ Promotion revalidates the candidate and unchanged accepted pair, creates a
 timestamped backup, replaces both schedule files atomically, verifies their
 hashes, and restores both originals if replacement or receipt writing fails.
 
+### Results gap audit (`cross_country_results_gap.py`)
+
+Before acquiring results, run the read-only audit against the accepted schedule
+and individual chrono histories:
+
+```bash
+python cross_country_results_gap.py \
+  --schedule excel365/races.csv \
+  --men-chrono excel365/men_chrono.csv \
+  --ladies-chrono excel365/ladies_chrono.csv \
+  --as-of 2026-11-17 \
+  --output /tmp/cross-country-results-gap.json \
+  --fail-on-gaps
+```
+
+Future races are counted but never reported as missing. Relay and team-sprint
+rows are excluded from the individual-results expectation and reported
+separately. Completed legacy rows with incomplete schedule metadata are counted
+without being mistaken for absent result rows. The command does not fetch or
+modify data.
+
 ### Comprehensive Race Scraper (`race_scrape.py`)
 **Purpose:** Extract detailed race information from FIS calendars
 
