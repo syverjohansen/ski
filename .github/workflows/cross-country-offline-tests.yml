@@ -1,0 +1,32 @@
+name: Cross-country offline tests
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/cross-country-offline-tests.yml"
+      - "elo/python/pipeline_config.py"
+      - "elo/python/ski/polars/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: elo/python/ski/polars
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: Run cross-country offline tests
+        run: >-
+          uv run --isolated --python 3.12
+          --with polars-lts-cpu
+          --with pandas
+          --with requests
+          --with beautifulsoup4
+          --with thefuzz
+          python -m unittest discover -s . -p 'test_*.py' -v
