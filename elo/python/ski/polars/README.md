@@ -233,6 +233,27 @@ exact reviewed alias binding the FIS competitor ID, FIS code, and FIS name to an
 existing Nordic Numbers ID. Unknown, changed, or ambiguous identities fail the
 whole candidate; accepted histories are never modified.
 
+### Isolated Elo replay (`cross_country_results_elo_replay.py`)
+
+After every candidate identity is resolved, generate incremental Elo rows in a
+separate directory:
+
+```bash
+python cross_country_results_elo_replay.py \
+  --mapped-results /tmp/cross-country-identity-candidate/mapped_results.csv \
+  --men-chrono excel365/men_chrono.csv \
+  --ladies-chrono excel365/ladies_chrono.csv \
+  --output-dir /tmp/cross-country-elo-candidate
+```
+
+The replay preserves the nine existing rating streams, cross-country technique
+and distance rules, mass-start metadata, championship event names, and the
+postseason `0.85` regression toward the `1300` base rating. Pursuit events do
+not change classic/freestyle-specific ratings. The command rejects team events,
+duplicate races, invalid metadata, unknown canonical athletes, and output paths
+inside accepted source directories. It hashes accepted histories before and
+after replay and writes only incremental candidate rows.
+
 ### Comprehensive Race Scraper (`race_scrape.py`)
 **Purpose:** Extract detailed race information from FIS calendars
 
