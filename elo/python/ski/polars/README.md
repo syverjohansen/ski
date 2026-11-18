@@ -254,6 +254,26 @@ duplicate races, invalid metadata, unknown canonical athletes, and output paths
 inside accepted source directories. It hashes accepted histories before and
 after replay and writes only incremental candidate rows.
 
+### Team-event coverage audit (`cross_country_team_event_audit.py`)
+
+Relay and team-sprint results intentionally live outside the individual chrono
+tables. Audit their dedicated accepted histories separately:
+
+```bash
+python cross_country_team_event_audit.py \
+  --schedule excel365/races2026.csv \
+  --men-relay-chrono relay/excel365/men_relay_chrono.csv \
+  --ladies-relay-chrono relay/excel365/ladies_relay_chrono.csv \
+  --team-sprint-chrono relay/excel365/team_sprint_chrono.csv \
+  --as-of 2026-03-22 \
+  --fail-on-gaps
+```
+
+The audit matches canonical schedule identity `(sex, season, race, date,
+distance)` to the accepted team tables. Future events never count as gaps. The
+2026 regression fixture proves coverage for both Olympic relays and all six
+scheduled team-sprint events.
+
 ### Promotion candidate (`cross_country_results_promote.py`)
 
 Build complete candidate histories only after isolated replay succeeds:
