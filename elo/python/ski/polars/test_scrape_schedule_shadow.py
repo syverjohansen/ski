@@ -17,7 +17,12 @@ from cross_country_schedule_scraper import (
     scrape_cross_country_races,
 )
 from race_schedule_output import period_for_date, save_cross_country_races
-from schedule_contract import ScheduleContractError
+from schedule_contract import (
+    RACES_COLUMNS,
+    ScheduleContractError,
+    infer_fis_season,
+    read_csv,
+)
 from schedule_sources import calendar_sources
 from scrape_schedule_shadow import run_shadow_acquisition
 
@@ -41,6 +46,7 @@ def raw_accepted_races():
             "pursuit": row["Pursuit"],
             "elevation": row["Elevation"],
             "championship": row["Championship"],
+            "tour_stage": row["Stage"],
         }
         for row in rows
     ]
@@ -151,10 +157,13 @@ class CrossCountryScheduleShadowTests(unittest.TestCase):
 
     def test_mocked_acquisition_builds_shadow_without_promotion(self):
         original = ACCEPTED_RACES.read_bytes()
+        accepted_season = infer_fis_season(
+            read_csv(ACCEPTED_RACES, RACES_COLUMNS)
+        )
         with tempfile.TemporaryDirectory(prefix="xc-acquisition-") as temporary:
             output = Path(temporary) / "shadow"
             result = run_shadow_acquisition(
-                season=2026,
+                season=accepted_season,
                 accepted_races=ACCEPTED_RACES,
                 output_root=output,
                 scrape_fn=lambda **_: raw_accepted_races(),

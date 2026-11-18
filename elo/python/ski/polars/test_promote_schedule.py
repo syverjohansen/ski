@@ -13,6 +13,7 @@ from schedule_contract import (
     RACES_COLUMNS,
     ScheduleContractError,
     build_shadow,
+    championship_category,
     file_sha256,
     infer_fis_season,
     read_csv,
@@ -37,6 +38,10 @@ def shift_season(rows: list[dict[str, str]]) -> list[dict[str, str]]:
             row["Startlist"],
         )
         shifted.append(changed)
+    target_season = infer_fis_season(shifted)
+    if championship_category(target_season) is None:
+        for row in shifted:
+            row["Championship"] = "0"
     return shifted
 
 

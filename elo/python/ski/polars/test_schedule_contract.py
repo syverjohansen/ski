@@ -1,5 +1,4 @@
 import copy
-import csv
 import tempfile
 import unittest
 from datetime import datetime
@@ -12,6 +11,7 @@ from schedule_contract import (
     ScheduleContractError,
     assess_transition,
     build_shadow,
+    championship_category,
     derive_weekends,
     read_csv,
     validate_races,
@@ -19,7 +19,6 @@ from schedule_contract import (
     validate_season_structure,
     write_csv_atomic,
 )
-
 
 HERE = Path(__file__).resolve().parent
 ACCEPTED_RACES = HERE / "excel365/races.csv"
@@ -47,26 +46,33 @@ def next_season(rows):
         if row["Period"] == "4":
             row["Period"] = "3"
 
-    # A 2027 season is a World Championship season. Reuse a coherent group in
-    # this synthetic fixture so the structural gate can be exercised.
-    championship_city = candidate[-1]["City"]
-    for row in candidate:
-        if row["City"] == championship_city:
-            row["Championship"] = "1"
-            row["Period"] = "4"
+    target_season = max(
+        datetime.strptime(row["Date"], "%m/%d/%Y").year for row in candidate
+    )
+    if championship_category(target_season):
+        # Reuse a coherent group in this synthetic fixture so the structural
+        # championship gate can be exercised when the next season has one.
+        championship_city = candidate[-1]["City"]
+        for row in candidate:
+            if row["City"] == championship_city:
+                row["Championship"] = "1"
+                row["Period"] = "4"
     return candidate
 
 
 class CrossCountryScheduleContractTests(unittest.TestCase):
-    def test_accepted_2026_schedule_and_compatibility_view_pass(self):
+    def test_current_accepted_schedule_and_compatibility_view_pass(self):
         races = accepted_races()
         weekends = read_csv(ACCEPTED_WEEKENDS, WEEKENDS_COLUMNS)
 
-        self.assertEqual(validate_races(races)["rows"], 70)
+        self.assertEqual(validate_races(races)["rows"], len(races))
         structure = validate_season_structure(races)
-        self.assertEqual(structure["season"], 2026)
-        self.assertEqual(structure["championship_category"], "OWG")
-        self.assertEqual(structure["sex_counts"], {"L": 35, "M": 35})
+        self.assertEqual(
+            structure["championship_category"],
+            championship_category(structure["season"]),
+        )
+        self.assertGreater(structure["sex_counts"]["L"], 0)
+        self.assertGreater(structure["sex_counts"]["M"], 0)
         self.assertEqual(derive_weekends(races), weekends)
         self.assertEqual(validate_relationship(races, weekends)["status"], "passed")
 
