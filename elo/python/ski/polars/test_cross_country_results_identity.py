@@ -5,6 +5,7 @@ from pathlib import Path
 
 from cross_country_results_identity import (
     IdentityError,
+    load_aliases,
     load_history,
     map_identities,
     normalized_name,
@@ -36,6 +37,18 @@ class CrossCountryResultsIdentityTests(unittest.TestCase):
             name_index[("M", normalized_name("KLAEBO Johannes Hoesflot"))],
             {"5164"},
         )
+
+    def test_reviewed_fis_aliases_resolve_to_real_history(self) -> None:
+        data = HERE / "excel365"
+        athletes, _, names_by_id = load_history(
+            data / "men_chrono.csv", data / "ladies_chrono.csv"
+        )
+        aliases = load_aliases(
+            data / "fis_identity_aliases.csv", athletes, names_by_id
+        )
+        self.assertGreaterEqual(len(aliases), 7)
+        self.assertEqual(aliases[("L", "210291")].canonical_id, "6639")
+        self.assertEqual(aliases[("L", "261973")].canonical_id, "10268")
 
     def test_maps_unique_name_and_reviewed_alias(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
