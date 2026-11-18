@@ -143,6 +143,19 @@ The command writes only beneath `--output-root`. A same-season candidate may be
 reported as eligible; a complete next-season candidate is reported as requiring
 approval. The command never modifies `excel365` itself.
 
+The FIS acquisition path is also shadow-only:
+
+```bash
+python scrape_schedule_shadow.py \
+  --season 2027 \
+  --output-root /tmp/nordicnumbers-xc-schedule-acquisition
+```
+
+It reads the parameterized World Cup plus applicable World Championship or
+Olympic calendars, uses stable FIS race IDs, and then runs the candidate through
+the same contract. Missing calendars, unknown venues, ambiguous event metadata,
+or incomplete schedules fail closed. Promotion remains a separate operation.
+
 ### Comprehensive Race Scraper (`race_scrape.py`)
 **Purpose:** Extract detailed race information from FIS calendars
 
