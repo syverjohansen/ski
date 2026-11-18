@@ -6,11 +6,14 @@ from typing import List, Dict, Tuple, Optional
 import warnings
 from datetime import datetime
 import traceback
+from pathlib import Path
 from bs4 import BeautifulSoup
 import requests
 warnings.filterwarnings('ignore')
 
 from prediction_runner import run_prediction
+from team_artifacts import chrono_prediction_path, schedule_path, startlist_paths
+from team_startlist_contract import validate_team_startlists
 
 # Import common utility functions
 import sys
@@ -18,7 +21,7 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from startlist_common import *
 
-def process_relay_races(races_file: str = None, gender: str = None) -> None:
+def process_relay_races(races_file: str = None, gender: str = None) -> tuple[str, ...]:
     """
     Main function to process standard relay races
     
@@ -36,10 +39,7 @@ def process_relay_races(races_file: str = None, gender: str = None) -> None:
         # Default to standard races.csv or weekends.csv
         # Determine if this was called from weekend or races script based on file name
         script_name = os.path.basename(sys.argv[0])
-        if 'weekend' in script_name:
-            races_path = '~/ski/elo/python/ski/polars/excel365/weekends.csv'
-        else:
-            races_path = '~/ski/elo/python/ski/polars/excel365/races.csv'
+        races_path = schedule_path(weekend='weekend' in script_name)
         
         try:
             races_df = pd.read_csv(races_path)
@@ -66,11 +66,11 @@ def process_relay_races(races_file: str = None, gender: str = None) -> None:
         except Exception as e:
             print(f"Error loading races from {races_path}: {e}")
             traceback.print_exc()
-            return
+            raise
     
     # Initialize data collections for all races
-    all_teams_data = []
-    all_individuals_data = []
+    teams_by_gender = {"men": [], "ladies": []}
+    individuals_by_gender = {"men": [], "ladies": []}
     
     # Process each relay race
     for idx, (_, race) in enumerate(races_df.iterrows()):
@@ -82,6 +82,8 @@ def process_relay_races(races_file: str = None, gender: str = None) -> None:
         print(f"Processing relay race {idx+1}: {race['City']} ({race['Date']})")
         
         # Determine gender of this race
+        if race['Sex'] not in {'M', 'L'}:
+            raise ValueError(f"Unsupported relay sex: {race['Sex']}")
         race_gender = 'men' if race['Sex'] == 'M' else 'ladies'
         if gender and race_gender != gender:
             print(f"Skipping {race_gender} race (filtered to {gender})")
@@ -97,22 +99,28 @@ def process_relay_races(races_file: str = None, gender: str = None) -> None:
         teams_data, individuals_data = process_relay_teams(teams, race, race_gender)
         
         # Add the data to our collections
-        all_teams_data.extend(teams_data)
-        all_individuals_data.extend(individuals_data)
-    
-    # Save team data
-    if all_teams_data:
-        team_df = pd.DataFrame(all_teams_data)
-        save_relay_team_data(team_df, gender or race_gender)
-    else:
-        print(f"No team data generated")
-    
-    # Save individual data
-    if all_individuals_data:
-        individual_df = pd.DataFrame(all_individuals_data)
-        save_relay_individual_data(individual_df, gender or race_gender)
-    else:
-        print(f"No individual data generated")
+        teams_by_gender[race_gender].extend(teams_data)
+        individuals_by_gender[race_gender].extend(individuals_data)
+
+    generated: list[str] = []
+    for race_gender in ("men", "ladies"):
+        teams_data = teams_by_gender[race_gender]
+        individuals_data = individuals_by_gender[race_gender]
+        if not teams_data and not individuals_data:
+            continue
+        if not teams_data or not individuals_data:
+            raise RuntimeError(f"Incomplete relay output for {race_gender}")
+        teams_path = save_relay_team_data(pd.DataFrame(teams_data), race_gender)
+        individuals_path = save_relay_individual_data(
+            pd.DataFrame(individuals_data), race_gender
+        )
+        validate_team_startlists(
+            teams=teams_path,
+            individuals=individuals_path,
+            event_type="relay",
+        )
+        generated.append(race_gender)
+    return tuple(generated)
 
 def get_relay_teams(url: str) -> List[Dict]:
     """
@@ -254,7 +262,7 @@ def process_relay_teams(teams: List[Dict], race: pd.Series, gender: str) -> Tupl
     individual_data = []
     
     # Get the ELO scores
-    elo_path = f"~/ski/elo/python/ski/polars/excel365/{gender}_chrono_pred.csv"
+    elo_path = chrono_prediction_path(gender)
     elo_scores = get_latest_elo_scores(elo_path)
     
     # Get fantasy prices and team prices
@@ -506,39 +514,23 @@ def process_relay_athlete(
         traceback.print_exc()
         return row_data  # Return original data if processing fails
 
-def save_relay_individual_data(df: pd.DataFrame, gender: str) -> None:
+def save_relay_individual_data(df: pd.DataFrame, gender: str) -> Path:
     """Save processed relay individual data to a CSV file"""
-    try:
-        # Sort by team rank and position
-        df = df.sort_values(['Team_Rank', 'Team_Position'])
-        
-        # Save to CSV
-        output_path = f"~/ski/elo/python/ski/polars/relay/excel365/startlist_relay_races_individuals_{gender}.csv"
-        df.to_csv(output_path, index=False)
-        print(f"Saved {len(df)} {gender} individual athletes to {output_path}")
-    
-    except Exception as e:
-        print(f"Error saving relay individual data: {e}")
-        traceback.print_exc()
+    df = df.sort_values(['Team_Rank', 'Team_Position'])
+    _, output_path = startlist_paths("relay", gender)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(output_path, index=False)
+    print(f"Saved {len(df)} {gender} individual athletes to {output_path}")
+    return output_path
 
-def save_relay_team_data(df: pd.DataFrame, gender: str) -> None:
+def save_relay_team_data(df: pd.DataFrame, gender: str) -> Path:
     """Save processed relay team data to a CSV file"""
-    try:
-        # Sort by team rank
-        df = df.sort_values(['Team_Rank'])
-        
-        # Save to CSV
-        output_path = f"~/ski/elo/python/ski/polars/relay/excel365/startlist_relay_races_teams_{gender}.csv"
-        
-        # Create directory if it doesn't exist
-        os.makedirs(os.path.dirname(os.path.expanduser(output_path)), exist_ok=True)
-        
-        df.to_csv(os.path.expanduser(output_path), index=False)
-        print(f"Saved {len(df)} {gender} teams to {output_path}")
-    
-    except Exception as e:
-        print(f"Error saving relay team data: {e}")
-        traceback.print_exc()
+    df = df.sort_values(['Team_Rank'])
+    output_path, _ = startlist_paths("relay", gender)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(output_path, index=False)
+    print(f"Saved {len(df)} {gender} teams to {output_path}")
+    return output_path
 
 def get_fantasy_teams(gender: str) -> Dict[str, Dict]:
     """Get team data from Fantasy XC API with gender filter"""
@@ -685,5 +677,7 @@ if __name__ == "__main__":
     gender = sys.argv[2] if len(sys.argv) > 2 else None
     
     # Process relay races
-    process_relay_races(races_file, gender)
+    generated = process_relay_races(races_file, gender)
+    if not generated:
+        raise RuntimeError("No valid relay startlists were generated")
     run_prediction('races', 'relay')
