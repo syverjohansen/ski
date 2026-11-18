@@ -6,17 +6,20 @@ from typing import List, Dict, Tuple, Optional
 import warnings
 from datetime import datetime
 import traceback
+from pathlib import Path
 from bs4 import BeautifulSoup
 import requests
 warnings.filterwarnings('ignore')
 
 from prediction_runner import run_prediction
+from team_artifacts import chrono_prediction_path, schedule_path, startlist_paths
+from team_startlist_contract import validate_team_startlists
 
 # Import common utility functions
 from startlist_common import *
 
 # Add this function to each main script file to call the appropriate R script
-def process_team_sprint_races(races_file: str = None, gender: str = None) -> None:
+def process_team_sprint_races(races_file: str = None, gender: str = None) -> tuple[str, ...]:
     """
     Main function to process team sprint races
 
@@ -34,10 +37,7 @@ def process_team_sprint_races(races_file: str = None, gender: str = None) -> Non
         # Default to standard races.csv or weekends.csv
         # Determine if this was called from weekend or races script based on file name
         script_name = os.path.basename(sys.argv[0])
-        if 'weekend' in script_name:
-            races_path = '~/ski/elo/python/ski/polars/excel365/weekends.csv'
-        else:
-            races_path = '~/ski/elo/python/ski/polars/excel365/races.csv'
+        races_path = schedule_path(weekend='weekend' in script_name)
 
         try:
             races_df = pd.read_csv(races_path)
@@ -57,28 +57,33 @@ def process_team_sprint_races(races_file: str = None, gender: str = None) -> Non
         except Exception as e:
             print(f"Error loading races from {races_path}: {e}")
             traceback.print_exc()
-            return
+            raise
 
     # Process each gender separately to avoid mixing data
+    generated: list[str] = []
     if gender:
         # If gender specified, only process that gender
         gender_code = 'M' if gender == 'men' else 'L'
         gender_races = races_df[races_df['Sex'] == gender_code]
         if not gender_races.empty:
-            process_gender_team_sprint_races(gender_races, gender)
+            if process_gender_team_sprint_races(gender_races, gender):
+                generated.append(gender)
     else:
         # Process both genders separately
         men_races = races_df[races_df['Sex'] == 'M']
         ladies_races = races_df[races_df['Sex'] == 'L']
 
         if not men_races.empty:
-            process_gender_team_sprint_races(men_races, 'men')
+            if process_gender_team_sprint_races(men_races, 'men'):
+                generated.append('men')
 
         if not ladies_races.empty:
-            process_gender_team_sprint_races(ladies_races, 'ladies')
+            if process_gender_team_sprint_races(ladies_races, 'ladies'):
+                generated.append('ladies')
+    return tuple(generated)
 
 
-def process_gender_team_sprint_races(races_df: pd.DataFrame, gender: str) -> None:
+def process_gender_team_sprint_races(races_df: pd.DataFrame, gender: str) -> bool:
     """
     Process team sprint races for a specific gender
 
@@ -114,19 +119,20 @@ def process_gender_team_sprint_races(races_df: pd.DataFrame, gender: str) -> Non
         all_teams_data.extend(teams_data)
         all_individuals_data.extend(individuals_data)
 
-    # Save team data for this gender
-    if all_teams_data:
-        team_df = pd.DataFrame(all_teams_data)
-        save_team_sprint_team_data(team_df, gender)
-    else:
-        print(f"No team data generated for {gender}")
-
-    # Save individual data for this gender
-    if all_individuals_data:
-        individual_df = pd.DataFrame(all_individuals_data)
-        save_team_sprint_individual_data(individual_df, gender)
-    else:
-        print(f"No individual data generated for {gender}")
+    if not all_teams_data and not all_individuals_data:
+        return False
+    if not all_teams_data or not all_individuals_data:
+        raise RuntimeError(f"Incomplete team-sprint output for {gender}")
+    teams_path = save_team_sprint_team_data(pd.DataFrame(all_teams_data), gender)
+    individuals_path = save_team_sprint_individual_data(
+        pd.DataFrame(all_individuals_data), gender
+    )
+    validate_team_startlists(
+        teams=teams_path,
+        individuals=individuals_path,
+        event_type="team_sprint",
+    )
+    return True
 
 # Update the get_team_sprint_teams function to add team_number
 def get_team_sprint_teams(url: str) -> List[Dict]:
@@ -463,7 +469,7 @@ def process_team_sprint_teams(teams: List[Dict], race: pd.Series, gender: str) -
     individual_data = []
     
     # Get the ELO scores
-    elo_path = f"~/ski/elo/python/ski/polars/excel365/{gender}_chrono_pred.csv"
+    elo_path = chrono_prediction_path(gender)
     elo_scores = get_latest_elo_scores(elo_path)
     
     # Get fantasy prices and team prices
@@ -746,43 +752,23 @@ def process_team_sprint_athlete(
         traceback.print_exc()
         return row_data  # Return original data if processing fails
 
-def save_team_sprint_individual_data(df: pd.DataFrame, gender: str) -> None:
+def save_team_sprint_individual_data(df: pd.DataFrame, gender: str) -> Path:
     """Save processed team sprint individual data to a CSV file"""
-    try:
-        # Sort by team rank and position
-        df = df.sort_values(['Team_Rank', 'Team_Position'])
-        
-        # Save to CSV
-        output_path = f"~/ski/elo/python/ski/polars/relay/excel365/startlist_team_sprint_races_individuals_{gender}.csv"
-        
-        # Create directory if it doesn't exist
-        os.makedirs(os.path.dirname(os.path.expanduser(output_path)), exist_ok=True)
-        
-        df.to_csv(os.path.expanduser(output_path), index=False)
-        print(f"Saved {len(df)} {gender} individual athletes to {output_path}")
-    
-    except Exception as e:
-        print(f"Error saving team sprint individual data: {e}")
-        traceback.print_exc()
+    df = df.sort_values(['Team_Rank', 'Team_Position'])
+    _, output_path = startlist_paths("team_sprint", gender)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(output_path, index=False)
+    print(f"Saved {len(df)} {gender} individual athletes to {output_path}")
+    return output_path
 
-def save_team_sprint_team_data(df: pd.DataFrame, gender: str) -> None:
+def save_team_sprint_team_data(df: pd.DataFrame, gender: str) -> Path:
     """Save processed team sprint team data to a CSV file"""
-    try:
-        # Sort by team rank
-        df = df.sort_values(['Team_Rank'])
-        
-        # Save to CSV
-        output_path = f"~/ski/elo/python/ski/polars/relay/excel365/startlist_team_sprint_races_teams_{gender}.csv"
-        
-        # Create directory if it doesn't exist
-        os.makedirs(os.path.dirname(os.path.expanduser(output_path)), exist_ok=True)
-        
-        df.to_csv(os.path.expanduser(output_path), index=False)
-        print(f"Saved {len(df)} {gender} teams to {output_path}")
-    
-    except Exception as e:
-        print(f"Error saving team sprint team data: {e}")
-        traceback.print_exc()
+    df = df.sort_values(['Team_Rank'])
+    output_path, _ = startlist_paths("team_sprint", gender)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(output_path, index=False)
+    print(f"Saved {len(df)} {gender} teams to {output_path}")
+    return output_path
 
 def get_fantasy_teams(gender: str) -> Dict[str, Dict]:
     """Get team data from Fantasy XC API with gender filter"""
@@ -943,5 +929,7 @@ if __name__ == "__main__":
     gender = sys.argv[2] if len(sys.argv) > 2 else None
     
     # Process team sprint races
-    process_team_sprint_races(races_file, gender)
+    generated = process_team_sprint_races(races_file, gender)
+    if not generated:
+        raise RuntimeError("No valid team-sprint startlists were generated")
     run_prediction('races', 'team_sprint')

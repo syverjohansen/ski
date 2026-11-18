@@ -452,6 +452,11 @@ per relay team or two per team-sprint team, confirms every athlete against the
 FIS-derived individual list, rejects duplicate assignments, and verifies that
 the team Elo equals the sum of its member ratings. The checked-in 2026 relay
 and Olympic team-sprint startlists are regression fixtures for this contract.
+The race builders enforce the contract before invoking R, write separate men’s
+and women’s relay artifacts even when both races are dispatched together, and
+refuse to run predictions when no valid output was generated. Set
+`NORDIC_SKI_DATA_ROOT` and `NORDIC_TEAM_DATA_ROOT` to override the repository
+data directories in hosted runs.
 
 ## Data Flow
 
