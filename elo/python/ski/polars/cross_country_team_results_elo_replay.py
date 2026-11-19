@@ -333,6 +333,25 @@ def replay_team_results(
         rows.sort(key=lambda row: (row["Date"], row["Race"], row["Sex"], row["Place"]))
         _atomic_text(output_dir / filename, _csv_text(rows, list(TEAM_OUTPUT_FIELDS)))
 
+    output_files = (
+        "men_athlete_elo_rows.csv",
+        "ladies_athlete_elo_rows.csv",
+        *outputs,
+    )
+    output_receipts = {
+        filename: {
+            "sha256": hashlib.sha256((output_dir / filename).read_bytes()).hexdigest(),
+            "rows": (
+                athlete_counts["M"]
+                if filename == "men_athlete_elo_rows.csv"
+                else athlete_counts["L"]
+                if filename == "ladies_athlete_elo_rows.csv"
+                else len(outputs[filename])
+            ),
+        }
+        for filename in output_files
+    }
+
     after_hashes = {
         "men_chrono": hashlib.sha256(men_chrono.read_bytes()).hexdigest(),
         "ladies_chrono": hashlib.sha256(ladies_chrono.read_bytes()).hexdigest(),
@@ -347,6 +366,7 @@ def replay_team_results(
         "event_count": validate_team_memberships(mapped_results, mapped=True).event_count,
         "athlete_rows": athlete_counts,
         "team_rows": {filename: len(rows) for filename, rows in outputs.items()},
+        "outputs": output_receipts,
         "k_factors": k_report,
         "team_k_divisors": {"Rel": 4, "Ts": 2},
         "status": "replayed",
