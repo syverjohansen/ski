@@ -25,6 +25,10 @@ from cross_country_results_elo_replay import (
     ROLLOVER_DISCOUNT,
 )
 from cross_country_results_gap import ScheduleRace, audit_results
+from cross_country_team_event_audit import (
+    TeamScheduleEvent,
+    audit_team_events,
+)
 from schedule_contract import RACES_COLUMNS, infer_fis_season, read_csv
 
 
@@ -260,11 +264,18 @@ def _gap_label(item: ScheduleRace) -> str:
     return f"{item.date}/{item.sex}/race-{item.race}"
 
 
+def _team_gap_label(item: TeamScheduleEvent) -> str:
+    return f"{item.date}/{item.sex}/race-{item.race}/{item.distance}"
+
+
 def build_season_close(
     *,
     schedule: Path,
     men_chrono: Path,
     ladies_chrono: Path,
+    men_relay_chrono: Path,
+    ladies_relay_chrono: Path,
+    team_sprint_chrono: Path,
     season: int,
     as_of: date,
     output_root: Path,
@@ -280,13 +291,33 @@ def build_season_close(
             f"schedule season {schedule_season} does not match requested season {season}"
         )
     output_root = _validate_output_root(
-        output_root, (schedule, men_chrono, ladies_chrono)
+        output_root,
+        (
+            schedule,
+            men_chrono,
+            ladies_chrono,
+            men_relay_chrono,
+            ladies_relay_chrono,
+            team_sprint_chrono,
+        ),
     )
     audit = audit_results(schedule, men_chrono, ladies_chrono, close_date)
     if audit.missing:
         raise SeasonCloseError(
             "season has unprocessed scheduled individual results: "
             + ", ".join(_gap_label(item) for item in audit.missing)
+        )
+    team_audit = audit_team_events(
+        schedule=schedule,
+        men_relay_chrono=men_relay_chrono,
+        ladies_relay_chrono=ladies_relay_chrono,
+        team_sprint_chrono=team_sprint_chrono,
+        as_of=close_date,
+    )
+    if team_audit.missing:
+        raise SeasonCloseError(
+            "season has unprocessed scheduled team results: "
+            + ", ".join(_team_gap_label(item) for item in team_audit.missing)
         )
 
     outputs = [
@@ -309,13 +340,17 @@ def build_season_close(
         else "no_changes"
     )
     report: dict[str, object] = {
-        "schema_version": "nordicnumbers.cross-country-season-close/v1",
+        "schema_version": "nordicnumbers.cross-country-season-close/v2",
         "status": status,
         "season": season,
         "as_of": as_of.isoformat(),
         "close_date": close_date.isoformat(),
         "completed_individual_races": audit.completed_individual,
-        "completed_team_events_excluded": audit.completed_team_events,
+        "completed_team_events": team_audit.completed_team_events,
+        "covered_relay_events": team_audit.covered_relay_events,
+        "covered_team_sprint_events": team_audit.covered_team_sprint_events,
+        "accepted_team_rows": team_audit.accepted_team_rows,
+        "team_histories_closed_by": "validated_event_completeness",
         "rollover": {
             "timing": "delayed_until_first_next-season_result",
             "base_elo": BASE_ELO,
@@ -333,6 +368,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--schedule", required=True, type=Path)
     parser.add_argument("--men-chrono", required=True, type=Path)
     parser.add_argument("--ladies-chrono", required=True, type=Path)
+    parser.add_argument("--men-relay-chrono", required=True, type=Path)
+    parser.add_argument("--ladies-relay-chrono", required=True, type=Path)
+    parser.add_argument("--team-sprint-chrono", required=True, type=Path)
     parser.add_argument("--season", required=True, type=int)
     parser.add_argument("--as-of", required=True, type=date.fromisoformat)
     parser.add_argument("--output-root", required=True, type=Path)
@@ -346,6 +384,9 @@ def main() -> int:
             schedule=args.schedule,
             men_chrono=args.men_chrono,
             ladies_chrono=args.ladies_chrono,
+            men_relay_chrono=args.men_relay_chrono,
+            ladies_relay_chrono=args.ladies_relay_chrono,
+            team_sprint_chrono=args.team_sprint_chrono,
             season=args.season,
             as_of=args.as_of,
             output_root=args.output_root,
@@ -355,7 +396,7 @@ def main() -> int:
             _atomic_json(
                 args.output_root / "report.json",
                 {
-                    "schema_version": "nordicnumbers.cross-country-season-close/v1",
+                    "schema_version": "nordicnumbers.cross-country-season-close/v2",
                     "status": "failed",
                     "season": args.season,
                     "as_of": args.as_of.isoformat(),

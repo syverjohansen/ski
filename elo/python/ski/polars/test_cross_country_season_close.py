@@ -13,6 +13,7 @@ from cross_country_season_close import (
     build_closed_history,
     build_season_close,
 )
+from cross_country_team_event_audit import TeamEventAudit, TeamScheduleEvent
 
 ROOT = Path(__file__).resolve().parent
 SOURCE_RACES = ROOT / "excel365/races.csv"
@@ -103,6 +104,18 @@ def clean_audit() -> ScheduleAudit:
     )
 
 
+def clean_team_audit() -> TeamEventAudit:
+    return TeamEventAudit(
+        scheduled_team_events=8,
+        future_team_events=0,
+        completed_team_events=8,
+        covered_relay_events=6,
+        covered_team_sprint_events=2,
+        accepted_team_rows=64,
+        missing=(),
+    )
+
+
 class CrossCountrySeasonCloseTest(unittest.TestCase):
     def test_appends_undiscounted_race_zero_for_each_active_athlete(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -189,6 +202,9 @@ class CrossCountrySeasonCloseTest(unittest.TestCase):
                     schedule=root / "races.csv",
                     men_chrono=root / "men.csv",
                     ladies_chrono=root / "ladies.csv",
+                    men_relay_chrono=root / "men_relay.csv",
+                    ladies_relay_chrono=root / "ladies_relay.csv",
+                    team_sprint_chrono=root / "team_sprint.csv",
                     season=2027,
                     as_of=date(2027, 4, 30),
                     output_root=root / "output",
@@ -234,13 +250,22 @@ class CrossCountrySeasonCloseTest(unittest.TestCase):
                     schedule=sources / "races.csv",
                     men_chrono=sources / "men.csv",
                     ladies_chrono=sources / "ladies.csv",
+                    men_relay_chrono=sources / "men_relay.csv",
+                    ladies_relay_chrono=sources / "ladies_relay.csv",
+                    team_sprint_chrono=sources / "team_sprint.csv",
                     season=2027,
                     as_of=date(2027, 5, 1),
                     output_root=root / "output",
                 )
 
+    @patch(
+        "cross_country_season_close.audit_team_events",
+        return_value=clean_team_audit(),
+    )
     @patch("cross_country_season_close.audit_results", return_value=clean_audit())
-    def test_complete_close_records_excluded_team_events(self, _audit) -> None:
+    def test_complete_close_requires_covered_team_events(
+        self, _individual_audit, _team_audit
+    ) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             sources = root / "sources"
@@ -256,6 +281,9 @@ class CrossCountrySeasonCloseTest(unittest.TestCase):
                 schedule=schedule,
                 men_chrono=men,
                 ladies_chrono=ladies,
+                men_relay_chrono=sources / "men_relay.csv",
+                ladies_relay_chrono=sources / "ladies_relay.csv",
+                team_sprint_chrono=sources / "team_sprint.csv",
                 season=2027,
                 as_of=date(2027, 5, 1),
                 output_root=root / "output",
@@ -263,12 +291,62 @@ class CrossCountrySeasonCloseTest(unittest.TestCase):
 
             self.assertEqual("candidate", report["status"])
             self.assertEqual(72, report["completed_individual_races"])
-            self.assertEqual(8, report["completed_team_events_excluded"])
+            self.assertEqual(8, report["completed_team_events"])
+            self.assertEqual(6, report["covered_relay_events"])
+            self.assertEqual(2, report["covered_team_sprint_events"])
+            self.assertEqual(
+                "validated_event_completeness", report["team_histories_closed_by"]
+            )
             self.assertEqual(
                 "delayed_until_first_next-season_result",
                 report["rollover"]["timing"],
             )
             self.assertTrue((root / "output/report.json").is_file())
+
+    @patch("cross_country_season_close.audit_team_events")
+    @patch("cross_country_season_close.audit_results", return_value=clean_audit())
+    def test_missing_team_result_blocks_close(
+        self, _individual_audit, audit_team_events
+    ) -> None:
+        gap = TeamScheduleEvent(
+            date="2027-03-21",
+            sex="L",
+            season=2027,
+            race=41,
+            city="Finale",
+            country="Norway",
+            distance="Rel",
+            technique="N/A",
+            championship="0",
+            results_url="https://www.fis-ski.com/results",
+        )
+        team_audit = clean_team_audit()
+        audit_team_events.return_value = TeamEventAudit(
+            scheduled_team_events=team_audit.scheduled_team_events,
+            future_team_events=0,
+            completed_team_events=team_audit.completed_team_events,
+            covered_relay_events=team_audit.covered_relay_events - 1,
+            covered_team_sprint_events=team_audit.covered_team_sprint_events,
+            accepted_team_rows=team_audit.accepted_team_rows,
+            missing=(gap,),
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            sources = root / "sources"
+            sources.mkdir()
+            (sources / "races.csv").write_bytes(SOURCE_RACES.read_bytes())
+            with self.assertRaisesRegex(SeasonCloseError, "scheduled team results"):
+                build_season_close(
+                    schedule=sources / "races.csv",
+                    men_chrono=sources / "men.csv",
+                    ladies_chrono=sources / "ladies.csv",
+                    men_relay_chrono=sources / "men_relay.csv",
+                    ladies_relay_chrono=sources / "ladies_relay.csv",
+                    team_sprint_chrono=sources / "team_sprint.csv",
+                    season=2027,
+                    as_of=date(2027, 5, 1),
+                    output_root=root / "output",
+                )
 
 
 if __name__ == "__main__":
