@@ -90,6 +90,29 @@ class AlpineResultsPromoteTest(unittest.TestCase):
                     expected_season=2027,
                 )
 
+    def test_empty_other_sex_increment_preserves_history_byte_for_byte(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "source.csv"
+            increments = root / "increments.csv"
+            output = root / "candidate.csv"
+            write_csv(source, self.fields, [self.row(Sex="M")])
+            write_csv(increments, self.fields, [])
+
+            report = build_promoted_history(
+                source=source,
+                increments=increments,
+                output=output,
+                sex="M",
+                expected_season=2027,
+            )
+
+            self.assertEqual(output.read_bytes(), source.read_bytes())
+            self.assertEqual(report["appended_rows"], 0)
+            self.assertEqual(report["rollover_rows"], 0)
+            self.assertEqual(report["rollover_values"], 0)
+            self.assertEqual(report["output_sha256"], report["source_sha256"])
+
 
 if __name__ == "__main__":
     unittest.main()

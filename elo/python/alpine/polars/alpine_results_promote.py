@@ -15,8 +15,8 @@ import io
 import json
 import math
 import tempfile
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Iterable
 
 from alpine_results_elo_replay import BASE_ELO, PREVIOUS_COLUMNS, ROLLOVER_DISCOUNT
 
@@ -79,7 +79,23 @@ def build_promoted_history(
     if increment_header != header:
         raise PromotionError(f"increment header does not match {source}")
     if not increment_rows:
-        raise PromotionError(f"increment file is empty: {increments}")
+        # Alpine races are frequently scheduled for only one sex on a given day.
+        # Keep the other accepted history byte-for-byte unchanged until that sex
+        # has an actual result to append (and therefore a reason to apply its
+        # season rollover).
+        data = source.read_bytes()
+        _atomic_bytes(output, data)
+        return {
+            "sex": sex,
+            "accepted_rows": len(source_lines) - 1,
+            "appended_rows": 0,
+            "rollover_rows": 0,
+            "rollover_values": 0,
+            "source_sha256": _digest(source),
+            "increment_sha256": _digest(increments),
+            "output_sha256": hashlib.sha256(data).hexdigest(),
+            "output_file": output.name,
+        }
 
     existing_keys: set[tuple[int, int, str, str]] = set()
     promoted_lines = [source_lines[0]]
