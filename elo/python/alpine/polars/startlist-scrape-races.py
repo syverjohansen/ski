@@ -554,6 +554,7 @@ def build_parser() -> argparse.ArgumentParser:
     shadow.add_argument("--races", type=Path, required=True)
     shadow.add_argument("--men-history", type=Path, required=True)
     shadow.add_argument("--ladies-history", type=Path, required=True)
+    shadow.add_argument("--identity-aliases", type=Path, required=True)
     shadow.add_argument("--output-dir", type=Path, required=True)
     shadow.add_argument("--fixture-dir", type=Path)
     shadow.add_argument("--allow-network", action="store_true")
@@ -572,6 +573,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         races_path=args.races,
         men_history_path=args.men_history,
         ladies_history_path=args.ladies_history,
+        identity_aliases_path=args.identity_aliases,
         output_dir=args.output_dir,
         fixture_dir=args.fixture_dir,
         allow_network=args.allow_network,

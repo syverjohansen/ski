@@ -11,6 +11,7 @@ from the latest pre-race season in the rating history.
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import os
 import re
@@ -23,6 +24,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
+from alpine_results_identity import normalized_name
 from startlist_common import (
     determine_discipline_from_race_type,
     extract_individual_results,
@@ -51,6 +53,7 @@ RACES_COLUMNS = (
     "Race",
 )
 RESULT_ONLY_FIELDS = ("Rank", "Run1", "Run2", "Time", "Points")
+MIN_HISTORY_MATCH_RATE = 0.8
 
 
 class ReplayError(RuntimeError):
@@ -126,6 +129,7 @@ def parse_archived_results(html: str) -> tuple[list[dict], list[dict]]:
         participants.append(
             {
                 "ID": athlete_id,
+                "FISCompetitorID": athlete_id,
                 "FisCode": str(athlete.get("FisCode", "")).strip(),
                 "Name": name,
                 "Nation": str(athlete.get("Nation", "")).strip(),
@@ -141,6 +145,116 @@ def parse_archived_results(html: str) -> tuple[list[dict], list[dict]]:
             }
         )
     return participants, results
+
+
+def load_identity_aliases(path: Path | None) -> dict[tuple[str, str], dict[str, str]]:
+    if path is None:
+        return {}
+    if not path.is_file():
+        raise ReplayError(f"identity aliases are missing: {path}")
+    with path.open(newline="", encoding="utf-8-sig") as handle:
+        rows = list(csv.DictReader(handle))
+    aliases: dict[tuple[str, str], dict[str, str]] = {}
+    required = {
+        "sex",
+        "fis_competitor_id",
+        "fis_code",
+        "fis_name",
+        "canonical_id",
+        "canonical_name",
+    }
+    for row_number, row in enumerate(rows, start=2):
+        if not required.issubset(row):
+            raise ReplayError(f"{path}:{row_number}: incomplete identity alias schema")
+        cleaned = {key: str(row.get(key, "")).strip() for key in required}
+        if cleaned["sex"] not in {"M", "L"} or not all(cleaned.values()):
+            raise ReplayError(f"{path}:{row_number}: incomplete identity alias")
+        key = (cleaned["sex"], cleaned["fis_competitor_id"])
+        if key in aliases:
+            raise ReplayError(f"{path}:{row_number}: duplicate identity alias {key}")
+        aliases[key] = cleaned
+    return aliases
+
+
+def resolve_participant_identities(
+    participants: Iterable[dict],
+    history: pd.DataFrame,
+    sex: str,
+    aliases: dict[tuple[str, str], dict[str, str]],
+) -> tuple[list[dict], dict[str, object]]:
+    latest = latest_pre_race_scores(history)
+    canonical = {normalize_id(row["ID"]): row for _, row in latest.iterrows()}
+    name_index: dict[tuple[str, ...], set[str]] = {}
+    names_by_id: dict[str, set[str]] = {}
+    for _, row in history.iterrows():
+        athlete_id = normalize_id(row.get("ID"))
+        name = str(row.get("Skier") or "").strip()
+        if athlete_id and name:
+            name_index.setdefault(normalized_name(name), set()).add(athlete_id)
+            names_by_id.setdefault(athlete_id, set()).add(name)
+
+    resolved: list[dict] = []
+    counts = {
+        "reviewed_alias": 0,
+        "unique_normalized_name": 0,
+        "unmatched_newcomer": 0,
+    }
+    for participant in participants:
+        fis_competitor_id = normalize_id(
+            participant.get("FISCompetitorID") or participant.get("ID")
+        )
+        fis_code = str(participant.get("FisCode") or "").strip()
+        fis_name = str(participant.get("Name") or "").strip()
+        alias = aliases.get((sex, fis_competitor_id))
+        if alias:
+            if alias["fis_code"] != fis_code or alias["fis_name"] != fis_name:
+                raise ReplayError(
+                    f"FIS identity changed for reviewed alias {sex}/{fis_competitor_id}"
+                )
+            canonical_id = alias["canonical_id"]
+            if canonical_id not in canonical:
+                raise ReplayError(
+                    f"reviewed alias points to missing history ID {canonical_id}"
+                )
+            if alias["canonical_name"] not in names_by_id[canonical_id]:
+                raise ReplayError(
+                    "reviewed alias canonical name does not match history for "
+                    f"{sex}/{fis_competitor_id}"
+                )
+            method = "reviewed_alias"
+        else:
+            candidates = name_index.get(normalized_name(fis_name), set())
+            if len(candidates) > 1:
+                raise ReplayError(
+                    f"ambiguous history identity for {sex}/{fis_competitor_id} "
+                    f"{fis_name!r}: {sorted(candidates)}"
+                )
+            if candidates:
+                canonical_id = next(iter(candidates))
+                method = "unique_normalized_name"
+            else:
+                canonical_id = f"fis-{sex.lower()}-{fis_competitor_id}"
+                method = "unmatched_newcomer"
+
+        counts[method] += 1
+        resolved.append(
+            {
+                **participant,
+                "ID": canonical_id,
+                "FISCompetitorID": fis_competitor_id,
+                "IdentityMatchMethod": method,
+                "HistoryMatched": method != "unmatched_newcomer",
+            }
+        )
+
+    matched = counts["reviewed_alias"] + counts["unique_normalized_name"]
+    total = len(resolved)
+    return resolved, {
+        "athletes": total,
+        "history_matches": matched,
+        "history_match_rate": matched / total if total else 0.0,
+        "identity_match_methods": counts,
+    }
 
 
 def latest_pre_race_scores(history: pd.DataFrame) -> pd.DataFrame:
@@ -167,6 +281,7 @@ def generated_participants(history: pd.DataFrame) -> list[dict]:
     return [
         {
             "ID": normalize_id(row["ID"]),
+            "FISCompetitorID": "",
             "FisCode": "",
             "Name": str(row["Skier"]).strip(),
             "Nation": str(row["Nation"]).strip(),
@@ -203,6 +318,10 @@ def build_startlist(
             "FISName": str(participant["Name"]).strip(),
             "Skier": skier,
             "ID": athlete_id,
+            "FISCompetitorID": participant.get("FISCompetitorID", ""),
+            "FisCode": participant.get("FisCode", ""),
+            "IdentityMatchMethod": participant.get("IdentityMatchMethod", ""),
+            "HistoryMatched": participant.get("HistoryMatched", False),
             "Nation": nation,
             "StartOrder": order,
             "Bib": participant.get("Bib") or order,
@@ -289,9 +408,13 @@ def build_replay(
     ladies_history_path: Path,
     output_dir: Path,
     fixture_dir: Path | None = None,
+    identity_aliases_path: Path | None = None,
+    min_history_match_rate: float = MIN_HISTORY_MATCH_RATE,
     allow_network: bool = False,
     fetch_fn: Callable[[str], str] = fetch_html,
 ) -> dict:
+    if not 0 <= min_history_match_rate <= 1:
+        raise ReplayError("minimum history match rate must be between 0 and 1")
     races = pd.read_csv(races_path, dtype=str).fillna("")
     missing_columns = sorted(set(RACES_COLUMNS) - set(races.columns))
     if missing_columns:
@@ -311,6 +434,7 @@ def build_replay(
             pd.read_csv(ladies_history_path, low_memory=False), logical_date
         ),
     }
+    aliases = load_identity_aliases(identity_aliases_path)
     output_dir.mkdir(parents=True, exist_ok=True)
     atomic_csv(selected[list(RACES_COLUMNS)], output_dir / "races.csv")
     atomic_csv(histories["M"], output_dir / "men_chrono.csv")
@@ -346,6 +470,18 @@ def build_replay(
             if not participants:
                 participants = generated_participants(histories[sex])
                 source = "generated_pre_race_history"
+            participants, identity = resolve_participant_identities(
+                participants,
+                histories[sex],
+                sex,
+                aliases,
+            )
+            if identity["history_match_rate"] < min_history_match_rate:
+                raise ReplayError(
+                    f"{sex} race {race_id} history match rate "
+                    f"{identity['history_match_rate']:.1%} is below required "
+                    f"{min_history_match_rate:.1%}"
+                )
             probability_column = f"Race{index}_Prob"
             startlist = build_startlist(
                 race,
@@ -368,6 +504,7 @@ def build_replay(
                     "sex": sex,
                     "source": source,
                     "athletes": len(startlist),
+                    **identity,
                     "result_fields_in_prediction_input": False,
                 }
             )
@@ -398,6 +535,8 @@ def build_replay_atomic(
     ladies_history_path: Path,
     output_dir: Path,
     fixture_dir: Path | None = None,
+    identity_aliases_path: Path | None = None,
+    min_history_match_rate: float = MIN_HISTORY_MATCH_RATE,
     allow_network: bool = False,
     fetch_fn: Callable[[str], str] = fetch_html,
 ) -> dict:
@@ -405,7 +544,16 @@ def build_replay_atomic(
 
     validate_isolated_output(
         output_dir,
-        (races_path, men_history_path, ladies_history_path),
+        tuple(
+            path
+            for path in (
+                races_path,
+                men_history_path,
+                ladies_history_path,
+                identity_aliases_path,
+            )
+            if path is not None
+        ),
     )
     output_dir = output_dir.expanduser().resolve()
     if output_dir.exists():
@@ -425,6 +573,8 @@ def build_replay_atomic(
             ladies_history_path=ladies_history_path,
             output_dir=staging,
             fixture_dir=fixture_dir,
+            identity_aliases_path=identity_aliases_path,
+            min_history_match_rate=min_history_match_rate,
             allow_network=allow_network,
             fetch_fn=fetch_fn,
         )
@@ -443,6 +593,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--ladies-history", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--fixture-dir", type=Path)
+    parser.add_argument("--identity-aliases", type=Path)
+    parser.add_argument(
+        "--min-history-match-rate",
+        type=float,
+        default=MIN_HISTORY_MATCH_RATE,
+    )
     parser.add_argument("--allow-network", action="store_true")
     return parser.parse_args()
 
@@ -456,6 +612,8 @@ def main() -> int:
         ladies_history_path=args.ladies_history,
         output_dir=args.output_dir,
         fixture_dir=args.fixture_dir,
+        identity_aliases_path=args.identity_aliases,
+        min_history_match_rate=args.min_history_match_rate,
         allow_network=args.allow_network,
     )
     print(json.dumps(report, indent=2, sort_keys=True))
