@@ -23,9 +23,9 @@ FIXTURES = ROOT / "tests" / "fixtures"
 
 def history_rows() -> list[dict]:
     athletes = [
-        ("237841", "AICHER Emma", "GER", 1500),
-        ("269077", "COLTURI Lara", "ALB", 1490),
-        ("175818", "TRUPPE Katharina", "AUT", 1480),
+        ("4194", "Emma Aicher", "GER", 1500),
+        ("5268", "Lara Colturi", "ALB", 1490),
+        ("1345", "Katharina Truppe", "AUT", 1480),
     ]
     rows = []
     for athlete_id, skier, nation, elo in athletes:
@@ -138,6 +138,9 @@ class AlpineStartlistReplayTests(unittest.TestCase):
             self.assertEqual("passed", report["status"])
             self.assertEqual("disabled", report["publication"]["status"])
             self.assertEqual("historical_result_proxy", report["races"][0]["source"])
+            self.assertEqual({1345, 4194, 5268}, set(startlist["ID"]))
+            self.assertEqual({True}, set(startlist["HistoryMatched"]))
+            self.assertEqual(1.0, report["races"][0]["history_match_rate"])
             self.assertEqual({1.0}, set(startlist["Race1_Prob"]))
             self.assertFalse(set(RESULT_ONLY_FIELDS) & set(startlist.columns))
             self.assertEqual({"2026-11-13"}, set(filtered_history["Date"]))
@@ -164,6 +167,50 @@ class AlpineStartlistReplayTests(unittest.TestCase):
             self.assertEqual(3, len(startlist))
             self.assertEqual({1.0}, set(startlist["Race1_Prob"]))
             self.assertEqual({True}, set(startlist["In_Startlist"]))
+
+    def test_replay_rejects_a_field_with_no_history_overlap(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="alpine-unmatched-") as text:
+            root = Path(text)
+            races, men, ladies = write_inputs(root)
+            history = pd.read_csv(ladies)
+            history["Skier"] = [f"Unknown {index}" for index in range(len(history))]
+            history.to_csv(ladies, index=False)
+
+            with self.assertRaisesRegex(RuntimeError, "history match rate 0.0%"):
+                build_replay(
+                    logical_date="11/14/2026",
+                    races_path=races,
+                    men_history_path=men,
+                    ladies_history_path=ladies,
+                    output_dir=root / "output",
+                    fixture_dir=FIXTURES,
+                )
+
+    def test_reviewed_alias_is_preferred_over_name_matching(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="alpine-alias-") as text:
+            root = Path(text)
+            races, men, ladies = write_inputs(root)
+            aliases = root / "aliases.csv"
+            aliases.write_text(
+                "sex,fis_competitor_id,fis_code,fis_name,canonical_id,canonical_name\n"
+                "L,237841,507168,AICHER Emma,4194,Emma Aicher\n",
+                encoding="utf-8",
+            )
+
+            report = build_replay(
+                logical_date="11/14/2026",
+                races_path=races,
+                men_history_path=men,
+                ladies_history_path=ladies,
+                identity_aliases_path=aliases,
+                output_dir=root / "output",
+                fixture_dir=FIXTURES,
+            )
+
+            self.assertEqual(
+                1,
+                report["races"][0]["identity_match_methods"]["reviewed_alias"],
+            )
 
     def test_multiple_races_preserve_new_athlete_data_and_probability_masks(
         self,
@@ -253,6 +300,11 @@ class AlpineStartlistReplayTests(unittest.TestCase):
             source = root / "source"
             source.mkdir()
             races, men, ladies = write_inputs(source)
+            aliases = source / "fis_identity_aliases.csv"
+            aliases.write_text(
+                "sex,fis_competitor_id,fis_code,fis_name,canonical_id,canonical_name\n",
+                encoding="utf-8",
+            )
             before = {path: path.read_bytes() for path in (races, men, ladies)}
             output = root / "runs" / "replay"
 
@@ -267,6 +319,8 @@ class AlpineStartlistReplayTests(unittest.TestCase):
                     str(men),
                     "--ladies-history",
                     str(ladies),
+                    "--identity-aliases",
+                    str(aliases),
                     "--output-dir",
                     str(output),
                     "--fixture-dir",
