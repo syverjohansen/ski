@@ -20,7 +20,7 @@
     }
   },
   "russian_domestic_bridge": {
-    "status": "fixed_anchor_calibration_harness_implemented_pending_cohort",
+    "status": "fixed_anchor_cohort_builder_implemented_pending_evidence_review",
     "source_domain": "flgr-results.ru",
     "purpose": "Maintain prediction form for returning and new Russian athletes during gaps in FIS participation.",
     "legacy_implementation": {
@@ -57,7 +57,7 @@
       "offseason_rule": "Apply the accepted cross-country offseason regression to every completed season in the bridge replay.",
       "replay_artifact": "flgr-bridge-ledger.csv",
       "replay_publication_eligible": false,
-      "replay_calibration_status": "fixed_anchor_harness_implemented_pending_cohort",
+      "replay_calibration_status": "fixed_anchor_cohort_builder_implemented_pending_review",
       "replay_k_factor": null,
       "backtest_artifacts": [
         "flgr-bridge-backtest-cases.csv",
@@ -96,6 +96,7 @@
   "hosted_modules": [
     "cross_country_fis_prediction_acquire.py",
     "cross_country_fis_prediction_backtest.py",
+    "cross_country_fis_prediction_cohort.py",
     "cross_country_fis_prediction_identity.py",
     "cross_country_fis_prediction_replay.py",
     "cross_country_flgr_bridge_backtest.py",

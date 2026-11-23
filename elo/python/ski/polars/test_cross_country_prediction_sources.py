@@ -107,6 +107,11 @@ class CrossCountryPredictionSourceTests(unittest.TestCase):
         self.assertEqual(policy["prediction_elo"]["unknown_vs_unknown"], "ignored")
         self.assertFalse(policy["prediction_elo"]["verified_anchor_updates"])
         self.assertFalse(policy["fis_prediction_sources"]["accepted_history_target"])
+        cohort = policy["calibration_cohort"]
+        self.assertEqual(cohort["minimum_reviewed_athletes"], 20)
+        self.assertTrue(cohort["unique_name_matches_are_proposals_only"])
+        self.assertFalse(cohort["automatic_approvals"])
+        self.assertFalse(cohort["accepted_history_target"])
 
 
 if __name__ == "__main__":

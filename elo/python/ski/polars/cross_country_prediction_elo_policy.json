@@ -1,6 +1,6 @@
 {
   "schema_version": "nordicnumbers.cross-country-prediction-elo-policy/v1",
-  "status": "fixed_anchor_calibration_harness_implemented_pending_cohort",
+  "status": "fixed_anchor_cohort_builder_implemented_pending_evidence_review",
   "official_elo": {
     "fis_categories": ["OWG", "SWC", "WC", "WSC"],
     "description": "Only classified Olympics, Tour de Ski/Stage World Cup, World Cup, and World Championship results update accepted Elo.",
@@ -27,6 +27,14 @@
     "stable_event_identity": "FIS raceid",
     "stable_athlete_identity": "FIS competitorid and FIS code",
     "deduplicate_against_a_tier": true
+  },
+  "calibration_cohort": {
+    "minimum_reviewed_athletes": 20,
+    "reviewed_aliases_remain_reviewed": true,
+    "unique_name_matches_are_proposals_only": true,
+    "automatic_approvals": false,
+    "requires_pre_debut_lower_tier_evidence": true,
+    "accepted_history_target": false
   },
   "excluded_fis_categories": ["CIT", "MAS", "ML", "WLC"],
   "national_source_fallback": "Use a reviewed national source only when the race is absent from FIS, under the identical fixed-anchor comparison contract."
