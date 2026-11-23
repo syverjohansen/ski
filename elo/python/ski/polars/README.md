@@ -149,6 +149,26 @@ prediction replay and never inserts domestic races into the official FIS
 archive. The legacy scripts remain research references while this replacement
 is implemented and backtested.
 
+The first safe acquisition slice operates on a saved FLGR race page and writes
+only to an empty candidate directory:
+
+```bash
+python cross_country_flgr_results.py \
+  --race-html /path/to/flgr-race.html \
+  --source-url https://flgr-results.ru/results/77/88 \
+  --season 2027 \
+  --sex M \
+  --as-of 2026-11-23 \
+  --output-dir /tmp/nordicnumbers-flgr-candidate
+```
+
+The command derives stable `flgr:<competition-id>:<race-id>` and
+`flgr:<competitor-id>` identities, hashes the source page, maps an autumn race
+in season 2027 to calendar year 2026, and rejects future-dated, incomplete,
+duplicate-athlete, team, qualification, and roller-ski evidence. It produces an
+isolated JSON manifest and normalized CSV; it performs no network request and
+does not modify accepted FIS or prediction histories.
+
 ### Schedule contract (`schedule_contract.py`)
 
 `excel365/races.csv` is the canonical one-row-per-race schedule.

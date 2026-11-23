@@ -76,6 +76,7 @@
     "russia_ladies_scrape.csv"
   ],
   "hosted_modules": [
+    "cross_country_flgr_results.py",
     "cross_country_results_gap.py",
     "cross_country_results_backfill.py",
     "cross_country_results_identity.py",
