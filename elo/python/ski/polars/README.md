@@ -215,6 +215,34 @@ as not publication eligible. It neither edits the official FIS archive nor
 connects bridge ratings to live predictions; backtesting and startlist-gated
 prediction selection are subsequent reviewed steps.
 
+Backtest multiple identically shaped replay candidates before choosing a K
+factor:
+
+```bash
+python cross_country_flgr_bridge_backtest.py \
+  --bridge-ledger k1=/tmp/replay-k1/flgr-bridge-ledger.csv \
+  --bridge-ledger k5=/tmp/replay-k5/flgr-bridge-ledger.csv \
+  --men-chrono excel365/men_chrono.csv \
+  --ladies-chrono excel365/ladies_chrono.csv \
+  --minimum-athletes 20 \
+  --output-dir /tmp/nordicnumbers-flgr-backtest
+```
+
+For each reviewed athlete, the tool selects the first accepted FIS race after
+their final supplied FLGR event. It evaluates stale FIS Elo and every candidate
+against each opponent in that race using pairwise Brier error and directional
+accuracy. An operator may also provide a normalized legacy ledger with
+`--legacy-ledger`; legacy results remain explicitly quarantined benchmark data
+and never become an input to production.
+
+Candidate ledgers must cover identical athlete/event endpoints, source files
+remain byte-for-byte unchanged, and a recommendation requires both the
+configured minimum number of distinct returning athletes and lower Brier error
+than stale FIS Elo. The detailed cases and report remain prediction-only and
+always set `publication_eligible` to false. Until real reviewed FLGR history
+meets that evidence threshold, the policy remains `pending_evidence` and no
+bridge rating is connected to live predictions.
+
 ### Schedule contract (`schedule_contract.py`)
 
 `excel365/races.csv` is the canonical one-row-per-race schedule.

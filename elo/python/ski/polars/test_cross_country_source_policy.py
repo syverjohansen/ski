@@ -36,7 +36,9 @@ class CrossCountrySourcePolicyTests(unittest.TestCase):
     def test_russian_domestic_bridge_is_required(self):
         bridge = self.policy["russian_domestic_bridge"]
 
-        self.assertEqual(bridge["status"], "replay_implemented_pending_backtest")
+        self.assertEqual(
+            bridge["status"], "backtest_harness_implemented_pending_evidence"
+        )
         self.assertEqual(bridge["source_domain"], "flgr-results.ru")
         self.assertGreaterEqual(len(bridge["implementation_requirements"]), 6)
 
@@ -59,6 +61,7 @@ class CrossCountrySourcePolicyTests(unittest.TestCase):
         self.assertTrue(contract["future_dated_results_are_rejected"])
         self.assertFalse(contract["replay_publication_eligible"])
         self.assertEqual(contract["replay_calibration_status"], "pending_backtest")
+        self.assertIn("lower Brier error", contract["backtest_rule"])
         self.assertIn("established FIS athletes", contract["new_athlete_rating_rule"])
         self.assertIn(
             "official target-race FIS startlist", contract["prediction_selection"]
