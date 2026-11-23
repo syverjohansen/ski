@@ -1,3 +1,4 @@
+import csv
 import json
 import unittest
 from pathlib import Path
@@ -38,7 +39,7 @@ class CrossCountrySourcePolicyTests(unittest.TestCase):
 
         self.assertEqual(
             bridge["status"],
-            "post_ban_evidence_acquisition_implemented_pending_identity_review",
+            "post_ban_identity_reviewed_pending_holdout_replay",
         )
         self.assertEqual(bridge["source_domain"], "flgr-results.ru")
         self.assertGreaterEqual(len(bridge["implementation_requirements"]), 6)
@@ -67,6 +68,32 @@ class CrossCountrySourcePolicyTests(unittest.TestCase):
         self.assertIn("established FIS athletes", contract["new_athlete_rating_rule"])
         self.assertIn(
             "official target-race FIS startlist", contract["prediction_selection"]
+        )
+
+    def test_post_ban_holdout_identities_are_reviewed_explicitly(self):
+        crosswalk_path = (
+            ROOT
+            / self.policy["russian_domestic_bridge"]["target_contract"][
+                "crosswalk_path"
+            ]
+        )
+        with crosswalk_path.open(newline="", encoding="utf-8") as handle:
+            rows = list(csv.DictReader(handle))
+
+        self.assertEqual(
+            {
+                (
+                    row["sex"],
+                    row["flgr_competitor_id"],
+                    row["canonical_athlete_id"],
+                    row["status"],
+                )
+                for row in rows
+            },
+            {
+                ("M", "109411", "13188", "reviewed"),
+                ("L", "204470", "6555", "reviewed"),
+            },
         )
 
     def test_preserved_legacy_scripts_are_labeled_research_only(self):
