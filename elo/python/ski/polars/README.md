@@ -243,6 +243,32 @@ always set `publication_eligible` to false. Until real reviewed FLGR history
 meets that evidence threshold, the policy remains `pending_evidence` and no
 bridge rating is connected to live predictions.
 
+Acquire the explicitly approved historical pages into an operator-owned
+directory outside Git with:
+
+```bash
+python cross_country_flgr_evidence_acquire.py \
+  --manifest excel365/flgr_historical_evidence_manifest.csv \
+  --as-of 2026-11-23 \
+  --output-dir /tmp/nordicnumbers-flgr-evidence
+```
+
+The initial manifest contains the 15 classified individual races in the final
+three domestic competition blocks before Saveliy Korostelev and Dariya
+Nepryaeva returned to FIS racing on 2025-12-13. Each URL is HTTPS and explicit;
+the downloader never crawls arbitrary links. It validates the current FLGR
+page markup, requires the expected source athlete to be classified, hashes and
+stores the raw page, writes a normalized candidate, and produces a review
+index. Proposed canonical IDs remain `proposed_requires_review`; acquisition
+never edits the reviewed crosswalk or applies a mapping.
+
+Raw pages are intentionally excluded from Git and must be written to a new,
+empty external directory. The checked-in manifest is only the reproducible
+locator and review intent. The two post-ban returners form a holdout cohort,
+not a sufficient calibration sample; older pre-ban domestic-to-FIS returns
+must be added as a separate `historical_calibration` cohort before the bridge
+can meet its evidence threshold.
+
 ### Schedule contract (`schedule_contract.py`)
 
 `excel365/races.csv` is the canonical one-row-per-race schedule.
