@@ -39,7 +39,7 @@ class CrossCountrySourcePolicyTests(unittest.TestCase):
 
         self.assertEqual(
             bridge["status"],
-            "historical_calibration_complete_pending_holdout_replay",
+            "fixed_anchor_contract_defined_pending_recalibration",
         )
         self.assertEqual(bridge["source_domain"], "flgr-results.ru")
         self.assertGreaterEqual(len(bridge["implementation_requirements"]), 6)
@@ -65,18 +65,16 @@ class CrossCountrySourcePolicyTests(unittest.TestCase):
         self.assertFalse(contract["replay_publication_eligible"])
         self.assertEqual(
             contract["replay_calibration_status"],
-            "historical_calibration_complete_pending_holdout",
+            "superseded_pending_fixed_anchor_recalibration",
         )
-        self.assertEqual(contract["replay_k_factor"], 2.0)
+        self.assertIsNone(contract["replay_k_factor"])
         calibration_path = ROOT / contract["calibration_decision"]
         calibration = json.loads(calibration_path.read_text(encoding="utf-8"))
-        self.assertEqual(calibration["selected_k_factor"], 2.0)
+        self.assertIsNone(calibration["selected_k_factor"])
+        self.assertEqual(calibration["historical_all_participant_k_factor"], 2.0)
         self.assertEqual(calibration["evaluated_athletes"], 22)
         self.assertGreaterEqual(calibration["evaluated_athletes"], 20)
-        self.assertLess(
-            calibration["metrics"]["bridge_k2"]["brier_score"],
-            calibration["metrics"]["stale_fis"]["brier_score"],
-        )
+        self.assertEqual(calibration["status"], "superseded_by_fixed_anchor_contract")
         self.assertFalse(calibration["publication_eligible"])
         self.assertIn("lower Brier error", contract["backtest_rule"])
         self.assertIn("established FIS athletes", contract["new_athlete_rating_rule"])

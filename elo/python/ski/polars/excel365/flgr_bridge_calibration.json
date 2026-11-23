@@ -2,10 +2,11 @@
   "schema_version": "nordicnumbers.flgr-bridge-calibration-decision/v1",
   "as_of": "2026-11-23",
   "cohort": "historical_calibration",
-  "status": "historical_calibration_complete_pending_holdout",
+  "status": "superseded_by_fixed_anchor_contract",
   "publication_eligible": false,
   "selection_rule": "Choose a bridge candidate only after at least 20 distinct returning athletes and a lower pairwise Brier score than stale accepted FIS Elo.",
-  "selected_k_factor": 2.0,
+  "selected_k_factor": null,
+  "historical_all_participant_k_factor": 2.0,
   "evaluated_athletes": 22,
   "comparisons": 1661,
   "athletes_without_return": [],
@@ -38,5 +39,6 @@
     "k5": "a038f9770b76d8787fea9727ee72acba0c17e29e00ca913675581ccaafb5d927"
   },
   "official_histories_modified": false,
-  "next_gate": "Replay the independent post_ban_holdout cohort with K=2 before connecting bridge ratings to prediction inputs."
+  "superseded_reason": "This experiment allowed established anchors and unverified athletes to exchange Elo. The accepted contract keeps prior A-tier athletes fixed and ignores unknown-versus-unknown comparisons.",
+  "next_gate": "Acquire lower-tier FIS evidence and recalibrate using only never-A-tier athlete comparisons against fixed A-tier anchors."
 }

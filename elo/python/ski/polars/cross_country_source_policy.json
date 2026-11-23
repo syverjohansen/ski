@@ -20,7 +20,7 @@
     }
   },
   "russian_domestic_bridge": {
-    "status": "historical_calibration_complete_pending_holdout_replay",
+    "status": "fixed_anchor_contract_defined_pending_recalibration",
     "source_domain": "flgr-results.ru",
     "purpose": "Maintain prediction form for returning and new Russian athletes during gaps in FIS participation.",
     "legacy_implementation": {
@@ -57,8 +57,8 @@
       "offseason_rule": "Apply the accepted cross-country offseason regression to every completed season in the bridge replay.",
       "replay_artifact": "flgr-bridge-ledger.csv",
       "replay_publication_eligible": false,
-      "replay_calibration_status": "historical_calibration_complete_pending_holdout",
-      "replay_k_factor": 2.0,
+      "replay_calibration_status": "superseded_pending_fixed_anchor_recalibration",
+      "replay_k_factor": null,
       "backtest_artifacts": [
         "flgr-bridge-backtest-cases.csv",
         "flgr-bridge-backtest-report.json"
