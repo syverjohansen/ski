@@ -39,7 +39,7 @@ class CrossCountrySourcePolicyTests(unittest.TestCase):
 
         self.assertEqual(
             bridge["status"],
-            "fixed_anchor_calibration_harness_implemented_pending_cohort",
+            "fixed_anchor_cohort_builder_implemented_pending_evidence_review",
         )
         self.assertEqual(bridge["source_domain"], "flgr-results.ru")
         self.assertGreaterEqual(len(bridge["implementation_requirements"]), 6)
@@ -65,7 +65,7 @@ class CrossCountrySourcePolicyTests(unittest.TestCase):
         self.assertFalse(contract["replay_publication_eligible"])
         self.assertEqual(
             contract["replay_calibration_status"],
-            "fixed_anchor_harness_implemented_pending_cohort",
+            "fixed_anchor_cohort_builder_implemented_pending_review",
         )
         self.assertIsNone(contract["replay_k_factor"])
         calibration_path = ROOT / contract["calibration_decision"]

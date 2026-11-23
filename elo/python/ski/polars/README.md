@@ -311,6 +311,25 @@ prediction ledger. Matching discipline streams update independently and every
 missed season applies the normal offseason regression. The K factor remains an
 explicit research parameter pending calibration against first A-tier debuts.
 
+Build a review queue from one or more acquired lower-tier result batches:
+
+```bash
+python cross_country_fis_prediction_cohort.py \
+  --results /tmp/fis-2025/fis-prediction-results.csv \
+  --results /tmp/fis-2026/fis-prediction-results.csv \
+  --men-chrono excel365/men_chrono.csv \
+  --ladies-chrono excel365/ladies_chrono.csv \
+  --aliases excel365/fis_identity_aliases.csv \
+  --minimum-athletes 20 \
+  --output-dir /tmp/nordicnumbers-fis-calibration-cohort
+```
+
+The cohort builder keeps existing reviewed aliases reviewed, but an exact,
+unique name match is only a `proposed_unique_name`. It records the last
+lower-tier result before the athlete's first accepted A-tier race so an
+operator can review the identity evidence. Proposed rows never count toward
+the 20-athlete calibration gate until explicitly reviewed.
+
 Backtest several identically shaped replay ledgers with reviewed identities:
 
 ```bash
