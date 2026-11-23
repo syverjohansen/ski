@@ -1,6 +1,6 @@
 {
   "schema_version": "nordicnumbers.cross-country-prediction-elo-policy/v1",
-  "status": "fixed_anchor_cohort_builder_implemented_pending_evidence_review",
+  "status": "fixed_anchor_calibration_cohort_reviewed",
   "official_elo": {
     "fis_categories": ["OWG", "SWC", "WC", "WSC"],
     "description": "Only classified Olympics, Tour de Ski/Stage World Cup, World Cup, and World Championship results update accepted Elo.",
@@ -30,6 +30,8 @@
   },
   "calibration_cohort": {
     "minimum_reviewed_athletes": 20,
+    "reviewed_athletes": 20,
+    "reviewed_crosswalk": "excel365/fis_prediction_calibration_crosswalk.csv",
     "reviewed_aliases_remain_reviewed": true,
     "unique_name_matches_are_proposals_only": true,
     "automatic_approvals": false,

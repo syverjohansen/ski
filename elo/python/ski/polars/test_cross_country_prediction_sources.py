@@ -1,3 +1,4 @@
+import csv
 import json
 import unittest
 from pathlib import Path
@@ -112,6 +113,41 @@ class CrossCountryPredictionSourceTests(unittest.TestCase):
         self.assertTrue(cohort["unique_name_matches_are_proposals_only"])
         self.assertFalse(cohort["automatic_approvals"])
         self.assertFalse(cohort["accepted_history_target"])
+
+    def test_calibration_crosswalk_has_reviewed_balanced_minimum(self):
+        policy = json.loads(
+            (ROOT / "cross_country_prediction_elo_policy.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        cohort = policy["calibration_cohort"]
+        crosswalk_path = ROOT / cohort["reviewed_crosswalk"]
+        aliases_path = ROOT / "excel365" / "fis_identity_aliases.csv"
+        with crosswalk_path.open(newline="", encoding="utf-8") as handle:
+            rows = list(csv.DictReader(handle))
+        with aliases_path.open(newline="", encoding="utf-8") as handle:
+            aliases = {
+                (row["sex"], row["fis_competitor_id"]): row
+                for row in csv.DictReader(handle)
+            }
+
+        self.assertEqual(len(rows), cohort["reviewed_athletes"])
+        self.assertGreaterEqual(len(rows), cohort["minimum_reviewed_athletes"])
+        self.assertEqual({row["sex"] for row in rows}, {"M", "L"})
+        self.assertEqual({row["status"] for row in rows}, {"reviewed"})
+        self.assertEqual(
+            len({(row["sex"], row["fis_competitor_id"]) for row in rows}),
+            len(rows),
+        )
+        for row in rows:
+            self.assertEqual(
+                row["prediction_athlete_id"], f"fis:{row['fis_competitor_id']}"
+            )
+            self.assertIn("first accepted A-tier race", row["evidence"])
+            alias = aliases[(row["sex"], row["fis_competitor_id"])]
+            self.assertEqual(alias["fis_code"], row["fis_code"])
+            self.assertEqual(alias["canonical_id"], row["canonical_athlete_id"])
+            self.assertEqual(alias["canonical_name"], row["canonical_name"])
 
 
 if __name__ == "__main__":
