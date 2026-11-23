@@ -31,6 +31,22 @@ def candidate_from_fixture(name: str, *, as_of: date = date(2026, 11, 23)):
 
 
 class FlgrResultsContractTests(unittest.TestCase):
+    def test_current_flgr_markup_uses_specification_date_and_heading_city(self):
+        candidate = build_race_candidate(
+            (FIXTURES / "current-markup-race.html").read_bytes(),
+            source_url=SOURCE_URL,
+            season=2027,
+            sex="M",
+            as_of=date(2026, 11, 23),
+            retrieved_at=datetime(2026, 11, 23, 14, 0, tzinfo=UTC),
+        )
+
+        self.assertEqual(candidate["date"], "2026-11-23")
+        self.assertEqual(candidate["source_city"], "г. Тюмень")
+        self.assertEqual(candidate["distance"], "10")
+        self.assertEqual(candidate["technique"], "F")
+        self.assertEqual(len(candidate["results"]), 2)
+
     def test_season_year_maps_autumn_to_previous_calendar_year(self):
         self.assertEqual(parse_season_date("23.11", 2027), date(2026, 11, 23))
         self.assertEqual(parse_season_date("10.02", 2027), date(2027, 2, 10))
