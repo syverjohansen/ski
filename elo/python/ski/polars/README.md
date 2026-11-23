@@ -294,6 +294,23 @@ with no prior A-tier result retain `fis:<competitorid>` prediction identities.
 It emits only unknown-to-anchor comparisons; unknown ordering is absent, so
 two unknowns between the same verified finishers receive identical evidence.
 
+Replay prediction ratings for never-A-tier athletes only:
+
+```bash
+python cross_country_fis_prediction_replay.py \
+  --participants /tmp/nordicnumbers-fis-prediction-identities/fis-prediction-participants.csv \
+  --comparisons /tmp/nordicnumbers-fis-prediction-identities/fis-anchor-comparisons.csv \
+  --k-factor 1.0 \
+  --output-dir /tmp/nordicnumbers-fis-prediction-replay
+```
+
+Each prediction identity starts from the private `1300` prior. Only direct
+outcomes against fixed A-tier anchors update it; anchor-free appearances carry
+the prior rating forward unchanged, and verified participants never enter the
+prediction ledger. Matching discipline streams update independently and every
+missed season applies the normal offseason regression. The K factor remains an
+explicit research parameter pending calibration against first A-tier debuts.
+
 Acquire the explicitly approved historical pages into an operator-owned
 directory outside Git with:
 
