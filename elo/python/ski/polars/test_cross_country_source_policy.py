@@ -16,28 +16,50 @@ class CrossCountrySourcePolicyTests(unittest.TestCase):
 
         self.assertEqual(
             self.policy["schema_version"],
-            "nordicnumbers.cross-country-source-policy/v1",
+            "nordicnumbers.cross-country-source-policy/v2",
         )
-        self.assertEqual(boundary["results"]["authority"], "FIS")
+        self.assertEqual(boundary["official_history"]["authority"], "FIS")
         self.assertEqual(boundary["participants"]["authority"], "FIS")
+        self.assertFalse(
+            boundary["participants"][
+                "domestic_participation_grants_prediction_eligibility"
+            ]
+        )
+        self.assertTrue(
+            boundary["prediction_history"]["must_not_replace_official_history"]
+        )
         self.assertEqual(
-            boundary["results"]["accepted_histories"],
+            boundary["official_history"]["accepted_histories"],
             ["excel365/men_chrono.csv", "excel365/ladies_chrono.csv"],
         )
 
-    def test_russian_domestic_augmentation_is_not_publishable(self):
-        augmentation = self.policy["russian_domestic_augmentation"]
+    def test_russian_domestic_bridge_is_required(self):
+        bridge = self.policy["russian_domestic_bridge"]
 
-        self.assertEqual(
-            augmentation["status"], "retired_from_hosted_predictions"
+        self.assertEqual(bridge["status"], "required_not_yet_implemented")
+        self.assertEqual(bridge["source_domain"], "flgr-results.ru")
+        self.assertGreaterEqual(len(bridge["implementation_requirements"]), 6)
+
+        legacy = bridge["legacy_implementation"]
+        self.assertEqual(legacy["status"], "quarantined_pending_replacement")
+        self.assertFalse(legacy["publication_eligible"])
+        self.assertGreaterEqual(len(legacy["reasons"]), 4)
+
+    def test_new_athletes_accumulate_namespaced_bridge_ratings(self):
+        contract = self.policy["russian_domestic_bridge"]["target_contract"]
+
+        self.assertEqual(contract["athlete_identity"], "flgr:<source_competitor_id>")
+        self.assertEqual(contract["event_identity"], "flgr:<source_event_id>")
+        self.assertEqual(contract["new_athlete_initial_elo"], 1300)
+        self.assertTrue(contract["fuzzy_matches_are_suggestions_only"])
+        self.assertTrue(contract["future_dated_results_are_rejected"])
+        self.assertIn("established FIS athletes", contract["new_athlete_rating_rule"])
+        self.assertIn(
+            "official target-race FIS startlist", contract["prediction_selection"]
         )
-        self.assertFalse(augmentation["publication_eligible"])
-        self.assertEqual(augmentation["source_domain"], "flgr-results.ru")
-        self.assertGreaterEqual(len(augmentation["reasons"]), 4)
-        self.assertGreaterEqual(len(augmentation["reactivation_requirements"]), 5)
 
     def test_preserved_legacy_scripts_are_labeled_research_only(self):
-        scripts = self.policy["russian_domestic_augmentation"][
+        scripts = self.policy["russian_domestic_bridge"]["legacy_implementation"][
             "preserved_research_only_scripts"
         ]
 
@@ -47,8 +69,8 @@ class CrossCountrySourcePolicyTests(unittest.TestCase):
         for relative_path in scripts:
             self.assertTrue((ROOT / relative_path).is_file(), relative_path)
 
-    def test_hosted_modules_do_not_read_retired_inputs(self):
-        forbidden_inputs = self.policy["forbidden_hosted_inputs"]
+    def test_hosted_modules_do_not_read_quarantined_legacy_inputs(self):
+        forbidden_inputs = self.policy["forbidden_legacy_hosted_inputs"]
 
         for relative_path in self.policy["hosted_modules"]:
             source_path = ROOT / relative_path
