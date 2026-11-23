@@ -20,7 +20,7 @@
     }
   },
   "russian_domestic_bridge": {
-    "status": "post_ban_identity_reviewed_pending_holdout_replay",
+    "status": "historical_calibration_complete_pending_holdout_replay",
     "source_domain": "flgr-results.ru",
     "purpose": "Maintain prediction form for returning and new Russian athletes during gaps in FIS participation.",
     "legacy_implementation": {
@@ -47,6 +47,7 @@
       "fis_crosswalk": "A reviewed mapping from the FLGR identity to the accepted canonical FIS-history athlete ID, name, sex, and birthdate.",
       "crosswalk_path": "excel365/flgr_identity_crosswalk.csv",
       "historical_evidence_manifest": "excel365/flgr_historical_evidence_manifest.csv",
+      "calibration_decision": "excel365/flgr_bridge_calibration.json",
       "raw_evidence_storage": "Operator-supplied output outside the Git repository; raw HTML is never committed.",
       "fuzzy_matches_are_suggestions_only": true,
       "future_dated_results_are_rejected": true,
@@ -56,8 +57,8 @@
       "offseason_rule": "Apply the accepted cross-country offseason regression to every completed season in the bridge replay.",
       "replay_artifact": "flgr-bridge-ledger.csv",
       "replay_publication_eligible": false,
-      "replay_calibration_status": "pending_backtest",
-      "replay_k_factor": "Explicit replay parameter; the conservative default is 1.0 until backtesting selects an accepted value.",
+      "replay_calibration_status": "historical_calibration_complete_pending_holdout",
+      "replay_k_factor": 2.0,
       "backtest_artifacts": [
         "flgr-bridge-backtest-cases.csv",
         "flgr-bridge-backtest-report.json"

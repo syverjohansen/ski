@@ -22,6 +22,7 @@ from pathlib import Path
 from cross_country_flgr_identity import resolve_flgr_identities
 
 INDEX_FIELDS = {
+    "cohort",
     "event_id",
     "date",
     "sex",
@@ -33,6 +34,7 @@ INDEX_FIELDS = {
     "raw_file",
     "candidate_file",
 }
+ALLOWED_COHORTS = {"post_ban_holdout", "historical_calibration"}
 REPORT_SCHEMA = "nordicnumbers.flgr-evidence-identity-batch-report/v1"
 
 
@@ -99,6 +101,7 @@ def resolve_evidence_bundle(
     ladies_chrono: Path,
     crosswalk_path: Path,
     output_dir: Path,
+    cohort: str | None = None,
 ) -> dict[str, object]:
     """Verify and resolve every candidate referenced by an evidence index."""
     evidence_dir = evidence_dir.expanduser().resolve()
@@ -120,6 +123,15 @@ def resolve_evidence_bundle(
         raise FlgrEvidenceResolveError(f"evidence index is missing fields: {missing}")
     if not index_rows:
         raise FlgrEvidenceResolveError("evidence index is empty")
+    if cohort is not None:
+        if cohort not in ALLOWED_COHORTS:
+            raise FlgrEvidenceResolveError(f"unsupported evidence cohort: {cohort}")
+        index_rows = [row for row in index_rows if row["cohort"] == cohort]
+        if not index_rows:
+            raise FlgrEvidenceResolveError(
+                f"evidence index has no rows for cohort {cohort}"
+            )
+    crosswalk_fields, crosswalk_rows = _read_csv(crosswalk_path)
 
     rows_by_event: dict[str, list[tuple[int, dict[str, str]]]] = {}
     for line, index_row in enumerate(index_rows, start=2):
@@ -137,6 +149,7 @@ def resolve_evidence_bundle(
     combined_rows: list[dict[str, str]] = []
     event_reports: list[dict[str, object]] = []
     metadata_fields = (
+        "cohort",
         "date",
         "sex",
         "source_sha256",
@@ -177,13 +190,32 @@ def resolve_evidence_bundle(
                 f"candidate metadata does not match evidence index for {event_id}"
             )
 
-        with tempfile.TemporaryDirectory() as temporary_directory:
-            event_output = Path(temporary_directory) / "identity"
+        with (
+            tempfile.TemporaryDirectory() as identity_directory,
+            tempfile.TemporaryDirectory() as crosswalk_directory,
+        ):
+            event_output = Path(identity_directory)
+            event_crosswalk = Path(crosswalk_directory) / "crosswalk.csv"
+            target_competitor_ids = {
+                target_id.removeprefix("flgr:") for target_id in target_ids
+            }
+            event_crosswalk.write_text(
+                _csv_text(
+                    [
+                        row
+                        for row in crosswalk_rows
+                        if row.get("sex") == index_row["sex"]
+                        and row.get("flgr_competitor_id") in target_competitor_ids
+                    ],
+                    crosswalk_fields,
+                ),
+                encoding="utf-8",
+            )
             report = resolve_flgr_identities(
                 candidate_path=candidate_path,
                 men_chrono=men_chrono,
                 ladies_chrono=ladies_chrono,
-                crosswalk_path=crosswalk_path,
+                crosswalk_path=event_crosswalk,
                 output_dir=event_output,
             )
             _, resolved_rows = _read_csv(event_output / "flgr-identity-results.csv")
@@ -253,11 +285,13 @@ def resolve_evidence_bundle(
     report: dict[str, object] = {
         "schema_version": REPORT_SCHEMA,
         "source_sha256": source_hashes,
+        "cohort_filter": cohort or "all",
         "event_count": len(event_reports),
         "result_rows": len(combined_rows),
         "identity_status_rows": dict(sorted(identity_statuses.items())),
         "events": event_reports,
         "mapping_suggestions_applied": False,
+        "reviewed_mappings_limited_to_evidence_targets": True,
         "publication_eligible": False,
         "source_files_modified": False,
         "status": "resolved_for_prediction_only_replay",
@@ -276,6 +310,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--ladies-chrono", type=Path, required=True)
     parser.add_argument("--crosswalk", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--cohort", choices=sorted(ALLOWED_COHORTS))
     return parser.parse_args()
 
 
@@ -287,6 +322,7 @@ def main() -> int:
         ladies_chrono=args.ladies_chrono,
         crosswalk_path=args.crosswalk,
         output_dir=args.output_dir,
+        cohort=args.cohort,
     )
     print(json.dumps(report, indent=2, sort_keys=True))
     return 0
