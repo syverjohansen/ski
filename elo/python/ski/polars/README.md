@@ -189,6 +189,32 @@ year comparisons are written only as review suggestions; suggestions are never
 applied automatically. Conflicting names, birth years, reused canonical IDs,
 unknown canonical athletes, or changed reviewed identities fail closed.
 
+Replay one or more reviewed events chronologically into the isolated bridge
+ledger with:
+
+```bash
+python cross_country_flgr_elo_replay.py \
+  --identity-results /tmp/nordicnumbers-flgr-identities/flgr-identity-results.csv \
+  --men-chrono excel365/men_chrono.csv \
+  --ladies-chrono excel365/ladies_chrono.csv \
+  --output-dir /tmp/nordicnumbers-flgr-replay \
+  --k-factor 1.0
+```
+
+For a reviewed identity, the replay anchors from the latest accepted FIS row
+strictly before that athlete's first supplied FLGR event. This prevents future
+FIS results from leaking backward. It applies every missed offseason
+regression, starts unmapped newcomers at `1300`, and updates both groups through
+the same nine rating streams as official history. Stable FLGR event IDs are
+retained and accepted chrono files are verified byte-for-byte unchanged.
+
+The output is `flgr-bridge-ledger.csv` plus a provenance report. It is a
+prediction-only candidate: the K factor is explicit, defaults conservatively
+to `1.0`, and remains `pending_backtest`, so the report always marks this slice
+as not publication eligible. It neither edits the official FIS archive nor
+connects bridge ratings to live predictions; backtesting and startlist-gated
+prediction selection are subsequent reviewed steps.
+
 ### Schedule contract (`schedule_contract.py`)
 
 `excel365/races.csv` is the canonical one-row-per-race schedule.
