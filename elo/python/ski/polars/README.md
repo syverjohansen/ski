@@ -276,6 +276,24 @@ the accepted A-tier schedule. It stores hashed raw evidence and normalized
 classified results outside the accepted source tree. The output remains
 identity-unresolved, prediction-only, and never publication eligible.
 
+Classify those participants against accepted A-tier history as of each race:
+
+```bash
+python cross_country_fis_prediction_identity.py \
+  --results /tmp/nordicnumbers-fis-prediction-evidence/fis-prediction-results.csv \
+  --men-chrono excel365/men_chrono.csv \
+  --ladies-chrono excel365/ladies_chrono.csv \
+  --aliases excel365/fis_identity_aliases.csv \
+  --output-dir /tmp/nordicnumbers-fis-prediction-identities
+```
+
+An athlete becomes a fixed anchor only when accepted history contains an
+A-tier race strictly before the lower-tier evidence date. The classifier uses
+the latest seasonally regressed official rating without changing it. Athletes
+with no prior A-tier result retain `fis:<competitorid>` prediction identities.
+It emits only unknown-to-anchor comparisons; unknown ordering is absent, so
+two unknowns between the same verified finishers receive identical evidence.
+
 Acquire the explicitly approved historical pages into an operator-owned
 directory outside Git with:
 
