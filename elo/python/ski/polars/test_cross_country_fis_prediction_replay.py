@@ -235,6 +235,7 @@ class CrossCountryFisPredictionReplayTests(unittest.TestCase):
             self.assertNotEqual(first[0]["place"], first[1]["place"])
             for stream in STREAMS:
                 self.assertEqual(first[0][stream], first[1][stream])
+            self.assertEqual({row["k_factor"] for row in first}, {"2.0"})
             self.assertEqual(report["unknown_vs_unknown_comparisons"], 0)
             self.assertEqual(report["verified_anchor_updates"], 0)
 
