@@ -269,6 +269,30 @@ not a sufficient calibration sample; older pre-ban domestic-to-FIS returns
 must be added as a separate `historical_calibration` cohort before the bridge
 can meet its evidence threshold.
 
+After acquisition, recheck every raw checksum and resolve all candidates into
+one chronological replay input with:
+
+```bash
+python cross_country_flgr_evidence_resolve.py \
+  --evidence-dir /tmp/nordicnumbers-flgr-evidence \
+  --men-chrono excel365/men_chrono.csv \
+  --ladies-chrono excel365/ladies_chrono.csv \
+  --crosswalk excel365/flgr_identity_crosswalk.csv \
+  --output-dir /tmp/nordicnumbers-flgr-identities
+```
+
+The reviewed crosswalk now contains the two post-ban holdout identities:
+`flgr:109411` maps to canonical FIS-history athlete `13188` (Saveliy
+Korostelev), and `flgr:204470` maps to `6555` (Dariya Nepryaeva). The review
+uses the FLGR profile English name and birthdate together with the accepted FIS
+history name and birth year/date. No fuzzy suggestion was promoted.
+
+The batch resolver prevents path traversal, rehashes every raw page, verifies
+candidate metadata against the acquisition index, and requires each proposed
+target to equal an exact reviewed crosswalk row. All other domestic athletes
+retain stable `flgr:<id>` identities and remain `flgr_only`. Its combined CSV
+is prediction-only replay input and cannot update the official FIS archive.
+
 ### Schedule contract (`schedule_contract.py`)
 
 `excel365/races.csv` is the canonical one-row-per-race schedule.
