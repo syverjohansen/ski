@@ -262,6 +262,13 @@ stores the raw page, writes a normalized candidate, and produces a review
 index. Proposed canonical IDs remain `proposed_requires_review`; acquisition
 never edits the reviewed crosswalk or applies a mapping.
 
+A manifest may repeat an approved race URL for multiple explicitly named
+target athletes when constructing the historical calibration cohort. The
+cohort, season, and sex must agree for every row sharing that URL. Acquisition
+fetches and hashes the page once, writes one candidate, and emits one review
+index row per target; resolution likewise processes the event once while
+requiring every proposed target to match an exact reviewed crosswalk row.
+
 Raw pages are intentionally excluded from Git and must be written to a new,
 empty external directory. The checked-in manifest is only the reproducible
 locator and review intent. The two post-ban returners form a holdout cohort,

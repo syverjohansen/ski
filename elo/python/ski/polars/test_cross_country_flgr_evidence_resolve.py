@@ -26,7 +26,9 @@ def write_csv(path: Path, fields, rows) -> None:
         writer.writerows(rows)
 
 
-def prepare_bundle(root: Path, *, reviewed: bool = True):
+def prepare_bundle(
+    root: Path, *, reviewed: bool = True, multiple_targets: bool = False
+):
     sources = root / "sources"
     sources.mkdir()
     manifest = sources / "manifest.csv"
@@ -45,7 +47,23 @@ def prepare_bundle(root: Path, *, reviewed: bool = True):
                 "evidence_note": "Test review evidence",
             }
             for race_id in (88, 89)
-        ],
+        ]
+        + (
+            [
+                {
+                    "cohort": "post_ban_holdout",
+                    "season": 2027,
+                    "sex": "M",
+                    "source_url": "https://flgr-results.ru/results/77/88",
+                    "target_flgr_competitor_id": "202",
+                    "proposed_canonical_athlete_id": "20",
+                    "proposed_canonical_name": "Petr Petrov",
+                    "evidence_note": "Second reviewed target on the same event",
+                }
+            ]
+            if multiple_targets
+            else []
+        ),
     )
     evidence = root / "evidence"
     acquire_flgr_evidence(
@@ -59,19 +77,26 @@ def prepare_bundle(root: Path, *, reviewed: bool = True):
     ladies = sources / "ladies.csv"
     crosswalk = sources / "crosswalk.csv"
     history_fields = ["Date", "ID", "Skier", "Nation", "Birthday"]
-    write_csv(
-        men,
-        history_fields,
-        [
+    history_rows = [
+        {
+            "Date": "2022-01-01",
+            "ID": "10",
+            "Skier": "Ivan Ivanov",
+            "Nation": "Russia",
+            "Birthday": "1999-04-10",
+        }
+    ]
+    if multiple_targets:
+        history_rows.append(
             {
                 "Date": "2022-01-01",
-                "ID": "10",
-                "Skier": "Ivan Ivanov",
+                "ID": "20",
+                "Skier": "Petr Petrov",
                 "Nation": "Russia",
-                "Birthday": "1999-04-10",
+                "Birthday": "2003-05-11",
             }
-        ],
-    )
+        )
+    write_csv(men, history_fields, history_rows)
     write_csv(ladies, history_fields, [])
     crosswalk_rows = []
     if reviewed:
@@ -87,11 +112,54 @@ def prepare_bundle(root: Path, *, reviewed: bool = True):
                 "evidence": "Test evidence reviewed",
             }
         )
+        if multiple_targets:
+            crosswalk_rows.append(
+                {
+                    "sex": "M",
+                    "flgr_competitor_id": "202",
+                    "flgr_name": "НОВИКОВ Алексей",
+                    "birth_year": "2003",
+                    "canonical_athlete_id": "20",
+                    "canonical_name": "Petr Petrov",
+                    "status": "reviewed",
+                    "evidence": "Second test evidence reviewed",
+                }
+            )
     write_csv(crosswalk, CROSSWALK_FIELDS, crosswalk_rows)
     return evidence, men, ladies, crosswalk
 
 
 class FlgrEvidenceResolveTests(unittest.TestCase):
+    def test_resolves_multiple_reviewed_targets_from_one_event_once(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            evidence, men, ladies, crosswalk = prepare_bundle(
+                root, multiple_targets=True
+            )
+            report = resolve_evidence_bundle(
+                evidence_dir=evidence,
+                men_chrono=men,
+                ladies_chrono=ladies,
+                crosswalk_path=crosswalk,
+                output_dir=root / "output",
+            )
+
+            self.assertEqual(report["event_count"], 2)
+            self.assertEqual(report["result_rows"], 4)
+            event = next(
+                item for item in report["events"] if item["reviewed_targets"] == 2
+            )
+            self.assertEqual(event["reviewed_targets"], 2)
+            with (root / "output" / "flgr-identity-results.csv").open(
+                newline="", encoding="utf-8"
+            ) as handle:
+                rows = list(csv.DictReader(handle))
+            event_rows = [row for row in rows if row["event_id"] == event["event_id"]]
+            self.assertEqual(len(event_rows), 2)
+            self.assertEqual(
+                {row["canonical_athlete_id"] for row in event_rows}, {"10", "20"}
+            )
+
     def test_resolves_every_hashed_candidate_into_chronological_replay_input(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -177,6 +245,32 @@ class FlgrEvidenceResolveTests(unittest.TestCase):
             write_csv(index, fields, rows)
             with self.assertRaisesRegex(
                 FlgrEvidenceResolveError, "unsafe or missing candidate_file"
+            ):
+                resolve_evidence_bundle(
+                    evidence_dir=evidence,
+                    men_chrono=men,
+                    ladies_chrono=ladies,
+                    crosswalk_path=crosswalk,
+                    output_dir=root / "output",
+                )
+
+    def test_rejects_conflicting_metadata_for_shared_event(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            evidence, men, ladies, crosswalk = prepare_bundle(
+                root, multiple_targets=True
+            )
+            index = evidence / "evidence-index.csv"
+            with index.open(newline="", encoding="utf-8") as handle:
+                reader = csv.DictReader(handle)
+                fields = list(reader.fieldnames or ())
+                rows = list(reader)
+            duplicate_event = rows[0]["event_id"]
+            second = next(row for row in rows[1:] if row["event_id"] == duplicate_event)
+            second["source_sha256"] = "0" * 64
+            write_csv(index, fields, rows)
+            with self.assertRaisesRegex(
+                FlgrEvidenceResolveError, "conflicts with .* metadata"
             ):
                 resolve_evidence_bundle(
                     evidence_dir=evidence,

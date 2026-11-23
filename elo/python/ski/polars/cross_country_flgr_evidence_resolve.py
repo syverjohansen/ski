@@ -121,19 +121,41 @@ def resolve_evidence_bundle(
     if not index_rows:
         raise FlgrEvidenceResolveError("evidence index is empty")
 
-    combined_rows: list[dict[str, str]] = []
-    event_reports: list[dict[str, object]] = []
-    seen_events: set[str] = set()
+    rows_by_event: dict[str, list[tuple[int, dict[str, str]]]] = {}
     for line, index_row in enumerate(index_rows, start=2):
         event_id = index_row["event_id"].strip()
-        if not event_id.startswith("flgr:") or event_id in seen_events:
+        if not event_id.startswith("flgr:"):
             raise FlgrEvidenceResolveError(
-                f"evidence index line {line} has invalid or duplicate event ID"
+                f"evidence index line {line} has invalid event ID"
             )
-        seen_events.add(event_id)
         if index_row["mapping_status"] != "proposed_requires_review":
             raise FlgrEvidenceResolveError(
                 f"evidence index line {line} has unexpected mapping status"
+            )
+        rows_by_event.setdefault(event_id, []).append((line, index_row))
+
+    combined_rows: list[dict[str, str]] = []
+    event_reports: list[dict[str, object]] = []
+    metadata_fields = (
+        "date",
+        "sex",
+        "source_sha256",
+        "raw_file",
+        "candidate_file",
+    )
+    for event_id, event_index_rows in rows_by_event.items():
+        _, index_row = event_index_rows[0]
+        for line, additional_row in event_index_rows[1:]:
+            if any(
+                additional_row[field] != index_row[field] for field in metadata_fields
+            ):
+                raise FlgrEvidenceResolveError(
+                    f"evidence index line {line} conflicts with {event_id} metadata"
+                )
+        target_ids = [row["target_athlete_id"].strip() for _, row in event_index_rows]
+        if len(target_ids) != len(set(target_ids)):
+            raise FlgrEvidenceResolveError(
+                f"evidence index has duplicate target for {event_id}"
             )
         raw_path = _safe_bundle_path(evidence_dir, index_row["raw_file"], "raw_file")
         candidate_path = _safe_bundle_path(
@@ -166,25 +188,31 @@ def resolve_evidence_bundle(
             )
             _, resolved_rows = _read_csv(event_output / "flgr-identity-results.csv")
 
-        target_athlete_id = index_row["target_athlete_id"].strip()
-        target = next(
-            (row for row in resolved_rows if row["athlete_id"] == target_athlete_id),
-            None,
-        )
-        if target is None:
-            raise FlgrEvidenceResolveError(
-                f"resolved event {event_id} is missing target {target_athlete_id}"
+        for _, target_index_row in event_index_rows:
+            target_athlete_id = target_index_row["target_athlete_id"].strip()
+            target = next(
+                (
+                    row
+                    for row in resolved_rows
+                    if row["athlete_id"] == target_athlete_id
+                ),
+                None,
             )
-        expected_id = index_row["proposed_canonical_athlete_id"].strip()
-        expected_name = index_row["proposed_canonical_name"].strip()
-        if (
-            target["identity_status"] != "reviewed_crosswalk"
-            or target["canonical_athlete_id"] != expected_id
-            or target["canonical_name"] != expected_name
-        ):
-            raise FlgrEvidenceResolveError(
-                f"target mapping for {target_athlete_id} has not been reviewed exactly"
-            )
+            if target is None:
+                raise FlgrEvidenceResolveError(
+                    f"resolved event {event_id} is missing target {target_athlete_id}"
+                )
+            expected_id = target_index_row["proposed_canonical_athlete_id"].strip()
+            expected_name = target_index_row["proposed_canonical_name"].strip()
+            if (
+                target["identity_status"] != "reviewed_crosswalk"
+                or target["canonical_athlete_id"] != expected_id
+                or target["canonical_name"] != expected_name
+            ):
+                raise FlgrEvidenceResolveError(
+                    f"target mapping for {target_athlete_id} has not been reviewed "
+                    "exactly"
+                )
         combined_rows.extend(resolved_rows)
         event_reports.append(
             {
@@ -192,6 +220,7 @@ def resolve_evidence_bundle(
                 "result_rows": report["result_rows"],
                 "reviewed_crosswalk_rows": report["reviewed_crosswalk_rows"],
                 "flgr_only_rows": report["flgr_only_rows"],
+                "reviewed_targets": len(event_index_rows),
                 "source_sha256": raw_sha256,
             }
         )
