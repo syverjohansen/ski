@@ -300,9 +300,16 @@ def _initial_state(row: dict[str, str], history: list[dict[str, str]]) -> Bridge
 
     anchor = _anchor_before(history, canonical_id, row["date"])
     if anchor is None:
-        raise FlgrEloReplayError(
-            f"reviewed athlete {row['sex']}/{canonical_id} has no accepted FIS "
-            f"history before {row['date']}"
+        return BridgeState(
+            athlete_id=row["athlete_id"],
+            source_name=row["source_name"],
+            canonical_athlete_id=canonical_id,
+            canonical_name=row["canonical_name"],
+            identity_status="reviewed_crosswalk",
+            anchor_source="reviewed_newcomer_1300",
+            experience=0,
+            last_season=first_season,
+            ratings={stream: BASE_ELO for stream in STREAMS},
         )
     anchor_season = int(anchor["Season"])
     boundaries = max(0, first_season - anchor_season)
@@ -426,8 +433,14 @@ def replay_flgr_elo(
 
     fields = list(ledger[0])
     _atomic_text(output_dir / LEDGER_FILENAME, _csv_text(ledger, fields))
-    reviewed = sum(
+    reviewed_crosswalk = sum(
         state.identity_status == "reviewed_crosswalk" for state in states.values()
+    )
+    reviewed_anchors = sum(
+        state.anchor_source == "accepted_fis_history" for state in states.values()
+    )
+    reviewed_newcomers = sum(
+        state.anchor_source == "reviewed_newcomer_1300" for state in states.values()
     )
     event_count = len(grouped)
     report: dict[str, object] = {
@@ -436,8 +449,10 @@ def replay_flgr_elo(
         "event_count": event_count,
         "result_rows": len(ledger),
         "athlete_count": len(states),
-        "reviewed_anchor_athletes": reviewed,
-        "flgr_only_athletes": len(states) - reviewed,
+        "reviewed_crosswalk_athletes": reviewed_crosswalk,
+        "reviewed_anchor_athletes": reviewed_anchors,
+        "reviewed_newcomer_athletes": reviewed_newcomers,
+        "flgr_only_athletes": len(states) - reviewed_crosswalk,
         "k_factor": k_factor,
         "calibration_status": "pending_backtest",
         "publication_eligible": False,

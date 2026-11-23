@@ -183,6 +183,59 @@ class FlgrEloReplayTests(unittest.TestCase):
                     float(anchor[stream]), float(anchor[PREVIOUS_COLUMNS[stream]])
                 )
 
+    def test_reviewed_newcomer_without_prior_fis_rating_starts_at_1300(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            rows = [
+                identity_row(
+                    date="2025-11-20",
+                    season=2026,
+                    canonical_athlete_id="99",
+                    canonical_name="Reviewed Newcomer",
+                    source_name="НОВИЧОК Анна",
+                ),
+                identity_row(
+                    date="2025-11-20",
+                    season=2026,
+                    athlete_id="flgr:202",
+                    source_competitor_id="202",
+                    source_name="НОВИКОВ Алексей",
+                    place=1,
+                    canonical_athlete_id="",
+                    canonical_name="",
+                    identity_status="flgr_only",
+                ),
+            ]
+            future_history = [
+                history_row(
+                    Date="2025-12-13",
+                    Season=2026,
+                    ID="99",
+                    Skier="Reviewed Newcomer",
+                )
+            ]
+            identity, men, ladies = write_sources(
+                root, identity_rows=rows, history_rows=future_history
+            )
+            report = replay_flgr_elo(
+                identity_results=identity,
+                men_chrono=men,
+                ladies_chrono=ladies,
+                output_dir=root / "output",
+                k_factor=1.0,
+            )
+            newcomer = next(
+                row
+                for row in read_ledger(root / "output")
+                if row["athlete_id"] == "flgr:101"
+            )
+            self.assertEqual(newcomer["canonical_athlete_id"], "99")
+            self.assertEqual(newcomer["anchor_source"], "reviewed_newcomer_1300")
+            self.assertEqual(float(newcomer["Pelo"]), 1300)
+            self.assertEqual(report["reviewed_anchor_athletes"], 0)
+            self.assertEqual(report["reviewed_newcomer_athletes"], 1)
+            self.assertEqual(report["reviewed_crosswalk_athletes"], 1)
+
     def test_events_chain_and_each_new_season_regresses_every_athlete(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
