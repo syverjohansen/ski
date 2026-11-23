@@ -239,14 +239,22 @@ configured minimum number of distinct returning athletes and lower Brier error
 than stale FIS Elo. The detailed cases and report remain prediction-only and
 always set `publication_eligible` to false.
 
-The reviewed 2021 historical cohort now meets that threshold. Across 22
+The reviewed 2021 historical cohort met that experiment's threshold. Across 22
 explicitly selected returning athletes and 1,661 pairwise comparisons, `K=2`
 had the best candidate Brier score (`0.16962191`, versus `0.17069568` for stale
 FIS Elo) and higher directional accuracy (`0.75436484`, versus `0.74714028`).
-The immutable decision record is
-`excel365/flgr_bridge_calibration.json`. This selects the replay parameter but
-does not make the bridge publication eligible; the independent 2025 post-ban
-holdout remains the next gate.
+The immutable experiment record is `excel365/flgr_bridge_calibration.json`.
+That `K=2` selection is now superseded because the experiment allowed verified
+and unverified athletes to exchange Elo. The accepted fixed-anchor contract
+keeps prior A-tier athletes immutable, ignores unknown-versus-unknown ordering,
+and must be recalibrated before any bridge can become publication eligible.
+
+The source-neutral contract is recorded in
+`cross_country_prediction_elo_policy.json`. A-tier FIS categories (`WC`, Tour
+stages, `WSC`, and `OWG`) remain the only accepted Elo inputs. Approved
+lower-tier FIS categories provide prediction evidence for never-A-tier athletes
+without entering official history. National federation sources are fallbacks
+only for events absent from FIS and must use the identical comparison rules.
 
 Acquire the explicitly approved historical pages into an operator-owned
 directory outside Git with:
