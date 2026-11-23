@@ -121,6 +121,28 @@ These additional skiers are used as fallback athletes when FIS startlists are un
 
 ## Data Collection Scripts
 
+### Production source policy (`cross_country_source_policy.json`)
+
+Hosted cross-country ratings use classified results linked from the accepted
+FIS schedule. Target-race eligibility comes from the official FIS startlist.
+These rules apply consistently whether an athlete is active, inactive, or
+eligible to return: domestic participation alone does not place an athlete in
+a Nordic Numbers prediction.
+
+The legacy Russian domestic augmentation is explicitly
+`retired_from_hosted_predictions`. It scraped `flgr-results.ru`, fuzzy-matched
+domestic identities to FIS athletes (or created negative synthetic IDs), and
+renumbered races while combining domestic and FIS histories. An audit on
+2026-11-23 also found future-dated result rows in the checked-in legacy feed.
+That evidence is not safe to mix silently into the accepted production
+history.
+
+The scrapers and merge scripts remain in the repository as research-only
+references; hosted workflows must not consume their `russia_*_scrape.csv` or
+`combined_*_scrape.csv` outputs. The machine-readable policy records the
+tests and approvals required before any future reactivation. This is a source
+authority decision, not a claim about current or future athlete eligibility.
+
 ### Schedule contract (`schedule_contract.py`)
 
 `excel365/races.csv` is the canonical one-row-per-race schedule.

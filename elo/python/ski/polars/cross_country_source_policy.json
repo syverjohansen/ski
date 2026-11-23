@@ -1,0 +1,69 @@
+{
+  "schema_version": "nordicnumbers.cross-country-source-policy/v1",
+  "production_boundary": {
+    "results": {
+      "authority": "FIS",
+      "description": "Classified cross-country results linked from the accepted FIS schedule",
+      "accepted_histories": [
+        "excel365/men_chrono.csv",
+        "excel365/ladies_chrono.csv"
+      ]
+    },
+    "participants": {
+      "authority": "FIS",
+      "description": "The official FIS startlist for the target race"
+    }
+  },
+  "russian_domestic_augmentation": {
+    "status": "retired_from_hosted_predictions",
+    "publication_eligible": false,
+    "source_domain": "flgr-results.ru",
+    "decision_date": "2026-11-23",
+    "reasons": [
+      "The feed contains domestic results outside the accepted FIS results boundary.",
+      "The legacy mapper can fuzzy-match an identity or create a negative synthetic athlete ID.",
+      "The legacy merge renumbers races in the combined history instead of preserving accepted FIS race identities.",
+      "The checked-in legacy feed contained future-dated result rows when audited on 2026-11-23.",
+      "No hosted acquisition, Elo replay, prediction, or publication workflow consumes the combined legacy files."
+    ],
+    "preserved_research_only_scripts": [
+      "russia_scrape.py",
+      "russia_update_scrape.py",
+      "merge_scrape.py",
+      "relay/russia_scrape.py",
+      "relay/russia_update_scrape.py",
+      "relay/merge_scrape.py"
+    ],
+    "reactivation_requirements": [
+      "Approve an authoritative source and publication contract.",
+      "Add fixture-backed parsing tests that reject future result dates.",
+      "Replace fuzzy automatic identity binding with exact reviewed mappings.",
+      "Preserve accepted FIS race identities during isolated Elo replay.",
+      "Demonstrate prediction parity and obtain an explicit owner approval."
+    ]
+  },
+  "forbidden_hosted_inputs": [
+    "combined_men_scrape.csv",
+    "combined_ladies_scrape.csv",
+    "russia_men_scrape.csv",
+    "russia_ladies_scrape.csv"
+  ],
+  "hosted_modules": [
+    "cross_country_results_gap.py",
+    "cross_country_results_backfill.py",
+    "cross_country_results_identity.py",
+    "cross_country_results_elo_replay.py",
+    "cross_country_results_promote.py",
+    "cross_country_results_update.py",
+    "cross_country_team_event_audit.py",
+    "cross_country_team_results_backfill.py",
+    "cross_country_team_results_identity.py",
+    "cross_country_team_results_elo_replay.py",
+    "cross_country_team_results_promote.py",
+    "cross_country_team_results_update.py",
+    "cross_country_season_close.py",
+    "cross_country_weekend_inputs.py",
+    "cross_country_tour_inputs.py",
+    "cross_country_final_climb_inputs.py"
+  ]
+}
