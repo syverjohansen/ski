@@ -300,7 +300,7 @@ Replay prediction ratings for never-A-tier athletes only:
 python cross_country_fis_prediction_replay.py \
   --participants /tmp/nordicnumbers-fis-prediction-identities/fis-prediction-participants.csv \
   --comparisons /tmp/nordicnumbers-fis-prediction-identities/fis-anchor-comparisons.csv \
-  --k-factor 1.0 \
+  --k-factor 4.0 \
   --output-dir /tmp/nordicnumbers-fis-prediction-replay
 ```
 
@@ -308,8 +308,9 @@ Each prediction identity starts from the private `1300` prior. Only direct
 outcomes against fixed A-tier anchors update it; anchor-free appearances carry
 the prior rating forward unchanged, and verified participants never enter the
 prediction ledger. Matching discipline streams update independently and every
-missed season applies the normal offseason regression. The K factor remains an
-explicit research parameter pending calibration against first A-tier debuts.
+missed season applies the normal offseason regression. The reviewed calibration
+selects K=4.0; the rating remains private until its shadow prediction outputs
+have passed review.
 
 Build a review queue from one or more acquired lower-tier result batches:
 
@@ -352,6 +353,25 @@ from the ledger itself. It scores matching Elo streams against pairwise results
 in the athlete's first A-tier race. Outputs remain research-only even when a
 candidate beats the official prior; selecting a production K factor requires a
 separate reviewed calibration decision.
+
+Create a shadow-only startlist rating overlay after building weekend inputs:
+
+```bash
+python cross_country_prediction_elo_shadow.py \
+  --startlist /tmp/weekend-inputs/men_startlist.csv \
+  --men-chrono excel365/men_chrono.csv \
+  --ladies-chrono excel365/ladies_chrono.csv \
+  --prediction-ledger /tmp/replay-k4/fis-prediction-ledger.csv \
+  --policy cross_country_prediction_elo_policy.json \
+  --output-dir /tmp/weekend-prediction-elo-shadow
+```
+
+Run the weekend input builder with `--prediction-shadow` to retain an unmatched
+official FIS starter under the stable `fis:<competitorid>` identity. Without
+that explicit flag, the builder continues to fail closed. The overlay keeps
+accepted A-tier Elo for known athletes, uses the latest K=4 ledger row strictly
+before the target race for never-A-tier athletes, and gives a true newcomer the
+private 1300 prior. Its report always disables publication.
 
 Acquire the explicitly approved historical pages into an operator-owned
 directory outside Git with:
