@@ -18,9 +18,7 @@ SCHEMA_VERSION = "nordicnumbers.flgr-results-candidate/v1"
 SOURCE_DOMAIN = "flgr-results.ru"
 RACE_PATH = re.compile(r"^/results/(?P<competition_id>\d+)/(?P<race_id>\d+)/?$")
 ATHLETE_PATH = re.compile(r"^/athletes/(?P<competitor_id>\d+)/?$")
-SOURCE_DATE = re.compile(
-    r"(?P<day>\d{1,2})\.(?P<month>\d{1,2})(?:\.(?P<year>\d{4}))?"
-)
+SOURCE_DATE = re.compile(r"(?P<day>\d{1,2})\.(?P<month>\d{1,2})(?:\.(?P<year>\d{4}))?")
 DISTANCE = re.compile(r"(?P<distance>\d+(?:[.,]\d+)?)\s*км", re.IGNORECASE)
 
 
@@ -72,9 +70,13 @@ def parse_race_label(label: str) -> dict[str, object]:
     normalized = " ".join(label.split())
     lowered = normalized.lower()
     if "командный спринт" in lowered or "эстафета" in lowered:
-        raise FlgrContractError("team events are outside the individual bridge contract")
+        raise FlgrContractError(
+            "team events are outside the individual bridge contract"
+        )
     if "квалиф" in lowered or "полуфинал" in lowered:
-        raise FlgrContractError("qualification and semifinal rows are not classified races")
+        raise FlgrContractError(
+            "qualification and semifinal rows are not classified races"
+        )
     if "лыжероллер" in lowered:
         raise FlgrContractError("roller-ski races are outside the bridge contract")
 
@@ -112,7 +114,9 @@ def parse_classified_results(soup: BeautifulSoup) -> list[dict[str, object]]:
     results: list[dict[str, object]] = []
     seen_competitors: set[str] = set()
     sanctions = soup.find("div", class_="race-sanctions")
-    sanction_rows = {id(row) for row in sanctions.find_all("tr")} if sanctions else set()
+    sanction_rows = (
+        {id(row) for row in sanctions.find_all("tr")} if sanctions else set()
+    )
 
     for row in soup.find_all("tr", class_="ant-table-row"):
         if id(row) in sanction_rows or "separator" in str(row.get("data-row-key", "")):
@@ -178,6 +182,15 @@ def build_race_candidate(
 
     date_element = soup.find("div", class_="race-info__date")
     if date_element is None:
+        date_element = next(
+            (
+                element
+                for element in soup.select(".page__specifications-item")
+                if SOURCE_DATE.search(element.get_text(" ", strip=True))
+            ),
+            None,
+        )
+    if date_element is None:
         raise FlgrContractError("race page is missing its race date")
     race_date = parse_season_date(date_element.get_text(" ", strip=True), season)
     if race_date > as_of:
@@ -185,14 +198,22 @@ def build_race_candidate(
             f"future-dated race {race_date.isoformat()} exceeds as-of {as_of.isoformat()}"
         )
     if race_date.month in {6, 7, 8, 9}:
-        raise FlgrContractError("summer events are outside the snow-race bridge contract")
+        raise FlgrContractError(
+            "summer events are outside the snow-race bridge contract"
+        )
 
     place_element = soup.find("div", class_="race-info__place")
+    if place_element is None and (heading := soup.find("h1")):
+        heading_parts = heading.find_all("span", recursive=False)
+        if len(heading_parts) >= 3:
+            place_element = heading_parts[2]
     source_city = (
         " ".join(place_element.get_text(" ", strip=True).split())
         if place_element
         else None
     )
+    if source_city and "Код соревнования:" in source_city:
+        source_city = source_city.split("Код соревнования:", 1)[0].rstrip(" ,")
     race_fields = parse_race_label(source_title)
     results = parse_classified_results(soup)
     source_sha256 = hashlib.sha256(html).hexdigest()
@@ -237,7 +258,9 @@ def validate_candidate_set(
             )
 
 
-def write_candidate(candidate: dict[str, object], output_dir: Path) -> tuple[Path, Path]:
+def write_candidate(
+    candidate: dict[str, object], output_dir: Path
+) -> tuple[Path, Path]:
     output_dir.mkdir(parents=True, exist_ok=True)
     if any(output_dir.iterdir()):
         raise FlgrContractError("output directory must be empty")
