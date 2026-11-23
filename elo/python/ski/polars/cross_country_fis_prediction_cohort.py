@@ -16,7 +16,7 @@ import json
 import tempfile
 from collections import defaultdict
 from collections.abc import Iterable
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
 from cross_country_results_backfill import validate_results_url
@@ -101,7 +101,11 @@ def _load_histories(
             athlete_id = row["ID"].strip()
             athlete_name = row["Skier"].strip()
             try:
-                date.fromisoformat(row["Date"].strip())
+                raw_date = row["Date"].strip()
+                try:
+                    accepted_date = date.fromisoformat(raw_date)
+                except ValueError:
+                    accepted_date = datetime.fromisoformat(raw_date).date()
                 int(row["Season"])
                 int(row["Race"])
             except ValueError as error:
@@ -112,7 +116,9 @@ def _load_histories(
                 raise FisPredictionCohortError(
                     f"{path}:{line}: incomplete accepted athlete identity"
                 )
-            histories[(sex, athlete_id)].append(row)
+            normalized_row = dict(row)
+            normalized_row["Date"] = accepted_date.isoformat()
+            histories[(sex, athlete_id)].append(normalized_row)
             names[(sex, normalized_name(athlete_name))].add(athlete_id)
     return names, histories
 
@@ -161,7 +167,7 @@ def _load_results(paths: Iterable[Path]) -> dict[tuple[str, str], list[dict[str,
         "source_sha256",
     }
     athletes: dict[tuple[str, str], list[dict[str, str]]] = defaultdict(list)
-    identities = {}
+    identities: dict[tuple[str, str], str] = {}
     seen = set()
     for path in paths:
         fields, rows = _read_csv(path)
@@ -204,12 +210,11 @@ def _load_results(paths: Iterable[Path]) -> dict[tuple[str, str], list[dict[str,
                     f"{path}:{line}: incomplete result evidence"
                 )
             key = (sex, competitor_id)
-            identity = (fis_code, fis_name)
-            if key in identities and identities[key] != identity:
+            if key in identities and identities[key] != fis_code:
                 raise FisPredictionCohortError(
-                    f"FIS identity changed for {sex}/{competitor_id}"
+                    f"FIS code changed for {sex}/{competitor_id}"
                 )
-            identities[key] = identity
+            identities[key] = fis_code
             result_key = (row["date"].strip(), race_id, sex, competitor_id)
             if result_key in seen:
                 continue
@@ -261,21 +266,25 @@ def build_fis_prediction_calibration_cohort(
     no_pre_debut_evidence = 0
     for key, evidence_rows in sorted(evidence_by_athlete.items()):
         sex, competitor_id = key
-        sample = evidence_rows[0]
+        latest_identity = max(
+            evidence_rows,
+            key=lambda row: (row["date"].strip(), row["fis_race_id"].strip()),
+        )
+        fis_names = {row["name"].strip() for row in evidence_rows}
         alias = aliases.get(key)
         if alias:
-            if (
-                alias["fis_code"].strip() != sample["fis_code"].strip()
-                or alias["fis_name"].strip() != sample["name"].strip()
-            ):
+            if alias["fis_code"].strip() != latest_identity["fis_code"].strip():
                 raise FisPredictionCohortError(
                     f"reviewed alias does not match FIS evidence for {sex}/{competitor_id}"
                 )
             canonical_ids = {alias["canonical_id"].strip()}
             status = "reviewed"
         else:
-            canonical_ids = name_index.get(
-                (sex, normalized_name(sample["name"].strip())), set()
+            canonical_ids = set().union(
+                *(
+                    name_index.get((sex, normalized_name(fis_name)), set())
+                    for fis_name in fis_names
+                )
             )
             status = "proposed_unique_name"
         if len(canonical_ids) != 1:
@@ -284,7 +293,7 @@ def build_fis_prediction_calibration_cohort(
                     {
                         "sex": sex,
                         "fis_competitor_id": competitor_id,
-                        "fis_name": sample["name"].strip(),
+                        "fis_names": sorted(fis_names),
                         "candidate_canonical_ids": sorted(canonical_ids),
                     }
                 )
@@ -327,8 +336,12 @@ def build_fis_prediction_calibration_cohort(
                 "sex": sex,
                 "prediction_athlete_id": f"fis:{competitor_id}",
                 "fis_competitor_id": competitor_id,
-                "fis_code": sample["fis_code"].strip(),
-                "fis_name": sample["name"].strip(),
+                "fis_code": latest_identity["fis_code"].strip(),
+                "fis_name": (
+                    alias["fis_name"].strip()
+                    if alias
+                    else latest_identity["name"].strip()
+                ),
                 "canonical_athlete_id": canonical_id,
                 "canonical_name": canonical_name,
                 "status": status,

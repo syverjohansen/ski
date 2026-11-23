@@ -31,6 +31,7 @@ from cross_country_prediction_sources import (
 )
 from cross_country_results_backfill import (
     parse_classified_results,
+    parse_fis_page,
     validate_results_url,
 )
 from cross_country_schedule_scraper import (
@@ -86,7 +87,9 @@ def _csv_text(rows: list[dict[str, object]]) -> str:
     return output.getvalue()
 
 
-def _validate_output_dir(output_dir: Path, sources: Iterable[Path]) -> Path:
+def _validate_output_dir(
+    output_dir: Path, sources: Iterable[Path], *, resume: bool = False
+) -> Path:
     resolved = output_dir.expanduser().resolve()
     for source in sources:
         source_parent = source.expanduser().resolve().parent
@@ -94,9 +97,14 @@ def _validate_output_dir(output_dir: Path, sources: Iterable[Path]) -> Path:
             raise FisPredictionAcquireError(
                 "prediction evidence output cannot overlap accepted sources"
             )
-    if resolved.exists() and any(resolved.iterdir()):
+    existing = list(resolved.iterdir()) if resolved.exists() else []
+    if existing and not resume:
         raise FisPredictionAcquireError(
             "prediction evidence output directory must be empty"
+        )
+    if resume and any(path.name != "raw" for path in existing):
+        raise FisPredictionAcquireError(
+            "resumed output may contain only the raw evidence cache"
         )
     return resolved
 
@@ -261,6 +269,29 @@ def discover_result_races(event_html: bytes, *, as_of: date) -> list[dict[str, o
     return races
 
 
+def _result_unavailable_reason(result_html: bytes) -> tuple[str, str] | None:
+    """Return an auditable reason when FIS provides no classified result."""
+    results = _soup(result_html).find("div", id="events-info-results")
+    if results is None:
+        return None
+    text = " ".join(results.get_text(" ", strip=True).split())
+    if text.casefold() == "no results found for this competition.":
+        return "fis_explicitly_reports_no_results", text
+    athlete_rows = [
+        row
+        for row in parse_fis_page(result_html).rows
+        if "competitorid=" in row.get("href", "") and row.get("name")
+    ]
+    if len(athlete_rows) >= 3 and not any(
+        row.get("place", "").isdigit() for row in athlete_rows
+    ):
+        return (
+            "fis_page_has_unranked_athletes",
+            f"FIS returned {len(athlete_rows)} athlete rows without classified ranks",
+        )
+    return None
+
+
 def _accepted_a_tier_race_ids(schedule: Path) -> set[str]:
     race_ids = set()
     with schedule.open(newline="", encoding="utf-8-sig") as handle:
@@ -287,9 +318,21 @@ def acquire_fis_prediction_evidence(
     as_of: date,
     output_dir: Path,
     fetcher: Callable[[str], bytes] = fetch_html,
+    resume: bool = False,
 ) -> dict[str, object]:
     """Acquire classified lower-tier results without modifying accepted history."""
-    output_dir = _validate_output_dir(output_dir, (accepted_schedule,))
+    output_dir = _validate_output_dir(output_dir, (accepted_schedule,), resume=resume)
+    cache_hits = 0
+
+    def fetch_evidence(url: str, path: Path) -> bytes:
+        nonlocal cache_hits
+        if resume and path.is_file():
+            cache_hits += 1
+            return path.read_bytes()
+        payload = fetcher(url)
+        _atomic_bytes(path, payload)
+        return payload
+
     normalized_categories = tuple(
         sorted({category.strip().upper() for category in categories})
     )
@@ -306,9 +349,9 @@ def acquire_fis_prediction_evidence(
     category_event_counts = {}
     for category in normalized_categories:
         calendar_url = prediction_calendar_url(season, category)
-        calendar_html = fetcher(calendar_url)
-        _atomic_bytes(
-            output_dir / "raw" / "calendars" / f"{category}.html", calendar_html
+        calendar_html = fetch_evidence(
+            calendar_url,
+            output_dir / "raw" / "calendars" / f"{category}.html",
         )
         event_urls = discover_event_urls(calendar_html)
         category_event_counts[category] = len(event_urls)
@@ -318,10 +361,9 @@ def acquire_fis_prediction_evidence(
     discovered: dict[str, dict[str, object]] = {}
     excluded_a_tier = set()
     for event_url in sorted(event_categories):
-        event_html = fetcher(event_url)
-        _atomic_bytes(
+        event_html = fetch_evidence(
+            event_url,
             output_dir / "raw" / "events" / f"{_event_id(event_url)}.html",
-            event_html,
         )
         for race in discover_result_races(event_html, as_of=as_of):
             race_id = str(race["fis_race_id"])
@@ -344,13 +386,31 @@ def acquire_fis_prediction_evidence(
 
     all_rows: list[dict[str, object]] = []
     race_reports = []
+    skipped_races = []
     for race_id in sorted(discovered, key=int):
         race = discovered[race_id]
         source_url = str(race["source_url"])
-        result_html = fetcher(source_url)
+        result_path = output_dir / "raw" / "results" / f"{race_id}.html"
+        result_html = fetch_evidence(source_url, result_path)
         digest = _sha256(result_html)
-        _atomic_bytes(output_dir / "raw" / "results" / f"{race_id}.html", result_html)
-        classified = parse_classified_results(result_html)
+        unavailable = _result_unavailable_reason(result_html)
+        if unavailable:
+            unavailable_reason, source_message = unavailable
+            skipped_races.append(
+                {
+                    "fis_race_id": race_id,
+                    "date": race["date"],
+                    "sex": race["sex"],
+                    "source_categories": sorted(race["categories"]),
+                    "reason": unavailable_reason,
+                    "source_message": source_message,
+                    "source_sha256": digest,
+                }
+            )
+            continue
+        # Two finishers still provide one useful head-to-head observation. The
+        # accepted-history backfill retains its stricter default of three.
+        classified = parse_classified_results(result_html, minimum_results=2)
         categories_text = ";".join(sorted(race["categories"]))
         rows = [
             {
@@ -400,7 +460,9 @@ def acquire_fis_prediction_evidence(
         "category_event_counts": category_event_counts,
         "unique_event_pages": len(event_categories),
         "acquired_races": len(race_reports),
+        "skipped_races": skipped_races,
         "acquired_result_rows": len(all_rows),
+        "raw_cache_hits": cache_hits,
         "excluded_accepted_a_tier_race_ids": sorted(excluded_a_tier, key=int),
         "races": race_reports,
         "accepted_history_modified": False,
@@ -427,6 +489,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--as-of", required=True, type=date.fromisoformat)
     parser.add_argument("--output-dir", required=True, type=Path)
     parser.add_argument("--allow-network", action="store_true")
+    parser.add_argument("--resume", action="store_true")
     return parser.parse_args()
 
 
@@ -440,6 +503,7 @@ def main() -> int:
         accepted_schedule=args.accepted_schedule,
         as_of=args.as_of,
         output_dir=args.output_dir,
+        resume=args.resume,
     )
     print(json.dumps(report, indent=2, sort_keys=True))
     return 0

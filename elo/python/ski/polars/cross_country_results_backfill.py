@@ -81,9 +81,7 @@ class FISResultsParser(HTMLParser):
         self._row: dict[str, str] | None = None
         self._capture: tuple[str, str, list[str]] | None = None
 
-    def handle_starttag(
-        self, tag: str, attrs: list[tuple[str, str | None]]
-    ) -> None:
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         attributes = dict(attrs)
         classes = set((attributes.get("class") or "").split())
         if tag == "title":
@@ -98,7 +96,7 @@ class FISResultsParser(HTMLParser):
             field = "place"
         elif {"justify-right", "gray", "pr-1"} <= classes:
             field = "fis_code"
-        elif "athlete-name" in classes:
+        elif "athlete-name" in classes or {"justify-left", "bold"} <= classes:
             field = "name"
         elif "country__name-short" in classes:
             field = "nation"
@@ -160,7 +158,9 @@ def fetch_html(url: str, attempts: int = 3) -> bytes:
         try:
             with urlopen(request, timeout=30) as response:
                 if response.status != 200:
-                    raise BackfillError(f"FIS returned HTTP {response.status} for {url}")
+                    raise BackfillError(
+                        f"FIS returned HTTP {response.status} for {url}"
+                    )
                 return response.read()
         except HTTPError as exc:
             if exc.code < 500 or attempt == attempts:
@@ -186,7 +186,11 @@ def validate_page_identity(html: bytes, gap: ScheduleRace) -> None:
         )
 
 
-def parse_classified_results(html: bytes) -> list[dict[str, object]]:
+def parse_classified_results(
+    html: bytes, *, minimum_results: int = 3
+) -> list[dict[str, object]]:
+    if minimum_results < 1:
+        raise ValueError("minimum_results must be positive")
     results: list[dict[str, object]] = []
     seen_ids: set[str] = set()
     for row in parse_fis_page(html).rows:
@@ -209,7 +213,7 @@ def parse_classified_results(html: bytes) -> list[dict[str, object]]:
                 "nation": row.get("nation", ""),
             }
         )
-    if len(results) < 3:
+    if len(results) < minimum_results:
         raise BackfillError(f"FIS page yielded only {len(results)} classified results")
     return results
 
@@ -273,9 +277,7 @@ def acquire_backfill(
     output_dir: Path,
     fetcher: Callable[[str], bytes] = fetch_html,
 ) -> dict[str, object]:
-    output_dir = validate_output_dir(
-        output_dir, (schedule, men_chrono, ladies_chrono)
-    )
+    output_dir = validate_output_dir(output_dir, (schedule, men_chrono, ladies_chrono))
     audit = audit_results(schedule, men_chrono, ladies_chrono, as_of)
     if not audit.missing:
         raise BackfillError("no completed individual results gaps were found")
