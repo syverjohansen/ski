@@ -256,6 +256,26 @@ lower-tier FIS categories provide prediction evidence for never-A-tier athletes
 without entering official history. National federation sources are fallbacks
 only for events absent from FIS and must use the identical comparison rules.
 
+Acquire completed lower-tier FIS result evidence into an isolated directory:
+
+```bash
+python cross_country_fis_prediction_acquire.py \
+  --season 2027 \
+  --category SCAN \
+  --category FIS \
+  --accepted-schedule excel365/races.csv \
+  --as-of 2026-11-23 \
+  --output-dir /tmp/nordicnumbers-fis-prediction-evidence \
+  --allow-network
+```
+
+The command discovers result pages only beneath explicitly approved FIS
+cross-country calendar categories, skips future and team races, deduplicates
+shared event pages and race IDs, and excludes every race ID already present in
+the accepted A-tier schedule. It stores hashed raw evidence and normalized
+classified results outside the accepted source tree. The output remains
+identity-unresolved, prediction-only, and never publication eligible.
+
 Acquire the explicitly approved historical pages into an operator-owned
 directory outside Git with:
 
