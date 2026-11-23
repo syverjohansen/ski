@@ -44,7 +44,8 @@
     "target_contract": {
       "event_identity": "flgr:<source_event_id>",
       "athlete_identity": "flgr:<source_competitor_id>",
-      "fis_crosswalk": "A reviewed mapping from the FLGR identity to the FIS competitor ID, name, sex, and birthdate.",
+      "fis_crosswalk": "A reviewed mapping from the FLGR identity to the accepted canonical FIS-history athlete ID, name, sex, and birthdate.",
+      "crosswalk_path": "excel365/flgr_identity_crosswalk.csv",
       "fuzzy_matches_are_suggestions_only": true,
       "future_dated_results_are_rejected": true,
       "new_athlete_initial_elo": 1300,
@@ -76,6 +77,7 @@
     "russia_ladies_scrape.csv"
   ],
   "hosted_modules": [
+    "cross_country_flgr_identity.py",
     "cross_country_flgr_results.py",
     "cross_country_results_gap.py",
     "cross_country_results_backfill.py",

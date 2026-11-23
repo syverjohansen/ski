@@ -51,6 +51,10 @@ class CrossCountrySourcePolicyTests(unittest.TestCase):
         self.assertEqual(contract["athlete_identity"], "flgr:<source_competitor_id>")
         self.assertEqual(contract["event_identity"], "flgr:<source_event_id>")
         self.assertEqual(contract["new_athlete_initial_elo"], 1300)
+        self.assertEqual(
+            contract["crosswalk_path"], "excel365/flgr_identity_crosswalk.csv"
+        )
+        self.assertTrue((ROOT / contract["crosswalk_path"]).is_file())
         self.assertTrue(contract["fuzzy_matches_are_suggestions_only"])
         self.assertTrue(contract["future_dated_results_are_rejected"])
         self.assertIn("established FIS athletes", contract["new_athlete_rating_rule"])
