@@ -9,6 +9,7 @@ from cross_country_tour_inputs import TourInputError
 
 HERE = Path(__file__).resolve().parent
 SCHEDULE = HERE / "tests" / "fixtures" / "cross_country_tour_contract" / "2027-tour.csv"
+HISTORICAL_SCHEDULE = HERE / "excel365" / "test_weekends.csv"
 
 
 def write_csv(path: Path, fields: list[str], rows: list[dict[str, str]]) -> None:
@@ -25,6 +26,21 @@ def fis_html(*athletes: tuple[str, str, str, str]) -> bytes:
         f'<span class="athlete-name">{name}</span>'
         f'<span class="country__name-short">{nation}</span>'
         f'<span class="justify-right gray pr-1">{fis_code}</span></a>'
+        for competitor_id, fis_code, name, nation in athletes
+    ]
+    return ("<html><body>" + "".join(rows) + "</body></html>").encode()
+
+
+def fis_results_html(*athletes: tuple[str, str, str, str]) -> bytes:
+    rows = [
+        f'<a class="table-row" href="/DB/general/athlete-biography.html?'
+        f'sectorcode=cc&amp;competitorid={competitor_id}">'
+        '<div class="g-lg-1 justify-right pr-1 bold">1</div>'
+        f'<div class="pr-1 g-lg-2 justify-right gray">{fis_code}</div>'
+        f'<div class="g-lg-12 g-md-12 g-sm-11 g-xs-8 justify-left bold">'
+        f"{name}</div>"
+        '<div class="country country_flag">'
+        f'<span class="country__name-short">{nation}</span></div></a>'
         for competitor_id, fis_code, name, nation in athletes
     ]
     return ("<html><body>" + "".join(rows) + "</body></html>").encode()
@@ -168,6 +184,72 @@ class CrossCountryFinalClimbInputTests(unittest.TestCase):
             )
             self.assertEqual("no_work", report["status"])
             self.assertEqual([], fetched)
+
+    def test_historical_results_replay_uses_completed_classified_participants(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            data = FinalClimbFixture(root)
+            historical_schedule = root / "accepted" / "historical-weekends.csv"
+            historical_schedule.write_bytes(HISTORICAL_SCHEDULE.read_bytes())
+
+            def completed_results(url: str) -> bytes:
+                if "raceid=49547" in url:
+                    return fis_results_html(
+                        ("1001", "3421320", "Johannes Hoesflot Klaebo", "NOR")
+                    )
+                if "raceid=49546" in url:
+                    return fis_results_html(
+                        ("2001", "3535410", "Jessie Diggins", "USA")
+                    )
+                raise AssertionError(f"unexpected fetch: {url}")
+
+            report = build_final_climb_inputs(
+                schedule=historical_schedule,
+                men_chrono=data.men,
+                ladies_chrono=data.ladies,
+                aliases_path=data.aliases,
+                logical_date=date(2026, 1, 3),
+                output_dir=root / "bundle",
+                fetcher=completed_results,
+                historical_results_replay=True,
+                today=date(2026, 11, 23),
+            )
+            self.assertEqual("candidate", report["status"])
+            self.assertEqual(
+                "historical_results_replay", report["participant_source_mode"]
+            )
+            self.assertEqual(2, report["startlist_rows"])
+            self.assertEqual(
+                {"historical_results_replay"},
+                {event["availability"] for event in report["events"]},
+            )
+            with (root / "bundle" / "startlist_provenance.csv").open(
+                newline="", encoding="utf-8"
+            ) as handle:
+                provenance = list(csv.DictReader(handle))
+            self.assertEqual(
+                {"historical_results_replay"},
+                {row["participant_source_mode"] for row in provenance},
+            )
+
+    def test_historical_results_replay_rejects_uncompleted_race(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            data = FinalClimbFixture(root)
+            with self.assertRaisesRegex(TourInputError, "completed Final Climb"):
+                build_final_climb_inputs(
+                    schedule=data.schedule,
+                    men_chrono=data.men,
+                    ladies_chrono=data.ladies,
+                    aliases_path=data.aliases,
+                    logical_date=date(2027, 1, 9),
+                    output_dir=root / "bundle",
+                    fetcher=data.fetch,
+                    historical_results_replay=True,
+                    today=date(2026, 11, 23),
+                )
 
     def test_unknown_official_athlete_fails_closed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
