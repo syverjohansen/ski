@@ -20,7 +20,7 @@
     }
   },
   "russian_domestic_bridge": {
-    "status": "replay_implemented_pending_backtest",
+    "status": "backtest_harness_implemented_pending_evidence",
     "source_domain": "flgr-results.ru",
     "purpose": "Maintain prediction form for returning and new Russian athletes during gaps in FIS participation.",
     "legacy_implementation": {
@@ -56,6 +56,11 @@
       "replay_publication_eligible": false,
       "replay_calibration_status": "pending_backtest",
       "replay_k_factor": "Explicit replay parameter; the conservative default is 1.0 until backtesting selects an accepted value.",
+      "backtest_artifacts": [
+        "flgr-bridge-backtest-cases.csv",
+        "flgr-bridge-backtest-report.json"
+      ],
+      "backtest_rule": "Compare stale accepted FIS Elo, identically shaped bridge candidates, and optionally the quarantined legacy bridge against pairwise outcomes in each reviewed athlete's first later accepted FIS race. A recommendation requires the configured minimum number of distinct returning athletes and lower Brier error than stale FIS Elo.",
       "prediction_selection": "Use the latest accepted bridge rating only for a reviewed identity on the official target-race FIS startlist; otherwise use accepted FIS Elo or the newcomer fallback.",
       "provenance_fields": [
         "rating_source",
@@ -81,6 +86,7 @@
     "russia_ladies_scrape.csv"
   ],
   "hosted_modules": [
+    "cross_country_flgr_bridge_backtest.py",
     "cross_country_flgr_elo_replay.py",
     "cross_country_flgr_identity.py",
     "cross_country_flgr_results.py",
