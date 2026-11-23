@@ -91,6 +91,7 @@
   "hosted_modules": [
     "cross_country_fis_prediction_acquire.py",
     "cross_country_fis_prediction_identity.py",
+    "cross_country_fis_prediction_replay.py",
     "cross_country_flgr_bridge_backtest.py",
     "cross_country_flgr_evidence_acquire.py",
     "cross_country_flgr_evidence_resolve.py",
