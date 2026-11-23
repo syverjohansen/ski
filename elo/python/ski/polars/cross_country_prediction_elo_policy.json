@@ -1,6 +1,6 @@
 {
   "schema_version": "nordicnumbers.cross-country-prediction-elo-policy/v1",
-  "status": "fixed_anchor_replay_implemented_pending_calibration",
+  "status": "fixed_anchor_calibration_harness_implemented_pending_cohort",
   "official_elo": {
     "fis_categories": ["OWG", "SWC", "WC", "WSC"],
     "description": "Only classified Olympics, Tour de Ski/Stage World Cup, World Cup, and World Championship results update accepted Elo.",

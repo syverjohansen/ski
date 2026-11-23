@@ -311,6 +311,29 @@ prediction ledger. Matching discipline streams update independently and every
 missed season applies the normal offseason regression. The K factor remains an
 explicit research parameter pending calibration against first A-tier debuts.
 
+Backtest several identically shaped replay ledgers with reviewed identities:
+
+```bash
+python cross_country_fis_prediction_backtest.py \
+  --candidate-ledger k0.5=/tmp/replay-k0.5/fis-prediction-ledger.csv \
+  --candidate-ledger k1=/tmp/replay-k1/fis-prediction-ledger.csv \
+  --candidate-ledger k2=/tmp/replay-k2/fis-prediction-ledger.csv \
+  --identity-crosswalk /tmp/reviewed-fis-prediction-crosswalk.csv \
+  --men-chrono excel365/men_chrono.csv \
+  --ladies-chrono excel365/ladies_chrono.csv \
+  --minimum-athletes 20 \
+  --output-dir /tmp/nordicnumbers-fis-prediction-backtest
+```
+
+The crosswalk must explicitly review each prediction-only FIS identity against
+the canonical athlete who later debuted at A tier. The harness rejects any
+athlete already present in accepted A-tier history by their replay endpoint,
+requires every K candidate to use identical evidence, and reads the K factor
+from the ledger itself. It scores matching Elo streams against pairwise results
+in the athlete's first A-tier race. Outputs remain research-only even when a
+candidate beats the official prior; selecting a production K factor requires a
+separate reviewed calibration decision.
+
 Acquire the explicitly approved historical pages into an operator-owned
 directory outside Git with:
 

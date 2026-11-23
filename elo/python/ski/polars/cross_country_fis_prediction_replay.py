@@ -342,6 +342,7 @@ def replay_fis_prediction_elo(
                 "name": state.name,
                 "experience": state.experience,
                 "anchor_comparisons": len(target_comparisons),
+                "k_factor": k_factor,
                 "update_status": update_status,
             }
             for stream, previous_column in PREVIOUS_COLUMNS.items():

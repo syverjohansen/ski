@@ -20,7 +20,7 @@
     }
   },
   "russian_domestic_bridge": {
-    "status": "fixed_anchor_contract_defined_pending_recalibration",
+    "status": "fixed_anchor_calibration_harness_implemented_pending_cohort",
     "source_domain": "flgr-results.ru",
     "purpose": "Maintain prediction form for returning and new Russian athletes during gaps in FIS participation.",
     "legacy_implementation": {
@@ -57,13 +57,18 @@
       "offseason_rule": "Apply the accepted cross-country offseason regression to every completed season in the bridge replay.",
       "replay_artifact": "flgr-bridge-ledger.csv",
       "replay_publication_eligible": false,
-      "replay_calibration_status": "superseded_pending_fixed_anchor_recalibration",
+      "replay_calibration_status": "fixed_anchor_harness_implemented_pending_cohort",
       "replay_k_factor": null,
       "backtest_artifacts": [
         "flgr-bridge-backtest-cases.csv",
         "flgr-bridge-backtest-report.json"
       ],
       "backtest_rule": "Compare stale accepted FIS Elo, identically shaped bridge candidates, and optionally the quarantined legacy bridge against pairwise outcomes in each reviewed athlete's first later accepted FIS race. A recommendation requires the configured minimum number of distinct returning athletes and lower Brier error than stale FIS Elo.",
+      "fixed_anchor_backtest_artifacts": [
+        "fis-prediction-backtest-cases.csv",
+        "fis-prediction-backtest-report.json"
+      ],
+      "fixed_anchor_backtest_rule": "Compare identically shaped fixed-anchor K-factor candidates with the official prior using matching rating streams and pairwise outcomes in each reviewed athlete's first A-tier race. A recommendation requires at least 20 distinct debuting athletes and lower Brier error than the official prior.",
       "prediction_selection": "Use the latest accepted bridge rating only for a reviewed identity on the official target-race FIS startlist; otherwise use accepted FIS Elo or the newcomer fallback.",
       "provenance_fields": [
         "rating_source",
@@ -90,6 +95,7 @@
   ],
   "hosted_modules": [
     "cross_country_fis_prediction_acquire.py",
+    "cross_country_fis_prediction_backtest.py",
     "cross_country_fis_prediction_identity.py",
     "cross_country_fis_prediction_replay.py",
     "cross_country_flgr_bridge_backtest.py",
