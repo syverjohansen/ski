@@ -302,6 +302,7 @@ def build_weekend_inputs(
     group_date: date,
     output_dir: Path,
     fetcher: Callable[[str], bytes] = fetch_html,
+    prediction_shadow: bool = False,
 ) -> dict[str, object]:
     sources = (schedule, men_chrono, ladies_chrono, aliases_path)
     output_dir = _validate_output_dir(output_dir, sources)
@@ -310,6 +311,7 @@ def build_weekend_inputs(
         "schema_version": REPORT_SCHEMA,
         "logical_date": group_date.isoformat(),
         "publication": {"status": "disabled"},
+        "prediction_shadow": prediction_shadow,
         "input_sha256": {path.name: _sha256(path.read_bytes()) for path in sources},
         "excluded_specialized_races": excluded_specialized,
     }
@@ -354,21 +356,33 @@ def build_weekend_inputs(
                     candidates = name_index.get(
                         (sex, normalized_name(athlete.name)), set()
                     )
-                    if len(candidates) != 1:
-                        state = "missing" if not candidates else "ambiguous"
+                    if len(candidates) > 1:
                         raise WeekendInputError(
-                            f"{state} identity for {sex}/{athlete.competitor_id} "
+                            f"ambiguous identity for {sex}/{athlete.competitor_id} "
                             f"{athlete.name!r}; candidates={sorted(candidates)}"
                         )
-                    canonical_id = next(iter(candidates))
-                    method = "unique_normalized_name"
-                canonical = athletes[(sex, canonical_id)]
+                    if not candidates:
+                        if not prediction_shadow:
+                            raise WeekendInputError(
+                                f"missing identity for {sex}/{athlete.competitor_id} "
+                                f"{athlete.name!r}; candidates=[]"
+                            )
+                        canonical_id = f"fis:{athlete.competitor_id}"
+                        method = "prediction_only_fis_identity"
+                    else:
+                        canonical_id = next(iter(candidates))
+                        method = "unique_normalized_name"
+                canonical = athletes.get((sex, canonical_id))
                 output_rows[sex].append(
                     {
                         **base,
-                        "canonical_athlete_id": canonical.athlete_id,
-                        "canonical_name": canonical.name,
-                        "canonical_nation": canonical.nation,
+                        "canonical_athlete_id": (
+                            canonical.athlete_id if canonical else canonical_id
+                        ),
+                        "canonical_name": canonical.name if canonical else athlete.name,
+                        "canonical_nation": (
+                            canonical.nation if canonical else athlete.nation
+                        ),
                         "fis_competitor_id": athlete.competitor_id,
                         "fis_code": athlete.fis_code,
                         "identity_match_method": method,
@@ -439,6 +453,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--aliases", required=True, type=Path)
     parser.add_argument("--group-date", required=True, type=date.fromisoformat)
     parser.add_argument("--output-dir", required=True, type=Path)
+    parser.add_argument(
+        "--prediction-shadow",
+        action="store_true",
+        help="Represent unmatched official FIS starters with private fis: IDs",
+    )
     return parser.parse_args()
 
 
@@ -451,6 +470,7 @@ def main() -> int:
         aliases_path=args.aliases,
         group_date=args.group_date,
         output_dir=args.output_dir,
+        prediction_shadow=args.prediction_shadow,
     )
     print(json.dumps(report, indent=2, sort_keys=True))
     return 0

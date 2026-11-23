@@ -238,6 +238,33 @@ class CrossCountryWeekendInputTests(unittest.TestCase):
                     fetcher=lambda _url: html,
                 )
 
+    def test_shadow_mode_namespaces_unknown_official_identity(self) -> None:
+        html = b'<a class="table-row" href="?competitorid=999"><div class="athlete-name">UNKNOWN Athlete</div><span class="country__name-short">NOR</span><span class="justify-right gray pr-1">3999999</span></a>'
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            data = WeekendInputFixture(root)
+            write_csv(data.schedule, WEEKENDS_COLUMNS, [race(sex="M", race_id="52085")])
+            report = build_weekend_inputs(
+                schedule=data.schedule,
+                men_chrono=data.men,
+                ladies_chrono=data.ladies,
+                aliases_path=data.aliases,
+                group_date=date(2026, 11, 27),
+                output_dir=root / "bundle",
+                fetcher=lambda _url: html,
+                prediction_shadow=True,
+            )
+            with (root / "bundle" / "men_startlist.csv").open(
+                newline="", encoding="utf-8"
+            ) as handle:
+                row = next(csv.DictReader(handle))
+            self.assertTrue(report["prediction_shadow"])
+            self.assertEqual(row["canonical_athlete_id"], "fis:999")
+            self.assertEqual(row["fis_code"], "3999999")
+            self.assertEqual(
+                row["identity_match_method"], "prediction_only_fis_identity"
+            )
+
     def test_rejects_output_inside_accepted_sources(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
