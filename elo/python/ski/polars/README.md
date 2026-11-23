@@ -123,25 +123,31 @@ These additional skiers are used as fallback athletes when FIS startlists are un
 
 ### Production source policy (`cross_country_source_policy.json`)
 
-Hosted cross-country ratings use classified results linked from the accepted
-FIS schedule. Target-race eligibility comes from the official FIS startlist.
-These rules apply consistently whether an athlete is active, inactive, or
-eligible to return: domestic participation alone does not place an athlete in
-a Nordic Numbers prediction.
+Official cross-country history uses classified results linked from the accepted
+FIS schedule. Target-race eligibility comes from the official FIS startlist;
+domestic participation alone never places an athlete in a prediction.
 
-The legacy Russian domestic augmentation is explicitly
-`retired_from_hosted_predictions`. It scraped `flgr-results.ru`, fuzzy-matched
-domestic identities to FIS athletes (or created negative synthetic IDs), and
-renumbered races while combining domestic and FIS histories. An audit on
-2026-11-23 also found future-dated result rows in the checked-in legacy feed.
-That evidence is not safe to mix silently into the accepted production
-history.
+Russian domestic results are nevertheless required as a prediction-rating
+bridge. They preserve evidence of form for returning athletes whose FIS history
+has a multi-season gap and for new athletes who have raced only in Russia. A
+new FLGR athlete starts at the `1300` baseline and earns a bridge rating through
+verified races against the connected domestic field. Established athletes with
+FIS history anchor that field and must also update through domestic results.
+When a reviewed FLGR-to-FIS identity appears on an official FIS startlist, the
+latest accepted bridge rating can be used for the prediction.
 
-The scrapers and merge scripts remain in the repository as research-only
-references; hosted workflows must not consume their `russia_*_scrape.csv` or
-`combined_*_scrape.csv` outputs. The machine-readable policy records the
-tests and approvals required before any future reactivation. This is a source
-authority decision, not a claim about current or future athlete eligibility.
+The legacy implementation remains quarantined while that bridge is rebuilt. It
+fuzzy-matched identities (or created negative IDs), renumbered combined races,
+did not consistently update established athletes through domestic results, and
+had no as-of guard preventing future-dated rows. Its `russia_*_scrape.csv` and
+`combined_*_scrape.csv` files therefore remain forbidden hosted inputs.
+
+The target contract uses stable `flgr:<id>` event and athlete identities,
+reviewed crosswalks, immutable source evidence, future-date rejection,
+offseason regression, and explicit rating provenance. It creates a separate
+prediction replay and never inserts domestic races into the official FIS
+archive. The legacy scripts remain research references while this replacement
+is implemented and backtested.
 
 ### Schedule contract (`schedule_contract.py`)
 

@@ -1,7 +1,7 @@
 {
-  "schema_version": "nordicnumbers.cross-country-source-policy/v1",
+  "schema_version": "nordicnumbers.cross-country-source-policy/v2",
   "production_boundary": {
-    "results": {
+    "official_history": {
       "authority": "FIS",
       "description": "Classified cross-country results linked from the accepted FIS schedule",
       "accepted_histories": [
@@ -9,40 +9,67 @@
         "excel365/ladies_chrono.csv"
       ]
     },
+    "prediction_history": {
+      "description": "A separate, provenance-bearing replay may combine accepted FIS history with a validated FLGR bridge",
+      "must_not_replace_official_history": true
+    },
     "participants": {
       "authority": "FIS",
-      "description": "The official FIS startlist for the target race"
+      "description": "The official FIS startlist for the target race",
+      "domestic_participation_grants_prediction_eligibility": false
     }
   },
-  "russian_domestic_augmentation": {
-    "status": "retired_from_hosted_predictions",
-    "publication_eligible": false,
+  "russian_domestic_bridge": {
+    "status": "required_not_yet_implemented",
     "source_domain": "flgr-results.ru",
-    "decision_date": "2026-11-23",
-    "reasons": [
-      "The feed contains domestic results outside the accepted FIS results boundary.",
-      "The legacy mapper can fuzzy-match an identity or create a negative synthetic athlete ID.",
-      "The legacy merge renumbers races in the combined history instead of preserving accepted FIS race identities.",
-      "The checked-in legacy feed contained future-dated result rows when audited on 2026-11-23.",
-      "No hosted acquisition, Elo replay, prediction, or publication workflow consumes the combined legacy files."
-    ],
-    "preserved_research_only_scripts": [
-      "russia_scrape.py",
-      "russia_update_scrape.py",
-      "merge_scrape.py",
-      "relay/russia_scrape.py",
-      "relay/russia_update_scrape.py",
-      "relay/merge_scrape.py"
-    ],
-    "reactivation_requirements": [
-      "Approve an authoritative source and publication contract.",
-      "Add fixture-backed parsing tests that reject future result dates.",
-      "Replace fuzzy automatic identity binding with exact reviewed mappings.",
-      "Preserve accepted FIS race identities during isolated Elo replay.",
-      "Demonstrate prediction parity and obtain an explicit owner approval."
+    "purpose": "Maintain prediction form for returning and new Russian athletes during gaps in FIS participation.",
+    "legacy_implementation": {
+      "status": "quarantined_pending_replacement",
+      "publication_eligible": false,
+      "reasons": [
+        "The legacy mapper can fuzzy-match an identity or create a negative synthetic athlete ID.",
+        "The legacy merge renumbers races in the combined history instead of preserving source race identities.",
+        "The checked-in legacy feed contained future-dated result rows when audited on 2026-11-23.",
+        "The wired legacy prediction replay does not consistently update established FIS athletes from domestic results."
+      ],
+      "preserved_research_only_scripts": [
+        "russia_scrape.py",
+        "russia_update_scrape.py",
+        "merge_scrape.py",
+        "relay/russia_scrape.py",
+        "relay/russia_update_scrape.py",
+        "relay/merge_scrape.py"
+      ]
+    },
+    "target_contract": {
+      "event_identity": "flgr:<source_event_id>",
+      "athlete_identity": "flgr:<source_competitor_id>",
+      "fis_crosswalk": "A reviewed mapping from the FLGR identity to the FIS competitor ID, name, sex, and birthdate.",
+      "fuzzy_matches_are_suggestions_only": true,
+      "future_dated_results_are_rejected": true,
+      "new_athlete_initial_elo": 1300,
+      "new_athlete_rating_rule": "Replay verified domestic results against the connected rating field; established FIS athletes are calibration anchors and also update through domestic races.",
+      "disconnected_rating_rule": "A domestic component without an established FIS anchor remains low-confidence and is conservatively shrunk until connected.",
+      "offseason_rule": "Apply the accepted cross-country offseason regression to every completed season in the bridge replay.",
+      "prediction_selection": "Use the latest accepted bridge rating only for a reviewed identity on the official target-race FIS startlist; otherwise use accepted FIS Elo or the newcomer fallback.",
+      "provenance_fields": [
+        "rating_source",
+        "source_event_id",
+        "source_result_sha256",
+        "last_rating_event_date",
+        "identity_mapping_status"
+      ]
+    },
+    "implementation_requirements": [
+      "Add fixture-backed FLGR parsing and completion checks.",
+      "Reject events after the replay as-of date and retain source checksums.",
+      "Replace fuzzy automatic identity binding with exact reviewed crosswalks.",
+      "Replay stable FIS and FLGR event identities without renumbering accepted FIS races.",
+      "Backtest stale FIS Elo, the legacy bridge, and the proposed bridge against returning athletes' first FIS results.",
+      "Connect accepted bridge ratings to prediction inputs without adding domestic events to the official FIS archive."
     ]
   },
-  "forbidden_hosted_inputs": [
+  "forbidden_legacy_hosted_inputs": [
     "combined_men_scrape.csv",
     "combined_ladies_scrape.csv",
     "russia_men_scrape.csv",
