@@ -145,6 +145,32 @@ class CrossCountryFisPredictionCohortTests(unittest.TestCase):
             self.assertFalse(report["calibration_ready"])
             self.assertEqual(report["automatic_approvals"], 0)
 
+    def test_accepts_and_normalizes_history_datetime_values(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            histories = [
+                history_row(Date="2027-01-10 00:00:00"),
+                history_row(
+                    Date="2027-01-10 00:00:00",
+                    ID="20",
+                    Skier="Fresh Prospect",
+                    Place="2",
+                ),
+            ]
+            results, men, ladies, aliases = write_sources(
+                root, histories=histories
+            )
+            report = build_fis_prediction_calibration_cohort(
+                results=[results],
+                men_chrono=men,
+                ladies_chrono=ladies,
+                aliases_path=aliases,
+                output_dir=root / "output",
+                minimum_athletes=2,
+            )
+            self.assertEqual(report["candidate_athletes"], 2)
+            self.assertIn("on 2027-01-10", read_crosswalk(root / "output")[0]["evidence"])
+
     def test_reviewed_cohort_reaches_gate_only_with_reviewed_aliases(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -193,6 +219,64 @@ class CrossCountryFisPredictionCohortTests(unittest.TestCase):
                 root, aliases=[alias_row(fis_code="wrong")]
             )
             with self.assertRaisesRegex(FisPredictionCohortError, "does not match"):
+                build_fis_prediction_calibration_cohort(
+                    results=[results],
+                    men_chrono=men,
+                    ladies_chrono=ladies,
+                    aliases_path=aliases,
+                    output_dir=root / "output",
+                )
+
+    def test_accepts_name_variants_when_competitor_id_and_fis_code_are_stable(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            rows = [
+                result_row(name="ATHLETE New", date="2026-11-01"),
+                result_row(
+                    name="ATHLETE New Middle",
+                    date="2026-12-01",
+                    fis_race_id="501",
+                ),
+            ]
+            results, men, ladies, aliases = write_sources(root, results=rows)
+            report = build_fis_prediction_calibration_cohort(
+                results=[results],
+                men_chrono=men,
+                ladies_chrono=ladies,
+                aliases_path=aliases,
+                output_dir=root / "output",
+                minimum_athletes=1,
+            )
+            self.assertEqual(report["reviewed_athletes"], 1)
+            self.assertEqual(read_crosswalk(root / "output")[0]["fis_name"], "ATHLETE New")
+
+    def test_reviewed_alias_may_bridge_a_fis_transliteration(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            results, men, ladies, aliases = write_sources(
+                root,
+                aliases=[alias_row(fis_name="ATHLETE Niu")],
+            )
+            report = build_fis_prediction_calibration_cohort(
+                results=[results],
+                men_chrono=men,
+                ladies_chrono=ladies,
+                aliases_path=aliases,
+                output_dir=root / "output",
+                minimum_athletes=1,
+            )
+            self.assertEqual(report["reviewed_athletes"], 1)
+            self.assertEqual(
+                read_crosswalk(root / "output")[0]["fis_name"],
+                "ATHLETE Niu",
+            )
+
+    def test_rejects_fis_code_change_for_stable_competitor_id(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            rows = [result_row(), result_row(fis_race_id="501", fis_code="9999999")]
+            results, men, ladies, aliases = write_sources(root, results=rows)
+            with self.assertRaisesRegex(FisPredictionCohortError, "FIS code changed"):
                 build_fis_prediction_calibration_cohort(
                     results=[results],
                     men_chrono=men,

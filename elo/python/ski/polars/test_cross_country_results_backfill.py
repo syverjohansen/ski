@@ -33,16 +33,60 @@ class CrossCountryResultsBackfillTests(unittest.TestCase):
         self.assertEqual(results[0]["name"], "NISKANEN Iivo")
         self.assertEqual(results[0]["nation"], "FIN")
 
+    def test_parses_current_fis_result_name_markup(self) -> None:
+        rows = []
+        for place, competitor_id, fis_code, name, nation in (
+            (1, "192828", "3560145", "CRV Vili", "SLO"),
+            (2, "178100", "3482131", "GONTAR Valeriy", "SLO"),
+            (3, "236272", "3560188", "MOCNIK Martin", "SLO"),
+        ):
+            rows.append(
+                f"""
+                <a class="table-row" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=cc&amp;competitorid={competitor_id}">
+                  <div class="g-lg-1 justify-right pr-1 bold">{place}</div>
+                  <div class="pr-1 g-lg-2 justify-right gray">{fis_code}</div>
+                  <div class="g-lg-{12 if place == 1 else 13} g-md-12 g-sm-11 g-xs-8 justify-left bold">{name}</div>
+                  <span class="country__name-short">{nation}</span>
+                </a>
+                """
+            )
+        results = parse_classified_results("".join(rows).encode())
+        self.assertEqual(len(results), 3)
+        self.assertEqual(results[0]["name"], "CRV Vili")
+        self.assertEqual(results[0]["fis_code"], "3560145")
+
+    def test_allows_two_finishers_only_when_requested(self) -> None:
+        rows = []
+        for place in range(1, 3):
+            rows.append(
+                f"""
+                <a class="table-row" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=cc&amp;competitorid={place}">
+                  <div class="justify-right pr-1 bold">{place}</div>
+                  <div class="justify-right gray pr-1">{3500000 + place}</div>
+                  <div class="justify-left bold">Athlete {place}</div>
+                  <span class="country__name-short">NOR</span>
+                </a>
+                """
+            )
+        html = "".join(rows).encode()
+        with self.assertRaisesRegex(BackfillError, "only 2 classified"):
+            parse_classified_results(html)
+        self.assertEqual(
+            len(parse_classified_results(html, minimum_results=2)),
+            2,
+        )
+
     def test_accepts_only_fis_cross_country_results_urls(self) -> None:
         url = (
-            "https://www.fis-ski.com/DB/general/results.html?"
-            "sectorcode=CC&raceid=52085"
+            "https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=52085"
         )
         self.assertEqual(validate_results_url(url), "52085")
         with self.assertRaisesRegex(BackfillError, "cross-country"):
             validate_results_url(url.replace("sectorcode=CC", "sectorcode=AL"))
         with self.assertRaisesRegex(BackfillError, "cross-country"):
-            validate_results_url("https://example.com/results?sectorcode=CC&raceid=52085")
+            validate_results_url(
+                "https://example.com/results?sectorcode=CC&raceid=52085"
+            )
 
     def test_rejects_output_beside_accepted_sources(self) -> None:
         source = HERE / "excel365" / "races.csv"

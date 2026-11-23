@@ -11,6 +11,7 @@ from cross_country_fis_prediction_acquire import (
     discover_result_races,
 )
 from cross_country_prediction_sources import prediction_calendar_url
+from cross_country_results_backfill import BackfillError
 
 ROOT = Path(__file__).resolve().parent
 RESULTS_FIXTURE = ROOT / "tests" / "fixtures" / "cc-results.html"
@@ -63,6 +64,31 @@ def event_html() -> bytes:
       </div>
     </div></body></html>
     """.encode()
+
+
+def no_results_html() -> bytes:
+    return b"""
+    <html><body>
+      <div id="events-info-results">
+        <div class="table-row"><div>No results found for this competition.</div></div>
+      </div>
+    </body></html>
+    """
+
+
+def unranked_results_html() -> bytes:
+    rows = "".join(
+        f"""
+        <a class="table-row" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=cc&amp;competitorid={competitor_id}">
+          <div class="justify-right pr-1 bold"></div>
+          <div class="justify-right gray pr-1">{3500000 + competitor_id}</div>
+          <div class="justify-left bold">Athlete {competitor_id}</div>
+          <span class="country__name-short">NOR</span>
+        </a>
+        """
+        for competitor_id in range(1, 4)
+    )
+    return f'<div id="events-info-results">{rows}</div>'.encode()
 
 
 def write_schedule(path: Path) -> None:
@@ -179,6 +205,114 @@ class CrossCountryFisPredictionAcquireTests(unittest.TestCase):
                     as_of=date(2026, 11, 23),
                     output_dir=root / "output",
                     fetcher=sources.__getitem__,
+                )
+
+    def test_resumes_from_raw_cache_without_refetching(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            schedule = root / "accepted" / "races.csv"
+            schedule.parent.mkdir()
+            write_schedule(schedule)
+            sources = {
+                prediction_calendar_url(2027, "FIS"): calendar_html(),
+                EVENT_URL: event_html(),
+                RESULT_URL: RESULTS_FIXTURE.read_bytes(),
+            }
+            output = root / "output"
+            acquire_fis_prediction_evidence(
+                season=2027,
+                categories=["FIS"],
+                accepted_schedule=schedule,
+                as_of=date(2026, 11, 23),
+                output_dir=output,
+                fetcher=sources.__getitem__,
+            )
+            (output / "fis-prediction-results.csv").unlink()
+            (output / "report.json").unlink()
+
+            report = acquire_fis_prediction_evidence(
+                season=2027,
+                categories=["FIS"],
+                accepted_schedule=schedule,
+                as_of=date(2026, 11, 23),
+                output_dir=output,
+                fetcher=lambda url: self.fail(f"unexpected fetch: {url}"),
+                resume=True,
+            )
+
+            self.assertEqual(report["raw_cache_hits"], 3)
+            self.assertEqual(report["acquired_races"], 1)
+            self.assertTrue((output / "fis-prediction-results.csv").is_file())
+
+    def test_records_explicit_fis_no_results_but_rejects_unparseable_pages(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            schedule = root / "accepted" / "races.csv"
+            schedule.parent.mkdir()
+            write_schedule(schedule)
+            event_with_two_races = event_html().replace(
+                b"</div></body></html>",
+                b"""
+                <div class="table-row">
+                  <div class="timezone-date" data-date="2026-11-19"></div>
+                  <div class="gender__item gender__item_l"></div>
+                  <div class="clip">5 km Interval Start Free</div>
+                  <a href="/DB/general/results.html?sectorcode=CC&amp;raceid=503">Results</a>
+                </div></div></body></html>
+                """,
+            )
+            sources = {
+                prediction_calendar_url(2027, "FIS"): calendar_html(),
+                EVENT_URL: event_with_two_races,
+                RESULT_URL: RESULTS_FIXTURE.read_bytes(),
+                "https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=503": no_results_html(),
+            }
+            report = acquire_fis_prediction_evidence(
+                season=2027,
+                categories=["FIS"],
+                accepted_schedule=schedule,
+                as_of=date(2026, 11, 23),
+                output_dir=root / "output",
+                fetcher=sources.__getitem__,
+            )
+
+            self.assertEqual(report["acquired_races"], 1)
+            self.assertEqual(
+                report["skipped_races"][0]["reason"],
+                "fis_explicitly_reports_no_results",
+            )
+
+            unranked_sources = dict(sources)
+            unranked_sources[
+                "https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=503"
+            ] = unranked_results_html()
+            unranked_report = acquire_fis_prediction_evidence(
+                season=2027,
+                categories=["FIS"],
+                accepted_schedule=schedule,
+                as_of=date(2026, 11, 23),
+                output_dir=root / "unranked-output",
+                fetcher=unranked_sources.__getitem__,
+            )
+            self.assertEqual(
+                unranked_report["skipped_races"][0]["reason"],
+                "fis_page_has_unranked_athletes",
+            )
+
+            broken_sources = dict(sources)
+            broken_sources[
+                "https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=503"
+            ] = b'<div id="events-info-results"><div>Unexpected markup</div></div>'
+            with self.assertRaisesRegex(
+                BackfillError, "yielded only 0 classified results"
+            ):
+                acquire_fis_prediction_evidence(
+                    season=2027,
+                    categories=["FIS"],
+                    accepted_schedule=schedule,
+                    as_of=date(2026, 11, 23),
+                    output_dir=root / "broken-output",
+                    fetcher=broken_sources.__getitem__,
                 )
 
 
