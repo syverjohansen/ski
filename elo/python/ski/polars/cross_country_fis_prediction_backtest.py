@@ -18,7 +18,7 @@ import re
 import tempfile
 from collections.abc import Iterable
 from dataclasses import dataclass
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
 from cross_country_results_elo_replay import (
@@ -297,7 +297,11 @@ def _load_histories(
             raise FisPredictionBacktestError(f"{path} is missing columns: {missing}")
         for line, row in enumerate(rows, start=2):
             try:
-                date.fromisoformat(row["Date"].strip())
+                raw_date = row["Date"].strip()
+                try:
+                    accepted_date = date.fromisoformat(raw_date)
+                except ValueError:
+                    accepted_date = datetime.fromisoformat(raw_date).date()
                 int(row["Season"])
                 int(row["Race"])
             except ValueError as error:
@@ -308,6 +312,7 @@ def _load_histories(
                 raise FisPredictionBacktestError(
                     f"{path}:{line}: incomplete accepted athlete identity"
                 )
+            row["Date"] = accepted_date.isoformat()
         histories[sex] = rows
     return histories
 

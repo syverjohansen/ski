@@ -260,6 +260,34 @@ class CrossCountryFisPredictionIdentityTests(unittest.TestCase):
             )
             self.assertEqual(len(comparisons), 5)
 
+    def test_name_match_must_be_globally_unique_before_becoming_anchor(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            results, men, ladies, aliases = prepare_sources(root)
+            history = read_csv(men)
+            history.append(
+                history_row(
+                    Date="2027-01-01",
+                    Season=2027,
+                    ID="99",
+                    Skier="Anchor One",
+                )
+            )
+            write_csv(men, HISTORY_FIELDS, history)
+            classify_fis_prediction_identities(
+                results=results,
+                men_chrono=men,
+                ladies_chrono=ladies,
+                aliases_path=aliases,
+                output_dir=root / "output",
+            )
+            participants = read_csv(root / "output" / "fis-prediction-participants.csv")
+            source_identity = next(
+                row for row in participants if row["fis_competitor_id"] == "100"
+            )
+            self.assertEqual(source_identity["a_tier_verified"], "false")
+            self.assertEqual(source_identity["prediction_athlete_id"], "fis:100")
+
     def test_alias_anchor_is_fixed_and_not_a_comparison_target(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -281,6 +309,38 @@ class CrossCountryFisPredictionIdentityTests(unittest.TestCase):
             self.assertNotIn(
                 "200", {row["target_fis_competitor_id"] for row in comparisons}
             )
+
+    def test_reviewed_alias_bridges_name_change_but_not_fis_code_change(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            results, men, ladies, aliases = prepare_sources(root)
+            rows = read_csv(results)
+            for row in rows:
+                if row["fis_competitor_id"] == "200":
+                    row["name"] = "ANCHOR TWO CURRENT"
+            write_csv(results, RESULT_FIELDS, rows)
+            classify_fis_prediction_identities(
+                results=results,
+                men_chrono=men,
+                ladies_chrono=ladies,
+                aliases_path=aliases,
+                output_dir=root / "renamed-output",
+            )
+
+            for row in rows:
+                if row["fis_competitor_id"] == "200":
+                    row["fis_code"] = "9999999"
+            write_csv(results, RESULT_FIELDS, rows)
+            with self.assertRaisesRegex(
+                FisPredictionIdentityError, "identity changed"
+            ):
+                classify_fis_prediction_identities(
+                    results=results,
+                    men_chrono=men,
+                    ladies_chrono=ladies,
+                    aliases_path=aliases,
+                    output_dir=root / "changed-code-output",
+                )
 
     def test_sources_are_immutable_and_outputs_are_deterministic(self):
         with tempfile.TemporaryDirectory() as directory:

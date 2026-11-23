@@ -149,6 +149,37 @@ class CrossCountryPredictionSourceTests(unittest.TestCase):
             self.assertEqual(alias["canonical_id"], row["canonical_athlete_id"])
             self.assertEqual(alias["canonical_name"], row["canonical_name"])
 
+    def test_selected_k_factor_is_supported_by_calibration_decision(self):
+        policy = json.loads(
+            (ROOT / "cross_country_prediction_elo_policy.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        prediction = policy["prediction_elo"]
+        decision = json.loads(
+            (ROOT / prediction["calibration_decision"]).read_text(encoding="utf-8")
+        )
+
+        self.assertEqual(prediction["selected_k_factor"], 4.0)
+        self.assertEqual(decision["selected_k_factor"], 4.0)
+        self.assertGreaterEqual(
+            decision["evaluated_athletes"],
+            policy["calibration_cohort"]["minimum_reviewed_athletes"],
+        )
+        self.assertLess(
+            decision["metrics"]["k4"]["brier_score"],
+            decision["metrics"]["official_prior"]["brier_score"],
+        )
+        self.assertFalse(decision["publication_eligible"])
+        self.assertEqual(decision["unknown_vs_unknown_comparisons"], 0)
+        self.assertEqual(decision["verified_anchor_updates"], 0)
+        for digest in (
+            *decision["input_sha256"].values(),
+            *decision["candidate_ledger_sha256"].values(),
+        ):
+            self.assertEqual(len(digest), 64)
+            int(digest, 16)
+
 
 if __name__ == "__main__":
     unittest.main()

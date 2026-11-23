@@ -199,6 +199,32 @@ class CrossCountryFisPredictionBacktestTests(unittest.TestCase):
                 {"Elo", "Distance_Elo", "Distance_C_Elo", "Classic_Elo"},
             )
 
+    def test_accepts_and_normalizes_history_datetime_values(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            history = [
+                history_row(Date="2027-01-10 00:00:00"),
+                history_row(
+                    Date="2027-01-10 00:00:00",
+                    ID="20",
+                    Skier="Opponent A",
+                    Place="2",
+                    Pelo="1500",
+                ),
+            ]
+            strong, _, crosswalk, men, ladies = write_sources(
+                root, history_rows=history
+            )
+            report = backtest_fis_prediction_elo(
+                candidate_ledgers={"candidate": strong},
+                identity_crosswalk=crosswalk,
+                men_chrono=men,
+                ladies_chrono=ladies,
+                output_dir=root / "output",
+                minimum_athletes=1,
+            )
+            self.assertEqual(report["evaluated_athletes"], 1)
+
     def test_minimum_athlete_gate_prevents_small_sample_recommendation(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
