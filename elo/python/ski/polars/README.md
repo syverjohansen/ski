@@ -169,6 +169,26 @@ duplicate-athlete, team, qualification, and roller-ski evidence. It produces an
 isolated JSON manifest and normalized CSV; it performs no network request and
 does not modify accepted FIS or prediction histories.
 
+Resolve candidate identities in a second isolated directory with:
+
+```bash
+python cross_country_flgr_identity.py \
+  --candidate /tmp/nordicnumbers-flgr-candidate/flgr-candidate.json \
+  --men-chrono excel365/men_chrono.csv \
+  --ladies-chrono excel365/ladies_chrono.csv \
+  --crosswalk excel365/flgr_identity_crosswalk.csv \
+  --output-dir /tmp/nordicnumbers-flgr-identities
+```
+
+Every athlete retains the stable `flgr:<competitor-id>` bridge identity.
+Reviewed crosswalk rows may attach an accepted canonical athlete ID for a FIS
+rating anchor and later startlist join. Unmapped domestic athletes remain valid
+`flgr_only` bridge participants, starting from the configured newcomer
+baseline in the future replay. Deterministic Cyrillic-name similarity and birth
+year comparisons are written only as review suggestions; suggestions are never
+applied automatically. Conflicting names, birth years, reused canonical IDs,
+unknown canonical athletes, or changed reviewed identities fail closed.
+
 ### Schedule contract (`schedule_contract.py`)
 
 `excel365/races.csv` is the canonical one-row-per-race schedule.
