@@ -331,6 +331,63 @@ class CrossCountryFisPredictionReplayTests(unittest.TestCase):
                     (root / "second" / filename).read_bytes(),
                 )
 
+    def test_name_may_change_but_stable_fis_code_is_required(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            participants, comparisons = prepare_sources(root)
+            with participants.open(newline="", encoding="utf-8") as handle:
+                rows = list(csv.DictReader(handle))
+            for row in rows:
+                if (
+                    row["prediction_athlete_id"] == "fis:300"
+                    and row["fis_race_id"] != "500"
+                ):
+                    row["name"] = "Unknown A Current"
+            write_csv(participants, PARTICIPANT_FIELDS, rows)
+            with comparisons.open(newline="", encoding="utf-8") as handle:
+                comparison_rows = list(csv.DictReader(handle))
+            for row in comparison_rows:
+                if (
+                    row["target_prediction_athlete_id"] == "fis:300"
+                    and row["fis_race_id"] != "500"
+                ):
+                    row["target_name"] = "Unknown A Current"
+            write_csv(comparisons, COMPARISON_FIELDS, comparison_rows)
+            replay_fis_prediction_elo(
+                participants=participants,
+                comparisons=comparisons,
+                output_dir=root / "renamed-output",
+            )
+            athlete_rows = [
+                row
+                for row in read_ledger(root / "renamed-output")
+                if row["prediction_athlete_id"] == "fis:300"
+            ]
+            self.assertEqual(athlete_rows[-1]["name"], "Unknown A Current")
+
+            for row in rows:
+                if (
+                    row["prediction_athlete_id"] == "fis:300"
+                    and row["fis_race_id"] != "500"
+                ):
+                    row["fis_code"] = "9999999"
+            write_csv(participants, PARTICIPANT_FIELDS, rows)
+            for row in comparison_rows:
+                if (
+                    row["target_prediction_athlete_id"] == "fis:300"
+                    and row["fis_race_id"] != "500"
+                ):
+                    row["target_fis_code"] = "9999999"
+            write_csv(comparisons, COMPARISON_FIELDS, comparison_rows)
+            with self.assertRaisesRegex(
+                FisPredictionReplayError, "identity changed"
+            ):
+                replay_fis_prediction_elo(
+                    participants=participants,
+                    comparisons=comparisons,
+                    output_dir=root / "changed-code-output",
+                )
+
     def test_rejects_comparison_targeting_a_verified_participant(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

@@ -1,6 +1,6 @@
 {
   "schema_version": "nordicnumbers.cross-country-prediction-elo-policy/v1",
-  "status": "fixed_anchor_calibration_cohort_reviewed",
+  "status": "fixed_anchor_k_factor_selected_pending_shadow_integration",
   "official_elo": {
     "fis_categories": ["OWG", "SWC", "WC", "WSC"],
     "description": "Only classified Olympics, Tour de Ski/Stage World Cup, World Cup, and World Championship results update accepted Elo.",
@@ -9,6 +9,8 @@
   "prediction_elo": {
     "eligible_athlete": "An athlete with no classified A-tier result strictly before the prediction-evidence race date.",
     "initial_prior": 1300,
+    "selected_k_factor": 4.0,
+    "calibration_decision": "excel365/fis_prediction_calibration.json",
     "prior_is_private": true,
     "comparison_opponents": "A-tier-verified athletes in the same classified race only.",
     "unknown_vs_unknown": "ignored",

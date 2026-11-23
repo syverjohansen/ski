@@ -248,10 +248,10 @@ def _verified_anchor(
     event_date = row["date"].strip()
     alias = aliases.get((sex, competitor_id))
     if alias:
-        if (
-            alias["fis_code"].strip() != fis_code
-            or alias["fis_name"].strip() != fis_name
-        ):
+        # A reviewed alias may intentionally bridge transliteration or a later
+        # FIS display-name change. The stable competitor ID key and FIS code
+        # remain mandatory.
+        if alias["fis_code"].strip() != fis_code:
             raise FisPredictionIdentityError(
                 f"FIS identity changed for reviewed alias {sex}/{competitor_id}"
             )
@@ -260,6 +260,10 @@ def _verified_anchor(
     else:
         candidates = name_index.get((sex, normalized_name(fis_name)), set())
         method = "unique_prior_a_tier_name"
+        # A name shared by multiple accepted-history identities is ambiguous
+        # even if only one identity had debuted by this particular date.
+        if len(candidates) != 1:
+            return None
 
     eligible = []
     for canonical_id in candidates:

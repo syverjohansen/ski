@@ -296,11 +296,12 @@ def replay_fis_prediction_elo(
             elif (
                 state.fis_competitor_id != row["fis_competitor_id"].strip()
                 or state.fis_code != row["fis_code"].strip()
-                or state.name != row["name"].strip()
             ):
                 raise FisPredictionReplayError(
                     f"prediction identity changed for {prediction_id}"
                 )
+            else:
+                state.name = row["name"].strip()
             boundaries = season - state.last_season
             if boundaries < 0:
                 raise FisPredictionReplayError("events are not in chronological order")
