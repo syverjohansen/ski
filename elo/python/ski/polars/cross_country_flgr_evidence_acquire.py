@@ -76,7 +76,8 @@ def _read_manifest(path: Path) -> list[EvidenceRequest]:
         raise FlgrEvidenceAcquisitionError("evidence manifest is empty")
 
     requests: list[EvidenceRequest] = []
-    seen_urls: set[str] = set()
+    approved_sources: dict[str, tuple[str, int, str]] = {}
+    seen_targets: set[tuple[str, str]] = set()
     for line, row in enumerate(rows, start=2):
         cohort = (row.get("cohort") or "").strip()
         sex = (row.get("sex") or "").strip()
@@ -104,11 +105,18 @@ def _read_manifest(path: Path) -> list[EvidenceRequest]:
                 f"{path}:{line}: incomplete evidence request"
             )
         parse_source_url(source_url)
-        if source_url in seen_urls:
+        source_shape = (cohort, season, sex)
+        previous_source_shape = approved_sources.setdefault(source_url, source_shape)
+        if previous_source_shape != source_shape:
             raise FlgrEvidenceAcquisitionError(
-                f"{path}:{line}: duplicate source URL {source_url}"
+                f"{path}:{line}: conflicting source metadata for {source_url}"
             )
-        seen_urls.add(source_url)
+        target_key = (source_url, source_id)
+        if target_key in seen_targets:
+            raise FlgrEvidenceAcquisitionError(
+                f"{path}:{line}: duplicate target {source_id} for {source_url}"
+            )
+        seen_targets.add(target_key)
         requests.append(
             EvidenceRequest(
                 cohort=cohort,
@@ -204,41 +212,26 @@ def acquire_flgr_evidence(
 
     index_rows: list[dict[str, object]] = []
     observed_identities: dict[tuple[str, str], tuple[str, int | None]] = {}
+    requests_by_url: dict[str, list[EvidenceRequest]] = {}
     for evidence in requests:
-        html = fetch(evidence.source_url)
+        requests_by_url.setdefault(evidence.source_url, []).append(evidence)
+
+    cohort_pages: Counter[str] = Counter()
+    for source_url, page_requests in requests_by_url.items():
+        first_request = page_requests[0]
+        html = fetch(source_url)
         if not html or len(html) > MAX_PAGE_BYTES:
             raise FlgrEvidenceAcquisitionError(
-                f"invalid page size for {evidence.source_url}: {len(html)} bytes"
+                f"invalid page size for {source_url}: {len(html)} bytes"
             )
         candidate = build_race_candidate(
             html,
-            source_url=evidence.source_url,
-            season=evidence.season,
-            sex=evidence.sex,
+            source_url=source_url,
+            season=first_request.season,
+            sex=first_request.sex,
             as_of=as_of,
             retrieved_at=retrieved_at,
         )
-        target = next(
-            (
-                row
-                for row in candidate["results"]
-                if row["source_competitor_id"] == evidence.target_flgr_competitor_id
-            ),
-            None,
-        )
-        if target is None:
-            raise FlgrEvidenceAcquisitionError(
-                f"target flgr:{evidence.target_flgr_competitor_id} is absent from "
-                f"{candidate['event_id']}"
-            )
-        identity_key = (evidence.sex, evidence.target_flgr_competitor_id)
-        identity_shape = (target["source_name"], target["birth_year"])
-        previous_identity = observed_identities.setdefault(identity_key, identity_shape)
-        if previous_identity != identity_shape:
-            raise FlgrEvidenceAcquisitionError(
-                f"source identity changed across evidence for {identity_key}"
-            )
-
         safe_name = candidate["event_id"].replace(":", "_")
         raw_relative = Path("raw") / f"{safe_name}.html"
         candidate_relative = Path("candidates") / f"{safe_name}.json"
@@ -247,32 +240,56 @@ def acquire_flgr_evidence(
             output_dir / candidate_relative,
             json.dumps(candidate, indent=2, ensure_ascii=False, sort_keys=True) + "\n",
         )
-        index_rows.append(
-            {
-                "cohort": evidence.cohort,
-                "event_id": candidate["event_id"],
-                "date": candidate["date"],
-                "season": candidate["season"],
-                "sex": candidate["sex"],
-                "distance": candidate["distance"],
-                "technique": candidate["technique"],
-                "source_url": evidence.source_url,
-                "source_sha256": candidate["source_sha256"],
-                "classified_results": len(candidate["results"]),
-                "target_athlete_id": target["athlete_id"],
-                "target_source_name": target["source_name"],
-                "target_birth_year": target["birth_year"],
-                "target_place": target["place"],
-                "proposed_canonical_athlete_id": (
-                    evidence.proposed_canonical_athlete_id
+        cohort_pages[first_request.cohort] += 1
+        for evidence in page_requests:
+            target = next(
+                (
+                    row
+                    for row in candidate["results"]
+                    if row["source_competitor_id"] == evidence.target_flgr_competitor_id
                 ),
-                "proposed_canonical_name": evidence.proposed_canonical_name,
-                "mapping_status": "proposed_requires_review",
-                "evidence_note": evidence.evidence_note,
-                "raw_file": raw_relative.as_posix(),
-                "candidate_file": candidate_relative.as_posix(),
-            }
-        )
+                None,
+            )
+            if target is None:
+                raise FlgrEvidenceAcquisitionError(
+                    f"target flgr:{evidence.target_flgr_competitor_id} is absent "
+                    f"from {candidate['event_id']}"
+                )
+            identity_key = (evidence.sex, evidence.target_flgr_competitor_id)
+            identity_shape = (target["source_name"], target["birth_year"])
+            previous_identity = observed_identities.setdefault(
+                identity_key, identity_shape
+            )
+            if previous_identity != identity_shape:
+                raise FlgrEvidenceAcquisitionError(
+                    f"source identity changed across evidence for {identity_key}"
+                )
+            index_rows.append(
+                {
+                    "cohort": evidence.cohort,
+                    "event_id": candidate["event_id"],
+                    "date": candidate["date"],
+                    "season": candidate["season"],
+                    "sex": candidate["sex"],
+                    "distance": candidate["distance"],
+                    "technique": candidate["technique"],
+                    "source_url": evidence.source_url,
+                    "source_sha256": candidate["source_sha256"],
+                    "classified_results": len(candidate["results"]),
+                    "target_athlete_id": target["athlete_id"],
+                    "target_source_name": target["source_name"],
+                    "target_birth_year": target["birth_year"],
+                    "target_place": target["place"],
+                    "proposed_canonical_athlete_id": (
+                        evidence.proposed_canonical_athlete_id
+                    ),
+                    "proposed_canonical_name": evidence.proposed_canonical_name,
+                    "mapping_status": "proposed_requires_review",
+                    "evidence_note": evidence.evidence_note,
+                    "raw_file": raw_relative.as_posix(),
+                    "candidate_file": candidate_relative.as_posix(),
+                }
+            )
 
     fields = list(index_rows[0])
     _atomic_text(output_dir / "evidence-index.csv", _csv_text(index_rows, fields))
@@ -281,8 +298,9 @@ def acquire_flgr_evidence(
         "manifest_sha256": hashlib.sha256(manifest_path.read_bytes()).hexdigest(),
         "as_of": as_of.isoformat(),
         "retrieved_at": retrieved_at.astimezone(UTC).isoformat(),
-        "race_pages": len(index_rows),
-        "cohorts": dict(sorted(Counter(row["cohort"] for row in index_rows).items())),
+        "race_pages": len(requests_by_url),
+        "evidence_requests": len(index_rows),
+        "cohorts": dict(sorted(cohort_pages.items())),
         "target_athletes": len(observed_identities),
         "mapping_applied": False,
         "publication_eligible": False,

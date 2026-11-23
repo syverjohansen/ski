@@ -69,6 +69,7 @@ class FlgrEvidenceAcquisitionTests(unittest.TestCase):
 
             self.assertEqual(requested, urls)
             self.assertEqual(report["race_pages"], 2)
+            self.assertEqual(report["evidence_requests"], 2)
             self.assertEqual(report["target_athletes"], 1)
             self.assertFalse(report["mapping_applied"])
             self.assertFalse(report["publication_eligible"])
@@ -107,18 +108,78 @@ class FlgrEvidenceAcquisitionTests(unittest.TestCase):
                     retrieved_at=datetime(2026, 11, 23, 19, 0, tzinfo=UTC),
                 )
 
-    def test_manifest_rejects_duplicate_or_unapproved_urls(self):
+    def test_one_approved_page_can_request_multiple_reviewed_targets(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            manifest = root / "manifest.csv"
+            source_url = "https://flgr-results.ru/results/77/88"
+            write_manifest(
+                manifest,
+                [
+                    manifest_row(source_url=source_url),
+                    manifest_row(
+                        source_url=source_url,
+                        target_flgr_competitor_id="202",
+                        proposed_canonical_athlete_id="20",
+                        proposed_canonical_name="Petr Petrov",
+                    ),
+                ],
+            )
+            requested = []
+
+            def fetch(url: str) -> bytes:
+                requested.append(url)
+                return FIXTURE.read_bytes()
+
+            report = acquire_flgr_evidence(
+                manifest_path=manifest,
+                output_dir=root / "output",
+                as_of=date(2026, 11, 23),
+                fetch=fetch,
+                retrieved_at=datetime(2026, 11, 23, 19, 0, tzinfo=UTC),
+            )
+
+            self.assertEqual(requested, [source_url])
+            self.assertEqual(report["race_pages"], 1)
+            self.assertEqual(report["evidence_requests"], 2)
+            self.assertEqual(report["target_athletes"], 2)
+            with (root / "output" / "evidence-index.csv").open(
+                newline="", encoding="utf-8"
+            ) as handle:
+                rows = list(csv.DictReader(handle))
+            self.assertEqual(
+                {row["target_athlete_id"] for row in rows},
+                {"flgr:101", "flgr:202"},
+            )
+            self.assertEqual(len({row["raw_file"] for row in rows}), 1)
+            self.assertEqual(len({row["candidate_file"] for row in rows}), 1)
+
+    def test_manifest_rejects_duplicate_targets_or_unapproved_urls(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             manifest = root / "manifest.csv"
             row = manifest_row()
             write_manifest(manifest, [row, row])
             with self.assertRaisesRegex(
-                FlgrEvidenceAcquisitionError, "duplicate source URL"
+                FlgrEvidenceAcquisitionError, "duplicate target 101"
             ):
                 acquire_flgr_evidence(
                     manifest_path=manifest,
                     output_dir=root / "duplicate-output",
+                    as_of=date(2026, 11, 23),
+                    fetch=lambda _: FIXTURE.read_bytes(),
+                )
+
+            write_manifest(
+                manifest,
+                [row, manifest_row(target_flgr_competitor_id="202", season=2026)],
+            )
+            with self.assertRaisesRegex(
+                FlgrEvidenceAcquisitionError, "conflicting source metadata"
+            ):
+                acquire_flgr_evidence(
+                    manifest_path=manifest,
+                    output_dir=root / "conflicting-output",
                     as_of=date(2026, 11, 23),
                     fetch=lambda _: FIXTURE.read_bytes(),
                 )
