@@ -1,0 +1,42 @@
+{
+  "schema_version": "nordicnumbers.flgr-bridge-calibration-decision/v1",
+  "as_of": "2026-11-23",
+  "cohort": "historical_calibration",
+  "status": "historical_calibration_complete_pending_holdout",
+  "publication_eligible": false,
+  "selection_rule": "Choose a bridge candidate only after at least 20 distinct returning athletes and a lower pairwise Brier score than stale accepted FIS Elo.",
+  "selected_k_factor": 2.0,
+  "evaluated_athletes": 22,
+  "comparisons": 1661,
+  "athletes_without_return": [],
+  "metrics": {
+    "bridge_k0.5": {"accuracy": 0.75075256, "brier_score": 0.1702705},
+    "bridge_k1": {"accuracy": 0.74954846, "brier_score": 0.16989234},
+    "bridge_k2": {"accuracy": 0.75436484, "brier_score": 0.16962191},
+    "bridge_k3": {"accuracy": 0.75015051, "brier_score": 0.1699433},
+    "bridge_k5": {"accuracy": 0.743528, "brier_score": 0.17215424},
+    "stale_fis": {"accuracy": 0.74714028, "brier_score": 0.17069568}
+  },
+  "event_source_sha256": {
+    "flgr:2032:7218": "79b01d6f99e09472a9883550955037c086871aac6158eb6bf67a0cc75c855174",
+    "flgr:2032:7219": "47169d00616c5560089bc6ef338d43bf6f74161ff533a78f1d7a10b75f90a6ef",
+    "flgr:2032:7223": "27e86ef36f11a21f606b39c30b297b4ae2c6724171627d4b590b2703823d4554",
+    "flgr:2032:7224": "957c2e3c62a34d69dfffe923ef10eaf3f75cf0c33b658e8df37563c0e6af5278"
+  },
+  "input_sha256": {
+    "historical_evidence_manifest": "9997a8fec7b1b4eef6d6116d1135a912766b52407a91f36fb2faf79185679e3d",
+    "identity_crosswalk": "b5ea518f395ee647c9f133317a7c2bd842a802c9fdefcd1ffa86615f01b213dc",
+    "identity_results": "c77f28d2f4e4f9f307719019106f9d2a2617db9a7c32f95a4e68fdb58e1bf29f",
+    "ladies_chrono": "f47ebf1762d65f02a72d0c1b6784014d7baa73fa5323a75b2da1441c6ea0dc27",
+    "men_chrono": "88b5e7990b6a907c63489898b5067f9becc0cf1fd6d1bb2e6ce57755f47545c9"
+  },
+  "candidate_ledger_sha256": {
+    "k0.5": "73b65b136c85c341bcf8dccf88783a8475c6ea467dc0bc191cfae577b7e46f6e",
+    "k1": "a78821da4a2543810a8cf99673ced239e74790eaea5989f986987516b926778c",
+    "k2": "a458ed49d6c4bdc87842620c2a1cb852537ae4a6099ef26c9eb2e1845790cb50",
+    "k3": "1dc49b629988a45d0f90f99f9107ac0ff4d1790e96349c7a3bb261b1b7c6be80",
+    "k5": "a038f9770b76d8787fea9727ee72acba0c17e29e00ca913675581ccaafb5d927"
+  },
+  "official_histories_modified": false,
+  "next_gate": "Replay the independent post_ban_holdout cohort with K=2 before connecting bridge ratings to prediction inputs."
+}

@@ -130,6 +130,110 @@ def prepare_bundle(
 
 
 class FlgrEvidenceResolveTests(unittest.TestCase):
+    def test_does_not_promote_reviewed_identity_outside_selected_targets(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            evidence, men, ladies, crosswalk = prepare_bundle(root)
+            with men.open(newline="", encoding="utf-8") as handle:
+                history_reader = csv.DictReader(handle)
+                history_fields = list(history_reader.fieldnames or ())
+                history_rows = list(history_reader)
+            history_rows.append(
+                {
+                    "Date": "2022-01-01",
+                    "ID": "20",
+                    "Skier": "Petr Petrov",
+                    "Nation": "Russia",
+                    "Birthday": "2003-05-11",
+                }
+            )
+            write_csv(men, history_fields, history_rows)
+            with crosswalk.open(newline="", encoding="utf-8") as handle:
+                crosswalk_rows = list(csv.DictReader(handle))
+            crosswalk_rows.append(
+                {
+                    "sex": "M",
+                    "flgr_competitor_id": "202",
+                    "flgr_name": "НОВИКОВ Алексей",
+                    "birth_year": "2003",
+                    "canonical_athlete_id": "20",
+                    "canonical_name": "Petr Petrov",
+                    "status": "reviewed",
+                    "evidence": "Reviewed for another evidence cohort",
+                }
+            )
+            write_csv(crosswalk, CROSSWALK_FIELDS, crosswalk_rows)
+
+            report = resolve_evidence_bundle(
+                evidence_dir=evidence,
+                men_chrono=men,
+                ladies_chrono=ladies,
+                crosswalk_path=crosswalk,
+                output_dir=root / "output",
+            )
+
+            self.assertTrue(report["reviewed_mappings_limited_to_evidence_targets"])
+            with (root / "output" / "flgr-identity-results.csv").open(
+                newline="", encoding="utf-8"
+            ) as handle:
+                rows = list(csv.DictReader(handle))
+            untargeted = [row for row in rows if row["athlete_id"] == "flgr:202"]
+            self.assertEqual(len(untargeted), 2)
+            self.assertEqual(
+                {row["identity_status"] for row in untargeted}, {"flgr_only"}
+            )
+            self.assertEqual({row["canonical_athlete_id"] for row in untargeted}, {""})
+
+    def test_resolves_only_the_requested_cohort(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            evidence, men, ladies, crosswalk = prepare_bundle(root)
+            index = evidence / "evidence-index.csv"
+            with index.open(newline="", encoding="utf-8") as handle:
+                reader = csv.DictReader(handle)
+                fields = list(reader.fieldnames or ())
+                rows = list(reader)
+            rows[1]["cohort"] = "historical_calibration"
+            write_csv(index, fields, rows)
+
+            report = resolve_evidence_bundle(
+                evidence_dir=evidence,
+                men_chrono=men,
+                ladies_chrono=ladies,
+                crosswalk_path=crosswalk,
+                output_dir=root / "output",
+                cohort="historical_calibration",
+            )
+
+            self.assertEqual(report["cohort_filter"], "historical_calibration")
+            self.assertEqual(report["event_count"], 1)
+            self.assertEqual(report["result_rows"], 2)
+
+    def test_rejects_unknown_or_empty_cohort_selection(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            evidence, men, ladies, crosswalk = prepare_bundle(root)
+            with self.assertRaisesRegex(
+                FlgrEvidenceResolveError, "unsupported evidence cohort"
+            ):
+                resolve_evidence_bundle(
+                    evidence_dir=evidence,
+                    men_chrono=men,
+                    ladies_chrono=ladies,
+                    crosswalk_path=crosswalk,
+                    output_dir=root / "unknown",
+                    cohort="other",
+                )
+            with self.assertRaisesRegex(FlgrEvidenceResolveError, "no rows for cohort"):
+                resolve_evidence_bundle(
+                    evidence_dir=evidence,
+                    men_chrono=men,
+                    ladies_chrono=ladies,
+                    crosswalk_path=crosswalk,
+                    output_dir=root / "empty",
+                    cohort="historical_calibration",
+                )
+
     def test_resolves_multiple_reviewed_targets_from_one_event_once(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

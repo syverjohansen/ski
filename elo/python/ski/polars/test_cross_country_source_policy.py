@@ -39,7 +39,7 @@ class CrossCountrySourcePolicyTests(unittest.TestCase):
 
         self.assertEqual(
             bridge["status"],
-            "post_ban_identity_reviewed_pending_holdout_replay",
+            "historical_calibration_complete_pending_holdout_replay",
         )
         self.assertEqual(bridge["source_domain"], "flgr-results.ru")
         self.assertGreaterEqual(len(bridge["implementation_requirements"]), 6)
@@ -63,7 +63,21 @@ class CrossCountrySourcePolicyTests(unittest.TestCase):
         self.assertTrue(contract["fuzzy_matches_are_suggestions_only"])
         self.assertTrue(contract["future_dated_results_are_rejected"])
         self.assertFalse(contract["replay_publication_eligible"])
-        self.assertEqual(contract["replay_calibration_status"], "pending_backtest")
+        self.assertEqual(
+            contract["replay_calibration_status"],
+            "historical_calibration_complete_pending_holdout",
+        )
+        self.assertEqual(contract["replay_k_factor"], 2.0)
+        calibration_path = ROOT / contract["calibration_decision"]
+        calibration = json.loads(calibration_path.read_text(encoding="utf-8"))
+        self.assertEqual(calibration["selected_k_factor"], 2.0)
+        self.assertEqual(calibration["evaluated_athletes"], 22)
+        self.assertGreaterEqual(calibration["evaluated_athletes"], 20)
+        self.assertLess(
+            calibration["metrics"]["bridge_k2"]["brier_score"],
+            calibration["metrics"]["stale_fis"]["brier_score"],
+        )
+        self.assertFalse(calibration["publication_eligible"])
         self.assertIn("lower Brier error", contract["backtest_rule"])
         self.assertIn("established FIS athletes", contract["new_athlete_rating_rule"])
         self.assertIn(
@@ -89,12 +103,46 @@ class CrossCountrySourcePolicyTests(unittest.TestCase):
                     row["status"],
                 )
                 for row in rows
+                if row["flgr_competitor_id"] in {"109411", "204470"}
             },
             {
                 ("M", "109411", "13188", "reviewed"),
                 ("L", "204470", "6555", "reviewed"),
             },
         )
+
+    def test_historical_calibration_has_reviewed_minimum_cohort(self):
+        contract = self.policy["russian_domestic_bridge"]["target_contract"]
+        with (ROOT / contract["historical_evidence_manifest"]).open(
+            newline="", encoding="utf-8"
+        ) as handle:
+            manifest_rows = [
+                row
+                for row in csv.DictReader(handle)
+                if row["cohort"] == "historical_calibration"
+            ]
+        with (ROOT / contract["crosswalk_path"]).open(
+            newline="", encoding="utf-8"
+        ) as handle:
+            reviewed = {
+                (row["sex"], row["flgr_competitor_id"]): row
+                for row in csv.DictReader(handle)
+                if row["status"] == "reviewed"
+            }
+
+        targets = {
+            (row["sex"], row["target_flgr_competitor_id"]) for row in manifest_rows
+        }
+        self.assertGreaterEqual(len(targets), 20)
+        self.assertEqual({row["season"] for row in manifest_rows}, {"2021"})
+        self.assertEqual({row["sex"] for row in manifest_rows}, {"M", "L"})
+        for row in manifest_rows:
+            mapping = reviewed[(row["sex"], row["target_flgr_competitor_id"])]
+            self.assertEqual(
+                mapping["canonical_athlete_id"],
+                row["proposed_canonical_athlete_id"],
+            )
+            self.assertEqual(mapping["canonical_name"], row["proposed_canonical_name"])
 
     def test_preserved_legacy_scripts_are_labeled_research_only(self):
         scripts = self.policy["russian_domestic_bridge"]["legacy_implementation"][

@@ -209,11 +209,9 @@ the same nine rating streams as official history. Stable FLGR event IDs are
 retained and accepted chrono files are verified byte-for-byte unchanged.
 
 The output is `flgr-bridge-ledger.csv` plus a provenance report. It is a
-prediction-only candidate: the K factor is explicit, defaults conservatively
-to `1.0`, and remains `pending_backtest`, so the report always marks this slice
-as not publication eligible. It neither edits the official FIS archive nor
-connects bridge ratings to live predictions; backtesting and startlist-gated
-prediction selection are subsequent reviewed steps.
+prediction-only candidate: the K factor is explicit and the report always
+marks this slice as not publication eligible. It neither edits the official
+FIS archive nor connects bridge ratings to live predictions.
 
 Backtest multiple identically shaped replay candidates before choosing a K
 factor:
@@ -239,9 +237,16 @@ Candidate ledgers must cover identical athlete/event endpoints, source files
 remain byte-for-byte unchanged, and a recommendation requires both the
 configured minimum number of distinct returning athletes and lower Brier error
 than stale FIS Elo. The detailed cases and report remain prediction-only and
-always set `publication_eligible` to false. Until real reviewed FLGR history
-meets that evidence threshold, the policy remains `pending_evidence` and no
-bridge rating is connected to live predictions.
+always set `publication_eligible` to false.
+
+The reviewed 2021 historical cohort now meets that threshold. Across 22
+explicitly selected returning athletes and 1,661 pairwise comparisons, `K=2`
+had the best candidate Brier score (`0.16962191`, versus `0.17069568` for stale
+FIS Elo) and higher directional accuracy (`0.75436484`, versus `0.74714028`).
+The immutable decision record is
+`excel365/flgr_bridge_calibration.json`. This selects the replay parameter but
+does not make the bridge publication eligible; the independent 2025 post-ban
+holdout remains the next gate.
 
 Acquire the explicitly approved historical pages into an operator-owned
 directory outside Git with:
@@ -253,14 +258,16 @@ python cross_country_flgr_evidence_acquire.py \
   --output-dir /tmp/nordicnumbers-flgr-evidence
 ```
 
-The initial manifest contains the 15 classified individual races in the final
-three domestic competition blocks before Saveliy Korostelev and Dariya
-Nepryaeva returned to FIS racing on 2025-12-13. Each URL is HTTPS and explicit;
-the downloader never crawls arbitrary links. It validates the current FLGR
-page markup, requires the expected source athlete to be classified, hashes and
-stores the raw page, writes a normalized candidate, and produces a review
-index. Proposed canonical IDs remain `proposed_requires_review`; acquisition
-never edits the reviewed crosswalk or applies a mapping.
+The manifest contains 15 classified post-ban holdout races in the final three
+domestic competition blocks before Saveliy Korostelev and Dariya Nepryaeva
+returned to FIS racing on 2025-12-13, plus four 2021 historical calibration
+races covering 22 explicitly reviewed returning athletes. Each URL is HTTPS
+and explicit; the downloader never crawls arbitrary links. It validates the
+current FLGR page markup, requires the expected source athlete to be
+classified, hashes and stores the raw page, writes a normalized candidate, and
+produces a review index. Proposed canonical IDs remain
+`proposed_requires_review`; acquisition never edits the reviewed crosswalk or
+applies a mapping.
 
 A manifest may repeat an approved race URL for multiple explicitly named
 target athletes when constructing the historical calibration cohort. The
@@ -271,10 +278,8 @@ requiring every proposed target to match an exact reviewed crosswalk row.
 
 Raw pages are intentionally excluded from Git and must be written to a new,
 empty external directory. The checked-in manifest is only the reproducible
-locator and review intent. The two post-ban returners form a holdout cohort,
-not a sufficient calibration sample; older pre-ban domestic-to-FIS returns
-must be added as a separate `historical_calibration` cohort before the bridge
-can meet its evidence threshold.
+locator and review intent. The two post-ban returners remain an independent
+holdout cohort and are not selected as historical calibration targets.
 
 After acquisition, recheck every raw checksum and resolve all candidates into
 one chronological replay input with:
@@ -285,8 +290,19 @@ python cross_country_flgr_evidence_resolve.py \
   --men-chrono excel365/men_chrono.csv \
   --ladies-chrono excel365/ladies_chrono.csv \
   --crosswalk excel365/flgr_identity_crosswalk.csv \
+  --cohort historical_calibration \
   --output-dir /tmp/nordicnumbers-flgr-identities
 ```
+
+Always resolve calibration and post-ban holdout cohorts separately. Selecting
+`--cohort historical_calibration` prevents a reviewed athlete's later domestic
+results from leaking into the historical endpoint used to evaluate their next
+accepted FIS race.
+
+Within a selected cohort, only identities explicitly named by that cohort's
+evidence rows receive reviewed canonical mappings. Other racers on the same
+page remain `flgr_only` participants. This preserves the rating field without
+silently pulling a holdout athlete into calibration.
 
 The reviewed crosswalk now contains the two post-ban holdout identities:
 `flgr:109411` maps to canonical FIS-history athlete `13188` (Saveliy
