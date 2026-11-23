@@ -37,7 +37,8 @@ class CrossCountrySourcePolicyTests(unittest.TestCase):
         bridge = self.policy["russian_domestic_bridge"]
 
         self.assertEqual(
-            bridge["status"], "backtest_harness_implemented_pending_evidence"
+            bridge["status"],
+            "post_ban_evidence_acquisition_implemented_pending_identity_review",
         )
         self.assertEqual(bridge["source_domain"], "flgr-results.ru")
         self.assertGreaterEqual(len(bridge["implementation_requirements"]), 6)
@@ -57,6 +58,7 @@ class CrossCountrySourcePolicyTests(unittest.TestCase):
             contract["crosswalk_path"], "excel365/flgr_identity_crosswalk.csv"
         )
         self.assertTrue((ROOT / contract["crosswalk_path"]).is_file())
+        self.assertTrue((ROOT / contract["historical_evidence_manifest"]).is_file())
         self.assertTrue(contract["fuzzy_matches_are_suggestions_only"])
         self.assertTrue(contract["future_dated_results_are_rejected"])
         self.assertFalse(contract["replay_publication_eligible"])

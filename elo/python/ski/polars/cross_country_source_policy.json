@@ -20,7 +20,7 @@
     }
   },
   "russian_domestic_bridge": {
-    "status": "backtest_harness_implemented_pending_evidence",
+    "status": "post_ban_evidence_acquisition_implemented_pending_identity_review",
     "source_domain": "flgr-results.ru",
     "purpose": "Maintain prediction form for returning and new Russian athletes during gaps in FIS participation.",
     "legacy_implementation": {
@@ -46,6 +46,8 @@
       "athlete_identity": "flgr:<source_competitor_id>",
       "fis_crosswalk": "A reviewed mapping from the FLGR identity to the accepted canonical FIS-history athlete ID, name, sex, and birthdate.",
       "crosswalk_path": "excel365/flgr_identity_crosswalk.csv",
+      "historical_evidence_manifest": "excel365/flgr_historical_evidence_manifest.csv",
+      "raw_evidence_storage": "Operator-supplied output outside the Git repository; raw HTML is never committed.",
       "fuzzy_matches_are_suggestions_only": true,
       "future_dated_results_are_rejected": true,
       "new_athlete_initial_elo": 1300,
@@ -87,6 +89,7 @@
   ],
   "hosted_modules": [
     "cross_country_flgr_bridge_backtest.py",
+    "cross_country_flgr_evidence_acquire.py",
     "cross_country_flgr_elo_replay.py",
     "cross_country_flgr_identity.py",
     "cross_country_flgr_results.py",
