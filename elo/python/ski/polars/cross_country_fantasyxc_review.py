@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Any
 
 from cross_country_announced_rosters import (
+    AUTOMATED_SCHEMA_VERSION,
     SCHEMA_VERSION as ANNOUNCED_SCHEMA,
     load_announced_rosters,
 )
@@ -22,6 +23,14 @@ from cross_country_results_identity import load_history
 REVIEW_SCHEMA = "nordicnumbers.cross-country-announced-roster-review/v1"
 TEMPLATE_STATUS = "draft_review"
 REVIEWED_STATUS = "reviewed"
+AUTOMATION_POLICY_VERSION = "fantasyxc-auto-roster-v1"
+AUTOMATIC_IDENTITY_METHODS = frozenset(
+    {
+        "exact_canonical_name_tokens",
+        "exact_full_history_name_tokens",
+        "reviewed_source_alias",
+    }
+)
 
 
 class FantasyXCReviewError(RuntimeError):
@@ -295,6 +304,134 @@ def promote_review(
     return output
 
 
+def auto_promote_candidates(
+    *,
+    candidates_path: Path,
+    men_chrono: Path,
+    ladies_chrono: Path,
+    men_identity_history: Path,
+    ladies_identity_history: Path,
+    logical_date: date,
+    output_path: Path,
+) -> dict[str, Any]:
+    """Promote deterministic candidates and retain every uncertainty.
+
+    This is not a publication action. It creates the versioned roster overlay
+    consumed before official FIS startlists exist. Unknown or unsafe candidates
+    are recorded under ``unresolved`` and therefore remain governed by the
+    historical/quota fallback.
+    """
+
+    sources = (
+        candidates_path,
+        men_chrono,
+        ladies_chrono,
+        men_identity_history,
+        ladies_identity_history,
+    )
+    output_path = _validate_output(output_path, sources)
+    candidates, candidate_content = _candidate_document(
+        candidates_path, logical_date=logical_date
+    )
+    chronology, _name_index, _names_by_id = load_history(
+        men_chrono, ladies_chrono
+    )
+    full_history, _full_name_index, _full_names_by_id = load_history(
+        men_identity_history, ladies_identity_history
+    )
+    athletes = {**full_history, **chronology}
+
+    entries: list[dict[str, Any]] = []
+    unresolved: list[dict[str, Any]] = [
+        {"kind": "review_exception", **row}
+        for row in candidates["review_exceptions"]
+    ]
+    for candidate in candidates["candidates"]:
+        key = (candidate.get("sex"), candidate.get("canonical_athlete_id"))
+        identity_method = candidate.get("identity_match_method")
+        if (
+            candidate.get("confidence") != "high"
+            or identity_method not in AUTOMATIC_IDENTITY_METHODS
+            or key not in athletes
+        ):
+            unresolved.append(
+                {
+                    "kind": "candidate_not_automatically_eligible",
+                    "candidate_id": candidate.get("candidate_id", ""),
+                    "sex": candidate.get("sex", ""),
+                    "canonical_athlete_id": candidate.get(
+                        "canonical_athlete_id", ""
+                    ),
+                    "canonical_name": candidate.get("canonical_name", ""),
+                    "suggested_status": candidate.get("suggested_status", ""),
+                    "race_ids": candidate.get("race_ids", []),
+                    "source_url": candidate.get("source_url", ""),
+                    "observed_at": candidate.get("observed_at", ""),
+                    "evidence_text": candidate.get("evidence_text", ""),
+                    "identity_match_method": identity_method or "",
+                    "confidence": candidate.get("confidence", ""),
+                    "reason": "candidate failed automatic confidence or identity policy",
+                }
+            )
+            continue
+        athlete = athletes[key]
+        entries.append(
+            {
+                "sex": key[0],
+                "canonical_athlete_id": athlete.athlete_id,
+                "canonical_name": athlete.name,
+                "canonical_nation": athlete.nation,
+                "status": candidate["suggested_status"],
+                "race_ids": candidate["race_ids"],
+                "source_url": candidate["source_url"],
+                "observed_at": candidate["observed_at"],
+                "identity_match_method": identity_method,
+            }
+        )
+    output = {
+        "schema_version": AUTOMATED_SCHEMA_VERSION,
+        "status": "automated",
+        "logical_date": logical_date.isoformat(),
+        "publication": {"status": "disabled"},
+        "automation": {
+            "policy_version": AUTOMATION_POLICY_VERSION,
+            "resolver_version": RESOLVER_VERSION,
+            "candidate_sha256": _sha256(candidate_content),
+            "accepted": len(entries),
+            "unresolved": len(unresolved),
+            "unresolved_behavior": "historical_quota_fallback",
+            "official_fis_startlist_precedence": True,
+        },
+        "entries": sorted(
+            entries,
+            key=lambda row: (
+                row["canonical_nation"],
+                row["sex"],
+                row["canonical_name"],
+                row["race_ids"],
+            ),
+        ),
+        "unresolved": unresolved,
+    }
+    output_bytes = _json_bytes(output)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile(dir=output_path.parent, delete=False) as handle:
+        handle.write(output_bytes)
+        handle.flush()
+        os.fsync(handle.fileno())
+        temporary = Path(handle.name)
+    try:
+        load_announced_rosters(
+            temporary,
+            logical_date=logical_date,
+            athletes=athletes,
+        )
+        os.replace(temporary, output_path)
+    finally:
+        temporary.unlink(missing_ok=True)
+    return output
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -309,6 +446,14 @@ def main() -> int:
     promote.add_argument("--ladies-chrono", required=True, type=Path)
     promote.add_argument("--logical-date", required=True, type=date.fromisoformat)
     promote.add_argument("--output", required=True, type=Path)
+    automatic = subparsers.add_parser("auto-promote")
+    automatic.add_argument("--candidates", required=True, type=Path)
+    automatic.add_argument("--men-chrono", required=True, type=Path)
+    automatic.add_argument("--ladies-chrono", required=True, type=Path)
+    automatic.add_argument("--men-identity-history", required=True, type=Path)
+    automatic.add_argument("--ladies-identity-history", required=True, type=Path)
+    automatic.add_argument("--logical-date", required=True, type=date.fromisoformat)
+    automatic.add_argument("--output", required=True, type=Path)
     args = parser.parse_args()
     if args.command == "template":
         result = create_review_template(
@@ -316,12 +461,22 @@ def main() -> int:
             logical_date=args.logical_date,
             output_path=args.output,
         )
-    else:
+    elif args.command == "promote":
         result = promote_review(
             candidates_path=args.candidates,
             review_path=args.review,
             men_chrono=args.men_chrono,
             ladies_chrono=args.ladies_chrono,
+            logical_date=args.logical_date,
+            output_path=args.output,
+        )
+    else:
+        result = auto_promote_candidates(
+            candidates_path=args.candidates,
+            men_chrono=args.men_chrono,
+            ladies_chrono=args.ladies_chrono,
+            men_identity_history=args.men_identity_history,
+            ladies_identity_history=args.ladies_identity_history,
             logical_date=args.logical_date,
             output_path=args.output,
         )
