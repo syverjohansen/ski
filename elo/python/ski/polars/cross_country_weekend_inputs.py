@@ -375,8 +375,8 @@ def _apply_announced_overlay(
             "canonical_name": canonical.name,
             "canonical_nation": canonical.nation,
             "sex": sex,
-            "fis_competitor_id": "",
-            "fis_code": "",
+            "fis_competitor_id": selection.fis_competitor_id,
+            "fis_code": selection.fis_code,
             "identity_match_method": "reviewed_announced_roster_id",
             "selection_status": "announced" if event_specific else "candidate_pool",
             "source_mode": (
@@ -414,11 +414,21 @@ def build_weekend_inputs(
     prediction_shadow: bool = False,
     announced_rosters_path: Path | None = None,
     quota_contract_path: Path | None = None,
+    men_identity_history: Path | None = None,
+    ladies_identity_history: Path | None = None,
 ) -> dict[str, object]:
+    if (men_identity_history is None) != (ladies_identity_history is None):
+        raise WeekendInputError(
+            "men and ladies identity history must be supplied together"
+        )
     sources = (schedule, men_chrono, ladies_chrono, aliases_path) + (
         (announced_rosters_path,) if announced_rosters_path is not None else ()
     ) + (
         (quota_contract_path,) if quota_contract_path is not None else ()
+    ) + (
+        (men_identity_history, ladies_identity_history)
+        if men_identity_history is not None and ladies_identity_history is not None
+        else ()
     )
     output_dir = _validate_output_dir(output_dir, sources)
     races, excluded_specialized = select_normal_weekend(schedule, group_date)
@@ -455,7 +465,15 @@ def build_weekend_inputs(
         )
         return report
 
-    athletes, name_index, names_by_id = load_history(men_chrono, ladies_chrono)
+    accepted_athletes, name_index, names_by_id = load_history(
+        men_chrono, ladies_chrono
+    )
+    athletes = dict(accepted_athletes)
+    if men_identity_history is not None and ladies_identity_history is not None:
+        full_history, _full_index, _full_names = load_history(
+            men_identity_history, ladies_identity_history
+        )
+        athletes = {**full_history, **accepted_athletes}
     aliases = load_aliases(aliases_path, athletes, names_by_id)
     announced_selections = {}
     announced_sha = ""
@@ -679,6 +697,8 @@ def parse_args() -> argparse.Namespace:
             "nominative quota fields; omitted preserves the v1 startlist schema."
         ),
     )
+    parser.add_argument("--men-identity-history", type=Path)
+    parser.add_argument("--ladies-identity-history", type=Path)
     return parser.parse_args()
 
 
@@ -694,6 +714,8 @@ def main() -> int:
         prediction_shadow=args.prediction_shadow,
         announced_rosters_path=args.announced_rosters,
         quota_contract_path=args.quota_contract,
+        men_identity_history=args.men_identity_history,
+        ladies_identity_history=args.ladies_identity_history,
     )
     print(json.dumps(report, indent=2, sort_keys=True))
     return 0

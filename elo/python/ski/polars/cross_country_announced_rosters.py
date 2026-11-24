@@ -34,6 +34,9 @@ class AnnouncedSelection:
     source_url: str
     observed_at: str
     race_id: str
+    prediction_athlete_id: str = ""
+    fis_competitor_id: str = ""
+    fis_code: str = ""
 
 
 def _timestamp(value: object, *, label: str) -> str:
@@ -132,6 +135,19 @@ def load_announced_rosters(
             raise AnnouncedRosterError(f"{label} cannot combine '*' with race IDs")
         source_url = _source_url(entry.get("source_url"), label=label)
         observed_at = _timestamp(entry.get("observed_at"), label=label)
+        prediction_id = str(entry.get("prediction_athlete_id", "")).strip()
+        competitor_id = str(entry.get("fis_competitor_id", "")).strip()
+        fis_code = str(entry.get("fis_code", "")).strip()
+        supplied_identity = (prediction_id, competitor_id, fis_code)
+        if any(supplied_identity):
+            if schema != AUTOMATED_SCHEMA_VERSION or not all(supplied_identity):
+                raise AnnouncedRosterError(
+                    f"{label} has an incomplete or unsupported prediction identity"
+                )
+            if prediction_id != f"fis:{competitor_id}" or not competitor_id.isdigit():
+                raise AnnouncedRosterError(
+                    f"{label} has an unstable prediction identity"
+                )
         for race_id in normalized_races:
             key = (sex, race_id, athlete_id)
             if key in selections:
@@ -143,6 +159,9 @@ def load_announced_rosters(
                 source_url=source_url,
                 observed_at=observed_at,
                 race_id=race_id,
+                prediction_athlete_id=prediction_id,
+                fis_competitor_id=competitor_id,
+                fis_code=fis_code,
             )
     return selections
 
