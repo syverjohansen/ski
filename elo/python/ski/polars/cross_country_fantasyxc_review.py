@@ -16,7 +16,7 @@ from cross_country_announced_rosters import (
     SCHEMA_VERSION as ANNOUNCED_SCHEMA,
     load_announced_rosters,
 )
-from cross_country_fantasyxc_resolve import CANDIDATES_SCHEMA
+from cross_country_fantasyxc_resolve import CANDIDATES_SCHEMA, RESOLVER_VERSION
 from cross_country_results_identity import load_history
 
 REVIEW_SCHEMA = "nordicnumbers.cross-country-announced-roster-review/v1"
@@ -70,6 +70,8 @@ def _candidate_document(
     document, content = _read_object(path, label="candidate artifact")
     if document.get("schema_version") != CANDIDATES_SCHEMA:
         raise FantasyXCReviewError("unsupported candidate schema")
+    if document.get("resolver_version") != RESOLVER_VERSION:
+        raise FantasyXCReviewError("unsupported candidate resolver version")
     if document.get("logical_date") != logical_date.isoformat():
         raise FantasyXCReviewError("candidate logical date does not match")
     if document.get("status") != "candidate_review":

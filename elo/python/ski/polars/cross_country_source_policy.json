@@ -23,7 +23,8 @@
         "unmentioned_athletes_keep_existing_fallback": true,
         "official_fis_startlist_always_supersedes": true,
         "raw_feed_is_never_directly_prediction_eligible": true,
-        "resolver_candidates_require_human_review": true
+        "resolver_candidates_require_human_review": true,
+        "automation_policy": "cross_country_fantasyxc_automation_policy.json"
       }
     }
   },
@@ -104,6 +105,7 @@
   "hosted_modules": [
     "cross_country_announced_rosters.py",
     "cross_country_fantasyxc_backtest.py",
+    "cross_country_fantasyxc_evaluate.py",
     "cross_country_fantasyxc_feed.py",
     "cross_country_fantasyxc_resolve.py",
     "cross_country_fantasyxc_review.py",

@@ -1,0 +1,15 @@
+{
+  "schema_version": "nordicnumbers.cross-country-announced-roster-automation-policy/v1",
+  "status": "collecting_evidence",
+  "resolver_version": "fantasyxc-resolver-v1",
+  "automatic_promotion_enabled": false,
+  "thresholds": {
+    "minimum_completed_weekends": 5,
+    "minimum_decisions": 150,
+    "minimum_confirmed_decisions": 100,
+    "minimum_excluded_decisions": 10,
+    "minimum_confirmed_precision": 0.95,
+    "minimum_excluded_accuracy": 0.99
+  },
+  "approval_rule": "Passing thresholds makes the resolver eligible for explicit operator approval; it does not enable automatic promotion."
+}

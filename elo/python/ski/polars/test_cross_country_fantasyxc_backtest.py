@@ -10,7 +10,7 @@ from cross_country_fantasyxc_backtest import (
     REPORT_SCHEMA,
     backtest_candidates,
 )
-from cross_country_fantasyxc_resolve import CANDIDATES_SCHEMA
+from cross_country_fantasyxc_resolve import CANDIDATES_SCHEMA, RESOLVER_VERSION
 from cross_country_weekend_inputs import STARTLIST_FIELDS
 
 
@@ -43,6 +43,7 @@ class CrossCountryFantasyXCBacktestTests(unittest.TestCase):
             json.dumps(
                 {
                     "schema_version": CANDIDATES_SCHEMA,
+                    "resolver_version": RESOLVER_VERSION,
                     "status": "candidate_review",
                     "logical_date": self.logical_date.isoformat(),
                     "publication": {"status": "disabled"},
@@ -121,6 +122,7 @@ class CrossCountryFantasyXCBacktestTests(unittest.TestCase):
         metrics = report["metrics"]
 
         self.assertEqual(REPORT_SCHEMA, report["schema_version"])
+        self.assertEqual(RESOLVER_VERSION, report["resolver_version"])
         self.assertEqual("research_backtest", report["status"])
         self.assertEqual({"status": "disabled"}, report["publication"])
         self.assertEqual("insufficient_evidence", report["recommendation"])

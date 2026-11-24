@@ -26,6 +26,7 @@ from cross_country_weekend_inputs import select_normal_weekend, validate_startli
 
 CANDIDATES_SCHEMA = "nordicnumbers.cross-country-announced-roster-candidates/v1"
 REPORT_SCHEMA = "nordicnumbers.cross-country-announced-roster-resolution-report/v1"
+RESOLVER_VERSION = "fantasyxc-resolver-v1"
 POSITIVE_CUES = (
     "will be racing",
     "will race",
@@ -413,6 +414,7 @@ def resolve_feed(
         exception["exception_id"] = _stable_id("exception", exception)
     document = {
         "schema_version": CANDIDATES_SCHEMA,
+        "resolver_version": RESOLVER_VERSION,
         "status": "candidate_review",
         "logical_date": logical_date.isoformat(),
         "publication": {"status": "disabled"},
@@ -424,6 +426,7 @@ def resolve_feed(
     _atomic_write(output_path, output_bytes)
     report = {
         "schema_version": REPORT_SCHEMA,
+        "resolver_version": RESOLVER_VERSION,
         "status": "candidate_review",
         "logical_date": logical_date.isoformat(),
         "publication": {"status": "disabled"},
