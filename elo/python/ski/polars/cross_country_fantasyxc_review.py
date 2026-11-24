@@ -348,11 +348,12 @@ def auto_promote_candidates(
     ]
     for candidate in candidates["candidates"]:
         key = (candidate.get("sex"), candidate.get("canonical_athlete_id"))
+        known_athlete = athletes.get(key)
         identity_method = candidate.get("identity_match_method")
         if (
             candidate.get("confidence") != "high"
             or identity_method not in AUTOMATIC_IDENTITY_METHODS
-            or key not in athletes
+            or known_athlete is None
         ):
             unresolved.append(
                 {
@@ -363,6 +364,9 @@ def auto_promote_candidates(
                         "canonical_athlete_id", ""
                     ),
                     "canonical_name": candidate.get("canonical_name", ""),
+                    "canonical_nation": (
+                        known_athlete.nation if known_athlete is not None else ""
+                    ),
                     "suggested_status": candidate.get("suggested_status", ""),
                     "race_ids": candidate.get("race_ids", []),
                     "source_url": candidate.get("source_url", ""),
@@ -374,7 +378,7 @@ def auto_promote_candidates(
                 }
             )
             continue
-        athlete = athletes[key]
+        athlete = known_athlete
         entries.append(
             {
                 "sex": key[0],

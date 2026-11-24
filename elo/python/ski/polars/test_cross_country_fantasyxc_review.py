@@ -282,6 +282,7 @@ class CrossCountryFantasyXCReviewTests(unittest.TestCase):
             if row["kind"] == "candidate_not_automatically_eligible"
         )
         self.assertEqual(["100", "101"], deferred["race_ids"])
+        self.assertEqual("Finland", deferred["canonical_nation"])
         self.assertEqual("https://x.com/FantasyXC/status/1", deferred["source_url"])
 
     def test_candidate_checksum_change_invalidates_review(self) -> None:
