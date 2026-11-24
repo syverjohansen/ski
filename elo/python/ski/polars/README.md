@@ -458,6 +458,25 @@ the existing announced-roster contract. Only explicitly accepted candidates
 enter the output. The resulting reviewed artifact remains publication-disabled
 but can be supplied to `cross_country_weekend_inputs.py --announced-rosters`.
 
+After FIS publishes the official startlists, score the original resolver
+candidates against that later truth:
+
+```bash
+python cross_country_fantasyxc_backtest.py \
+  --candidates /tmp/fantasyxc-roster-candidates.json \
+  --official-startlist /tmp/official-weekend/men_startlist.csv \
+  --official-startlist /tmp/official-weekend/ladies_startlist.csv \
+  --logical-date 2026-11-27 \
+  --output-dir /tmp/fantasyxc-backtest
+```
+
+Truth rows must come exclusively from `official_fis_startlist` mode. The
+research-only report expands weekend-wide decisions to event level and records
+confirmation precision, exclusion accuracy, false confirmations, false
+exclusions, and official-field coverage. A single weekend always reports
+`insufficient_evidence`; automatic review requires a later cumulative gate
+across multiple completed weekends.
+
 Create a shadow-only startlist rating overlay after building weekend inputs:
 
 ```bash
