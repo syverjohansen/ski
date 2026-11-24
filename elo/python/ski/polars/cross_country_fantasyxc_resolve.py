@@ -272,9 +272,14 @@ def resolve_feed(
             lines
             and re.fullmatch(r"(?:men|women|ladies)\s*:", lines[0], re.I)
         )
+        first_line_is_exact_annotated_athlete = bool(
+            lines
+            and len(_candidate_athletes(lines[0], None, athletes)) == 1
+            and re.search(r"\([^()]+\)", lines[0])
+        )
         if (
             not positive_context
-            and first_line_is_section
+            and (first_line_is_section or first_line_is_exact_annotated_athlete)
             and last_positive is not None
             and published - last_positive <= timedelta(minutes=15)
         ):
@@ -300,13 +305,13 @@ def resolve_feed(
                 })
                 continue
             if not matches:
-                if active_sex and positive_context and _looks_name_like(line):
+                if positive_context and _looks_name_like(line):
                     exceptions.append({
                         "reason": "unknown athlete line",
                         "source_url": source_url,
                         "published_at": item["published_at"],
                         "evidence_text": line,
-                        "sex": active_sex,
+                        "sex": active_sex or "unknown",
                     })
                 continue
             match_sex, athlete = matches[0]
