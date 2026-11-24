@@ -376,6 +376,24 @@ observation timestamp. Announcements overlay the existing latest-season pool;
 they do not replace unmentioned countries or athletes. An official FIS
 startlist always supersedes the entire announcement overlay for that event.
 
+Acquire the underlying FantasyXC posts as publication-disabled review evidence:
+
+```bash
+python cross_country_fantasyxc_feed.py \
+  --logical-date 2026-11-27 \
+  --as-of 2026-11-23 \
+  --output-dir /tmp/fantasyxc-evidence \
+  --report /tmp/fantasyxc-evidence-report.json \
+  --allow-network
+```
+
+The acquisition reads only the fixed public
+`https://fxtwitter.com/FantasyXC/feed.xml` endpoint, retries transient failures,
+caps the response at 2 MiB, filters posts to a bounded pre-weekend window, and
+retains both the raw XML and normalized items with SHA-256 checksums. Its output
+is `candidate_review`, never a reviewed roster and never publication eligible;
+athlete identity and roster-claim resolution remain a separate guarded step.
+
 Create a shadow-only startlist rating overlay after building weekend inputs:
 
 ```bash
