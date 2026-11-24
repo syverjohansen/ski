@@ -427,12 +427,18 @@ optional full-history inputs expand athlete identity coverage beyond the A-tier
 Elo chronologies (for example, an athlete with only national-level results),
 but they never supply or alter prediction Elo. Chronology identity remains
 authoritative when the same athlete ID is present in both sources. An
-unknown athlete, unclear injury prose, unmatched annotation, ambiguous match,
-or conflicting decision is retained as a review exception. Its output uses
+unknown athlete, unclear injury prose, unmatched annotation, or ambiguous match
+is retained as a review exception. Its output uses
 `nordicnumbers.cross-country-announced-roster-candidates/v1`, remains
 `candidate_review`, and cannot be passed directly to weekend predictions. A
 human must still approve and convert decisions into the reviewed
 `nordicnumbers.cross-country-announced-rosters/v1` contract.
+
+Exact operator-reviewed duplicate-name bindings and source race corrections
+are kept in the resolver rather than inferred from recency. For roster status,
+the latest explicit `in` or `out` decision wins; contextual injury reporting
+does not count as a withdrawal unless the source explicitly says the athlete
+will not race.
 
 FantasyXC sometimes splits a long selection across adjacent posts. A post
 within 15 minutes of a positive selection may inherit that roster context only

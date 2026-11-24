@@ -26,7 +26,7 @@ from cross_country_weekend_inputs import select_normal_weekend, validate_startli
 
 CANDIDATES_SCHEMA = "nordicnumbers.cross-country-announced-roster-candidates/v1"
 REPORT_SCHEMA = "nordicnumbers.cross-country-announced-roster-resolution-report/v1"
-RESOLVER_VERSION = "fantasyxc-resolver-v5"
+RESOLVER_VERSION = "fantasyxc-resolver-v6"
 # Exact, operator-reviewed spelling differences in FantasyXC evidence. These
 # are deliberately narrow aliases, not fuzzy matching.
 REVIEWED_NAME_ALIASES = {
@@ -35,6 +35,22 @@ REVIEWED_NAME_ALIASES = {
         "6828",
         "Ingrid Bergene Aabrekk",
     ),
+    # FIS code 3501587. The older local ID 340 is a different, inactive
+    # athlete with the same name.
+    normalized_name("Gustaf Berglund"): ("M", "12178", "Gustaf Berglund"),
+    # Local ID 6380 is an obsolete one-row identity; current history belongs
+    # to the reviewed Nordic Numbers athlete 6639.
+    normalized_name("Nadja Kälin"): ("L", "6639", "Nadja Kälin"),
+}
+# Exact source corrections reviewed by the operator. The Norwegian thread
+# repeats Mattis Stenshagen as a 20K entrant in its continuation, while the
+# authoritative selection is 10K only.
+REVIEWED_RACE_ANNOTATION_OVERRIDES = {
+    (
+        "https://x.com/FantasyXC/status/2124952589322035618",
+        "M",
+        normalized_name("Mattis Stenshagen"),
+    ): "10K",
 }
 POSITIVE_CUES = (
     "will be racing",
@@ -272,6 +288,16 @@ def _candidate_athletes(
                 "reviewed FantasyXC name alias does not match canonical history: "
                 f"{athlete_sex}/{athlete_id} {canonical_name!r}"
             )
+        # Remove other identities with this exact canonical name. This makes a
+        # reviewed local-ID binding decisive without discarding other distinct
+        # athlete names that may share the same evidence line.
+        canonical_tokens = normalized_name(canonical_name)
+        matches = {
+            key: match
+            for key, match in matches.items()
+            if key == (athlete_sex, athlete_id)
+            or normalized_name(match[0].name) != canonical_tokens
+        }
         matches[(athlete_sex, athlete_id)] = (athlete, "reviewed_source_alias")
     # A longer overlapping full name dominates a shorter canonical alias, while
     # distinct athlete names on the same roster line remain separate matches.
@@ -358,6 +384,7 @@ def resolve_feed(
     items = sorted(feed["items"], key=lambda item: (item["published_at"], item["status_id"]))
     proposed: dict[tuple[str, str, str], dict[str, Any]] = {}
     conflicts: set[tuple[str, str, str]] = set()
+    latest_explicit_status: dict[tuple[str, str], str] = {}
     exceptions: list[dict[str, Any]] = []
     ignored_items: list[dict[str, str]] = []
     last_positive: datetime | None = None
@@ -508,7 +535,13 @@ def resolve_feed(
                         "canonical_athlete_id": athlete.athlete_id,
                     })
                     continue
-                race_ids, race_error = _race_ids(line, match_sex, events)
+                latest_explicit_status[(match_sex, athlete.athlete_id)] = status
+                override_annotation = REVIEWED_RACE_ANNOTATION_OVERRIDES.get(
+                    (source_url, match_sex, normalized_name(athlete.name))
+                )
+                race_ids, race_error = _race_ids(
+                    override_annotation or line, match_sex, events
+                )
                 if race_error:
                     exceptions.append({
                         "reason": race_error,
@@ -535,19 +568,29 @@ def resolve_feed(
                     }
                     existing = proposed.get(key)
                     if existing and existing["suggested_status"] != status:
-                        conflicts.add(key)
-                        exceptions.append({
-                            "reason": "conflicting roster decisions",
-                            "source_url": source_url,
-                            "published_at": item["published_at"],
-                            "evidence_text": line,
-                            "sex": match_sex,
-                            "canonical_athlete_id": athlete.athlete_id,
-                            "race_id": race_id,
-                        })
+                        # Items are processed chronologically. A later explicit
+                        # in/out decision supersedes the earlier one.
+                        proposed[key] = candidate
                     elif not existing:
                         proposed[key] = candidate
 
+    # A later explicit decision for the athlete controls status across all
+    # event-specific and wildcard claims. Informational injury prose is not an
+    # explicit withdrawal and therefore cannot overturn an announced roster.
+    for key, candidate in list(proposed.items()):
+        athlete_key = (candidate["sex"], candidate["canonical_athlete_id"])
+        if candidate["suggested_status"] != latest_explicit_status[athlete_key]:
+            del proposed[key]
+    decided_athletes = set(latest_explicit_status)
+    exceptions = [
+        exception
+        for exception in exceptions
+        if not (
+            exception["reason"] == "injury prose has no explicit roster decision"
+            and (exception.get("sex"), exception.get("canonical_athlete_id"))
+            in decided_athletes
+        )
+    ]
     for key in conflicts:
         proposed.pop(key, None)
     specific_decisions = {

@@ -50,6 +50,8 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
             [
                 ("1", "Iivo Niskanen", "Finland"),
                 ("2", "Johannes Hoesflot Klaebo", "Norway"),
+                ("340", "Gustaf Berglund", "Sweden"),
+                ("12178", "Gustaf Berglund", "Sweden"),
             ],
         )
         self._write_history(
@@ -57,6 +59,8 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
             [
                 ("10", "Jasmi Joensuu", "Finland"),
                 ("11", "Astrid Oeyre Slind", "Norway"),
+                ("6380", "Nadja Kälin", "Switzerland"),
+                ("6639", "Nadja Kälin", "Switzerland"),
                 ("6320", "Ida Lien", "Norway"),
                 ("6828", "Ingrid Bergene Aabrekk", "Norway"),
             ],
@@ -370,7 +374,7 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
         for row in document["candidates"]:
             by_name.setdefault(row["canonical_name"], set()).update(row["race_ids"])
         self.assertEqual({"102", "103", "105"}, by_name["Johannes Hoesflot Klaebo"])
-        self.assertEqual({"102", "105"}, by_name["Mattis Stenshagen"])
+        self.assertEqual({"102"}, by_name["Mattis Stenshagen"])
         self.assertEqual({"101"}, by_name["Ingrid Bergene Aabrekk"])
         aabrekk = next(
             row
@@ -407,6 +411,64 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
                 output_path=self.output,
                 report_path=self.report,
             )
+
+    def test_reviewed_duplicate_name_ids_are_decisive(self) -> None:
+        self._write_feed(
+            [
+                self._item(
+                    "2125209755333587223",
+                    "2026-11-24T12:47:44Z",
+                    "Sweden roster for Ruka announced",
+                    "<p>Men:<br>Gustaf Berglund</p>",
+                ),
+                self._item(
+                    "2125211505125646583",
+                    "2026-11-24T12:54:41Z",
+                    "Switzerland roster for Ruka announced",
+                    "<p>Women:<br>Nadja Kälin</p>",
+                ),
+            ]
+        )
+        report = self._resolve()
+        document = json.loads(self.output.read_text(encoding="utf-8"))
+
+        self.assertEqual(2, report["candidate_count"])
+        self.assertEqual(0, report["exception_count"])
+        self.assertEqual(
+            {"12178", "6639"},
+            {row["canonical_athlete_id"] for row in document["candidates"]},
+        )
+        self.assertTrue(
+            all(
+                row["identity_match_method"] == "reviewed_source_alias"
+                for row in document["candidates"]
+            )
+        )
+
+    def test_injury_context_does_not_override_explicit_roster_entry(self) -> None:
+        self._write_feed(
+            [
+                self._item(
+                    "2124958471498109148",
+                    "2026-11-23T20:09:14Z",
+                    "Finland roster for Ruka announced",
+                    "<p>Men:<br>Iivo Niskanen (10K+20K)</p>",
+                ),
+                self._item(
+                    "2124959485945135613",
+                    "2026-11-23T20:13:15Z",
+                    "Iivo update",
+                    "<p>Iivo Niskanen is rehabilitating a soft tissue injury.</p>",
+                ),
+            ]
+        )
+        report = self._resolve()
+        document = json.loads(self.output.read_text(encoding="utf-8"))
+
+        self.assertEqual(1, report["candidate_count"])
+        self.assertEqual(0, report["exception_count"])
+        self.assertEqual("confirmed", document["candidates"][0]["suggested_status"])
+        self.assertEqual(["102", "105"], document["candidates"][0]["race_ids"])
 
     def test_current_roster_intro_phrases_confirm_exact_names(self) -> None:
         self._write_feed(
@@ -597,7 +659,7 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
         self.assertEqual(0, report["candidate_count"])
         self.assertEqual(1, report["exception_count"])
 
-    def test_conflicting_claims_are_removed_from_candidates(self) -> None:
+    def test_latest_explicit_roster_decision_wins(self) -> None:
         self._write_feed(
             [
                 self._item(
@@ -615,8 +677,10 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
             ]
         )
         report = self._resolve()
-        self.assertEqual(0, report["candidate_count"])
-        self.assertEqual(1, report["conflict_count"])
+        document = json.loads(self.output.read_text(encoding="utf-8"))
+        self.assertEqual(1, report["candidate_count"])
+        self.assertEqual(0, report["conflict_count"])
+        self.assertEqual("excluded", document["candidates"][0]["suggested_status"])
 
     def test_feed_contract_must_remain_shadow_only(self) -> None:
         self._write_feed([])
