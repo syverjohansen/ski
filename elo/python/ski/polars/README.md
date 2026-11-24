@@ -410,6 +410,8 @@ python cross_country_fantasyxc_resolve.py \
   --feed-items /tmp/fantasyxc-evidence/fantasyxc-feed-items.json \
   --men-chrono excel365/men_chrono.csv \
   --ladies-chrono excel365/ladies_chrono.csv \
+  --men-identity-history excel365/all_men_scrape.csv \
+  --ladies-identity-history excel365/all_ladies_scrape.csv \
   --schedule excel365/weekends.csv \
   --logical-date 2026-11-27 \
   --output /tmp/fantasyxc-roster-candidates.json \
@@ -420,7 +422,11 @@ The resolver matches full canonical athlete-name tokens, preserves explicit
 men/women sections, maps `(s)`, `(10K)`, and combined annotations to exact FIS
 race IDs, and recognizes explicit positive or negative roster language. Exact
 operator-reviewed source spelling aliases may bridge a known FantasyXC spelling
-to one canonical record; fuzzy identity matching remains forbidden. An
+to one canonical record; fuzzy identity matching remains forbidden. The
+optional full-history inputs expand athlete identity coverage beyond the A-tier
+Elo chronologies (for example, an athlete with only national-level results),
+but they never supply or alter prediction Elo. Chronology identity remains
+authoritative when the same athlete ID is present in both sources. An
 unknown athlete, unclear injury prose, unmatched annotation, ambiguous match,
 or conflicting decision is retained as a review exception. Its output uses
 `nordicnumbers.cross-country-announced-roster-candidates/v1`, remains

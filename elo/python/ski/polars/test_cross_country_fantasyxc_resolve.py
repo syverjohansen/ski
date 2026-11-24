@@ -24,6 +24,8 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
         self.logical_date = date(2026, 11, 27)
         self.men = self.root / "men.csv"
         self.ladies = self.root / "ladies.csv"
+        self.full_men = self.root / "all_men.csv"
+        self.full_ladies = self.root / "all_ladies.csv"
         self.schedule = self.root / "weekends.csv"
         self.feed = self.root / "feed.json"
         self.output = self.root / "candidates.json"
@@ -40,6 +42,22 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
             [
                 ("10", "Jasmi Joensuu", "Finland"),
                 ("11", "Astrid Oeyre Slind", "Norway"),
+                ("6828", "Ingrid Bergene Aabrekk", "Norway"),
+            ],
+        )
+        self._write_history(
+            self.full_men,
+            [
+                ("1", "Iivo Niskanen", "Finland"),
+                ("2", "Johannes Hoesflot Klaebo", "Norway"),
+            ],
+        )
+        self._write_history(
+            self.full_ladies,
+            [
+                ("10", "Jasmi Joensuu", "Finland"),
+                ("11", "Astrid Oeyre Slind", "Norway"),
+                ("6320", "Ida Lien", "Norway"),
                 ("6828", "Ingrid Bergene Aabrekk", "Norway"),
             ],
         )
@@ -119,6 +137,8 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
             feed_items=self.feed,
             men_chrono=self.men,
             ladies_chrono=self.ladies,
+            men_identity_history=self.full_men,
+            ladies_identity_history=self.full_ladies,
             schedule=self.schedule,
             logical_date=self.logical_date,
             output_path=self.output,
@@ -358,14 +378,35 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
             if row["canonical_athlete_id"] == "6828"
         )
         self.assertEqual("reviewed_source_alias", aabrekk["identity_match_method"])
-        self.assertEqual(
-            ["Ida Lien (20K)"],
-            [
-                row["evidence_text"]
-                for row in document["review_exceptions"]
-                if row["reason"] == "unknown athlete line"
-            ],
+        ida = next(
+            row
+            for row in document["candidates"]
+            if row["canonical_athlete_id"] == "6320"
         )
+        self.assertEqual(["104"], ida["race_ids"])
+        self.assertEqual(
+            "exact_full_history_name_tokens", ida["identity_match_method"]
+        )
+        self.assertFalse(
+            any(
+                row["evidence_text"] == "Ida Lien (20K)"
+                for row in document["review_exceptions"]
+            )
+        )
+
+    def test_full_history_identity_inputs_must_be_supplied_as_a_pair(self) -> None:
+        self._write_feed([])
+        with self.assertRaisesRegex(FantasyXCResolveError, "supplied together"):
+            resolve_feed(
+                feed_items=self.feed,
+                men_chrono=self.men,
+                ladies_chrono=self.ladies,
+                men_identity_history=self.full_men,
+                schedule=self.schedule,
+                logical_date=self.logical_date,
+                output_path=self.output,
+                report_path=self.report,
+            )
 
     def test_current_roster_intro_phrases_confirm_exact_names(self) -> None:
         self._write_feed(

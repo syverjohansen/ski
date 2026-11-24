@@ -26,7 +26,7 @@ from cross_country_weekend_inputs import select_normal_weekend, validate_startli
 
 CANDIDATES_SCHEMA = "nordicnumbers.cross-country-announced-roster-candidates/v1"
 REPORT_SCHEMA = "nordicnumbers.cross-country-announced-roster-resolution-report/v1"
-RESOLVER_VERSION = "fantasyxc-resolver-v4"
+RESOLVER_VERSION = "fantasyxc-resolver-v5"
 # Exact, operator-reviewed spelling differences in FantasyXC evidence. These
 # are deliberately narrow aliases, not fuzzy matching.
 REVIEWED_NAME_ALIASES = {
@@ -242,6 +242,7 @@ def _candidate_athletes(
     line: str,
     sex: str | None,
     athletes: dict[tuple[str, str], CanonicalAthlete],
+    chronology_keys: set[tuple[str, str]],
 ) -> list[tuple[str, CanonicalAthlete, str]]:
     line_tokens = set(normalized_name(re.sub(r"\([^)]*\)", " ", line)))
     matches: dict[tuple[str, str], tuple[CanonicalAthlete, str]] = {}
@@ -252,7 +253,11 @@ def _candidate_athletes(
         if len(name_tokens) >= 2 and name_tokens <= line_tokens:
             matches[(athlete_sex, athlete_id)] = (
                 athlete,
-                "exact_canonical_name_tokens",
+                (
+                    "exact_canonical_name_tokens"
+                    if (athlete_sex, athlete_id) in chronology_keys
+                    else "exact_full_history_name_tokens"
+                ),
             )
     for alias_tokens, (athlete_sex, athlete_id, canonical_name) in (
         REVIEWED_NAME_ALIASES.items()
@@ -322,6 +327,8 @@ def resolve_feed(
     feed_items: Path,
     men_chrono: Path,
     ladies_chrono: Path,
+    men_identity_history: Path | None = None,
+    ladies_identity_history: Path | None = None,
     schedule: Path,
     logical_date: date,
     output_path: Path,
@@ -330,7 +337,23 @@ def resolve_feed(
     """Write deterministic candidates and review exceptions; never reviewed input."""
 
     feed, feed_bytes = _read_feed(feed_items, logical_date)
-    athletes, _name_index, _names_by_id = load_history(men_chrono, ladies_chrono)
+    chronology_athletes, _name_index, _names_by_id = load_history(
+        men_chrono, ladies_chrono
+    )
+    if (men_identity_history is None) != (ladies_identity_history is None):
+        raise FantasyXCResolveError(
+            "men and ladies full identity histories must be supplied together"
+        )
+    athletes = chronology_athletes
+    if men_identity_history is not None and ladies_identity_history is not None:
+        full_history_athletes, _full_name_index, _full_names_by_id = load_history(
+            men_identity_history, ladies_identity_history
+        )
+        # The complete FIS histories expand identity coverage only. For an ID
+        # already present in the A-tier chronology, its chronology record stays
+        # authoritative. No rating or prediction values are read here.
+        athletes = {**full_history_athletes, **chronology_athletes}
+    chronology_keys = set(chronology_athletes)
     events, venues = _weekend_context(schedule, logical_date)
     items = sorted(feed["items"], key=lambda item: (item["published_at"], item["status_id"]))
     proposed: dict[tuple[str, str, str], dict[str, Any]] = {}
@@ -355,7 +378,8 @@ def resolve_feed(
         combined = " ".join([str(item.get("title", "")), *lines]).lower()
         positive_context = any(cue in combined for cue in POSITIVE_CUES)
         exact_athlete_present = any(
-            _candidate_athletes(line, None, athletes) for line in lines
+            _candidate_athletes(line, None, athletes, chronology_keys)
+            for line in lines
         )
         explicitly_anchored = _mentions_venue(combined, venues)
         inherited_anchor = bool(
@@ -378,12 +402,16 @@ def resolve_feed(
         )
         first_line_is_exact_annotated_athlete = bool(
             lines
-            and len(_candidate_athletes(lines[0], None, athletes)) == 1
+            and len(
+                _candidate_athletes(lines[0], None, athletes, chronology_keys)
+            ) == 1
             and re.search(r"\([^()]+\)", lines[0])
         )
         first_line_is_exact_name_only = bool(
             lines
-            and len(_candidate_athletes(lines[0], None, athletes)) == 1
+            and len(
+                _candidate_athletes(lines[0], None, athletes, chronology_keys)
+            ) == 1
             and _looks_name_like(lines[0])
         )
         if (
@@ -407,7 +435,9 @@ def resolve_feed(
                 line = section.group(2).strip()
                 if not line:
                     continue
-            matches = _candidate_athletes(line, active_sex, athletes)
+            matches = _candidate_athletes(
+                line, active_sex, athletes, chronology_keys
+            )
             if len(matches) > 1:
                 lower = line.lower()
                 names = {
@@ -591,6 +621,8 @@ def main() -> int:
     parser.add_argument("--feed-items", required=True, type=Path)
     parser.add_argument("--men-chrono", required=True, type=Path)
     parser.add_argument("--ladies-chrono", required=True, type=Path)
+    parser.add_argument("--men-identity-history", type=Path)
+    parser.add_argument("--ladies-identity-history", type=Path)
     parser.add_argument("--schedule", required=True, type=Path)
     parser.add_argument("--logical-date", required=True, type=date.fromisoformat)
     parser.add_argument("--output", required=True, type=Path)
@@ -600,6 +632,8 @@ def main() -> int:
         feed_items=args.feed_items,
         men_chrono=args.men_chrono,
         ladies_chrono=args.ladies_chrono,
+        men_identity_history=args.men_identity_history,
+        ladies_identity_history=args.ladies_identity_history,
         schedule=args.schedule,
         logical_date=args.logical_date,
         output_path=args.output,
