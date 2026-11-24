@@ -330,6 +330,7 @@ def _apply_announced_overlay(
     fallback_url: str,
     fallback_sha: str,
     evidence_sha: str,
+    exact_confirmed_athlete_ids: set[str],
 ) -> tuple[list[dict[str, str]], dict[str, object]]:
     selected: dict[str, dict[str, str]] = {
         athlete["canonical_athlete_id"]: {
@@ -345,6 +346,8 @@ def _apply_announced_overlay(
         }
         for athlete in candidates
     }
+    for athlete_id in exact_confirmed_athlete_ids - set(selections):
+        selected.pop(athlete_id, None)
     confirmed = 0
     excluded = 0
     sources: set[str] = set()
@@ -456,6 +459,7 @@ def build_weekend_inputs(
     aliases = load_aliases(aliases_path, athletes, names_by_id)
     announced_selections = {}
     announced_sha = ""
+    exact_confirmed_by_sex: dict[str, set[str]] = defaultdict(set)
     if announced_rosters_path is not None:
         try:
             announced_selections = load_announced_rosters(
@@ -466,6 +470,11 @@ def build_weekend_inputs(
         except AnnouncedRosterError as exc:
             raise WeekendInputError(str(exc)) from exc
         announced_sha = _sha256(announced_rosters_path.read_bytes())
+        for (entry_sex, entry_race, athlete_id), selection in (
+            announced_selections.items()
+        ):
+            if entry_race != "*" and selection.status == "confirmed":
+                exact_confirmed_by_sex[entry_sex].add(athlete_id)
     fallback = {
         "M": _latest_season_candidates(men_chrono, "M"),
         "L": _latest_season_candidates(ladies_chrono, "L"),
@@ -546,7 +555,7 @@ def build_weekend_inputs(
                 "source_urls": [],
                 "evidence": [],
             }
-        elif event_announcements:
+        elif event_announcements or exact_confirmed_by_sex[sex]:
             rows, overlay = _apply_announced_overlay(
                 candidates=fallback[sex],
                 selections=event_announcements,
@@ -556,6 +565,7 @@ def build_weekend_inputs(
                 fallback_url=url,
                 fallback_sha=source_sha,
                 evidence_sha=announced_sha,
+                exact_confirmed_athlete_ids=exact_confirmed_by_sex[sex],
             )
             output_rows[sex].extend(rows)
             source_mode = "announced_roster_overlay"

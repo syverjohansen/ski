@@ -472,6 +472,50 @@ class CrossCountryWeekendInputTests(unittest.TestCase):
             self.assertEqual("candidate_pool", selected["11"]["selection_status"])
             self.assertEqual("announced_weekend_pool", selected["11"]["source_mode"])
 
+    def test_exact_race_list_excludes_other_weekend_races(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            data = WeekendInputFixture(root)
+            write_csv(
+                data.schedule,
+                WEEKENDS_COLUMNS,
+                [
+                    race(sex="M", race_id="52085"),
+                    race(sex="M", race_id="52087"),
+                ],
+            )
+            announced = data.sources / "announced.json"
+            write_announcements(
+                announced,
+                [announcement("11", "confirmed", race_ids=["52085"])],
+            )
+
+            build_weekend_inputs(
+                schedule=data.schedule,
+                men_chrono=data.men,
+                ladies_chrono=data.ladies,
+                aliases_path=data.aliases,
+                group_date=date(2026, 11, 27),
+                output_dir=root / "bundle",
+                announced_rosters_path=announced,
+                fetcher=lambda _url: b"<html>Not published</html>",
+            )
+
+            with (root / "bundle/men_startlist.csv").open(
+                newline="", encoding="utf-8"
+            ) as handle:
+                rows = list(csv.DictReader(handle))
+            athlete_events = {
+                row["race_id"]: row
+                for row in rows
+                if row["canonical_athlete_id"] == "11"
+            }
+            self.assertEqual({"52085"}, set(athlete_events))
+            self.assertEqual(
+                "announced_roster_evidence",
+                athlete_events["52085"]["source_mode"],
+            )
+
     def test_announced_roster_unknown_identity_fails_closed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
