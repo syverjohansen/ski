@@ -1,0 +1,92 @@
+{
+  "schema_version": "nordicnumbers.cross-country-world-cup-quotas/v1",
+  "contract_version": "fis-cc-world-cup-2026-27-period-1/1",
+  "season": 2027,
+  "valid_from": "2026-07-01",
+  "valid_through": "2027-06-30",
+  "scope": "normal individual FIS Cross-Country World Cup events",
+  "sources": [
+    {
+      "title": "Rules for the FIS Cross-Country World Cup 2026/27",
+      "url": "https://assets.fis-ski.com/f/252177/x/e1888caba5/merged_world-cup-rules-cross-country2026-clean.pdf",
+      "articles": ["2.2", "2.2.2", "2.2.3", "2.2.4", "2.2.5", "2.2.6"]
+    },
+    {
+      "title": "FIS Cross-Country World Cup 2026-2027 COC qualification Period 1",
+      "url": "https://assets.fis-ski.com/f/252177/x/cf497205e1/coc-qualification-wc-cc_24-25_1.pdf",
+      "published": "2026-11-16"
+    },
+    {
+      "title": "FIS 2025/26 Women's Overall World Cup standings",
+      "url": "https://www.fis-ski.com/DB/cross-country/cup-standings.html?cupcode=WC&disciplinecode=ALL&gendercode=W&seasoncode=2026"
+    },
+    {
+      "title": "FIS 2025/26 Men's Overall World Cup standings",
+      "url": "https://www.fis-ski.com/DB/cross-country/cup-standings.html?cupcode=WC&disciplinecode=ALL&gendercode=M&seasoncode=2026"
+    }
+  ],
+  "rules": {
+    "default_basic_quota": 2,
+    "maximum_starters_per_nation_gender": 10,
+    "host_shared_quota": 10,
+    "team_event_weekend_minimum_quota": 4,
+    "personal_rights_are_non_transferable": true,
+    "tour_de_ski_exception_is_out_of_scope": true
+  },
+  "nations": [
+    {"code": "AND", "name": "Andorra", "women": 4, "men": 3},
+    {"code": "ARG", "name": "Argentina", "women": 2, "men": 3},
+    {"code": "AUS", "name": "Australia", "women": 4, "men": 3},
+    {"code": "AUT", "name": "Austria", "women": 6, "men": 6},
+    {"code": "BUL", "name": "Bulgaria", "women": 2, "men": 2},
+    {"code": "CAN", "name": "Canada", "women": 5, "men": 5},
+    {"code": "CHN", "name": "China", "women": 3, "men": 3},
+    {"code": "CZE", "name": "Czechia", "women": 5, "men": 5},
+    {"code": "EST", "name": "Estonia", "women": 4, "men": 4},
+    {"code": "ESP", "name": "Spain", "women": 2, "men": 4},
+    {"code": "FIN", "name": "Finland", "women": 6, "men": 6},
+    {"code": "FRA", "name": "France", "women": 5, "men": 6},
+    {"code": "GBR", "name": "Great Britain", "women": 3, "men": 5},
+    {"code": "GER", "name": "Germany", "women": 6, "men": 5},
+    {"code": "ITA", "name": "Italy", "women": 6, "men": 6},
+    {"code": "IRL", "name": "Ireland", "women": 2, "men": 3},
+    {"code": "JPN", "name": "Japan", "women": 3, "men": 3},
+    {"code": "KAZ", "name": "Kazakhstan", "women": 3, "men": 3},
+    {"code": "KOR", "name": "South Korea", "women": 3, "men": 2},
+    {"code": "LAT", "name": "Latvia", "women": 5, "men": 3},
+    {"code": "MKD", "name": "North Macedonia", "women": 2, "men": 2},
+    {"code": "NOR", "name": "Norway", "women": 6, "men": 6},
+    {"code": "POL", "name": "Poland", "women": 4, "men": 4},
+    {"code": "SLO", "name": "Slovenia", "women": 3, "men": 4},
+    {"code": "SUI", "name": "Switzerland", "women": 6, "men": 6},
+    {"code": "SVK", "name": "Slovakia", "women": 2, "men": 3},
+    {"code": "SWE", "name": "Sweden", "women": 6, "men": 6},
+    {"code": "TPE", "name": "Taiwan", "women": 3, "men": 2},
+    {"code": "UKR", "name": "Ukraine", "women": 3, "men": 3},
+    {"code": "USA", "name": "USA", "women": 6, "men": 6}
+  ],
+  "personal_start_rights": [
+    {"sex": "L", "athlete_name": "Jessie Diggins", "nation": "USA", "right_type": "overall_world_cup", "competition": "2025/26 Overall World Cup", "valid_from": "2026-11-15", "valid_through": "2026-12-23"},
+    {"sex": "M", "athlete_name": "Johannes Hoesflot Klaebo", "nation": "NOR", "right_type": "overall_world_cup", "competition": "2025/26 Overall World Cup", "valid_from": "2026-11-15", "valid_through": "2026-12-23"},
+    {"sex": "L", "athlete_name": "Rosie Fordham", "nation": "AUS", "right_type": "continental_cup", "competition": "Australia/NZE Cup", "valid_from": "2026-11-15", "valid_through": "2026-12-23"},
+    {"sex": "M", "athlete_name": "Lars Young Vik", "nation": "AUS", "right_type": "continental_cup", "competition": "Australia/NZE Cup", "valid_from": "2026-11-15", "valid_through": "2026-12-23"},
+    {"sex": "L", "athlete_name": "Ana Cvetanovska", "nation": "MKD", "right_type": "continental_cup", "competition": "South East Europe Cup", "valid_from": "2026-11-15", "valid_through": "2026-12-23"},
+    {"sex": "M", "athlete_name": "Kristiyan Mitkov", "nation": "BUL", "right_type": "continental_cup", "competition": "South East Europe Cup", "valid_from": "2026-11-15", "valid_through": "2026-12-23"},
+    {"sex": "L", "athlete_name": "Nadezhda Stepashkina", "nation": "KAZ", "right_type": "continental_cup", "competition": "Eastern Europe Cup", "valid_from": "2026-11-15", "valid_through": "2026-12-23"},
+    {"sex": "M", "athlete_name": "Olzhas Klimin", "nation": "KAZ", "right_type": "continental_cup", "competition": "Eastern Europe Cup", "valid_from": "2026-11-15", "valid_through": "2026-12-23"},
+    {"sex": "L", "athlete_name": "Hikari Miyazaki", "nation": "JPN", "right_type": "continental_cup", "competition": "Far East Cup", "valid_from": "2026-11-15", "valid_through": "2026-12-23"},
+    {"sex": "M", "athlete_name": "Haruki Yamashita", "nation": "JPN", "right_type": "continental_cup", "competition": "Far East Cup", "valid_from": "2026-11-15", "valid_through": "2026-12-23"},
+    {"sex": "L", "athlete_name": "Sonjaa Schmidt", "nation": "CAN", "right_type": "continental_cup", "competition": "NorAm Cup", "valid_from": "2026-11-15", "valid_through": "2026-12-23"},
+    {"sex": "M", "athlete_name": "Olivier Leveille", "nation": "CAN", "right_type": "continental_cup", "competition": "NorAm Cup", "valid_from": "2026-11-15", "valid_through": "2026-12-23"},
+    {"sex": "L", "athlete_name": "Theresa Fürstenberg", "source_name": "Theresa Fuerstenberg", "nation": "GER", "right_type": "continental_cup", "competition": "FESA Cup", "valid_from": "2026-11-15", "valid_through": "2026-12-23"},
+    {"sex": "M", "athlete_name": "Matteo Correia", "nation": "FRA", "right_type": "continental_cup", "competition": "FESA Cup", "valid_from": "2026-11-15", "valid_through": "2026-12-23"},
+    {"sex": "L", "athlete_name": "Tiril Udnes Weng", "nation": "NOR", "right_type": "continental_cup", "competition": "Scandinavian Cup", "valid_from": "2026-11-15", "valid_through": "2026-12-23"},
+    {"sex": "M", "athlete_name": "Even Solem Michelsen", "nation": "NOR", "right_type": "continental_cup", "competition": "Scandinavian Cup", "valid_from": "2026-11-15", "valid_through": "2026-12-23"},
+    {"sex": "L", "athlete_name": "Anastasiia Nikon", "nation": "UKR", "right_type": "continental_cup", "competition": "Slavic Cup", "valid_from": "2026-11-15", "valid_through": "2026-12-23"},
+    {"sex": "M", "athlete_name": "Dmytro Romanchenko", "nation": "UKR", "right_type": "continental_cup", "competition": "Slavic Cup", "valid_from": "2026-11-15", "valid_through": "2026-12-23"},
+    {"sex": "L", "athlete_name": "Emma Albrecht", "nation": "USA", "right_type": "continental_cup", "competition": "US Super Tour", "valid_from": "2026-11-15", "valid_through": "2026-12-23"},
+    {"sex": "M", "athlete_name": "Zachary Jayne", "nation": "USA", "right_type": "continental_cup", "competition": "US Super Tour", "valid_from": "2026-11-15", "valid_through": "2026-12-23"},
+    {"sex": "L", "athlete_name": "Nahiara Diaz Gonzalez", "nation": "ARG", "right_type": "continental_cup", "competition": "South American Cup", "valid_from": "2026-11-15", "valid_through": "2026-12-23"},
+    {"sex": "M", "athlete_name": "Franco Dal Farra", "nation": "ARG", "right_type": "continental_cup", "competition": "South American Cup", "valid_from": "2026-11-15", "valid_through": "2026-12-23"}
+  ]
+}
