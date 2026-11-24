@@ -33,6 +33,7 @@ class AnnouncedSelection:
     status: str
     source_url: str
     observed_at: str
+    race_id: str
 
 
 def _timestamp(value: object, *, label: str) -> str:
@@ -129,18 +130,20 @@ def load_announced_rosters(
             raise AnnouncedRosterError(f"{label} contains duplicate race IDs")
         if "*" in normalized_races and len(normalized_races) != 1:
             raise AnnouncedRosterError(f"{label} cannot combine '*' with race IDs")
-        selection = AnnouncedSelection(
-            status=status,
-            source_url=_source_url(entry.get("source_url"), label=label),
-            observed_at=_timestamp(entry.get("observed_at"), label=label),
-        )
+        source_url = _source_url(entry.get("source_url"), label=label)
+        observed_at = _timestamp(entry.get("observed_at"), label=label)
         for race_id in normalized_races:
             key = (sex, race_id, athlete_id)
             if key in selections:
                 raise AnnouncedRosterError(
                     f"duplicate announced roster selection: {key}"
                 )
-            selections[key] = selection
+            selections[key] = AnnouncedSelection(
+                status=status,
+                source_url=source_url,
+                observed_at=observed_at,
+                race_id=race_id,
+            )
     return selections
 
 
