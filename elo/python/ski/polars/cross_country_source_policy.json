@@ -105,6 +105,7 @@
     "cross_country_announced_rosters.py",
     "cross_country_fantasyxc_feed.py",
     "cross_country_fantasyxc_resolve.py",
+    "cross_country_fantasyxc_review.py",
     "cross_country_fis_prediction_acquire.py",
     "cross_country_fis_prediction_backtest.py",
     "cross_country_fis_prediction_cohort.py",

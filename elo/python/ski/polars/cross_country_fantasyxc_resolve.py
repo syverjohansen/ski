@@ -97,6 +97,11 @@ def _sha256(content: bytes) -> str:
     return hashlib.sha256(content).hexdigest()
 
 
+def _stable_id(prefix: str, value: dict[str, Any]) -> str:
+    content = json.dumps(value, sort_keys=True, separators=(",", ":")).encode()
+    return f"{prefix}:{_sha256(content)}"
+
+
 def _json_bytes(value: Any) -> bytes:
     return (json.dumps(value, indent=2, sort_keys=True, allow_nan=False) + "\n").encode()
 
@@ -403,6 +408,9 @@ def resolve_feed(
     )
     for row in candidates:
         row["race_ids"] = sorted(set(row["race_ids"]), key=lambda value: (value != "*", value))
+        row["candidate_id"] = _stable_id("candidate", row)
+    for exception in exceptions:
+        exception["exception_id"] = _stable_id("exception", exception)
     document = {
         "schema_version": CANDIDATES_SCHEMA,
         "status": "candidate_review",
