@@ -390,13 +390,18 @@ python cross_country_fantasyxc_feed.py \
 The acquisition reads only fixed public FxEmbed realms. It tries
 `https://fxtwitter.com/FantasyXC/feed.xml` first and falls back to the same feed
 at `https://fixupx.com/FantasyXC/feed.xml`, recording the realm that actually
-succeeded. Requests use an identifiable browser-compatible Nordic Numbers user
-agent because FxEmbed rejects bare automation user agents. Acquisition retries
-transient failures, caps each response at 2 MiB, filters posts to a bounded
-pre-weekend window, and retains both the raw XML and normalized items with
-SHA-256 checksums. Its output is `candidate_review`, never a reviewed roster
-and never publication eligible; athlete identity and roster-claim resolution
-remain a separate guarded step.
+succeeded. If both legacy RSS endpoints are unavailable, it uses the supported
+FxTwitter v2 FantasyXC profile endpoint with a 100-post cap, replies enabled,
+and an explicit lower-bound timestamp. Posts containing FantasyXC's literal
+`(...)` continuation marker are expanded through the fixed v2 thread endpoint,
+so self-reply pages are not lost. Requests use an identifiable
+browser-compatible Nordic Numbers user agent because FxEmbed rejects bare
+automation user agents. Acquisition retries transient failures, caps each
+response at 2 MiB, filters posts to a bounded pre-weekend window, and retains
+the raw source, raw thread responses, and normalized items with SHA-256
+checksums. Its output is `candidate_review`, never a reviewed roster and never
+publication eligible; athlete identity and roster-claim resolution remain a
+separate guarded step.
 
 Resolve the normalized posts into exact, shadow-only review candidates:
 
@@ -413,7 +418,9 @@ python cross_country_fantasyxc_resolve.py \
 
 The resolver matches full canonical athlete-name tokens, preserves explicit
 men/women sections, maps `(s)`, `(10K)`, and combined annotations to exact FIS
-race IDs, and recognizes explicit positive or negative roster language. An
+race IDs, and recognizes explicit positive or negative roster language. Exact
+operator-reviewed source spelling aliases may bridge a known FantasyXC spelling
+to one canonical record; fuzzy identity matching remains forbidden. An
 unknown athlete, unclear injury prose, unmatched annotation, ambiguous match,
 or conflicting decision is retained as a review exception. Its output uses
 `nordicnumbers.cross-country-announced-roster-candidates/v1`, remains

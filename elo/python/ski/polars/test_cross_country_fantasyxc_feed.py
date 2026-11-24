@@ -11,8 +11,14 @@ from cross_country_fantasyxc_feed import (
     acquire_feed,
     fetch_feed,
     fetch_feed_with_fallback,
+    fetch_profile,
+    fetch_thread,
     parse_feed,
+    parse_profile,
+    parse_thread,
     validate_feed_url,
+    validate_profile_url,
+    validate_thread_url,
 )
 
 
@@ -48,6 +54,51 @@ PAYLOAD = rss(
         "<p>Outside the evidence window</p>",
     ),
 )
+
+
+def thread_payload(*statuses: tuple[str, int, str]) -> bytes:
+    return json.dumps(
+        {
+            "code": 200,
+            "thread": [
+                {
+                    "type": "status",
+                    "id": status_id,
+                    "url": f"https://x.com/FantasyXC/status/{status_id}",
+                    "text": text,
+                    "created_timestamp": timestamp,
+                    "author": {"screen_name": "FantasyXC"},
+                }
+                for status_id, timestamp, text in statuses
+            ],
+        }
+    ).encode()
+
+
+NORWAY_THREAD = thread_payload(
+    (
+        "200",
+        1795462884,
+        "Norway roster for Ruka\nMen:\nMartin Nyenget (10K)\n(...)",
+    ),
+    (
+        "201",
+        1795463151,
+        "Johannes Høsflot Klæbo (10K+s+20K)\nErik Valnes (s)",
+    ),
+    (
+        "202",
+        1795463229,
+        "Women:\nHeidi Weng (10K+20K)\n(...)",
+    ),
+)
+PROFILE_PAYLOAD = json.dumps(
+    {
+        "code": 200,
+        "results": json.loads(NORWAY_THREAD)["thread"],
+        "cursor": {"top": None, "bottom": None},
+    }
+).encode()
 
 
 class FakeResponse:
@@ -126,6 +177,127 @@ class CrossCountryFantasyXCFeedTests(unittest.TestCase):
             fetch_feed(opener=opener, sleep=lambda _seconds: None),
         )
         self.assertEqual(3, len(calls))
+
+    def test_thread_fetch_uses_fixed_v2_endpoint(self) -> None:
+        requested = []
+
+        def opener(request, **_kwargs):
+            requested.append(request.full_url)
+            self.assertEqual("application/json", request.get_header("Accept"))
+            return FakeResponse(NORWAY_THREAD)
+
+        self.assertEqual(
+            NORWAY_THREAD,
+            fetch_thread("200", opener=opener, sleep=lambda _seconds: None),
+        )
+        self.assertEqual(["https://api.fxtwitter.com/2/thread/200"], requested)
+        validate_thread_url(requested[0])
+        with self.assertRaisesRegex(FantasyXCFeedError, "unsupported"):
+            validate_thread_url("https://example.test/2/thread/200")
+
+    def test_thread_parser_retains_self_reply_pages(self) -> None:
+        items = parse_thread(
+            NORWAY_THREAD,
+            seed_status_id="200",
+            logical_date=date(2026, 11, 27),
+            as_of=date(2026, 11, 23),
+            lookback_days=14,
+        )
+        self.assertEqual(["200", "201", "202"], [row["status_id"] for row in items])
+        self.assertIn("Johannes Høsflot Klæbo", items[1]["description_html"])
+        self.assertEqual("200", items[1]["thread_root_id"])
+
+    def test_profile_fallback_is_bounded_and_includes_replies(self) -> None:
+        requested = []
+
+        def opener(request, **_kwargs):
+            requested.append(request.full_url)
+            return FakeResponse(PROFILE_PAYLOAD)
+
+        payload, source_url = fetch_profile(
+            logical_date=date(2026, 11, 27),
+            lookback_days=14,
+            opener=opener,
+            sleep=lambda _seconds: None,
+        )
+        self.assertEqual(PROFILE_PAYLOAD, payload)
+        self.assertEqual([source_url], requested)
+        self.assertIn("count=100", source_url)
+        self.assertIn("with_replies=1", source_url)
+        validate_profile_url(source_url)
+        with self.assertRaisesRegex(FantasyXCFeedError, "unsupported"):
+            validate_profile_url("https://api.fxtwitter.com/2/profile/Other/statuses")
+
+    def test_profile_parser_normalizes_reply_items(self) -> None:
+        items = parse_profile(
+            PROFILE_PAYLOAD,
+            logical_date=date(2026, 11, 27),
+            as_of=date(2026, 11, 23),
+            lookback_days=14,
+        )
+        self.assertEqual(["200", "201", "202"], [row["status_id"] for row in items])
+
+    def test_acquisition_accepts_profile_fallback_payload(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            _payload, source_url = fetch_profile(
+                logical_date=date(2026, 11, 27),
+                lookback_days=14,
+                opener=lambda *_args, **_kwargs: FakeResponse(PROFILE_PAYLOAD),
+                sleep=lambda _seconds: None,
+            )
+            report = acquire_feed(
+                logical_date=date(2026, 11, 27),
+                as_of=date(2026, 11, 23),
+                output_dir=root / "evidence",
+                report_path=root / "report.json",
+                payload=PROFILE_PAYLOAD,
+                source_url=source_url,
+            )
+            self.assertEqual("profile_v2", report["source"]["kind"])
+            self.assertEqual(3, report["item_count"])
+            self.assertTrue((root / "evidence/fantasyxc-profile.json").is_file())
+
+    def test_acquisition_expands_and_preserves_marked_threads(self) -> None:
+        marked_feed = rss(
+            (
+                "200",
+                "Mon, 23 Nov 2026 19:41:24 GMT",
+                "Norway roster for Ruka",
+                "<p>Men:<br />Martin Nyenget (10K)<br />(...)</p>",
+            )
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            requested = []
+
+            def get_thread(status_id: str) -> bytes:
+                requested.append(status_id)
+                return NORWAY_THREAD
+
+            report = acquire_feed(
+                logical_date=date(2026, 11, 27),
+                as_of=date(2026, 11, 23),
+                output_dir=root / "evidence",
+                report_path=root / "report.json",
+                payload=marked_feed,
+                allow_network=True,
+                thread_fetcher=get_thread,
+            )
+            document = json.loads(
+                (root / "evidence/fantasyxc-feed-items.json").read_text()
+            )
+            self.assertEqual(["200"], requested)
+            self.assertEqual(3, report["item_count"])
+            self.assertEqual(1, report["thread_count"])
+            self.assertEqual(
+                ["200", "201", "202"],
+                [row["status_id"] for row in document["items"]],
+            )
+            self.assertTrue(
+                (root / "evidence/threads/fantasyxc-thread-200.json").is_file()
+            )
+            self.assertEqual("200", document["source"]["threads"][0]["status_id"])
 
     def test_feed_url_is_fixed_to_fantasyxc(self) -> None:
         validate_feed_url(FEED_URL)

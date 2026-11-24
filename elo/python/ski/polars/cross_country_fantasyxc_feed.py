@@ -13,6 +13,7 @@ import time
 from collections.abc import Callable
 from datetime import UTC, date, datetime, timedelta
 from email.utils import parsedate_to_datetime
+from html import escape
 from pathlib import Path
 from typing import Any
 from urllib.error import HTTPError, URLError
@@ -25,9 +26,13 @@ FEED_URLS = (
     FEED_URL,
     "https://fixupx.com/FantasyXC/feed.xml",
 )
+THREAD_API_ROOT = "https://api.fxtwitter.com/2/thread"
+PROFILE_API_ROOT = "https://api.fxtwitter.com/2/profile/FantasyXC/statuses"
 REPORT_SCHEMA = "nordicnumbers.cross-country-fantasyxc-feed-report/v1"
 ITEMS_SCHEMA = "nordicnumbers.cross-country-fantasyxc-feed-items/v1"
 MAX_FEED_BYTES = 2 * 1024 * 1024
+MAX_THREAD_BYTES = 2 * 1024 * 1024
+MAX_THREAD_STATUSES = 100
 USER_AGENT = (
     "Mozilla/5.0 (compatible; NordicNumbers/1.0; +https://nordicnumbers.com)"
 )
@@ -67,6 +72,38 @@ def validate_feed_url(url: str) -> None:
         or parsed.fragment
     ):
         raise FantasyXCFeedError(f"unsupported FantasyXC feed URL: {url}")
+
+
+def validate_thread_url(url: str) -> None:
+    parsed = urlparse(url)
+    if (
+        parsed.scheme != "https"
+        or parsed.hostname != "api.fxtwitter.com"
+        or not re.fullmatch(r"/2/thread/\d+", parsed.path)
+        or parsed.query
+        or parsed.fragment
+    ):
+        raise FantasyXCFeedError(f"unsupported FantasyXC thread URL: {url}")
+
+
+def validate_profile_url(url: str) -> None:
+    parsed = urlparse(url)
+    query = dict(
+        part.split("=", 1)
+        for part in parsed.query.split("&")
+        if "=" in part
+    )
+    if (
+        parsed.scheme != "https"
+        or parsed.hostname != "api.fxtwitter.com"
+        or parsed.path != "/2/profile/FantasyXC/statuses"
+        or parsed.fragment
+        or set(query) != {"count", "with_replies", "since"}
+        or query.get("count") != "100"
+        or query.get("with_replies") != "1"
+        or not re.fullmatch(r"\d+", query.get("since", ""))
+    ):
+        raise FantasyXCFeedError(f"unsupported FantasyXC profile URL: {url}")
 
 
 def fetch_feed(
@@ -140,6 +177,120 @@ def fetch_feed_with_fallback(
     )
 
 
+def fetch_thread(
+    status_id: str,
+    *,
+    opener: Callable[..., Any] = urlopen,
+    sleep: Callable[[float], None] = time.sleep,
+    attempts: int = 3,
+    timeout_seconds: int = 20,
+) -> bytes:
+    """Fetch an author's self-reply thread with bounded retries and size."""
+
+    if not re.fullmatch(r"\d+", status_id):
+        raise FantasyXCFeedError(f"invalid FantasyXC status ID: {status_id}")
+    if attempts < 1:
+        raise ValueError("attempts must be positive")
+    url = f"{THREAD_API_ROOT}/{status_id}"
+    validate_thread_url(url)
+    request = Request(
+        url,
+        headers={"Accept": "application/json", "User-Agent": USER_AGENT},
+    )
+    last_error: Exception | None = None
+    for attempt in range(1, attempts + 1):
+        try:
+            with opener(request, timeout=timeout_seconds) as response:
+                status = getattr(response, "status", 200)
+                if status != 200:
+                    raise FantasyXCFeedError(
+                        f"FantasyXC thread returned HTTP {status}"
+                    )
+                declared = response.headers.get("Content-Length")
+                if declared and int(declared) > MAX_THREAD_BYTES:
+                    raise FantasyXCFeedError("FantasyXC thread exceeds the size limit")
+                payload = response.read(MAX_THREAD_BYTES + 1)
+                if not payload:
+                    raise FantasyXCFeedError("FantasyXC thread returned an empty body")
+                if len(payload) > MAX_THREAD_BYTES:
+                    raise FantasyXCFeedError("FantasyXC thread exceeds the size limit")
+                return payload
+        except HTTPError as exc:
+            last_error = exc
+            exc.close()
+            if exc.code != 429 and not 500 <= exc.code <= 599:
+                break
+        except (TimeoutError, URLError) as exc:
+            last_error = exc
+        except FantasyXCFeedError:
+            raise
+        if attempt < attempts:
+            sleep(float(2 ** (attempt - 1)))
+    raise FantasyXCFeedError(
+        f"FantasyXC thread failed after {attempts} attempts: {last_error}"
+    )
+
+
+def fetch_profile(
+    *,
+    logical_date: date,
+    lookback_days: int,
+    opener: Callable[..., Any] = urlopen,
+    sleep: Callable[[float], None] = time.sleep,
+    attempts: int = 3,
+    timeout_seconds: int = 20,
+) -> tuple[bytes, str]:
+    """Fetch a bounded FantasyXC timeline including the account's replies."""
+
+    if lookback_days < 1 or lookback_days > 30:
+        raise FantasyXCFeedError("lookback_days must be between 1 and 30")
+    since = int(
+        datetime.combine(
+            logical_date - timedelta(days=lookback_days),
+            datetime.min.time(),
+            tzinfo=UTC,
+        ).timestamp()
+    )
+    url = f"{PROFILE_API_ROOT}?count=100&with_replies=1&since={since}"
+    validate_profile_url(url)
+    request = Request(
+        url,
+        headers={"Accept": "application/json", "User-Agent": USER_AGENT},
+    )
+    last_error: Exception | None = None
+    for attempt in range(1, attempts + 1):
+        try:
+            with opener(request, timeout=timeout_seconds) as response:
+                status = getattr(response, "status", 200)
+                if status != 200:
+                    raise FantasyXCFeedError(
+                        f"FantasyXC profile returned HTTP {status}"
+                    )
+                declared = response.headers.get("Content-Length")
+                if declared and int(declared) > MAX_FEED_BYTES:
+                    raise FantasyXCFeedError("FantasyXC profile exceeds the size limit")
+                payload = response.read(MAX_FEED_BYTES + 1)
+                if not payload:
+                    raise FantasyXCFeedError("FantasyXC profile returned an empty body")
+                if len(payload) > MAX_FEED_BYTES:
+                    raise FantasyXCFeedError("FantasyXC profile exceeds the size limit")
+                return payload, url
+        except HTTPError as exc:
+            last_error = exc
+            exc.close()
+            if exc.code != 429 and not 500 <= exc.code <= 599:
+                break
+        except (TimeoutError, URLError) as exc:
+            last_error = exc
+        except FantasyXCFeedError:
+            raise
+        if attempt < attempts:
+            sleep(float(2 ** (attempt - 1)))
+    raise FantasyXCFeedError(
+        f"FantasyXC profile failed after {attempts} attempts: {last_error}"
+    )
+
+
 def _required_text(item: ElementTree.Element, tag: str, *, index: int) -> str:
     value = (item.findtext(tag) or "").strip()
     if not value:
@@ -206,6 +357,140 @@ def parse_feed(
     return sorted(items, key=lambda item: (item["published_at"], item["status_id"]))
 
 
+def parse_thread(
+    payload: bytes,
+    *,
+    seed_status_id: str,
+    logical_date: date,
+    as_of: date,
+    lookback_days: int,
+) -> list[dict[str, str]]:
+    """Normalize FantasyXC's self-reply chain into ordinary feed items."""
+
+    if lookback_days < 1 or lookback_days > 30:
+        raise FantasyXCFeedError("lookback_days must be between 1 and 30")
+    try:
+        document = json.loads(payload)
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise FantasyXCFeedError("FantasyXC thread returned invalid JSON") from exc
+    statuses = document.get("thread") if isinstance(document, dict) else None
+    if (
+        not isinstance(document, dict)
+        or document.get("code") != 200
+        or not isinstance(statuses, list)
+    ):
+        raise FantasyXCFeedError("FantasyXC thread has an unsupported response")
+    if len(statuses) > MAX_THREAD_STATUSES:
+        raise FantasyXCFeedError("FantasyXC thread contains too many statuses")
+
+    lower_bound = logical_date - timedelta(days=lookback_days)
+    normalized: list[dict[str, str]] = []
+    seen: set[str] = set()
+    for index, status in enumerate(statuses, start=1):
+        if not isinstance(status, dict) or status.get("type") != "status":
+            continue
+        status_id = str(status.get("id", ""))
+        author = status.get("author")
+        if (
+            not re.fullmatch(r"\d+", status_id)
+            or not isinstance(author, dict)
+            or author.get("screen_name") != "FantasyXC"
+        ):
+            continue
+        if status_id in seen:
+            raise FantasyXCFeedError(
+                f"duplicate FantasyXC thread status ID: {status_id}"
+            )
+        seen.add(status_id)
+        expected_url = f"https://x.com/FantasyXC/status/{status_id}"
+        if status.get("url") != expected_url:
+            raise FantasyXCFeedError(
+                f"FantasyXC thread status {index} has an unsupported URL"
+            )
+        try:
+            published = datetime.fromtimestamp(
+                int(status["created_timestamp"]), tz=UTC
+            )
+        except (KeyError, TypeError, ValueError, OSError) as exc:
+            raise FantasyXCFeedError(
+                f"FantasyXC thread status {index} has an invalid timestamp"
+            ) from exc
+        if not lower_bound <= published.date() <= as_of:
+            continue
+        text = str(status.get("text", "")).strip()
+        if not text:
+            raise FantasyXCFeedError(
+                f"FantasyXC thread status {index} has no text"
+            )
+        lines = text.splitlines()
+        normalized.append(
+            {
+                "status_id": status_id,
+                "source_url": expected_url,
+                "published_at": published.isoformat().replace("+00:00", "Z"),
+                "title": " ".join(lines).strip(),
+                "description_html": "<p>"
+                + "<br />".join(escape(line) for line in lines)
+                + "</p>",
+                "thread_root_id": seed_status_id,
+            }
+        )
+    if seed_status_id not in seen:
+        raise FantasyXCFeedError("FantasyXC thread does not contain its seed status")
+    return sorted(
+        normalized, key=lambda item: (item["published_at"], item["status_id"])
+    )
+
+
+def parse_profile(
+    payload: bytes,
+    *,
+    logical_date: date,
+    as_of: date,
+    lookback_days: int,
+) -> list[dict[str, str]]:
+    """Normalize the bounded v2 FantasyXC profile timeline."""
+
+    if lookback_days < 1 or lookback_days > 30:
+        raise FantasyXCFeedError("lookback_days must be between 1 and 30")
+    try:
+        document = json.loads(payload)
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise FantasyXCFeedError("FantasyXC profile returned invalid JSON") from exc
+    results = document.get("results") if isinstance(document, dict) else None
+    if (
+        not isinstance(document, dict)
+        or document.get("code") != 200
+        or not isinstance(results, list)
+    ):
+        raise FantasyXCFeedError("FantasyXC profile has an unsupported response")
+    statuses: list[dict[str, Any]] = []
+    for result in results:
+        if not isinstance(result, dict):
+            continue
+        if result.get("type") == "status":
+            statuses.append(result)
+        elif result.get("type") == "thread" and isinstance(
+            result.get("statuses"), list
+        ):
+            statuses.extend(
+                status
+                for status in result["statuses"]
+                if isinstance(status, dict)
+            )
+    synthetic = _json_bytes({"code": 200, "thread": statuses})
+    if not statuses:
+        return []
+    seed_status_id = str(statuses[0].get("id", ""))
+    return parse_thread(
+        synthetic,
+        seed_status_id=seed_status_id,
+        logical_date=logical_date,
+        as_of=as_of,
+        lookback_days=lookback_days,
+    )
+
+
 def acquire_feed(
     *,
     logical_date: date,
@@ -216,6 +501,7 @@ def acquire_feed(
     allow_network: bool = False,
     payload: bytes | None = None,
     source_url: str | None = None,
+    thread_fetcher: Callable[[str], bytes] | None = None,
     now: Callable[[], datetime] = lambda: datetime.now(UTC),
 ) -> dict[str, Any]:
     """Persist raw and normalized evidence; never emit reviewed roster decisions."""
@@ -223,33 +509,103 @@ def acquire_feed(
     if payload is None:
         if not allow_network:
             raise FantasyXCFeedError("network acquisition requires --allow-network")
-        payload, source_url = fetch_feed_with_fallback()
+        try:
+            payload, source_url = fetch_feed_with_fallback()
+        except FantasyXCFeedError as feed_error:
+            try:
+                payload, source_url = fetch_profile(
+                    logical_date=logical_date,
+                    lookback_days=lookback_days,
+                )
+            except FantasyXCFeedError as profile_error:
+                raise FantasyXCFeedError(
+                    f"FantasyXC RSS and profile acquisition failed: "
+                    f"{feed_error}; {profile_error}"
+                ) from profile_error
     elif source_url is None:
         source_url = FEED_URL
     if source_url is None:
         raise AssertionError("feed source URL was not recorded")
-    validate_feed_url(source_url)
-    items = parse_feed(
-        payload,
-        logical_date=logical_date,
-        as_of=as_of,
-        lookback_days=lookback_days,
-    )
+    if source_url.startswith(PROFILE_API_ROOT):
+        validate_profile_url(source_url)
+        items = parse_profile(
+            payload,
+            logical_date=logical_date,
+            as_of=as_of,
+            lookback_days=lookback_days,
+        )
+        source_kind = "profile_v2"
+    else:
+        validate_feed_url(source_url)
+        items = parse_feed(
+            payload,
+            logical_date=logical_date,
+            as_of=as_of,
+            lookback_days=lookback_days,
+        )
+        source_kind = "rss"
+    thread_payloads: dict[str, bytes] = {}
+    if allow_network:
+        if thread_fetcher is None:
+            thread_fetcher = fetch_thread
+        by_status = {item["status_id"]: item for item in items}
+        for item in list(items):
+            # FantasyXC marks posts that continue in a self-reply thread with
+            # this literal marker. Expanding only those posts keeps requests
+            # bounded while retaining every roster page.
+            if "(...)" not in f"{item['title']} {item['description_html']}":
+                continue
+            seed_status_id = item["status_id"]
+            thread_payload = thread_fetcher(seed_status_id)
+            thread_payloads[seed_status_id] = thread_payload
+            for thread_item in parse_thread(
+                thread_payload,
+                seed_status_id=seed_status_id,
+                logical_date=logical_date,
+                as_of=as_of,
+                lookback_days=lookback_days,
+            ):
+                by_status.setdefault(thread_item["status_id"], thread_item)
+        items = sorted(
+            by_status.values(),
+            key=lambda item: (item["published_at"], item["status_id"]),
+        )
     output_dir = output_dir.expanduser().resolve()
     report_path = report_path.expanduser().resolve()
-    raw_path = output_dir / "fantasyxc-feed.xml"
+    raw_path = output_dir / (
+        "fantasyxc-profile.json" if source_kind == "profile_v2" else "fantasyxc-feed.xml"
+    )
     items_path = output_dir / "fantasyxc-feed-items.json"
+    thread_sources = [
+        {
+            "status_id": status_id,
+            "url": f"{THREAD_API_ROOT}/{status_id}",
+            "sha256": _sha256(thread_payloads[status_id]),
+        }
+        for status_id in sorted(thread_payloads)
+    ]
+    source = {
+        "kind": source_kind,
+        "url": source_url,
+        "sha256": _sha256(payload),
+        "threads": thread_sources,
+    }
     items_document = {
         "schema_version": ITEMS_SCHEMA,
         "status": "candidate_review",
         "logical_date": logical_date.isoformat(),
         "as_of": as_of.isoformat(),
         "publication": {"status": "disabled"},
-        "source": {"url": source_url, "sha256": _sha256(payload)},
+        "source": source,
         "items": items,
     }
     items_bytes = _json_bytes(items_document)
     _atomic_write(raw_path, payload)
+    for status_id, thread_payload in thread_payloads.items():
+        _atomic_write(
+            output_dir / "threads" / f"fantasyxc-thread-{status_id}.json",
+            thread_payload,
+        )
     _atomic_write(items_path, items_bytes)
     report = {
         "schema_version": REPORT_SCHEMA,
@@ -258,8 +614,9 @@ def acquire_feed(
         "as_of": as_of.isoformat(),
         "retrieved_at": now().astimezone(UTC).isoformat().replace("+00:00", "Z"),
         "publication": {"status": "disabled"},
-        "source": {"url": source_url, "sha256": _sha256(payload)},
+        "source": source,
         "item_count": len(items),
+        "thread_count": len(thread_payloads),
         "outputs": {
             raw_path.name: {"sha256": _sha256(payload), "bytes": len(payload)},
             items_path.name: {

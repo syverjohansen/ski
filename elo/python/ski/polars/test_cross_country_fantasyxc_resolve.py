@@ -10,6 +10,7 @@ from cross_country_fantasyxc_resolve import (
     CANDIDATES_SCHEMA,
     FantasyXCResolveError,
     RESOLVER_VERSION,
+    _split_pure_name_list,
     html_lines,
     resolve_feed,
 )
@@ -36,7 +37,11 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
         )
         self._write_history(
             self.ladies,
-            [("10", "Jasmi Joensuu", "Finland"), ("11", "Astrid Oeyre Slind", "Norway")],
+            [
+                ("10", "Jasmi Joensuu", "Finland"),
+                ("11", "Astrid Oeyre Slind", "Norway"),
+                ("6828", "Ingrid Bergene Aabrekk", "Norway"),
+            ],
         )
         self._write_schedule()
 
@@ -60,6 +65,8 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
             ("101", "L", "Sprint"),
             ("102", "M", "10"),
             ("103", "M", "Sprint"),
+            ("104", "L", "20"),
+            ("105", "M", "20"),
         ):
             row = dict.fromkeys(WEEKENDS_COLUMNS, "0")
             row.update(
@@ -122,6 +129,40 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
         self.assertEqual(
             ["Women:", "Jasmi Joensuu (10K+s)"],
             html_lines("<p>Women:<br />Jasmi Joensuu (10K+s)</p>"),
+        )
+
+    def test_comma_separated_roster_names_are_split_but_prose_is_not(self) -> None:
+        self.assertEqual(
+            ["Simone Mocellini", "Gabriele Matli"],
+            _split_pure_name_list("Simone Mocellini, Gabriele Matli"),
+        )
+        prose = "Federico Pellegrino, who retired will be coaching"
+        self.assertEqual([prose], _split_pure_name_list(prose))
+
+    def test_unresolved_second_name_on_shared_line_is_not_silently_lost(self) -> None:
+        self._write_history(
+            self.men,
+            [("60", "Simone Mocellini", "Italy")],
+        )
+        self._write_feed(
+            [
+                self._item(
+                    "999",
+                    "2026-11-23T20:00:00Z",
+                    "The Italian squad to Ruka consists of",
+                    "<p>Men:<br>Simone Mocellini, Gabriele Matli</p>",
+                )
+            ]
+        )
+        self._resolve()
+        document = json.loads(self.output.read_text(encoding="utf-8"))
+        self.assertEqual(
+            ["Simone Mocellini"],
+            [row["canonical_name"] for row in document["candidates"]],
+        )
+        self.assertEqual(
+            ["Gabriele Matli"],
+            [row["evidence_text"] for row in document["review_exceptions"]],
         )
 
     def test_exact_names_and_annotations_create_review_candidates(self) -> None:
@@ -215,6 +256,116 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
         self.assertEqual(["100", "101"], jasmi["race_ids"])
         self.assertEqual(1, report["exception_count"])
         self.assertEqual("unknown", document["review_exceptions"][0]["sex"])
+
+    def test_real_norway_thread_pages_and_reviewed_spelling_alias_resolve(self) -> None:
+        self._write_history(
+            self.men,
+            [
+                ("2", "Johannes Hoesflot Klaebo", "Norway"),
+                ("20", "Martin Loewstroem Nyenget", "Norway"),
+                ("21", "Andreas Fjorden Ree", "Norway"),
+                ("22", "Emil Iversen", "Norway"),
+                ("23", "Mattis Stenshagen", "Norway"),
+                ("24", "Lars Heggen", "Norway"),
+                ("25", "Lars Agnar Hjelmeset", "Norway"),
+                ("26", "Even Solem Michelsen", "Norway"),
+                ("27", "Erik Valnes", "Norway"),
+                ("28", "Harald Oestberg Amundsen", "Norway"),
+                ("29", "Ansgar Evensen", "Norway"),
+                ("30", "Oskar Opstad Vike", "Norway"),
+                ("31", "Kristian Kollerud", "Norway"),
+            ],
+        )
+        self._write_history(
+            self.ladies,
+            [
+                ("11", "Astrid Oeyre Slind", "Norway"),
+                ("40", "Heidi Weng", "Norway"),
+                ("41", "Kristin Austgulen Fosnaes", "Norway"),
+                ("42", "Lotta Udnes Weng", "Norway"),
+                ("43", "Eva Ingebrigtsen", "Norway"),
+                ("44", "Milla Grosberghaugen Andreassen", "Norway"),
+                ("45", "Karoline Groetting", "Norway"),
+                ("46", "Tiril Udnes Weng", "Norway"),
+                ("47", "Helene Ekrheim Haugen", "Norway"),
+                ("48", "Hedda Oestberg Amundsen", "Norway"),
+                ("49", "Kristine Stavas Skistad", "Norway"),
+                ("50", "Nora Sanness", "Norway"),
+                ("6828", "Ingrid Bergene Aabrekk", "Norway"),
+            ],
+        )
+        self._write_feed(
+            [
+                self._item(
+                    "2124951466972754155",
+                    "2026-11-23T19:41:24Z",
+                    "Norway roster for Ruka announced",
+                    "<p>Men:<br>Martin Løwstrøm Nyenget (10K+20K)<br>"
+                    "Andreas Fjorden Ree (10K+20K)<br>Emil Iversen (10K+20K)<br>"
+                    "Mattis Stenshagen (10K)<br>Lars Heggen (10K+s+20K)</p>",
+                ),
+                self._item(
+                    "2124952589322035618",
+                    "2026-11-23T19:45:51Z",
+                    "Continuation",
+                    "<p>Lars Agnar Hjelmeset (10K)<br>"
+                    "Even Solem Michelsen (10K+s+20K)<br>"
+                    "Johannes Høsflot Klæbo (10K+s+20K)<br>Erik Valnes (s)<br>"
+                    "Harald Østberg Amundsen (s+20K)<br>Ansgar Evensen (s)<br>"
+                    "Oskar Opstad Vike (s)<br>Mattis Stenshagen (20K)<br>"
+                    "Kristian Kollerud (20K)</p>",
+                ),
+                self._item(
+                    "2124952915693756749",
+                    "2026-11-23T19:47:09Z",
+                    "Continuation",
+                    "<p>Women:<br>Heidi Weng (10K+20K)<br>"
+                    "Kristin Austgulen Fosnæs (10K+20K)<br>"
+                    "Lotta Udnes Weng (10K+s)<br>Eva Ingebrigtsen (10K+20K)<br>"
+                    "Milla Grosberghaugen Andreassen (10K+s)<br>"
+                    "Karoline Grøtting (10K+20K)<br>"
+                    "Tiril Udnes Weng (10K+s+20K)<br>"
+                    "Helene Ekrheim Haugen (s)<br>Hedda Østberg Amundsen (s)</p>",
+                ),
+                self._item(
+                    "2124954398178648309",
+                    "2026-11-23T19:53:02Z",
+                    "Continuation",
+                    "<p>Kristine Stavås Skistad (s)<br>"
+                    "Ingrid Bergane Aabrekk (s)<br>Nora Sanness (20K)<br>"
+                    "Ida Lien (20K)<br>Astrid Øyre Slind will miss Ruka</p>",
+                ),
+                self._item(
+                    "2124955036870676523",
+                    "2026-11-23T19:55:35Z",
+                    "Ruka update",
+                    "<p>Johannes Høsflot Klæbo is reported to be race ready.</p>",
+                ),
+            ]
+        )
+        self._resolve()
+        document = json.loads(self.output.read_text(encoding="utf-8"))
+
+        by_name: dict[str, set[str]] = {}
+        for row in document["candidates"]:
+            by_name.setdefault(row["canonical_name"], set()).update(row["race_ids"])
+        self.assertEqual({"102", "103", "105"}, by_name["Johannes Hoesflot Klaebo"])
+        self.assertEqual({"102", "105"}, by_name["Mattis Stenshagen"])
+        self.assertEqual({"101"}, by_name["Ingrid Bergene Aabrekk"])
+        aabrekk = next(
+            row
+            for row in document["candidates"]
+            if row["canonical_athlete_id"] == "6828"
+        )
+        self.assertEqual("reviewed_source_alias", aabrekk["identity_match_method"])
+        self.assertEqual(
+            ["Ida Lien (20K)"],
+            [
+                row["evidence_text"]
+                for row in document["review_exceptions"]
+                if row["reason"] == "unknown athlete line"
+            ],
+        )
 
     def test_current_roster_intro_phrases_confirm_exact_names(self) -> None:
         self._write_feed(
