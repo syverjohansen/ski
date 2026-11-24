@@ -1,4 +1,5 @@
 import csv
+import json
 import tempfile
 import unittest
 from datetime import date
@@ -9,6 +10,7 @@ from cross_country_weekend_inputs import (
     build_weekend_inputs,
     parse_official_startlist,
 )
+from cross_country_announced_rosters import SCHEMA_VERSION as ANNOUNCED_SCHEMA
 from schedule_contract import WEEKENDS_COLUMNS
 
 HERE = Path(__file__).resolve().parent
@@ -48,6 +50,46 @@ def race(
         "Elevation": "337",
         "Race": "1",
         "Championship": "0",
+    }
+
+
+def write_announcements(
+    path: Path,
+    entries: list[dict[str, object]],
+    *,
+    logical_date: str = "2026-11-27",
+) -> None:
+    path.write_text(
+        json.dumps(
+            {
+                "schema_version": ANNOUNCED_SCHEMA,
+                "status": "reviewed",
+                "logical_date": logical_date,
+                "publication": {"status": "disabled"},
+                "entries": entries,
+            },
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+
+def announcement(
+    athlete_id: str,
+    status: str,
+    *,
+    sex: str = "M",
+    race_ids: list[str] | None = None,
+) -> dict[str, object]:
+    return {
+        "sex": sex,
+        "canonical_athlete_id": athlete_id,
+        "status": status,
+        "race_ids": race_ids or ["*"],
+        "source_url": "https://example.test/fantasyxc/team-news",
+        "observed_at": "2026-11-26T18:30:00Z",
     }
 
 
@@ -194,6 +236,158 @@ class CrossCountryWeekendInputTests(unittest.TestCase):
             self.assertEqual([row["canonical_athlete_id"] for row in rows], ["21"])
             self.assertEqual(rows[0]["selection_status"], "candidate_pool")
             self.assertEqual(rows[0]["fis_competitor_id"], "")
+
+    def test_reviewed_announcements_overlay_history_fallback(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            data = WeekendInputFixture(root)
+            write_csv(data.schedule, WEEKENDS_COLUMNS, [race(sex="M", race_id="52085")])
+            announced = data.sources / "announced.json"
+            write_announcements(
+                announced,
+                [announcement("11", "excluded"), announcement("12", "confirmed")],
+            )
+
+            report = build_weekend_inputs(
+                schedule=data.schedule,
+                men_chrono=data.men,
+                ladies_chrono=data.ladies,
+                aliases_path=data.aliases,
+                group_date=date(2026, 11, 27),
+                output_dir=root / "bundle",
+                announced_rosters_path=announced,
+                fetcher=lambda _url: b"<html>Not published</html>",
+            )
+
+            self.assertEqual(
+                "announced_roster_overlay", report["events"][0]["source_mode"]
+            )
+            self.assertEqual(1, report["events"][0]["announced_rosters"]["confirmed"])
+            self.assertEqual(1, report["events"][0]["announced_rosters"]["excluded"])
+            with (root / "bundle/men_startlist.csv").open(
+                newline="", encoding="utf-8"
+            ) as handle:
+                rows = list(csv.DictReader(handle))
+            self.assertEqual(
+                ["12", "13"], [row["canonical_athlete_id"] for row in rows]
+            )
+            selected = {row["canonical_athlete_id"]: row for row in rows}
+            self.assertEqual("announced", selected["12"]["selection_status"])
+            self.assertEqual(
+                "announced_roster_evidence", selected["12"]["source_mode"]
+            )
+            self.assertEqual("candidate_pool", selected["13"]["selection_status"])
+
+    def test_official_startlist_supersedes_announced_overlay(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            data = WeekendInputFixture(root)
+            write_csv(data.schedule, WEEKENDS_COLUMNS, [race(sex="M", race_id="52085")])
+            announced = data.sources / "announced.json"
+            write_announcements(announced, [announcement("11", "excluded")])
+
+            report = build_weekend_inputs(
+                schedule=data.schedule,
+                men_chrono=data.men,
+                ladies_chrono=data.ladies,
+                aliases_path=data.aliases,
+                group_date=date(2026, 11, 27),
+                output_dir=root / "bundle",
+                announced_rosters_path=announced,
+                fetcher=lambda _url: FIXTURE.read_bytes(),
+            )
+
+            self.assertEqual(
+                "official_fis_startlist", report["events"][0]["source_mode"]
+            )
+            self.assertEqual(
+                1,
+                report["events"][0]["announced_rosters"][
+                    "ignored_because_official"
+                ],
+            )
+            with (root / "bundle/men_startlist.csv").open(
+                newline="", encoding="utf-8"
+            ) as handle:
+                rows = list(csv.DictReader(handle))
+            self.assertEqual(3, len(rows))
+            self.assertIn("11", {row["canonical_athlete_id"] for row in rows})
+
+    def test_event_specific_announcement_overrides_weekend_default(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            data = WeekendInputFixture(root)
+            write_csv(data.schedule, WEEKENDS_COLUMNS, [race(sex="M", race_id="52085")])
+            announced = data.sources / "announced.json"
+            write_announcements(
+                announced,
+                [
+                    announcement("11", "excluded"),
+                    announcement("11", "confirmed", race_ids=["52085"]),
+                ],
+            )
+            report = build_weekend_inputs(
+                schedule=data.schedule,
+                men_chrono=data.men,
+                ladies_chrono=data.ladies,
+                aliases_path=data.aliases,
+                group_date=date(2026, 11, 27),
+                output_dir=root / "bundle",
+                announced_rosters_path=announced,
+                fetcher=lambda _url: b"<html>Not published</html>",
+            )
+            with (root / "bundle/men_startlist.csv").open(
+                newline="", encoding="utf-8"
+            ) as handle:
+                rows = list(csv.DictReader(handle))
+            selected = {row["canonical_athlete_id"]: row for row in rows}
+            self.assertEqual("announced", selected["11"]["selection_status"])
+            self.assertEqual(
+                "confirmed",
+                report["events"][0]["announced_rosters"]["evidence"][0]["status"],
+            )
+
+    def test_announced_roster_unknown_identity_fails_closed(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            data = WeekendInputFixture(root)
+            write_csv(data.schedule, WEEKENDS_COLUMNS, [race(sex="M", race_id="52085")])
+            announced = data.sources / "announced.json"
+            write_announcements(announced, [announcement("999", "confirmed")])
+            with self.assertRaisesRegex(WeekendInputError, "unknown canonical athlete"):
+                build_weekend_inputs(
+                    schedule=data.schedule,
+                    men_chrono=data.men,
+                    ladies_chrono=data.ladies,
+                    aliases_path=data.aliases,
+                    group_date=date(2026, 11, 27),
+                    output_dir=root / "bundle",
+                    announced_rosters_path=announced,
+                    fetcher=lambda _url: b"<html>Not published</html>",
+                )
+
+    def test_announced_roster_date_must_match_weekend(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            data = WeekendInputFixture(root)
+            write_csv(data.schedule, WEEKENDS_COLUMNS, [race(sex="M", race_id="52085")])
+            announced = data.sources / "announced.json"
+            write_announcements(
+                announced,
+                [announcement("11", "confirmed")],
+                logical_date="2026-12-04",
+            )
+            with self.assertRaisesRegex(WeekendInputError, "logical date"):
+                build_weekend_inputs(
+                    schedule=data.schedule,
+                    men_chrono=data.men,
+                    ladies_chrono=data.ladies,
+                    aliases_path=data.aliases,
+                    group_date=date(2026, 11, 27),
+                    output_dir=root / "bundle",
+                    announced_rosters_path=announced,
+                    fetcher=lambda _url: b"<html>Not published</html>",
+                )
 
     def test_excludes_team_and_tour_work_from_normal_bundle(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
