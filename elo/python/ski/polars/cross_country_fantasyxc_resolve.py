@@ -26,7 +26,7 @@ from cross_country_weekend_inputs import select_normal_weekend, validate_startli
 
 CANDIDATES_SCHEMA = "nordicnumbers.cross-country-announced-roster-candidates/v1"
 REPORT_SCHEMA = "nordicnumbers.cross-country-announced-roster-resolution-report/v1"
-RESOLVER_VERSION = "fantasyxc-resolver-v2"
+RESOLVER_VERSION = "fantasyxc-resolver-v3"
 POSITIVE_CUES = (
     "will be racing",
     "will race",
@@ -158,12 +158,30 @@ def _read_feed(path: Path, logical_date: date) -> tuple[dict[str, Any], bytes]:
     return document, content
 
 
-def _events(schedule: Path, logical_date: date) -> list[_Event]:
+def _weekend_context(
+    schedule: Path, logical_date: date
+) -> tuple[list[_Event], tuple[str, ...]]:
     rows, _ignored = select_normal_weekend(schedule, logical_date)
-    return [
+    events = [
         _Event(row["Sex"], validate_startlist_url(row["Startlist"]), row["Distance"])
         for row in rows
     ]
+    venues = tuple(sorted({row["City"].strip() for row in rows if row["City"].strip()}))
+    if not venues:
+        raise FantasyXCResolveError("weekend schedule has no venue")
+    return events, venues
+
+
+def _mentions_venue(text: str, venues: tuple[str, ...]) -> bool:
+    tokens = normalized_name(text)
+    for venue in venues:
+        wanted = normalized_name(venue)
+        if wanted and any(
+            tokens[index : index + len(wanted)] == wanted
+            for index in range(len(tokens) - len(wanted) + 1)
+        ):
+            return True
+    return False
 
 
 def _race_ids(line: str, sex: str, events: list[_Event]) -> tuple[list[str], str | None]:
@@ -270,11 +288,12 @@ def resolve_feed(
 
     feed, feed_bytes = _read_feed(feed_items, logical_date)
     athletes, _name_index, _names_by_id = load_history(men_chrono, ladies_chrono)
-    events = _events(schedule, logical_date)
+    events, venues = _weekend_context(schedule, logical_date)
     items = sorted(feed["items"], key=lambda item: (item["published_at"], item["status_id"]))
     proposed: dict[tuple[str, str, str], dict[str, Any]] = {}
     conflicts: set[tuple[str, str, str]] = set()
     exceptions: list[dict[str, Any]] = []
+    ignored_items: list[dict[str, str]] = []
     last_positive: datetime | None = None
 
     for item_index, item in enumerate(items, start=1):
@@ -288,6 +307,24 @@ def resolve_feed(
         lines = html_lines(str(item.get("description_html", "")))
         combined = " ".join([str(item.get("title", "")), *lines]).lower()
         positive_context = any(cue in combined for cue in POSITIVE_CUES)
+        exact_athlete_present = any(
+            _candidate_athletes(line, None, athletes) for line in lines
+        )
+        explicitly_anchored = _mentions_venue(combined, venues)
+        inherited_anchor = bool(
+            exact_athlete_present
+            and last_positive is not None
+            and published - last_positive <= timedelta(minutes=15)
+        )
+        if not explicitly_anchored and not inherited_anchor:
+            ignored_items.append(
+                {
+                    "source_url": source_url,
+                    "published_at": item["published_at"],
+                    "reason": "post is not anchored to the target weekend venue",
+                }
+            )
+            continue
         first_line_is_section = bool(
             lines
             and re.fullmatch(r"(?:men|women|ladies)\s*:", lines[0], re.I)
@@ -462,10 +499,12 @@ def resolve_feed(
         "resolver_version": RESOLVER_VERSION,
         "status": "candidate_review",
         "logical_date": logical_date.isoformat(),
+        "weekend_context": {"venues": list(venues)},
         "publication": {"status": "disabled"},
         "source": {"path": str(feed_items), "sha256": _sha256(feed_bytes)},
         "candidates": candidates,
         "review_exceptions": exceptions,
+        "ignored_items": ignored_items,
     }
     output_bytes = _json_bytes(document)
     _atomic_write(output_path, output_bytes)
@@ -474,10 +513,12 @@ def resolve_feed(
         "resolver_version": RESOLVER_VERSION,
         "status": "candidate_review",
         "logical_date": logical_date.isoformat(),
+        "weekend_context": {"venues": list(venues)},
         "publication": {"status": "disabled"},
         "candidate_count": len(candidates),
         "exception_count": len(exceptions),
         "conflict_count": len(conflicts),
+        "ignored_item_count": len(ignored_items),
         "inputs": {"feed_items_sha256": _sha256(feed_bytes)},
         "outputs": {str(output_path): {"sha256": _sha256(output_bytes)}},
     }

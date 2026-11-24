@@ -53,7 +53,7 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
                     {"ID": athlete_id, "Skier": name, "Nation": nation, "Date": "2026-03-01"}
                 )
 
-    def _write_schedule(self) -> None:
+    def _write_schedule(self, *, city: str = "Ruka") -> None:
         rows = []
         for race_id, sex, distance in (
             ("100", "L", "10"),
@@ -68,7 +68,7 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
                     "Race_Date": "11/27/2026",
                     "Startlist": "https://www.fis-ski.com/DB/general/results.html?sectorcode=CC&raceid=" + race_id,
                     "Sex": sex,
-                    "City": "Ruka",
+                    "City": city,
                     "Country": "Finland",
                     "Distance": distance,
                     "Technique": "C",
@@ -170,7 +170,7 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
                 self._item(
                     "2000",
                     "2026-11-23T20:00:00Z",
-                    "Norway roster announced",
+                    "Norway roster for Ruka announced",
                     "<p>Women:<br>Astrid Oeyre Slind will miss Ruka</p>"
                     "<p>Men:<br>Iivo Niskanen is rehabilitating an injury</p>",
                 )
@@ -191,7 +191,7 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
                 self._item(
                     "1500",
                     "2026-11-23T20:00:00Z",
-                    "Norway roster announced",
+                    "Norway roster for Ruka announced",
                     "<p>Men:<br>Johannes Hoesflot Klaebo (s)</p>",
                 ),
                 self._item(
@@ -249,13 +249,46 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
             {row["canonical_athlete_id"] for row in document["candidates"]},
         )
 
+    def test_candidates_are_isolated_to_the_scheduled_weekend_venue(self) -> None:
+        self._write_feed(
+            [
+                self._item(
+                    "1515",
+                    "2026-11-23T20:00:00Z",
+                    "Norway roster for Ruka announced",
+                    "<p>Men:<br>Iivo Niskanen</p>",
+                ),
+                self._item(
+                    "1516",
+                    "2026-11-23T21:00:00Z",
+                    "Finland roster for Trondheim announced",
+                    "<p>Women:<br>Jasmi Joensuu</p>",
+                ),
+            ]
+        )
+
+        ruka_report = self._resolve()
+        ruka = json.loads(self.output.read_text(encoding="utf-8"))
+        self.assertEqual(["Ruka"], ruka["weekend_context"]["venues"])
+        self.assertEqual(1, ruka_report["candidate_count"])
+        self.assertEqual(1, ruka_report["ignored_item_count"])
+        self.assertEqual("1", ruka["candidates"][0]["canonical_athlete_id"])
+
+        self._write_schedule(city="Trondheim")
+        trondheim_report = self._resolve()
+        trondheim = json.loads(self.output.read_text(encoding="utf-8"))
+        self.assertEqual(["Trondheim"], trondheim["weekend_context"]["venues"])
+        self.assertEqual(1, trondheim_report["candidate_count"])
+        self.assertEqual(1, trondheim_report["ignored_item_count"])
+        self.assertEqual("10", trondheim["candidates"][0]["canonical_athlete_id"])
+
     def test_adjacent_name_only_list_inherits_roster_context(self) -> None:
         self._write_feed(
             [
                 self._item(
                     "1520",
                     "2026-11-23T20:00:00Z",
-                    "Finland team selection announced",
+                    "Finland team selection for Ruka announced",
                     "<p>Women:<br>Jasmi Joensuu</p>",
                 ),
                 self._item(
@@ -285,13 +318,13 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
                 self._item(
                     "1530",
                     "2026-11-23T20:00:00Z",
-                    "Finland roster announced",
+                    "Finland roster for Ruka announced",
                     "<p>Men:<br>Iivo Niskanen, Johannes Hoesflot Klaebo</p>",
                 ),
                 self._item(
                     "1531",
                     "2026-11-23T21:00:00Z",
-                    "Update",
+                    "Ruka update",
                     "<p>Jasmi Joensuu and Astrid Oeyre Slind are out sick "
                     "this weekend</p>",
                 ),
@@ -336,7 +369,7 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
                 self._item(
                     "1600",
                     "2026-11-23T20:00:00Z",
-                    "Norway roster announced",
+                    "Norway roster for Ruka announced",
                     "<p>Men:<br>Johannes Hoesflot Klaebo (s)</p>",
                 ),
                 self._item(
@@ -363,7 +396,7 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
                 self._item(
                     "3000",
                     "2026-11-23T20:00:00Z",
-                    "Team selection announced",
+                    "Ruka team selection announced",
                     "<p>Women:<br>Unknown Skier (10K)</p>",
                 )
             ]
@@ -378,13 +411,13 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
                 self._item(
                     "4000",
                     "2026-11-23T20:00:00Z",
-                    "Norway roster announced",
+                    "Norway roster for Ruka announced",
                     "<p>Women:<br>Astrid Oeyre Slind</p>",
                 ),
                 self._item(
                     "4001",
                     "2026-11-23T21:00:00Z",
-                    "Update",
+                    "Ruka update",
                     "<p>Women:<br>Astrid Oeyre Slind will not travel</p>",
                 ),
             ]
