@@ -394,6 +394,29 @@ retains both the raw XML and normalized items with SHA-256 checksums. Its output
 is `candidate_review`, never a reviewed roster and never publication eligible;
 athlete identity and roster-claim resolution remain a separate guarded step.
 
+Resolve the normalized posts into exact, shadow-only review candidates:
+
+```bash
+python cross_country_fantasyxc_resolve.py \
+  --feed-items /tmp/fantasyxc-evidence/fantasyxc-feed-items.json \
+  --men-chrono excel365/men_chrono.csv \
+  --ladies-chrono excel365/ladies_chrono.csv \
+  --schedule excel365/weekends.csv \
+  --logical-date 2026-11-27 \
+  --output /tmp/fantasyxc-roster-candidates.json \
+  --report /tmp/fantasyxc-roster-resolution-report.json
+```
+
+The resolver matches full canonical athlete-name tokens, preserves explicit
+men/women sections, maps `(s)`, `(10K)`, and combined annotations to exact FIS
+race IDs, and recognizes explicit positive or negative roster language. An
+unknown athlete, unclear injury prose, unmatched annotation, ambiguous match,
+or conflicting decision is retained as a review exception. Its output uses
+`nordicnumbers.cross-country-announced-roster-candidates/v1`, remains
+`candidate_review`, and cannot be passed directly to weekend predictions. A
+human must still approve and convert decisions into the reviewed
+`nordicnumbers.cross-country-announced-rosters/v1` contract.
+
 Create a shadow-only startlist rating overlay after building weekend inputs:
 
 ```bash

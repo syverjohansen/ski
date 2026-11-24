@@ -31,6 +31,7 @@ class CrossCountrySourcePolicyTests(unittest.TestCase):
         self.assertTrue(overlay["unmentioned_athletes_keep_existing_fallback"])
         self.assertTrue(overlay["official_fis_startlist_always_supersedes"])
         self.assertTrue(overlay["raw_feed_is_never_directly_prediction_eligible"])
+        self.assertTrue(overlay["resolver_candidates_require_human_review"])
         self.assertTrue(
             boundary["prediction_history"]["must_not_replace_official_history"]
         )
