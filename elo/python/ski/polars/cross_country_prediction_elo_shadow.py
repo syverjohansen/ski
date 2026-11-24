@@ -174,20 +174,35 @@ def enrich_prediction_elo_shadow(
                 f"{startlist}:{line}: invalid race date"
             ) from exc
         athlete_id = row["canonical_athlete_id"].strip()
-        if not athlete_id or row["selection_status"] != "confirmed":
+        if not athlete_id or row["selection_status"] not in {
+            "confirmed",
+            "announced",
+            "candidate_pool",
+        }:
             raise PredictionEloShadowError(
-                f"{startlist}:{line}: shadow overlay requires confirmed identity"
+                f"{startlist}:{line}: shadow overlay has an invalid selection state"
             )
 
-        if athlete_id.startswith("fis:"):
-            expected_id = f"fis:{row['fis_competitor_id'].strip()}"
-            if athlete_id != expected_id or not row["fis_code"].strip():
+        key = f"{row['sex']}:{athlete_id}"
+        official_candidates = [
+            item for item in official.get(key, []) if item["Date"] < race_date
+        ]
+        if official_candidates:
+            selected = official_candidates[-1]
+            ratings = {stream: float(selected[stream]) for stream in STREAMS}
+            source = "accepted_official_elo"
+            as_of = selected["Date"]
+            k_factor = ""
+        else:
+            competitor_id = row["fis_competitor_id"].strip()
+            prediction_id = f"fis:{competitor_id}"
+            if not competitor_id or not row["fis_code"].strip():
                 raise PredictionEloShadowError(
-                    f"{startlist}:{line}: FIS identity mismatch"
+                    f"{startlist}:{line}: no accepted Elo or explicit FIS identity"
                 )
             candidates = [
                 item
-                for item in predictions.get(athlete_id, [])
+                for item in predictions.get(prediction_id, [])
                 if item["date"] < race_date
             ]
             if candidates:
@@ -205,20 +220,6 @@ def enrich_prediction_elo_shadow(
                 source = "newcomer_prior"
                 as_of = ""
                 k_factor = selected_k
-        else:
-            key = f"{row['sex']}:{athlete_id}"
-            candidates = [
-                item for item in official.get(key, []) if item["Date"] < race_date
-            ]
-            if not candidates:
-                raise PredictionEloShadowError(
-                    f"{startlist}:{line}: no prior accepted official Elo"
-                )
-            selected = candidates[-1]
-            ratings = {stream: float(selected[stream]) for stream in STREAMS}
-            source = "accepted_official_elo"
-            as_of = selected["Date"]
-            k_factor = ""
         counts[source] += 1
         enriched.append(
             {

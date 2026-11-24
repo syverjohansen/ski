@@ -174,6 +174,54 @@ class PredictionEloShadowTests(unittest.TestCase):
                     output_dir=root / "output",
                 )
 
+    def test_local_identity_can_use_explicit_private_prediction_identity(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            startlist, men, ladies, ledger, policy = self.make_fixture(root)
+            write_csv(
+                startlist,
+                STARTLIST_FIELDS,
+                [startlist_row("6320", "999", "3999999", "Ida Lien")],
+            )
+            report = enrich_prediction_elo_shadow(
+                startlist=startlist,
+                men_chrono=men,
+                ladies_chrono=ladies,
+                prediction_ledger=ledger,
+                policy_path=policy,
+                output_dir=root / "output",
+            )
+            with (root / "output" / "startlist_prediction_elo_shadow.csv").open(
+                newline="", encoding="utf-8"
+            ) as handle:
+                row = next(csv.DictReader(handle))
+            self.assertEqual("6320", row["canonical_athlete_id"])
+            self.assertEqual("fixed_anchor_prediction_elo", row["rating_source"])
+            self.assertEqual(1410.0, float(row["Elo"]))
+            self.assertEqual(1, report["rating_sources"]["fixed_anchor_prediction_elo"])
+
+    def test_candidate_pool_uses_accepted_official_rating(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            startlist, men, ladies, ledger, policy = self.make_fixture(root)
+            row = startlist_row("11", "", "", "Verified Candidate")
+            row["selection_status"] = "candidate_pool"
+            row["source_mode"] = "latest_season_fallback"
+            write_csv(startlist, STARTLIST_FIELDS, [row])
+            enrich_prediction_elo_shadow(
+                startlist=startlist,
+                men_chrono=men,
+                ladies_chrono=ladies,
+                prediction_ledger=ledger,
+                policy_path=policy,
+                output_dir=root / "output",
+            )
+            with (root / "output" / "startlist_prediction_elo_shadow.csv").open(
+                newline="", encoding="utf-8"
+            ) as handle:
+                selected = next(csv.DictReader(handle))
+            self.assertEqual("accepted_official_elo", selected["rating_source"])
+
     def test_rejects_non_calibrated_ledger(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

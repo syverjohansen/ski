@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import hashlib
 import json
 import os
@@ -18,18 +19,74 @@ from cross_country_announced_rosters import (
     load_announced_rosters,
 )
 from cross_country_fantasyxc_resolve import CANDIDATES_SCHEMA, RESOLVER_VERSION
-from cross_country_results_identity import load_history
+from cross_country_results_identity import load_history, normalized_name
 
 REVIEW_SCHEMA = "nordicnumbers.cross-country-announced-roster-review/v1"
 TEMPLATE_STATUS = "draft_review"
 REVIEWED_STATUS = "reviewed"
-AUTOMATION_POLICY_VERSION = "fantasyxc-auto-roster-v2"
+AUTOMATION_POLICY_VERSION = "fantasyxc-auto-roster-v3"
 AUTOMATIC_IDENTITY_METHODS = frozenset(
     {
         "exact_canonical_name_tokens",
+        "exact_full_history_name_tokens",
         "reviewed_source_alias",
     }
 )
+
+
+def _prediction_identity_index(
+    path: Path | None,
+) -> dict[tuple[str, str], dict[str, str]]:
+    """Index only unambiguous ledger identities by sex and normalized name."""
+
+    if path is None:
+        return {}
+    try:
+        with path.open(newline="", encoding="utf-8-sig") as handle:
+            reader = csv.DictReader(handle)
+            fields = set(reader.fieldnames or ())
+            required = {
+                "sex",
+                "name",
+                "prediction_athlete_id",
+                "fis_competitor_id",
+                "fis_code",
+            }
+            if missing := sorted(required - fields):
+                raise FantasyXCReviewError(
+                    f"prediction ledger is missing fields: {missing}"
+                )
+            identities: dict[tuple[str, str], dict[str, str] | None] = {}
+            for line, row in enumerate(reader, start=2):
+                sex = str(row["sex"]).strip().upper()
+                name = normalized_name(str(row["name"]))
+                competitor_id = str(row["fis_competitor_id"]).strip()
+                fis_code = str(row["fis_code"]).strip()
+                prediction_id = str(row["prediction_athlete_id"]).strip()
+                if sex not in {"M", "L"} or not name or not fis_code:
+                    raise FantasyXCReviewError(
+                        f"prediction ledger line {line} has incomplete identity"
+                    )
+                if not competitor_id or prediction_id != f"fis:{competitor_id}":
+                    raise FantasyXCReviewError(
+                        f"prediction ledger line {line} has unstable identity"
+                    )
+                identity = {
+                    "prediction_athlete_id": prediction_id,
+                    "fis_competitor_id": competitor_id,
+                    "fis_code": fis_code,
+                }
+                key = (sex, name)
+                existing = identities.get(key)
+                if existing is None and key in identities:
+                    continue
+                if existing is not None and existing != identity:
+                    identities[key] = None
+                else:
+                    identities[key] = identity
+    except OSError as exc:
+        raise FantasyXCReviewError(f"cannot read prediction ledger: {exc}") from exc
+    return {key: value for key, value in identities.items() if value is not None}
 
 
 class FantasyXCReviewError(RuntimeError):
@@ -310,6 +367,7 @@ def auto_promote_candidates(
     ladies_chrono: Path,
     men_identity_history: Path,
     ladies_identity_history: Path,
+    prediction_ledger: Path | None = None,
     logical_date: date,
     output_path: Path,
 ) -> dict[str, Any]:
@@ -327,7 +385,7 @@ def auto_promote_candidates(
         ladies_chrono,
         men_identity_history,
         ladies_identity_history,
-    )
+    ) + ((prediction_ledger,) if prediction_ledger is not None else ())
     output_path = _validate_output(output_path, sources)
     candidates, candidate_content = _candidate_document(
         candidates_path, logical_date=logical_date
@@ -339,6 +397,7 @@ def auto_promote_candidates(
         men_identity_history, ladies_identity_history
     )
     athletes = {**full_history, **chronology}
+    prediction_identities = _prediction_identity_index(prediction_ledger)
 
     entries: list[dict[str, Any]] = []
     unresolved: list[dict[str, Any]] = [
@@ -350,11 +409,16 @@ def auto_promote_candidates(
         known_athlete = athletes.get(key)
         prediction_ready_athlete = chronology.get(key)
         identity_method = candidate.get("identity_match_method")
+        ledger_identity = None
+        if known_athlete is not None:
+            ledger_identity = prediction_identities.get(
+                (str(key[0]), normalized_name(known_athlete.name))
+            )
         if (
             candidate.get("confidence") != "high"
             or identity_method not in AUTOMATIC_IDENTITY_METHODS
             or known_athlete is None
-            or prediction_ready_athlete is None
+            or (prediction_ready_athlete is None and ledger_identity is None)
         ):
             unresolved.append(
                 {
@@ -384,9 +448,8 @@ def auto_promote_candidates(
                 }
             )
             continue
-        athlete = prediction_ready_athlete
-        entries.append(
-            {
+        athlete = prediction_ready_athlete or known_athlete
+        entry = {
                 "sex": key[0],
                 "canonical_athlete_id": athlete.athlete_id,
                 "canonical_name": athlete.name,
@@ -397,7 +460,10 @@ def auto_promote_candidates(
                 "observed_at": candidate["observed_at"],
                 "identity_match_method": identity_method,
             }
-        )
+        if prediction_ready_athlete is None:
+            entry.update(ledger_identity or {})
+            entry["rating_eligibility"] = "private_prediction_elo"
+        entries.append(entry)
     output = {
         "schema_version": AUTOMATED_SCHEMA_VERSION,
         "status": "automated",
@@ -462,6 +528,7 @@ def main() -> int:
     automatic.add_argument("--ladies-chrono", required=True, type=Path)
     automatic.add_argument("--men-identity-history", required=True, type=Path)
     automatic.add_argument("--ladies-identity-history", required=True, type=Path)
+    automatic.add_argument("--prediction-ledger", type=Path)
     automatic.add_argument("--logical-date", required=True, type=date.fromisoformat)
     automatic.add_argument("--output", required=True, type=Path)
     args = parser.parse_args()
@@ -487,6 +554,7 @@ def main() -> int:
             ladies_chrono=args.ladies_chrono,
             men_identity_history=args.men_identity_history,
             ladies_identity_history=args.ladies_identity_history,
+            prediction_ledger=args.prediction_ledger,
             logical_date=args.logical_date,
             output_path=args.output,
         )

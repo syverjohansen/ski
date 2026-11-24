@@ -30,6 +30,7 @@ class CrossCountryFantasyXCReviewTests(unittest.TestCase):
         self.ladies = self.root / "ladies.csv"
         self.full_men = self.root / "all_men.csv"
         self.full_ladies = self.root / "all_ladies.csv"
+        self.prediction_ledger = self.root / "fis-prediction-ledger.csv"
         self._write_history(self.men, [("1", "Iivo Niskanen", "Finland")])
         self._write_history(
             self.ladies,
@@ -258,6 +259,72 @@ class CrossCountryFantasyXCReviewTests(unittest.TestCase):
                 for row in output["unresolved"]
             )
         )
+
+    def test_automatic_promotion_bridges_unique_private_prediction_identity(self) -> None:
+        document = json.loads(self.candidates.read_text())
+        document["candidates"].append(
+            {
+                "candidate_id": "candidate:three",
+                "sex": "L",
+                "canonical_athlete_id": "6320",
+                "canonical_name": "Ida Lien",
+                "suggested_status": "confirmed",
+                "race_ids": ["100"],
+                "source_url": "https://x.com/FantasyXC/status/3",
+                "observed_at": "2026-11-23T20:02:00Z",
+                "evidence_text": "Ida Lien (10K)",
+                "identity_match_method": "exact_full_history_name_tokens",
+                "confidence": "high",
+            }
+        )
+        self.candidates.write_text(json.dumps(document), encoding="utf-8")
+        with self.prediction_ledger.open("w", newline="", encoding="utf-8") as handle:
+            writer = csv.DictWriter(
+                handle,
+                fieldnames=[
+                    "sex",
+                    "name",
+                    "prediction_athlete_id",
+                    "fis_competitor_id",
+                    "fis_code",
+                ],
+            )
+            writer.writeheader()
+            writer.writerow(
+                {
+                    "sex": "L",
+                    "name": "Ida Lien",
+                    "prediction_athlete_id": "fis:9876",
+                    "fis_competitor_id": "9876",
+                    "fis_code": "3429999",
+                }
+            )
+
+        output = auto_promote_candidates(
+            candidates_path=self.candidates,
+            men_chrono=self.men,
+            ladies_chrono=self.ladies,
+            men_identity_history=self.full_men,
+            ladies_identity_history=self.full_ladies,
+            prediction_ledger=self.prediction_ledger,
+            logical_date=self.logical_date,
+            output_path=self.output,
+        )
+
+        ida = next(
+            row for row in output["entries"] if row["canonical_athlete_id"] == "6320"
+        )
+        self.assertEqual("fis:9876", ida["prediction_athlete_id"])
+        self.assertEqual("9876", ida["fis_competitor_id"])
+        self.assertEqual("3429999", ida["fis_code"])
+        self.assertEqual("private_prediction_elo", ida["rating_eligibility"])
+        athletes, _index, _names = load_history(self.full_men, self.full_ladies)
+        selections = load_announced_rosters(
+            self.output, logical_date=self.logical_date, athletes=athletes
+        )
+        selection = selections[("L", "100", "6320")]
+        self.assertEqual("fis:9876", selection.prediction_athlete_id)
+        self.assertEqual("9876", selection.fis_competitor_id)
 
     def test_automatic_promotion_allows_empty_overlay_with_fallback(self) -> None:
         document = json.loads(self.candidates.read_text())

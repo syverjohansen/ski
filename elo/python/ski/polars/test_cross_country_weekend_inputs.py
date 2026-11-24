@@ -11,7 +11,10 @@ from cross_country_weekend_inputs import (
     build_weekend_inputs,
     parse_official_startlist,
 )
-from cross_country_announced_rosters import SCHEMA_VERSION as ANNOUNCED_SCHEMA
+from cross_country_announced_rosters import (
+    AUTOMATED_SCHEMA_VERSION,
+    SCHEMA_VERSION as ANNOUNCED_SCHEMA,
+)
 from cross_country_world_cup_quotas import DEFAULT_CONTRACT_PATH, QUOTA_FIELDS
 from schedule_contract import WEEKENDS_COLUMNS
 
@@ -534,6 +537,73 @@ class CrossCountryWeekendInputTests(unittest.TestCase):
                     announced_rosters_path=announced,
                     fetcher=lambda _url: b"<html>Not published</html>",
                 )
+
+    def test_automated_overlay_carries_private_identity_for_full_history_athlete(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            data = WeekendInputFixture(root)
+            history_fields = ["Date", "Season", "Race", "ID", "Skier", "Nation"]
+            full_men = data.sources / "all_men.csv"
+            full_ladies = data.sources / "all_ladies.csv"
+            write_csv(
+                full_men,
+                history_fields,
+                [
+                    {
+                        "Date": "2024-03-01",
+                        "Season": "2024",
+                        "Race": "1",
+                        "ID": "99",
+                        "Skier": "Private Rated Skier",
+                        "Nation": "Norway",
+                    }
+                ],
+            )
+            write_csv(full_ladies, history_fields, [])
+            write_csv(data.schedule, WEEKENDS_COLUMNS, [race(sex="M", race_id="52085")])
+            announced = data.sources / "announced.json"
+            announced.write_text(
+                json.dumps(
+                    {
+                        "schema_version": AUTOMATED_SCHEMA_VERSION,
+                        "status": "automated",
+                        "logical_date": "2026-11-27",
+                        "publication": {"status": "disabled"},
+                        "automation": {"policy_version": "test-v3"},
+                        "unresolved": [],
+                        "entries": [
+                            {
+                                **announcement("99", "confirmed", race_ids=["52085"]),
+                                "prediction_athlete_id": "fis:999",
+                                "fis_competitor_id": "999",
+                                "fis_code": "3999999",
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            build_weekend_inputs(
+                schedule=data.schedule,
+                men_chrono=data.men,
+                ladies_chrono=data.ladies,
+                men_identity_history=full_men,
+                ladies_identity_history=full_ladies,
+                aliases_path=data.aliases,
+                group_date=date(2026, 11, 27),
+                output_dir=root / "bundle",
+                announced_rosters_path=announced,
+                fetcher=lambda _url: b"<html>Not published</html>",
+            )
+            with (root / "bundle/men_startlist.csv").open(
+                newline="", encoding="utf-8"
+            ) as handle:
+                rows = list(csv.DictReader(handle))
+            selected = next(row for row in rows if row["canonical_athlete_id"] == "99")
+            self.assertEqual("999", selected["fis_competitor_id"])
+            self.assertEqual("3999999", selected["fis_code"])
+            self.assertEqual("announced", selected["selection_status"])
 
     def test_announced_roster_date_must_match_weekend(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
