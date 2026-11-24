@@ -20,6 +20,7 @@ from urllib.parse import urlparse
 from cross_country_results_identity import CanonicalAthlete
 
 SCHEMA_VERSION = "nordicnumbers.cross-country-announced-rosters/v1"
+AUTOMATED_SCHEMA_VERSION = "nordicnumbers.cross-country-announced-rosters/v2"
 STATUSES = frozenset({"confirmed", "excluded"})
 
 
@@ -69,17 +70,35 @@ def load_announced_rosters(
         ) from exc
     if not isinstance(document, dict):
         raise AnnouncedRosterError("announced roster evidence must be a JSON object")
-    if document.get("schema_version") != SCHEMA_VERSION:
+    schema = document.get("schema_version")
+    status = document.get("status")
+    if schema not in {SCHEMA_VERSION, AUTOMATED_SCHEMA_VERSION}:
         raise AnnouncedRosterError("unsupported announced roster schema")
     if document.get("logical_date") != logical_date.isoformat():
         raise AnnouncedRosterError("announced roster logical date does not match")
     if document.get("publication") != {"status": "disabled"}:
         raise AnnouncedRosterError("announced roster publication must remain disabled")
-    if document.get("status") != "reviewed":
-        raise AnnouncedRosterError("announced roster evidence must be reviewed")
+    expected_status = "reviewed" if schema == SCHEMA_VERSION else "automated"
+    if status != expected_status:
+        raise AnnouncedRosterError(
+            f"announced roster {schema} status must be {expected_status}"
+        )
+    if schema == AUTOMATED_SCHEMA_VERSION:
+        automation = document.get("automation")
+        unresolved = document.get("unresolved")
+        if not isinstance(automation, dict) or not automation.get("policy_version"):
+            raise AnnouncedRosterError(
+                "automated announced roster must record its policy version"
+            )
+        if not isinstance(unresolved, list):
+            raise AnnouncedRosterError(
+                "automated announced roster must contain unresolved evidence"
+            )
     entries = document.get("entries")
-    if not isinstance(entries, list) or not entries:
-        raise AnnouncedRosterError("announced roster evidence contains no entries")
+    if not isinstance(entries, list):
+        raise AnnouncedRosterError("announced roster entries must be a list")
+    if schema == SCHEMA_VERSION and not entries:
+        raise AnnouncedRosterError("reviewed announced roster contains no entries")
 
     selections: dict[tuple[str, str, str], AnnouncedSelection] = {}
     for index, entry in enumerate(entries, start=1):

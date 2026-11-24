@@ -10,6 +10,8 @@ from cross_country_fantasyxc_resolve import CANDIDATES_SCHEMA, RESOLVER_VERSION
 from cross_country_fantasyxc_review import (
     FantasyXCReviewError,
     REVIEW_SCHEMA,
+    AUTOMATION_POLICY_VERSION,
+    auto_promote_candidates,
     create_review_template,
     promote_review,
 )
@@ -26,12 +28,23 @@ class CrossCountryFantasyXCReviewTests(unittest.TestCase):
         self.output = self.root / "announced-rosters.json"
         self.men = self.root / "men.csv"
         self.ladies = self.root / "ladies.csv"
+        self.full_men = self.root / "all_men.csv"
+        self.full_ladies = self.root / "all_ladies.csv"
         self._write_history(self.men, [("1", "Iivo Niskanen", "Finland")])
         self._write_history(
             self.ladies,
             [
                 ("10", "Jasmi Joensuu", "Finland"),
                 ("11", "Astrid Oeyre Slind", "Norway"),
+            ],
+        )
+        self._write_history(self.full_men, [("1", "Iivo Niskanen", "Finland")])
+        self._write_history(
+            self.full_ladies,
+            [
+                ("10", "Jasmi Joensuu", "Finland"),
+                ("11", "Astrid Oeyre Slind", "Norway"),
+                ("6320", "Ida Lien", "Norway"),
             ],
         )
         self.candidates.write_text(
@@ -170,6 +183,107 @@ class CrossCountryFantasyXCReviewTests(unittest.TestCase):
             athletes=athletes,
         )
         self.assertEqual("confirmed", selections[("L", "100", "10")].status)
+
+    def test_automatic_promotion_accepts_safe_rows_and_retains_uncertainty(self) -> None:
+        document = json.loads(self.candidates.read_text())
+        document["candidates"].append(
+            {
+                "candidate_id": "candidate:three",
+                "sex": "L",
+                "canonical_athlete_id": "6320",
+                "canonical_name": "Ida Lien",
+                "suggested_status": "confirmed",
+                "race_ids": ["100"],
+                "source_url": "https://x.com/FantasyXC/status/3",
+                "observed_at": "2026-11-23T20:02:00Z",
+                "evidence_text": "Ida Lien (10K)",
+                "identity_match_method": "exact_full_history_name_tokens",
+                "confidence": "high",
+            }
+        )
+        self.candidates.write_text(json.dumps(document), encoding="utf-8")
+
+        output = auto_promote_candidates(
+            candidates_path=self.candidates,
+            men_chrono=self.men,
+            ladies_chrono=self.ladies,
+            men_identity_history=self.full_men,
+            ladies_identity_history=self.full_ladies,
+            logical_date=self.logical_date,
+            output_path=self.output,
+        )
+
+        self.assertEqual("automated", output["status"])
+        self.assertEqual(AUTOMATION_POLICY_VERSION, output["automation"]["policy_version"])
+        self.assertEqual(3, output["automation"]["accepted"])
+        self.assertEqual(1, output["automation"]["unresolved"])
+        self.assertTrue(output["automation"]["official_fis_startlist_precedence"])
+        athletes, _index, _names = load_history(self.full_men, self.full_ladies)
+        selections = load_announced_rosters(
+            self.output,
+            logical_date=self.logical_date,
+            athletes=athletes,
+        )
+        self.assertEqual("confirmed", selections[("L", "100", "6320")].status)
+
+    def test_automatic_promotion_defers_unsafe_candidate_to_fallback(self) -> None:
+        document = json.loads(self.candidates.read_text())
+        document["candidates"][0]["confidence"] = "medium"
+        self.candidates.write_text(json.dumps(document), encoding="utf-8")
+
+        output = auto_promote_candidates(
+            candidates_path=self.candidates,
+            men_chrono=self.men,
+            ladies_chrono=self.ladies,
+            men_identity_history=self.full_men,
+            ladies_identity_history=self.full_ladies,
+            logical_date=self.logical_date,
+            output_path=self.output,
+        )
+
+        self.assertEqual(1, output["automation"]["accepted"])
+        self.assertEqual(2, output["automation"]["unresolved"])
+        self.assertTrue(
+            any(
+                row["kind"] == "candidate_not_automatically_eligible"
+                for row in output["unresolved"]
+            )
+        )
+
+    def test_automatic_promotion_allows_empty_overlay_with_fallback(self) -> None:
+        document = json.loads(self.candidates.read_text())
+        for candidate in document["candidates"]:
+            candidate["confidence"] = "medium"
+        self.candidates.write_text(json.dumps(document), encoding="utf-8")
+
+        output = auto_promote_candidates(
+            candidates_path=self.candidates,
+            men_chrono=self.men,
+            ladies_chrono=self.ladies,
+            men_identity_history=self.full_men,
+            ladies_identity_history=self.full_ladies,
+            logical_date=self.logical_date,
+            output_path=self.output,
+        )
+
+        self.assertEqual([], output["entries"])
+        self.assertEqual(0, output["automation"]["accepted"])
+        self.assertEqual(3, output["automation"]["unresolved"])
+        athletes, _index, _names = load_history(self.full_men, self.full_ladies)
+        selections = load_announced_rosters(
+            self.output,
+            logical_date=self.logical_date,
+            athletes=athletes,
+        )
+        self.assertEqual({}, selections)
+        deferred = next(
+            row
+            for row in output["unresolved"]
+            if row["kind"] == "candidate_not_automatically_eligible"
+        )
+        self.assertEqual(["100", "101"], deferred["race_ids"])
+        self.assertEqual("Finland", deferred["canonical_nation"])
+        self.assertEqual("https://x.com/FantasyXC/status/1", deferred["source_url"])
 
     def test_candidate_checksum_change_invalidates_review(self) -> None:
         self._completed_review()

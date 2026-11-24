@@ -354,7 +354,7 @@ in the athlete's first A-tier race. Outputs remain research-only even when a
 candidate beats the official prior; selecting a production K factor requires a
 separate reviewed calibration decision.
 
-Optionally refine the pre-startlist candidate pool with a reviewed announcement
+Optionally refine the pre-startlist candidate pool with a versioned announcement
 artifact:
 
 ```bash
@@ -364,17 +364,21 @@ python cross_country_weekend_inputs.py \
   --ladies-chrono excel365/ladies_chrono.csv \
   --aliases excel365/fis_identity_aliases.csv \
   --group-date 2026-11-27 \
-  --announced-rosters /path/to/reviewed-announced-rosters.json \
+  --announced-rosters /path/to/announced-rosters.json \
   --output-dir /tmp/weekend-inputs
 ```
 
-The reviewed JSON uses
-`nordicnumbers.cross-country-announced-rosters/v1`. Each entry binds an exact
+The manually reviewed JSON uses
+`nordicnumbers.cross-country-announced-rosters/v1`; the guarded automatic path
+uses `nordicnumbers.cross-country-announced-rosters/v2`. Each entry binds an exact
 canonical athlete ID to `confirmed` or `excluded`, one or more FIS race IDs (or
 `"*"` for the whole weekend), an HTTPS evidence URL, and a timezone-aware
 observation timestamp. Announcements overlay the existing latest-season pool;
 they do not replace unmentioned countries or athletes. An official FIS
 startlist always supersedes the entire announcement overlay for that event.
+The automatic contract also retains every uncertain item under `unresolved`.
+Those items never modify the roster: the existing quota and historical model
+continues to decide them.
 
 Acquire the underlying FantasyXC posts as publication-disabled review evidence:
 
@@ -430,9 +434,9 @@ authoritative when the same athlete ID is present in both sources. An
 unknown athlete, unclear injury prose, unmatched annotation, or ambiguous match
 is retained as a review exception. Its output uses
 `nordicnumbers.cross-country-announced-roster-candidates/v1`, remains
-`candidate_review`, and cannot be passed directly to weekend predictions. A
-human must still approve and convert decisions into the reviewed
-`nordicnumbers.cross-country-announced-rosters/v1` contract.
+`candidate_review`, and cannot be passed directly to weekend predictions. It
+must first be converted either by the guarded automatic policy below or by the
+manual review path.
 
 Exact operator-reviewed duplicate-name bindings and source race corrections
 are kept in the resolver rather than inferred from recency. For roster status,
@@ -446,7 +450,29 @@ when it begins with an explicit men/women section or one exact canonical
 athlete carrying a race annotation. A bare athlete mention cannot inherit the
 context, and an unknown continuation name remains a review exception.
 
-Create a checksum-bound review checklist for those candidates:
+For normal unattended operation, promote only deterministic, high-confidence
+candidate identities:
+
+```bash
+python cross_country_fantasyxc_review.py auto-promote \
+  --candidates /tmp/fantasyxc-roster-candidates.json \
+  --men-chrono excel365/men_chrono.csv \
+  --ladies-chrono excel365/ladies_chrono.csv \
+  --men-identity-history excel365/all_men_scrape.csv \
+  --ladies-identity-history excel365/all_ladies_scrape.csv \
+  --logical-date 2026-11-27 \
+  --output /tmp/automated-announced-rosters.json
+```
+
+Policy `fantasyxc-auto-roster-v1` accepts only high-confidence exact canonical
+names, exact full-history names, and checked-in source aliases. It never uses
+fuzzy identity matching. Everything else is copied into `unresolved` for
+notification and uses the historical/quota fallback. A run with zero accepted
+entries is valid and simply applies no announcement overlay. The output remains
+publication-disabled and records that official FIS startlists take precedence.
+No nightly approval is required for this path.
+
+For exceptional manual correction, create a checksum-bound review checklist:
 
 ```bash
 python cross_country_fantasyxc_review.py template \
