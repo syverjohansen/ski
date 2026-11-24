@@ -6,11 +6,13 @@ from datetime import date
 from pathlib import Path
 
 from cross_country_weekend_inputs import (
+    STARTLIST_FIELDS,
     WeekendInputError,
     build_weekend_inputs,
     parse_official_startlist,
 )
 from cross_country_announced_rosters import SCHEMA_VERSION as ANNOUNCED_SCHEMA
+from cross_country_world_cup_quotas import DEFAULT_CONTRACT_PATH, QUOTA_FIELDS
 from schedule_contract import WEEKENDS_COLUMNS
 
 HERE = Path(__file__).resolve().parent
@@ -236,6 +238,92 @@ class CrossCountryWeekendInputTests(unittest.TestCase):
             self.assertEqual([row["canonical_athlete_id"] for row in rows], ["21"])
             self.assertEqual(rows[0]["selection_status"], "candidate_pool")
             self.assertEqual(rows[0]["fis_competitor_id"], "")
+
+    def test_optional_official_quota_contract_annotates_candidate_pool(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            data = WeekendInputFixture(root)
+            write_csv(data.schedule, WEEKENDS_COLUMNS, [race(sex="M", race_id="52085")])
+
+            report = build_weekend_inputs(
+                schedule=data.schedule,
+                men_chrono=data.men,
+                ladies_chrono=data.ladies,
+                aliases_path=data.aliases,
+                group_date=date(2026, 11, 27),
+                output_dir=root / "bundle",
+                quota_contract_path=DEFAULT_CONTRACT_PATH,
+                fetcher=lambda _url: b"<html>Not published</html>",
+            )
+
+            with (root / "bundle" / "men_startlist.csv").open(
+                newline="", encoding="utf-8"
+            ) as handle:
+                reader = csv.DictReader(handle)
+                self.assertEqual(
+                    tuple(reader.fieldnames or ()),
+                    (*STARTLIST_FIELDS, *QUOTA_FIELDS),
+                )
+                rows = {row["canonical_athlete_id"]: row for row in reader}
+            niskanen = rows["11"]
+            klaebo = rows["12"]
+            self.assertEqual("6", niskanen["base_nation_quota"])
+            self.assertEqual("10", niskanen["shared_event_quota"])
+            self.assertEqual("1", niskanen["is_host_nation"])
+            self.assertEqual("overall_world_cup", klaebo["personal_start_right"])
+            self.assertEqual("1", klaebo["personal_quota"])
+            self.assertEqual("6", klaebo["shared_event_quota"])
+            self.assertTrue(
+                report["quota_contract"]["personal_rights_are_non_transferable"]
+            )
+
+    def test_quota_contract_applies_team_event_weekend_minimum(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            data = WeekendInputFixture(root)
+            write_csv(
+                data.men,
+                ["Date", "Season", "Race", "ID", "Skier", "Nation"],
+                [
+                    {
+                        "Date": "2026-03-01",
+                        "Season": "2026",
+                        "Race": "1",
+                        "ID": "31",
+                        "Skier": "Andorran Athlete",
+                        "Nation": "Andorra",
+                    }
+                ],
+            )
+            write_csv(
+                data.schedule,
+                WEEKENDS_COLUMNS,
+                [
+                    race(sex="M", race_id="52085"),
+                    race(sex="M", race_id="52086", distance="Ts"),
+                ],
+            )
+
+            report = build_weekend_inputs(
+                schedule=data.schedule,
+                men_chrono=data.men,
+                ladies_chrono=data.ladies,
+                aliases_path=data.aliases,
+                group_date=date(2026, 11, 27),
+                output_dir=root / "bundle",
+                quota_contract_path=DEFAULT_CONTRACT_PATH,
+                fetcher=lambda _url: b"<html>Not published</html>",
+            )
+
+            with (root / "bundle" / "men_startlist.csv").open(
+                newline="", encoding="utf-8"
+            ) as handle:
+                row = next(csv.DictReader(handle))
+            self.assertTrue(report["team_event_weekend"])
+            self.assertEqual(1, report["excluded_specialized_races"])
+            self.assertEqual("3", row["base_nation_quota"])
+            self.assertEqual("4", row["shared_event_quota"])
+            self.assertEqual("1", row["team_event_weekend_exception"])
 
     def test_reviewed_announcements_overlay_history_fallback(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

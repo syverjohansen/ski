@@ -41,6 +41,11 @@ from cross_country_results_identity import (
     load_history,
     normalized_name,
 )
+from cross_country_world_cup_quotas import (
+    QUOTA_FIELDS,
+    QuotaContractError,
+    load_quota_contract,
+)
 from schedule_contract import WEEKENDS_COLUMNS
 
 SCHEDULE_FIELDS = WEEKENDS_COLUMNS
@@ -219,6 +224,17 @@ def select_normal_weekend(
     return normal, len(matching) - len(normal)
 
 
+def _has_team_event(schedule: Path, group_date: date) -> bool:
+    fields, rows = _read_csv(schedule)
+    if tuple(fields) != SCHEDULE_FIELDS:
+        raise WeekendInputError(f"unexpected weekend schedule columns: {tuple(fields)}")
+    return any(
+        _parse_group_date(row["Date"]) == group_date
+        and row["Distance"] in {"Rel", "Ts"}
+        for row in rows
+    )
+
+
 def _validate_output_dir(output_dir: Path, sources: Iterable[Path]) -> Path:
     resolved = output_dir.expanduser().resolve()
     for source in sources:
@@ -388,12 +404,24 @@ def build_weekend_inputs(
     fetcher: Callable[[str], bytes] = fetch_html,
     prediction_shadow: bool = False,
     announced_rosters_path: Path | None = None,
+    quota_contract_path: Path | None = None,
 ) -> dict[str, object]:
     sources = (schedule, men_chrono, ladies_chrono, aliases_path) + (
         (announced_rosters_path,) if announced_rosters_path is not None else ()
+    ) + (
+        (quota_contract_path,) if quota_contract_path is not None else ()
     )
     output_dir = _validate_output_dir(output_dir, sources)
     races, excluded_specialized = select_normal_weekend(schedule, group_date)
+    team_event_weekend = _has_team_event(schedule, group_date)
+    quota_contract = None
+    if quota_contract_path is not None:
+        try:
+            quota_contract = load_quota_contract(
+                quota_contract_path, logical_date=group_date
+            )
+        except QuotaContractError as exc:
+            raise WeekendInputError(str(exc)) from exc
     report: dict[str, object] = {
         "schema_version": REPORT_SCHEMA,
         "logical_date": group_date.isoformat(),
@@ -401,7 +429,15 @@ def build_weekend_inputs(
         "prediction_shadow": prediction_shadow,
         "input_sha256": {path.name: _sha256(path.read_bytes()) for path in sources},
         "excluded_specialized_races": excluded_specialized,
+        "team_event_weekend": team_event_weekend,
     }
+    if quota_contract is not None:
+        report["quota_contract"] = {
+            "version": quota_contract.contract_version,
+            "season": quota_contract.season,
+            "sha256": _sha256(quota_contract_path.read_bytes()),
+            "personal_rights_are_non_transferable": True,
+        }
     if not races:
         report.update({"status": "no_work", "race_count": 0, "startlist_rows": 0})
         _atomic_text(
@@ -559,11 +595,27 @@ def build_weekend_inputs(
             }
         )
 
+    startlist_fields = STARTLIST_FIELDS
+    if quota_contract is not None:
+        for rows in output_rows.values():
+            for row in rows:
+                row.update(
+                    quota_contract.assignment(
+                        athlete_name=row["canonical_name"],
+                        nation=row["canonical_nation"],
+                        sex=row["sex"],
+                        event_country=row["country"],
+                        logical_date=group_date,
+                        team_event_weekend=team_event_weekend,
+                    )
+                )
+        startlist_fields = (*STARTLIST_FIELDS, *QUOTA_FIELDS)
+
     schedule_text = _csv_text(races, SCHEDULE_FIELDS)
     output_text = {
         "schedule.csv": schedule_text,
-        "men_startlist.csv": _csv_text(output_rows["M"], STARTLIST_FIELDS),
-        "ladies_startlist.csv": _csv_text(output_rows["L"], STARTLIST_FIELDS),
+        "men_startlist.csv": _csv_text(output_rows["M"], startlist_fields),
+        "ladies_startlist.csv": _csv_text(output_rows["L"], startlist_fields),
     }
     for name, text in output_text.items():
         _atomic_text(output_dir / name, text)
@@ -603,6 +655,14 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Represent unmatched official FIS starters with private fis: IDs",
     )
+    parser.add_argument(
+        "--quota-contract",
+        type=Path,
+        help=(
+            "Versioned FIS quota JSON. When supplied, append audited shared and "
+            "nominative quota fields; omitted preserves the v1 startlist schema."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -617,6 +677,7 @@ def main() -> int:
         output_dir=args.output_dir,
         prediction_shadow=args.prediction_shadow,
         announced_rosters_path=args.announced_rosters,
+        quota_contract_path=args.quota_contract,
     )
     print(json.dumps(report, indent=2, sort_keys=True))
     return 0
