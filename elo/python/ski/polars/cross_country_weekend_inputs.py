@@ -29,7 +29,18 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import parse_qs, urlparse
 from urllib.request import Request, urlopen
 
-from cross_country_results_identity import load_aliases, load_history, normalized_name
+from cross_country_announced_rosters import (
+    AnnouncedRosterError,
+    AnnouncedSelection,
+    event_selections,
+    load_announced_rosters,
+)
+from cross_country_results_identity import (
+    CanonicalAthlete,
+    load_aliases,
+    load_history,
+    normalized_name,
+)
 from schedule_contract import WEEKENDS_COLUMNS
 
 SCHEDULE_FIELDS = WEEKENDS_COLUMNS
@@ -293,6 +304,79 @@ def _base_event(row: dict[str, str]) -> dict[str, str]:
     }
 
 
+def _apply_announced_overlay(
+    *,
+    candidates: list[dict[str, str]],
+    selections: dict[str, AnnouncedSelection],
+    athletes: dict[tuple[str, str], CanonicalAthlete],
+    sex: str,
+    base: dict[str, str],
+    fallback_url: str,
+    fallback_sha: str,
+    evidence_sha: str,
+) -> tuple[list[dict[str, str]], dict[str, object]]:
+    selected: dict[str, dict[str, str]] = {
+        athlete["canonical_athlete_id"]: {
+            **base,
+            **athlete,
+            "fis_competitor_id": "",
+            "fis_code": "",
+            "identity_match_method": "accepted_history_id",
+            "selection_status": "candidate_pool",
+            "source_mode": "latest_season_fallback",
+            "source_url": fallback_url,
+            "source_sha256": fallback_sha,
+        }
+        for athlete in candidates
+    }
+    confirmed = 0
+    excluded = 0
+    sources: set[str] = set()
+    evidence: list[dict[str, str]] = []
+    for athlete_id, selection in selections.items():
+        sources.add(selection.source_url)
+        evidence.append(
+            {
+                "canonical_athlete_id": athlete_id,
+                "status": selection.status,
+                "source_url": selection.source_url,
+                "observed_at": selection.observed_at,
+            }
+        )
+        if selection.status == "excluded":
+            selected.pop(athlete_id, None)
+            excluded += 1
+            continue
+        canonical = athletes[(sex, athlete_id)]
+        selected[athlete_id] = {
+            **base,
+            "canonical_athlete_id": canonical.athlete_id,
+            "canonical_name": canonical.name,
+            "canonical_nation": canonical.nation,
+            "sex": sex,
+            "fis_competitor_id": "",
+            "fis_code": "",
+            "identity_match_method": "reviewed_announced_roster_id",
+            "selection_status": "announced",
+            "source_mode": "announced_roster_evidence",
+            "source_url": selection.source_url,
+            "source_sha256": evidence_sha,
+        }
+        confirmed += 1
+    return (
+        [selected[athlete_id] for athlete_id in sorted(selected)],
+        {
+            "confirmed": confirmed,
+            "excluded": excluded,
+            "source_urls": sorted(sources),
+            "evidence": sorted(
+                evidence,
+                key=lambda item: (item["canonical_athlete_id"], item["status"]),
+            ),
+        },
+    )
+
+
 def build_weekend_inputs(
     *,
     schedule: Path,
@@ -303,8 +387,11 @@ def build_weekend_inputs(
     output_dir: Path,
     fetcher: Callable[[str], bytes] = fetch_html,
     prediction_shadow: bool = False,
+    announced_rosters_path: Path | None = None,
 ) -> dict[str, object]:
-    sources = (schedule, men_chrono, ladies_chrono, aliases_path)
+    sources = (schedule, men_chrono, ladies_chrono, aliases_path) + (
+        (announced_rosters_path,) if announced_rosters_path is not None else ()
+    )
     output_dir = _validate_output_dir(output_dir, sources)
     races, excluded_specialized = select_normal_weekend(schedule, group_date)
     report: dict[str, object] = {
@@ -325,6 +412,18 @@ def build_weekend_inputs(
 
     athletes, name_index, names_by_id = load_history(men_chrono, ladies_chrono)
     aliases = load_aliases(aliases_path, athletes, names_by_id)
+    announced_selections = {}
+    announced_sha = ""
+    if announced_rosters_path is not None:
+        try:
+            announced_selections = load_announced_rosters(
+                announced_rosters_path,
+                logical_date=group_date,
+                athletes=athletes,
+            )
+        except AnnouncedRosterError as exc:
+            raise WeekendInputError(str(exc)) from exc
+        announced_sha = _sha256(announced_rosters_path.read_bytes())
     fallback = {
         "M": _latest_season_candidates(men_chrono, "M"),
         "L": _latest_season_candidates(ladies_chrono, "L"),
@@ -339,6 +438,9 @@ def build_weekend_inputs(
         source_sha = _sha256(html)
         official = parse_official_startlist(html)
         base = _base_event(race)
+        event_announcements = event_selections(
+            announced_selections, sex=sex, race_id=base["race_id"]
+        )
         if official:
             for athlete in official:
                 alias = aliases.get((sex, athlete.competitor_id))
@@ -393,6 +495,34 @@ def build_weekend_inputs(
                     }
                 )
             source_mode = "official_fis_startlist"
+            event_row_count = len(official)
+            announcement_summary = {
+                "available": bool(event_announcements),
+                "ignored_because_official": len(event_announcements),
+                "confirmed": 0,
+                "excluded": 0,
+                "source_urls": [],
+                "evidence": [],
+            }
+        elif event_announcements:
+            rows, overlay = _apply_announced_overlay(
+                candidates=fallback[sex],
+                selections=event_announcements,
+                athletes=athletes,
+                sex=sex,
+                base=base,
+                fallback_url=url,
+                fallback_sha=source_sha,
+                evidence_sha=announced_sha,
+            )
+            output_rows[sex].extend(rows)
+            source_mode = "announced_roster_overlay"
+            event_row_count = len(rows)
+            announcement_summary = {
+                "available": True,
+                "ignored_because_official": 0,
+                **overlay,
+            }
         else:
             for athlete in fallback[sex]:
                 output_rows[sex].append(
@@ -409,13 +539,23 @@ def build_weekend_inputs(
                     }
                 )
             source_mode = "latest_season_fallback"
+            event_row_count = len(fallback[sex])
+            announcement_summary = {
+                "available": False,
+                "ignored_because_official": 0,
+                "confirmed": 0,
+                "excluded": 0,
+                "source_urls": [],
+                "evidence": [],
+            }
         event_modes.append(
             {
                 "race_id": base["race_id"],
                 "sex": sex,
                 "source_mode": source_mode,
-                "athlete_rows": len(official) if official else len(fallback[sex]),
+                "athlete_rows": event_row_count,
                 "source_sha256": source_sha,
+                "announced_rosters": announcement_summary,
             }
         )
 
@@ -454,6 +594,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--group-date", required=True, type=date.fromisoformat)
     parser.add_argument("--output-dir", required=True, type=Path)
     parser.add_argument(
+        "--announced-rosters",
+        type=Path,
+        help="Reviewed JSON overlay of confirmed/excluded weekend athletes",
+    )
+    parser.add_argument(
         "--prediction-shadow",
         action="store_true",
         help="Represent unmatched official FIS starters with private fis: IDs",
@@ -471,6 +616,7 @@ def main() -> int:
         group_date=args.group_date,
         output_dir=args.output_dir,
         prediction_shadow=args.prediction_shadow,
+        announced_rosters_path=args.announced_rosters,
     )
     print(json.dumps(report, indent=2, sort_keys=True))
     return 0

@@ -354,6 +354,28 @@ in the athlete's first A-tier race. Outputs remain research-only even when a
 candidate beats the official prior; selecting a production K factor requires a
 separate reviewed calibration decision.
 
+Optionally refine the pre-startlist candidate pool with a reviewed announcement
+artifact:
+
+```bash
+python cross_country_weekend_inputs.py \
+  --schedule excel365/weekends.csv \
+  --men-chrono excel365/men_chrono.csv \
+  --ladies-chrono excel365/ladies_chrono.csv \
+  --aliases excel365/fis_identity_aliases.csv \
+  --group-date 2026-11-27 \
+  --announced-rosters /path/to/reviewed-announced-rosters.json \
+  --output-dir /tmp/weekend-inputs
+```
+
+The reviewed JSON uses
+`nordicnumbers.cross-country-announced-rosters/v1`. Each entry binds an exact
+canonical athlete ID to `confirmed` or `excluded`, one or more FIS race IDs (or
+`"*"` for the whole weekend), an HTTPS evidence URL, and a timezone-aware
+observation timestamp. Announcements overlay the existing latest-season pool;
+they do not replace unmentioned countries or athletes. An official FIS
+startlist always supersedes the entire announcement overlay for that event.
+
 Create a shadow-only startlist rating overlay after building weekend inputs:
 
 ```bash
