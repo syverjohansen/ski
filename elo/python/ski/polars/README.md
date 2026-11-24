@@ -373,6 +373,29 @@ accepted A-tier Elo for known athletes, uses the latest K=4 ledger row strictly
 before the target race for never-A-tier athletes, and gives a true newcomer the
 private 1300 prior. Its report always disables publication.
 
+Build the current private ledger reproducibly from the allowlisted FIS
+categories before creating that overlay:
+
+```bash
+python cross_country_prediction_elo_pipeline.py \
+  --season 2027 \
+  --as-of 2026-11-23 \
+  --accepted-schedule excel365/races.csv \
+  --men-chrono excel365/men_chrono.csv \
+  --ladies-chrono excel365/ladies_chrono.csv \
+  --aliases excel365/fis_identity_aliases.csv \
+  --policy cross_country_prediction_elo_policy.json \
+  --output-dir /tmp/current-fis-prediction-elo \
+  --allow-network
+```
+
+The command composes bounded acquisition, as-of identity classification, and
+the calibrated K=4 replay. It verifies that accepted sources remain unchanged,
+copies the final `fis-prediction-ledger.csv` to the output root, records every
+stage checksum, and always disables publication. Omitting `--category` uses
+the complete policy allowlist; one or more explicit `--category` arguments may
+be supplied for a bounded diagnostic run.
+
 Acquire the explicitly approved historical pages into an operator-owned
 directory outside Git with:
 
