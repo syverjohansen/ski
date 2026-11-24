@@ -26,6 +26,11 @@ class CrossCountrySourcePolicyTests(unittest.TestCase):
                 "domestic_participation_grants_prediction_eligibility"
             ]
         )
+        overlay = boundary["participants"]["pre_startlist_overlay"]
+        self.assertEqual("reviewed_evidence_only", overlay["status"])
+        self.assertTrue(overlay["unmentioned_athletes_keep_existing_fallback"])
+        self.assertTrue(overlay["official_fis_startlist_always_supersedes"])
+        self.assertTrue(overlay["raw_feed_is_never_directly_prediction_eligible"])
         self.assertTrue(
             boundary["prediction_history"]["must_not_replace_official_history"]
         )

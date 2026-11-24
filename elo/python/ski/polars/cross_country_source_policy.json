@@ -16,7 +16,14 @@
     "participants": {
       "authority": "FIS",
       "description": "The official FIS startlist for the target race",
-      "domestic_participation_grants_prediction_eligibility": false
+      "domestic_participation_grants_prediction_eligibility": false,
+      "pre_startlist_overlay": {
+        "status": "reviewed_evidence_only",
+        "description": "Reviewed FantasyXC or federation/news evidence may confirm or exclude exact canonical athletes while an official startlist is unavailable.",
+        "unmentioned_athletes_keep_existing_fallback": true,
+        "official_fis_startlist_always_supersedes": true,
+        "raw_feed_is_never_directly_prediction_eligible": true
+      }
     }
   },
   "russian_domestic_bridge": {
@@ -94,6 +101,8 @@
     "russia_ladies_scrape.csv"
   ],
   "hosted_modules": [
+    "cross_country_announced_rosters.py",
+    "cross_country_fantasyxc_feed.py",
     "cross_country_fis_prediction_acquire.py",
     "cross_country_fis_prediction_backtest.py",
     "cross_country_fis_prediction_cohort.py",
