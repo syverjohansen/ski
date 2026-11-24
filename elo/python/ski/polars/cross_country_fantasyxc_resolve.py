@@ -26,7 +26,16 @@ from cross_country_weekend_inputs import select_normal_weekend, validate_startli
 
 CANDIDATES_SCHEMA = "nordicnumbers.cross-country-announced-roster-candidates/v1"
 REPORT_SCHEMA = "nordicnumbers.cross-country-announced-roster-resolution-report/v1"
-RESOLVER_VERSION = "fantasyxc-resolver-v3"
+RESOLVER_VERSION = "fantasyxc-resolver-v4"
+# Exact, operator-reviewed spelling differences in FantasyXC evidence. These
+# are deliberately narrow aliases, not fuzzy matching.
+REVIEWED_NAME_ALIASES = {
+    normalized_name("Ingrid Bergane Aabrekk"): (
+        "L",
+        "6828",
+        "Ingrid Bergene Aabrekk",
+    ),
+}
 POSITIVE_CUES = (
     "will be racing",
     "will race",
@@ -233,21 +242,38 @@ def _candidate_athletes(
     line: str,
     sex: str | None,
     athletes: dict[tuple[str, str], CanonicalAthlete],
-) -> list[tuple[str, CanonicalAthlete]]:
+) -> list[tuple[str, CanonicalAthlete, str]]:
     line_tokens = set(normalized_name(re.sub(r"\([^)]*\)", " ", line)))
-    matches: dict[tuple[str, str], CanonicalAthlete] = {}
+    matches: dict[tuple[str, str], tuple[CanonicalAthlete, str]] = {}
     for (athlete_sex, athlete_id), athlete in athletes.items():
         if sex and athlete_sex != sex:
             continue
         name_tokens = set(normalized_name(athlete.name))
         if len(name_tokens) >= 2 and name_tokens <= line_tokens:
-            matches[(athlete_sex, athlete_id)] = athlete
+            matches[(athlete_sex, athlete_id)] = (
+                athlete,
+                "exact_canonical_name_tokens",
+            )
+    for alias_tokens, (athlete_sex, athlete_id, canonical_name) in (
+        REVIEWED_NAME_ALIASES.items()
+    ):
+        if sex and athlete_sex != sex:
+            continue
+        if not set(alias_tokens) <= line_tokens:
+            continue
+        athlete = athletes.get((athlete_sex, athlete_id))
+        if athlete is None or athlete.name != canonical_name:
+            raise FantasyXCResolveError(
+                "reviewed FantasyXC name alias does not match canonical history: "
+                f"{athlete_sex}/{athlete_id} {canonical_name!r}"
+            )
+        matches[(athlete_sex, athlete_id)] = (athlete, "reviewed_source_alias")
     # A longer overlapping full name dominates a shorter canonical alias, while
     # distinct athlete names on the same roster line remain separate matches.
     if matches:
         tokens = {
             key: set(normalized_name(athlete.name))
-            for key, athlete in matches.items()
+            for key, (athlete, _method) in matches.items()
         }
         dominated = {
             key
@@ -255,11 +281,14 @@ def _candidate_athletes(
             if any(name_tokens < other_tokens for other_tokens in tokens.values())
         }
         matches = {
-            key: athlete
-            for key, athlete in matches.items()
+            key: match
+            for key, match in matches.items()
             if key not in dominated
         }
-    return [(key[0], athlete) for key, athlete in sorted(matches.items())]
+    return [
+        (key[0], athlete, method)
+        for key, (athlete, method) in sorted(matches.items())
+    ]
 
 
 def _looks_name_like(line: str) -> bool:
@@ -272,6 +301,20 @@ def _looks_name_like(line: str) -> bool:
         and all(word[0].isupper() for word in words)
         and not any(cue in lower for cue in POSITIVE_CUES + NEGATIVE_CUES + INJURY_CUES)
     )
+
+
+def _split_pure_name_list(line: str) -> list[str]:
+    """Split comma-separated roster names without splitting ordinary prose."""
+
+    section = re.fullmatch(r"((?:men|women|ladies)\s*:)\s*(.*)", line, re.I)
+    prefix = section.group(1) if section else ""
+    value = section.group(2) if section else line
+    parts = [part.strip() for part in value.split(",")]
+    if len(parts) < 2 or not all(_looks_name_like(part) for part in parts):
+        return [line]
+    if prefix:
+        parts[0] = f"{prefix} {parts[0]}"
+    return parts
 
 
 def resolve_feed(
@@ -304,7 +347,11 @@ def resolve_feed(
         source_url = str(item.get("source_url", "")).strip()
         if not re.fullmatch(r"https://x\.com/FantasyXC/status/\d+", source_url):
             raise FantasyXCResolveError(f"{label} has an unsupported source URL")
-        lines = html_lines(str(item.get("description_html", "")))
+        lines = [
+            evidence_line
+            for html_line in html_lines(str(item.get("description_html", "")))
+            for evidence_line in _split_pure_name_list(html_line)
+        ]
         combined = " ".join([str(item.get("title", "")), *lines]).lower()
         positive_context = any(cue in combined for cue in POSITIVE_CUES)
         exact_athlete_present = any(
@@ -365,11 +412,11 @@ def resolve_feed(
                 lower = line.lower()
                 names = {
                     tuple(normalized_name(athlete.name))
-                    for _match_sex, athlete in matches
+                    for _match_sex, athlete, _method in matches
                 }
                 name_tokens = {
                     token
-                    for _match_sex, athlete in matches
+                    for _match_sex, athlete, _method in matches
                     for token in normalized_name(athlete.name)
                 }
                 line_tokens = set(
@@ -388,7 +435,8 @@ def resolve_feed(
                         "published_at": item["published_at"],
                         "evidence_text": line,
                         "candidate_ids": [
-                            athlete.athlete_id for _sex, athlete in matches
+                            athlete.athlete_id
+                            for _sex, athlete, _method in matches
                         ],
                     })
                     continue
@@ -403,7 +451,7 @@ def resolve_feed(
                     })
                 continue
             lower = line.lower()
-            for match_sex, athlete in matches:
+            for match_sex, athlete, match_method in matches:
                 if any(cue in lower for cue in NEGATIVE_CUES):
                     status = "excluded"
                 elif any(cue in lower for cue in INJURY_CUES) and not any(
@@ -452,7 +500,7 @@ def resolve_feed(
                         "source_url": source_url,
                         "observed_at": item["published_at"],
                         "evidence_text": line,
-                        "identity_match_method": "exact_canonical_name_tokens",
+                        "identity_match_method": match_method,
                         "confidence": "high",
                     }
                     existing = proposed.get(key)
@@ -472,6 +520,18 @@ def resolve_feed(
 
     for key in conflicts:
         proposed.pop(key, None)
+    specific_decisions = {
+        (sex, athlete_id, status)
+        for (sex, athlete_id, race_id), candidate in proposed.items()
+        if race_id != "*"
+        for status in (candidate["suggested_status"],)
+    }
+    for key, candidate in list(proposed.items()):
+        sex, athlete_id, race_id = key
+        if race_id == "*" and (
+            sex, athlete_id, candidate["suggested_status"]
+        ) in specific_decisions:
+            del proposed[key]
     grouped: dict[tuple[str, ...], dict[str, Any]] = {}
     for row in proposed.values():
         group_key = (
