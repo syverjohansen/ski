@@ -32,6 +32,14 @@ class CrossCountrySourcePolicyTests(unittest.TestCase):
         self.assertTrue(overlay["official_fis_startlist_always_supersedes"])
         self.assertTrue(overlay["raw_feed_is_never_directly_prediction_eligible"])
         self.assertTrue(overlay["resolver_candidates_require_human_review"])
+        automation_policy = json.loads(
+            (ROOT / overlay["automation_policy"]).read_text(encoding="utf-8")
+        )
+        self.assertEqual("collecting_evidence", automation_policy["status"])
+        self.assertFalse(automation_policy["automatic_promotion_enabled"])
+        self.assertGreaterEqual(
+            automation_policy["thresholds"]["minimum_completed_weekends"], 5
+        )
         self.assertTrue(
             boundary["prediction_history"]["must_not_replace_official_history"]
         )

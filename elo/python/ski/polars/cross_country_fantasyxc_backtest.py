@@ -14,7 +14,7 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 
-from cross_country_fantasyxc_resolve import CANDIDATES_SCHEMA
+from cross_country_fantasyxc_resolve import CANDIDATES_SCHEMA, RESOLVER_VERSION
 from cross_country_weekend_inputs import STARTLIST_FIELDS
 
 REPORT_SCHEMA = "nordicnumbers.cross-country-announced-roster-backtest/v1"
@@ -60,6 +60,8 @@ def _read_candidates(path: Path, logical_date: date) -> tuple[dict[str, Any], by
         raise FantasyXCBacktestError(f"cannot read candidate artifact: {exc}") from exc
     if not isinstance(document, dict) or document.get("schema_version") != CANDIDATES_SCHEMA:
         raise FantasyXCBacktestError("unsupported candidate schema")
+    if document.get("resolver_version") != RESOLVER_VERSION:
+        raise FantasyXCBacktestError("unsupported candidate resolver version")
     if document.get("logical_date") != logical_date.isoformat():
         raise FantasyXCBacktestError("candidate logical date does not match")
     if document.get("status") != "candidate_review":
@@ -238,6 +240,7 @@ def backtest_candidates(
     cases_bytes = case_output.getvalue().encode()
     report = {
         "schema_version": REPORT_SCHEMA,
+        "resolver_version": RESOLVER_VERSION,
         "status": "research_backtest",
         "logical_date": logical_date.isoformat(),
         "publication": {"status": "disabled"},

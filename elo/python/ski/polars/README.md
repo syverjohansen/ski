@@ -477,6 +477,24 @@ exclusions, and official-field coverage. A single weekend always reports
 `insufficient_evidence`; automatic review requires a later cumulative gate
 across multiple completed weekends.
 
+Evaluate multiple distinct completed weekends against the checked-in policy:
+
+```bash
+python cross_country_fantasyxc_evaluate.py \
+  --report /tmp/week-1/fantasyxc-backtest-report.json \
+  --report /tmp/week-2/fantasyxc-backtest-report.json \
+  --report /tmp/week-3/fantasyxc-backtest-report.json \
+  --policy cross_country_fantasyxc_automation_policy.json \
+  --output /tmp/fantasyxc-cumulative-evaluation.json
+```
+
+The current policy requires at least five completed weekends, 150 event-level
+decisions, 100 confirmations, 10 exclusions, 95% confirmation precision, and
+99% exclusion accuracy. Reports from different resolver versions or duplicate
+weekends cannot be mixed. Passing every threshold only produces
+`eligible_for_operator_approval`; `automatic_promotion_enabled` remains false
+until a separate reviewed policy change explicitly enables it.
+
 Create a shadow-only startlist rating overlay after building weekend inputs:
 
 ```bash

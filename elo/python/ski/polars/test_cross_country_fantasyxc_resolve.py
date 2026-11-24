@@ -9,6 +9,7 @@ from cross_country_fantasyxc_feed import ITEMS_SCHEMA
 from cross_country_fantasyxc_resolve import (
     CANDIDATES_SCHEMA,
     FantasyXCResolveError,
+    RESOLVER_VERSION,
     html_lines,
     resolve_feed,
 )
@@ -144,6 +145,7 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
         document = json.loads(self.output.read_text(encoding="utf-8"))
 
         self.assertEqual(CANDIDATES_SCHEMA, document["schema_version"])
+        self.assertEqual(RESOLVER_VERSION, document["resolver_version"])
         self.assertEqual("candidate_review", document["status"])
         self.assertEqual({"status": "disabled"}, document["publication"])
         self.assertEqual(2, report["candidate_count"])

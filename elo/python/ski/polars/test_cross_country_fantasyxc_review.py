@@ -6,7 +6,7 @@ from datetime import date
 from pathlib import Path
 
 from cross_country_announced_rosters import load_announced_rosters
-from cross_country_fantasyxc_resolve import CANDIDATES_SCHEMA
+from cross_country_fantasyxc_resolve import CANDIDATES_SCHEMA, RESOLVER_VERSION
 from cross_country_fantasyxc_review import (
     FantasyXCReviewError,
     REVIEW_SCHEMA,
@@ -38,6 +38,7 @@ class CrossCountryFantasyXCReviewTests(unittest.TestCase):
             json.dumps(
                 {
                     "schema_version": CANDIDATES_SCHEMA,
+                    "resolver_version": RESOLVER_VERSION,
                     "status": "candidate_review",
                     "logical_date": self.logical_date.isoformat(),
                     "publication": {"status": "disabled"},
