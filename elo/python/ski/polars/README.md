@@ -427,6 +427,37 @@ when it begins with an explicit men/women section or one exact canonical
 athlete carrying a race annotation. A bare athlete mention cannot inherit the
 context, and an unknown continuation name remains a review exception.
 
+Create a checksum-bound review checklist for those candidates:
+
+```bash
+python cross_country_fantasyxc_review.py template \
+  --candidates /tmp/fantasyxc-roster-candidates.json \
+  --logical-date 2026-11-27 \
+  --output /tmp/fantasyxc-roster-review.json
+```
+
+The operator fills in a reviewer and timezone-aware review time, changes every
+candidate decision from `pending` to `accepted` or `rejected`, and changes
+every exception decision to `acknowledged` or `deferred`. Rejections and
+exception decisions require notes. After setting the top-level status to
+`reviewed`, promote the completed checklist:
+
+```bash
+python cross_country_fantasyxc_review.py promote \
+  --candidates /tmp/fantasyxc-roster-candidates.json \
+  --review /tmp/fantasyxc-roster-review.json \
+  --men-chrono excel365/men_chrono.csv \
+  --ladies-chrono excel365/ladies_chrono.csv \
+  --logical-date 2026-11-27 \
+  --output /tmp/reviewed-announced-rosters.json
+```
+
+Promotion fails if the candidate checksum changed, any decision is missing,
+an exception was silently ignored, or an accepted identity does not satisfy
+the existing announced-roster contract. Only explicitly accepted candidates
+enter the output. The resulting reviewed artifact remains publication-disabled
+but can be supplied to `cross_country_weekend_inputs.py --announced-rosters`.
+
 Create a shadow-only startlist rating overlay after building weekend inputs:
 
 ```bash

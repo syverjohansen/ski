@@ -147,6 +147,12 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
         self.assertEqual("candidate_review", document["status"])
         self.assertEqual({"status": "disabled"}, document["publication"])
         self.assertEqual(2, report["candidate_count"])
+        self.assertTrue(
+            all(
+                row["candidate_id"].startswith("candidate:")
+                for row in document["candidates"]
+            )
+        )
         observed = {
             (row["canonical_athlete_id"], tuple(row["race_ids"]), row["suggested_status"])
             for row in document["candidates"]
