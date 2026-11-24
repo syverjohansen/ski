@@ -21,9 +21,16 @@ from urllib.request import Request, urlopen
 from xml.etree import ElementTree
 
 FEED_URL = "https://fxtwitter.com/FantasyXC/feed.xml"
+FEED_URLS = (
+    FEED_URL,
+    "https://fixupx.com/FantasyXC/feed.xml",
+)
 REPORT_SCHEMA = "nordicnumbers.cross-country-fantasyxc-feed-report/v1"
 ITEMS_SCHEMA = "nordicnumbers.cross-country-fantasyxc-feed-items/v1"
 MAX_FEED_BYTES = 2 * 1024 * 1024
+USER_AGENT = (
+    "Mozilla/5.0 (compatible; NordicNumbers/1.0; +https://nordicnumbers.com)"
+)
 
 
 class FantasyXCFeedError(RuntimeError):
@@ -54,7 +61,7 @@ def validate_feed_url(url: str) -> None:
     parsed = urlparse(url)
     if (
         parsed.scheme != "https"
-        or parsed.hostname != "fxtwitter.com"
+        or parsed.hostname not in {"fxtwitter.com", "fixupx.com"}
         or parsed.path != "/FantasyXC/feed.xml"
         or parsed.query
         or parsed.fragment
@@ -77,7 +84,7 @@ def fetch_feed(
         raise ValueError("attempts must be positive")
     request = Request(
         url,
-        headers={"Accept": "application/rss+xml", "User-Agent": "NordicNumbers/1.0"},
+        headers={"Accept": "application/rss+xml", "User-Agent": USER_AGENT},
     )
     last_error: Exception | None = None
     for attempt in range(1, attempts + 1):
@@ -97,6 +104,7 @@ def fetch_feed(
                 return payload
         except HTTPError as exc:
             last_error = exc
+            exc.close()
             if exc.code != 429 and not 500 <= exc.code <= 599:
                 break
         except (TimeoutError, URLError) as exc:
@@ -107,6 +115,28 @@ def fetch_feed(
             sleep(float(2 ** (attempt - 1)))
     raise FantasyXCFeedError(
         f"FantasyXC feed failed after {attempts} attempts: {last_error}"
+    )
+
+
+def fetch_feed_with_fallback(
+    *,
+    urls: tuple[str, ...] = FEED_URLS,
+    opener: Callable[..., Any] = urlopen,
+    sleep: Callable[[float], None] = time.sleep,
+) -> tuple[bytes, str]:
+    """Try fixed FxEmbed realms in order and retain the successful realm."""
+
+    if not urls:
+        raise FantasyXCFeedError("no FantasyXC feed URLs are configured")
+    failures: list[str] = []
+    for url in urls:
+        validate_feed_url(url)
+        try:
+            return fetch_feed(url=url, opener=opener, sleep=sleep), url
+        except FantasyXCFeedError as exc:
+            failures.append(f"{url}: {exc}")
+    raise FantasyXCFeedError(
+        "all configured FantasyXC feed realms failed: " + "; ".join(failures)
     )
 
 
@@ -185,6 +215,7 @@ def acquire_feed(
     lookback_days: int = 14,
     allow_network: bool = False,
     payload: bytes | None = None,
+    source_url: str | None = None,
     now: Callable[[], datetime] = lambda: datetime.now(UTC),
 ) -> dict[str, Any]:
     """Persist raw and normalized evidence; never emit reviewed roster decisions."""
@@ -192,7 +223,12 @@ def acquire_feed(
     if payload is None:
         if not allow_network:
             raise FantasyXCFeedError("network acquisition requires --allow-network")
-        payload = fetch_feed()
+        payload, source_url = fetch_feed_with_fallback()
+    elif source_url is None:
+        source_url = FEED_URL
+    if source_url is None:
+        raise AssertionError("feed source URL was not recorded")
+    validate_feed_url(source_url)
     items = parse_feed(
         payload,
         logical_date=logical_date,
@@ -209,7 +245,7 @@ def acquire_feed(
         "logical_date": logical_date.isoformat(),
         "as_of": as_of.isoformat(),
         "publication": {"status": "disabled"},
-        "source": {"url": FEED_URL, "sha256": _sha256(payload)},
+        "source": {"url": source_url, "sha256": _sha256(payload)},
         "items": items,
     }
     items_bytes = _json_bytes(items_document)
@@ -222,7 +258,7 @@ def acquire_feed(
         "as_of": as_of.isoformat(),
         "retrieved_at": now().astimezone(UTC).isoformat().replace("+00:00", "Z"),
         "publication": {"status": "disabled"},
-        "source": {"url": FEED_URL, "sha256": _sha256(payload)},
+        "source": {"url": source_url, "sha256": _sha256(payload)},
         "item_count": len(items),
         "outputs": {
             raw_path.name: {"sha256": _sha256(payload), "bytes": len(payload)},

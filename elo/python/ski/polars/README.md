@@ -387,12 +387,16 @@ python cross_country_fantasyxc_feed.py \
   --allow-network
 ```
 
-The acquisition reads only the fixed public
-`https://fxtwitter.com/FantasyXC/feed.xml` endpoint, retries transient failures,
-caps the response at 2 MiB, filters posts to a bounded pre-weekend window, and
-retains both the raw XML and normalized items with SHA-256 checksums. Its output
-is `candidate_review`, never a reviewed roster and never publication eligible;
-athlete identity and roster-claim resolution remain a separate guarded step.
+The acquisition reads only fixed public FxEmbed realms. It tries
+`https://fxtwitter.com/FantasyXC/feed.xml` first and falls back to the same feed
+at `https://fixupx.com/FantasyXC/feed.xml`, recording the realm that actually
+succeeded. Requests use an identifiable browser-compatible Nordic Numbers user
+agent because FxEmbed rejects bare automation user agents. Acquisition retries
+transient failures, caps each response at 2 MiB, filters posts to a bounded
+pre-weekend window, and retains both the raw XML and normalized items with
+SHA-256 checksums. Its output is `candidate_review`, never a reviewed roster
+and never publication eligible; athlete identity and roster-claim resolution
+remain a separate guarded step.
 
 Resolve the normalized posts into exact, shadow-only review candidates:
 
