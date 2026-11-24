@@ -8,6 +8,8 @@ import random
 import pandas as pd
 from fuzzywuzzy import fuzz, process
 
+from schedule_sources import calendar_sources, championship_value
+
 def create_country_mapping():
     """Create mapping of country codes to full names"""
     return {
@@ -216,66 +218,88 @@ def assign_periods_by_race_count(races):
     all_races = mens_races + ladies_races + mixed_races
     return all_races
 
-def scrape_skijump():
-    """Scrape ski jumping race data"""
-    
-    # URLs for World Cup and Olympic races
-    wc_url = "https://www.fis-ski.com/DB/ski-jumping/calendar-results.html?eventselection=&place=&sectorcode=JP&seasoncode=2026&categorycode=WC&disciplinecode=&gendercode=&racedate=&racecodex=&nationcode=&seasonmonth=X-2026&saveselection=-1&seasonselection="
-    olympic_url = "https://www.fis-ski.com/DB/ski-jumping/calendar-results.html?eventselection=&place=&sectorcode=JP&seasoncode=2026&categorycode=OWG&disciplinecode=&gendercode=&racedate=&racecodex=&nationcode=&seasonmonth=X-2026&saveselection=-1&seasonselection="
-    
+def scrape_skijump_races(
+    season=2026,
+    include_championships=True,
+    request_fn=None,
+    sleep_fn=time.sleep,
+):
+    """Scrape the selected FIS ski-jumping calendar sources."""
+    request_fn = request_fn or requests.get
     country_mapping = create_country_mapping()
     elevation_df = load_elevation_data()
     all_races = []
-    
-    for url, category in [(wc_url, "World Cup"), (olympic_url, "Olympics")]:
+
+    for url, category in calendar_sources(season, include_championships):
         print(f"Scraping {category} calendar...")
-        
-        try:
-            # Add headers to avoid bot detection
-            headers = {
-                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-                'Accept-Language': 'en-US,en;q=0.9',
-                'Accept-Encoding': 'gzip, deflate, br',
-                'DNT': '1',
-                'Connection': 'keep-alive',
-                'Upgrade-Insecure-Requests': '1',
-            }
-            
-            response = make_request_with_retry(url, headers)
-            soup = BeautifulSoup(response.content, 'html.parser')
-            
-            calendar_div = soup.find('div', {'id': 'calendardata'})
-            if calendar_div:
-                event_rows = calendar_div.find_all('div', {'class': 'table-row'})
-                print(f"Found {len(event_rows)} {category} events")
-                
-                for row in event_rows:
-                    event_links = row.find_all('a', href=lambda x: x and 'event-details.html' in x)
-                    for link in event_links:
-                        event_url = link.get('href')
-                        if event_url and not event_url.startswith('http'):
-                            event_url = "https://www.fis-ski.com" + event_url
-                        
-                        if event_url:
-                            print(f"Processing {category} event: {event_url}")
-                            races = scrape_skijump_event(event_url, category, country_mapping, elevation_df)
-                            all_races.extend(races)
-                            time.sleep(3)  # Be more polite to server
-                            break
-        except Exception as e:
-            print(f"Error scraping {category}: {str(e)}")
-    
+
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (compatible; NordicNumbers/1.0)',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.9',
+        }
+        response = make_request_with_retry(
+            url,
+            headers,
+            request_fn=request_fn,
+            sleep_fn=sleep_fn,
+        )
+        soup = BeautifulSoup(response.content, 'html.parser')
+        calendar_div = soup.find('div', {'id': 'calendardata'})
+        if not calendar_div:
+            raise RuntimeError(f"FIS {category} calendar returned no calendar data")
+        event_rows = calendar_div.find_all('div', {'class': 'table-row'})
+        if not event_rows:
+            raise RuntimeError(f"FIS {category} calendar returned no events")
+        print(f"Found {len(event_rows)} {category} events")
+        category_races = []
+        for row in event_rows:
+            event_links = row.find_all(
+                'a', href=lambda x: x and 'event-details.html' in x
+            )
+            for link in event_links:
+                event_url = link.get('href')
+                if event_url and not event_url.startswith('http'):
+                    event_url = "https://www.fis-ski.com" + event_url
+                if event_url:
+                    print(f"Processing {category} event: {event_url}")
+                    category_races.extend(
+                        scrape_skijump_event(
+                            event_url,
+                            category,
+                            country_mapping,
+                            elevation_df,
+                            request_fn=request_fn,
+                            sleep_fn=sleep_fn,
+                        )
+                    )
+                    sleep_fn(3)
+                    break
+        if not category_races:
+            raise RuntimeError(f"FIS {category} events produced no races")
+        all_races.extend(category_races)
     return all_races
 
-def make_request_with_retry(url, headers, max_retries=3):
+
+def scrape_skijump():
+    """Legacy 2026 entrypoint retained for local compatibility."""
+    return scrape_skijump_races(season=2026, include_championships=True)
+
+def make_request_with_retry(
+    url,
+    headers,
+    max_retries=3,
+    request_fn=None,
+    sleep_fn=time.sleep,
+):
     """Make HTTP request with retry logic and exponential backoff"""
     for attempt in range(max_retries):
         try:
             # Add random delay between requests to avoid rate limiting
-            time.sleep(random.uniform(2, 5))
-            
-            response = requests.get(url, headers=headers, timeout=30)
+            sleep_fn(random.uniform(2, 5))
+            response = (request_fn or requests.get)(
+                url, headers=headers, timeout=30
+            )
             response.raise_for_status()
             return response
             
@@ -283,12 +307,19 @@ def make_request_with_retry(url, headers, max_retries=3):
             if attempt < max_retries - 1:
                 wait_time = (2 ** attempt) + random.uniform(0, 2)
                 print(f"Request failed (attempt {attempt + 1}), retrying in {wait_time:.1f} seconds...")
-                time.sleep(wait_time)
+                sleep_fn(wait_time)
             else:
                 print(f"Request failed after {max_retries} attempts: {e}")
                 raise e
 
-def scrape_skijump_event(event_url, source_category, country_mapping, elevation_df):
+def scrape_skijump_event(
+    event_url,
+    source_category,
+    country_mapping,
+    elevation_df,
+    request_fn=None,
+    sleep_fn=time.sleep,
+):
     """Scrape ski jumping races from an event page"""
     races = []
     
@@ -304,7 +335,12 @@ def scrape_skijump_event(event_url, source_category, country_mapping, elevation_
             'Upgrade-Insecure-Requests': '1',
         }
         
-        response = make_request_with_retry(event_url, headers)
+        response = make_request_with_retry(
+            event_url,
+            headers,
+            request_fn=request_fn,
+            sleep_fn=sleep_fn,
+        )
         soup = BeautifulSoup(response.content, 'html.parser')
         
         # Get city and country from page header
@@ -374,7 +410,7 @@ def scrape_skijump_event(event_url, source_category, country_mapping, elevation_
                         has_qualification = True
                     elif text in ['WC', 'World Cup']:
                         has_competition = True
-                    elif text in ['OWG', 'Olympics']:
+                    elif text in ['OWG', 'Olympics', 'WSC', 'World Championships']:
                         has_olympics = True
             
             # Extract startlist URL
@@ -441,7 +477,7 @@ def scrape_skijump_event(event_url, source_category, country_mapping, elevation_
                 'hill_size': hill_size,
                 'race_type': race_type,
                 'elevation': fuzzy_match_elevation(city, elevation_df),
-                'championship': "1" if source_category == "Olympics" else "0",
+                'championship': championship_value(source_category),
                 'has_qualification': has_qualification,
                 'has_competition': has_competition,
                 'has_olympics': has_olympics
