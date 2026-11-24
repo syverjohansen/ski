@@ -3,13 +3,14 @@ import tempfile
 import unittest
 from datetime import UTC, date, datetime
 from pathlib import Path
-from urllib.error import URLError
+from urllib.error import HTTPError, URLError
 
 from cross_country_fantasyxc_feed import (
     FEED_URL,
     FantasyXCFeedError,
     acquire_feed,
     fetch_feed,
+    fetch_feed_with_fallback,
     parse_feed,
     validate_feed_url,
 )
@@ -128,8 +129,55 @@ class CrossCountryFantasyXCFeedTests(unittest.TestCase):
 
     def test_feed_url_is_fixed_to_fantasyxc(self) -> None:
         validate_feed_url(FEED_URL)
+        validate_feed_url("https://fixupx.com/FantasyXC/feed.xml")
         with self.assertRaisesRegex(FantasyXCFeedError, "unsupported"):
             validate_feed_url("https://example.test/FantasyXC/feed.xml")
+
+    def test_terminal_primary_failure_uses_fixed_fallback_realm(self) -> None:
+        requested = []
+
+        def opener(request, **_kwargs):
+            requested.append(request.full_url)
+            self.assertIn("Mozilla/5.0", request.get_header("User-agent"))
+            self.assertIn("NordicNumbers/1.0", request.get_header("User-agent"))
+            if request.full_url.startswith("https://fxtwitter.com/"):
+                raise HTTPError(request.full_url, 404, "missing", {}, None)
+            return FakeResponse(PAYLOAD)
+
+        payload, source_url = fetch_feed_with_fallback(
+            opener=opener,
+            sleep=lambda _seconds: None,
+        )
+        self.assertEqual(PAYLOAD, payload)
+        self.assertEqual("https://fixupx.com/FantasyXC/feed.xml", source_url)
+        self.assertEqual(
+            [
+                "https://fxtwitter.com/FantasyXC/feed.xml",
+                "https://fixupx.com/FantasyXC/feed.xml",
+            ],
+            requested,
+        )
+
+    def test_acquisition_records_fallback_realm_provenance(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            acquire_feed(
+                logical_date=date(2026, 11, 27),
+                as_of=date(2026, 11, 23),
+                output_dir=root / "evidence",
+                report_path=root / "report.json",
+                payload=PAYLOAD,
+                source_url="https://fixupx.com/FantasyXC/feed.xml",
+            )
+            document = json.loads(
+                (root / "evidence/fantasyxc-feed-items.json").read_text()
+            )
+            report = json.loads((root / "report.json").read_text())
+            self.assertEqual(
+                "https://fixupx.com/FantasyXC/feed.xml",
+                document["source"]["url"],
+            )
+            self.assertEqual(document["source"], report["source"])
 
     def test_future_evidence_is_excluded(self) -> None:
         future = rss(
