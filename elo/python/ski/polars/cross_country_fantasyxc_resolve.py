@@ -26,7 +26,7 @@ from cross_country_weekend_inputs import select_normal_weekend, validate_startli
 
 CANDIDATES_SCHEMA = "nordicnumbers.cross-country-announced-roster-candidates/v1"
 REPORT_SCHEMA = "nordicnumbers.cross-country-announced-roster-resolution-report/v1"
-RESOLVER_VERSION = "fantasyxc-resolver-v1"
+RESOLVER_VERSION = "fantasyxc-resolver-v2"
 POSITIVE_CUES = (
     "will be racing",
     "will race",
@@ -37,7 +37,10 @@ POSITIVE_CUES = (
     "lineup",
     "roster",
     "represented by",
+    "representing team",
     "following athletes",
+    "presenting these athletes",
+    "consists of",
     "companions are",
     "racing for",
     "selected",
@@ -51,6 +54,8 @@ NEGATIVE_CUES = (
     "miss out",
     "not travel",
     "out of",
+    "out sick",
+    "as part of the coaching staff",
 )
 INJURY_CUES = ("injury", "injured", "rehab", "rehabilitat", "recover")
 
@@ -219,13 +224,22 @@ def _candidate_athletes(
         name_tokens = set(normalized_name(athlete.name))
         if len(name_tokens) >= 2 and name_tokens <= line_tokens:
             matches[(athlete_sex, athlete_id)] = athlete
-    # A longer exact full name dominates a shorter canonical alias in the same line.
+    # A longer overlapping full name dominates a shorter canonical alias, while
+    # distinct athlete names on the same roster line remain separate matches.
     if matches:
-        longest = max(len(normalized_name(athlete.name)) for athlete in matches.values())
+        tokens = {
+            key: set(normalized_name(athlete.name))
+            for key, athlete in matches.items()
+        }
+        dominated = {
+            key
+            for key, name_tokens in tokens.items()
+            if any(name_tokens < other_tokens for other_tokens in tokens.values())
+        }
         matches = {
             key: athlete
             for key, athlete in matches.items()
-            if len(normalized_name(athlete.name)) == longest
+            if key not in dominated
         }
     return [(key[0], athlete) for key, athlete in sorted(matches.items())]
 
@@ -283,9 +297,18 @@ def resolve_feed(
             and len(_candidate_athletes(lines[0], None, athletes)) == 1
             and re.search(r"\([^()]+\)", lines[0])
         )
+        first_line_is_exact_name_only = bool(
+            lines
+            and len(_candidate_athletes(lines[0], None, athletes)) == 1
+            and _looks_name_like(lines[0])
+        )
         if (
             not positive_context
-            and (first_line_is_section or first_line_is_exact_annotated_athlete)
+            and (
+                first_line_is_section
+                or first_line_is_exact_annotated_athlete
+                or first_line_is_exact_name_only
+            )
             and last_positive is not None
             and published - last_positive <= timedelta(minutes=15)
         ):
@@ -302,14 +325,36 @@ def resolve_feed(
                     continue
             matches = _candidate_athletes(line, active_sex, athletes)
             if len(matches) > 1:
-                exceptions.append({
-                    "reason": "ambiguous canonical athlete match",
-                    "source_url": source_url,
-                    "published_at": item["published_at"],
-                    "evidence_text": line,
-                    "candidate_ids": [athlete.athlete_id for _sex, athlete in matches],
-                })
-                continue
+                lower = line.lower()
+                names = {
+                    tuple(normalized_name(athlete.name))
+                    for _match_sex, athlete in matches
+                }
+                name_tokens = {
+                    token
+                    for _match_sex, athlete in matches
+                    for token in normalized_name(athlete.name)
+                }
+                line_tokens = set(
+                    normalized_name(re.sub(r"\([^)]*\)", " ", line))
+                )
+                explicit_shared_negative = any(
+                    cue in lower for cue in NEGATIVE_CUES
+                )
+                pure_name_list = line_tokens <= name_tokens | {"and", "both"}
+                if len(names) != len(matches) or not (
+                    explicit_shared_negative or pure_name_list
+                ):
+                    exceptions.append({
+                        "reason": "ambiguous canonical athlete match",
+                        "source_url": source_url,
+                        "published_at": item["published_at"],
+                        "evidence_text": line,
+                        "candidate_ids": [
+                            athlete.athlete_id for _sex, athlete in matches
+                        ],
+                    })
+                    continue
             if not matches:
                 if positive_context and _looks_name_like(line):
                     exceptions.append({
@@ -320,73 +365,73 @@ def resolve_feed(
                         "sex": active_sex or "unknown",
                     })
                 continue
-            match_sex, athlete = matches[0]
             lower = line.lower()
-            if any(cue in lower for cue in NEGATIVE_CUES):
-                status = "excluded"
-            elif any(cue in lower for cue in INJURY_CUES) and not any(
-                cue in lower for cue in POSITIVE_CUES
-            ):
-                exceptions.append({
-                    "reason": "injury prose has no explicit roster decision",
-                    "source_url": source_url,
-                    "published_at": item["published_at"],
-                    "evidence_text": line,
-                    "sex": match_sex,
-                    "canonical_athlete_id": athlete.athlete_id,
-                })
-                continue
-            elif positive_context or any(cue in lower for cue in POSITIVE_CUES):
-                status = "confirmed"
-            else:
-                exceptions.append({
-                    "reason": "athlete mention has no explicit roster decision",
-                    "source_url": source_url,
-                    "published_at": item["published_at"],
-                    "evidence_text": line,
-                    "sex": match_sex,
-                    "canonical_athlete_id": athlete.athlete_id,
-                })
-                continue
-            race_ids, race_error = _race_ids(line, match_sex, events)
-            if race_error:
-                exceptions.append({
-                    "reason": race_error,
-                    "source_url": source_url,
-                    "published_at": item["published_at"],
-                    "evidence_text": line,
-                    "sex": match_sex,
-                    "canonical_athlete_id": athlete.athlete_id,
-                })
-                continue
-            for race_id in race_ids:
-                key = (match_sex, athlete.athlete_id, race_id)
-                candidate = {
-                    "sex": match_sex,
-                    "canonical_athlete_id": athlete.athlete_id,
-                    "canonical_name": athlete.name,
-                    "suggested_status": status,
-                    "race_ids": [race_id],
-                    "source_url": source_url,
-                    "observed_at": item["published_at"],
-                    "evidence_text": line,
-                    "identity_match_method": "exact_canonical_name_tokens",
-                    "confidence": "high",
-                }
-                existing = proposed.get(key)
-                if existing and existing["suggested_status"] != status:
-                    conflicts.add(key)
+            for match_sex, athlete in matches:
+                if any(cue in lower for cue in NEGATIVE_CUES):
+                    status = "excluded"
+                elif any(cue in lower for cue in INJURY_CUES) and not any(
+                    cue in lower for cue in POSITIVE_CUES
+                ):
                     exceptions.append({
-                        "reason": "conflicting roster decisions",
+                        "reason": "injury prose has no explicit roster decision",
                         "source_url": source_url,
                         "published_at": item["published_at"],
                         "evidence_text": line,
                         "sex": match_sex,
                         "canonical_athlete_id": athlete.athlete_id,
-                        "race_id": race_id,
                     })
-                elif not existing:
-                    proposed[key] = candidate
+                    continue
+                elif positive_context or any(cue in lower for cue in POSITIVE_CUES):
+                    status = "confirmed"
+                else:
+                    exceptions.append({
+                        "reason": "athlete mention has no explicit roster decision",
+                        "source_url": source_url,
+                        "published_at": item["published_at"],
+                        "evidence_text": line,
+                        "sex": match_sex,
+                        "canonical_athlete_id": athlete.athlete_id,
+                    })
+                    continue
+                race_ids, race_error = _race_ids(line, match_sex, events)
+                if race_error:
+                    exceptions.append({
+                        "reason": race_error,
+                        "source_url": source_url,
+                        "published_at": item["published_at"],
+                        "evidence_text": line,
+                        "sex": match_sex,
+                        "canonical_athlete_id": athlete.athlete_id,
+                    })
+                    continue
+                for race_id in race_ids:
+                    key = (match_sex, athlete.athlete_id, race_id)
+                    candidate = {
+                        "sex": match_sex,
+                        "canonical_athlete_id": athlete.athlete_id,
+                        "canonical_name": athlete.name,
+                        "suggested_status": status,
+                        "race_ids": [race_id],
+                        "source_url": source_url,
+                        "observed_at": item["published_at"],
+                        "evidence_text": line,
+                        "identity_match_method": "exact_canonical_name_tokens",
+                        "confidence": "high",
+                    }
+                    existing = proposed.get(key)
+                    if existing and existing["suggested_status"] != status:
+                        conflicts.add(key)
+                        exceptions.append({
+                            "reason": "conflicting roster decisions",
+                            "source_url": source_url,
+                            "published_at": item["published_at"],
+                            "evidence_text": line,
+                            "sex": match_sex,
+                            "canonical_athlete_id": athlete.athlete_id,
+                            "race_id": race_id,
+                        })
+                    elif not existing:
+                        proposed[key] = candidate
 
     for key in conflicts:
         proposed.pop(key, None)

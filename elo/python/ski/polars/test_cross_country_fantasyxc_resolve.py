@@ -216,6 +216,120 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
         self.assertEqual(1, report["exception_count"])
         self.assertEqual("unknown", document["review_exceptions"][0]["sex"])
 
+    def test_current_roster_intro_phrases_confirm_exact_names(self) -> None:
+        self._write_feed(
+            [
+                self._item(
+                    "1510",
+                    "2026-11-23T20:00:00Z",
+                    "The Italian squad to Ruka consists of",
+                    "<p>Men:<br>Iivo Niskanen</p>",
+                ),
+                self._item(
+                    "1511",
+                    "2026-11-23T21:00:00Z",
+                    "Representing Team Sweden in Ruka are",
+                    "<p>Women:<br>Jasmi Joensuu</p>",
+                ),
+                self._item(
+                    "1512",
+                    "2026-11-23T22:00:00Z",
+                    "Switzerland is presenting these athletes for Ruka",
+                    "<p>Men:<br>Johannes Hoesflot Klaebo</p>",
+                ),
+            ]
+        )
+        report = self._resolve()
+        document = json.loads(self.output.read_text(encoding="utf-8"))
+
+        self.assertEqual(3, report["candidate_count"])
+        self.assertEqual(0, report["exception_count"])
+        self.assertEqual(
+            {"1", "2", "10"},
+            {row["canonical_athlete_id"] for row in document["candidates"]},
+        )
+
+    def test_adjacent_name_only_list_inherits_roster_context(self) -> None:
+        self._write_feed(
+            [
+                self._item(
+                    "1520",
+                    "2026-11-23T20:00:00Z",
+                    "Finland team selection announced",
+                    "<p>Women:<br>Jasmi Joensuu</p>",
+                ),
+                self._item(
+                    "1521",
+                    "2026-11-23T20:08:00Z",
+                    "Continuation",
+                    "<p>Iivo Niskanen</p>",
+                ),
+            ]
+        )
+        report = self._resolve()
+        document = json.loads(self.output.read_text(encoding="utf-8"))
+
+        self.assertEqual(2, report["candidate_count"])
+        self.assertEqual(0, report["exception_count"])
+        iivo = next(
+            row
+            for row in document["candidates"]
+            if row["canonical_athlete_id"] == "1"
+        )
+        self.assertEqual("confirmed", iivo["suggested_status"])
+        self.assertEqual(["*"], iivo["race_ids"])
+
+    def test_distinct_names_share_explicit_list_or_negative_decision(self) -> None:
+        self._write_feed(
+            [
+                self._item(
+                    "1530",
+                    "2026-11-23T20:00:00Z",
+                    "Finland roster announced",
+                    "<p>Men:<br>Iivo Niskanen, Johannes Hoesflot Klaebo</p>",
+                ),
+                self._item(
+                    "1531",
+                    "2026-11-23T21:00:00Z",
+                    "Update",
+                    "<p>Jasmi Joensuu and Astrid Oeyre Slind are out sick "
+                    "this weekend</p>",
+                ),
+            ]
+        )
+        report = self._resolve()
+        document = json.loads(self.output.read_text(encoding="utf-8"))
+
+        self.assertEqual(4, report["candidate_count"])
+        self.assertEqual(0, report["exception_count"])
+        statuses = {
+            row["canonical_athlete_id"]: row["suggested_status"]
+            for row in document["candidates"]
+        }
+        self.assertEqual("confirmed", statuses["1"])
+        self.assertEqual("confirmed", statuses["2"])
+        self.assertEqual("excluded", statuses["10"])
+        self.assertEqual("excluded", statuses["11"])
+
+    def test_athlete_present_as_coaching_staff_is_excluded(self) -> None:
+        self._write_feed(
+            [
+                self._item(
+                    "1540",
+                    "2026-11-23T20:00:00Z",
+                    "Ruka update",
+                    "<p>Iivo Niskanen will be present as part of the coaching "
+                    "staff.</p>",
+                )
+            ]
+        )
+        report = self._resolve()
+        document = json.loads(self.output.read_text(encoding="utf-8"))
+
+        self.assertEqual(1, report["candidate_count"])
+        self.assertEqual(0, report["exception_count"])
+        self.assertEqual("excluded", document["candidates"][0]["suggested_status"])
+
     def test_unannotated_adjacent_mention_does_not_inherit_roster_context(self) -> None:
         self._write_feed(
             [
