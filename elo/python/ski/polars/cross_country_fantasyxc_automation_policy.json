@@ -1,7 +1,7 @@
 {
   "schema_version": "nordicnumbers.cross-country-announced-roster-automation-policy/v1",
   "status": "collecting_evidence",
-  "resolver_version": "fantasyxc-resolver-v4",
+  "resolver_version": "fantasyxc-resolver-v6",
   "automatic_promotion_enabled": false,
   "thresholds": {
     "minimum_completed_weekends": 5,
