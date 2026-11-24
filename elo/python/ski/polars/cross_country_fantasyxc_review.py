@@ -23,11 +23,10 @@ from cross_country_results_identity import load_history
 REVIEW_SCHEMA = "nordicnumbers.cross-country-announced-roster-review/v1"
 TEMPLATE_STATUS = "draft_review"
 REVIEWED_STATUS = "reviewed"
-AUTOMATION_POLICY_VERSION = "fantasyxc-auto-roster-v1"
+AUTOMATION_POLICY_VERSION = "fantasyxc-auto-roster-v2"
 AUTOMATIC_IDENTITY_METHODS = frozenset(
     {
         "exact_canonical_name_tokens",
-        "exact_full_history_name_tokens",
         "reviewed_source_alias",
     }
 )
@@ -349,11 +348,13 @@ def auto_promote_candidates(
     for candidate in candidates["candidates"]:
         key = (candidate.get("sex"), candidate.get("canonical_athlete_id"))
         known_athlete = athletes.get(key)
+        prediction_ready_athlete = chronology.get(key)
         identity_method = candidate.get("identity_match_method")
         if (
             candidate.get("confidence") != "high"
             or identity_method not in AUTOMATIC_IDENTITY_METHODS
             or known_athlete is None
+            or prediction_ready_athlete is None
         ):
             unresolved.append(
                 {
@@ -374,11 +375,16 @@ def auto_promote_candidates(
                     "evidence_text": candidate.get("evidence_text", ""),
                     "identity_match_method": identity_method or "",
                     "confidence": candidate.get("confidence", ""),
-                    "reason": "candidate failed automatic confidence or identity policy",
+                    "reason": (
+                        "candidate is not present in accepted prediction history"
+                        if known_athlete is not None
+                        and prediction_ready_athlete is None
+                        else "candidate failed automatic confidence or identity policy"
+                    ),
                 }
             )
             continue
-        athlete = known_athlete
+        athlete = prediction_ready_athlete
         entries.append(
             {
                 "sex": key[0],

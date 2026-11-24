@@ -215,16 +215,25 @@ class CrossCountryFantasyXCReviewTests(unittest.TestCase):
 
         self.assertEqual("automated", output["status"])
         self.assertEqual(AUTOMATION_POLICY_VERSION, output["automation"]["policy_version"])
-        self.assertEqual(3, output["automation"]["accepted"])
-        self.assertEqual(1, output["automation"]["unresolved"])
+        self.assertEqual(2, output["automation"]["accepted"])
+        self.assertEqual(2, output["automation"]["unresolved"])
         self.assertTrue(output["automation"]["official_fis_startlist_precedence"])
-        athletes, _index, _names = load_history(self.full_men, self.full_ladies)
+        athletes, _index, _names = load_history(self.men, self.ladies)
         selections = load_announced_rosters(
             self.output,
             logical_date=self.logical_date,
             athletes=athletes,
         )
-        self.assertEqual("confirmed", selections[("L", "100", "6320")].status)
+        self.assertNotIn(("L", "100", "6320"), selections)
+        deferred = next(
+            row
+            for row in output["unresolved"]
+            if row.get("canonical_athlete_id") == "6320"
+        )
+        self.assertEqual(
+            "candidate is not present in accepted prediction history",
+            deferred["reason"],
+        )
 
     def test_automatic_promotion_defers_unsafe_candidate_to_fallback(self) -> None:
         document = json.loads(self.candidates.read_text())

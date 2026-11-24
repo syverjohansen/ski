@@ -355,6 +355,7 @@ def _apply_announced_overlay(
             {
                 "canonical_athlete_id": athlete_id,
                 "status": selection.status,
+                "race_id": selection.race_id,
                 "source_url": selection.source_url,
                 "observed_at": selection.observed_at,
             }
@@ -364,6 +365,7 @@ def _apply_announced_overlay(
             excluded += 1
             continue
         canonical = athletes[(sex, athlete_id)]
+        event_specific = selection.race_id != "*"
         selected[athlete_id] = {
             **base,
             "canonical_athlete_id": canonical.athlete_id,
@@ -373,8 +375,12 @@ def _apply_announced_overlay(
             "fis_competitor_id": "",
             "fis_code": "",
             "identity_match_method": "reviewed_announced_roster_id",
-            "selection_status": "announced",
-            "source_mode": "announced_roster_evidence",
+            "selection_status": "announced" if event_specific else "candidate_pool",
+            "source_mode": (
+                "announced_roster_evidence"
+                if event_specific
+                else "announced_weekend_pool"
+            ),
             "source_url": selection.source_url,
             "source_sha256": evidence_sha,
         }
