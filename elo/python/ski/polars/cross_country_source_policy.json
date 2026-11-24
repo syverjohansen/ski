@@ -99,6 +99,7 @@
     "cross_country_fis_prediction_cohort.py",
     "cross_country_fis_prediction_identity.py",
     "cross_country_fis_prediction_replay.py",
+    "cross_country_prediction_elo_pipeline.py",
     "cross_country_prediction_elo_shadow.py",
     "cross_country_flgr_bridge_backtest.py",
     "cross_country_flgr_evidence_acquire.py",
