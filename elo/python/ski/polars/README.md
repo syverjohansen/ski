@@ -421,6 +421,12 @@ or conflicting decision is retained as a review exception. Its output uses
 human must still approve and convert decisions into the reviewed
 `nordicnumbers.cross-country-announced-rosters/v1` contract.
 
+FantasyXC sometimes splits a long selection across adjacent posts. A post
+within 15 minutes of a positive selection may inherit that roster context only
+when it begins with an explicit men/women section or one exact canonical
+athlete carrying a race annotation. A bare athlete mention cannot inherit the
+context, and an unknown continuation name remains a review exception.
+
 Create a shadow-only startlist rating overlay after building weekend inputs:
 
 ```bash

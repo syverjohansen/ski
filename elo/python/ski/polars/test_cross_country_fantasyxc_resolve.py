@@ -177,6 +177,64 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
         self.assertEqual(1, report["exception_count"])
         self.assertIn("injury prose", document["review_exceptions"][0]["reason"])
 
+    def test_adjacent_annotated_athlete_post_inherits_roster_context(self) -> None:
+        self._write_feed(
+            [
+                self._item(
+                    "1500",
+                    "2026-11-23T20:00:00Z",
+                    "Norway roster announced",
+                    "<p>Men:<br>Johannes Hoesflot Klaebo (s)</p>",
+                ),
+                self._item(
+                    "1501",
+                    "2026-11-23T20:12:00Z",
+                    "Continuation",
+                    "<p>Jasmi Joensuu (10K+s)<br>New Skier (10K)</p>",
+                ),
+            ]
+        )
+        report = self._resolve()
+        document = json.loads(self.output.read_text(encoding="utf-8"))
+
+        self.assertEqual(2, report["candidate_count"])
+        jasmi = next(
+            row
+            for row in document["candidates"]
+            if row["canonical_athlete_id"] == "10"
+        )
+        self.assertEqual("confirmed", jasmi["suggested_status"])
+        self.assertEqual(["100", "101"], jasmi["race_ids"])
+        self.assertEqual(1, report["exception_count"])
+        self.assertEqual("unknown", document["review_exceptions"][0]["sex"])
+
+    def test_unannotated_adjacent_mention_does_not_inherit_roster_context(self) -> None:
+        self._write_feed(
+            [
+                self._item(
+                    "1600",
+                    "2026-11-23T20:00:00Z",
+                    "Norway roster announced",
+                    "<p>Men:<br>Johannes Hoesflot Klaebo (s)</p>",
+                ),
+                self._item(
+                    "1601",
+                    "2026-11-23T20:12:00Z",
+                    "Unrelated update",
+                    "<p>Jasmi Joensuu trained today</p>",
+                ),
+            ]
+        )
+        report = self._resolve()
+        document = json.loads(self.output.read_text(encoding="utf-8"))
+
+        self.assertEqual(1, report["candidate_count"])
+        self.assertEqual(1, report["exception_count"])
+        self.assertIn(
+            "no explicit roster decision",
+            document["review_exceptions"][0]["reason"],
+        )
+
     def test_unknown_roster_name_becomes_review_exception(self) -> None:
         self._write_feed(
             [
