@@ -22,7 +22,8 @@
         "description": "Reviewed FantasyXC or federation/news evidence may confirm or exclude exact canonical athletes while an official startlist is unavailable.",
         "unmentioned_athletes_keep_existing_fallback": true,
         "official_fis_startlist_always_supersedes": true,
-        "raw_feed_is_never_directly_prediction_eligible": true
+        "raw_feed_is_never_directly_prediction_eligible": true,
+        "resolver_candidates_require_human_review": true
       }
     }
   },
@@ -103,6 +104,7 @@
   "hosted_modules": [
     "cross_country_announced_rosters.py",
     "cross_country_fantasyxc_feed.py",
+    "cross_country_fantasyxc_resolve.py",
     "cross_country_fis_prediction_acquire.py",
     "cross_country_fis_prediction_backtest.py",
     "cross_country_fis_prediction_cohort.py",
