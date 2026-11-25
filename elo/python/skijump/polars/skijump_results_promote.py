@@ -160,10 +160,10 @@ def _validate_mixed_teams(path: Path, eligible_dates: set[str]) -> None:
             or Counter(sexes) != Counter({"M": 2, "L": 2})
         ):
             raise PromotionError(f"{path}:{row_number}: invalid four-member mixed team")
-    if dates != eligible_dates:
+    if not eligible_dates.issubset(dates):
         raise PromotionError(
-            f"mixed-team output dates {sorted(dates)} do not match eligible dates "
-            f"{sorted(eligible_dates)}"
+            f"mixed-team output is missing eligible dates "
+            f"{sorted(eligible_dates - dates)}"
         )
 
 
@@ -285,6 +285,20 @@ def build_promotion_candidate(
                 "sha256": expected_report_sha256,
             },
             "eligible_mixed_team_dates": sorted(eligible_dates),
+            "accepted_before": {
+                "men_chrono.csv": {
+                    "file": str(men_chrono.expanduser().resolve()),
+                    "sha256": original_hashes[men_chrono.expanduser().resolve()],
+                },
+                "ladies_chrono.csv": {
+                    "file": str(ladies_chrono.expanduser().resolve()),
+                    "sha256": original_hashes[ladies_chrono.expanduser().resolve()],
+                },
+                "mixed_team_chrono.csv": {
+                    "file": str(mixed_team_chrono.expanduser().resolve()),
+                    "sha256": original_hashes[mixed_team_chrono.expanduser().resolve()],
+                },
+            },
             "fresh_replay": {
                 "schema_version": fresh_report["schema_version"],
                 "candidate_mixed_team_rows": fresh_report["candidate_mixed_team_rows"],

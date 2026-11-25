@@ -51,7 +51,7 @@ def mapped_member(
     athlete_id: str, name: str, sex: str, order: int
 ) -> dict[str, object]:
     return {
-        "date": "2025-11-21",
+        "date": "2025-11-20",
         "sex": "Mixed",
         "season": 2026,
         "race": 1,
@@ -278,6 +278,10 @@ def test_promoted_histories_replay_idempotently(prepared: dict[str, object]) -> 
     )
     assert report["eligible_mixed_team_events"] == 0
     assert report["inserted_member_rows"] == 0
-    assert report["candidate_mixed_team_rows"] == 1
+    with (promoted / "mixed_team_chrono.csv").open(
+        newline="", encoding="utf-8"
+    ) as handle:
+        promoted_team_rows = len(list(csv.DictReader(handle)))
+    assert report["candidate_mixed_team_rows"] == promoted_team_rows
     for filename in ("men_chrono.csv", "ladies_chrono.csv", "mixed_team_chrono.csv"):
         assert digest(promoted / filename) == digest(second / f"candidate_{filename}")

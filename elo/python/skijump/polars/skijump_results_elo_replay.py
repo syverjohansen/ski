@@ -71,7 +71,12 @@ def _atomic_csv(
     with tempfile.NamedTemporaryFile(
         "w", encoding="utf-8", newline="", dir=path.parent, delete=False
     ) as handle:
-        writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore")
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=fields,
+            extrasaction="ignore",
+            lineterminator="\n",
+        )
         writer.writeheader()
         writer.writerows(rows)
         temporary = Path(handle.name)
@@ -91,6 +96,22 @@ def _atomic_json(path: Path, payload: dict[str, object]) -> None:
 
 def _event_kind(race_type: str) -> str:
     return "team" if race_type.casefold().startswith("team ") else "individual"
+
+
+def _is_canonical_mixed_team(row: dict[str, str]) -> bool:
+    members = [
+        item.strip() for item in row.get("MemberIDs", "").split(",") if item.strip()
+    ]
+    sexes = [
+        item.strip() for item in row.get("MemberSex", "").split(",") if item.strip()
+    ]
+    return (
+        row.get("Sex") == "Mixed"
+        and row.get("TeamSize") == "4"
+        and len(members) == 4
+        and len(set(members)) == 4
+        and sorted(sexes) == ["L", "L", "M", "M"]
+    )
 
 
 def _identity(row: dict[str, str], *, sex: str | None = None) -> EventIdentity:
@@ -784,7 +805,7 @@ def run_replay(
     ladies_fields, ladies_history = _read(ladies_chrono)
     _, men_raw_rows = _read(men_raw)
     _, ladies_raw_rows = _read(ladies_raw)
-    _, mixed_history = _read(mixed_team_chrono)
+    mixed_fields, mixed_history = _read(mixed_team_chrono)
     required_mapped = {
         "canonical_athlete_id",
         "canonical_name",
@@ -831,23 +852,34 @@ def run_replay(
     eligible_dates = {
         identity.event_date for identity in eligible if identity.sex == "Mixed"
     }
-    mixed_team_dates = {
-        _identity(row).event_date
-        for row in mapped
-        if row["sex"] == "Mixed" and row["event_kind"] == "team"
-    }
-    team_fields, team_candidate, imputed_rating_cells = aggregate_mixed_teams(
-        men_candidate, ladies_candidate, season=season, eligible_dates=mixed_team_dates
-    )
+    team_fields = mixed_fields
+    canonical_mixed_history = [
+        row for row in mixed_history if _is_canonical_mixed_team(row)
+    ]
+    team_candidate = canonical_mixed_history
+    imputed_rating_cells = 0
+    new_team_rows: list[dict[str, object]] = []
+    if eligible_dates:
+        team_fields, new_team_rows, imputed_rating_cells = aggregate_mixed_teams(
+            men_candidate,
+            ladies_candidate,
+            season=season,
+            eligible_dates=eligible_dates,
+        )
+        team_candidate = [
+            row
+            for row in canonical_mixed_history
+            if row.get("Date", "") not in eligible_dates
+        ] + new_team_rows
     expected_teams = len(
         {
             (row["date"], row["team_name"], row["team_nation"])
             for row in mapped
-            if row["date"] in mixed_team_dates
+            if row["date"] in eligible_dates
         }
     )
-    if len(team_candidate) != expected_teams or any(
-        int(row["TeamSize"]) != 4 for row in team_candidate
+    if len(new_team_rows) != expected_teams or any(
+        int(row["TeamSize"]) != 4 for row in new_team_rows
     ):
         raise ReplayError(
             "mixed-team aggregation did not preserve every four-member team"
