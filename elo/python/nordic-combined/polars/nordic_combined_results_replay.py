@@ -257,8 +257,15 @@ def run_replay(
         "changed_existing_rating_rows": {"M": men_changed, "L": ladies_changed},
         "accepted_inputs_modified": False,
         "promotion": {"status": "candidate", "performed": False},
-        "inputs": {str(path): digest for path, digest in before.items()},
-        "outputs": {name: {"rows": len(rows), "sha256": _sha(output_dir / name)} for name, (_, rows) in outputs.items()},
+        "inputs": {str(path.resolve()): digest for path, digest in before.items()},
+        "outputs": {
+            name: {
+                "path": str((output_dir / name).resolve()),
+                "rows": len(rows),
+                "sha256": _sha(output_dir / name),
+            }
+            for name, (_, rows) in outputs.items()
+        },
     }
     report_text = json.dumps(report, indent=2, sort_keys=True) + "\n"
     with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=output_dir, delete=False) as handle:
