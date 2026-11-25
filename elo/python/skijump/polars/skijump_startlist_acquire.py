@@ -235,7 +235,9 @@ def parse_team_entrants(html: bytes) -> list[dict[str, object]]:
         )
     if entrants:
         if len(team_counts) < 2:
-            raise StartlistAcquisitionError("FIS team page yielded fewer than two teams")
+            raise StartlistAcquisitionError(
+                "FIS team page yielded fewer than two teams"
+            )
         incomplete = [key for key, count in team_counts.items() if count < 2]
         if incomplete:
             raise StartlistAcquisitionError(
@@ -301,7 +303,9 @@ def acquire_startlists(
     with schedule.open(encoding="utf-8", newline="") as handle:
         schedule_rows = list(csv.DictReader(handle))
     selected = [
-        row for row in schedule_rows if _schedule_date(row.get("Date", "")) == logical_date
+        row
+        for row in schedule_rows
+        if _schedule_date(row.get("Date", "")) == logical_date
     ]
     evidence: list[EventEvidence] = []
     all_rows: list[dict[str, object]] = []
@@ -313,16 +317,25 @@ def acquire_startlists(
         if not url:
             evidence.append(
                 EventEvidence(
-                    logical_date=logical_date.isoformat(), sex=sex,
-                    event_kind=kind, race=race, fis_race_id=None,
-                    status="not_available", source_url="", source_sha256=None,
-                    source_file=None, entrant_rows=0, output_file=None,
+                    logical_date=logical_date.isoformat(),
+                    sex=sex,
+                    event_kind=kind,
+                    race=race,
+                    fis_race_id=None,
+                    status="not_available",
+                    source_url="",
+                    source_sha256=None,
+                    source_file=None,
+                    entrant_rows=0,
+                    output_file=None,
                 )
             )
             continue
         fis_race_id = validate_results_url(url)
         html = fetcher(url)
-        validate_page_identity(html, city=row.get("City", ""), logical_date=logical_date)
+        validate_page_identity(
+            html, city=row.get("City", ""), logical_date=logical_date
+        )
         digest = hashlib.sha256(html).hexdigest()
         basename = f"{sex.lower()}-{logical_date.isoformat()}-{race:03d}-{fis_race_id}"
         source_file = f"sources/{basename}.html"
@@ -354,14 +367,21 @@ def acquire_startlists(
         all_rows.extend(rows)
         evidence.append(
             EventEvidence(
-                logical_date=logical_date.isoformat(), sex=sex,
-                event_kind=kind, race=race, fis_race_id=fis_race_id,
-                status="official" if rows else "not_available", source_url=url,
-                source_sha256=digest, source_file=source_file,
-                entrant_rows=len(rows), output_file=output_file,
+                logical_date=logical_date.isoformat(),
+                sex=sex,
+                event_kind=kind,
+                race=race,
+                fis_race_id=fis_race_id,
+                status="official" if rows else "not_available",
+                source_url=url,
+                source_sha256=digest,
+                source_file=source_file,
+                entrant_rows=len(rows),
+                output_file=output_file,
             )
         )
-    _atomic_text(output_dir / "startlists.csv", _csv_text(all_rows))
+    startlists_path = output_dir / "startlists.csv"
+    _atomic_text(startlists_path, _csv_text(all_rows))
     unresolved = sum(item.status != "official" for item in evidence)
     report: dict[str, object] = {
         "schema_version": "nordicnumbers.skijump-startlist-acquisition/v1",
@@ -370,7 +390,10 @@ def acquire_startlists(
         "official_event_count": sum(item.status == "official" for item in evidence),
         "unresolved_event_count": unresolved,
         "entrant_row_count": len(all_rows),
-        "status": "no_work" if not selected else ("ready" if unresolved == 0 else "waiting"),
+        "startlists_sha256": hashlib.sha256(startlists_path.read_bytes()).hexdigest(),
+        "status": "no_work"
+        if not selected
+        else ("ready" if unresolved == 0 else "waiting"),
         "accepted_startlists_modified": False,
         "normalization_status": "source_identities_only",
         "prediction_eligible": bool(selected) and unresolved == 0,
