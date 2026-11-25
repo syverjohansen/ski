@@ -1,0 +1,75 @@
+{
+  "after": {
+    "ladies_chrono.csv": "af678b7cbaccf74cb9512a3ce429d357f07ee8ba54ce5f83a2a9e3be5dc97117",
+    "men_chrono.csv": "e4e4e3987da14df70bbc35ff694311847fb611fb5f043acba7b35562f5671b6d",
+    "team_sprint_chrono.csv": "6fd8bba1d1bcb39adc200953600eef8ed73b2b565969d91618d8d210bdf93723"
+  },
+  "approved_season": 2026,
+  "backup": {
+    "directory": "/private/tmp/nordic-combined-data.G0NTwu/backups/season-2026-20261125T194727723968Z-267886a280c5",
+    "sha256": {
+      "ladies_chrono.csv": "96a28a4daef66e5dbea284be1ebf5c76f547c7eadfed96b5cf9b7c3d73ad4ab7",
+      "men_chrono.csv": "099c07a31130a60027998587947463fb2bff16da4bb24a9a495a0794b50b915b",
+      "team_sprint_chrono.csv": "b932692a3d84c468140d2e19f14bb4210ed89be513db81f367c4121e9beb948e"
+    }
+  },
+  "before": {
+    "ladies_chrono.csv": "96a28a4daef66e5dbea284be1ebf5c76f547c7eadfed96b5cf9b7c3d73ad4ab7",
+    "men_chrono.csv": "099c07a31130a60027998587947463fb2bff16da4bb24a9a495a0794b50b915b",
+    "team_sprint_chrono.csv": "b932692a3d84c468140d2e19f14bb4210ed89be513db81f367c4121e9beb948e"
+  },
+  "performed": true,
+  "promoted_at": "2026-11-25T19:47:27.723968+00:00",
+  "promotion_evidence": {
+    "accepted_before": {
+      "ladies_chrono.csv": {
+        "file": "/Users/syverjohansen/wt/ski-nordic-combined-results-data/elo/python/nordic-combined/polars/relay/excel365/ladies_chrono.csv",
+        "sha256": "96a28a4daef66e5dbea284be1ebf5c76f547c7eadfed96b5cf9b7c3d73ad4ab7"
+      },
+      "men_chrono.csv": {
+        "file": "/Users/syverjohansen/wt/ski-nordic-combined-results-data/elo/python/nordic-combined/polars/relay/excel365/men_chrono.csv",
+        "sha256": "099c07a31130a60027998587947463fb2bff16da4bb24a9a495a0794b50b915b"
+      },
+      "team_sprint_chrono.csv": {
+        "file": "/Users/syverjohansen/wt/ski-nordic-combined-results-data/elo/python/nordic-combined/polars/relay/excel365/team_sprint_chrono.csv",
+        "sha256": "b932692a3d84c468140d2e19f14bb4210ed89be513db81f367c4121e9beb948e"
+      }
+    },
+    "accepted_files_modified": false,
+    "application_performed": false,
+    "atomic_candidate_set": true,
+    "mapped_member_rows": 28,
+    "mapped_team_rows": 14,
+    "outputs": {
+      "ladies_chrono.csv": {
+        "file": "ladies_chrono.csv",
+        "rows": 2030,
+        "sha256": "af678b7cbaccf74cb9512a3ce429d357f07ee8ba54ce5f83a2a9e3be5dc97117"
+      },
+      "men_chrono.csv": {
+        "file": "men_chrono.csv",
+        "rows": 36773,
+        "sha256": "e4e4e3987da14df70bbc35ff694311847fb611fb5f043acba7b35562f5671b6d"
+      },
+      "team_sprint_chrono.csv": {
+        "file": "team_sprint_chrono.csv",
+        "rows": 570,
+        "sha256": "6fd8bba1d1bcb39adc200953600eef8ed73b2b565969d91618d8d210bdf93723"
+      }
+    },
+    "replay_report": {
+      "file": "/private/tmp/nordic-combined-data.G0NTwu/replay/replay_report.json",
+      "sha256": "a69aabaf9eb517bf0e647d38ae4c023e74d6b4fc6063addc70abce680e804fe7"
+    },
+    "schema_version": "nordicnumbers.nordic-combined-results-promotion/v1",
+    "season": 2026,
+    "status": "promotion_candidate"
+  },
+  "promotion_id": "season-2026-20261125T194727723968Z-267886a280c5",
+  "promotion_report": {
+    "file": "/private/tmp/nordic-combined-data.G0NTwu/promotion/report.json",
+    "sha256": "267886a280c51b64cc7cff06bacc4b235b3b11d22b42a6b9a2d0f2eca2cf1816"
+  },
+  "schema_version": "nordicnumbers.nordic-combined-results-application/v1",
+  "status": "passed"
+}
