@@ -255,6 +255,54 @@ def test_replay_without_insertions_reproduces_accepted_rows() -> None:
     assert changed == 0
 
 
+@pytest.mark.parametrize("sex", ["M", "L"])
+def test_individual_insertion_is_not_marked_as_team_event(sex: str) -> None:
+    history = [
+        history_row(ID=1, Skier="Alpha One", Sex=sex, Elo=1500, Large_Elo=1500),
+        history_row(ID=2, Skier="Beta Two", Sex=sex, Elo=1300, Large_Elo=1300),
+        *[{**row, "Sex": sex} for row in accepted_event_rows()],
+    ]
+    inserted = [
+        mapped_row(
+            date="2025-11-21",
+            sex=sex,
+            event_kind="individual",
+            race_type="Large",
+            canonical_athlete_id=1,
+            canonical_name="Alpha One",
+            canonical_sex=sex,
+            place=2,
+            member_order="",
+        ),
+        mapped_row(
+            date="2025-11-21",
+            sex=sex,
+            event_kind="individual",
+            race_type="Large",
+            canonical_athlete_id=2,
+            canonical_name="Beta Two",
+            canonical_sex=sex,
+            fis_competitor_id=102,
+            fis_code=1002,
+            name="TWO Beta",
+            place=1,
+            member_order="",
+        ),
+    ]
+    candidate, _, changed = replay_sex(
+        history, inserted, season=2026, fields=FIELDS
+    )
+    inserted_rows = [
+        row
+        for row in candidate
+        if row["Date"] == "2025-11-21" and row["City"] == "Lillehammer"
+    ]
+    assert len(inserted_rows) == 2
+    assert {row["TeamEvent"] for row in inserted_rows} == {"0"}
+    assert {row["Leg"] for row in inserted_rows} == {"0"}
+    assert changed == 2
+
+
 def test_duplicate_athlete_in_inserted_event_fails() -> None:
     history = [history_row(), *accepted_event_rows()]
     with pytest.raises(ReplayError, match="duplicate athlete"):

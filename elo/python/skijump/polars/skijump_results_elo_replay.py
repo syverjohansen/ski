@@ -346,6 +346,7 @@ def _candidate_row(
     mapped: dict[str, str], metadata: dict[str, str] | None, *, race: int, sex: str
 ) -> dict[str, str]:
     base = dict(metadata or {})
+    is_team = mapped["event_kind"] == "team"
     base.update(
         {
             "Date": mapped["date"],
@@ -354,7 +355,7 @@ def _candidate_row(
             "Sex": sex,
             "HillSize": mapped["hill_size"],
             "RaceType": mapped["race_type"],
-            "TeamEvent": "1",
+            "TeamEvent": "1" if is_team else "0",
             "Event": "Olympic Winter Games"
             if mapped["championship"] == "1"
             else "World Cup",
@@ -364,7 +365,7 @@ def _candidate_row(
             "ID": mapped["canonical_athlete_id"],
             "Season": mapped["season"],
             "Race": str(race),
-            "Leg": mapped["member_order"],
+            "Leg": mapped["member_order"] if is_team else "0",
         }
     )
     base.setdefault("Birthday", f"{mapped.get('birth_year') or '1700'}-01-01 00:00:00")
@@ -381,7 +382,7 @@ def replay_sex(
     fields: list[str],
     stream_histories: dict[str, list[dict[str, str]]] | None = None,
 ) -> tuple[list[dict[str, object]], dict[str, float], int]:
-    """Rebuild one sex's complete season, inserting mapped mixed-team rows."""
+    """Rebuild one sex's complete season, inserting mapped eligible rows."""
     required_fields = {
         "Date",
         "City",
@@ -828,10 +829,10 @@ def run_replay(
     unsupported = [
         row
         for row in replay_rows
-        if row["event_kind"] != "team" or row["sex"] != "Mixed"
+        if row["event_kind"] == "team" and row["sex"] != "Mixed"
     ]
     if unsupported:
-        raise ReplayError("eligible non-mixed results require a separate replay path")
+        raise ReplayError("eligible same-sex team results require a separate replay path")
 
     men_insert = [row for row in replay_rows if row["canonical_sex"] == "M"]
     ladies_insert = [row for row in replay_rows if row["canonical_sex"] == "L"]
@@ -903,6 +904,9 @@ def run_replay(
         "input_sha256": before_hashes,
         "event_classifications": classifications,
         "eligible_mixed_team_events": len(eligible_dates),
+        "eligible_individual_events": sum(
+            identity.event_kind == "individual" for identity in eligible
+        ),
         "inserted_member_rows": len(men_insert) + len(ladies_insert),
         "candidate_mixed_team_rows": len(team_candidate),
         "imputed_team_rating_cells": imputed_rating_cells,

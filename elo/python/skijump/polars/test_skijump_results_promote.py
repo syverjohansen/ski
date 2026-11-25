@@ -93,6 +93,37 @@ def write_mapped(path: Path) -> None:
         writer.writerows(rows)
 
 
+def write_individual_mapped(path: Path) -> None:
+    rows = [
+        {
+            **mapped_member("2566", "Sølve Jokerud Strand", "M", 0),
+            "date": "2025-11-19",
+            "sex": "M",
+            "event_kind": "individual",
+            "race_type": "Large",
+            "place": 1,
+            "team_name": "",
+            "team_nation": "",
+            "member_order": "",
+        },
+        {
+            **mapped_member("2535", "Adrian Thon Gundersrud", "M", 0),
+            "date": "2025-11-19",
+            "sex": "M",
+            "event_kind": "individual",
+            "race_type": "Large",
+            "place": 2,
+            "team_name": "",
+            "team_nation": "",
+            "member_order": "",
+        },
+    ]
+    with path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=MAPPED_FIELDS)
+        writer.writeheader()
+        writer.writerows(rows)
+
+
 @pytest.fixture(scope="module")
 def prepared(tmp_path_factory: pytest.TempPathFactory) -> dict[str, object]:
     root = tmp_path_factory.mktemp("skijump-promotion")
@@ -175,6 +206,40 @@ def test_builds_atomic_candidate_without_modifying_accepted(
     }
     assert {path: digest(path) for path in before} == before
     assert (output / "report.json").is_file()
+
+
+def test_promotes_missing_individual_event(tmp_path: Path) -> None:
+    mapped = tmp_path / "individual-mapped.csv"
+    write_individual_mapped(mapped)
+    replay_dir = tmp_path / "individual-replay"
+    inputs = {
+        "mapped_results": mapped,
+        "men_chrono": ACCEPTED / "men_chrono.csv",
+        "ladies_chrono": ACCEPTED / "ladies_chrono.csv",
+        "men_raw": RAW / "all_men_scrape.csv",
+        "ladies_raw": RAW / "all_ladies_scrape.csv",
+        "mixed_team_chrono": ACCEPTED / "mixed_team_chrono.csv",
+    }
+    replay = run_replay(**inputs, output_dir=replay_dir, season=2026)
+    assert replay["eligible_individual_events"] == 1
+    assert replay["eligible_mixed_team_events"] == 0
+
+    report_path = replay_dir / "replay_report.json"
+    promotion = build_promotion_candidate(
+        replay_report=report_path,
+        expected_report_sha256=digest(report_path),
+        expected_season=2026,
+        output_dir=tmp_path / "individual-promotion",
+        **inputs,
+    )
+    assert promotion["status"] == "promotion_candidate"
+    with (tmp_path / "individual-promotion" / "men_chrono.csv").open(
+        newline="", encoding="utf-8-sig"
+    ) as handle:
+        rows = list(csv.DictReader(handle))
+    inserted = [row for row in rows if row["Date"] == "2025-11-19"]
+    assert len(inserted) == 2
+    assert {row["TeamEvent"] for row in inserted} == {"0"}
 
 
 def test_rejects_wrong_report_hash(prepared: dict[str, object]) -> None:
