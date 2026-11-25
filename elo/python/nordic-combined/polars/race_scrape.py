@@ -7,6 +7,9 @@ import time
 import random
 import pandas as pd
 from fuzzywuzzy import fuzz, process
+from pathlib import Path
+
+from schedule_sources import calendar_sources, championship_value
 
 def create_country_mapping():
     """Create mapping of country codes to full names"""
@@ -36,10 +39,11 @@ def create_country_mapping():
         'AND': 'Andorra'
     }
 
-def load_elevation_data():
+def load_elevation_data(path=None):
     """Load elevation data for fuzzy matching"""
     try:
-        elevation_df = pd.read_csv('excel365/elevation.csv')
+        path = path or Path(__file__).resolve().parent / 'excel365/elevation.csv'
+        elevation_df = pd.read_csv(path)
         return elevation_df
     except FileNotFoundError:
         print("elevation.csv not found")
@@ -56,7 +60,10 @@ def fuzzy_match_elevation(city, elevation_df):
         'Milano Cortina': 'Val di Fiemme',
         'Oslo': 'Holmenkollen',
         'Kulm': 'Bad Mitterndorf',
-        'Ruka': 'Kuusamo'
+        'Ruka': 'Kuusamo',
+        # FIS currently emits the ASCII spelling while the reviewed venue
+        # evidence uses the Estonian spelling in elevation.csv.
+        'Otepaa': 'Otepää',
     }
     
     # Check for exact custom mapping first
@@ -215,63 +222,54 @@ def assign_periods_by_race_count(races):
     all_races = mens_non_olympic_races + mens_olympic_races + mens_post_olympic_races + ladies_races + mixed_races
     return all_races
 
-def scrape_nordic_combined():
-    """Scrape nordic combined race data"""
-    
-    # URLs for World Cup and Olympic races
-    wc_url = "https://www.fis-ski.com/DB/alpine-skiing/calendar-results.html?eventselection=&place=&sectorcode=NK&seasoncode=2026&categorycode=WC&disciplinecode=&gendercode=&racedate=&racecodex=&nationcode=&seasonmonth=X-2026&saveselection=-1&seasonselection="
-    olympic_url = "https://www.fis-ski.com/DB/general/event-details.html?sectorcode=NK&eventid=58249&seasoncode=2026"
-    
+def scrape_nordic_combined(
+    season=2026,
+    include_championships=True,
+    request_fn=None,
+    sleep_fn=time.sleep,
+    elevation_path=None,
+):
+    """Scrape parameterized official FIS Nordic-combined calendars."""
     country_mapping = create_country_mapping()
-    elevation_df = load_elevation_data()
+    elevation_df = load_elevation_data(elevation_path)
     all_races = []
-    
-    # Scrape World Cup races
-    print("Scraping World Cup calendar...")
-    try:
-        # Add headers to avoid bot detection
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-            'Accept-Language': 'en-US,en;q=0.9',
-            'Accept-Encoding': 'gzip, deflate, br',
-            'DNT': '1',
-            'Connection': 'keep-alive',
-            'Upgrade-Insecure-Requests': '1',
-        }
-        
-        response = make_request_with_retry(wc_url, headers)
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.9',
+    }
+    fetch = request_fn or make_request_with_retry
+    for calendar_url, source_category in calendar_sources(
+        season, include_championships=include_championships
+    ):
+        response = fetch(calendar_url, headers)
         soup = BeautifulSoup(response.content, 'html.parser')
-        
         calendar_div = soup.find('div', {'id': 'calendardata'})
-        if calendar_div:
-            event_rows = calendar_div.find_all('div', {'class': 'table-row'})
-            print(f"Found {len(event_rows)} World Cup events")
-            
-            for row in event_rows:
-                event_links = row.find_all('a', href=lambda x: x and 'event-details.html' in x)
-                for link in event_links:
-                    event_url = link.get('href')
-                    if event_url and not event_url.startswith('http'):
-                        event_url = "https://www.fis-ski.com" + event_url
-                    
-                    if event_url:
-                        print(f"Processing WC event: {event_url}")
-                        races = scrape_nordic_event(event_url, "World Cup", country_mapping, elevation_df)
-                        all_races.extend(races)
-                        time.sleep(3)  # Be more polite to server
-                        break
-    except Exception as e:
-        print(f"Error scraping World Cup: {str(e)}")
-    
-    # Scrape Olympic races
-    print("Scraping Olympic event...")
-    try:
-        races = scrape_nordic_event(olympic_url, "Olympics", country_mapping, elevation_df)
-        all_races.extend(races)
-    except Exception as e:
-        print(f"Error scraping Olympics: {str(e)}")
-    
+        if calendar_div is None:
+            raise RuntimeError(f"selected FIS {source_category} source has no calendar data")
+        event_rows = calendar_div.find_all('div', {'class': 'table-row'})
+        event_urls = []
+        for row in event_rows:
+            link = row.find('a', href=lambda value: value and 'event-details.html' in value)
+            if link:
+                event_url = link.get('href')
+                if not event_url.startswith('http'):
+                    event_url = "https://www.fis-ski.com" + event_url
+                if event_url not in event_urls:
+                    event_urls.append(event_url)
+        if not event_urls:
+            raise RuntimeError(f"selected FIS {source_category} source has no event links")
+        for event_url in event_urls:
+            all_races.extend(
+                scrape_nordic_event(
+                    event_url,
+                    source_category,
+                    country_mapping,
+                    elevation_df,
+                    request_fn=fetch,
+                )
+            )
+            sleep_fn(3)
     return all_races
 
 def make_request_with_retry(url, headers, max_retries=3):
@@ -294,7 +292,9 @@ def make_request_with_retry(url, headers, max_retries=3):
                 print(f"Request failed after {max_retries} attempts: {e}")
                 raise e
 
-def scrape_nordic_event(event_url, source_category, country_mapping, elevation_df):
+def scrape_nordic_event(
+    event_url, source_category, country_mapping, elevation_df, request_fn=None
+):
     """Scrape nordic combined races from an event page"""
     races = []
     
@@ -310,7 +310,7 @@ def scrape_nordic_event(event_url, source_category, country_mapping, elevation_d
             'Upgrade-Insecure-Requests': '1',
         }
         
-        response = make_request_with_retry(event_url, headers)
+        response = (request_fn or make_request_with_retry)(event_url, headers)
         soup = BeautifulSoup(response.content, 'html.parser')
         
         # Get city and country from page header
@@ -402,7 +402,7 @@ def scrape_nordic_event(event_url, source_category, country_mapping, elevation_d
             distance, race_type = parse_distance_and_racetype(race_text)
             
             # Determine championship
-            championship = "1" if source_category == "Olympics" else "0"
+            championship = championship_value(source_category)
             
             # Get elevation
             elevation = fuzzy_match_elevation(city, elevation_df)

@@ -9,6 +9,8 @@ season promotion must pass.
 from __future__ import annotations
 
 import csv
+import hashlib
+import json
 import os
 import tempfile
 from collections import defaultdict
@@ -36,6 +38,9 @@ WEEKENDS_COLUMNS = ("Date", "Race_Date", *RACES_COLUMNS[1:])
 ALLOWED_SEXES = {"M", "L", "Mixed"}
 ALLOWED_RACE_TYPES = {"Individual", "IndividualCompact", "Mass Start", "Team", "Team Sprint"}
 ALLOWED_PERIODS = {"1", "2", "3", "4", "5"}
+REPORT_SCHEMA = "nordicnumbers.nordic-combined-schedule-shadow/v1"
+MIN_ROLLOVER_ROW_FRACTION = 0.75
+MIN_ROLLOVER_SPAN_DAYS = 90
 
 
 class ScheduleContractError(RuntimeError):
@@ -86,6 +91,14 @@ def write_csv_atomic(
         handle.flush()
         os.fsync(handle.fileno())
     os.replace(temporary, path)
+
+
+def file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def race_key(row: dict[str, str]) -> str:
@@ -216,6 +229,9 @@ def validate_season_structure(
     return {
         "status": "passed",
         "season": season,
+        "first_date": min(value for value, _ in dated).isoformat(),
+        "last_date": max(value for value, _ in dated).isoformat(),
+        "span_days": (max(value for value, _ in dated) - min(value for value, _ in dated)).days,
         "sex_counts": counts,
         "championship_rows": len(championships),
         "championship_category": expected[0] if expected else None,
@@ -279,3 +295,178 @@ def validate_relationship(
     if weekends != derive_weekends(races):
         raise ScheduleContractError("weekends do not match the deterministic view derived from races")
     return {"status": "passed", "rows": len(weekends)}
+
+
+def compare_races(
+    candidate_rows: list[dict[str, str]],
+    accepted_rows: list[dict[str, str]],
+    *,
+    max_removed_fraction: float,
+) -> dict[str, Any]:
+    candidate = {race_key(row): row for row in candidate_rows}
+    accepted = {race_key(row): row for row in accepted_rows}
+    added = sorted(candidate.keys() - accepted.keys())
+    removed = sorted(accepted.keys() - candidate.keys())
+    changed = [
+        {
+            "identity": identity,
+            "fields": [
+                field
+                for field in RACES_COLUMNS
+                if candidate[identity][field] != accepted[identity][field]
+            ],
+        }
+        for identity in sorted(candidate.keys() & accepted.keys())
+        if candidate[identity] != accepted[identity]
+    ]
+    removed_fraction = len(removed) / len(accepted) if accepted else 0.0
+    return {
+        "accepted_rows": len(accepted),
+        "candidate_rows": len(candidate),
+        "added": added,
+        "removed": removed,
+        "changed": changed,
+        "removed_fraction": round(removed_fraction, 6),
+        "max_removed_fraction": max_removed_fraction,
+        "within_removal_limit": removed_fraction <= max_removed_fraction,
+    }
+
+
+def assess_season_transition(
+    candidate_rows: list[dict[str, str]],
+    accepted_rows: list[dict[str, str]],
+    candidate_structure: dict[str, Any],
+    accepted_structure: dict[str, Any],
+) -> dict[str, Any]:
+    candidate_season = candidate_structure["season"]
+    accepted_season = accepted_structure["season"]
+    if candidate_season == accepted_season:
+        return {
+            "kind": "same_season",
+            "accepted_season": accepted_season,
+            "candidate_season": candidate_season,
+            "valid": True,
+            "approval_required": False,
+            "checks": {},
+        }
+    candidate_keys = {race_key(row) for row in candidate_rows}
+    accepted_keys = {race_key(row) for row in accepted_rows}
+    row_fraction = len(candidate_rows) / len(accepted_rows)
+    checks = {
+        "is_next_season": candidate_season == accepted_season + 1,
+        "row_fraction": round(row_fraction, 6),
+        "minimum_row_fraction": MIN_ROLLOVER_ROW_FRACTION,
+        "row_count_sufficient": row_fraction >= MIN_ROLLOVER_ROW_FRACTION,
+        "span_days": candidate_structure["span_days"],
+        "minimum_span_days": MIN_ROLLOVER_SPAN_DAYS,
+        "span_sufficient": candidate_structure["span_days"] >= MIN_ROLLOVER_SPAN_DAYS,
+        "identity_overlap": len(candidate_keys & accepted_keys),
+        "identities_are_new": not (candidate_keys & accepted_keys),
+    }
+    valid = all(
+        checks[name]
+        for name in (
+            "is_next_season",
+            "row_count_sufficient",
+            "span_sufficient",
+            "identities_are_new",
+        )
+    )
+    return {
+        "kind": "next_season" if checks["is_next_season"] else "unsupported",
+        "accepted_season": accepted_season,
+        "candidate_season": candidate_season,
+        "valid": valid,
+        "approval_required": valid,
+        "checks": checks,
+    }
+
+
+def write_json_atomic(path: Path, document: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile(
+        mode="w", encoding="utf-8", dir=path.parent, delete=False
+    ) as handle:
+        temporary = Path(handle.name)
+        json.dump(document, handle, indent=2, sort_keys=True)
+        handle.write("\n")
+        handle.flush()
+        os.fsync(handle.fileno())
+    os.replace(temporary, path)
+
+
+def build_shadow(
+    candidate_races: Path,
+    accepted_races: Path,
+    output_root: Path,
+    *,
+    accepted_weekends: Path | None = None,
+    max_removed_fraction: float = 0.1,
+    expected_candidate_season: int | None = None,
+) -> dict[str, Any]:
+    """Build and validate an isolated candidate pair without promotion."""
+    if not 0 <= max_removed_fraction <= 1:
+        raise ScheduleContractError("max_removed_fraction must be between 0 and 1")
+    candidate_rows = read_csv(candidate_races, RACES_COLUMNS)
+    accepted_rows = read_csv(accepted_races, RACES_COLUMNS)
+    accepted_weekends = accepted_weekends or accepted_races.with_name("weekends.csv")
+    accepted_weekend_rows = read_csv(accepted_weekends, WEEKENDS_COLUMNS)
+    candidate_validation = validate_races(candidate_rows)
+    accepted_validation = validate_races(accepted_rows)
+    accepted_relationship = validate_relationship(accepted_rows, accepted_weekend_rows)
+    candidate_structure = validate_season_structure(
+        candidate_rows, expected_season=expected_candidate_season
+    )
+    accepted_structure = validate_season_structure(accepted_rows)
+
+    candidate_dir = output_root / "candidate"
+    isolated_races = candidate_dir / "races.csv"
+    isolated_weekends = candidate_dir / "weekends.csv"
+    write_csv_atomic(isolated_races, RACES_COLUMNS, candidate_rows)
+    weekend_rows = derive_weekends(candidate_rows)
+    write_csv_atomic(isolated_weekends, WEEKENDS_COLUMNS, weekend_rows, lineterminator="\n")
+    relationship = validate_relationship(candidate_rows, weekend_rows)
+    comparison = compare_races(
+        candidate_rows, accepted_rows, max_removed_fraction=max_removed_fraction
+    )
+    transition = assess_season_transition(
+        candidate_rows, accepted_rows, candidate_structure, accepted_structure
+    )
+    if transition["kind"] == "same_season":
+        candidate_status = "eligible" if comparison["within_removal_limit"] else "blocked"
+        reason = "same-season candidate passed shadow validation"
+    elif transition["valid"]:
+        candidate_status = "approval_required"
+        reason = "valid season rollover requires explicit approval"
+    else:
+        candidate_status = "blocked"
+        reason = "candidate does not satisfy season rollover gates"
+    report = {
+        "schema_version": REPORT_SCHEMA,
+        "status": "passed",
+        "promotion": {"status": candidate_status, "performed": False, "reason": reason},
+        "candidate": {
+            "races": {
+                **candidate_validation,
+                "season_structure": candidate_structure,
+                "file": str(isolated_races),
+                "sha256": file_sha256(isolated_races),
+            },
+            "weekends": {
+                **relationship,
+                "file": str(isolated_weekends),
+                "sha256": file_sha256(isolated_weekends),
+                "derived_from_races_sha256": file_sha256(isolated_races),
+            },
+        },
+        "accepted": {
+            "races": {**accepted_validation, "file": str(accepted_races), "sha256": file_sha256(accepted_races)},
+            "weekends": {**accepted_relationship, "file": str(accepted_weekends), "sha256": file_sha256(accepted_weekends)},
+            "season_structure": accepted_structure,
+        },
+        "comparison": comparison,
+        "season_transition": transition,
+    }
+    report_path = output_root / "reports/schedule-shadow.json"
+    write_json_atomic(report_path, report)
+    return {**report, "report": str(report_path)}
