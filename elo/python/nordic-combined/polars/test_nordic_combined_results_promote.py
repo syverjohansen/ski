@@ -31,7 +31,7 @@ def member(
     athlete_id: str, name: str, nation: str, sex: str, place: int, order: int
 ) -> dict[str, object]:
     return {
-        "date": "2026-03-07", "city": "Lahti", "country": "Finland",
+        "date": "2026-03-08", "city": "Lahti", "country": "Finland",
         "sex": "Mixed", "season": "2026", "race": "1",
         "event_kind": "team_sprint", "distance": "2x7.5",
         "race_type": "Team Sprint", "championship": "0", "place": place,

@@ -134,7 +134,7 @@ def test_history_race_number_is_not_completion_identity(tmp_path: Path) -> None:
     assert missing == []
 
 
-def test_current_accepted_histories_expose_only_mixed_team_sprint_gap() -> None:
+def test_current_accepted_histories_cover_every_scheduled_race() -> None:
     relay = ROOT / "relay/excel365"
     missing, completed = audit_races(
         schedule=ROOT / "excel365/races.csv",
@@ -153,11 +153,9 @@ def test_current_accepted_histories_expose_only_mixed_team_sprint_gap() -> None:
         as_of=date(2026, 3, 15),
     )
     assert completed == 35
-    assert [
-        (item.date, item.sex, item.event_kind, item.fis_race_id) for item in missing
-    ] == [("2026-03-07", "Mixed", "team_sprint", "3529")]
+    assert missing == []
     report = build_report(missing, as_of=date(2026, 3, 15), completed_count=completed)
-    assert report["missing_race_count"] == 1
-    assert report["missing_team_sprint_race_count"] == 1
+    assert report["missing_race_count"] == 0
+    assert report["missing_team_sprint_race_count"] == 0
     assert report["missing_individual_race_count"] == 0
 
