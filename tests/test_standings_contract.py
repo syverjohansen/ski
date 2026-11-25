@@ -37,6 +37,10 @@ CROSS_COUNTRY = _load_script(
     "cross_country_standings",
     ROOT / "elo/python/ski/polars/standings_scrape.py",
 )
+SKI_JUMPING = _load_script(
+    "ski_jumping_standings",
+    ROOT / "elo/python/skijump/polars/standings_scrape.py",
+)
 
 HTML = """
 <a class="table-row" href="athlete-biography.html?competitorid=123">
@@ -84,9 +88,21 @@ class StandingsContractTests(unittest.TestCase):
             "?cupcode=WC&disciplinecode=ALL&gendercode=W"
             "&nationcode=&seasoncode=2027&sectorcode=CC",
         )
+        self.assertEqual(
+            SKI_JUMPING.standings_url(2027, "men"),
+            "https://www.fis-ski.com/DB/ski-jumping/cup-standings.html"
+            "?cupcode=WC&disciplinecode=ALL&gendercode=M"
+            "&nationcode=&seasoncode=2027&sectorcode=JP",
+        )
+        self.assertEqual(
+            SKI_JUMPING.standings_url(2027, "ladies"),
+            "https://www.fis-ski.com/DB/ski-jumping/cup-standings.html"
+            "?cupcode=WC&disciplinecode=ALL&gendercode=W"
+            "&nationcode=&seasoncode=2027&sectorcode=JP",
+        )
 
     def test_parsers_extract_complete_ranked_rows(self) -> None:
-        for module in (ALPINE, CROSS_COUNTRY):
+        for module in (ALPINE, CROSS_COUNTRY, SKI_JUMPING):
             rows = module.parse_standings(HTML)
             self.assertEqual(len(rows), 2)
             self.assertEqual(rows[0]["ID"], "123")
