@@ -1,0 +1,82 @@
+{
+  "after": {
+    "ladies_chrono.csv": "6f29bd373fe3bc9d751deb5b172bb3ffd00e87e914b06515d3f471fe23095bc4",
+    "men_chrono.csv": "e2a1442e7b803489ff93525dd20ee6107d0ebac9ba55a79d557056b7d8ad64bb",
+    "mixed_team_chrono.csv": "2376e2edfa6bc9ed1838c28e1ffb583c5fc240451816a578d54cb848892e7b92"
+  },
+  "approved_season": 2026,
+  "backup": {
+    "directory": "/private/tmp/skijump-results-backups-final.Pu2sxa/season-2026-20261125T011405Z-5861d4b8156c",
+    "sha256": {
+      "ladies_chrono.csv": "b6e7a54a26b700efadd531ea71db7badab78b88750e4c1f6e82f62d794e604c7",
+      "men_chrono.csv": "845211afa209127f1653ce91fc78c0b2071c930bd8cc630465efd56377232cad",
+      "mixed_team_chrono.csv": "bd2802e37209a79555279c0d43f6a4a889ae3bd1c707b2e4cffcfc5b99b9dbc3"
+    }
+  },
+  "before": {
+    "ladies_chrono.csv": "b6e7a54a26b700efadd531ea71db7badab78b88750e4c1f6e82f62d794e604c7",
+    "men_chrono.csv": "845211afa209127f1653ce91fc78c0b2071c930bd8cc630465efd56377232cad",
+    "mixed_team_chrono.csv": "bd2802e37209a79555279c0d43f6a4a889ae3bd1c707b2e4cffcfc5b99b9dbc3"
+  },
+  "performed": true,
+  "promoted_at": "2026-11-25T01:14:05.312106+00:00",
+  "promotion_evidence": {
+    "accepted_before": {
+      "ladies_chrono.csv": {
+        "file": "/Users/syverjohansen/wt/ski-skijump-results-apply/elo/python/skijump/polars/relay/excel365/ladies_chrono.csv",
+        "sha256": "b6e7a54a26b700efadd531ea71db7badab78b88750e4c1f6e82f62d794e604c7"
+      },
+      "men_chrono.csv": {
+        "file": "/Users/syverjohansen/wt/ski-skijump-results-apply/elo/python/skijump/polars/relay/excel365/men_chrono.csv",
+        "sha256": "845211afa209127f1653ce91fc78c0b2071c930bd8cc630465efd56377232cad"
+      },
+      "mixed_team_chrono.csv": {
+        "file": "/Users/syverjohansen/wt/ski-skijump-results-apply/elo/python/skijump/polars/relay/excel365/mixed_team_chrono.csv",
+        "sha256": "bd2802e37209a79555279c0d43f6a4a889ae3bd1c707b2e4cffcfc5b99b9dbc3"
+      }
+    },
+    "accepted_files_modified": false,
+    "atomic_candidate_set": true,
+    "eligible_mixed_team_dates": [
+      "2025-11-21",
+      "2026-01-30",
+      "2026-02-10"
+    ],
+    "fresh_replay": {
+      "candidate_mixed_team_rows": 36,
+      "inserted_member_rows": 144,
+      "schema_version": "nordicnumbers.skijump-elo-replay/v1"
+    },
+    "outputs": {
+      "ladies_chrono.csv": {
+        "file": "ladies_chrono.csv",
+        "rows": 14149,
+        "sha256": "6f29bd373fe3bc9d751deb5b172bb3ffd00e87e914b06515d3f471fe23095bc4"
+      },
+      "men_chrono.csv": {
+        "file": "men_chrono.csv",
+        "rows": 71757,
+        "sha256": "e2a1442e7b803489ff93525dd20ee6107d0ebac9ba55a79d557056b7d8ad64bb"
+      },
+      "mixed_team_chrono.csv": {
+        "file": "mixed_team_chrono.csv",
+        "rows": 36,
+        "sha256": "2376e2edfa6bc9ed1838c28e1ffb583c5fc240451816a578d54cb848892e7b92"
+      }
+    },
+    "schema_version": "nordicnumbers.skijump-results-promotion/v1",
+    "season": 2026,
+    "source_replay_report": {
+      "file": "/private/tmp/skijump-results-replay-final.YVUhLt/replay_report.json",
+      "sha256": "12fc76dd46ac7d27ea5d81a1f2bdaab4f339c2f21fb30dcece16549b87fb9552"
+    },
+    "status": "promotion_candidate"
+  },
+  "promotion_id": "season-2026-20261125T011405Z-5861d4b8156c",
+  "promotion_report": {
+    "file": "/private/tmp/skijump-results-promotion-final.IOafJ2/candidate/report.json",
+    "sha256": "5861d4b8156c2025198f5d70892dcf4577de8b7f8b4e031b683d9418bf0c721a"
+  },
+  "schema_version": "nordicnumbers.skijump-results-application/v1",
+  "status": "passed"
+}
