@@ -18,7 +18,10 @@ from nordic_combined_results_apply import (
 from nordic_combined_results_promote import PROMOTION_SCHEMA
 
 
-FILES = ("men_chrono.csv", "ladies_chrono.csv", "team_sprint_chrono.csv")
+FILES = (
+    "men_chrono.csv", "ladies_chrono.csv", "men_team_chrono.csv",
+    "team_sprint_chrono.csv",
+)
 
 
 def digest(path: Path) -> str:
@@ -62,6 +65,8 @@ def prepare(root: Path) -> tuple[Path, Path]:
             "TeamSize": 2, "MemberIDs": "10,20", "TeamMembers": "C,D",
         },
     ])
+    write_csv(accepted / "men_team_chrono.csv", fields, existing)
+    write_csv(candidate / "men_team_chrono.csv", fields, existing)
     report = {
         "schema_version": PROMOTION_SCHEMA,
         "status": "promotion_candidate", "season": 2026,
@@ -71,6 +76,7 @@ def prepare(root: Path) -> tuple[Path, Path]:
         },
         "row_deltas": {
             "men_chrono.csv": 1, "ladies_chrono.csv": 1,
+            "men_team_chrono.csv": 0,
             "team_sprint_chrono.csv": 1,
         },
         "atomic_candidate_set": True, "accepted_files_modified": False,
@@ -130,11 +136,58 @@ def prepare_individual(root: Path) -> tuple[Path, Path]:
         mapped_team_rows=0,
         row_deltas={
             "men_chrono.csv": 1, "ladies_chrono.csv": 0,
+            "men_team_chrono.csv": 0,
             "team_sprint_chrono.csv": 0,
         },
     )
     report["outputs"] = {
         name: {"file": name, "rows": sum(1 for _ in csv.DictReader((candidate / name).open())), "sha256": digest(candidate / name)}
+        for name in FILES
+    }
+    report_path.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return accepted, report_path
+
+
+def prepare_team(root: Path) -> tuple[Path, Path]:
+    accepted, report_path = prepare(root)
+    candidate = report_path.parent
+    write_csv(
+        candidate / "men_chrono.csv", ["value"],
+        [{"value": "old-men_chrono.csv"}, *({"value": f"member-{i}"} for i in range(4))],
+    )
+    write_csv(candidate / "ladies_chrono.csv", ["value"], [{"value": "old-ladies_chrono.csv"}])
+    fields = ["Date", "Nation", "Place", "Sex", "TeamSize", "MemberIDs", "TeamMembers"]
+    existing = list(csv.DictReader((accepted / "men_team_chrono.csv").open()))
+    write_csv(candidate / "men_team_chrono.csv", fields, [
+        *existing,
+        {
+            "Date": "2026-03-08", "Nation": "Austria", "Place": 1, "Sex": "M",
+            "TeamSize": 4, "MemberIDs": "10,11,12,13", "TeamMembers": "A,B,C,D",
+        },
+    ])
+    write_csv(
+        candidate / "team_sprint_chrono.csv", fields,
+        list(csv.DictReader((accepted / "team_sprint_chrono.csv").open())),
+    )
+    report = json.loads(report_path.read_text(encoding="utf-8"))
+    report.update(
+        event={
+            "date": "2026-03-08", "sex": "M", "event_kind": "team", "race": "1",
+            "race_type": "Team", "championship": "0",
+        },
+        mapped_member_rows=4,
+        mapped_team_rows=1,
+        row_deltas={
+            "men_chrono.csv": 4, "ladies_chrono.csv": 0,
+            "men_team_chrono.csv": 1, "team_sprint_chrono.csv": 0,
+        },
+    )
+    report["outputs"] = {
+        name: {
+            "file": name,
+            "rows": sum(1 for _ in csv.DictReader((candidate / name).open())),
+            "sha256": digest(candidate / name),
+        }
         for name in FILES
     }
     report_path.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -161,6 +214,19 @@ def test_applies_regular_individual_candidate_without_team_changes(tmp_path: Pat
     assert digest(accepted / "team_sprint_chrono.csv") == team_before
     assert digest(accepted / "ladies_chrono.csv") == ladies_before
     assert digest(accepted / "men_chrono.csv") == digest(report.parent / "men_chrono.csv")
+
+
+def test_applies_same_sex_team_candidate_atomically(tmp_path: Path) -> None:
+    accepted, report = prepare_team(tmp_path)
+    ladies_before = digest(accepted / "ladies_chrono.csv")
+    sprint_before = digest(accepted / "team_sprint_chrono.csv")
+    result = apply_promotion(**args(tmp_path, accepted, report))
+    assert result["performed"] is True
+    assert digest(accepted / "ladies_chrono.csv") == ladies_before
+    assert digest(accepted / "team_sprint_chrono.csv") == sprint_before
+    assert digest(accepted / "men_team_chrono.csv") == digest(
+        report.parent / "men_team_chrono.csv"
+    )
 
 
 def test_rejects_wrong_report_hash_and_season(tmp_path: Path) -> None:

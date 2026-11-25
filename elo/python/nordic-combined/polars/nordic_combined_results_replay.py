@@ -40,18 +40,33 @@ def mapped_event(rows: list[dict[str, str]], season: int) -> dict[str, str]:
     event_date, sex, event_kind, race, race_type, championship, mapped_season = signatures.pop()
     if mapped_season != str(season):
         raise ReplayError("mapped event season does not match replay season")
-    if event_kind == "team_sprint" and sex == "Mixed" and championship == "0":
-        pass
-    elif event_kind == "individual" and sex in {"M", "L"} and championship == "0":
+    if championship not in {"0", "1"}:
+        raise ReplayError(f"unsupported championship value {championship!r}")
+    if event_kind == "individual" and sex in {"M", "L"}:
+        if race_type not in {
+            "Individual", "Individual Compact", "IndividualCompact",
+            "Mass Start", "Sprint",
+        }:
+            raise ReplayError(f"unsupported individual race type {race_type!r}")
         for row in rows:
             if row.get("canonical_sex") != sex:
                 raise ReplayError("individual result contains an athlete of the wrong sex")
             if any(row.get(field, "").strip() for field in ("team_name", "team_nation", "member_order")):
                 raise ReplayError("individual result contains team-member metadata")
+    elif event_kind == "team" and sex == "M":
+        if race_type != "Team":
+            raise ReplayError(f"team event has race type {race_type!r}")
+    elif event_kind == "team_sprint" and sex in {"M", "Mixed"}:
+        if race_type != "Team Sprint":
+            raise ReplayError(f"team-sprint event has race type {race_type!r}")
     else:
         raise ReplayError(
-            "supported events are regular individual races and regular mixed team sprints"
+            "supported events are individual races, men's teams, and men's or mixed team sprints"
         )
+    if event_kind in {"team", "team_sprint"}:
+        for row in rows:
+            if any(not row.get(field, "").strip() for field in ("team_name", "team_nation", "member_order")):
+                raise ReplayError("team result is missing team-member metadata")
     return {
         "date": event_date, "sex": sex, "event_kind": event_kind, "race": race,
         "race_type": race_type, "championship": championship,
@@ -105,15 +120,22 @@ def _age(birthday: str, event_date: str) -> str:
 
 
 def _candidate_row(mapped: dict[str, str], metadata: dict[str, str], race: int) -> dict[str, str]:
-    is_team_sprint = mapped["event_kind"] == "team_sprint"
-    race_type = "Team Sprint" if is_team_sprint else mapped["race_type"]
+    race_type = {
+        "team": "Team", "team_sprint": "Team Sprint",
+    }.get(mapped["event_kind"], mapped["race_type"])
+    championship = mapped["championship"] == "1"
+    event = (
+        "Olympic Games" if championship and int(mapped["season"]) % 4 == 2
+        else "World Championship" if championship
+        else "World Cup"
+    )
     row = dict(metadata)
     row.update(
         Date=mapped["date"], City=mapped["city"], Country=mapped["country"],
         Sex=mapped["canonical_sex"], Distance=mapped["distance"],
         RaceType=race_type,
         MassStart="1" if race_type.strip().lower() == "mass start" else "0",
-        Event="World Cup",
+        Event=event,
         Place=mapped["place"], Skier=mapped["canonical_name"],
         Nation=mapped["canonical_nation"], ID=mapped["canonical_athlete_id"],
         Season=mapped["season"], Race=str(race), Leg=mapped.get("member_order", ""),
@@ -209,10 +231,10 @@ def replay_history(
     return [*prefix, *rebuilt, *race_zero], k, changed
 
 
-def aggregate_team_sprint(
+def aggregate_team_event(
     accepted: list[dict[str, str]], mapped: list[dict[str, str]],
     men_candidate: list[dict[str, object]], ladies_candidate: list[dict[str, object]],
-    *, fields: list[str], season: int,
+    *, fields: list[str], season: int, event_kind: str,
 ) -> list[dict[str, object]]:
     mapped_keys = {(row["date"], row["canonical_athlete_id"]) for row in mapped}
     candidate_lookup: dict[tuple[str, str], dict[str, object]] = {}
@@ -221,27 +243,39 @@ def aggregate_team_sprint(
         if key not in mapped_keys or str(row["Season"]) != str(season) or row["Race"] == "0":
             continue
         if key in candidate_lookup:
-            raise ReplayError(f"multiple candidate rows for mixed-team member {key}")
-        if row["RaceType"] != "Team Sprint":
-            raise ReplayError(f"candidate row for mixed-team member {key} is not Team Sprint")
+            raise ReplayError(f"multiple candidate rows for team member {key}")
+        expected_type = "Team" if event_kind == "team" else "Team Sprint"
+        if row["RaceType"] != expected_type:
+            raise ReplayError(f"candidate row for team member {key} is not {expected_type}")
         candidate_lookup[key] = row
     if candidate_lookup.keys() != mapped_keys:
         missing = sorted(mapped_keys - candidate_lookup.keys())
-        raise ReplayError(f"missing replayed mixed-team members: {missing}")
+        raise ReplayError(f"missing replayed team members: {missing}")
     teams: dict[tuple[int, str, str], list[dict[str, str]]] = defaultdict(list)
     for row in mapped:
         teams[(int(row["place"]), row["team_name"], row["team_nation"])].append(row)
     output: list[dict[str, object]] = list(accepted)
     for (place, team_name, _), members in sorted(teams.items()):
-        if len(members) != 2 or {row["canonical_sex"] for row in members} != {"M", "L"}:
+        orders = sorted(int(row["member_order"]) for row in members)
+        if len(members) < 2 or orders != list(range(1, len(members) + 1)):
+            raise ReplayError(f"team {team_name} has invalid member order")
+        event_sex = members[0]["sex"]
+        member_sexes = [row["canonical_sex"] for row in members]
+        if event_sex == "Mixed" and Counter(member_sexes) != Counter({"M": 1, "L": 1}):
             raise ReplayError(f"mixed team {team_name} is not one man and one woman")
-        athlete_rows = [candidate_lookup[(row["date"], row["canonical_athlete_id"])] for row in sorted(members, key=lambda item: int(item["member_order"]))]
+        if event_sex != "Mixed" and any(value != event_sex for value in member_sexes):
+            raise ReplayError(f"team {team_name} contains an athlete of the wrong sex")
+        ordered = sorted(members, key=lambda item: int(item["member_order"]))
+        athlete_rows = [candidate_lookup[(row["date"], row["canonical_athlete_id"])] for row in ordered]
+        if len({str(row["Nation"]) for row in athlete_rows}) != 1:
+            raise ReplayError(f"team {team_name} has conflicting canonical nations")
         first = members[0]
+        race_type = "Team" if event_kind == "team" else "Team Sprint"
         result: dict[str, object] = {
             "Nation": athlete_rows[0]["Nation"], "Season": str(season), "Race": first["race"],
             "Place": str(place), "Date": first["date"], "City": first["city"],
-            "Country": first["country"], "Event": "World Cup", "Sex": "Mixed",
-            "TeamSize": "2", "RaceType": "Team Sprint", "Distance": first["distance"],
+            "Country": first["country"], "Event": athlete_rows[0]["Event"], "Sex": event_sex,
+            "TeamSize": str(len(members)), "RaceType": race_type, "Distance": first["distance"],
             "MassStart": "0", "TeamMembers": ",".join(str(row["Skier"]) for row in athlete_rows),
             "MemberIDs": ",".join(str(row["ID"]) for row in athlete_rows),
         }
@@ -251,11 +285,12 @@ def aggregate_team_sprint(
                 values = [float(row[column]) for row in athlete_rows if str(row.get(column, "")).strip()]
                 team_column = f"Team_{column}"
                 avg_column = f"Avg_{column}"
-                result[team_column] = sum(values) if len(values) == 2 else ""
-                result[avg_column] = sum(values) / 2 if len(values) == 2 else ""
+                complete = len(values) == len(members)
+                result[team_column] = sum(values) if complete else ""
+                result[avg_column] = sum(values) / len(members) if complete else ""
         for column in ("Age", "Exp"):
             values = [float(row[column]) for row in athlete_rows]
-            result[f"Avg{column}"] = sum(values) / 2
+            result[f"Avg{column}"] = sum(values) / len(members)
             result[f"Max{column}"] = max(values)
             result[f"Min{column}"] = min(values)
         output.append({field: result.get(field, "") for field in fields})
@@ -274,9 +309,9 @@ def _atomic_csv(path: Path, fields: list[str], rows: list[dict[str, object]]) ->
 
 def run_replay(
     *, mapped_results: Path, men_history: Path, ladies_history: Path,
-    team_sprint_history: Path, season: int, output_dir: Path,
+    team_history: Path, team_sprint_history: Path, season: int, output_dir: Path,
 ) -> dict[str, object]:
-    sources = [mapped_results, men_history, ladies_history, team_sprint_history]
+    sources = [mapped_results, men_history, ladies_history, team_history, team_sprint_history]
     before = {path: _sha(path) for path in sources}
     resolved = output_dir.resolve()
     if any(path.resolve().parent == resolved or path.resolve().parent in resolved.parents for path in sources):
@@ -286,13 +321,22 @@ def run_replay(
         raise ReplayError("mapped results are empty or unresolved")
     event = mapped_event(mapped, season)
     men_fields, men = _read(men_history); ladies_fields, ladies = _read(ladies_history)
-    team_fields, team_sprint = _read(team_sprint_history)
+    team_fields, teams = _read(team_history)
+    sprint_fields, team_sprint = _read(team_sprint_history)
     men_candidate, men_k, men_changed = replay_history(men, mapped, season=season, fields=men_fields)
     ladies_candidate, ladies_k, ladies_changed = replay_history(ladies, mapped, season=season, fields=ladies_fields)
     team_candidate = (
-        aggregate_team_sprint(
+        aggregate_team_event(
+            teams, mapped, men_candidate, ladies_candidate,
+            fields=team_fields, season=season, event_kind="team",
+        )
+        if event["event_kind"] == "team"
+        else list(teams)
+    )
+    sprint_candidate = (
+        aggregate_team_event(
             team_sprint, mapped, men_candidate, ladies_candidate,
-            fields=team_fields, season=season,
+            fields=sprint_fields, season=season, event_kind="team_sprint",
         )
         if event["event_kind"] == "team_sprint"
         else list(team_sprint)
@@ -300,7 +344,8 @@ def run_replay(
     outputs = {
         "candidate_men_chrono.csv": (men_fields, men_candidate),
         "candidate_ladies_chrono.csv": (ladies_fields, ladies_candidate),
-        "candidate_team_sprint_chrono.csv": (team_fields, team_candidate),
+        "candidate_men_team_chrono.csv": (team_fields, team_candidate),
+        "candidate_team_sprint_chrono.csv": (sprint_fields, sprint_candidate),
     }
     for name, (fields, rows) in outputs.items(): _atomic_csv(output_dir / name, fields, rows)
     if before != {path: _sha(path) for path in sources}:
@@ -308,11 +353,15 @@ def run_replay(
     report = {
         "schema_version": "nordicnumbers.nordic-combined-results-replay/v1",
         "season": season, "event": event, "inserted_member_rows": len(mapped),
-        "inserted_team_rows": len(team_candidate) - len(team_sprint),
+        "inserted_team_rows": (
+            len(team_candidate) - len(teams)
+            + len(sprint_candidate) - len(team_sprint)
+        ),
         "row_deltas": {
             "men_chrono.csv": len(men_candidate) - len(men),
             "ladies_chrono.csv": len(ladies_candidate) - len(ladies),
-            "team_sprint_chrono.csv": len(team_candidate) - len(team_sprint),
+            "men_team_chrono.csv": len(team_candidate) - len(teams),
+            "team_sprint_chrono.csv": len(sprint_candidate) - len(team_sprint),
         },
         "k_factors": {"M": men_k, "L": ladies_k},
         "changed_existing_rating_rows": {"M": men_changed, "L": ladies_changed},
@@ -341,6 +390,10 @@ def main() -> int:
     parser.add_argument("--mapped-results", required=True, type=Path)
     parser.add_argument("--men-history", required=True, type=Path)
     parser.add_argument("--ladies-history", required=True, type=Path)
+    parser.add_argument(
+        "--team-history", type=Path,
+        default=Path("relay/excel365/men_team_chrono.csv"),
+    )
     parser.add_argument("--team-sprint-history", required=True, type=Path)
     parser.add_argument("--season", required=True, type=int)
     parser.add_argument("--output-dir", required=True, type=Path)

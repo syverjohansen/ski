@@ -20,7 +20,10 @@ from typing import Any
 from nordic_combined_results_promote import PROMOTION_SCHEMA, PromotionError
 
 RECEIPT_SCHEMA = "nordicnumbers.nordic-combined-results-application/v1"
-ACCEPTED_FILES = ("men_chrono.csv", "ladies_chrono.csv", "team_sprint_chrono.csv")
+ACCEPTED_FILES = (
+    "men_chrono.csv", "ladies_chrono.csv", "men_team_chrono.csv",
+    "team_sprint_chrono.csv",
+)
 
 
 def _sha(path: Path) -> str:
@@ -87,34 +90,41 @@ def _split(value: str) -> list[str]:
     return [item.strip() for item in value.split(",") if item.strip()]
 
 
-def _mixed_rows(path: Path) -> list[dict[str, str]]:
+def _aggregate_rows(path: Path) -> list[dict[str, str]]:
     with path.open(newline="", encoding="utf-8-sig") as handle:
-        return [row for row in csv.DictReader(handle) if row.get("Sex") == "Mixed"]
+        return list(csv.DictReader(handle))
 
 
-def _validate_team_candidate(
-    path: Path, accepted_path: Path, expected_new_teams: int
+def _validate_aggregate_candidate(
+    path: Path, accepted_path: Path, expected_new_teams: int, event_sex: str
 ) -> None:
-    mixed = _mixed_rows(path)
+    rows = _aggregate_rows(path)
     accepted_keys = {
-        (row["Date"], row["Nation"], row["Place"]) for row in _mixed_rows(accepted_path)
+        (row["Date"], row["Nation"], row["Place"], row["Sex"])
+        for row in _aggregate_rows(accepted_path)
     }
-    candidate_keys = {(row["Date"], row["Nation"], row["Place"]) for row in mixed}
+    candidate_keys = {(row["Date"], row["Nation"], row["Place"], row["Sex"]) for row in rows}
     if not accepted_keys.issubset(candidate_keys):
-        raise PromotionError("team-sprint candidate removes an accepted mixed team")
-    if len(candidate_keys - accepted_keys) != expected_new_teams:
+        raise PromotionError(f"{path.name} removes an accepted team")
+    new_keys = candidate_keys - accepted_keys
+    if len(new_keys) != expected_new_teams or any(key[3] != event_sex for key in new_keys):
         raise PromotionError(
-            "team-sprint candidate mixed-team delta does not match mapped team count"
+            f"{path.name} team delta does not match mapped event"
         )
-    seen: set[tuple[str, str, str]] = set()
-    for number, row in enumerate(mixed, 2):
-        key = (row["Date"], row["Nation"], row["Place"])
+    seen: set[tuple[str, str, str, str]] = set()
+    for number, row in enumerate(rows, 2):
+        key = (row["Date"], row["Nation"], row["Place"], row["Sex"])
         members = _split(row["MemberIDs"])
         names = _split(row["TeamMembers"])
         if key in seen:
-            raise PromotionError(f"duplicate mixed team {key}")
-        if row["TeamSize"] != "2" or len(members) != 2 or len(set(members)) != 2 or len(names) != 2:
-            raise PromotionError(f"{path}:{number}: invalid mixed team")
+            raise PromotionError(f"duplicate team {key}")
+        if (
+            not row["TeamSize"].isdigit()
+            or int(row["TeamSize"]) != len(members)
+            or len(members) < 2 or len(set(members)) != len(members)
+            or len(names) != len(members)
+        ):
+            raise PromotionError(f"{path}:{number}: invalid team")
         seen.add(key)
 
 
@@ -143,19 +153,37 @@ def _validate_candidate_set(
     if event_kind == "team_sprint" and event_sex == "Mixed":
         if members != teams * 2:
             raise PromotionError("promotion report has invalid mixed-team counts")
-        if row_deltas != {
-            "men_chrono.csv": teams, "ladies_chrono.csv": teams,
-            "team_sprint_chrono.csv": teams,
-        }:
+        if (
+            not teams <= row_deltas["men_chrono.csv"] <= teams * 2
+            or not teams <= row_deltas["ladies_chrono.csv"] <= teams * 2
+            or row_deltas["men_team_chrono.csv"] != 0
+            or row_deltas["team_sprint_chrono.csv"] != teams
+        ):
             raise PromotionError("mixed-team row deltas do not match mapped teams")
     elif event_kind == "individual" and event_sex in {"M", "L"} and teams == 0:
         unaffected = "ladies_chrono.csv" if event_sex == "M" else "men_chrono.csv"
         affected = "men_chrono.csv" if event_sex == "M" else "ladies_chrono.csv"
         if (
             row_deltas[unaffected] != 0 or row_deltas["team_sprint_chrono.csv"] != 0
+            or row_deltas["men_team_chrono.csv"] != 0
             or not members <= row_deltas[affected] <= members * 2
         ):
             raise PromotionError("individual row deltas do not match mapped athletes")
+    elif event_kind in {"team", "team_sprint"} and event_sex == "M" and teams > 0:
+        aggregate = (
+            "men_team_chrono.csv" if event_kind == "team"
+            else "team_sprint_chrono.csv"
+        )
+        other = (
+            "team_sprint_chrono.csv" if event_kind == "team"
+            else "men_team_chrono.csv"
+        )
+        if (
+            members < teams * 2 or row_deltas["ladies_chrono.csv"] != 0
+            or row_deltas[aggregate] != teams or row_deltas[other] != 0
+            or not members <= row_deltas["men_chrono.csv"] <= members * 2
+        ):
+            raise PromotionError("same-sex team row deltas do not match mapped teams")
     else:
         raise PromotionError("promotion report has an unsupported event identity")
 
@@ -188,11 +216,10 @@ def _validate_candidate_set(
     for name, expected_delta in row_deltas.items():
         if _rows(candidates[name]) != baseline_rows[name] + expected_delta:
             raise PromotionError(f"{name} row delta does not match mapped event")
-    _validate_team_candidate(
-        candidates["team_sprint_chrono.csv"],
-        accepted_dir / "team_sprint_chrono.csv",
-        row_deltas["team_sprint_chrono.csv"],
-    )
+    for name in ("men_team_chrono.csv", "team_sprint_chrono.csv"):
+        _validate_aggregate_candidate(
+            candidates[name], accepted_dir / name, row_deltas[name], str(event_sex)
+        )
     return candidates, candidate_hashes, baseline_hashes
 
 
