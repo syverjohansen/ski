@@ -129,8 +129,35 @@ def _validate_candidate_set(
         raise PromotionError("promotion report has incomplete accepted baseline")
     members = report.get("mapped_member_rows")
     teams = report.get("mapped_team_rows")
-    if not isinstance(members, int) or not isinstance(teams, int) or members != teams * 2:
+    event = report.get("event")
+    row_deltas = report.get("row_deltas")
+    if (
+        not isinstance(members, int) or not isinstance(teams, int)
+        or not isinstance(event, dict) or not isinstance(row_deltas, dict)
+        or set(row_deltas) != set(ACCEPTED_FILES)
+        or any(not isinstance(value, int) or value < 0 for value in row_deltas.values())
+    ):
         raise PromotionError("promotion report has invalid member/team counts")
+    event_kind = event.get("event_kind")
+    event_sex = event.get("sex")
+    if event_kind == "team_sprint" and event_sex == "Mixed":
+        if members != teams * 2:
+            raise PromotionError("promotion report has invalid mixed-team counts")
+        if row_deltas != {
+            "men_chrono.csv": teams, "ladies_chrono.csv": teams,
+            "team_sprint_chrono.csv": teams,
+        }:
+            raise PromotionError("mixed-team row deltas do not match mapped teams")
+    elif event_kind == "individual" and event_sex in {"M", "L"} and teams == 0:
+        unaffected = "ladies_chrono.csv" if event_sex == "M" else "men_chrono.csv"
+        affected = "men_chrono.csv" if event_sex == "M" else "ladies_chrono.csv"
+        if (
+            row_deltas[unaffected] != 0 or row_deltas["team_sprint_chrono.csv"] != 0
+            or not members <= row_deltas[affected] <= members * 2
+        ):
+            raise PromotionError("individual row deltas do not match mapped athletes")
+    else:
+        raise PromotionError("promotion report has an unsupported event identity")
 
     candidates: dict[str, Path] = {}
     candidate_hashes: dict[str, str] = {}
@@ -158,16 +185,13 @@ def _validate_candidate_set(
         baseline_hashes[name] = expected_baseline
         baseline_rows[name] = _rows(accepted)
 
-    if _rows(candidates["men_chrono.csv"]) != baseline_rows["men_chrono.csv"] + teams:
-        raise PromotionError("men candidate row delta does not match team count")
-    if _rows(candidates["ladies_chrono.csv"]) != baseline_rows["ladies_chrono.csv"] + teams:
-        raise PromotionError("ladies candidate row delta does not match team count")
-    if _rows(candidates["team_sprint_chrono.csv"]) != baseline_rows["team_sprint_chrono.csv"] + teams:
-        raise PromotionError("team-sprint candidate row delta does not match team count")
+    for name, expected_delta in row_deltas.items():
+        if _rows(candidates[name]) != baseline_rows[name] + expected_delta:
+            raise PromotionError(f"{name} row delta does not match mapped event")
     _validate_team_candidate(
         candidates["team_sprint_chrono.csv"],
         accepted_dir / "team_sprint_chrono.csv",
-        teams,
+        row_deltas["team_sprint_chrono.csv"],
     )
     return candidates, candidate_hashes, baseline_hashes
 

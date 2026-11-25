@@ -12,7 +12,7 @@ import tempfile
 from collections import Counter, defaultdict
 from pathlib import Path
 
-from nordic_combined_results_replay import ReplayError, run_replay
+from nordic_combined_results_replay import ReplayError, mapped_event, run_replay
 
 REPLAY_SCHEMA = "nordicnumbers.nordic-combined-results-replay/v1"
 PROMOTION_SCHEMA = "nordicnumbers.nordic-combined-results-promotion/v1"
@@ -108,37 +108,34 @@ def _validate_replay_outputs(report: dict[str, object], replay_dir: Path) -> Non
             raise PromotionError(f"replay output drift: {filename}")
 
 
-def _validate_mapped(mapped_results: Path, season: int) -> tuple[int, int]:
+def _validate_mapped(mapped_results: Path, season: int) -> tuple[int, int, dict[str, str]]:
     rows = _read(mapped_results)
-    if not rows:
-        raise PromotionError("mapped results are empty")
-    events: set[tuple[str, str, str]] = set()
+    try:
+        event = mapped_event(rows, season)
+    except ReplayError as exc:
+        raise PromotionError(str(exc)) from exc
     teams: dict[tuple[str, str, str, str], list[dict[str, str]]] = defaultdict(list)
     athletes: set[tuple[str, str]] = set()
     for number, row in enumerate(rows, 2):
-        if (
-            row.get("event_kind") != "team_sprint"
-            or row.get("sex") != "Mixed"
-            or row.get("season") != str(season)
-            or not row.get("canonical_athlete_id")
-        ):
+        if not row.get("canonical_athlete_id"):
             raise PromotionError(f"{mapped_results}:{number}: unsupported mapped result")
         athlete = (row["canonical_sex"], row["canonical_athlete_id"])
         if athlete in athletes:
             raise PromotionError(f"duplicate mapped athlete {athlete}")
         athletes.add(athlete)
-        events.add((row["date"], row["race"], row["event_kind"]))
-        key = (row["date"], row["team_name"], row["team_nation"], row["place"])
-        teams[key].append(row)
-    for key, members in teams.items():
-        if len(members) != 2 or Counter(row["canonical_sex"] for row in members) != Counter({"M": 1, "L": 1}):
-            raise PromotionError(f"mixed team {key} is not exactly one man and one woman")
-    if len(events) != 1:
-        raise PromotionError("this promotion candidate must contain exactly one event")
-    return len(rows), len(teams)
+        if event["event_kind"] == "team_sprint":
+            key = (row["date"], row["team_name"], row["team_nation"], row["place"])
+            teams[key].append(row)
+    if event["event_kind"] == "team_sprint":
+        for key, members in teams.items():
+            if len(members) != 2 or Counter(row["canonical_sex"] for row in members) != Counter({"M": 1, "L": 1}):
+                raise PromotionError(f"mixed team {key} is not exactly one man and one woman")
+    return len(rows), len(teams), event
 
 
-def _validate_candidates(candidate_dir: Path, mapped_results: Path, season: int) -> None:
+def _validate_candidates(
+    candidate_dir: Path, mapped_results: Path, season: int, event: dict[str, str]
+) -> None:
     mapped = _read(mapped_results)
     expected = {
         sex: {(row["date"], row["canonical_athlete_id"]) for row in mapped if row["canonical_sex"] == sex}
@@ -149,11 +146,13 @@ def _validate_candidates(candidate_dir: Path, mapped_results: Path, season: int)
         inserted = {
             (row["Date"], row["ID"])
             for row in rows
-            if row["Season"] == str(season) and row["RaceType"] == "Team Sprint"
+            if row["Season"] == str(season)
             and (row["Date"], row["ID"]) in expected[sex]
         }
         if inserted != expected[sex]:
             raise PromotionError(f"{filename} does not contain every mapped {sex} member")
+    if event["event_kind"] == "individual":
+        return
     team_rows = _read(candidate_dir / "team_sprint_chrono.csv")
     expected_teams = {
         (row["date"], row["canonical_nation"], row["place"]) for row in mapped
@@ -195,9 +194,14 @@ def build_promotion_candidate(
         raise PromotionError("replay season does not match approved candidate season")
     before = _validate_inputs(report, sources)
     _validate_replay_outputs(report, replay_dir)
-    members, teams = _validate_mapped(mapped_results, expected_season)
+    members, teams, event = _validate_mapped(mapped_results, expected_season)
     if report.get("inserted_member_rows") != members or report.get("inserted_team_rows") != teams:
         raise PromotionError("replay insertion counts do not match mapped evidence")
+    if report.get("event") != event:
+        raise PromotionError("replay event identity does not match mapped evidence")
+    row_deltas = report.get("row_deltas")
+    if not isinstance(row_deltas, dict) or set(row_deltas) != set(REPLAY_FILES.values()):
+        raise PromotionError("replay report has incomplete row deltas")
 
     output_dir.parent.mkdir(parents=True, exist_ok=True)
     staging = Path(tempfile.mkdtemp(prefix=f".{output_dir.name}.", dir=output_dir.parent))
@@ -219,13 +223,19 @@ def build_promotion_candidate(
             if _sha(original) != _sha(regenerated):
                 raise PromotionError(f"fresh replay is not byte-identical: {replay_name}")
             shutil.copyfile(regenerated, staging / accepted_name)
-        _validate_candidates(staging, mapped_results, expected_season)
+        if fresh_report.get("event") != event:
+            raise PromotionError("fresh replay event identity changed")
+        if fresh_report.get("row_deltas") != row_deltas:
+            raise PromotionError("fresh replay row deltas changed")
+        _validate_candidates(staging, mapped_results, expected_season, event)
         if before != _validate_inputs(report, sources):
             raise PromotionError("accepted inputs changed while building promotion candidate")
         promotion: dict[str, object] = {
             "schema_version": PROMOTION_SCHEMA,
             "status": "promotion_candidate",
             "season": expected_season,
+            "event": event,
+            "row_deltas": row_deltas,
             "atomic_candidate_set": True,
             "accepted_files_modified": False,
             "application_performed": False,

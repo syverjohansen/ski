@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build an isolated Nordic-combined mixed-team-sprint Elo candidate."""
+"""Build an isolated Nordic-combined results Elo candidate."""
 
 from __future__ import annotations
 
@@ -21,6 +21,41 @@ RATING_STREAMS = ("", "Individual_", "IndividualCompact_", "Sprint_", "MassStart
 
 class ReplayError(RuntimeError):
     pass
+
+
+def mapped_event(rows: list[dict[str, str]], season: int) -> dict[str, str]:
+    """Validate one supported mapped event and return its canonical identity."""
+    if not rows:
+        raise ReplayError("mapped results are empty")
+    signatures = {
+        (
+            row.get("date", ""), row.get("sex", ""), row.get("event_kind", ""),
+            row.get("race", ""), row.get("race_type", ""),
+            row.get("championship", ""), row.get("season", ""),
+        )
+        for row in rows
+    }
+    if len(signatures) != 1:
+        raise ReplayError("candidate must contain exactly one mapped event")
+    event_date, sex, event_kind, race, race_type, championship, mapped_season = signatures.pop()
+    if mapped_season != str(season):
+        raise ReplayError("mapped event season does not match replay season")
+    if event_kind == "team_sprint" and sex == "Mixed" and championship == "0":
+        pass
+    elif event_kind == "individual" and sex in {"M", "L"} and championship == "0":
+        for row in rows:
+            if row.get("canonical_sex") != sex:
+                raise ReplayError("individual result contains an athlete of the wrong sex")
+            if any(row.get(field, "").strip() for field in ("team_name", "team_nation", "member_order")):
+                raise ReplayError("individual result contains team-member metadata")
+    else:
+        raise ReplayError(
+            "supported events are regular individual races and regular mixed team sprints"
+        )
+    return {
+        "date": event_date, "sex": sex, "event_kind": event_kind, "race": race,
+        "race_type": race_type, "championship": championship,
+    }
 
 
 def _read(path: Path) -> tuple[list[str], list[dict[str, str]]]:
@@ -70,14 +105,18 @@ def _age(birthday: str, event_date: str) -> str:
 
 
 def _candidate_row(mapped: dict[str, str], metadata: dict[str, str], race: int) -> dict[str, str]:
+    is_team_sprint = mapped["event_kind"] == "team_sprint"
+    race_type = "Team Sprint" if is_team_sprint else mapped["race_type"]
     row = dict(metadata)
     row.update(
         Date=mapped["date"], City=mapped["city"], Country=mapped["country"],
         Sex=mapped["canonical_sex"], Distance=mapped["distance"],
-        RaceType="Team Sprint", MassStart="0", Event="World Cup",
+        RaceType=race_type,
+        MassStart="1" if race_type.strip().lower() == "mass start" else "0",
+        Event="World Cup",
         Place=mapped["place"], Skier=mapped["canonical_name"],
         Nation=mapped["canonical_nation"], ID=mapped["canonical_athlete_id"],
-        Season=mapped["season"], Race=str(race), Leg=mapped["member_order"],
+        Season=mapped["season"], Race=str(race), Leg=mapped.get("member_order", ""),
         Age=_age(metadata.get("Birthday", ""), mapped["date"]),
         Exp=str(int(float(metadata.get("Exp") or 0)) + 1),
     )
@@ -92,8 +131,6 @@ def replay_history(
         raise ReplayError(f"chrono missing fields: {missing}")
     sex = next((row["Sex"] for row in rows if row.get("Sex")), "")
     inserted = [row for row in mapped if row["canonical_sex"] == sex]
-    if any(row["event_kind"] != "team_sprint" or row["sex"] != "Mixed" for row in inserted):
-        raise ReplayError("this replay accepts only mixed team-sprint evidence")
     previous = [row for row in rows if int(row["Season"]) < season]
     current = [row for row in rows if int(row["Season"]) == season and row["Race"] != "0"]
     offseason = {row["ID"]: row for row in rows if int(row["Season"]) == season and row["Race"] == "0"}
@@ -149,12 +186,23 @@ def replay_history(
             state[row["ID"]] = after
     race_zero: list[dict[str, object]] = []
     for athlete_id in sorted({row["ID"] for row in rebuilt}):
-        if athlete_id not in offseason:
+        if athlete_id in offseason:
+            row: dict[str, object] = dict(offseason[athlete_id])
+        elif athlete_id in inserted_ids:
+            source = _latest([item for item in rebuilt if str(item["ID"]) == athlete_id], athlete_id)
+            if source is None:
+                raise ReplayError(f"cannot construct Race 0 row for athlete {athlete_id}")
+            row = dict(source)
+            row.update(
+                Date=f"{season}-05-01", City="Summer", Country="Break",
+                Distance="0", RaceType="Offseason", MassStart="0", Event="Offseason",
+                Place="0", Season=str(season), Race="0", Leg="0",
+            )
+        else:
             raise ReplayError(f"missing accepted Race 0 row for athlete {athlete_id}")
-        row: dict[str, object] = dict(offseason[athlete_id])
         rating = state[athlete_id]
         row["Pelo"], row["Elo"] = rating, rating * OFFSEASON_DISCOUNT + BASE_ELO * (1 - OFFSEASON_DISCOUNT)
-        if athlete_id in inserted_ids:
+        if athlete_id in inserted_ids and athlete_id in offseason:
             row["Exp"] = str(int(float(str(row["Exp"]))) + 1)
         race_zero.append(row)
     prefix = [row for row in rows if int(row["Season"]) < season]
@@ -236,11 +284,19 @@ def run_replay(
     mapped_fields, mapped = _read(mapped_results)
     if not mapped or any(not row.get("canonical_athlete_id") for row in mapped):
         raise ReplayError("mapped results are empty or unresolved")
+    event = mapped_event(mapped, season)
     men_fields, men = _read(men_history); ladies_fields, ladies = _read(ladies_history)
     team_fields, team_sprint = _read(team_sprint_history)
     men_candidate, men_k, men_changed = replay_history(men, mapped, season=season, fields=men_fields)
     ladies_candidate, ladies_k, ladies_changed = replay_history(ladies, mapped, season=season, fields=ladies_fields)
-    team_candidate = aggregate_team_sprint(team_sprint, mapped, men_candidate, ladies_candidate, fields=team_fields, season=season)
+    team_candidate = (
+        aggregate_team_sprint(
+            team_sprint, mapped, men_candidate, ladies_candidate,
+            fields=team_fields, season=season,
+        )
+        if event["event_kind"] == "team_sprint"
+        else list(team_sprint)
+    )
     outputs = {
         "candidate_men_chrono.csv": (men_fields, men_candidate),
         "candidate_ladies_chrono.csv": (ladies_fields, ladies_candidate),
@@ -251,8 +307,13 @@ def run_replay(
         raise ReplayError("an accepted input changed during replay")
     report = {
         "schema_version": "nordicnumbers.nordic-combined-results-replay/v1",
-        "season": season, "inserted_member_rows": len(mapped),
+        "season": season, "event": event, "inserted_member_rows": len(mapped),
         "inserted_team_rows": len(team_candidate) - len(team_sprint),
+        "row_deltas": {
+            "men_chrono.csv": len(men_candidate) - len(men),
+            "ladies_chrono.csv": len(ladies_candidate) - len(ladies),
+            "team_sprint_chrono.csv": len(team_candidate) - len(team_sprint),
+        },
         "k_factors": {"M": men_k, "L": ladies_k},
         "changed_existing_rating_rows": {"M": men_changed, "L": ladies_changed},
         "accepted_inputs_modified": False,

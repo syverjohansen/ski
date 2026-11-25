@@ -11,6 +11,7 @@ from nordic_combined_results_replay import (
     _read,
     actual_scores,
     expected_scores,
+    mapped_event,
     replay_history,
     run_replay,
     update_ratings,
@@ -19,6 +20,35 @@ from nordic_combined_results_replay import (
 
 ROOT = Path(__file__).resolve().parent
 RELAY = ROOT / "relay/excel365"
+MAPPED_FIELDS = [
+    "date", "city", "country", "sex", "season", "race", "event_kind",
+    "distance", "race_type", "championship", "place", "team_name",
+    "team_nation", "member_order", "fis_competitor_id", "fis_code",
+    "name", "nation", "canonical_athlete_id", "canonical_name",
+    "canonical_nation", "canonical_sex", "identity_match_method",
+]
+
+
+def write_individual(path: Path, *, championship: str = "0") -> None:
+    rows = [
+        ("1329", "Jens Lurås Oftebro", "Norway", 1),
+        ("1348", "Julian Schmid", "Germany", 2),
+    ]
+    with path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=MAPPED_FIELDS)
+        writer.writeheader()
+        for athlete_id, name, nation, place in rows:
+            writer.writerow({
+                "date": "2026-03-08", "city": "Oslo", "country": "Norway",
+                "sex": "M", "season": "2026", "race": "1",
+                "event_kind": "individual", "distance": "10",
+                "race_type": "Individual", "championship": championship,
+                "place": place, "fis_competitor_id": f"fis-{athlete_id}",
+                "fis_code": f"code-{athlete_id}", "name": name,
+                "nation": nation[:3].upper(), "canonical_athlete_id": athlete_id,
+                "canonical_name": name, "canonical_nation": nation,
+                "canonical_sex": "M", "identity_match_method": "test_fixture",
+            })
 
 
 def test_pairwise_scores_handle_ties_and_elo_update_is_zero_sum() -> None:
@@ -94,3 +124,66 @@ def test_candidate_output_cannot_be_inside_accepted_data(tmp_path: Path) -> None
             season=2026,
             output_dir=RELAY / "candidate",
         )
+
+
+def test_regular_individual_event_replays_only_its_sex(tmp_path: Path) -> None:
+    mapped = tmp_path / "evidence/mapped.csv"
+    mapped.parent.mkdir()
+    write_individual(mapped)
+    report = run_replay(
+        mapped_results=mapped,
+        men_history=RELAY / "men_chrono.csv",
+        ladies_history=RELAY / "ladies_chrono.csv",
+        team_sprint_history=RELAY / "team_sprint_chrono.csv",
+        season=2026, output_dir=tmp_path / "candidate",
+    )
+    assert report["event"] == {
+        "date": "2026-03-08", "sex": "M", "event_kind": "individual", "race": "1",
+        "race_type": "Individual", "championship": "0",
+    }
+    assert report["inserted_member_rows"] == 2
+    assert report["inserted_team_rows"] == 0
+    assert report["row_deltas"]["men_chrono.csv"] >= 2
+    assert report["row_deltas"]["ladies_chrono.csv"] == 0
+    assert report["row_deltas"]["team_sprint_chrono.csv"] == 0
+    _, men = _read(tmp_path / "candidate/candidate_men_chrono.csv")
+    inserted = [row for row in men if row["Date"] == "2026-03-08"]
+    assert {row["ID"] for row in inserted} == {"1329", "1348"}
+    assert {row["RaceType"] for row in inserted} == {"Individual"}
+
+
+def test_championship_individual_is_explicitly_unsupported(tmp_path: Path) -> None:
+    mapped = tmp_path / "mapped.csv"
+    write_individual(mapped, championship="1")
+    _, rows = _read(mapped)
+    with pytest.raises(Exception, match="supported events"):
+        mapped_event(rows, 2026)
+
+
+def test_individual_replay_creates_race_zero_for_returning_athlete(tmp_path: Path) -> None:
+    mapped = tmp_path / "evidence/mapped.csv"
+    mapped.parent.mkdir()
+    write_individual(mapped)
+    fields, rows = _read(mapped)
+    returning = rows[0]
+    returning.update(
+        canonical_athlete_id="7", canonical_name="Eric Frenzel",
+        canonical_nation="Germany", name="Eric Frenzel", nation="GER", place="1",
+    )
+    with mapped.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer.writeheader()
+        writer.writerow(returning)
+    report = run_replay(
+        mapped_results=mapped,
+        men_history=RELAY / "men_chrono.csv",
+        ladies_history=RELAY / "ladies_chrono.csv",
+        team_sprint_history=RELAY / "team_sprint_chrono.csv",
+        season=2026, output_dir=tmp_path / "candidate",
+    )
+    assert report["row_deltas"]["men_chrono.csv"] == 2
+    _, men = _read(tmp_path / "candidate/candidate_men_chrono.csv")
+    race_zero = [row for row in men if row["Season"] == "2026" and row["ID"] == "7" and row["Race"] == "0"]
+    assert len(race_zero) == 1
+    assert race_zero[0]["Date"] == "2026-05-01"
+    assert race_zero[0]["RaceType"] == "Offseason"
