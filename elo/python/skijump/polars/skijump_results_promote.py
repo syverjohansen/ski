@@ -113,21 +113,29 @@ def _validate_event_classifications(report: dict[str, object]) -> set[str]:
         raise PromotionError("replay report has no event classifications")
     statuses: Counter[str] = Counter()
     eligible_dates: set[str] = set()
+    eligible_individuals = 0
     for item in classifications:
         if not isinstance(item, dict):
             raise PromotionError("malformed replay event classification")
         status = item.get("status")
         statuses[str(status)] += 1
         if status == "eligible":
-            if item.get("sex") != "Mixed" or item.get("event_kind") != "team":
-                raise PromotionError("replay includes an eligible non-mixed-team event")
-            eligible_dates.add(str(item.get("date", "")))
+            event_kind = item.get("event_kind")
+            sex = item.get("sex")
+            if event_kind == "individual" and sex in {"M", "L"}:
+                eligible_individuals += 1
+            elif event_kind == "team" and sex == "Mixed":
+                eligible_dates.add(str(item.get("date", "")))
+            else:
+                raise PromotionError("replay includes an unsupported eligible event")
         elif status not in {"already_accepted", "policy_excluded"}:
             raise PromotionError(f"unsupported replay event status: {status!r}")
-    if not eligible_dates:
-        raise PromotionError("replay contains no eligible mixed-team events")
+    if not eligible_dates and not eligible_individuals:
+        raise PromotionError("replay contains no eligible supported events")
     if report.get("eligible_mixed_team_events") != len(eligible_dates):
         raise PromotionError("eligible mixed-team count does not match classifications")
+    if report.get("eligible_individual_events", 0) != eligible_individuals:
+        raise PromotionError("eligible individual count does not match classifications")
     return eligible_dates
 
 
