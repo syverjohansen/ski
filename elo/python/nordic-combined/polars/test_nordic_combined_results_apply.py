@@ -65,6 +65,14 @@ def prepare(root: Path) -> tuple[Path, Path]:
     report = {
         "schema_version": PROMOTION_SCHEMA,
         "status": "promotion_candidate", "season": 2026,
+        "event": {
+            "date": "2026-03-07", "sex": "Mixed", "event_kind": "team_sprint", "race": "1",
+            "race_type": "Team Sprint", "championship": "0",
+        },
+        "row_deltas": {
+            "men_chrono.csv": 1, "ladies_chrono.csv": 1,
+            "team_sprint_chrono.csv": 1,
+        },
         "atomic_candidate_set": True, "accepted_files_modified": False,
         "application_performed": False, "mapped_member_rows": 2, "mapped_team_rows": 1,
         "accepted_before": {
@@ -96,6 +104,43 @@ def args(root: Path, accepted: Path, report: Path) -> dict[str, object]:
     }
 
 
+def prepare_individual(root: Path) -> tuple[Path, Path]:
+    accepted, report_path = prepare(root)
+    candidate = report_path.parent
+    write_csv(candidate / "ladies_chrono.csv", ["value"], [{"value": "old-ladies_chrono.csv"}])
+    fields = ["Date", "Nation", "Place", "Sex", "TeamSize", "MemberIDs", "TeamMembers"]
+    team_rows = [
+        {
+            "Date": "2026-02-01", "Nation": "Norway", "Place": 1, "Sex": "M",
+            "TeamSize": 2, "MemberIDs": "1,2", "TeamMembers": "A,B",
+        },
+        {
+            "Date": "2026-02-02", "Nation": "Austria", "Place": 1, "Sex": "Mixed",
+            "TeamSize": 2, "MemberIDs": "3,4", "TeamMembers": "E,F",
+        },
+    ]
+    write_csv(candidate / "team_sprint_chrono.csv", fields, team_rows)
+    report = json.loads(report_path.read_text(encoding="utf-8"))
+    report.update(
+        event={
+            "date": "2026-03-08", "sex": "M", "event_kind": "individual", "race": "1",
+            "race_type": "Individual", "championship": "0",
+        },
+        mapped_member_rows=1,
+        mapped_team_rows=0,
+        row_deltas={
+            "men_chrono.csv": 1, "ladies_chrono.csv": 0,
+            "team_sprint_chrono.csv": 0,
+        },
+    )
+    report["outputs"] = {
+        name: {"file": name, "rows": sum(1 for _ in csv.DictReader((candidate / name).open())), "sha256": digest(candidate / name)}
+        for name in FILES
+    }
+    report_path.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return accepted, report_path
+
+
 def test_applies_all_histories_with_backup_and_receipt(tmp_path: Path) -> None:
     accepted, report = prepare(tmp_path)
     before = {name: digest(accepted / name) for name in FILES}
@@ -105,6 +150,17 @@ def test_applies_all_histories_with_backup_and_receipt(tmp_path: Path) -> None:
     assert result["after"] == {name: digest(report.parent / name) for name in FILES}
     assert Path(result["backup"]["directory"]).is_dir()
     assert Path(result["receipt"]).is_file()
+
+
+def test_applies_regular_individual_candidate_without_team_changes(tmp_path: Path) -> None:
+    accepted, report = prepare_individual(tmp_path)
+    team_before = digest(accepted / "team_sprint_chrono.csv")
+    ladies_before = digest(accepted / "ladies_chrono.csv")
+    result = apply_promotion(**args(tmp_path, accepted, report))
+    assert result["performed"] is True
+    assert digest(accepted / "team_sprint_chrono.csv") == team_before
+    assert digest(accepted / "ladies_chrono.csv") == ladies_before
+    assert digest(accepted / "men_chrono.csv") == digest(report.parent / "men_chrono.csv")
 
 
 def test_rejects_wrong_report_hash_and_season(tmp_path: Path) -> None:

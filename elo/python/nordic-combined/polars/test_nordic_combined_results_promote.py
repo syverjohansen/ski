@@ -57,6 +57,29 @@ def write_mapped(path: Path) -> None:
         writer.writerows(rows)
 
 
+def write_individual_mapped(path: Path) -> None:
+    rows = []
+    for athlete_id, name, nation, place in (
+        ("1329", "Jens Lurås Oftebro", "Norway", 1),
+        ("1348", "Julian Schmid", "Germany", 2),
+    ):
+        rows.append({
+            "date": "2026-03-08", "city": "Oslo", "country": "Norway",
+            "sex": "M", "season": "2026", "race": "1",
+            "event_kind": "individual", "distance": "10",
+            "race_type": "Individual", "championship": "0", "place": place,
+            "fis_competitor_id": f"fis-{athlete_id}", "fis_code": f"code-{athlete_id}",
+            "name": name, "nation": nation[:3].upper(),
+            "canonical_athlete_id": athlete_id, "canonical_name": name,
+            "canonical_nation": nation, "canonical_sex": "M",
+            "identity_match_method": "test_fixture",
+        })
+    with path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=MAPPED_FIELDS)
+        writer.writeheader()
+        writer.writerows(rows)
+
+
 @pytest.fixture()
 def prepared(tmp_path: Path) -> dict[str, Path]:
     mapped = tmp_path / "evidence/mapped.csv"
@@ -153,3 +176,26 @@ def test_output_cannot_be_inside_accepted_data(prepared: dict[str, Path]) -> Non
         build_promotion_candidate(
             **options(prepared, ACCEPTED / "promotion-candidate")
         )
+
+
+def test_builds_regular_individual_promotion_candidate(tmp_path: Path) -> None:
+    mapped = tmp_path / "evidence/mapped.csv"
+    mapped.parent.mkdir()
+    write_individual_mapped(mapped)
+    replay = tmp_path / "replay"
+    inputs = {
+        "mapped_results": mapped,
+        "men_history": ACCEPTED / "men_chrono.csv",
+        "ladies_history": ACCEPTED / "ladies_chrono.csv",
+        "team_sprint_history": ACCEPTED / "team_sprint_chrono.csv",
+    }
+    run_replay(**inputs, season=2026, output_dir=replay)
+    prepared = {**inputs, "replay": replay}
+    report = build_promotion_candidate(**options(prepared, tmp_path / "promotion"))
+    assert report["event"]["event_kind"] == "individual"
+    assert report["event"]["sex"] == "M"
+    assert report["mapped_member_rows"] == 2
+    assert report["mapped_team_rows"] == 0
+    assert report["row_deltas"]["men_chrono.csv"] >= 2
+    assert report["row_deltas"]["ladies_chrono.csv"] == 0
+    assert report["row_deltas"]["team_sprint_chrono.csv"] == 0
