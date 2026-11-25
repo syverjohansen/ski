@@ -11,6 +11,7 @@ from skijump_results_elo_replay import (
     aggregate_mixed_teams,
     classify_acquired_events,
     expected_scores,
+    offseason_rating,
     replay_sex,
     update_ratings,
     validate_output_dir,
@@ -245,6 +246,14 @@ def test_replay_uses_prior_race_zero_elo_once_and_changes_downstream() -> None:
         and row["ID"] == "1"
     )
     assert float(accepted["Pelo"]) != 1500.0
+    offseason = next(
+        row
+        for row in candidate
+        if row["Season"] == "2026" and row["Race"] == "0" and row["ID"] == "1"
+    )
+    assert float(offseason["Elo"]) == pytest.approx(
+        offseason_rating(float(offseason["Pelo"]))
+    )
 
 
 def test_replay_without_insertions_reproduces_accepted_rows() -> None:

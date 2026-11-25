@@ -23,6 +23,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 BASE_ELO = 1300.0
+OFFSEASON_DISCOUNT = 0.85
 TEAM_DIVISOR = 4.0
 STREAMS = ("Overall", "Small", "Medium", "Normal", "Large", "Flying")
 MAJOR_EVENT_WORDS = ("olympic", "world cup", "championship")
@@ -166,6 +167,11 @@ def update_ratings(
     if not math.isclose(sum(updated), sum(ratings), abs_tol=1e-8):
         raise ReplayError("Elo update is not zero-sum")
     return updated
+
+
+def offseason_rating(rating: float) -> float:
+    """Return the legacy 85/15 regression used at ski-jumping season close."""
+    return rating * OFFSEASON_DISCOUNT + BASE_ELO * (1.0 - OFFSEASON_DISCOUNT)
 
 
 def season_k(entry_counts: dict[int, int], season: int) -> float:
@@ -586,7 +592,7 @@ def replay_sex(
             pelo_column, elo_column = _stream_columns(stream)
             value = states[stream].get(athlete_id, "")
             output[pelo_column] = value
-            output[elo_column] = value
+            output[elo_column] = offseason_rating(value) if value != "" else ""
         rebuilt.append(output)
 
     before_index = {
