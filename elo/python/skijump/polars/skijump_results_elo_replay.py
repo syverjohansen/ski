@@ -441,8 +441,16 @@ def replay_sex(
     if stream_histories:
         for stream, source_rows in stream_histories.items():
             for row in source_rows:
-                if row["Race"] != "0":
+                if row["Race"] != "0" and int(row["Season"]) != season:
                     counts[stream][int(row["Season"])] += 1
+        # The combined accepted history is authoritative for the season being
+        # rebuilt. After mixed-team promotion it contains those member rows,
+        # while the legacy per-discipline source files do not.
+        for row in existing:
+            counts["Overall"][season] += 1
+            hill = _hill_stream(row["RaceType"])
+            if hill:
+                counts[hill][season] += 1
     else:
         for row in history_rows:
             if row["Race"] == "0":
@@ -823,11 +831,20 @@ def run_replay(
     eligible_dates = {
         identity.event_date for identity in eligible if identity.sex == "Mixed"
     }
+    mixed_team_dates = {
+        _identity(row).event_date
+        for row in mapped
+        if row["sex"] == "Mixed" and row["event_kind"] == "team"
+    }
     team_fields, team_candidate, imputed_rating_cells = aggregate_mixed_teams(
-        men_candidate, ladies_candidate, season=season, eligible_dates=eligible_dates
+        men_candidate, ladies_candidate, season=season, eligible_dates=mixed_team_dates
     )
     expected_teams = len(
-        {(row["date"], row["team_name"], row["team_nation"]) for row in replay_rows}
+        {
+            (row["date"], row["team_name"], row["team_nation"])
+            for row in mapped
+            if row["date"] in mixed_team_dates
+        }
     )
     if len(team_candidate) != expected_teams or any(
         int(row["TeamSize"]) != 4 for row in team_candidate
