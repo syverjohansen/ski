@@ -195,6 +195,8 @@ def test_classification_uses_semantic_identity_and_major_event_policy() -> None:
         mapped,
         men_chrono=chrono,
         ladies_chrono=[],
+        men_team_chrono=[],
+        ladies_team_chrono=[],
         mixed_team_chrono=[],
         men_raw=raw,
         ladies_raw=[],
@@ -289,9 +291,7 @@ def test_individual_insertion_is_not_marked_as_team_event(sex: str) -> None:
             member_order="",
         ),
     ]
-    candidate, _, changed = replay_sex(
-        history, inserted, season=2026, fields=FIELDS
-    )
+    candidate, _, changed = replay_sex(history, inserted, season=2026, fields=FIELDS)
     inserted_rows = [
         row
         for row in candidate

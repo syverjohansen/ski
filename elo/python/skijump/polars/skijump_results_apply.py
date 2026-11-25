@@ -20,12 +20,15 @@ from skijump_results_promote import (
     PROMOTION_SCHEMA,
     PromotionError,
     _validate_mixed_teams,
+    _validate_same_sex_teams,
 )
 
 RECEIPT_SCHEMA = "nordicnumbers.skijump-results-application/v1"
 ACCEPTED_FILES = {
     "candidate_men_chrono.csv": "men_chrono.csv",
     "candidate_ladies_chrono.csv": "ladies_chrono.csv",
+    "candidate_men_team_chrono.csv": "men_team_chrono.csv",
+    "candidate_ladies_team_chrono.csv": "ladies_team_chrono.csv",
     "candidate_mixed_team_chrono.csv": "mixed_team_chrono.csv",
 }
 
@@ -134,6 +137,15 @@ def _validate_candidate_set(
 
     eligible_dates = set(report.get("eligible_mixed_team_dates") or [])
     _validate_mixed_teams(candidates["mixed_team_chrono.csv"], eligible_dates)
+    team_dates = report.get("eligible_same_sex_team_dates") or {}
+    if not isinstance(team_dates, dict):
+        raise PromotionError("promotion report has malformed team dates")
+    _validate_same_sex_teams(
+        candidates["men_team_chrono.csv"], "M", set(team_dates.get("M") or [])
+    )
+    _validate_same_sex_teams(
+        candidates["ladies_team_chrono.csv"], "L", set(team_dates.get("L") or [])
+    )
     return candidates, candidate_hashes, baseline_hashes
 
 

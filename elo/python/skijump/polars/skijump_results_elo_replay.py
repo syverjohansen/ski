@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-"""Build an isolated ski-jumping mixed-team Elo replay candidate.
+"""Build an isolated ski-jumping results and Elo replay candidate.
 
 The accepted CSV files are inputs only.  The command classifies acquired
 results before replay so schedule numbering cannot duplicate an event already
 present under a different filtered-history race number, and non-major events
 remain excluded from the established World Cup/championship Elo model.
+Individual, men's team, women's team, and mixed-team results are rebuilt into
+one atomic five-history candidate set.
 """
 
 from __future__ import annotations
@@ -194,6 +196,8 @@ def classify_acquired_events(
     *,
     men_chrono: list[dict[str, str]],
     ladies_chrono: list[dict[str, str]],
+    men_team_chrono: list[dict[str, str]],
+    ladies_team_chrono: list[dict[str, str]],
     mixed_team_chrono: list[dict[str, str]],
     men_raw: list[dict[str, str]],
     ladies_raw: list[dict[str, str]],
@@ -204,6 +208,11 @@ def classify_acquired_events(
         for row in men_chrono + ladies_chrono
         if (row.get("Race") or "") != "0"
     }
+    accepted.update(
+        _identity(row)
+        for row in men_team_chrono + ladies_team_chrono
+        if (row.get("Race") or "") != "0"
+    )
     accepted.update(
         _identity(row, sex="Mixed")
         for row in mixed_team_chrono
@@ -752,6 +761,106 @@ def aggregate_mixed_teams(
     return fields, output, imputed_rating_cells
 
 
+def aggregate_same_sex_teams(
+    rows: list[dict[str, object]],
+    *,
+    season: int,
+    sex: str,
+    fields: list[str],
+) -> tuple[list[dict[str, object]], int]:
+    """Rebuild one sex's current-season team summaries from member rows."""
+    if sex not in {"M", "L"}:
+        raise ReplayError(f"unsupported same-sex team value: {sex}")
+    candidate = [
+        row
+        for row in rows
+        if int(row["Season"]) == season
+        and row["TeamEvent"] == "1"
+        and row["Sex"] == sex
+    ]
+    grouped: dict[tuple[str, str, str, str], list[dict[str, object]]] = defaultdict(
+        list
+    )
+    for row in candidate:
+        grouped[
+            (
+                str(row["Date"]),
+                str(row["RaceType"]),
+                str(row["Nation"]),
+                str(row["Place"]),
+            )
+        ].append(row)
+
+    rating_columns = [
+        column
+        for stream in ("Overall", "Normal", "Large", "Flying")
+        for column in _stream_columns(stream)
+    ]
+    quartiles: dict[str, float] = {}
+    for column in rating_columns:
+        values = sorted(
+            float(row[column])
+            for row in candidate
+            if str(row.get(column) or "").strip()
+        )
+        nearest_index = int(0.25 * (len(values) - 1) + 0.5) if values else 0
+        quartiles[column] = values[nearest_index] if values else 1200.0
+    imputed = sum(
+        not str(row.get(column) or "").strip()
+        for row in candidate
+        for column in rating_columns
+    )
+
+    output: list[dict[str, object]] = []
+    for key, members in sorted(
+        grouped.items(), key=lambda item: (item[0][0], int(item[0][3]), item[0][2])
+    ):
+        first = members[0]
+        row: dict[str, object] = {
+            "Nation": key[2],
+            "Season": season,
+            "Race": first["Race"],
+            "Place": key[3],
+            "Date": key[0],
+            "City": first["City"],
+            "Country": first["Country"],
+            "Event": first["Event"],
+            "HillSize": first["HillSize"],
+            "TeamSize": len(members),
+            "RaceType": key[1],
+            "Sex": sex,
+            "TeamMembers": ",".join(str(item["Skier"]) for item in members),
+            "MemberIDs": ",".join(str(item["ID"]) for item in members),
+        }
+        for stream in ("Overall", "Normal", "Large", "Flying"):
+            pelo, elo = _stream_columns(stream)
+            label = "" if stream == "Overall" else f"{stream}_"
+            for source, suffix in ((elo, "Elo"), (pelo, "Pelo")):
+                values = [
+                    float(item[source])
+                    if str(item.get(source) or "").strip()
+                    else quartiles[source]
+                    for item in members
+                ]
+                row[f"Total_{label}{suffix}"] = sum(values)
+                row[f"Avg_{label}{suffix}"] = sum(values) / len(values)
+        ages = [float(item.get("Age") or 0) for item in members]
+        exps = [float(item.get("Exp") or 0) for item in members]
+        row.update(
+            AvgAge=sum(ages) / len(ages),
+            MaxAge=max(ages),
+            MinAge=min(ages),
+            AvgExp=sum(exps) / len(exps),
+            MaxExp=max(exps),
+            MinExp=min(exps),
+        )
+        missing = set(fields) - set(row)
+        if missing:
+            raise ReplayError(f"team summary is missing fields: {sorted(missing)}")
+        output.append(row)
+    return output, imputed
+
+
 def run_replay(
     *,
     mapped_results: Path,
@@ -759,6 +868,8 @@ def run_replay(
     ladies_chrono: Path,
     men_raw: Path,
     ladies_raw: Path,
+    men_team_chrono: Path,
+    ladies_team_chrono: Path,
     mixed_team_chrono: Path,
     output_dir: Path,
     season: int,
@@ -768,6 +879,8 @@ def run_replay(
         ladies_chrono,
         men_raw,
         ladies_raw,
+        men_team_chrono,
+        ladies_team_chrono,
         mixed_team_chrono,
     ]
     validate_output_dir(output_dir, accepted_inputs)
@@ -796,6 +909,8 @@ def run_replay(
         ladies_chrono,
         men_raw,
         ladies_raw,
+        men_team_chrono,
+        ladies_team_chrono,
         mixed_team_chrono,
         *men_stream_paths,
         *ladies_stream_paths,
@@ -806,6 +921,8 @@ def run_replay(
     ladies_fields, ladies_history = _read(ladies_chrono)
     _, men_raw_rows = _read(men_raw)
     _, ladies_raw_rows = _read(ladies_raw)
+    men_team_fields, men_team_history = _read(men_team_chrono)
+    ladies_team_fields, ladies_team_history = _read(ladies_team_chrono)
     mixed_fields, mixed_history = _read(mixed_team_chrono)
     required_mapped = {
         "canonical_athlete_id",
@@ -821,19 +938,13 @@ def run_replay(
         mapped,
         men_chrono=men_history,
         ladies_chrono=ladies_history,
+        men_team_chrono=men_team_history,
+        ladies_team_chrono=ladies_team_history,
         mixed_team_chrono=mixed_history,
         men_raw=men_raw_rows,
         ladies_raw=ladies_raw_rows,
     )
     replay_rows = [row for row in mapped if _identity(row) in eligible]
-    unsupported = [
-        row
-        for row in replay_rows
-        if row["event_kind"] == "team" and row["sex"] != "Mixed"
-    ]
-    if unsupported:
-        raise ReplayError("eligible same-sex team results require a separate replay path")
-
     men_insert = [row for row in replay_rows if row["canonical_sex"] == "M"]
     ladies_insert = [row for row in replay_rows if row["canonical_sex"] == "L"]
     men_candidate, men_k, men_changed = replay_sex(
@@ -850,6 +961,46 @@ def run_replay(
         fields=ladies_fields,
         stream_histories=ladies_streams,
     )
+    men_team_rows, men_team_imputed = aggregate_same_sex_teams(
+        men_candidate,
+        season=season,
+        sex="M",
+        fields=men_team_fields,
+    )
+    ladies_team_rows, ladies_team_imputed = aggregate_same_sex_teams(
+        ladies_candidate,
+        season=season,
+        sex="L",
+        fields=ladies_team_fields,
+    )
+    men_team_candidate = [
+        row for row in men_team_history if int(row["Season"]) < season
+    ] + men_team_rows
+    ladies_team_candidate = [
+        row for row in ladies_team_history if int(row["Season"]) < season
+    ] + ladies_team_rows
+    for sex, aggregated in (("M", men_team_rows), ("L", ladies_team_rows)):
+        expected_groups: dict[tuple[str, str, str], set[str]] = defaultdict(set)
+        for row in replay_rows:
+            if row["event_kind"] == "team" and row["sex"] == sex:
+                expected_groups[
+                    (row["date"], row["team_name"], row["team_nation"])
+                ].add(row["canonical_athlete_id"])
+        expected_members = {
+            (event_date, frozenset(member_ids))
+            for (event_date, _, _), member_ids in expected_groups.items()
+        }
+        actual_members = {
+            (
+                str(row["Date"]),
+                frozenset(str(row["MemberIDs"]).split(",")),
+            )
+            for row in aggregated
+        }
+        if not expected_members.issubset(actual_members):
+            raise ReplayError(
+                f"{sex} team aggregation did not preserve every acquired team"
+            )
     eligible_dates = {
         identity.event_date for identity in eligible if identity.sex == "Mixed"
     }
@@ -891,6 +1042,16 @@ def run_replay(
         output_dir / "candidate_ladies_chrono.csv", ladies_fields, ladies_candidate
     )
     _atomic_csv(
+        output_dir / "candidate_men_team_chrono.csv",
+        men_team_fields,
+        men_team_candidate,
+    )
+    _atomic_csv(
+        output_dir / "candidate_ladies_team_chrono.csv",
+        ladies_team_fields,
+        ladies_team_candidate,
+    )
+    _atomic_csv(
         output_dir / "candidate_mixed_team_chrono.csv", team_fields, team_candidate
     )
     after_hashes = {str(path): _sha256(path) for path in inputs}
@@ -907,9 +1068,24 @@ def run_replay(
         "eligible_individual_events": sum(
             identity.event_kind == "individual" for identity in eligible
         ),
+        "eligible_same_sex_team_events": {
+            sex: sum(
+                identity.event_kind == "team" and identity.sex == sex
+                for identity in eligible
+            )
+            for sex in ("M", "L")
+        },
         "inserted_member_rows": len(men_insert) + len(ladies_insert),
+        "candidate_same_sex_team_rows": {
+            "M": len(men_team_candidate),
+            "L": len(ladies_team_candidate),
+        },
         "candidate_mixed_team_rows": len(team_candidate),
-        "imputed_team_rating_cells": imputed_rating_cells,
+        "imputed_team_rating_cells": {
+            "M": men_team_imputed,
+            "L": ladies_team_imputed,
+            "Mixed": imputed_rating_cells,
+        },
         "changed_existing_downstream_rows": {
             "men": men_changed,
             "ladies": ladies_changed,
@@ -920,6 +1096,8 @@ def run_replay(
             for name in (
                 "candidate_men_chrono.csv",
                 "candidate_ladies_chrono.csv",
+                "candidate_men_team_chrono.csv",
+                "candidate_ladies_team_chrono.csv",
                 "candidate_mixed_team_chrono.csv",
             )
         },
@@ -935,6 +1113,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--ladies-chrono", required=True, type=Path)
     parser.add_argument("--men-raw", required=True, type=Path)
     parser.add_argument("--ladies-raw", required=True, type=Path)
+    parser.add_argument("--men-team-chrono", required=True, type=Path)
+    parser.add_argument("--ladies-team-chrono", required=True, type=Path)
     parser.add_argument("--mixed-team-chrono", required=True, type=Path)
     parser.add_argument("--season", required=True, type=int)
     parser.add_argument("--output-dir", required=True, type=Path)

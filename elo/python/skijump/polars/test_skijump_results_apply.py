@@ -31,6 +31,35 @@ def prepare(root: Path) -> tuple[Path, Path]:
     for name in ("men_chrono.csv", "ladies_chrono.csv"):
         write_csv(accepted / name, ["value"], [{"value": f"old-{name}"}])
         write_csv(candidate / name, ["value"], [{"value": f"new-{name}"}])
+    team_fields = [
+        "Date",
+        "Nation",
+        "Place",
+        "Sex",
+        "TeamSize",
+        "MemberIDs",
+        "TeamMembers",
+    ]
+    for name, sex in (
+        ("men_team_chrono.csv", "M"),
+        ("ladies_team_chrono.csv", "L"),
+    ):
+        write_csv(accepted / name, ["value"], [{"value": f"old-{name}"}])
+        write_csv(
+            candidate / name,
+            team_fields,
+            [
+                {
+                    "Date": "2025-11-22",
+                    "Nation": "Norway",
+                    "Place": 1,
+                    "Sex": sex,
+                    "TeamSize": 2,
+                    "MemberIDs": "1,2",
+                    "TeamMembers": "A,B",
+                }
+            ],
+        )
     write_csv(accepted / "mixed_team_chrono.csv", ["value"], [{"value": "old"}])
     mixed_fields = [
         "Date",
@@ -58,7 +87,13 @@ def prepare(root: Path) -> tuple[Path, Path]:
             }
         ],
     )
-    names = ("men_chrono.csv", "ladies_chrono.csv", "mixed_team_chrono.csv")
+    names = (
+        "men_chrono.csv",
+        "ladies_chrono.csv",
+        "men_team_chrono.csv",
+        "ladies_team_chrono.csv",
+        "mixed_team_chrono.csv",
+    )
     report = {
         "schema_version": PROMOTION_SCHEMA,
         "status": "promotion_candidate",
@@ -66,6 +101,7 @@ def prepare(root: Path) -> tuple[Path, Path]:
         "accepted_files_modified": False,
         "atomic_candidate_set": True,
         "eligible_mixed_team_dates": ["2025-11-21"],
+        "eligible_same_sex_team_dates": {"M": [], "L": []},
         "accepted_before": {
             name: {"file": str(accepted / name), "sha256": digest(accepted / name)}
             for name in names
@@ -97,7 +133,13 @@ def test_applies_all_histories_and_writes_receipt(tmp_path: Path) -> None:
     accepted, report = prepare(tmp_path)
     before = {
         name: digest(accepted / name)
-        for name in ("men_chrono.csv", "ladies_chrono.csv", "mixed_team_chrono.csv")
+        for name in (
+            "men_chrono.csv",
+            "ladies_chrono.csv",
+            "men_team_chrono.csv",
+            "ladies_team_chrono.csv",
+            "mixed_team_chrono.csv",
+        )
     }
     result = apply_promotion(**args(tmp_path, accepted, report))
     assert result["performed"] is True
@@ -160,7 +202,13 @@ def test_partial_replace_failure_restores_all_histories(tmp_path: Path) -> None:
     accepted, report = prepare(tmp_path)
     before = {
         name: (accepted / name).read_bytes()
-        for name in ("men_chrono.csv", "ladies_chrono.csv", "mixed_team_chrono.csv")
+        for name in (
+            "men_chrono.csv",
+            "ladies_chrono.csv",
+            "men_team_chrono.csv",
+            "ladies_team_chrono.csv",
+            "mixed_team_chrono.csv",
+        )
     }
     real_replace = os.replace
     calls = 0
@@ -184,7 +232,13 @@ def test_receipt_failure_restores_all_histories(tmp_path: Path) -> None:
     accepted, report = prepare(tmp_path)
     before = {
         name: (accepted / name).read_bytes()
-        for name in ("men_chrono.csv", "ladies_chrono.csv", "mixed_team_chrono.csv")
+        for name in (
+            "men_chrono.csv",
+            "ladies_chrono.csv",
+            "men_team_chrono.csv",
+            "ladies_team_chrono.csv",
+            "mixed_team_chrono.csv",
+        )
     }
     with (
         patch("skijump_results_apply._atomic_json", side_effect=OSError("receipt")),
