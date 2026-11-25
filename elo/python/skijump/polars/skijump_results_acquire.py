@@ -17,18 +17,21 @@ import re
 import tempfile
 import time
 import unicodedata
+from collections.abc import Callable, Iterable
 from dataclasses import asdict, dataclass
 from datetime import date
 from pathlib import Path
-from typing import Callable, Iterable
 from urllib.error import HTTPError, URLError
 from urllib.parse import parse_qs, urlparse
 from urllib.request import Request, urlopen
 
 from bs4 import BeautifulSoup
-
-from skijump_results_gap import MissingRace, find_missing_races, validate_results_url
-
+from skijump_results_gap import (
+    DEFAULT_POLICY_EXCLUSIONS,
+    MissingRace,
+    audit_races,
+    validate_results_url,
+)
 
 RESULT_FIELDS = (
     "date",
@@ -275,6 +278,7 @@ def acquire_results(
     mixed_team_chrono: Path,
     as_of: date,
     output_dir: Path,
+    policy_exclusions: Path | None = None,
     fetcher: Callable[[str], bytes] = fetch_html,
 ) -> dict[str, object]:
     sources = (
@@ -284,9 +288,10 @@ def acquire_results(
         men_team_chrono,
         ladies_team_chrono,
         mixed_team_chrono,
+        *(path for path in [policy_exclusions] if path is not None),
     )
     output_dir = validate_output_dir(output_dir, sources)
-    missing, completed_count = find_missing_races(
+    missing, policy_excluded, completed_count = audit_races(
         schedule=schedule,
         men_chrono=men_chrono,
         ladies_chrono=ladies_chrono,
@@ -294,6 +299,7 @@ def acquire_results(
         ladies_team_chrono=ladies_team_chrono,
         mixed_team_chrono=mixed_team_chrono,
         as_of=as_of,
+        policy_exclusions=policy_exclusions,
     )
     evidence: list[RaceEvidence] = []
     all_rows: list[dict[str, object]] = []
@@ -352,9 +358,11 @@ def acquire_results(
         "as_of": as_of.isoformat(),
         "completed_schedule_races": completed_count,
         "gap_count": len(missing),
-        "classified_race_count": sum(
-            item.status == "classified" for item in evidence
-        ),
+        "policy_excluded_race_count": len(policy_excluded),
+        "policy_excluded_races": [
+            {**asdict(item.race), "reason": item.reason} for item in policy_excluded
+        ],
+        "classified_race_count": sum(item.status == "classified" for item in evidence),
         "cancelled_race_count": sum(item.status == "cancelled" for item in evidence),
         "unresolved_race_count": unresolved,
         "acquired_result_rows": len(all_rows),
@@ -378,6 +386,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--men-team-chrono", required=True, type=Path)
     parser.add_argument("--ladies-team-chrono", required=True, type=Path)
     parser.add_argument("--mixed-team-chrono", required=True, type=Path)
+    parser.add_argument(
+        "--policy-exclusions", type=Path, default=DEFAULT_POLICY_EXCLUSIONS
+    )
     parser.add_argument("--as-of", required=True, type=date.fromisoformat)
     parser.add_argument("--output-dir", required=True, type=Path)
     parser.add_argument("--allow-network", action="store_true")
@@ -396,6 +407,7 @@ def main() -> int:
         men_team_chrono=args.men_team_chrono,
         ladies_team_chrono=args.ladies_team_chrono,
         mixed_team_chrono=args.mixed_team_chrono,
+        policy_exclusions=args.policy_exclusions,
         as_of=args.as_of,
         output_dir=args.output_dir,
     )

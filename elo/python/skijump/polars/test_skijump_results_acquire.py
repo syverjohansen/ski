@@ -6,7 +6,6 @@ from datetime import date
 from pathlib import Path
 
 import pytest
-
 from skijump_results_acquire import (
     AcquisitionError,
     acquire_results,
@@ -17,14 +16,24 @@ from skijump_results_acquire import (
 )
 from skijump_results_gap import MissingRace
 
-
 FIXTURES = Path(__file__).with_name("tests") / "fixtures"
 SCHEDULE_FIELDS = [
-    "Date", "Final_Date", "Startlist", "Sex", "City", "Country",
-    "HillSize", "RaceType", "Period", "Elevation", "Championship", "Race",
+    "Date",
+    "Final_Date",
+    "Startlist",
+    "Sex",
+    "City",
+    "Country",
+    "HillSize",
+    "RaceType",
+    "Period",
+    "Elevation",
+    "Championship",
+    "Race",
 ]
 INDIVIDUAL_FIELDS = ["Date", "Sex", "Season", "Race", "TeamEvent"]
 TEAM_FIELDS = ["Date", "Sex", "Season", "Race"]
+EXCLUSION_FIELDS = ["fis_race_id", "season", "sex", "date", "event_kind", "reason"]
 
 
 def fixture(name: str) -> bytes:
@@ -44,8 +53,7 @@ def schedule_row(**overrides: object) -> dict[str, object]:
         "Date": "11/21/2025",
         "Final_Date": "11/22/2025",
         "Startlist": (
-            "https://www.fis-ski.com/DB/general/results.html?"
-            "sectorcode=JP&raceid=7459"
+            "https://www.fis-ski.com/DB/general/results.html?sectorcode=JP&raceid=7459"
         ),
         "Sex": "M",
         "City": "Lillehammer",
@@ -67,16 +75,10 @@ def inputs(tmp_path: Path, rows: list[dict[str, object]]) -> dict[str, Path]:
     return {
         "schedule": write_csv(accepted / "races.csv", SCHEDULE_FIELDS, rows),
         "men_chrono": write_csv(accepted / "men.csv", INDIVIDUAL_FIELDS, []),
-        "ladies_chrono": write_csv(
-            accepted / "ladies.csv", INDIVIDUAL_FIELDS, []
-        ),
+        "ladies_chrono": write_csv(accepted / "ladies.csv", INDIVIDUAL_FIELDS, []),
         "men_team_chrono": write_csv(accepted / "men-team.csv", TEAM_FIELDS, []),
-        "ladies_team_chrono": write_csv(
-            accepted / "ladies-team.csv", TEAM_FIELDS, []
-        ),
-        "mixed_team_chrono": write_csv(
-            accepted / "mixed-team.csv", TEAM_FIELDS, []
-        ),
+        "ladies_team_chrono": write_csv(accepted / "ladies-team.csv", TEAM_FIELDS, []),
+        "mixed_team_chrono": write_csv(accepted / "mixed-team.csv", TEAM_FIELDS, []),
     }
 
 
@@ -93,8 +95,7 @@ def gap(**overrides: object) -> MissingRace:
         "race_type": "Large",
         "championship": False,
         "results_url": (
-            "https://www.fis-ski.com/DB/general/results.html?"
-            "sectorcode=JP&raceid=7459"
+            "https://www.fis-ski.com/DB/general/results.html?sectorcode=JP&raceid=7459"
         ),
         "fis_race_id": "7459",
     }
@@ -130,10 +131,12 @@ def test_parses_ranked_teams_and_members() -> None:
 
 def test_distinguishes_cancelled_and_unexplained_empty_pages() -> None:
     assert page_status(fixture("jp-cancelled-results.html"), "individual") == (
-        "cancelled", []
+        "cancelled",
+        [],
     )
     assert page_status(fixture("jp-no-results.html"), "individual") == (
-        "no_results", []
+        "no_results",
+        [],
     )
 
 
@@ -220,3 +223,36 @@ def test_output_cannot_be_inside_accepted_directory(tmp_path: Path) -> None:
             output_dir=source_inputs["schedule"].parent / "candidate",
             fetcher=lambda _: fixture("jp-individual-results.html"),
         )
+
+
+def test_acquisition_does_not_fetch_reviewed_policy_exclusions(tmp_path: Path) -> None:
+    source_inputs = inputs(tmp_path, [schedule_row()])
+    exclusions = write_csv(
+        source_inputs["schedule"].parent / "exclusions.csv",
+        EXCLUSION_FIELDS,
+        [
+            {
+                "fis_race_id": "7459",
+                "season": 2026,
+                "sex": "M",
+                "date": "2025-11-22",
+                "event_kind": "individual",
+                "reason": "test non-major event",
+            }
+        ],
+    )
+
+    def unexpected_fetch(_: str) -> bytes:
+        raise AssertionError("policy-excluded race must not be fetched")
+
+    report = acquire_results(
+        **source_inputs,
+        as_of=date(2025, 11, 22),
+        output_dir=tmp_path / "evidence",
+        policy_exclusions=exclusions,
+        fetcher=unexpected_fetch,
+    )
+    assert report["gap_count"] == 0
+    assert report["policy_excluded_race_count"] == 1
+    assert report["policy_excluded_races"][0]["fis_race_id"] == "7459"
+    assert report["races"] == []
