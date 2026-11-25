@@ -8,7 +8,7 @@ from pathlib import Path
 
 import pytest
 
-from nordic_combined_results_identity import ALIAS_FIELDS
+from nordic_combined_results_identity import ALIAS_FIELDS, load_aliases, load_athletes
 from nordic_combined_startlist_acquire import STARTLIST_FIELDS
 from nordic_combined_startlist_normalize import (
     FILENAMES,
@@ -23,6 +23,7 @@ HISTORY_FIELDS = [
     "RaceType", "Place", "Skier", "Nation", "ID", "Season", "Race",
 ]
 LOGICAL_DATE = date(2026, 2, 10)
+HERE = Path(__file__).resolve().parent
 
 
 def write_csv(path: Path, fields: list[str] | tuple[str, ...], rows: list[dict[str, object]]) -> Path:
@@ -155,3 +156,23 @@ def test_checksum_drift_and_unsafe_output_fail_closed(tmp_path: Path) -> None:
             **clean, logical_date=LOGICAL_DATE,
             output_dir=clean["men_history"].parent / "candidate",
         )
+
+
+def test_reviewed_aliases_cover_live_lahti_identity_drift() -> None:
+    accepted = HERE / "excel365"
+    athletes, _, names = load_athletes(
+        accepted / "men_chrono_elevation.csv",
+        accepted / "ladies_chrono_elevation.csv",
+    )
+    aliases = load_aliases(
+        HERE / "nordic_combined_results_identity_aliases.csv", athletes, names
+    )
+    assert {
+        fis_id: (row["canonical_sex"], row["canonical_id"], row["canonical_name"])
+        for fis_id, row in aliases.items()
+    } == {
+        "153563": ("M", "345", "Espen Andersen"),
+        "182614": ("M", "1329", "Jens Lurås Oftebro"),
+        "200998": ("M", "1217", "Einar Lurås Oftebro"),
+        "255089": ("L", "176", "Lily Grossmann"),
+    }
