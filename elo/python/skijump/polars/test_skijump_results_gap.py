@@ -8,7 +8,13 @@ from datetime import date
 from pathlib import Path
 
 import pytest
-from skijump_results_gap import find_missing_races, load_schedule
+from skijump_results_gap import (
+    DEFAULT_POLICY_EXCLUSIONS,
+    audit_races,
+    find_missing_races,
+    load_policy_exclusions,
+    load_schedule,
+)
 
 ROOT = Path(__file__).resolve().parent
 ACCEPTED = ROOT / "relay" / "excel365"
@@ -29,6 +35,7 @@ SCHEDULE_FIELDS = [
 ]
 INDIVIDUAL_FIELDS = ["Date", "Sex", "Season", "Race", "TeamEvent"]
 TEAM_FIELDS = ["Date", "Sex", "Season", "Race"]
+EXCLUSION_FIELDS = ["fis_race_id", "season", "sex", "date", "event_kind", "reason"]
 
 
 def write_csv(path: Path, fields: list[str], rows: list[dict[str, object]]) -> Path:
@@ -323,3 +330,58 @@ def test_accepted_2026_histories_leave_only_known_policy_candidates() -> None:
     assert completed == 75
     assert {item.fis_race_id for item in missing} == {"7687", "7688"}
     assert all(item.event_kind == "individual" for item in missing)
+
+
+def test_reviewed_policy_ledger_closes_2026_audit() -> None:
+    missing, excluded, completed = audit_races(
+        schedule=SCHEDULE,
+        men_chrono=ACCEPTED / "men_chrono.csv",
+        ladies_chrono=ACCEPTED / "ladies_chrono.csv",
+        men_team_chrono=ACCEPTED / "men_team_chrono.csv",
+        ladies_team_chrono=ACCEPTED / "ladies_team_chrono.csv",
+        mixed_team_chrono=ACCEPTED / "mixed_team_chrono.csv",
+        as_of=date(2026, 11, 24),
+        policy_exclusions=DEFAULT_POLICY_EXCLUSIONS,
+    )
+    assert completed == 75
+    assert missing == []
+    assert {item.race.fis_race_id for item in excluded} == {"7687", "7688"}
+
+
+def test_policy_exclusion_metadata_must_match_schedule(tmp_path: Path) -> None:
+    schedule = write_csv(tmp_path / "races.csv", SCHEDULE_FIELDS, [schedule_row()])
+    exclusions = write_csv(
+        tmp_path / "exclusions.csv",
+        EXCLUSION_FIELDS,
+        [
+            {
+                "fis_race_id": "7459",
+                "season": 2026,
+                "sex": "L",
+                "date": "2025-11-22",
+                "event_kind": "individual",
+                "reason": "test exclusion",
+            }
+        ],
+    )
+    with pytest.raises(ValueError, match="metadata mismatch"):
+        audit_races(
+            schedule=schedule,
+            as_of=date(2025, 11, 22),
+            policy_exclusions=exclusions,
+            **empty_histories(tmp_path),
+        )
+
+
+def test_policy_exclusion_ids_must_be_unique(tmp_path: Path) -> None:
+    row = {
+        "fis_race_id": "7459",
+        "season": 2026,
+        "sex": "M",
+        "date": "2025-11-22",
+        "event_kind": "individual",
+        "reason": "test exclusion",
+    }
+    exclusions = write_csv(tmp_path / "exclusions.csv", EXCLUSION_FIELDS, [row, row])
+    with pytest.raises(ValueError, match="duplicate policy exclusion"):
+        load_policy_exclusions(exclusions)
