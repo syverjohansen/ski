@@ -8,6 +8,7 @@ from pathlib import Path
 import pytest
 
 from nordic_combined_results_replay import (
+    _candidate_row,
     _read,
     actual_scores,
     expected_scores,
@@ -51,6 +52,38 @@ def write_individual(path: Path, *, championship: str = "0") -> None:
             })
 
 
+def write_men_team(path: Path, *, event_kind: str) -> None:
+    team_size = 4 if event_kind == "team" else 2
+    athletes = {
+        "Austria": [
+            ("1469", "Johannes Lamparter"), ("72", "Franz-Josef Rehrl"),
+            ("1467", "Thomas Rettenegger"), ("1775", "Stefan Rettenegger"),
+        ],
+        "Germany": [
+            ("1348", "Julian Schmid"), ("14", "Johannes Rydzek"),
+            ("1137", "Terence Weber"), ("1468", "David Mach"),
+        ],
+    }
+    with path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=MAPPED_FIELDS)
+        writer.writeheader()
+        for place, (nation, members) in enumerate(athletes.items(), 1):
+            for order, (athlete_id, name) in enumerate(members[:team_size], 1):
+                writer.writerow({
+                    "date": "2026-03-08", "city": "Oslo", "country": "Norway",
+                    "sex": "M", "season": "2026", "race": "1",
+                    "event_kind": event_kind, "distance": "4x5" if team_size == 4 else "2x7.5",
+                    "race_type": "Team" if event_kind == "team" else "Team Sprint",
+                    "championship": "0", "place": place,
+                    "team_name": f"{nation.upper()} I", "team_nation": nation,
+                    "member_order": order, "fis_competitor_id": f"fis-{athlete_id}",
+                    "fis_code": f"code-{athlete_id}", "name": name,
+                    "nation": nation[:3].upper(), "canonical_athlete_id": athlete_id,
+                    "canonical_name": name, "canonical_nation": nation,
+                    "canonical_sex": "M", "identity_match_method": "test_fixture",
+                })
+
+
 def test_pairwise_scores_handle_ties_and_elo_update_is_zero_sum() -> None:
     assert actual_scores([1, 2, 2, 4]) == [3.0, 1.5, 1.5, 0.0]
     assert expected_scores([1300.0, 1300.0]) == [0.5, 0.5]
@@ -90,13 +123,14 @@ def test_live_mapped_candidate_inserts_mixed_teams_without_promoting(tmp_path: P
         mapped,
         RELAY / "men_chrono.csv",
         RELAY / "ladies_chrono.csv",
+        RELAY / "men_team_chrono.csv",
         RELAY / "team_sprint_chrono.csv",
     ]
     before = {path: hashlib.sha256(path.read_bytes()).hexdigest() for path in sources}
     report = run_replay(
         mapped_results=mapped,
         men_history=sources[1], ladies_history=sources[2],
-        team_sprint_history=sources[3], season=2026,
+        team_history=sources[3], team_sprint_history=sources[4], season=2026,
         output_dir=tmp_path / "candidate",
     )
     assert report["inserted_member_rows"] == 28
@@ -120,6 +154,7 @@ def test_candidate_output_cannot_be_inside_accepted_data(tmp_path: Path) -> None
             mapped_results=mapped,
             men_history=RELAY / "men_chrono.csv",
             ladies_history=RELAY / "ladies_chrono.csv",
+            team_history=RELAY / "men_team_chrono.csv",
             team_sprint_history=RELAY / "team_sprint_chrono.csv",
             season=2026,
             output_dir=RELAY / "candidate",
@@ -134,6 +169,7 @@ def test_regular_individual_event_replays_only_its_sex(tmp_path: Path) -> None:
         mapped_results=mapped,
         men_history=RELAY / "men_chrono.csv",
         ladies_history=RELAY / "ladies_chrono.csv",
+        team_history=RELAY / "men_team_chrono.csv",
         team_sprint_history=RELAY / "team_sprint_chrono.csv",
         season=2026, output_dir=tmp_path / "candidate",
     )
@@ -145,6 +181,7 @@ def test_regular_individual_event_replays_only_its_sex(tmp_path: Path) -> None:
     assert report["inserted_team_rows"] == 0
     assert report["row_deltas"]["men_chrono.csv"] >= 2
     assert report["row_deltas"]["ladies_chrono.csv"] == 0
+    assert report["row_deltas"]["men_team_chrono.csv"] == 0
     assert report["row_deltas"]["team_sprint_chrono.csv"] == 0
     _, men = _read(tmp_path / "candidate/candidate_men_chrono.csv")
     inserted = [row for row in men if row["Date"] == "2026-03-08"]
@@ -152,12 +189,35 @@ def test_regular_individual_event_replays_only_its_sex(tmp_path: Path) -> None:
     assert {row["RaceType"] for row in inserted} == {"Individual"}
 
 
-def test_championship_individual_is_explicitly_unsupported(tmp_path: Path) -> None:
-    mapped = tmp_path / "mapped.csv"
+def test_championship_individual_uses_olympic_event_label(tmp_path: Path) -> None:
+    mapped = tmp_path / "evidence/mapped.csv"
+    mapped.parent.mkdir()
     write_individual(mapped, championship="1")
     _, rows = _read(mapped)
-    with pytest.raises(Exception, match="supported events"):
-        mapped_event(rows, 2026)
+    assert mapped_event(rows, 2026)["championship"] == "1"
+    run_replay(
+        mapped_results=mapped,
+        men_history=RELAY / "men_chrono.csv",
+        ladies_history=RELAY / "ladies_chrono.csv",
+        team_history=RELAY / "men_team_chrono.csv",
+        team_sprint_history=RELAY / "team_sprint_chrono.csv",
+        season=2026, output_dir=tmp_path / "candidate",
+    )
+    _, men = _read(tmp_path / "candidate/candidate_men_chrono.csv")
+    inserted = [row for row in men if row["Date"] == "2026-03-08"]
+    assert {row["Event"] for row in inserted} == {"Olympic Games"}
+
+
+def test_odd_season_championship_uses_world_championship_label() -> None:
+    mapped = {
+        "date": "2027-03-01", "city": "Falun", "country": "Sweden",
+        "sex": "M", "canonical_sex": "M", "season": "2027", "race": "1",
+        "event_kind": "individual", "distance": "10", "race_type": "Individual",
+        "championship": "1", "place": "1", "canonical_name": "Test Athlete",
+        "canonical_nation": "Norway", "canonical_athlete_id": "1", "member_order": "",
+    }
+    row = _candidate_row(mapped, {"Birthday": "2000-01-01", "Exp": "4"}, 1)
+    assert row["Event"] == "World Championship"
 
 
 def test_individual_replay_creates_race_zero_for_returning_athlete(tmp_path: Path) -> None:
@@ -178,6 +238,7 @@ def test_individual_replay_creates_race_zero_for_returning_athlete(tmp_path: Pat
         mapped_results=mapped,
         men_history=RELAY / "men_chrono.csv",
         ladies_history=RELAY / "ladies_chrono.csv",
+        team_history=RELAY / "men_team_chrono.csv",
         team_sprint_history=RELAY / "team_sprint_chrono.csv",
         season=2026, output_dir=tmp_path / "candidate",
     )
@@ -187,3 +248,43 @@ def test_individual_replay_creates_race_zero_for_returning_athlete(tmp_path: Pat
     assert len(race_zero) == 1
     assert race_zero[0]["Date"] == "2026-05-01"
     assert race_zero[0]["RaceType"] == "Offseason"
+
+
+@pytest.mark.parametrize(
+    ("event_kind", "aggregate_file", "team_size"),
+    [
+        ("team", "candidate_men_team_chrono.csv", "4"),
+        ("team_sprint", "candidate_team_sprint_chrono.csv", "2"),
+    ],
+)
+def test_same_sex_team_formats_replay_members_and_aggregate(
+    tmp_path: Path, event_kind: str, aggregate_file: str, team_size: str
+) -> None:
+    mapped = tmp_path / "evidence/mapped.csv"
+    mapped.parent.mkdir()
+    write_men_team(mapped, event_kind=event_kind)
+    report = run_replay(
+        mapped_results=mapped,
+        men_history=RELAY / "men_chrono.csv",
+        ladies_history=RELAY / "ladies_chrono.csv",
+        team_history=RELAY / "men_team_chrono.csv",
+        team_sprint_history=RELAY / "team_sprint_chrono.csv",
+        season=2026, output_dir=tmp_path / "candidate",
+    )
+    assert report["event"]["event_kind"] == event_kind
+    assert report["inserted_team_rows"] == 2
+    expected_aggregate = (
+        "men_team_chrono.csv" if event_kind == "team"
+        else "team_sprint_chrono.csv"
+    )
+    assert report["row_deltas"][expected_aggregate] == 2
+    _, aggregate = _read(tmp_path / "candidate" / aggregate_file)
+    inserted = [row for row in aggregate if row["Date"] == "2026-03-08"]
+    assert len(inserted) == 2
+    assert {row["Sex"] for row in inserted} == {"M"}
+    assert {row["TeamSize"] for row in inserted} == {team_size}
+    for row in inserted:
+        assert float(row["Avg_Elo"]) == pytest.approx(
+            float(row["Team_Elo"]) / int(team_size)
+        )
+        assert float(row["AvgAge"]) <= float(row["MaxAge"])

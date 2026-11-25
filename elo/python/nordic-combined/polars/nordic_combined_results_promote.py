@@ -19,6 +19,7 @@ PROMOTION_SCHEMA = "nordicnumbers.nordic-combined-results-promotion/v1"
 REPLAY_FILES = {
     "candidate_men_chrono.csv": "men_chrono.csv",
     "candidate_ladies_chrono.csv": "ladies_chrono.csv",
+    "candidate_men_team_chrono.csv": "men_team_chrono.csv",
     "candidate_team_sprint_chrono.csv": "team_sprint_chrono.csv",
 }
 
@@ -123,13 +124,19 @@ def _validate_mapped(mapped_results: Path, season: int) -> tuple[int, int, dict[
         if athlete in athletes:
             raise PromotionError(f"duplicate mapped athlete {athlete}")
         athletes.add(athlete)
-        if event["event_kind"] == "team_sprint":
+        if event["event_kind"] in {"team", "team_sprint"}:
             key = (row["date"], row["team_name"], row["team_nation"], row["place"])
             teams[key].append(row)
-    if event["event_kind"] == "team_sprint":
+    if event["event_kind"] in {"team", "team_sprint"}:
         for key, members in teams.items():
-            if len(members) != 2 or Counter(row["canonical_sex"] for row in members) != Counter({"M": 1, "L": 1}):
-                raise PromotionError(f"mixed team {key} is not exactly one man and one woman")
+            orders = sorted(int(row["member_order"]) for row in members)
+            if len(members) < 2 or orders != list(range(1, len(members) + 1)):
+                raise PromotionError(f"team {key} has invalid member order")
+            sexes = Counter(row["canonical_sex"] for row in members)
+            if event["sex"] == "Mixed" and sexes != Counter({"M": 1, "L": 1}):
+                raise PromotionError(f"mixed team {key} is not one man and one woman")
+            if event["sex"] != "Mixed" and set(sexes) != {event["sex"]}:
+                raise PromotionError(f"team {key} contains an athlete of the wrong sex")
     return len(rows), len(teams), event
 
 
@@ -153,23 +160,29 @@ def _validate_candidates(
             raise PromotionError(f"{filename} does not contain every mapped {sex} member")
     if event["event_kind"] == "individual":
         return
-    team_rows = _read(candidate_dir / "team_sprint_chrono.csv")
-    expected_teams = {
-        (row["date"], row["canonical_nation"], row["place"]) for row in mapped
-    }
+    aggregate_file = (
+        "men_team_chrono.csv" if event["event_kind"] == "team"
+        else "team_sprint_chrono.csv"
+    )
+    team_rows = _read(candidate_dir / aggregate_file)
+    expected_teams: dict[tuple[str, str, str], set[str]] = defaultdict(set)
+    for row in mapped:
+        expected_teams[(row["date"], row["canonical_nation"], row["place"])].add(
+            row["canonical_athlete_id"]
+        )
     found: set[tuple[str, str, str]] = set()
     for number, row in enumerate(team_rows, 2):
         key = (row["Date"], row["Nation"], row["Place"])
-        if row["Sex"] != "Mixed" or key not in expected_teams:
+        if row["Sex"] != event["sex"] or key not in expected_teams:
             continue
-        members = [value for value in row["MemberIDs"].split(",") if value]
-        if row["TeamSize"] != "2" or len(members) != 2 or len(set(members)) != 2:
-            raise PromotionError(f"team_sprint_chrono.csv:{number}: invalid mixed team")
+        members = {value for value in row["MemberIDs"].split(",") if value}
+        if row["TeamSize"] != str(len(members)) or members != expected_teams[key]:
+            raise PromotionError(f"{aggregate_file}:{number}: invalid team")
         if key in found:
-            raise PromotionError(f"duplicate mixed team {key}")
+            raise PromotionError(f"duplicate team {key}")
         found.add(key)
-    if found != expected_teams:
-        raise PromotionError("team-sprint candidate does not contain every mapped team")
+    if found != set(expected_teams):
+        raise PromotionError(f"{aggregate_file} does not contain every mapped team")
 
 
 def _atomic_json(path: Path, payload: dict[str, object]) -> None:
@@ -182,12 +195,13 @@ def _atomic_json(path: Path, payload: dict[str, object]) -> None:
 
 def build_promotion_candidate(
     *, replay_report: Path, expected_report_sha256: str, mapped_results: Path,
-    men_history: Path, ladies_history: Path, team_sprint_history: Path,
+    men_history: Path, ladies_history: Path, team_history: Path,
+    team_sprint_history: Path,
     expected_season: int, output_dir: Path,
 ) -> dict[str, object]:
     replay_report = replay_report.expanduser().resolve()
     replay_dir = replay_report.parent
-    sources = [mapped_results, men_history, ladies_history, team_sprint_history]
+    sources = [mapped_results, men_history, ladies_history, team_history, team_sprint_history]
     output_dir = _validate_location(output_dir, sources)
     report = _load_report(replay_report, expected_report_sha256)
     if report.get("season") != expected_season:
@@ -210,7 +224,8 @@ def build_promotion_candidate(
         try:
             fresh_report = run_replay(
                 mapped_results=mapped_results, men_history=men_history,
-                ladies_history=ladies_history, team_sprint_history=team_sprint_history,
+                ladies_history=ladies_history, team_history=team_history,
+                team_sprint_history=team_sprint_history,
                 season=expected_season, output_dir=fresh,
             )
         except ReplayError as exc:
@@ -267,6 +282,10 @@ def main() -> int:
     parser.add_argument("--mapped-results", required=True, type=Path)
     parser.add_argument("--men-history", required=True, type=Path)
     parser.add_argument("--ladies-history", required=True, type=Path)
+    parser.add_argument(
+        "--team-history", type=Path,
+        default=Path("relay/excel365/men_team_chrono.csv"),
+    )
     parser.add_argument("--team-sprint-history", required=True, type=Path)
     parser.add_argument("--expected-season", required=True, type=int)
     parser.add_argument("--output-dir", required=True, type=Path)
