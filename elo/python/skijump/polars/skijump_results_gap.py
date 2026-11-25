@@ -11,12 +11,11 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+from collections.abc import Iterable
 from dataclasses import asdict, dataclass
 from datetime import date, datetime
 from pathlib import Path
-from typing import Iterable
 from urllib.parse import parse_qs, urlparse
-
 
 SCHEDULE_DATE_FORMAT = "%m/%d/%Y"
 HISTORY_DATE_FORMAT = "%Y-%m-%d"
@@ -24,10 +23,9 @@ SUPPORTED_SEXES = {"M", "L", "Mixed"}
 
 
 @dataclass(frozen=True, order=True)
-class RaceKey:
+class EventKey:
     sex: str
     season: int
-    race: int
     date: date
     event_kind: str
 
@@ -85,9 +83,9 @@ def _event_kind(sex: str, race_type: str) -> str:
     return "team" if is_team else "individual"
 
 
-def load_schedule(path: Path, as_of: date) -> list[tuple[RaceKey, MissingRace]]:
-    completed: list[tuple[RaceKey, MissingRace]] = []
-    seen: set[RaceKey] = set()
+def load_schedule(path: Path, as_of: date) -> list[tuple[EventKey, MissingRace]]:
+    completed: list[tuple[EventKey, MissingRace]] = []
+    seen: set[EventKey] = set()
     with path.open(newline="", encoding="utf-8-sig") as handle:
         for row_number, row in enumerate(csv.DictReader(handle), start=2):
             try:
@@ -103,13 +101,13 @@ def load_schedule(path: Path, as_of: date) -> list[tuple[RaceKey, MissingRace]]:
                     raise ValueError("individual Mixed events are unsupported")
                 results_url = _required(row, "Startlist", path)
                 fis_race_id = validate_results_url(results_url)
-                key = RaceKey(
+                key = EventKey(
                     sex=sex,
                     season=season_for_race(final_date),
-                    race=int(_required(row, "Race", path)),
                     date=final_date,
                     event_kind=event_kind,
                 )
+                race = int(_required(row, "Race", path))
                 championship_text = _required(row, "Championship", path)
                 if championship_text not in {"0", "1"}:
                     raise ValueError(
@@ -119,7 +117,7 @@ def load_schedule(path: Path, as_of: date) -> list[tuple[RaceKey, MissingRace]]:
                 raise ValueError(f"{path}:{row_number}: {exc}") from exc
 
             if key in seen:
-                raise ValueError(f"{path}:{row_number}: duplicate schedule race {key}")
+                raise ValueError(f"{path}:{row_number}: duplicate schedule event {key}")
             seen.add(key)
             if final_date > as_of:
                 continue
@@ -131,7 +129,7 @@ def load_schedule(path: Path, as_of: date) -> list[tuple[RaceKey, MissingRace]]:
                         date=final_date.isoformat(),
                         sex=sex,
                         season=key.season,
-                        race=key.race,
+                        race=race,
                         event_kind=event_kind,
                         city=(row.get("City") or "").strip(),
                         country=(row.get("Country") or "").strip(),
@@ -148,8 +146,8 @@ def load_schedule(path: Path, as_of: date) -> list[tuple[RaceKey, MissingRace]]:
 
 def load_history_keys(
     path: Path, *, expected_sex: str, event_kind: str
-) -> set[RaceKey]:
-    keys: set[RaceKey] = set()
+) -> set[EventKey]:
+    keys: set[EventKey] = set()
     with path.open(newline="", encoding="utf-8-sig") as handle:
         for row_number, row in enumerate(csv.DictReader(handle), start=2):
             try:
@@ -166,10 +164,9 @@ def load_history_keys(
                     if team_event not in {"0", "False", "false"}:
                         continue
                 keys.add(
-                    RaceKey(
+                    EventKey(
                         sex=expected_sex,
                         season=int(_required(row, "Season", path)),
-                        race=race,
                         date=datetime.strptime(
                             _required(row, "Date", path), HISTORY_DATE_FORMAT
                         ).date(),
@@ -193,21 +190,11 @@ def find_missing_races(
 ) -> tuple[list[MissingRace], int]:
     completed = load_schedule(schedule, as_of)
     accepted = set().union(
-        load_history_keys(
-            men_chrono, expected_sex="M", event_kind="individual"
-        ),
-        load_history_keys(
-            ladies_chrono, expected_sex="L", event_kind="individual"
-        ),
-        load_history_keys(
-            men_team_chrono, expected_sex="M", event_kind="team"
-        ),
-        load_history_keys(
-            ladies_team_chrono, expected_sex="L", event_kind="team"
-        ),
-        load_history_keys(
-            mixed_team_chrono, expected_sex="Mixed", event_kind="team"
-        ),
+        load_history_keys(men_chrono, expected_sex="M", event_kind="individual"),
+        load_history_keys(ladies_chrono, expected_sex="L", event_kind="individual"),
+        load_history_keys(men_team_chrono, expected_sex="M", event_kind="team"),
+        load_history_keys(ladies_team_chrono, expected_sex="L", event_kind="team"),
+        load_history_keys(mixed_team_chrono, expected_sex="Mixed", event_kind="team"),
     )
     missing = [details for key, details in completed if key not in accepted]
     missing.sort(key=lambda item: (item.date, item.event_kind, item.sex, item.race))
@@ -256,9 +243,7 @@ def main() -> int:
         mixed_team_chrono=args.mixed_team_chrono,
         as_of=args.as_of,
     )
-    report = build_report(
-        missing, as_of=args.as_of, completed_count=completed_count
-    )
+    report = build_report(missing, as_of=args.as_of, completed_count=completed_count)
     rendered = json.dumps(report, indent=2, sort_keys=True) + "\n"
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)
