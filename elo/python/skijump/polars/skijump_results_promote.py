@@ -2,7 +2,7 @@
 """Build an atomic promotion candidate from a validated ski-jumping replay.
 
 The command re-checks every accepted input hash, validates the replay report
-and mixed-team structure, reruns the replay in a temporary directory, and
+and all team structures, reruns the replay in a temporary directory, and
 copies only byte-identical fresh candidates into an isolated atomic output
 directory.  Accepted histories are never modified by this command.
 """
@@ -26,6 +26,8 @@ PROMOTION_SCHEMA = "nordicnumbers.skijump-results-promotion/v1"
 CANDIDATE_FILES = (
     "candidate_men_chrono.csv",
     "candidate_ladies_chrono.csv",
+    "candidate_men_team_chrono.csv",
+    "candidate_ladies_team_chrono.csv",
     "candidate_mixed_team_chrono.csv",
 )
 
@@ -107,12 +109,15 @@ def _require_report_output(
     return path, expected_hash
 
 
-def _validate_event_classifications(report: dict[str, object]) -> set[str]:
+def _validate_event_classifications(
+    report: dict[str, object],
+) -> tuple[set[str], dict[str, set[str]]]:
     classifications = report.get("event_classifications")
     if not isinstance(classifications, list) or not classifications:
         raise PromotionError("replay report has no event classifications")
     statuses: Counter[str] = Counter()
     eligible_dates: set[str] = set()
+    eligible_team_dates: dict[str, set[str]] = {"M": set(), "L": set()}
     eligible_individuals = 0
     for item in classifications:
         if not isinstance(item, dict):
@@ -124,19 +129,33 @@ def _validate_event_classifications(report: dict[str, object]) -> set[str]:
             sex = item.get("sex")
             if event_kind == "individual" and sex in {"M", "L"}:
                 eligible_individuals += 1
+            elif event_kind == "team" and sex in {"M", "L"}:
+                eligible_team_dates[str(sex)].add(str(item.get("date", "")))
             elif event_kind == "team" and sex == "Mixed":
                 eligible_dates.add(str(item.get("date", "")))
             else:
                 raise PromotionError("replay includes an unsupported eligible event")
         elif status not in {"already_accepted", "policy_excluded"}:
             raise PromotionError(f"unsupported replay event status: {status!r}")
-    if not eligible_dates and not eligible_individuals:
+    if (
+        not eligible_dates
+        and not eligible_individuals
+        and not any(eligible_team_dates.values())
+    ):
         raise PromotionError("replay contains no eligible supported events")
     if report.get("eligible_mixed_team_events") != len(eligible_dates):
         raise PromotionError("eligible mixed-team count does not match classifications")
     if report.get("eligible_individual_events", 0) != eligible_individuals:
         raise PromotionError("eligible individual count does not match classifications")
-    return eligible_dates
+    reported_team_counts = report.get("eligible_same_sex_team_events")
+    expected_team_counts = {
+        sex: len(dates) for sex, dates in eligible_team_dates.items()
+    }
+    if reported_team_counts != expected_team_counts:
+        raise PromotionError(
+            "eligible same-sex team count does not match classifications"
+        )
+    return eligible_dates, eligible_team_dates
 
 
 def _split(value: str) -> list[str]:
@@ -175,6 +194,35 @@ def _validate_mixed_teams(path: Path, eligible_dates: set[str]) -> None:
         )
 
 
+def _validate_same_sex_teams(path: Path, sex: str, eligible_dates: set[str]) -> None:
+    with path.open(newline="", encoding="utf-8-sig") as handle:
+        rows = list(csv.DictReader(handle))
+    seen: set[tuple[str, str, str]] = set()
+    dates: set[str] = set()
+    for row_number, row in enumerate(rows, start=2):
+        if row.get("Sex") != sex:
+            raise PromotionError(f"{path}:{row_number}: unexpected team sex")
+        key = (row["Date"], row["Nation"], row["Place"])
+        if key in seen:
+            raise PromotionError(f"duplicate same-sex team row: {key}")
+        seen.add(key)
+        dates.add(row["Date"])
+        members = _split(row["MemberIDs"])
+        names = _split(row["TeamMembers"])
+        if (
+            int(row["TeamSize"]) <= 0
+            or len(members) != int(row["TeamSize"])
+            or len(set(members)) != len(members)
+            or len(names) != len(members)
+        ):
+            raise PromotionError(f"{path}:{row_number}: invalid same-sex team")
+    if not eligible_dates.issubset(dates):
+        raise PromotionError(
+            f"same-sex team output is missing eligible dates "
+            f"{sorted(eligible_dates - dates)}"
+        )
+
+
 def _validate_current_inputs(
     report: dict[str, object], required_inputs: Iterable[Path]
 ) -> None:
@@ -201,6 +249,8 @@ def build_promotion_candidate(
     ladies_chrono: Path,
     men_raw: Path,
     ladies_raw: Path,
+    men_team_chrono: Path,
+    ladies_team_chrono: Path,
     mixed_team_chrono: Path,
     expected_season: int,
     output_dir: Path,
@@ -213,11 +263,21 @@ def build_promotion_candidate(
         ladies_chrono,
         men_raw,
         ladies_raw,
+        men_team_chrono,
+        ladies_team_chrono,
         mixed_team_chrono,
     )
     output_dir = _validate_output_dir(
         output_dir,
-        (men_chrono, ladies_chrono, men_raw, ladies_raw, mixed_team_chrono),
+        (
+            men_chrono,
+            ladies_chrono,
+            men_raw,
+            ladies_raw,
+            men_team_chrono,
+            ladies_team_chrono,
+            mixed_team_chrono,
+        ),
     )
     if output_dir == replay_dir or replay_dir in output_dir.parents:
         raise PromotionError("promotion output cannot be inside the replay directory")
@@ -230,7 +290,7 @@ def build_promotion_candidate(
         raise PromotionError("replay did not preserve accepted histories")
     if report.get("promotion_performed") is not False:
         raise PromotionError("replay report claims promotion was already performed")
-    eligible_dates = _validate_event_classifications(report)
+    eligible_dates, eligible_team_dates = _validate_event_classifications(report)
     _validate_current_inputs(report, required_inputs)
     reported_outputs = {
         filename: _require_report_output(report, replay_dir, filename)
@@ -238,6 +298,16 @@ def build_promotion_candidate(
     }
     _validate_mixed_teams(
         reported_outputs["candidate_mixed_team_chrono.csv"][0], eligible_dates
+    )
+    _validate_same_sex_teams(
+        reported_outputs["candidate_men_team_chrono.csv"][0],
+        "M",
+        eligible_team_dates["M"],
+    )
+    _validate_same_sex_teams(
+        reported_outputs["candidate_ladies_team_chrono.csv"][0],
+        "L",
+        eligible_team_dates["L"],
     )
 
     original_hashes = {
@@ -256,6 +326,8 @@ def build_promotion_candidate(
             ladies_chrono=ladies_chrono,
             men_raw=men_raw,
             ladies_raw=ladies_raw,
+            men_team_chrono=men_team_chrono,
+            ladies_team_chrono=ladies_team_chrono,
             mixed_team_chrono=mixed_team_chrono,
             output_dir=fresh_dir,
             season=expected_season,
@@ -293,6 +365,9 @@ def build_promotion_candidate(
                 "sha256": expected_report_sha256,
             },
             "eligible_mixed_team_dates": sorted(eligible_dates),
+            "eligible_same_sex_team_dates": {
+                sex: sorted(dates) for sex, dates in eligible_team_dates.items()
+            },
             "accepted_before": {
                 "men_chrono.csv": {
                     "file": str(men_chrono.expanduser().resolve()),
@@ -301,6 +376,16 @@ def build_promotion_candidate(
                 "ladies_chrono.csv": {
                     "file": str(ladies_chrono.expanduser().resolve()),
                     "sha256": original_hashes[ladies_chrono.expanduser().resolve()],
+                },
+                "men_team_chrono.csv": {
+                    "file": str(men_team_chrono.expanduser().resolve()),
+                    "sha256": original_hashes[men_team_chrono.expanduser().resolve()],
+                },
+                "ladies_team_chrono.csv": {
+                    "file": str(ladies_team_chrono.expanduser().resolve()),
+                    "sha256": original_hashes[
+                        ladies_team_chrono.expanduser().resolve()
+                    ],
                 },
                 "mixed_team_chrono.csv": {
                     "file": str(mixed_team_chrono.expanduser().resolve()),
@@ -337,6 +422,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--ladies-chrono", required=True, type=Path)
     parser.add_argument("--men-raw", required=True, type=Path)
     parser.add_argument("--ladies-raw", required=True, type=Path)
+    parser.add_argument("--men-team-chrono", required=True, type=Path)
+    parser.add_argument("--ladies-team-chrono", required=True, type=Path)
     parser.add_argument("--mixed-team-chrono", required=True, type=Path)
     parser.add_argument("--expected-season", required=True, type=int)
     parser.add_argument("--output-dir", required=True, type=Path)

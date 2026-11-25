@@ -124,6 +124,39 @@ def write_individual_mapped(path: Path) -> None:
         writer.writerows(rows)
 
 
+def write_same_sex_team_mapped(path: Path, sex: str) -> None:
+    identities = (
+        [
+            ("2566", "Sølve Jokerud Strand"),
+            ("2535", "Adrian Thon Gundersrud"),
+            ("432", "Stefan Kraft"),
+            ("2416", "Jan Hörl"),
+        ]
+        if sex == "M"
+        else [
+            ("479", "Ingvild Synnøve Midtskogen"),
+            ("354", "Eirin Maria Kvandal"),
+            ("400", "Julia Mühlbacher"),
+            ("337", "Lisa Eder"),
+        ]
+    )
+    rows = [
+        {
+            **mapped_member(athlete_id, name, sex, order),
+            "date": "2025-11-19",
+            "sex": sex,
+            "event_kind": "team",
+            "race_type": "Team Large",
+            "place": 1,
+        }
+        for order, (athlete_id, name) in enumerate(identities, start=1)
+    ]
+    with path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=MAPPED_FIELDS)
+        writer.writeheader()
+        writer.writerows(rows)
+
+
 @pytest.fixture(scope="module")
 def prepared(tmp_path_factory: pytest.TempPathFactory) -> dict[str, object]:
     root = tmp_path_factory.mktemp("skijump-promotion")
@@ -136,6 +169,8 @@ def prepared(tmp_path_factory: pytest.TempPathFactory) -> dict[str, object]:
         "ladies_chrono": ACCEPTED / "ladies_chrono.csv",
         "men_raw": RAW / "all_men_scrape.csv",
         "ladies_raw": RAW / "all_ladies_scrape.csv",
+        "men_team_chrono": ACCEPTED / "men_team_chrono.csv",
+        "ladies_team_chrono": ACCEPTED / "ladies_team_chrono.csv",
         "mixed_team_chrono": ACCEPTED / "mixed_team_chrono.csv",
     }
     run_replay(**inputs, output_dir=replay_dir, season=2026)
@@ -156,6 +191,8 @@ def promotion_args(
         "ladies_chrono": prepared["ladies_chrono"],
         "men_raw": prepared["men_raw"],
         "ladies_raw": prepared["ladies_raw"],
+        "men_team_chrono": prepared["men_team_chrono"],
+        "ladies_team_chrono": prepared["ladies_team_chrono"],
         "mixed_team_chrono": prepared["mixed_team_chrono"],
         "expected_season": 2026,
         "output_dir": output,
@@ -190,6 +227,8 @@ def test_builds_atomic_candidate_without_modifying_accepted(
             "ladies_chrono",
             "men_raw",
             "ladies_raw",
+            "men_team_chrono",
+            "ladies_team_chrono",
             "mixed_team_chrono",
         )
     ]
@@ -202,6 +241,8 @@ def test_builds_atomic_candidate_without_modifying_accepted(
     assert set(report["outputs"]) == {
         "men_chrono.csv",
         "ladies_chrono.csv",
+        "men_team_chrono.csv",
+        "ladies_team_chrono.csv",
         "mixed_team_chrono.csv",
     }
     assert {path: digest(path) for path in before} == before
@@ -218,6 +259,8 @@ def test_promotes_missing_individual_event(tmp_path: Path) -> None:
         "ladies_chrono": ACCEPTED / "ladies_chrono.csv",
         "men_raw": RAW / "all_men_scrape.csv",
         "ladies_raw": RAW / "all_ladies_scrape.csv",
+        "men_team_chrono": ACCEPTED / "men_team_chrono.csv",
+        "ladies_team_chrono": ACCEPTED / "ladies_team_chrono.csv",
         "mixed_team_chrono": ACCEPTED / "mixed_team_chrono.csv",
     }
     replay = run_replay(**inputs, output_dir=replay_dir, season=2026)
@@ -240,6 +283,51 @@ def test_promotes_missing_individual_event(tmp_path: Path) -> None:
     inserted = [row for row in rows if row["Date"] == "2025-11-19"]
     assert len(inserted) == 2
     assert {row["TeamEvent"] for row in inserted} == {"0"}
+
+
+@pytest.mark.parametrize(
+    ("sex", "team_filename"),
+    [("M", "men_team_chrono.csv"), ("L", "ladies_team_chrono.csv")],
+)
+def test_promotes_missing_same_sex_team_event(
+    tmp_path: Path, sex: str, team_filename: str
+) -> None:
+    mapped = tmp_path / f"{sex}-team-mapped.csv"
+    write_same_sex_team_mapped(mapped, sex)
+    replay_dir = tmp_path / f"{sex}-team-replay"
+    inputs = {
+        "mapped_results": mapped,
+        "men_chrono": ACCEPTED / "men_chrono.csv",
+        "ladies_chrono": ACCEPTED / "ladies_chrono.csv",
+        "men_raw": RAW / "all_men_scrape.csv",
+        "ladies_raw": RAW / "all_ladies_scrape.csv",
+        "men_team_chrono": ACCEPTED / "men_team_chrono.csv",
+        "ladies_team_chrono": ACCEPTED / "ladies_team_chrono.csv",
+        "mixed_team_chrono": ACCEPTED / "mixed_team_chrono.csv",
+    }
+    replay = run_replay(**inputs, output_dir=replay_dir, season=2026)
+    assert replay["eligible_same_sex_team_events"] == {
+        "M": int(sex == "M"),
+        "L": int(sex == "L"),
+    }
+
+    report_path = replay_dir / "replay_report.json"
+    output_dir = tmp_path / f"{sex}-team-promotion"
+    promotion = build_promotion_candidate(
+        replay_report=report_path,
+        expected_report_sha256=digest(report_path),
+        expected_season=2026,
+        output_dir=output_dir,
+        **inputs,
+    )
+    assert promotion["eligible_same_sex_team_dates"][sex] == ["2025-11-19"]
+    with (output_dir / team_filename).open(newline="", encoding="utf-8-sig") as handle:
+        rows = list(csv.DictReader(handle))
+    inserted = [row for row in rows if row["Date"] == "2025-11-19"]
+    assert len(inserted) == 1
+    assert inserted[0]["Sex"] == sex
+    assert inserted[0]["TeamSize"] == "4"
+    assert len(inserted[0]["MemberIDs"].split(",")) == 4
 
 
 def test_rejects_wrong_report_hash(prepared: dict[str, object]) -> None:
@@ -337,6 +425,8 @@ def test_promoted_histories_replay_idempotently(prepared: dict[str, object]) -> 
         ladies_chrono=promoted / "ladies_chrono.csv",
         men_raw=prepared["men_raw"],
         ladies_raw=prepared["ladies_raw"],
+        men_team_chrono=promoted / "men_team_chrono.csv",
+        ladies_team_chrono=promoted / "ladies_team_chrono.csv",
         mixed_team_chrono=promoted / "mixed_team_chrono.csv",
         output_dir=second,
         season=2026,
@@ -348,5 +438,11 @@ def test_promoted_histories_replay_idempotently(prepared: dict[str, object]) -> 
     ) as handle:
         promoted_team_rows = len(list(csv.DictReader(handle)))
     assert report["candidate_mixed_team_rows"] == promoted_team_rows
-    for filename in ("men_chrono.csv", "ladies_chrono.csv", "mixed_team_chrono.csv"):
+    for filename in (
+        "men_chrono.csv",
+        "ladies_chrono.csv",
+        "men_team_chrono.csv",
+        "ladies_team_chrono.csv",
+        "mixed_team_chrono.csv",
+    ):
         assert digest(promoted / filename) == digest(second / f"candidate_{filename}")
