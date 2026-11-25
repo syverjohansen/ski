@@ -1,36 +1,55 @@
 Date,Race_Date,Startlist,Sex,City,Country,Distance,RaceType,Period,Elevation,Championship,Race
-11/28/2025,11/28/2025,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3474,M,Ruka,Finland,7.5,IndividualCompact,1,388,0,1
-11/28/2025,11/29/2025,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3475,M,Ruka,Finland,10.0,Individual,1,388,0,2
-12/05/2025,12/05/2025,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3478,L,Trondheim,Norway,5.0,Individual,1,235,0,1
-12/05/2025,12/06/2025,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3480,M,Trondheim,Norway,10.0,Mass Start,1,235,0,3
-12/05/2025,12/06/2025,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3481,L,Trondheim,Norway,5.0,Mass Start,1,235,0,2
-12/05/2025,12/07/2025,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3482,M,Trondheim,Norway,10.0,Individual,1,235,0,4
-12/19/2025,12/19/2025,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3492,M,Ramsau,Austria,10.0,Mass Start,1,1106,0,5
-12/19/2025,12/19/2025,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3491,L,Ramsau,Austria,5.0,Mass Start,1,1106,0,3
-12/19/2025,12/20/2025,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3494,M,Ramsau,Austria,10.0,Individual,2,1106,0,6
-12/19/2025,12/20/2025,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3493,L,Ramsau,Austria,5.0,Individual,2,1106,0,4
-01/09/2026,01/09/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3504,M,Otepää,Estonia,10.0,Mass Start,2,139,0,7
-01/09/2026,01/09/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3503,L,Otepää,Estonia,5.0,Mass Start,2,139,0,5
-01/09/2026,01/10/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3506,M,Otepää,Estonia,10.0,Individual,2,139,0,8
-01/09/2026,01/10/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3505,L,Otepää,Estonia,5.0,Individual,2,139,0,6
-01/09/2026,01/11/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3508,M,Otepää,Estonia,5.0,IndividualCompact,2,139,0,9
-01/09/2026,01/11/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3507,L,Otepää,Estonia,5.0,IndividualCompact,3,139,0,7
-01/17/2026,01/17/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3512,M,Oberhof,Germany,7.5,IndividualCompact,2,728,0,10
-01/17/2026,01/17/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3511,L,Oberhof,Germany,5.0,IndividualCompact,3,728,0,8
-01/17/2026,01/18/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3514,M,Oberhof,Germany,10.0,Individual,3,728,0,11
-01/17/2026,01/18/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3513,L,Oberhof,Germany,5.0,Individual,3,728,0,9
-01/30/2026,01/30/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3518,M,Seefeld,Austria,0.0,Mass Start,3,1203,0,12
-01/30/2026,01/30/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3517,L,Seefeld,Austria,0.0,Mass Start,4,1203,0,10
-01/30/2026,01/31/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3520,M,Seefeld,Austria,5.0,IndividualCompact,3,1203,0,13
-01/30/2026,01/31/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3519,L,Seefeld,Austria,0.0,IndividualCompact,4,1203,0,11
-01/30/2026,02/01/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3522,M,Seefeld,Austria,5.0,Individual,3,1203,0,14
-01/30/2026,02/01/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3521,L,Seefeld,Austria,5.0,Individual,4,1203,0,12
-02/11/2026,02/11/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3534,M,Milano Cortina,Italy,0.0,Individual,4,1082,1,15
-02/11/2026,02/17/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3535,M,Milano Cortina,Italy,0.0,Individual,4,1082,1,16
-02/19/2026,02/19/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3536,M,Milano Cortina,Italy,,Team Sprint,4,1082,1,17
-02/27/2026,02/27/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3524,M,Kulm,Austria,7.5,IndividualCompact,5,835,0,18
-03/06/2026,03/06/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3528,M,Lahti,Finland,10.0,Individual,5,86,0,19
-03/06/2026,03/06/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3527,L,Lahti,Finland,5.0,Individual,5,86,0,13
-03/07/2026,03/07/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3529,Mixed,Lahti,Finland,,Team Sprint,5,86,0,1
-03/15/2026,03/15/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3533,M,Oslo,Norway,10.0,Individual,5,340,0,20
-03/15/2026,03/15/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3532,L,Oslo,Norway,5.0,Individual,5,340,0,14
+11/27/2026,11/27/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3689,M,Ruka,Finland,5.0,IndividualCompact,1,388,0,1
+11/27/2026,11/28/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3690,M,Ruka,Finland,10.0,Individual,1,388,0,2
+11/27/2026,11/29/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3691,M,Ruka,Finland,10.0,Mass Start,1,388,0,3
+12/04/2026,12/04/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3693,L,Trondheim,Norway,5.0,Individual,1,235,0,1
+12/04/2026,12/05/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3696,M,Trondheim,Norway,10.0,Mass Start,1,235,0,4
+12/04/2026,12/05/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3695,L,Trondheim,Norway,5.0,Mass Start,1,235,0,2
+12/04/2026,12/06/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3697,M,Trondheim,Norway,10.0,Individual,1,235,0,5
+12/11/2026,12/11/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3701,M,Val di Fiemme,Italy,5.0,IndividualCompact,1,1082,0,6
+12/11/2026,12/11/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3700,L,Val di Fiemme,Italy,5.0,IndividualCompact,1,1082,0,3
+12/11/2026,12/12/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3703,M,Val di Fiemme,Italy,10.0,Individual,1,1082,0,7
+12/11/2026,12/12/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3702,L,Val di Fiemme,Italy,5.0,Individual,1,1082,0,4
+12/13/2026,12/13/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3705,Mixed,Val di Fiemme,Italy,,Team,1,1082,0,1
+12/18/2026,12/18/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3709,M,Ramsau,Austria,10.0,Mass Start,1,1106,0,8
+12/18/2026,12/18/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3708,L,Ramsau,Austria,5.0,Mass Start,1,1106,0,5
+12/18/2026,12/19/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3711,M,Ramsau,Austria,10.0,Individual,2,1106,0,9
+12/18/2026,12/19/2026,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3710,L,Ramsau,Austria,5.0,Individual,1,1106,0,6
+01/09/2027,01/09/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3716,M,Klingenthal,Germany,10.0,Individual,2,645,0,10
+01/09/2027,01/09/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3714,L,Klingenthal,Germany,5.0,Individual,1,645,0,7
+01/09/2027,01/10/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3717,M,Klingenthal,Germany,10.0,Individual,2,645,0,11
+01/09/2027,01/10/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3715,L,Klingenthal,Germany,5.0,Individual,2,645,0,8
+01/15/2027,01/15/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3721,M,Otepaa,Estonia,10.0,Mass Start,2,139,0,12
+01/15/2027,01/15/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3720,L,Otepaa,Estonia,5.0,Mass Start,2,139,0,9
+01/15/2027,01/16/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3723,M,Otepaa,Estonia,10.0,Individual,2,139,0,13
+01/15/2027,01/16/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3722,L,Otepaa,Estonia,5.0,Individual,2,139,0,10
+01/15/2027,01/17/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3725,M,Otepaa,Estonia,5.0,IndividualCompact,2,139,0,14
+01/15/2027,01/17/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3724,L,Otepaa,Estonia,5.0,IndividualCompact,2,139,0,11
+01/23/2027,01/23/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3729,M,Schonach,Germany,10.0,Individual,2,939,0,15
+01/23/2027,01/23/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3728,L,Schonach,Germany,5.0,Individual,2,939,0,12
+01/23/2027,01/24/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3730,M,Schonach,Germany,5.0,IndividualCompact,3,939,0,16
+01/23/2027,01/24/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3731,L,Schonach,Germany,5.0,IndividualCompact,2,939,0,13
+01/29/2027,01/29/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3735,M,Seefeld,Austria,10.0,Mass Start,3,1203,0,17
+01/29/2027,01/29/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3734,L,Seefeld,Austria,5.0,Mass Start,3,1203,0,14
+01/29/2027,01/30/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3737,M,Seefeld,Austria,5.0,IndividualCompact,3,1203,0,18
+01/29/2027,01/30/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3736,L,Seefeld,Austria,5.0,IndividualCompact,3,1203,0,15
+01/29/2027,01/31/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3739,M,Seefeld,Austria,5.0,Individual,3,1203,0,19
+01/29/2027,01/31/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3738,L,Seefeld,Austria,5.0,Individual,3,1203,0,16
+02/05/2027,02/05/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3743,M,Lake Placid,USA,10.0,Individual,3,550,0,20
+02/05/2027,02/05/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3742,L,Lake Placid,USA,5.0,Individual,3,550,0,17
+02/05/2027,02/06/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3745,M,Lake Placid,USA,10.0,Mass Start,3,550,0,21
+02/05/2027,02/06/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3744,L,Lake Placid,USA,5.0,Mass Start,3,550,0,18
+02/12/2027,02/12/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3749,M,Lahti,Finland,10.0,Individual,3,86,0,22
+02/12/2027,02/12/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3748,L,Lahti,Finland,5.0,Individual,3,86,0,19
+02/13/2027,02/13/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3751,Mixed,Lahti,Finland,,Team,3,86,0,2
+02/25/2027,02/25/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3770,L,Falun,Sweden,5.0,Individual,4,204,1,20
+02/25/2027,03/06/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3776,M,Falun,Sweden,10.0,Individual,4,204,1,25
+02/26/2027,02/26/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3771,Mixed,Falun,Sweden,,Team,4,204,1,3
+02/27/2027,02/27/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3772,M,Falun,Sweden,5.0,IndividualCompact,4,204,1,23
+02/27/2027,03/03/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3774,L,Falun,Sweden,5.0,IndividualCompact,4,204,1,22
+02/28/2027,02/28/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3773,L,Falun,Sweden,,Team Sprint,4,204,1,21
+02/28/2027,03/04/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3775,M,Falun,Sweden,,Team Sprint,4,204,1,24
+03/12/2027,03/12/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3755,M,Oslo,Norway,5.0,IndividualCompact,5,340,0,26
+03/12/2027,03/12/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3754,L,Oslo,Norway,5.0,IndividualCompact,5,340,0,23
+03/12/2027,03/13/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3757,M,Oslo,Norway,10.0,Individual,5,340,0,27
+03/12/2027,03/13/2027,https://www.fis-ski.com/DB/general/results.html?sectorcode=NK&raceid=3756,L,Oslo,Norway,5.0,Individual,5,340,0,24
