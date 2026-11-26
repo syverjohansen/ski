@@ -240,6 +240,7 @@ def compare_ratings(
     accepted: pl.DataFrame,
     *,
     tolerance: float,
+    allowed_additive_events: set[tuple[str, str]] | None = None,
 ) -> dict[str, Any]:
     generated_rows = generated.select([*OUTPUT_KEY_FIELDS, *RATING_FIELDS]).to_dicts()
     accepted_rows = accepted.select([*OUTPUT_KEY_FIELDS, *RATING_FIELDS]).to_dicts()
@@ -249,9 +250,30 @@ def compare_ratings(
     duplicate_accepted = len(accepted_by_key) != len(accepted_rows)
     missing = set(accepted_by_key) - set(generated_by_key)
     unexpected = set(generated_by_key) - set(accepted_by_key)
+    authorized_missing = {
+        key
+        for key in missing
+        if allowed_additive_events is not None
+        and (key[0], key[5]) in allowed_additive_events
+    }
+    unauthorized_missing = missing - authorized_missing
+    authorized_unexpected = {
+        key
+        for key in unexpected
+        if allowed_additive_events is not None
+        and (key[0], key[5]) in allowed_additive_events
+    }
+    unauthorized_unexpected = unexpected - authorized_unexpected
     mismatches = []
+    authorized_modified = 0
     maximum_difference = 0.0
     for key in set(generated_by_key) & set(accepted_by_key):
+        if (
+            allowed_additive_events is not None
+            and (key[0], key[5]) in allowed_additive_events
+        ):
+            authorized_modified += 1
+            continue
         differences = {
             field: abs(float(generated_by_key[key][field]) - float(accepted_by_key[key][field]))
             for field in RATING_FIELDS
@@ -272,17 +294,23 @@ def compare_ratings(
     passed = (
         not duplicate_generated
         and not duplicate_accepted
-        and not missing
-        and not unexpected
+        and not unauthorized_missing
+        and not unauthorized_unexpected
         and not mismatches
-        and len(generated_rows) == len(accepted_rows)
+        and len(generated_rows)
+        == len(accepted_rows) - len(authorized_missing) + len(authorized_unexpected)
     )
     return {
         "status": "passed" if passed else "failed",
         "generated_rows": len(generated_rows),
         "accepted_rows": len(accepted_rows),
         "missing_rows": len(missing),
+        "authorized_missing_rows": len(authorized_missing),
+        "unauthorized_missing_rows": len(unauthorized_missing),
         "unexpected_rows": len(unexpected),
+        "authorized_additive_rows": len(authorized_unexpected),
+        "authorized_modified_rows": authorized_modified,
+        "unauthorized_unexpected_rows": len(unauthorized_unexpected),
         "rating_mismatches": len(mismatches),
         "maximum_absolute_rating_difference": maximum_difference,
         "tolerance": tolerance,
@@ -290,6 +318,10 @@ def compare_ratings(
         "duplicate_accepted_keys": duplicate_accepted,
         "missing_examples": [dict(zip(OUTPUT_KEY_FIELDS, row)) for row in sorted(missing)[:3]],
         "unexpected_examples": [dict(zip(OUTPUT_KEY_FIELDS, row)) for row in sorted(unexpected)[:3]],
+        "unauthorized_unexpected_examples": [
+            dict(zip(OUTPUT_KEY_FIELDS, row))
+            for row in sorted(unauthorized_unexpected)[:3]
+        ],
         "mismatch_examples": mismatches[:3],
     }
 

@@ -1,0 +1,116 @@
+name: Biathlon results update
+
+on:
+  workflow_dispatch:
+    inputs:
+      as_of:
+        description: Optional ISO date override (YYYY-MM-DD)
+        required: false
+        type: string
+      season_id:
+        description: Optional IBU season ID override (for example 2627)
+        required: false
+        type: string
+  schedule:
+    # IBU World Cup races normally finish well before this. The workflow is a
+    # cheap no-op on non-race days and only runs during the competitive season.
+    - cron: "37 19 * 11,12,1,2,3 *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: biathlon-results-update
+  cancel-in-progress: false
+
+jobs:
+  update-results:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: elo/python/biathlon/polars
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@v6
+
+      - name: Resolve run parameters
+        id: parameters
+        env:
+          REQUESTED_AS_OF: ${{ inputs.as_of }}
+          REQUESTED_SEASON: ${{ inputs.season_id }}
+        run: |
+          as_of="${REQUESTED_AS_OF:-$(date -u +%F)}"
+          if ! [[ "$as_of" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+            echo "Invalid as_of date: $as_of" >&2
+            exit 1
+          fi
+          if [[ -n "$REQUESTED_SEASON" ]] && ! [[ "$REQUESTED_SEASON" =~ ^[0-9]{4}$ ]]; then
+            echo "Invalid IBU season ID: $REQUESTED_SEASON" >&2
+            exit 1
+          fi
+          echo "as_of=$as_of" >> "$GITHUB_OUTPUT"
+          echo "season_id=$REQUESTED_SEASON" >> "$GITHUB_OUTPUT"
+          echo "output_root=$RUNNER_TEMP/biathlon-results-update" >> "$GITHUB_OUTPUT"
+
+      - name: Acquire, verify, rebuild, and apply final results
+        env:
+          SSL_CERT_FILE: /etc/ssl/certs/ca-certificates.crt
+        run: |
+          season_args=()
+          if [[ -n "${{ steps.parameters.outputs.season_id }}" ]]; then
+            season_args+=(--season-id "${{ steps.parameters.outputs.season_id }}")
+          fi
+          uv run --isolated --python 3.12 \
+            --with-requirements requirements-elo-parity.txt \
+            python biathlon_results_update.py \
+            --as-of "${{ steps.parameters.outputs.as_of }}" \
+            "${season_args[@]}" \
+            --output-root "${{ steps.parameters.outputs.output_root }}" \
+            --allow-network \
+            --apply
+
+      - name: Read update status
+        id: update
+        run: |
+          report="${{ steps.parameters.outputs.output_root }}/report.json"
+          status=$(python -c 'import json,sys; print(json.load(open(sys.argv[1]))["status"])' "$report")
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          cat "$report" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Verify the applied repository state
+        if: steps.update.outputs.status == 'applied'
+        run: >-
+          uv run --isolated --python 3.12
+          --with-requirements requirements-elo-parity.txt
+          --with pytest
+          python -m pytest -q test_biathlon_*.py
+
+      - name: Publish validated accepted data to main
+        if: steps.update.outputs.status == 'applied'
+        env:
+          AS_OF: ${{ steps.parameters.outputs.as_of }}
+          REPORT: ${{ steps.parameters.outputs.output_root }}/report.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add excel365/*.csv relay/excel365/*.csv ibu_identity_aliases.csv
+          if git diff --cached --quiet; then
+            echo "Applied candidate produced no accepted-data diff" >&2
+            exit 1
+          fi
+          races=$(python -c 'import json,sys; print(len(json.load(open(sys.argv[1]))["race_ids"]))' "$REPORT")
+          git commit -m "Update Biathlon results through $AS_OF"
+          git push origin HEAD:main
+          echo "Published $races finalized IBU race result set(s)." >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload audit and promotion evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: biathlon-results-update-${{ steps.parameters.outputs.as_of }}-${{ github.run_id }}
+          path: ${{ steps.parameters.outputs.output_root }}/
+          if-no-files-found: warn
+          retention-days: 30

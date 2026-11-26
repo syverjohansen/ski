@@ -217,6 +217,51 @@ def test_candidates_are_byte_deterministic(
     assert hashes(report) == hashes(second)
 
 
+def test_builds_policy_specific_additive_candidates(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    candidates, individual, relay = fixture(tmp_path)
+    additive = row("L", "Sprint")
+    additive.update({"Date": "2026-11-26", "Season": "2027", "Race": "1", "Exp": "2"})
+    for policy in ("individual", "relay"):
+        for sex, prefix in (("M", "men"), ("L", "ladies")):
+            rows = [additive] if sex == "L" else []
+            write_rows(
+                candidates / policy / f"{prefix}_results_candidate.csv",
+                rows,
+                HISTORY_FIELDS,
+            )
+    # Remove the legacy flat candidates so the policy-specific adapter layout
+    # is the only source available.
+    (candidates / "men_results_candidate.csv").unlink()
+    (candidates / "ladies_results_candidate.csv").unlink()
+    monkeypatch.setattr(candidate, "load_engine", lambda _: FakeEngine())
+
+    report = candidate.build_candidates(
+        candidate_dir=candidates,
+        individual_dir=individual,
+        relay_dir=relay,
+        engine_path=tmp_path / "elo.py",
+        output_dir=tmp_path / "output",
+    )
+
+    assert report["status"] == "passed"
+    assert report["ready_for_promotion_bundle"] is True
+    for policy in ("individual", "relay"):
+        assert report["policies"][policy]["M"]["input_parity"]["mode"] == "no_change"
+        assert report["policies"][policy]["L"]["input_parity"]["mode"] == "additive"
+        assert (
+            report["policies"][policy]["L"]["streams"]["overall"]
+            ["authorized_additive_rows"]
+            == 1
+        )
+        assert (
+            report["policies"][policy]["chronos"]["L"]
+            ["authorized_additive_rows"]
+            == 1
+        )
+
+
 def test_output_cannot_enter_source_or_accepted_tree(tmp_path: Path) -> None:
     candidates, individual, relay = fixture(tmp_path)
     with pytest.raises(IBUContractError, match="outside source and accepted"):

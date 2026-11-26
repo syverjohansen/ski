@@ -18,6 +18,12 @@ from pathlib import Path
 from typing import Any
 
 from biathlon_runtime_shadow import fingerprint_tree
+from biathlon_official_adapter import (
+    _read_csv,
+    _sex_for_member,
+    load_aliases,
+    normalized_name,
+)
 from ibu_source_contract import (
     IBUClient,
     IBUContractError,
@@ -103,6 +109,7 @@ def capture_final_results(
     individual_dir: Path,
     relay_dir: Path,
     output_dir: Path,
+    aliases_path: Path | None = None,
 ) -> dict[str, Any]:
     evidence_dir = evidence_dir.expanduser().resolve()
     schedule_path = schedule_path.expanduser().resolve()
@@ -169,6 +176,15 @@ def capture_final_results(
     output_dir.parent.mkdir(parents=True, exist_ok=True)
     staging = Path(tempfile.mkdtemp(prefix=f".{output_dir.name}.", dir=output_dir.parent))
     captured: list[dict[str, Any]] = []
+    known_names = {
+        (row.get("Sex", ""), normalized_name(row.get("Skier", "")))
+        for root in (individual_dir, relay_dir)
+        for label in ("men", "ladies")
+        for row in _read_csv(root / f"{label}_scrape_update.csv")
+        if row.get("Skier")
+    }
+    aliases = load_aliases(aliases_path)
+    biographies: dict[str, str] = {}
     try:
         output_raw = staging / "raw"
         for race_id in selected:
@@ -188,6 +204,25 @@ def capture_final_results(
             start_list = validate_reports(reports, race_id=race_id)
             _atomic_json(output_raw / f"{race_id}-results.json", results)
             _atomic_json(output_raw / f"{race_id}-reports.json", reports)
+            competition = competitions[race_id]
+            for row in results.get("Results", []):
+                if row.get("IsTeam") or not row.get("IBUId"):
+                    continue
+                ibu_id = str(row["IBUId"])
+                sex = _sex_for_member(
+                    competition["sex"],
+                    competition["event_kind"],
+                    int(row.get("Leg") or 0),
+                )
+                if (
+                    ibu_id in aliases
+                    or (sex, normalized_name(str(row.get("Name", "")))) in known_names
+                    or ibu_id in biographies
+                ):
+                    continue
+                bio = client.bio(ibu_id)
+                _atomic_json(output_raw / f"{ibu_id}-bio.json", bio)
+                biographies[ibu_id] = _json_sha256(bio)
             captured.append(
                 {
                     **summary,
@@ -216,6 +251,10 @@ def capture_final_results(
                 "waiting_for_first_final": not selected,
             },
             "races": captured,
+            "biographies": {
+                "count": len(biographies),
+                "sha256": dict(sorted(biographies.items())),
+            },
             "accepted_fingerprints": {"before": before, "after": after},
             "accepted_data_mutated": mutated,
             "application": {"status": "disabled", "performed": False},
@@ -237,6 +276,7 @@ def parser() -> argparse.ArgumentParser:
     command.add_argument("--individual-dir", type=Path, default=here / "excel365")
     command.add_argument("--relay-dir", type=Path, default=here / "relay/excel365")
     command.add_argument("--output-dir", type=Path, required=True)
+    command.add_argument("--aliases", dest="aliases_path", type=Path)
     return command
 
 

@@ -73,10 +73,18 @@ def add_elevation(chrono: pl.DataFrame, elevation_path: Path) -> pl.DataFrame:
 
 
 def compare_elevation(
-    generated: pl.DataFrame, accepted_path: Path, tolerance: float
+    generated: pl.DataFrame,
+    accepted_path: Path,
+    tolerance: float,
+    allowed_additive_events: set[tuple[str, str]] | None = None,
 ) -> dict[str, Any]:
     semantic = generated.with_columns(pl.col("Distance").cast(pl.String))
-    base = compare_chrono(semantic.drop("Elevation"), accepted_path, tolerance)
+    base = compare_chrono(
+        semantic.drop("Elevation"),
+        accepted_path,
+        tolerance,
+        allowed_additive_events,
+    )
     accepted = _read(accepted_path)
     if "Elevation" not in accepted.columns:
         raise IBUContractError(
