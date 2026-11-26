@@ -589,11 +589,11 @@ def build_review_candidate(
                 ]
             ),
             "remaining_blockers": (
-                ["guarded atomic apply transaction"]
+                []
                 if derived_report is not None
                 else ["complete derived-artifact materialization"]
             ),
-            "apply_ready": False,
+            "apply_ready": derived_report is not None,
             "accepted_files_modified": False,
             "application": {"status": "disabled", "performed": False},
             "publication": {"status": "disabled"},

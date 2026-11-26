@@ -263,8 +263,9 @@ def test_integrates_complete_derived_atomic_candidate_set(tmp_path: Path) -> Non
     )
 
     assert report["atomic_candidate_set_complete"] is True
+    assert report["apply_ready"] is True
     assert report["pending_materialization"] == []
-    assert report["remaining_blockers"] == ["guarded atomic apply transaction"]
+    assert report["remaining_blockers"] == []
     derived_plan = [
         item
         for item in report["target_plan"]
