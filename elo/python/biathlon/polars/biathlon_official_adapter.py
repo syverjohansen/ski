@@ -214,12 +214,15 @@ def _age(day: date, birthday: str) -> float:
     return (day - born).days / 365.25
 
 
-def _accepted_schedule_by_race_id(rows: Iterable[dict[str, str]]) -> dict[str, dict[str, str]]:
-    result = {}
+def _accepted_schedule_by_event(
+    rows: Iterable[dict[str, str]],
+) -> dict[tuple[str, str, str], dict[str, str]]:
+    result: dict[tuple[str, str, str], dict[str, str]] = {}
     for row in rows:
-        match = re.search(r"/([A-Z0-9_]+)$", row.get("Startlist", ""))
-        if match:
-            result[match.group(1)] = row
+        key = (row["Date"], row["RaceType"], row["Sex"])
+        if key in result:
+            raise IBUContractError(f"duplicate accepted schedule event: {key}")
+        result[key] = row
     return result
 
 
@@ -248,9 +251,8 @@ def adapt_evidence(
     ladies_history = _read_csv(accepted_dir / "ladies_scrape_update.csv")
     histories = [*men_history, *ladies_history]
     resolver = IdentityResolver(histories, load_aliases(aliases_path))
-    accepted_schedule = _read_csv(accepted_dir / "weekends.csv")
-    accepted_by_race = _accepted_schedule_by_race_id(accepted_schedule)
     accepted_races = _read_csv(accepted_dir / f"races{_season_year(season_id)}.csv")
+    accepted_by_event = _accepted_schedule_by_event(accepted_races)
 
     selected_races = {item["race_id"] for item in source_report["races"]}
     all_competitions = []
@@ -295,7 +297,9 @@ def adapt_evidence(
         day = item["start"].date()
         race_type = _race_type(kind)
         distance = _distance(source.get("ShortDescription", ""), kind)
-        compatibility = accepted_by_race.get(race_id, {})
+        compatibility = accepted_by_event.get(
+            (day.strftime("%m/%d/%Y"), race_type, item["sex"]), {}
+        )
         schedule_sex = item["sex"]
         schedule_rows.append({
             "Date": day.strftime("%m/%d/%Y"),
