@@ -145,6 +145,38 @@ the largest floating-point difference was `1.82e-12`. The harness writes only
 event-specific shadow candidates and its report outside the accepted tree.
 Accepted data was not mutated and publication remained disabled.
 
-The next slice can connect the proven official-source path to a guarded
-acquisition/runtime shadow. Promotion remains a separate approval after that
-operational boundary is proven.
+## Guarded runtime shadow
+
+`biathlon_runtime_shadow.py` connects all four proven boundaries into one
+sequential, fail-closed command. Every run uses a new directory, records the
+exact checked-out commit, fingerprints all accepted Biathlon files before and
+after execution, retains every stage report, and stops at the first failed
+gate. The runner contains no promotion or publication operation:
+
+```bash
+python biathlon_runtime_shadow.py \
+  --season-id 2526 \
+  --event-id BT2526SWRLCP01 \
+  --race-id BT2526SWRLCP01SWRL \
+  --race-id BT2526SWRLCP01SMRL \
+  --race-id BT2526SWRLCP01MXSR \
+  --race-id BT2526SWRLCP01MXRL \
+  --race-id BT2526SWRLCP01SWIN \
+  --race-id BT2526SWRLCP01SMIN \
+  --race-id BT2526SWRLCP01SWSP \
+  --race-id BT2526SWRLCP01SMSP \
+  --race-id BT2526SWRLCP01SWPU \
+  --race-id BT2526SWRLCP01SMPU \
+  --output-root /tmp/biathlon-runtime-shadow \
+  --run-id ostersund-2526-shadow
+```
+
+The historical Oestersund operational proof completed all four stages in one
+run: official evidence capture, compatibility adaptation, twelve-stream athlete
+Elo replay, and four-format relay-team aggregation. The accepted roots contained
+90 files and 773,041,694 bytes; their before/after SHA-256 fingerprints were
+identical. Promotion and publication remained disabled.
+
+The next slice can package this command as a retained-artifact, manually
+dispatched GitHub Actions shadow. Promotion remains a separate approval after
+the hosted operational boundary is proven.
