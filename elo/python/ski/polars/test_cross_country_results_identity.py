@@ -47,8 +47,9 @@ class CrossCountryResultsIdentityTests(unittest.TestCase):
             data / "fis_identity_aliases.csv", athletes, names_by_id
         )
         self.assertGreaterEqual(len(aliases), 7)
-        self.assertEqual(aliases[("L", "210291")].canonical_id, "6639")
-        self.assertEqual(aliases[("L", "261973")].canonical_id, "10268")
+        self.assertEqual(aliases[("L", "3515321")].canonical_id, "6639")
+        self.assertEqual(aliases[("L", "3045109")].canonical_id, "10268")
+        self.assertEqual(aliases[("L", "3486010")].canonical_id, "571")
 
     def test_maps_unique_name_and_reviewed_alias(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -102,9 +103,9 @@ class CrossCountryResultsIdentityTests(unittest.TestCase):
                     {
                         "date": "2026-11-27",
                         "sex": "M",
-                        "fis_competitor_id": 1001,
+                        "fis_competitor_id": 9001,
                         "fis_code": 3100010,
-                        "name": "NISKANEN Iivo M",
+                        "name": "NISKANEN Iivo CURRENT",
                         "nation": "FIN",
                     },
                 ],

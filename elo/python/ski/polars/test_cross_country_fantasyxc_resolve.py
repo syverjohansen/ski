@@ -35,6 +35,10 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
             [
                 ("1", "Iivo Niskanen", "Finland"),
                 ("2", "Johannes Hoesflot Klaebo", "Norway"),
+                ("18790", "Zachary Jayne", "United States"),
+                ("19936", "Jakob Elias Moch", "Germany"),
+                ("9201", "James Clinton Schoonmaker", "USA"),
+                ("12699", "Johnny Hagenbuch", "USA"),
             ],
         )
         self._write_history(
@@ -280,6 +284,73 @@ class CrossCountryFantasyXCResolveTests(unittest.TestCase):
         self.assertEqual(["100", "101"], jasmi["race_ids"])
         self.assertEqual(1, report["exception_count"])
         self.assertEqual("unknown", document["review_exceptions"][0]["sex"])
+
+    def test_thread_continuation_keeps_positive_context_after_unknown_first_name(self) -> None:
+        self._write_feed(
+            [
+                self._item(
+                    "1600",
+                    "2026-11-23T20:00:00Z",
+                    "USA roster for Ruka announced",
+                    "<p>Men:<br>Zach Jayne</p>",
+                ),
+                self._item(
+                    "1601",
+                    "2026-11-23T20:05:00Z",
+                    "Continuation",
+                    "<p>Unresolved First Athlete<br>Women:<br>"
+                    "Jasmi Joensuu<br>Astrid Oeyre Slind</p>",
+                ),
+            ]
+        )
+        report = self._resolve()
+        document = json.loads(self.output.read_text(encoding="utf-8"))
+
+        self.assertEqual(3, report["candidate_count"])
+        self.assertEqual(
+            {"10", "11", "18790"},
+            {row["canonical_athlete_id"] for row in document["candidates"]},
+        )
+        zach = next(
+            row
+            for row in document["candidates"]
+            if row["canonical_athlete_id"] == "18790"
+        )
+        self.assertEqual("reviewed_source_alias", zach["identity_match_method"])
+
+    def test_reviewed_public_short_names_resolve_to_historical_ids(self) -> None:
+        self._write_feed(
+            [
+                self._item(
+                    "1610",
+                    "2026-11-23T20:00:00Z",
+                    "USA roster for Ruka announced",
+                    "<p>Men:<br>Zach Jayne<br>JC Schoonmaker<br>"
+                    "John Hagenbuch</p>",
+                ),
+                self._item(
+                    "1611",
+                    "2026-11-23T21:00:00Z",
+                    "Germany roster for Ruka announced",
+                    "<p>Men:<br>Jakob Moch</p>",
+                ),
+            ]
+        )
+        report = self._resolve()
+        document = json.loads(self.output.read_text(encoding="utf-8"))
+
+        self.assertEqual(4, report["candidate_count"])
+        self.assertEqual(0, report["exception_count"])
+        self.assertEqual(
+            {"9201", "12699", "18790", "19936"},
+            {row["canonical_athlete_id"] for row in document["candidates"]},
+        )
+        self.assertTrue(
+            all(
+                row["identity_match_method"] == "reviewed_source_alias"
+                for row in document["candidates"]
+            )
+        )
 
     def test_real_norway_thread_pages_and_reviewed_spelling_alias_resolve(self) -> None:
         self._write_history(

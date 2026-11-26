@@ -156,6 +156,14 @@ class WeekendInputFixture:
                     "Skier": "Retired Skier",
                     "Nation": "Norway",
                 },
+                {
+                    "Date": "2022-03-01",
+                    "Season": "2022",
+                    "Race": "1",
+                    "ID": "571",
+                    "Skier": "Natalia Nepryaeva",
+                    "Nation": "Russia",
+                },
             ],
         )
         write_csv(
@@ -212,6 +220,60 @@ class CrossCountryWeekendInputTests(unittest.TestCase):
             self.assertEqual(rows[0]["selection_status"], "confirmed")
             self.assertEqual(rows[0]["race_id"], "52085")
             self.assertEqual(mtimes, {path: path.stat().st_mtime_ns for path in mtimes})
+
+    def test_stable_fis_code_bridges_name_and_page_id_change(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            data = WeekendInputFixture(root)
+            write_csv(data.schedule, WEEKENDS_COLUMNS, [race(sex="L", race_id="52084")])
+            write_csv(
+                data.aliases,
+                [
+                    "sex",
+                    "fis_competitor_id",
+                    "fis_code",
+                    "fis_name",
+                    "canonical_id",
+                    "canonical_name",
+                ],
+                [
+                    {
+                        "sex": "L",
+                        "fis_competitor_id": "old-page-id",
+                        "fis_code": "3486010",
+                        "fis_name": "NEPRYAEVA Natalia",
+                        "canonical_id": "571",
+                        "canonical_name": "Natalia Nepryaeva",
+                    }
+                ],
+            )
+            html = (
+                FIXTURE.read_bytes()
+                .replace(b"competitorid=1001", b"competitorid=167480")
+                .replace(b"3100010", b"3486010")
+                .replace(b"NISKANEN Iivo", b"TERENTEVA Natalia")
+            )
+
+            build_weekend_inputs(
+                schedule=data.schedule,
+                men_chrono=data.men,
+                ladies_chrono=data.ladies,
+                aliases_path=data.aliases,
+                group_date=date(2026, 11, 27),
+                output_dir=root / "bundle",
+                fetcher=lambda _url: html,
+                prediction_shadow=True,
+            )
+
+            with (root / "bundle" / "ladies_startlist.csv").open(
+                newline="", encoding="utf-8"
+            ) as handle:
+                row = next(csv.DictReader(handle))
+            self.assertEqual("571", row["canonical_athlete_id"])
+            self.assertEqual("Natalia Nepryaeva", row["canonical_name"])
+            self.assertEqual("167480", row["fis_competitor_id"])
+            self.assertEqual("3486010", row["fis_code"])
+            self.assertEqual("reviewed_alias", row["identity_match_method"])
 
     def test_missing_official_list_uses_explicit_latest_season_pool(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

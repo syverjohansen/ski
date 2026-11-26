@@ -185,11 +185,12 @@ def _load_aliases(
         competitor_id = (row.get("fis_competitor_id") or "").strip()
         canonical_id = (row.get("canonical_id") or "").strip()
         canonical_name = (row.get("canonical_name") or "").strip()
-        key = (sex, competitor_id)
+        fis_code = (row.get("fis_code") or "").strip()
+        key = (sex, fis_code)
         if (
             sex not in {"M", "L"}
             or not competitor_id
-            or not (row.get("fis_code") or "").strip()
+            or not fis_code
             or not (row.get("fis_name") or "").strip()
             or not canonical_id
             or not canonical_name
@@ -246,15 +247,10 @@ def _verified_anchor(
     fis_code = row["fis_code"].strip()
     fis_name = row["name"].strip()
     event_date = row["date"].strip()
-    alias = aliases.get((sex, competitor_id))
+    alias = aliases.get((sex, fis_code))
     if alias:
-        # A reviewed alias may intentionally bridge transliteration or a later
-        # FIS display-name change. The stable competitor ID key and FIS code
-        # remain mandatory.
-        if alias["fis_code"].strip() != fis_code:
-            raise FisPredictionIdentityError(
-                f"FIS identity changed for reviewed alias {sex}/{competitor_id}"
-            )
+        # FIS code is the stable identity. Page IDs and display names may
+        # change and remain retained in the registry as audit evidence.
         candidates = {alias["canonical_id"].strip()}
         method = "reviewed_alias"
     else:
@@ -264,6 +260,18 @@ def _verified_anchor(
         # even if only one identity had debuted by this particular date.
         if len(candidates) != 1:
             return None
+        reviewed_codes = {
+            reviewed["fis_code"].strip()
+            for (reviewed_sex, _), reviewed in aliases.items()
+            if reviewed_sex == sex
+            and reviewed["canonical_id"].strip() in candidates
+        }
+        if reviewed_codes:
+            raise FisPredictionIdentityError(
+                "FIS code changed for reviewed athlete "
+                f"{sex}/{next(iter(candidates))}; observed={fis_code}, "
+                f"reviewed={sorted(reviewed_codes)}"
+            )
 
     eligible = []
     for canonical_id in candidates:

@@ -138,7 +138,7 @@ def _load_aliases(path: Path) -> dict[tuple[str, str], dict[str, str]]:
         raise FisPredictionCohortError(f"{path} is missing columns: {missing}")
     aliases = {}
     for line, row in enumerate(rows, start=2):
-        key = (row["sex"].strip(), row["fis_competitor_id"].strip())
+        key = (row["sex"].strip(), row["fis_code"].strip())
         if (
             key[0] not in {"M", "L"}
             or not key[1]
@@ -271,12 +271,8 @@ def build_fis_prediction_calibration_cohort(
             key=lambda row: (row["date"].strip(), row["fis_race_id"].strip()),
         )
         fis_names = {row["name"].strip() for row in evidence_rows}
-        alias = aliases.get(key)
+        alias = aliases.get((sex, latest_identity["fis_code"].strip()))
         if alias:
-            if alias["fis_code"].strip() != latest_identity["fis_code"].strip():
-                raise FisPredictionCohortError(
-                    f"reviewed alias does not match FIS evidence for {sex}/{competitor_id}"
-                )
             canonical_ids = {alias["canonical_id"].strip()}
             status = "reviewed"
         else:
@@ -287,6 +283,19 @@ def build_fis_prediction_calibration_cohort(
                 )
             )
             status = "proposed_unique_name"
+            reviewed_codes = {
+                reviewed["fis_code"].strip()
+                for (reviewed_sex, _), reviewed in aliases.items()
+                if reviewed_sex == sex
+                and reviewed["canonical_id"].strip() in canonical_ids
+            }
+            if reviewed_codes:
+                raise FisPredictionCohortError(
+                    "FIS code changed for reviewed athlete "
+                    f"{sex}/{competitor_id}; "
+                    f"observed={latest_identity['fis_code'].strip()}, "
+                    f"reviewed={sorted(reviewed_codes)}"
+                )
         if len(canonical_ids) != 1:
             if canonical_ids:
                 ambiguous_identities.append(
