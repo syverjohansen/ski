@@ -43,6 +43,7 @@ COMMON_COLUMNS = [
     "Exp",
     "Leg",
 ]
+KEY_COLUMNS = [column for column in COMMON_COLUMNS if column != "Age"]
 RATING_COLUMNS = [
     "Elo",
     "Individual_Elo",
@@ -83,7 +84,7 @@ def _validate_stream(frame: pl.DataFrame, path: Path) -> None:
     missing = required - set(frame.columns)
     if missing:
         raise IBUContractError(f"{path} is missing columns: {sorted(missing)}")
-    duplicates = frame.select(COMMON_COLUMNS).is_duplicated().sum()
+    duplicates = frame.select(KEY_COLUMNS).is_duplicated().sum()
     if duplicates:
         raise IBUContractError(f"{path} has {duplicates} duplicate chrono keys")
 
@@ -119,7 +120,7 @@ def build_chrono(input_dir: Path, sex: str) -> pl.DataFrame:
         stream = _read(path)
         _validate_stream(stream, path)
         stream = stream.rename({"Pelo": f"{prefix}_Pelo", "Elo": f"{prefix}_Elo"})
-        merged = merged.join(stream, on=COMMON_COLUMNS, how="left")
+        merged = merged.join(stream, on=COMMON_COLUMNS, how="left", coalesce=True)
 
     ordered = merged.sort(["ID", "Date", "Race", "Place", "Leg"])
     ordered = ordered.with_columns(
@@ -147,13 +148,13 @@ def compare_chrono(
     generated: pl.DataFrame, accepted_path: Path, tolerance: float
 ) -> dict[str, Any]:
     accepted = _read(accepted_path).select(RATING_COLUMNS + COMMON_COLUMNS)
-    generated_keys = generated.select(COMMON_COLUMNS)
-    accepted_keys = accepted.select(COMMON_COLUMNS)
-    missing = accepted_keys.join(generated_keys, on=COMMON_COLUMNS, how="anti")
-    unexpected = generated_keys.join(accepted_keys, on=COMMON_COLUMNS, how="anti")
+    generated_keys = generated.select(KEY_COLUMNS)
+    accepted_keys = accepted.select(KEY_COLUMNS)
+    missing = accepted_keys.join(generated_keys, on=KEY_COLUMNS, how="anti")
+    unexpected = generated_keys.join(accepted_keys, on=KEY_COLUMNS, how="anti")
     joined = generated.join(
         accepted,
-        on=COMMON_COLUMNS,
+        on=KEY_COLUMNS,
         how="inner",
         suffix="_accepted",
     )
@@ -172,11 +173,25 @@ def compare_chrono(
                 continue
             maximum = max(maximum, difference)
             mismatches += difference > tolerance
+    age_differences = (
+        joined.select((pl.col("Age") - pl.col("Age_accepted")).abs())
+        .to_series()
+        .to_list()
+    )
+    finite_age_differences = [
+        float(value)
+        for value in age_differences
+        if value is not None and math.isfinite(float(value))
+    ]
+    age_mismatches = sum(value > tolerance for value in finite_age_differences)
+    age_mismatches += len(age_differences) - len(finite_age_differences)
+    maximum_age_difference = max(finite_age_differences, default=0.0)
     passed = (
         generated.height == accepted.height
         and missing.is_empty()
         and unexpected.is_empty()
         and mismatches == 0
+        and age_mismatches == 0
     )
     return {
         "status": "passed" if passed else "failed",
@@ -186,6 +201,9 @@ def compare_chrono(
         "unexpected_rows": unexpected.height,
         "rating_mismatches": mismatches,
         "maximum_absolute_rating_difference": maximum,
+        "age_mismatches": age_mismatches,
+        "maximum_absolute_age_difference": maximum_age_difference,
+        "age_excluded_from_identity": True,
         "tolerance": tolerance,
         "accepted_artifact": str(accepted_path.resolve()),
     }
