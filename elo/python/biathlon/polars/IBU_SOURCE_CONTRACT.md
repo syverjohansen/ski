@@ -103,6 +103,29 @@ women's observations, with no unresolved identities.
 
 ## Next boundary
 
-The next slice replays individual and relay Elo from the parity-proven official
-candidate rows and compares the resulting rating artifacts with accepted
-outputs. It must remain shadow-only until the Elo comparison also passes.
+`biathlon_elo_parity.py` implements the next boundary without replacing the
+existing rating mathematics. It splices the official candidate event into
+in-memory copies of both accepted history layouts, invokes `elo.py` unchanged,
+and compares every generated `Pelo` and `Elo` value with the accepted direct
+rating artifacts. The individual policy verifies overall, Individual, Sprint,
+Pursuit, and Mass Start streams; the relay policy verifies the combined stream
+that applies the existing quarter-weight Relay/Mixed Relay and half-weight
+Single Mixed Relay updates.
+
+Install the pinned shadow dependencies, then run:
+
+```bash
+python -m pip install -r requirements-elo-parity.txt
+python biathlon_elo_parity.py \
+  --candidate-dir /tmp/biathlon-adapter-candidate \
+  --output-dir /tmp/biathlon-elo-parity
+```
+
+The Oestersund shadow compared 499,283 accepted output rows across twelve
+sex/policy/discipline streams. Every row and rating matched within `1e-9`; the
+largest floating-point difference was `4.55e-13`. Accepted data was not mutated
+and publication remained disabled.
+
+The next slice can build the deterministic relay-team aggregates and then move
+to guarded acquisition/runtime integration. Promotion remains disabled until
+those downstream artifacts are also proven.
