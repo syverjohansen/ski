@@ -1,0 +1,78 @@
+{
+  "RaceId": "BT2526SWRLCP01SWSP",
+  "Reports": [
+    {
+      "Description": "Start List",
+      "URL": "https://ibu.blob.core.windows.net/docs/2526/BT/SWRL/CP01/SWSP/C51A_v1.pdf",
+      "ReportType": "PDF",
+      "Info": null
+    },
+    {
+      "Description": "Start List Summary",
+      "URL": "https://ibu.blob.core.windows.net/docs/2526/BT/SWRL/CP01/SWSP/C52A_v1.pdf",
+      "ReportType": "PDF",
+      "Info": null
+    },
+    {
+      "Description": "Zeroing Allocation",
+      "URL": "https://ibu.blob.core.windows.net/docs/2526/BT/SWRL/CP01/SWSP/C45C1_v1.pdf",
+      "ReportType": "PDF",
+      "Info": null
+    },
+    {
+      "Description": "Extended Start List Summary",
+      "URL": "https://ibu.blob.core.windows.net/docs/2526/BT/SWRL/CP01/SWSP/C59S_v1.pdf",
+      "ReportType": "PDF",
+      "Info": null
+    },
+    {
+      "Description": "Extended Start List",
+      "URL": "https://ibu.blob.core.windows.net/docs/2526/BT/SWRL/CP01/SWSP/C59B_v1.pdf",
+      "ReportType": "PDF",
+      "Info": null
+    },
+    {
+      "Description": "Results",
+      "URL": "https://ibu.blob.core.windows.net/docs/2526/BT/SWRL/CP01/SWSP/C73B_v1.pdf",
+      "ReportType": "PDF",
+      "Info": null
+    },
+    {
+      "Description": "Competition Analysis",
+      "URL": "https://ibu.blob.core.windows.net/docs/2526/BT/SWRL/CP01/SWSP/C77B_v1.pdf",
+      "ReportType": "PDF",
+      "Info": null
+    },
+    {
+      "Description": "Final Results - Competition Data Summary",
+      "URL": "https://ibu.blob.core.windows.net/docs/2526/BT/SWRL/CP01/SWSP/C82_v1.pdf",
+      "ReportType": "PDF",
+      "Info": null
+    },
+    {
+      "Description": "Women's World Cup Sprint Score",
+      "URL": "https://ibu.blob.core.windows.net/docs/2526/BT/SWRL/CP01/SWSP/C78A_v1.pdf",
+      "ReportType": "PDF",
+      "Info": null
+    },
+    {
+      "Description": "Women's World Cup Total Score",
+      "URL": "https://ibu.blob.core.windows.net/docs/2526/BT/SWRL/CP01/SWSP/C78B_v1.pdf",
+      "ReportType": "PDF",
+      "Info": null
+    },
+    {
+      "Description": "Women's Nation Cup Score",
+      "URL": "https://ibu.blob.core.windows.net/docs/2526/BT/SWRL/CP01/SWSP/C78D_v1.pdf",
+      "ReportType": "PDF",
+      "Info": null
+    },
+    {
+      "Description": "IBU Qualifying Points",
+      "URL": "https://ibu.blob.core.windows.net/docs/2526/BT/SWRL/CP01/SWSP/C74Q_v1.pdf",
+      "ReportType": "PDF",
+      "Info": null
+    }
+  ],
+  "InvalidatedReports": null
+}
