@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 import re
 import time
 import random
+from pathlib import Path
 import pandas as pd
 from fuzzywuzzy import fuzz, process
 
@@ -112,6 +113,84 @@ def parse_hill_size_and_racetype(race_text):
         race_type = "Normal"
 
     return hill_size, race_type
+
+
+def _hill_class(race_type):
+    for value in ("Flying", "Large", "Normal", "Medium", "Small"):
+        if value in race_type:
+            return value
+    return ""
+
+
+def _history_date(value):
+    text = (value or "").strip()[:10]
+    for pattern in ("%m/%d/%Y", "%Y-%m-%d"):
+        try:
+            return datetime.strptime(text, pattern)
+        except ValueError:
+            continue
+    return datetime.min
+
+
+def load_historical_hill_sizes(root=None):
+    """Build a latest-known venue/sex/hill lookup from accepted data."""
+    root = Path(root or Path(__file__).resolve().parent)
+    sources = [
+        root / "excel365/races.csv",
+        root / "excel365/men_chrono.csv",
+        root / "excel365/ladies_chrono.csv",
+        *sorted((root / "relay/excel365").glob("*chrono.csv")),
+    ]
+    exact = {}
+    venue = {}
+
+    def retain_latest(index, key, dated_value):
+        current = index.get(key)
+        if current is None or dated_value[0] > current[0]:
+            index[key] = dated_value
+        elif dated_value[0] == current[0] and dated_value[1] != current[1]:
+            index[key] = (dated_value[0], "")
+
+    for source in sources:
+        if not source.is_file():
+            continue
+        with source.open(newline="", encoding="utf-8-sig") as handle:
+            for row in csv.DictReader(handle):
+                city = row.get("City", "").strip()
+                sex = row.get("Sex", "").strip()
+                hill_size = row.get("HillSize", "").strip()
+                race_type = row.get("RaceType", "") or row.get("Event", "")
+                hill_class = _hill_class(race_type)
+                if not city or not sex or not hill_size.isdigit() or not hill_class:
+                    continue
+                dated_value = (
+                    _history_date(row.get("Final_Date") or row.get("Date")),
+                    hill_size,
+                )
+                retain_latest(exact, (city.casefold(), sex, hill_class), dated_value)
+                retain_latest(venue, (city.casefold(), hill_class), dated_value)
+    return {
+        "exact": {key: value for key, (_, value) in exact.items() if value},
+        "venue": {key: value for key, (_, value) in venue.items() if value},
+    }
+
+
+def resolve_historical_hill_size(city, sex, race_type, lookup):
+    """Resolve a missing FIS calendar HS value from accepted history."""
+    hill_class = _hill_class(race_type)
+    exact = lookup["exact"].get((city.casefold(), sex, hill_class))
+    if exact:
+        return exact
+    venue = lookup["venue"].get((city.casefold(), hill_class))
+    if venue:
+        return venue
+    raise RuntimeError(
+        f"no unambiguous accepted hill size for {city}/{sex}/{race_type}"
+    )
+
+
+def is_tournament_grouping(city):
+    return city == "Two Nights Tour" or "Four Hills Tournament" in city
 
 def assign_periods_by_race_count(races):
     """Assign periods based on equal race counts - both men and ladies follow Olympic structure"""
@@ -228,6 +307,7 @@ def scrape_skijump_races(
     request_fn = request_fn or requests.get
     country_mapping = create_country_mapping()
     elevation_df = load_elevation_data()
+    hill_size_lookup = load_historical_hill_sizes()
     all_races = []
 
     for url, category in calendar_sources(season, include_championships):
@@ -269,6 +349,7 @@ def scrape_skijump_races(
                             category,
                             country_mapping,
                             elevation_df,
+                            hill_size_lookup=hill_size_lookup,
                             request_fn=request_fn,
                             sleep_fn=sleep_fn,
                         )
@@ -317,6 +398,7 @@ def scrape_skijump_event(
     source_category,
     country_mapping,
     elevation_df,
+    hill_size_lookup=None,
     request_fn=None,
     sleep_fn=time.sleep,
 ):
@@ -354,7 +436,7 @@ def scrape_skijump_event(
                 city = header_text.split('(')[0].strip()
                 
                 # Skip tournament groupings that don't have actual races with startlists
-                if city in ["Two Nights Tour", "Four Hills Tournament"]:
+                if is_tournament_grouping(city):
                     print(f"Skipping tournament grouping: {city}")
                     return races
                 
@@ -452,6 +534,13 @@ def scrape_skijump_event(
             
             # Parse hill size and race type
             hill_size, race_type = parse_hill_size_and_racetype(race_text)
+            if not hill_size:
+                hill_size = resolve_historical_hill_size(
+                    city,
+                    sex,
+                    race_type,
+                    hill_size_lookup or load_historical_hill_sizes(),
+                )
             
             # Create group key for matching qualification with final
             # Use a simpler approach: always use the earlier date for grouping
