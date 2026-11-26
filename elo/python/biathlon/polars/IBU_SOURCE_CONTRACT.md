@@ -126,6 +126,25 @@ sex/policy/discipline streams. Every row and rating matched within `1e-9`; the
 largest floating-point difference was `4.55e-13`. Accepted data was not mutated
 and publication remained disabled.
 
-The next slice can build the deterministic relay-team aggregates and then move
-to guarded acquisition/runtime integration. Promotion remains disabled until
-those downstream artifacts are also proven.
+`biathlon_relay_team_parity.py` proves the downstream team boundary. It takes
+the publication-disabled relay athlete ratings above, verifies and injects
+them into in-memory copies of the accepted chronos, invokes the existing relay
+aggregation functions unchanged, and compares the complete men's, women's,
+mixed, and single-mixed team artifacts:
+
+```bash
+python biathlon_relay_team_parity.py \
+  --event-ratings-dir /tmp/biathlon-elo-parity/event_ratings \
+  --output-dir /tmp/biathlon-relay-team-parity
+```
+
+The same Oestersund shadow compared all 10,258 aggregate rows: 4,666 men's
+relay, 3,409 women's relay, 1,346 mixed relay, and 837 single mixed relay rows.
+Every key, team member list, scalar field, and rating matched within `1e-9`;
+the largest floating-point difference was `1.82e-12`. The harness writes only
+event-specific shadow candidates and its report outside the accepted tree.
+Accepted data was not mutated and publication remained disabled.
+
+The next slice can connect the proven official-source path to a guarded
+acquisition/runtime shadow. Promotion remains a separate approval after that
+operational boundary is proven.
