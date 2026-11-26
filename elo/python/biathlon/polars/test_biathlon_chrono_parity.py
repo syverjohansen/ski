@@ -95,6 +95,28 @@ def test_comparison_rejects_rating_drift(tmp_path: Path) -> None:
     assert report["rating_mismatches"] == 1
 
 
+def test_comparison_tolerates_only_bounded_age_rendering_noise(
+    tmp_path: Path,
+) -> None:
+    generated = chrono.build_chrono(INDIVIDUAL, "M").head(2)
+    accepted = generated.with_columns(
+        pl.when(pl.int_range(pl.len()) == 0)
+        .then(pl.col("Age") + 1e-14)
+        .otherwise(pl.col("Age"))
+        .alias("Age")
+    )
+    accepted_path = tmp_path / "accepted.csv"
+    accepted.write_csv(accepted_path)
+
+    passed = chrono.compare_chrono(generated, accepted_path, tolerance=1e-9)
+    failed = chrono.compare_chrono(generated, accepted_path, tolerance=1e-15)
+
+    assert passed["status"] == "passed"
+    assert passed["age_excluded_from_identity"] is True
+    assert failed["status"] == "failed"
+    assert failed["age_mismatches"] == 1
+
+
 def test_output_cannot_enter_accepted_data(tmp_path: Path) -> None:
     with pytest.raises(IBUContractError, match="outside accepted data"):
         chrono.run_parity(
