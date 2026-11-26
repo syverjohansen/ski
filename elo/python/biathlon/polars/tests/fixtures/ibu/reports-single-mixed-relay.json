@@ -1,0 +1,78 @@
+{
+  "RaceId": "BT2526SWRLCP01MXSR",
+  "Reports": [
+    {
+      "Description": "Provisional Start List",
+      "URL": "https://ibu.blob.core.windows.net/docs/2526/BT/SWRL/CP01/MXSR/C51B1_v1.pdf",
+      "ReportType": "PDF",
+      "Info": null
+    },
+    {
+      "Description": "Zeroing Allocation",
+      "URL": "https://ibu.blob.core.windows.net/docs/2526/BT/SWRL/CP01/MXSR/C45C1_v1.pdf",
+      "ReportType": "PDF",
+      "Info": null
+    },
+    {
+      "Description": "Start List",
+      "URL": "https://ibu.blob.core.windows.net/docs/2526/BT/SWRL/CP01/MXSR/C51B2_v2.pdf",
+      "ReportType": "PDF",
+      "Info": null
+    },
+    {
+      "Description": "Start List Summary",
+      "URL": "https://ibu.blob.core.windows.net/docs/2526/BT/SWRL/CP01/MXSR/C52B_v2.pdf",
+      "ReportType": "PDF",
+      "Info": null
+    },
+    {
+      "Description": "Extended Start List Summary",
+      "URL": "https://ibu.blob.core.windows.net/docs/2526/BT/SWRL/CP01/MXSR/C59S_v2.pdf",
+      "ReportType": "PDF",
+      "Info": null
+    },
+    {
+      "Description": "Extended Start List",
+      "URL": "https://ibu.blob.core.windows.net/docs/2526/BT/SWRL/CP01/MXSR/C59B_v2.pdf",
+      "ReportType": "PDF",
+      "Info": null
+    },
+    {
+      "Description": "Results",
+      "URL": "https://ibu.blob.core.windows.net/docs/2526/BT/SWRL/CP01/MXSR/C73C_v1.pdf",
+      "ReportType": "PDF",
+      "Info": null
+    },
+    {
+      "Description": "Competition Analysis",
+      "URL": "https://ibu.blob.core.windows.net/docs/2526/BT/SWRL/CP01/MXSR/C77C_v1.pdf",
+      "ReportType": "PDF",
+      "Info": null
+    },
+    {
+      "Description": "Final Results - Competition Data Summary",
+      "URL": "https://ibu.blob.core.windows.net/docs/2526/BT/SWRL/CP01/MXSR/C82_v1.pdf",
+      "ReportType": "PDF",
+      "Info": null
+    },
+    {
+      "Description": "World Cup Mixed Relay Score",
+      "URL": "https://ibu.blob.core.windows.net/docs/2526/BT/SWRL/CP01/MXSR/C78C_v1.pdf",
+      "ReportType": "PDF",
+      "Info": null
+    },
+    {
+      "Description": "Men's Nation Cup Score",
+      "URL": "https://ibu.blob.core.windows.net/docs/2526/BT/SWRL/CP01/MXSR/C78D1_v1.pdf",
+      "ReportType": "PDF",
+      "Info": null
+    },
+    {
+      "Description": "Women's Nation Cup Score",
+      "URL": "https://ibu.blob.core.windows.net/docs/2526/BT/SWRL/CP01/MXSR/C78D2_v1.pdf",
+      "ReportType": "PDF",
+      "Info": null
+    }
+  ],
+  "InvalidatedReports": null
+}
