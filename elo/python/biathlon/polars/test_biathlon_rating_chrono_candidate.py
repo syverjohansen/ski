@@ -7,6 +7,7 @@ import biathlon_rating_chrono_candidate as candidate
 import polars as pl
 import pytest
 from biathlon_chrono_parity import SEXES, build_chrono
+from biathlon_elevation_parity import add_elevation
 from biathlon_elo_parity import (
     ARTIFACT_NAMES,
     HISTORY_FIELDS,
@@ -69,6 +70,11 @@ def fixture(tmp_path: Path) -> tuple[Path, Path, Path]:
     relay = tmp_path / "accepted" / "relay"
     for accepted_dir, include_relays in ((individual, False), (relay, True)):
         accepted_dir.mkdir(parents=True)
+        write_rows(
+            accepted_dir / "elevation.csv",
+            [{"City": "Östersund", "Elevation": 366}],
+            ["City", "Elevation"],
+        )
         for sex, prefix in (("M", "men"), ("L", "ladies")):
             history = [
                 row(sex, race_type)
@@ -90,8 +96,10 @@ def fixture(tmp_path: Path) -> tuple[Path, Path, Path]:
                 )
                 generated.write_csv(accepted_dir / ARTIFACT_NAMES[stream][sex])
         for sex, label in SEXES.items():
-            build_chrono(accepted_dir, sex).write_csv(
-                accepted_dir / f"{label}_chrono.csv"
+            chrono = build_chrono(accepted_dir, sex)
+            chrono.write_csv(accepted_dir / f"{label}_chrono.csv")
+            add_elevation(chrono, accepted_dir / "elevation.csv").write_csv(
+                accepted_dir / f"{label}_chrono_elevation.csv"
             )
     for sex, prefix in (("M", "men"), ("L", "ladies")):
         write_rows(
@@ -128,9 +136,17 @@ def test_builds_all_rating_and_chrono_candidates(
 
     assert report["status"] == "passed"
     assert report["accepted_data_mutated"] is False
+    assert report["source_candidates_mutated"] is False
+    assert (
+        report["source_candidate_fingerprints"]["before"]
+        == report["source_candidate_fingerprints"]["after"]
+    )
     assert report["apply_ready"] is False
     assert report["application"] == {"status": "disabled", "performed": False}
     assert report["publication"] == {"status": "disabled"}
+    assert report["remaining_blockers"] == [
+        "integration with the checksummed promotion-review atomic set"
+    ]
     assert (
         sum(
             len(report["policies"][policy][sex]["streams"])
@@ -147,6 +163,11 @@ def test_builds_all_rating_and_chrono_candidates(
     )
     assert all(
         report["policies"][policy]["chronos"][sex]["status"] == "passed"
+        for policy in ("individual", "relay")
+        for sex in ("M", "L")
+    )
+    assert all(
+        report["policies"][policy]["elevation_chronos"][sex]["status"] == "passed"
         for policy in ("individual", "relay")
         for sex in ("M", "L")
     )
@@ -188,6 +209,7 @@ def test_candidates_are_byte_deterministic(
             for section in [
                 *[sex["streams"] for key, sex in policy.items() if key in {"M", "L"}],
                 policy["chronos"],
+                policy["elevation_chronos"],
             ]
             for comparison in section.values()
         )

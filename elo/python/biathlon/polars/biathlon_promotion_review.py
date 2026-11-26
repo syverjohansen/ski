@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Build an isolated review bundle from a passed Biathlon shadow runtime.
 
-This is deliberately not an apply command.  It verifies the retained runtime
-and current accepted-data fingerprints, inventories every available event
-delta, and records which full derived artifacts still need deterministic
-materialization before promotion can be enabled.
+This is deliberately not an apply command. It verifies the retained runtime,
+an optional complete derived-artifact candidate, and current accepted-data
+fingerprints. The resulting bundle is the checksummed input to a later guarded
+atomic apply transaction; application and publication remain disabled here.
 """
 
 from __future__ import annotations
@@ -53,6 +53,30 @@ REQUIRED_CANDIDATES = {
     "elo_parity/event_ratings/relay_L_overall.csv",
 }
 COPY_ROOTS = ("evidence", "candidates", "elo_parity", "relay_team_parity")
+DERIVED_REPORT = "rating_chrono_candidate_report.json"
+DERIVED_SCHEMA = "nordicnumbers.biathlon-rating-chrono-candidate/v1"
+RATING_NAMES = {
+    f"{sex}{suffix}.csv"
+    for sex in ("M", "L")
+    for suffix in ("", "_Individual", "_Sprint", "_Pursuit", "_Mass_Start")
+}
+DERIVED_FILES = {
+    *(
+        f"full_ratings/{policy}/{name}"
+        for policy in ("individual", "relay")
+        for name in RATING_NAMES
+    ),
+    *(
+        f"full_chronos/{policy}/{sex}_chrono.csv"
+        for policy in ("individual", "relay")
+        for sex in ("men", "ladies")
+    ),
+    *(
+        f"full_elevation_chronos/{policy}/{sex}_chrono_elevation.csv"
+        for policy in ("individual", "relay")
+        for sex in ("men", "ladies")
+    ),
+}
 
 
 class ReviewError(RuntimeError):
@@ -92,13 +116,12 @@ def _content_fingerprint(receipt: dict[str, Any]) -> dict[str, Any]:
 
 
 def _validate_output_location(
-    output_dir: Path, runtime_dir: Path, accepted_roots: tuple[Path, Path]
+    output_dir: Path, protected_roots: tuple[Path, ...]
 ) -> Path:
     resolved = output_dir.expanduser().resolve()
     if resolved.exists():
         raise ReviewError(f"review output already exists: {resolved}")
-    protected = (runtime_dir.resolve(), *(root.resolve() for root in accepted_roots))
-    for root in protected:
+    for root in (item.resolve() for item in protected_roots):
         if resolved == root or root in resolved.parents:
             raise ReviewError(
                 f"review output cannot be inside protected directory {root}"
@@ -240,6 +263,137 @@ def _validate_stage_reports(
     return reports
 
 
+def _derived_receipts(report: dict[str, Any]) -> list[dict[str, Any]]:
+    receipts: list[dict[str, Any]] = []
+    policies = report.get("policies")
+    if not isinstance(policies, dict) or set(policies) != {"individual", "relay"}:
+        raise ReviewError("derived candidate has an incomplete policy set")
+    for policy in ("individual", "relay"):
+        policy_report = policies.get(policy)
+        if not isinstance(policy_report, dict):
+            raise ReviewError(f"derived {policy} policy report is malformed")
+        for sex in ("M", "L"):
+            sex_report = policy_report.get(sex)
+            streams = (
+                sex_report.get("streams") if isinstance(sex_report, dict) else None
+            )
+            if not isinstance(streams, dict) or len(streams) != 5:
+                raise ReviewError(
+                    f"derived {policy} {sex} rating streams are incomplete"
+                )
+            for comparison in streams.values():
+                if (
+                    not isinstance(comparison, dict)
+                    or comparison.get("status") != "passed"
+                ):
+                    raise ReviewError(
+                        f"derived {policy} {sex} rating parity did not pass"
+                    )
+                receipt = comparison.get("candidate")
+                if not isinstance(receipt, dict):
+                    raise ReviewError(
+                        f"derived {policy} {sex} rating receipt is missing"
+                    )
+                receipts.append(receipt)
+        for section in ("chronos", "elevation_chronos"):
+            comparisons = policy_report.get(section)
+            if not isinstance(comparisons, dict) or set(comparisons) != {"M", "L"}:
+                raise ReviewError(f"derived {policy} {section} are incomplete")
+            for comparison in comparisons.values():
+                if (
+                    not isinstance(comparison, dict)
+                    or comparison.get("status") != "passed"
+                ):
+                    raise ReviewError(f"derived {policy} {section} parity did not pass")
+                receipt = comparison.get("candidate")
+                if not isinstance(receipt, dict):
+                    raise ReviewError(f"derived {policy} {section} receipt is missing")
+                receipts.append(receipt)
+    return receipts
+
+
+def _validate_derived_candidate(
+    derived_dir: Path,
+    expected_report_sha256: str,
+    runtime_dir: Path,
+    current: dict[str, dict[str, Any]],
+) -> tuple[dict[str, Any], list[Path]]:
+    report_path = derived_dir / DERIVED_REPORT
+    if not report_path.is_file():
+        raise ReviewError(f"derived candidate report is missing: {report_path}")
+    observed_sha = _sha256(report_path)
+    if observed_sha != expected_report_sha256:
+        raise ReviewError(
+            "derived report SHA-256 mismatch: "
+            f"expected {expected_report_sha256}, observed {observed_sha}"
+        )
+    report = _load_json(report_path, "derived candidate report")
+    if (
+        report.get("schema_version") != DERIVED_SCHEMA
+        or report.get("status") != "passed"
+    ):
+        raise ReviewError("derived candidate report did not pass the expected schema")
+    if report.get("apply_ready") is not False:
+        raise ReviewError("derived candidate unexpectedly claims to be apply-ready")
+    if report.get("application") != {"status": "disabled", "performed": False}:
+        raise ReviewError(
+            "derived candidate does not preserve the application boundary"
+        )
+    if report.get("publication") != {"status": "disabled"}:
+        raise ReviewError(
+            "derived candidate does not preserve the publication boundary"
+        )
+    if report.get("accepted_data_mutated") is not False:
+        raise ReviewError("derived candidate did not preserve accepted data")
+    accepted = report.get("accepted_fingerprints")
+    if not isinstance(accepted, dict) or accepted.get("before") != accepted.get(
+        "after"
+    ):
+        raise ReviewError("derived accepted-data fingerprints changed")
+    for policy in ("individual", "relay"):
+        receipt = accepted.get("before", {}).get(policy)
+        if not isinstance(receipt, dict) or _content_fingerprint(
+            receipt
+        ) != _content_fingerprint(current[policy]):
+            raise ReviewError(f"derived accepted {policy} fingerprint is stale")
+
+    if report.get("source_candidates_mutated") is not False:
+        raise ReviewError("derived candidate mutated its source candidates")
+    source = report.get("source_candidate_fingerprints")
+    if not isinstance(source, dict) or source.get("before") != source.get("after"):
+        raise ReviewError("derived source-candidate fingerprints changed")
+    expected_source = source.get("before")
+    current_source = fingerprint_tree(runtime_dir / "candidates")
+    if not isinstance(expected_source, dict) or _content_fingerprint(
+        expected_source
+    ) != _content_fingerprint(current_source):
+        raise ReviewError("derived source candidates do not match the retained runtime")
+
+    receipts = _derived_receipts(report)
+    receipt_files = {item.get("file") for item in receipts}
+    if receipt_files != DERIVED_FILES:
+        missing = sorted(DERIVED_FILES - receipt_files)
+        unexpected = sorted(receipt_files - DERIVED_FILES, key=str)
+        raise ReviewError(
+            "derived artifact set is not exact: "
+            f"missing={missing}, unexpected={unexpected}"
+        )
+    paths: list[Path] = []
+    for receipt in receipts:
+        relative = receipt["file"]
+        path = derived_dir / relative
+        if not path.is_file():
+            raise ReviewError(f"derived artifact is missing: {relative}")
+        if (
+            receipt.get("rows") != _csv_rows(path)
+            or receipt.get("bytes") != path.stat().st_size
+            or receipt.get("sha256") != _sha256(path)
+        ):
+            raise ReviewError(f"derived artifact receipt drifted: {relative}")
+        paths.append(path)
+    return report, sorted(paths)
+
+
 def _required_deltas(runtime_dir: Path) -> list[Path]:
     missing = [
         name
@@ -263,7 +417,11 @@ def _required_deltas(runtime_dir: Path) -> list[Path]:
 
 
 def _target_plan(
-    runtime: dict[str, Any], delta_paths: list[Path], runtime_dir: Path
+    runtime: dict[str, Any],
+    delta_paths: list[Path],
+    runtime_dir: Path,
+    derived_paths: list[Path] | None = None,
+    derived_dir: Path | None = None,
 ) -> list[dict[str, Any]]:
     season = str(runtime["season_id"])
     season_year = f"20{season[2:]}"
@@ -288,7 +446,7 @@ def _target_plan(
                 "relay/ladies_scrape_update.csv",
             ]
             operation = "merge_event_rows"
-        elif path.parent.name == "event_ratings":
+        elif path.parent.name == "event_ratings" and derived_paths is None:
             policy, sex, stream = name.removesuffix(".csv").split("_", 2)
             suffixes = {
                 "overall": "",
@@ -303,6 +461,17 @@ def _target_plan(
             targets = [f"relay/{name.replace('.csv', '_chrono.csv')}"]
             operation = "merge_event_rows"
         plan.append({"artifact": relative, "operation": operation, "targets": targets})
+    if derived_paths is not None and derived_dir is not None:
+        for path in derived_paths:
+            relative = path.relative_to(derived_dir).as_posix()
+            _, policy, filename = relative.split("/", 2)
+            plan.append(
+                {
+                    "artifact": f"derived_candidates/{relative}",
+                    "operation": "replace_full_artifact",
+                    "targets": [f"{policy}/{filename}"],
+                }
+            )
     return plan
 
 
@@ -314,13 +483,25 @@ def build_review_candidate(
     individual_dir: Path,
     relay_dir: Path,
     output_dir: Path,
+    derived_candidate_dir: Path | None = None,
+    expected_derived_report_sha256: str | None = None,
 ) -> dict[str, Any]:
     runtime_dir = runtime_dir.expanduser().resolve()
     individual_dir = individual_dir.expanduser().resolve()
     relay_dir = relay_dir.expanduser().resolve()
-    output_dir = _validate_output_location(
-        output_dir, runtime_dir, (individual_dir, relay_dir)
+    if (derived_candidate_dir is None) != (expected_derived_report_sha256 is None):
+        raise ReviewError(
+            "derived candidate directory and expected report SHA-256 are required together"
+        )
+    derived_dir = (
+        derived_candidate_dir.expanduser().resolve()
+        if derived_candidate_dir is not None
+        else None
     )
+    protected = (runtime_dir, individual_dir, relay_dir)
+    if derived_dir is not None:
+        protected = (*protected, derived_dir)
+    output_dir = _validate_output_location(output_dir, protected)
     runtime, current = _validate_runtime(
         runtime_dir,
         expected_report_sha256,
@@ -330,6 +511,15 @@ def build_review_candidate(
     )
     _validate_stage_reports(runtime_dir, runtime)
     delta_paths = _required_deltas(runtime_dir)
+    derived_report: dict[str, Any] | None = None
+    derived_paths: list[Path] | None = None
+    if derived_dir is not None and expected_derived_report_sha256 is not None:
+        derived_report, derived_paths = _validate_derived_candidate(
+            derived_dir,
+            expected_derived_report_sha256,
+            runtime_dir,
+            current,
+        )
 
     output_dir.parent.mkdir(parents=True, exist_ok=True)
     staging = Path(
@@ -342,8 +532,17 @@ def build_review_candidate(
         shutil.copy2(
             runtime_dir / "runtime_report.json", bundle / "runtime_report.json"
         )
+        if derived_dir is not None:
+            derived_bundle = staging / "derived_candidates"
+            for name in (
+                "full_ratings",
+                "full_chronos",
+                "full_elevation_chronos",
+            ):
+                shutil.copytree(derived_dir / name, derived_bundle / name)
+            shutil.copy2(derived_dir / DERIVED_REPORT, derived_bundle / DERIVED_REPORT)
         artifacts: list[dict[str, Any]] = []
-        for path in sorted(item for item in bundle.rglob("*") if item.is_file()):
+        for path in sorted(item for item in staging.rglob("*") if item.is_file()):
             receipt: dict[str, Any] = {
                 "file": path.relative_to(staging).as_posix(),
                 "bytes": path.stat().st_size,
@@ -366,13 +565,34 @@ def build_review_candidate(
             },
             "accepted_current": current,
             "artifacts": artifacts,
-            "target_plan": _target_plan(runtime, delta_paths, runtime_dir),
-            "pending_materialization": [
-                "full individual men_chrono.csv and ladies_chrono.csv",
-                "full relay men_chrono.csv and ladies_chrono.csv",
-                "full relay discipline Elo artifacts",
-                "full individual and relay elevation chrono artifacts",
-            ],
+            "target_plan": _target_plan(
+                runtime, delta_paths, runtime_dir, derived_paths, derived_dir
+            ),
+            "derived_candidate": (
+                {
+                    "file": f"derived_candidates/{DERIVED_REPORT}",
+                    "sha256": expected_derived_report_sha256,
+                    "status": derived_report["status"],
+                }
+                if derived_report is not None
+                else None
+            ),
+            "atomic_candidate_set_complete": derived_report is not None,
+            "pending_materialization": (
+                []
+                if derived_report is not None
+                else [
+                    "full individual men_chrono.csv and ladies_chrono.csv",
+                    "full relay men_chrono.csv and ladies_chrono.csv",
+                    "full relay discipline Elo artifacts",
+                    "full individual and relay elevation chrono artifacts",
+                ]
+            ),
+            "remaining_blockers": (
+                ["guarded atomic apply transaction"]
+                if derived_report is not None
+                else ["complete derived-artifact materialization"]
+            ),
             "apply_ready": False,
             "accepted_files_modified": False,
             "application": {"status": "disabled", "performed": False},
@@ -397,6 +617,8 @@ def main() -> int:
     parser.add_argument("--individual-dir", type=Path, default=here / "excel365")
     parser.add_argument("--relay-dir", type=Path, default=here / "relay" / "excel365")
     parser.add_argument("--output-dir", required=True, type=Path)
+    parser.add_argument("--derived-candidate-dir", type=Path)
+    parser.add_argument("--expected-derived-report-sha256")
     args = parser.parse_args()
     try:
         result = build_review_candidate(**vars(args))
