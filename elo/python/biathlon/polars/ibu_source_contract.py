@@ -269,6 +269,7 @@ def validate_competitions(
                 competition.get("StartTime"), field=f"{race_id}.StartTime"
             ),
             "description": str(competition.get("ShortDescription", "")).strip(),
+            "gender_order": str(competition.get("GenderOrder", "") or "").strip(),
             "discipline_id": str(competition.get("DisciplineId", "")),
             "event_kind": kind,
             "sex": sex,
