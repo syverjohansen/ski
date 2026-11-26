@@ -90,11 +90,6 @@ def test_sprint_fixture_adapts_to_exact_accepted_core_rows(tmp_path: Path) -> No
     assert len(expected) == 5
     _write_csv(accepted / "ladies_scrape_update.csv", expected, RESULT_FIELDS)
     _write_csv(accepted / "men_scrape_update.csv", [], RESULT_FIELDS)
-    weekends = [
-        row for row in _read_csv(ACCEPTED / "weekends.csv")
-        if row["Startlist"].endswith(SPRINT_ID)
-    ]
-    _write_csv(accepted / "weekends.csv", weekends, list(weekends[0]))
     races = [
         row for row in _read_csv(ACCEPTED / "races2026.csv")
         if row["Date"] == "12/05/2025" and row["RaceType"] == "Sprint" and row["Sex"] == "L"

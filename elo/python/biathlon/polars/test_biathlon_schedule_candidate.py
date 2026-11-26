@@ -170,6 +170,8 @@ def test_builds_missing_races_and_weekends_candidates(tmp_path: Path) -> None:
     assert weekends[1]["Date"] == "11/26/2026"
     assert weekends[1]["Race_Date"] == "11/27/2026"
     assert weekends[1]["Distance"] == "N/A"
+    assert b"\r\n" not in (output / "races2027_candidate.csv").read_bytes()
+    assert b"\r\n" not in (output / "weekends_candidate.csv").read_bytes()
     assert report["candidate_files"] == {
         "races2027_candidate.csv": {
             "rows": 2,
