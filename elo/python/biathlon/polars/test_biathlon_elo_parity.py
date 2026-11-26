@@ -58,6 +58,25 @@ def test_splice_fails_closed_on_result_identity_difference() -> None:
     assert report["unexpected_rows"] == 1
 
 
+def test_splice_appends_genuinely_additive_event_with_explicit_number() -> None:
+    accepted = [row(Date="2024-01-01", Race="1", ID="20")]
+    candidate = [row(Race="3", Age="25.917864476386042")]
+
+    spliced, report = splice_candidates(accepted, candidate)
+
+    assert report["status"] == "passed"
+    assert report["mode"] == "additive"
+    appended = next(item for item in spliced if item["ID"] == "10")
+    assert appended["Race"] == "3"
+
+
+def test_splice_rejects_mixed_additive_and_replacement_batch() -> None:
+    accepted = [row(), row(Date="2024-01-01", Race="1", ID="20")]
+    candidate = [row(), row(Date="2025-12-03", Race="5", ID="30")]
+    with pytest.raises(IBUContractError, match="mixes additive and replacement"):
+        splice_candidates(accepted, candidate)
+
+
 def rating_frame(elo: float, pelo: float, *, athlete_id: str = "10") -> pl.DataFrame:
     return pl.DataFrame({
         "Date": ["2025-12-02"],

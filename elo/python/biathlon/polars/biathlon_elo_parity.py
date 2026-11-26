@@ -107,6 +107,32 @@ def splice_candidates(
     accepted_event_rows = [
         row for row in accepted_rows if _event_key(row) in selected_events
     ]
+    additive = not accepted_event_rows
+    if not additive and {
+        _event_key(row) for row in accepted_event_rows
+    } != selected_events:
+        raise IBUContractError(
+            "candidate mixes additive and replacement events in one replay"
+        )
+    if additive:
+        candidate_keys = [
+            tuple(row[field] for field in INPUT_PARITY_FIELDS)
+            for row in candidate_rows
+        ]
+        if len(candidate_keys) != len(set(candidate_keys)):
+            raise IBUContractError("additive candidate contains duplicate result rows")
+        retained = list(accepted_rows)
+        return [*retained, *[dict(row) for row in candidate_rows]], {
+            "status": "passed",
+            "mode": "additive",
+            "candidate_rows": len(candidate_rows),
+            "accepted_rows": 0,
+            "missing_rows": 0,
+            "unexpected_rows": 0,
+            "age_excluded_from_identity": True,
+            "missing_examples": [],
+            "unexpected_examples": [],
+        }
     accepted_event_numbers: dict[tuple[str, str], set[str]] = {}
     for event in selected_events:
         accepted_event_numbers[event] = {
@@ -138,6 +164,7 @@ def splice_candidates(
     )
     report = {
         "status": "passed" if parity else "failed",
+        "mode": "replacement",
         "candidate_rows": len(aligned),
         "accepted_rows": len(accepted_event_rows),
         "missing_rows": len(missing),
@@ -309,9 +336,16 @@ def run_parity(
         ("relay", relay_dir),
     ):
         policy_report: dict[str, Any] = {}
+        policy_candidate_dir = (
+            candidate_dir / policy
+            if (candidate_dir / policy).is_dir()
+            else candidate_dir
+        )
         for sex, prefix in (("M", "men"), ("L", "ladies")):
             accepted_history = _read_csv(accepted_dir / f"{prefix}_scrape_update.csv")
-            candidates = _read_csv(candidate_dir / f"{prefix}_results_candidate.csv")
+            candidates = _read_csv(
+                policy_candidate_dir / f"{prefix}_results_candidate.csv"
+            )
             spliced, input_report = splice_candidates(accepted_history, candidates)
             sex_report: dict[str, Any] = {"input_parity": input_report, "streams": {}}
             if input_report["status"] != "passed":
