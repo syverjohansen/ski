@@ -264,6 +264,9 @@ def validate_competitions(
             "event_kind": kind,
             "sex": sex,
             "status_id": int(competition.get("StatusId", 0)),
+            "status_text": str(competition.get("StatusText", "")).strip(),
+            "result_status": str(competition.get("ResultStatus", "")).strip(),
+            "schedule_status": str(competition.get("ScheduleStatus", "")).strip(),
         })
     return normalized
 
