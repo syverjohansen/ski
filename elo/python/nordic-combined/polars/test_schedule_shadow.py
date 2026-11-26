@@ -8,11 +8,12 @@ import unittest
 from pathlib import Path
 
 from race_schedule_output import save_nordic_combined_races
-from schedule_contract import ScheduleContractError
+from schedule_contract import RACES_COLUMNS, ScheduleContractError, infer_fis_season, read_csv
 from scrape_schedule_shadow import run_shadow_acquisition
 
 ROOT = Path(__file__).resolve().parent
 ACCEPTED = ROOT / "excel365/races.csv"
+ACCEPTED_SEASON = infer_fis_season(read_csv(ACCEPTED, RACES_COLUMNS))
 
 
 def acquired_rows() -> list[dict[str, str]]:
@@ -53,7 +54,7 @@ class NordicCombinedScheduleShadowTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory) / "shadow"
             result = run_shadow_acquisition(
-                season=2026,
+                season=ACCEPTED_SEASON,
                 accepted_races=ACCEPTED,
                 output_root=output,
                 scrape_fn=lambda **_: acquired_rows(),
@@ -65,20 +66,23 @@ class NordicCombinedScheduleShadowTests(unittest.TestCase):
             self.assertTrue((output / "candidate/races.csv").is_file())
             self.assertTrue((output / "candidate/weekends.csv").is_file())
             report = json.loads((output / "reports/acquisition.json").read_text())
-            self.assertEqual(["World Cup", "Olympics"], [row["category"] for row in report["sources"]])
+            self.assertEqual(
+                ["World Cup", "World Championships"],
+                [row["category"] for row in report["sources"]],
+            )
 
     def test_empty_or_nonisolated_acquisition_fails_closed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             with self.assertRaisesRegex(ScheduleContractError, "returned no"):
                 run_shadow_acquisition(
-                    season=2026,
+                    season=ACCEPTED_SEASON,
                     accepted_races=ACCEPTED,
                     output_root=Path(directory) / "shadow",
                     scrape_fn=lambda **_: [],
                 )
         with self.assertRaisesRegex(ScheduleContractError, "isolated"):
             run_shadow_acquisition(
-                season=2026,
+                season=ACCEPTED_SEASON,
                 accepted_races=ACCEPTED,
                 output_root=ACCEPTED.parent,
                 scrape_fn=lambda **_: acquired_rows(),
@@ -89,7 +93,7 @@ class NordicCombinedScheduleShadowTests(unittest.TestCase):
         incomplete = rows[:10] + [row for row in rows if row["championship"] == "1"]
         with tempfile.TemporaryDirectory() as directory:
             result = run_shadow_acquisition(
-                season=2026,
+                season=ACCEPTED_SEASON,
                 accepted_races=ACCEPTED,
                 output_root=Path(directory) / "shadow",
                 scrape_fn=lambda **_: incomplete,
@@ -104,7 +108,7 @@ class NordicCombinedScheduleShadowTests(unittest.TestCase):
             output = Path(directory) / "shadow"
             with self.assertRaisesRegex(ScheduleContractError, "blank required fields"):
                 run_shadow_acquisition(
-                    season=2026,
+                    season=ACCEPTED_SEASON,
                     accepted_races=ACCEPTED,
                     output_root=output,
                     scrape_fn=lambda **_: rows,
@@ -112,7 +116,7 @@ class NordicCombinedScheduleShadowTests(unittest.TestCase):
             report = json.loads((output / "reports/acquisition.json").read_text())
             self.assertEqual("failed", report["status"])
             self.assertEqual({"status": "blocked", "performed": False}, report["promotion"])
-            self.assertEqual(35, report["rows"])
+            self.assertEqual(len(rows), report["rows"])
 
     def test_selected_fis_source_without_calendar_data_fails_closed(self) -> None:
         from race_scrape import scrape_nordic_combined
@@ -120,7 +124,7 @@ class NordicCombinedScheduleShadowTests(unittest.TestCase):
         response = types.SimpleNamespace(content=b"<html></html>")
         with self.assertRaisesRegex(RuntimeError, "World Cup.*no calendar data"):
             scrape_nordic_combined(
-                season=2026,
+                season=ACCEPTED_SEASON,
                 include_championships=False,
                 request_fn=lambda *_: response,
                 sleep_fn=lambda _: None,
