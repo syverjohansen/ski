@@ -53,6 +53,15 @@ class IBUContractError(RuntimeError):
     """Official IBU evidence violates the supported source contract."""
 
 
+def is_final_competition(competition: dict[str, Any]) -> bool:
+    """Return whether all three official IBU completion signals agree."""
+    return (
+        str(competition.get("status_text", "")).casefold() == "final"
+        and str(competition.get("result_status", "")).upper() == "OFFICIAL"
+        and str(competition.get("schedule_status", "")).upper() == "FINISHED"
+    )
+
+
 Fetcher = Callable[[str, dict[str, str]], bytes]
 
 
@@ -409,6 +418,14 @@ def capture_contract(
     unknown = sorted(set(selected) - set(by_race))
     if unknown:
         raise IBUContractError(f"races are not in official event {event_id}: {unknown}")
+    not_final = sorted(
+        race_id for race_id in selected if not is_final_competition(by_race[race_id])
+    )
+    if not_final:
+        raise IBUContractError(
+            "refusing to capture results before IBU marks them "
+            f"Final/OFFICIAL/FINISHED: {not_final}"
+        )
 
     raw_dir = output_dir / "raw"
     _atomic_json(raw_dir / "events.json", events_payload)
