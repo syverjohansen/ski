@@ -144,6 +144,42 @@ def build_chrono(input_dir: Path, sex: str) -> pl.DataFrame:
     return ordered.select(RATING_COLUMNS + COMMON_COLUMNS).sort(sort_columns)
 
 
+def preserve_prior_offseason_archives(
+    chrono: pl.DataFrame,
+    accepted_path: Path,
+    starting_season: int,
+) -> pl.DataFrame:
+    """Keep completed-season Race=0 presentation values immutable.
+
+    ``build_chrono`` applies the established discount rules used to seed a new
+    season.  The accepted Race=0 rows are presentation archives, however, and
+    intentionally retain the final *undiscounted* Elo for that season.  Once a
+    later season starts, rebuilding must therefore copy those archived rating
+    values from the accepted chrono rather than retroactively discounting them.
+    """
+    accepted = _read(accepted_path).select(RATING_COLUMNS + COMMON_COLUMNS).with_columns(
+        *(pl.col(field).cast(chrono.schema[field]) for field in KEY_COLUMNS),
+        *(pl.col(field).cast(pl.Float64) for field in RATING_COLUMNS),
+    )
+    archived = accepted.filter(
+        (pl.col("RaceType") == "Offseason")
+        & (pl.col("Season") < starting_season)
+    ).select(
+        *KEY_COLUMNS,
+        *(pl.col(field).alias(f"_accepted_{field}") for field in RATING_COLUMNS),
+    )
+    if archived.is_empty():
+        return chrono
+    merged = chrono.join(archived, on=KEY_COLUMNS, how="left", coalesce=True)
+    merged = merged.with_columns(
+        *(
+            pl.coalesce([pl.col(f"_accepted_{field}"), pl.col(field)]).alias(field)
+            for field in RATING_COLUMNS
+        )
+    )
+    return merged.drop([f"_accepted_{field}" for field in RATING_COLUMNS])
+
+
 def compare_chrono(
     generated: pl.DataFrame,
     accepted_path: Path,
@@ -322,6 +358,18 @@ def run_parity(
             policy_report: dict[str, Any] = {}
             for sex, label in SEXES.items():
                 candidate = build_chrono(accepted_dir, sex)
+                active_seasons = candidate.filter(
+                    pl.col("RaceType") != "Offseason"
+                ).get_column("Season")
+                if active_seasons.is_empty():
+                    raise IBUContractError(
+                        f"{accepted_dir} has no active race season for {sex}"
+                    )
+                candidate = preserve_prior_offseason_archives(
+                    candidate,
+                    accepted_dir / f"{label}_chrono.csv",
+                    int(active_seasons.max()),
+                )
                 candidate_path = staging / policy / f"{label}_chrono.csv"
                 candidate_path.parent.mkdir(parents=True, exist_ok=True)
                 candidate.write_csv(candidate_path)

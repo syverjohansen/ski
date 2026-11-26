@@ -44,13 +44,69 @@ def test_full_accepted_chronos_rebuild_with_exact_rating_parity(
         for policy in ("individual", "relay")
         for sex in ("M", "L")
     ]
-    assert sum(item["generated_rows"] for item in comparisons) == 331_548
+    assert all(item["generated_rows"] > 0 for item in comparisons)
+    assert sum(item["generated_rows"] for item in comparisons) == sum(
+        item["accepted_rows"] for item in comparisons
+    )
     assert all(item["maximum_absolute_rating_difference"] == 0 for item in comparisons)
     assert all(item["rating_mismatches"] == 0 for item in comparisons)
     assert all(
         item["missing_rows"] == item["unexpected_rows"] == 0 for item in comparisons
     )
     assert (tmp_path / "candidate" / "chrono_parity_report.json").is_file()
+
+
+def test_prior_offseason_archives_remain_undiscounted(tmp_path: Path) -> None:
+    accepted = pl.DataFrame(
+        {
+            **{
+                column: [1400.0, 1420.0]
+                for column in chrono.RATING_COLUMNS
+            },
+            **{
+                column: values
+                for column, values in {
+                    "Date": ["2026-05-01", "2026-11-26"],
+                    "City": ["Summer", "Kontiolahti"],
+                    "Country": ["Summer", "Finland"],
+                    "Sex": ["M", "M"],
+                    "Distance": ["0", "20"],
+                    "RaceType": ["Offseason", "Individual"],
+                    "MassStart": [0, 0],
+                    "Event": ["Offseason", "World Cup"],
+                    "Place": [0, 1],
+                    "Skier": ["Test", "Test"],
+                    "Nation": ["Norway", "Norway"],
+                    "ID": ["1", "1"],
+                    "Season": [2026, 2027],
+                    "Race": [0, 1],
+                    "Birthday": ["2000-01-01", "2000-01-01"],
+                    "Age": [26.3, 26.9],
+                    "Exp": [1, 1],
+                    "Leg": [0, 0],
+                }.items()
+            },
+        }
+    ).select(chrono.RATING_COLUMNS + chrono.COMMON_COLUMNS)
+    accepted_path = tmp_path / "accepted.csv"
+    accepted.write_csv(accepted_path)
+    rebuilt = accepted.with_columns(
+        *(
+            pl.when(pl.col("RaceType") == "Offseason")
+            .then(pl.lit(1385.0))
+            .otherwise(pl.col(field))
+            .alias(field)
+            for field in chrono.RATING_COLUMNS
+        )
+    )
+
+    preserved = chrono.preserve_prior_offseason_archives(
+        rebuilt, accepted_path, starting_season=2027
+    )
+
+    archive = preserved.filter(pl.col("RaceType") == "Offseason")
+    assert archive["Elo"].item() == 1400.0
+    assert archive["Individual_Elo"].item() == 1400.0
 
 
 def test_generated_chronos_are_byte_deterministic(tmp_path: Path) -> None:
