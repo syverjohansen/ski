@@ -1,185 +1,145 @@
 #!/usr/bin/env python3
-"""
-Biathlon standings scraper for FirstSkiSport.
-This script scrapes men's and women's World Cup standings and saves them to CSV files.
+"""Build current Biathlon World Cup standings from accepted result history.
+
+This replaces the authenticated FirstSkiSport page dependency. Only accepted
+World Cup individual results count; championship and relay rows are excluded.
 """
 
-import os
+from __future__ import annotations
+
+import argparse
 import csv
-import re
-import requests
-from bs4 import BeautifulSoup
-import pandas as pd
-from time import time
-import logging
+import tempfile
+from collections import defaultdict
 from pathlib import Path
 
-# Set up logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+
+class StandingsError(RuntimeError):
+    """Raised when accepted results cannot produce current standings."""
+
+
+REGULAR_POINTS = (
+    90, 75, 65, 55, 50, 45, 41, 37, 34, 31, 30, 29, 28, 27, 26, 25,
+    24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8,
+    7, 6, 5, 4, 3, 2, 1,
 )
-logger = logging.getLogger(__name__)
+MASS_START_POINTS = (
+    90, 75, 65, 55, 50, 45, 41, 37, 34, 31, 30, 29, 28, 27, 26, 25,
+    24, 23, 22, 21, 20, 18, 16, 14, 12, 10, 8, 6, 4, 2,
+)
+OUTPUT_FIELDS = ("Skier", "ID", "Nation", "Ranking", "Points", "Wins")
 
-# Updated URLs for World Cup rankings
-MEN_URL = "https://firstskisport.com/biathlon/ranking.php?y=2026&cup=1"
-WOMEN_URL = "https://firstskisport.com/biathlon/ranking.php?y=2026&g=w&cup=1"
-OUTPUT_DIR = os.path.expanduser("~/ski/elo/python/biathlon/polars/excel365")
-MEN_OUTPUT = os.path.join(OUTPUT_DIR, "men_standings.csv")
-WOMEN_OUTPUT = os.path.join(OUTPUT_DIR, "ladies_standings.csv")
-USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
-HEADERS = {
-    "User-Agent": USER_AGENT,
-    "Accept-Language": "en-US,en;q=0.9",
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-}
 
-# Ensure output directory exists
-Path(OUTPUT_DIR).mkdir(parents=True, exist_ok=True)
-
-def extract_athlete_id(href):
-    """Extract athlete ID from href attribute."""
-    if not href:
-        return None
-    match = re.search(r'id=(\d+)', href)
-    return match.group(1) if match else None
-
-def extract_points(points_text):
-    """Extract numeric points value from text like '(1291 pts)'"""
-    if not points_text:
-        return None
-    match = re.search(r'\((\d+)', points_text)
-    return int(match.group(1)) if match else None
-
-def extract_shooting_percentage(percentage_text):
-    """Extract shooting percentage from text like '97.14%'"""
-    if not percentage_text:
-        return None
-    match = re.search(r'(\d+\.?\d*)%', percentage_text)
-    return float(match.group(1)) if match else None
-
-def scrape_standings(url, gender):
-    """
-    Scrape standings data from the given URL.
-    
-    Args:
-        url (str): URL to scrape
-        gender (str): 'men' or 'women'
-        
-    Returns:
-        list: List of dictionaries containing standings data
-    """
-    start_time = time()
-    logger.info(f"Starting to scrape {gender}'s World Cup standings from {url}")
-    
+def _read_history(path: Path) -> list[dict[str, str]]:
     try:
-        response = requests.get(url, headers=HEADERS, timeout=30)
-        response.raise_for_status()
-    except requests.exceptions.RequestException as e:
-        logger.error(f"Failed to fetch {gender}'s standings: {e}")
-        return []
-    
-    soup = BeautifulSoup(response.text, 'html.parser')
-    
-    # Find the main table containing standings data
-    table = soup.select_one('table.sortTabell')
-    if not table:
-        logger.error(f"No standings table found on the page for {gender}")
-        return []
-    
-    # Extract rows from the table (skip header row)
-    rows = table.select('tbody tr')
-    
-    standings_data = []
+        with path.open(newline="", encoding="utf-8-sig") as handle:
+            reader = csv.DictReader(handle)
+            rows = list(reader)
+            missing = sorted(
+                {"Season", "Race", "Event", "RaceType", "Place", "Skier", "ID", "Nation"}
+                - set(reader.fieldnames or [])
+            )
+    except OSError as exc:
+        raise StandingsError(f"cannot read {path}: {exc}") from exc
+    if missing:
+        raise StandingsError(f"{path} is missing columns: {missing}")
+    if not rows:
+        raise StandingsError(f"accepted history is empty: {path}")
+    return rows
+
+
+def build_standings(rows: list[dict[str, str]], season: int) -> list[dict[str, object]]:
+    points: dict[str, int] = defaultdict(int)
+    wins: dict[str, int] = defaultdict(int)
+    identity: dict[str, dict[str, str]] = {}
+    observed = 0
     for row in rows:
-        try:
-            # Get athlete name and ID
-            name_cell = row.select_one('td:nth-child(1) a')
-            if not name_cell:
-                continue
-                
-            athlete_id = extract_athlete_id(name_cell.get('href', ''))
-            
-            # Extract name - handle the format with uppercase last name
-            last_name_span = name_cell.select_one('span[style*="text-transform:uppercase"]')
-            first_name = name_cell.text.replace(last_name_span.text if last_name_span else "", "").strip()
-            last_name = last_name_span.text.strip() if last_name_span else ""
-            
-            # Combine for full name
-            athlete_name = f"{first_name} {last_name}".strip()
-            
-            # Get nation
-            nation_cell = row.select_one('td:nth-child(2)')
-            nation_link = nation_cell.select_one('a') if nation_cell else None
-            nation = nation_link.text.strip() if nation_link else ""
-            
-            # Get ranking
-            ranking_cell = row.select_one('td:nth-child(3)')
-            ranking = int(ranking_cell.text.strip()) if ranking_cell else None
-            
-            # Get points
-            points_cell = row.select_one('td:nth-child(4)')
-            points_text = points_cell.text.strip() if points_cell else ""
-            points = extract_points(points_text)
-            
-            # Get wins
-            wins_cell = row.select_one('td:nth-child(5)')
-            wins = int(wins_cell.text.strip()) if wins_cell and wins_cell.text.strip().isdigit() else 0
-            
-            # Get prone shooting percentage
-            prone_cell = row.select_one('td:nth-child(6)')
-            prone_percentage = extract_shooting_percentage(prone_cell.text.strip()) if prone_cell else None
-            
-            # Get standing shooting percentage
-            standing_cell = row.select_one('td:nth-child(7)')
-            standing_percentage = extract_shooting_percentage(standing_cell.text.strip()) if standing_cell else None
-            
-            standings_data.append({
-                'Skier': athlete_name,
-                'ID': athlete_id,
-                'Nation': nation,
-                'Ranking': ranking,
-                'Points': points,
-                'Wins': wins,
-                'Prone_Percentage': prone_percentage,
-                'Standing_Percentage': standing_percentage
-            })
-            
-        except Exception as e:
-            logger.warning(f"Error processing row: {e}")
+        if (
+            int(row["Season"]) != season
+            or row["Race"] == "0"
+            or row["Event"] != "World Cup"
+            or "relay" in row["RaceType"].casefold()
+        ):
             continue
-    
-    logger.info(f"Scraped {len(standings_data)} {gender}'s standings in {time() - start_time:.2f} seconds")
-    return standings_data
+        try:
+            place = int(float(row["Place"]))
+        except ValueError as exc:
+            raise StandingsError(f"invalid Place: {row['Place']!r}") from exc
+        athlete_id = str(int(row["ID"]))
+        identity[athlete_id] = row
+        table = MASS_START_POINTS if row["RaceType"] == "Mass Start" else REGULAR_POINTS
+        if 1 <= place <= len(table):
+            points[athlete_id] += table[place - 1]
+        else:
+            points.setdefault(athlete_id, 0)
+        wins[athlete_id] += place == 1
+        observed += 1
+    if not observed:
+        raise StandingsError(f"season {season} has no accepted World Cup results")
+    ordered = sorted(
+        points,
+        key=lambda athlete_id: (
+            -points[athlete_id], identity[athlete_id]["Skier"], int(athlete_id)
+        ),
+    )
+    return [
+        {
+            "Skier": identity[athlete_id]["Skier"],
+            "ID": int(athlete_id),
+            "Nation": identity[athlete_id]["Nation"],
+            "Ranking": ranking,
+            "Points": points[athlete_id],
+            "Wins": wins[athlete_id],
+        }
+        for ranking, athlete_id in enumerate(ordered, start=1)
+    ]
 
-def save_to_csv(data, output_file):
-    """Save data to CSV file."""
-    if not data:
-        logger.warning(f"No data to save to {output_file}")
-        return
-    
-    try:
-        df = pd.DataFrame(data)
-        df.to_csv(output_file, index=False)
-        logger.info(f"Saved {len(data)} records to {output_file}")
-    except Exception as e:
-        logger.error(f"Failed to save data to {output_file}: {e}")
 
-def main():
-    """Main execution function."""
-    start_time = time()
-    
-    # Scrape men's standings
-    logger.info("Scraping men's World Cup standings...")
-    men_data = scrape_standings(MEN_URL, 'men')
-    save_to_csv(men_data, MEN_OUTPUT)
-    
-    # Scrape women's standings
-    logger.info("Scraping women's World Cup standings...")
-    women_data = scrape_standings(WOMEN_URL, 'women')
-    save_to_csv(women_data, WOMEN_OUTPUT)
-    
-    logger.info(f"Completed scraping in {time() - start_time:.2f} seconds")
+def _atomic_csv(path: Path, rows: list[dict[str, object]]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile(
+        "w", newline="", encoding="utf-8", dir=path.parent, delete=False
+    ) as handle:
+        writer = csv.DictWriter(handle, fieldnames=OUTPUT_FIELDS, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(rows)
+        temporary = Path(handle.name)
+    temporary.replace(path)
+
+
+def write_current_standings(data_root: Path, season: int | None = None) -> int:
+    data_root = data_root.expanduser().resolve()
+    histories = {
+        "men": _read_history(data_root / "men_chrono.csv"),
+        "ladies": _read_history(data_root / "ladies_chrono.csv"),
+    }
+    if season is None:
+        raced_seasons = {
+            int(row["Season"])
+            for rows in histories.values()
+            for row in rows
+            if row["Race"] != "0"
+        }
+        if not raced_seasons:
+            raise StandingsError("accepted histories contain no race seasons")
+        season = max(raced_seasons)
+    for gender, rows in histories.items():
+        _atomic_csv(
+            data_root / f"{gender}_standings.csv",
+            build_standings(rows, season),
+        )
+    return season
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--data-root", required=True, type=Path)
+    parser.add_argument("--season", type=int)
+    args = parser.parse_args()
+    season = write_current_standings(args.data_root, args.season)
+    print(f"Built accepted-result Biathlon standings for season {season}.")
+    return 0
+
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
