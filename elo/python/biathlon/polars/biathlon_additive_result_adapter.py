@@ -292,8 +292,9 @@ def adapt_additive_results(
     existing_alias_rows = _read_csv(aliases_path) if aliases_path is not None else []
     next_local_id = 1 + max(
         int(float(row["ID"]))
+        for policy in ("individual", "relay")
         for sex in ("M", "L")
-        for row in histories["individual"][sex]
+        for row in histories[policy][sex]
         if row.get("ID")
     )
     new_identities: dict[str, Identity] = {}
