@@ -55,8 +55,20 @@ def test_full_accepted_elevation_chronos_rebuild_exactly(tmp_path: Path) -> None
         for policy in ("individual", "relay")
         for sex in ("men", "ladies")
     ]
-    assert sum(item["generated_rows"] for item in comparisons) == 331_548
-    assert sum(item["zero_elevation_rows"] for item in comparisons) == 31_351
+    assert all(item["generated_rows"] > 0 for item in comparisons)
+    assert sum(item["generated_rows"] for item in comparisons) == sum(
+        item["accepted_rows"] for item in comparisons
+    )
+    expected_zero_elevation_rows = sum(
+        _read(root / f"{sex}_chrono_elevation.csv")
+        .filter(pl.col("Elevation") == 0)
+        .height
+        for root in (INDIVIDUAL, RELAY)
+        for sex in ("men", "ladies")
+    )
+    assert sum(
+        item["zero_elevation_rows"] for item in comparisons
+    ) == expected_zero_elevation_rows
     assert all(item["elevation_mismatches"] == 0 for item in comparisons)
     assert all(
         item["maximum_absolute_elevation_difference"] == 0 for item in comparisons

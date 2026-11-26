@@ -25,6 +25,7 @@ from biathlon_chrono_parity import (
     SEXES,
     build_chrono,
     compare_chrono,
+    preserve_prior_offseason_archives,
 )
 from biathlon_elevation_parity import add_elevation, compare_elevation
 from biathlon_elo_parity import (
@@ -109,48 +110,6 @@ def _allowed_derived_events(
         for row in candidate_rows
     )
     return events
-
-
-def _preserve_prior_offseason_archives(
-    chrono: Any,
-    accepted_path: Path,
-    candidate_rows: list[dict[str, str]],
-) -> Any:
-    """Keep earlier Race=0 archive values stable when a new season starts.
-
-    The chrono presentation intentionally exposes the latest undiscounted Elo
-    for its current-season Race=0 page. Rebuilding after the first race of the
-    next season must not retroactively rewrite the prior archive with the
-    engine's discounted starting value.
-    """
-    if not candidate_rows:
-        return chrono
-    candidate_season = min(int(row["Season"]) for row in candidate_rows)
-    import polars as pl
-
-    accepted = pl.read_csv(
-        accepted_path, schema_overrides={"Distance": pl.String}
-    ).with_columns(
-        *(pl.col(field).cast(chrono.schema[field]) for field in KEY_COLUMNS),
-        *(pl.col(field).cast(pl.Float64) for field in RATING_COLUMNS),
-    )
-    archived = accepted.filter(
-        (pl.col("RaceType") == "Offseason")
-        & (pl.col("Season") < candidate_season)
-    ).select(
-        *KEY_COLUMNS,
-        *(pl.col(field).alias(f"_accepted_{field}") for field in RATING_COLUMNS),
-    )
-    if archived.is_empty():
-        return chrono
-    merged = chrono.join(archived, on=KEY_COLUMNS, how="left", coalesce=True)
-    merged = merged.with_columns(
-        *(
-            pl.coalesce([pl.col(f"_accepted_{field}"), pl.col(field)]).alias(field)
-            for field in RATING_COLUMNS
-        )
-    )
-    return merged.drop([f"_accepted_{field}" for field in RATING_COLUMNS])
 
 
 def build_candidates(
@@ -297,10 +256,10 @@ def build_candidates(
                         policy_candidate_dir / f"{label}_results_candidate.csv"
                     )
                     if policy_report[sex]["input_parity"]["mode"] == "additive":
-                        chrono = _preserve_prior_offseason_archives(
+                        chrono = preserve_prior_offseason_archives(
                             chrono,
                             accepted_dir / f"{label}_chrono.csv",
-                            candidate_rows,
+                            min(int(row["Season"]) for row in candidate_rows),
                         )
                     comparison = compare_chrono(
                         chrono,
