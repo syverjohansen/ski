@@ -318,6 +318,7 @@ class CrossCountryFisPredictionIdentityTests(unittest.TestCase):
             for row in rows:
                 if row["fis_competitor_id"] == "200":
                     row["name"] = "ANCHOR TWO CURRENT"
+                    row["fis_competitor_id"] = "999"
             write_csv(results, RESULT_FIELDS, rows)
             classify_fis_prediction_identities(
                 results=results,
@@ -328,11 +329,12 @@ class CrossCountryFisPredictionIdentityTests(unittest.TestCase):
             )
 
             for row in rows:
-                if row["fis_competitor_id"] == "200":
+                if row["fis_competitor_id"] == "999":
                     row["fis_code"] = "9999999"
+                    row["name"] = "Anchor Two"
             write_csv(results, RESULT_FIELDS, rows)
             with self.assertRaisesRegex(
-                FisPredictionIdentityError, "identity changed"
+                FisPredictionIdentityError, "FIS code changed"
             ):
                 classify_fis_prediction_identities(
                     results=results,

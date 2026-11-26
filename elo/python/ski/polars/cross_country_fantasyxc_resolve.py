@@ -26,10 +26,20 @@ from cross_country_weekend_inputs import select_normal_weekend, validate_startli
 
 CANDIDATES_SCHEMA = "nordicnumbers.cross-country-announced-roster-candidates/v1"
 REPORT_SCHEMA = "nordicnumbers.cross-country-announced-roster-resolution-report/v1"
-RESOLVER_VERSION = "fantasyxc-resolver-v6"
+RESOLVER_VERSION = "fantasyxc-resolver-v7"
 # Exact, operator-reviewed spelling differences in FantasyXC evidence. These
 # are deliberately narrow aliases, not fuzzy matching.
 REVIEWED_NAME_ALIASES = {
+    # FantasyXC commonly shortens full registered names. These mappings were
+    # reviewed against current FIS codes and Nordic Numbers history.
+    normalized_name("Zach Jayne"): ("M", "18790", "Zachary Jayne"),
+    normalized_name("Jakob Moch"): ("M", "19936", "Jakob Elias Moch"),
+    normalized_name("JC Schoonmaker"): (
+        "M",
+        "9201",
+        "James Clinton Schoonmaker",
+    ),
+    normalized_name("John Hagenbuch"): ("M", "12699", "Johnny Hagenbuch"),
     normalized_name("Ingrid Bergane Aabrekk"): (
         "L",
         "6828",
@@ -423,6 +433,22 @@ def resolve_feed(
                 }
             )
             continue
+        # A continuation is already guarded by an exact known athlete, a
+        # recent positive roster post, and the 15-minute thread window. It may
+        # begin with an abbreviation or another unresolved name, so do not
+        # require its first line to independently repeat a positive cue.
+        continuation_has_section = any(
+            re.fullmatch(r"(?:men|women|ladies)\s*:\s*.*", line, re.I)
+            for line in lines
+        )
+        continuation_exact_lines = sum(
+            bool(_candidate_athletes(line, None, athletes, chronology_keys))
+            for line in lines
+        )
+        if inherited_anchor and (
+            continuation_has_section or continuation_exact_lines >= 2
+        ):
+            positive_context = True
         first_line_is_section = bool(
             lines
             and re.fullmatch(r"(?:men|women|ladies)\s*:", lines[0], re.I)

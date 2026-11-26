@@ -130,12 +130,8 @@ def _resolve_athletes(
     provenance: list[dict[str, str]] = []
     canonical_seen: set[str] = set()
     for athlete in official:
-        alias = aliases.get((sex, athlete.competitor_id))
+        alias = aliases.get((sex, athlete.fis_code))
         if alias:
-            if alias.fis_code != athlete.fis_code or alias.fis_name != athlete.name:
-                raise TourInputError(
-                    f"FIS identity changed for alias {sex}/{athlete.competitor_id}"
-                )
             canonical_id = alias.canonical_id
             method = "reviewed_alias"
         else:
@@ -147,6 +143,17 @@ def _resolve_athletes(
                     f"{athlete.name!r}; candidates={sorted(candidates)}"
                 )
             canonical_id = next(iter(candidates))
+            reviewed_codes = {
+                reviewed.fis_code
+                for reviewed in aliases.values()
+                if reviewed.sex == sex and reviewed.canonical_id == canonical_id
+            }
+            if reviewed_codes:
+                raise TourInputError(
+                    "FIS code changed for reviewed athlete "
+                    f"{sex}/{canonical_id}; observed={athlete.fis_code}, "
+                    f"reviewed={sorted(reviewed_codes)}"
+                )
             method = "unique_normalized_name"
         if canonical_id in canonical_seen:
             raise TourInputError(

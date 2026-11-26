@@ -218,7 +218,7 @@ class CrossCountryFisPredictionCohortTests(unittest.TestCase):
             results, men, ladies, aliases = write_sources(
                 root, aliases=[alias_row(fis_code="wrong")]
             )
-            with self.assertRaisesRegex(FisPredictionCohortError, "does not match"):
+            with self.assertRaisesRegex(FisPredictionCohortError, "FIS code changed"):
                 build_fis_prediction_calibration_cohort(
                     results=[results],
                     men_chrono=men,

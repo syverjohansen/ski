@@ -2,8 +2,9 @@
 """Map raw FIS cross-country identities to Nordic Numbers athlete IDs.
 
 Automatic mapping requires one unique normalized-name match within the same
-sex. Reviewed aliases bind an exact FIS competitor ID, code, and name to an
-existing athlete. Unknown or ambiguous identities fail the whole candidate.
+sex. Reviewed aliases bind the stable FIS code to an existing athlete; the FIS
+page ID and display name are retained only as audit evidence. Unknown or
+ambiguous identities fail the whole candidate.
 """
 
 from __future__ import annotations
@@ -130,7 +131,7 @@ def load_aliases(
             canonical_id=(row.get("canonical_id") or "").strip(),
             canonical_name=(row.get("canonical_name") or "").strip(),
         )
-        key = (alias.sex, alias.fis_competitor_id)
+        key = (alias.sex, alias.fis_code)
         if alias.sex not in {"M", "L"} or not all(
             (
                 alias.fis_competitor_id,
@@ -221,13 +222,8 @@ def map_identities(
         if sex not in {"M", "L"} or not competitor_id or not fis_code or not fis_name:
             raise IdentityError(f"{results}:{row_number}: incomplete FIS identity")
 
-        alias = aliases.get((sex, competitor_id))
+        alias = aliases.get((sex, fis_code))
         if alias:
-            if alias.fis_code != fis_code or alias.fis_name != fis_name:
-                raise IdentityError(
-                    f"{results}:{row_number}: FIS identity changed for alias "
-                    f"{sex}/{competitor_id}"
-                )
             canonical_id = alias.canonical_id
             method = "reviewed_alias"
         else:
@@ -240,6 +236,17 @@ def map_identities(
                     f"{sorted(candidate_ids)}"
                 )
             canonical_id = next(iter(candidate_ids))
+            reviewed_codes = {
+                reviewed.fis_code
+                for reviewed in aliases.values()
+                if reviewed.sex == sex and reviewed.canonical_id == canonical_id
+            }
+            if reviewed_codes:
+                raise IdentityError(
+                    f"{results}:{row_number}: FIS code changed for reviewed athlete "
+                    f"{sex}/{canonical_id}; observed={fis_code}, "
+                    f"reviewed={sorted(reviewed_codes)}"
+                )
             method = "unique_normalized_name"
 
         canonical = athletes[(sex, canonical_id)]
