@@ -68,6 +68,9 @@ def test_validates_world_cup_event_and_all_supported_competition_shapes() -> Non
     assert next(
         race for race in short_individual_week if race["event_kind"] == "short_individual"
     )["sex"] == "M"
+    assert all(race["status_text"] == "Final" for race in races)
+    assert all(race["result_status"] == "OFFICIAL" for race in races)
+    assert all(race["schedule_status"] == "FINISHED" for race in races)
 
 
 def test_individual_results_preserve_stable_ibu_athlete_ids() -> None:
