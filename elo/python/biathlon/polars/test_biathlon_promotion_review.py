@@ -146,6 +146,78 @@ def fixture(tmp_path: Path) -> tuple[Path, Path, Path, str]:
     return runtime_dir, individual, relay, review._sha256(report_path)
 
 
+def derived_fixture(
+    tmp_path: Path, runtime_dir: Path, individual: Path, relay: Path
+) -> tuple[Path, str]:
+    derived = tmp_path / "derived"
+    policies: dict[str, object] = {}
+    for policy in ("individual", "relay"):
+        policy_report: dict[str, object] = {}
+        for sex in ("M", "L"):
+            streams: dict[str, object] = {}
+            names = {
+                "overall": f"{sex}.csv",
+                "individual": f"{sex}_Individual.csv",
+                "sprint": f"{sex}_Sprint.csv",
+                "pursuit": f"{sex}_Pursuit.csv",
+                "mass_start": f"{sex}_Mass_Start.csv",
+            }
+            for stream, name in names.items():
+                path = derived / "full_ratings" / policy / name
+                write_csv(path, [{"ID": "1", "Elo": "1400"}])
+                streams[stream] = {
+                    "status": "passed",
+                    "candidate": {
+                        "file": path.relative_to(derived).as_posix(),
+                        "rows": 1,
+                        "bytes": path.stat().st_size,
+                        "sha256": review._sha256(path),
+                    },
+                }
+            policy_report[sex] = {"streams": streams}
+        for section, suffix in (
+            ("chronos", "chrono.csv"),
+            ("elevation_chronos", "chrono_elevation.csv"),
+        ):
+            comparisons: dict[str, object] = {}
+            root = "full_chronos" if section == "chronos" else "full_elevation_chronos"
+            for sex, label in (("M", "men"), ("L", "ladies")):
+                path = derived / root / policy / f"{label}_{suffix}"
+                write_csv(path, [{"ID": "1", "Elo": "1400"}])
+                comparisons[sex] = {
+                    "status": "passed",
+                    "candidate": {
+                        "file": path.relative_to(derived).as_posix(),
+                        "rows": 1,
+                        "bytes": path.stat().st_size,
+                        "sha256": review._sha256(path),
+                    },
+                }
+            policy_report[section] = comparisons
+        policies[policy] = policy_report
+
+    accepted = {
+        "individual": fingerprint_tree(individual),
+        "relay": fingerprint_tree(relay),
+    }
+    source = fingerprint_tree(runtime_dir / "candidates")
+    report = {
+        "schema_version": review.DERIVED_SCHEMA,
+        "status": "passed",
+        "policies": policies,
+        "source_candidate_fingerprints": {"before": source, "after": source},
+        "source_candidates_mutated": False,
+        "accepted_fingerprints": {"before": accepted, "after": accepted},
+        "accepted_data_mutated": False,
+        "apply_ready": False,
+        "application": {"status": "disabled", "performed": False},
+        "publication": {"status": "disabled"},
+    }
+    report_path = derived / review.DERIVED_REPORT
+    write_json(report_path, report)
+    return derived, review._sha256(report_path)
+
+
 def build(tmp_path: Path, **overrides: object) -> dict[str, object]:
     runtime_dir, individual, relay, report_sha = fixture(tmp_path)
     arguments: dict[str, object] = {
@@ -173,6 +245,139 @@ def test_builds_isolated_checksummed_review_bundle(tmp_path: Path) -> None:
     assert "individual/races2026.csv" in targets
     assert "relay/mixed_relay_chrono.csv" in targets
     assert (tmp_path / "review" / "review_report.json").is_file()
+
+
+def test_integrates_complete_derived_atomic_candidate_set(tmp_path: Path) -> None:
+    runtime_dir, individual, relay, report_sha = fixture(tmp_path)
+    derived, derived_sha = derived_fixture(tmp_path, runtime_dir, individual, relay)
+
+    report = review.build_review_candidate(
+        runtime_dir=runtime_dir,
+        expected_report_sha256=report_sha,
+        expected_code_commit=COMMIT,
+        individual_dir=individual,
+        relay_dir=relay,
+        output_dir=tmp_path / "review",
+        derived_candidate_dir=derived,
+        expected_derived_report_sha256=derived_sha,
+    )
+
+    assert report["atomic_candidate_set_complete"] is True
+    assert report["pending_materialization"] == []
+    assert report["remaining_blockers"] == ["guarded atomic apply transaction"]
+    derived_plan = [
+        item
+        for item in report["target_plan"]
+        if item["operation"] == "replace_full_artifact"
+    ]
+    assert len(derived_plan) == 28
+    assert len({item["targets"][0] for item in derived_plan}) == 28
+    assert (
+        len(
+            [
+                item
+                for item in report["artifacts"]
+                if item["file"].startswith("derived_candidates/")
+            ]
+        )
+        == 29
+    )
+    event_ratings = [
+        item for item in report["target_plan"] if "/event_ratings/" in item["artifact"]
+    ]
+    assert event_ratings
+    assert all(item["operation"] == "evidence_only" for item in event_ratings)
+    assert (
+        tmp_path
+        / "review"
+        / "derived_candidates"
+        / "full_elevation_chronos"
+        / "relay"
+        / "ladies_chrono_elevation.csv"
+    ).is_file()
+
+
+def test_rejects_wrong_derived_report_hash(tmp_path: Path) -> None:
+    runtime_dir, individual, relay, report_sha = fixture(tmp_path)
+    derived, _ = derived_fixture(tmp_path, runtime_dir, individual, relay)
+    with pytest.raises(review.ReviewError, match="derived report SHA-256 mismatch"):
+        review.build_review_candidate(
+            runtime_dir=runtime_dir,
+            expected_report_sha256=report_sha,
+            expected_code_commit=COMMIT,
+            individual_dir=individual,
+            relay_dir=relay,
+            output_dir=tmp_path / "review",
+            derived_candidate_dir=derived,
+            expected_derived_report_sha256="0" * 64,
+        )
+
+
+def test_rejects_missing_derived_report(tmp_path: Path) -> None:
+    runtime_dir, individual, relay, report_sha = fixture(tmp_path)
+    derived = tmp_path / "derived"
+    derived.mkdir()
+    with pytest.raises(review.ReviewError, match="derived candidate report is missing"):
+        review.build_review_candidate(
+            runtime_dir=runtime_dir,
+            expected_report_sha256=report_sha,
+            expected_code_commit=COMMIT,
+            individual_dir=individual,
+            relay_dir=relay,
+            output_dir=tmp_path / "review",
+            derived_candidate_dir=derived,
+            expected_derived_report_sha256="0" * 64,
+        )
+
+
+def test_rejects_derived_artifact_tampering(tmp_path: Path) -> None:
+    runtime_dir, individual, relay, report_sha = fixture(tmp_path)
+    derived, derived_sha = derived_fixture(tmp_path, runtime_dir, individual, relay)
+    (derived / "full_ratings" / "individual" / "M.csv").write_text(
+        "ID,Elo\n1,9999\n", encoding="utf-8"
+    )
+    with pytest.raises(review.ReviewError, match="artifact receipt drifted"):
+        review.build_review_candidate(
+            runtime_dir=runtime_dir,
+            expected_report_sha256=report_sha,
+            expected_code_commit=COMMIT,
+            individual_dir=individual,
+            relay_dir=relay,
+            output_dir=tmp_path / "review",
+            derived_candidate_dir=derived,
+            expected_derived_report_sha256=derived_sha,
+        )
+
+
+def test_rejects_derived_source_candidate_mismatch(tmp_path: Path) -> None:
+    runtime_dir, individual, relay, report_sha = fixture(tmp_path)
+    derived, derived_sha = derived_fixture(tmp_path, runtime_dir, individual, relay)
+    write_csv(runtime_dir / "candidates" / "extra.csv", [{"unexpected": "candidate"}])
+    with pytest.raises(review.ReviewError, match="do not match the retained runtime"):
+        review.build_review_candidate(
+            runtime_dir=runtime_dir,
+            expected_report_sha256=report_sha,
+            expected_code_commit=COMMIT,
+            individual_dir=individual,
+            relay_dir=relay,
+            output_dir=tmp_path / "review",
+            derived_candidate_dir=derived,
+            expected_derived_report_sha256=derived_sha,
+        )
+
+
+def test_rejects_incomplete_derived_arguments(tmp_path: Path) -> None:
+    runtime_dir, individual, relay, report_sha = fixture(tmp_path)
+    with pytest.raises(review.ReviewError, match="required together"):
+        review.build_review_candidate(
+            runtime_dir=runtime_dir,
+            expected_report_sha256=report_sha,
+            expected_code_commit=COMMIT,
+            individual_dir=individual,
+            relay_dir=relay,
+            output_dir=tmp_path / "review",
+            derived_candidate_dir=tmp_path / "derived",
+        )
 
 
 def test_rejects_wrong_runtime_report_hash(tmp_path: Path) -> None:

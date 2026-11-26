@@ -150,13 +150,18 @@ def compare_chrono(
     accepted = _read(accepted_path).select(RATING_COLUMNS + COMMON_COLUMNS)
     generated_keys = generated.select(KEY_COLUMNS)
     accepted_keys = accepted.select(KEY_COLUMNS)
-    missing = accepted_keys.join(generated_keys, on=KEY_COLUMNS, how="anti")
-    unexpected = generated_keys.join(accepted_keys, on=KEY_COLUMNS, how="anti")
+    missing = accepted_keys.join(
+        generated_keys, on=KEY_COLUMNS, how="anti", join_nulls=True
+    )
+    unexpected = generated_keys.join(
+        accepted_keys, on=KEY_COLUMNS, how="anti", join_nulls=True
+    )
     joined = generated.join(
         accepted,
         on=KEY_COLUMNS,
         how="inner",
         suffix="_accepted",
+        join_nulls=True,
     )
     mismatches = 0
     maximum = 0.0

@@ -19,6 +19,7 @@ from pathlib import Path
 from typing import Any
 
 from biathlon_chrono_parity import SEXES, build_chrono, compare_chrono
+from biathlon_elevation_parity import add_elevation, compare_elevation
 from biathlon_elo_parity import (
     ARTIFACT_NAMES,
     STREAMS,
@@ -92,6 +93,7 @@ def build_candidates(
         "individual": fingerprint_tree(individual_dir),
         "relay": fingerprint_tree(relay_dir),
     }
+    source_before = fingerprint_tree(candidate_dir)
     engine = load_engine(engine_path.expanduser().resolve())
     output_dir.parent.mkdir(parents=True, exist_ok=True)
     staging = Path(
@@ -102,10 +104,17 @@ def build_candidates(
         "status": "passed",
         "tolerance": tolerance,
         "policies": {},
+        "source_candidate_fingerprints": {
+            "before": source_before,
+            "after": None,
+        },
+        "source_candidates_mutated": False,
         "accepted_fingerprints": {"before": before, "after": None},
         "accepted_data_mutated": False,
         "apply_ready": False,
-        "remaining_blockers": ["individual and relay elevation chrono candidates"],
+        "remaining_blockers": [
+            "integration with the checksummed promotion-review atomic set"
+        ],
         "application": {"status": "disabled", "performed": False},
         "publication": {"status": "disabled"},
     }
@@ -163,6 +172,7 @@ def build_candidates(
                 policy_report[sex] = sex_report
 
             chrono_report: dict[str, Any] = {}
+            elevation_report: dict[str, Any] = {}
             if all(
                 policy_report.get(sex, {}).get("input_parity", {}).get("status")
                 == "passed"
@@ -184,16 +194,40 @@ def build_candidates(
                     chrono_report[sex] = comparison
                     if comparison["status"] != "passed":
                         report["status"] = "failed"
+                    elevation = add_elevation(chrono, accepted_dir / "elevation.csv")
+                    elevation_comparison = compare_elevation(
+                        elevation,
+                        accepted_dir / f"{label}_chrono_elevation.csv",
+                        tolerance,
+                    )
+                    elevation_artifact = (
+                        staging
+                        / "full_elevation_chronos"
+                        / policy
+                        / f"{label}_chrono_elevation.csv"
+                    )
+                    elevation_artifact.parent.mkdir(parents=True, exist_ok=True)
+                    elevation.write_csv(elevation_artifact)
+                    elevation_comparison["candidate"] = _candidate_receipt(
+                        elevation_artifact, elevation.height, staging
+                    )
+                    elevation_report[sex] = elevation_comparison
+                    if elevation_comparison["status"] != "passed":
+                        report["status"] = "failed"
             policy_report["chronos"] = chrono_report
+            policy_report["elevation_chronos"] = elevation_report
             report["policies"][policy] = policy_report
 
         after = {
             "individual": fingerprint_tree(individual_dir),
             "relay": fingerprint_tree(relay_dir),
         }
+        source_after = fingerprint_tree(candidate_dir)
         report["accepted_fingerprints"]["after"] = after
         report["accepted_data_mutated"] = before != after
-        if before != after:
+        report["source_candidate_fingerprints"]["after"] = source_after
+        report["source_candidates_mutated"] = source_before != source_after
+        if before != after or source_before != source_after:
             report["status"] = "failed"
         with (staging / "rating_chrono_candidate_report.json").open(
             "w", encoding="utf-8"
