@@ -137,7 +137,7 @@ class IBUClient:
     base_url: str = SPORT_API_BASE
 
     def _get(self, endpoint: str, **parameters: str | int) -> Any:
-        if endpoint not in {"Events", "Competitions", "Results", "Reports2"}:
+        if endpoint not in {"Events", "Competitions", "Results", "Reports2", "CISBios"}:
             raise IBUContractError(f"unsupported IBU endpoint: {endpoint}")
         url = f"{self.base_url}{endpoint}?{urlencode(parameters)}"
         _official_url(url, allowed_hosts={"biathlonresults.com"})
@@ -173,6 +173,16 @@ class IBUClient:
         payload = self._get("Reports2", RaceId=race_id)
         if not isinstance(payload, dict):
             raise IBUContractError("IBU Reports response is not an object")
+        return payload
+
+    def bio(self, ibu_id: str) -> dict[str, Any]:
+        """Return the official athlete biography for identity corroboration."""
+        _identifier(ibu_id, field="ibu_id")
+        payload = self._get("CISBios", IBUId=ibu_id)
+        if not isinstance(payload, dict):
+            raise IBUContractError("IBU CISBios response is not an object")
+        if payload.get("IBUId") != ibu_id:
+            raise IBUContractError(f"IBU CISBios identity mismatch for {ibu_id}")
         return payload
 
 

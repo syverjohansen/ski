@@ -201,3 +201,26 @@ def test_client_restricts_endpoints_and_evidence_rejects_accepted_tree(tmp_path:
             race_ids=[SPRINT_ID],
             output_dir=tmp_path / "excel365" / "evidence",
         )
+
+
+def test_client_reads_official_bio_for_identity_corroboration() -> None:
+    ibu_id = "BTFIN20812199401"
+    payload = {"IBUId": ibu_id, "GenderId": "W", "Birthdate": "1994-12-08"}
+    calls = []
+
+    def fetcher(url: str, headers: dict[str, str]) -> bytes:
+        calls.append((url, headers))
+        return json.dumps(payload).encode("utf-8")
+
+    assert IBUClient(api_key="public-key", fetcher=fetcher).bio(ibu_id) == payload
+    assert calls[0][0].endswith(f"CISBios?IBUId={ibu_id}")
+    assert calls[0][1] == {"apikey": "public-key"}
+
+
+def test_client_rejects_mismatched_official_bio() -> None:
+    client = IBUClient(
+        api_key="fixture",
+        fetcher=lambda *_: b'{"IBUId":"BTOTHER"}',
+    )
+    with pytest.raises(IBUContractError, match="identity mismatch"):
+        client.bio("BTFIN20812199401")

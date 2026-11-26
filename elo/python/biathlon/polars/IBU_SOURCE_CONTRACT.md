@@ -61,9 +61,48 @@ Some local Python framework installations do not have a configured CA bundle.
 Set `SSL_CERT_FILE` to the system or `certifi` CA bundle in that environment;
 TLS verification must not be disabled.
 
+## Shadow compatibility adapter
+
+`biathlon_official_adapter.py` converts a validated evidence bundle into
+candidate Nordic Numbers schedule and result CSVs. It resolves official
+`IBUId` values against accepted local athlete IDs with deterministic normalized
+names. Ambiguous or missing identities fail closed. A small reviewed alias file
+handles spelling or surname changes that cannot be inferred safely; the
+official `CISBios` endpoint is available to corroborate those reviews with
+gender and birthdate evidence.
+
+The adapter deliberately preserves the legacy compatibility semantics needed
+for historical parity:
+
+- DNS/non-ranked entries do not become Elo observations.
+- Relay members inherit their team's official finish rank.
+- Single Mixed Relay's repeated second leg for each athlete is collapsed to
+  the one observation used by the accepted histories.
+- Result race numbering preserves the historical men's/mixed and women's
+  sequences, while schedule numbering preserves its separate mixed sequence.
+
+Run it only against an isolated evidence bundle and an output directory outside
+the accepted `excel365` tree:
+
+```bash
+python biathlon_official_adapter.py \
+  --evidence-dir /tmp/biathlon-ibu-contract \
+  --accepted-dir excel365 \
+  --aliases ibu_identity_aliases.csv \
+  --output-dir /tmp/biathlon-adapter-candidate
+```
+
+Outputs are `schedule_candidate.csv`, separate men's and women's result
+candidates, `identity_map.csv`, and `parity_report.json`. The report records
+that accepted data was not mutated and publication is disabled. Promotion and
+runtime integration remain separate future approvals.
+
+The Oestersund 2025/26 historical shadow proves exact core parity for all ten
+competitions: 10/10 schedule rows, 410/410 men's observations, and 417/417
+women's observations, with no unresolved identities.
+
 ## Next boundary
 
-The next slice converts these validated official records into the legacy
-Nordic Numbers schedule/result schemas, resolves accepted historical athlete
-IDs against `IBUId`, and proves individual and relay Elo parity before any
-promotion is enabled.
+The next slice replays individual and relay Elo from the parity-proven official
+candidate rows and compares the resulting rating artifacts with accepted
+outputs. It must remain shadow-only until the Elo comparison also passes.
