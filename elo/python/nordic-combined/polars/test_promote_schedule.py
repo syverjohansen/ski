@@ -9,8 +9,10 @@ from pathlib import Path
 from promote_schedule import promote_schedule
 from schedule_contract import (
     RACES_COLUMNS,
+    WEEKENDS_COLUMNS,
     ScheduleContractError,
     build_shadow,
+    derive_weekends,
     file_sha256,
     infer_fis_season,
     read_csv,
@@ -19,6 +21,8 @@ from schedule_contract import (
 
 ROOT = Path(__file__).resolve().parent
 SOURCE = ROOT / "excel365"
+ACCEPTED_RACES = SOURCE / "races2026.csv"
+ACCEPTED_SEASON = infer_fis_season(read_csv(ACCEPTED_RACES, RACES_COLUMNS))
 
 
 def shift_season(rows: list[dict[str, str]]) -> list[dict[str, str]]:
@@ -37,15 +41,21 @@ def shift_season(rows: list[dict[str, str]]) -> list[dict[str, str]]:
 
 
 class PromoteNordicCombinedScheduleTests(unittest.TestCase):
-    target_season = infer_fis_season(read_csv(SOURCE / "races.csv", RACES_COLUMNS)) + 1
+    target_season = ACCEPTED_SEASON + 1
 
     def prepare(self, root: Path, *, rollover: bool) -> tuple[Path, Path, Path]:
         accepted = root / "accepted"
         accepted.mkdir(parents=True)
-        for name in ("races.csv", "weekends.csv"):
-            (accepted / name).write_bytes((SOURCE / name).read_bytes())
+        (accepted / "races.csv").write_bytes(ACCEPTED_RACES.read_bytes())
+        accepted_rows = read_csv(accepted / "races.csv", RACES_COLUMNS)
+        write_csv_atomic(
+            accepted / "weekends.csv",
+            WEEKENDS_COLUMNS,
+            derive_weekends(accepted_rows),
+            lineterminator="\n",
+        )
         rows = read_csv(accepted / "races.csv", RACES_COLUMNS)
-        season = 2026
+        season = ACCEPTED_SEASON
         if rollover:
             rows = shift_season(rows)
             season = self.target_season
@@ -87,7 +97,7 @@ class PromoteNordicCombinedScheduleTests(unittest.TestCase):
                 report,
                 expected_report_sha256=file_sha256(report),
                 accepted_dir=accepted,
-                approve_season=2026,
+                approve_season=ACCEPTED_SEASON,
                 receipt_path=root / "receipt.json",
             )
             self.assertEqual("same_season", result["transition"])

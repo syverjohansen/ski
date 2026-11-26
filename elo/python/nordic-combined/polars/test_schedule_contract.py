@@ -28,12 +28,12 @@ class NordicCombinedScheduleContractTests(unittest.TestCase):
     def test_current_schedule_passes_contract(self) -> None:
         races = read_csv(ACCEPTED_RACES, RACES_COLUMNS)
         weekends = read_csv(ACCEPTED_WEEKENDS, WEEKENDS_COLUMNS)
-        self.assertEqual(35, validate_races(races)["rows"])
-        self.assertEqual(2026, infer_fis_season(races))
-        structure = validate_season_structure(races, expected_season=2026)
-        self.assertEqual("OWG", structure["championship_category"])
-        self.assertEqual(3, structure["championship_rows"])
-        self.assertEqual({"status": "passed", "rows": 35}, validate_relationship(races, weekends))
+        self.assertEqual(54, validate_races(races)["rows"])
+        self.assertEqual(2027, infer_fis_season(races))
+        structure = validate_season_structure(races, expected_season=2027)
+        self.assertEqual("WSC", structure["championship_category"])
+        self.assertEqual(7, structure["championship_rows"])
+        self.assertEqual({"status": "passed", "rows": 54}, validate_relationship(races, weekends))
 
     def test_current_weekends_are_reproduced_byte_for_byte(self) -> None:
         races = read_csv(ACCEPTED_RACES, RACES_COLUMNS)
@@ -46,13 +46,17 @@ class NordicCombinedScheduleContractTests(unittest.TestCase):
 
     def test_individual_team_sprint_and_mixed_rows_remain_distinct(self) -> None:
         races = read_csv(ACCEPTED_RACES, RACES_COLUMNS)
-        olympic_team_sprint = next(
-            row for row in races if row["Championship"] == "1" and row["RaceType"] == "Team Sprint"
+        championship_team_sprint = next(
+            row
+            for row in races
+            if row["Championship"] == "1"
+            and row["RaceType"] == "Team Sprint"
+            and row["Sex"] == "M"
         )
         mixed_team_sprint = next(row for row in races if row["Sex"] == "Mixed")
-        self.assertEqual("M", olympic_team_sprint["Sex"])
+        self.assertEqual("M", championship_team_sprint["Sex"])
         self.assertEqual("Mixed", mixed_team_sprint["Sex"])
-        self.assertNotEqual(olympic_team_sprint["Race"], mixed_team_sprint["Race"])
+        self.assertNotEqual(championship_team_sprint["Race"], mixed_team_sprint["Race"])
 
     def test_calendar_sources_use_nordic_combined_sector(self) -> None:
         sources = calendar_sources(2027)
@@ -75,8 +79,8 @@ class NordicCombinedScheduleContractTests(unittest.TestCase):
 
     def test_rollover_must_match_requested_season(self) -> None:
         races = read_csv(ACCEPTED_RACES, RACES_COLUMNS)
-        with self.assertRaisesRegex(ScheduleContractError, "outside requested FIS season 2027"):
-            validate_season_structure(races, expected_season=2027)
+        with self.assertRaisesRegex(ScheduleContractError, "outside requested FIS season 2026"):
+            validate_season_structure(races, expected_season=2026)
 
 
 if __name__ == "__main__":
