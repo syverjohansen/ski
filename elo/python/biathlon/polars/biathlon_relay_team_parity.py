@@ -220,6 +220,7 @@ def compare_team_artifact(
     accepted_path: Path,
     *,
     tolerance: float,
+    allowed_additive_events: set[tuple[str, str]] | None = None,
 ) -> dict[str, Any]:
     generated = csv_ready(generated)
     accepted = pl.read_csv(accepted_path, schema_overrides={"Distance": pl.String})
@@ -231,6 +232,13 @@ def compare_team_artifact(
     duplicate_accepted = len(accepted_by_key) != len(accepted_rows)
     missing = set(accepted_by_key) - set(generated_by_key)
     unexpected = set(generated_by_key) - set(accepted_by_key)
+    authorized_unexpected = {
+        key
+        for key in unexpected
+        if allowed_additive_events is not None
+        and (key[4], key[5]) in allowed_additive_events
+    }
+    unauthorized_unexpected = unexpected - authorized_unexpected
     mismatches = []
     maximum_difference = 0.0
     common_columns = list(accepted.columns)
@@ -270,9 +278,9 @@ def compare_team_artifact(
         not duplicate_generated
         and not duplicate_accepted
         and not missing
-        and not unexpected
+        and not unauthorized_unexpected
         and not mismatches
-        and len(generated_rows) == len(accepted_rows)
+        and len(generated_rows) == len(accepted_rows) + len(authorized_unexpected)
     )
     return {
         "status": "passed" if passed else "failed",
@@ -281,6 +289,8 @@ def compare_team_artifact(
         "schema_mismatch": False,
         "missing_rows": len(missing),
         "unexpected_rows": len(unexpected),
+        "authorized_additive_rows": len(authorized_unexpected),
+        "unauthorized_unexpected_rows": len(unauthorized_unexpected),
         "value_mismatches": len(mismatches),
         "maximum_absolute_numeric_difference": maximum_difference,
         "tolerance": tolerance,

@@ -145,7 +145,10 @@ def build_chrono(input_dir: Path, sex: str) -> pl.DataFrame:
 
 
 def compare_chrono(
-    generated: pl.DataFrame, accepted_path: Path, tolerance: float
+    generated: pl.DataFrame,
+    accepted_path: Path,
+    tolerance: float,
+    allowed_additive_events: set[tuple[str, str]] | None = None,
 ) -> dict[str, Any]:
     accepted = _read(accepted_path).select(RATING_COLUMNS + COMMON_COLUMNS)
     generated_keys = generated.select(KEY_COLUMNS)
@@ -156,6 +159,42 @@ def compare_chrono(
     unexpected = generated_keys.join(
         accepted_keys, on=KEY_COLUMNS, how="anti", join_nulls=True
     )
+    if allowed_additive_events is None:
+        unauthorized_unexpected = unexpected
+        unauthorized_missing = missing
+        authorized_additive_rows = 0
+        authorized_missing_rows = 0
+    else:
+        unexpected_with_authorization = unexpected.with_columns(
+            pl.struct(["Date", "RaceType"])
+            .map_elements(
+                lambda row: (str(row["Date"]), str(row["RaceType"]))
+                in allowed_additive_events,
+                return_dtype=pl.Boolean,
+            )
+            .alias("_authorized_addition")
+        )
+        authorized_additive_rows = unexpected_with_authorization.filter(
+            pl.col("_authorized_addition")
+        ).height
+        unauthorized_unexpected = unexpected_with_authorization.filter(
+            ~pl.col("_authorized_addition")
+        ).drop("_authorized_addition")
+        missing_with_authorization = missing.with_columns(
+            pl.struct(["Date", "RaceType"])
+            .map_elements(
+                lambda row: (str(row["Date"]), str(row["RaceType"]))
+                in allowed_additive_events,
+                return_dtype=pl.Boolean,
+            )
+            .alias("_authorized_removal")
+        )
+        authorized_missing_rows = missing_with_authorization.filter(
+            pl.col("_authorized_removal")
+        ).height
+        unauthorized_missing = missing_with_authorization.filter(
+            ~pl.col("_authorized_removal")
+        ).drop("_authorized_removal")
     joined = generated.join(
         accepted,
         on=KEY_COLUMNS,
@@ -163,11 +202,28 @@ def compare_chrono(
         suffix="_accepted",
         join_nulls=True,
     )
+    if allowed_additive_events is None:
+        comparison_rows = joined
+        authorized_modified_rows = 0
+    else:
+        joined = joined.with_columns(
+            pl.struct(["Date", "RaceType"])
+            .map_elements(
+                lambda row: (str(row["Date"]), str(row["RaceType"]))
+                in allowed_additive_events,
+                return_dtype=pl.Boolean,
+            )
+            .alias("_authorized_change")
+        )
+        authorized_modified_rows = joined.filter(pl.col("_authorized_change")).height
+        comparison_rows = joined.filter(~pl.col("_authorized_change")).drop(
+            "_authorized_change"
+        )
     mismatches = 0
     maximum = 0.0
     for column in RATING_COLUMNS:
-        left = joined[column].to_list()
-        right = joined[f"{column}_accepted"].to_list()
+        left = comparison_rows[column].to_list()
+        right = comparison_rows[f"{column}_accepted"].to_list()
         for generated_value, accepted_value in zip(left, right, strict=True):
             if generated_value is None or accepted_value is None:
                 mismatches += generated_value is not accepted_value
@@ -179,7 +235,7 @@ def compare_chrono(
             maximum = max(maximum, difference)
             mismatches += difference > tolerance
     age_differences = (
-        joined.select((pl.col("Age") - pl.col("Age_accepted")).abs())
+        comparison_rows.select((pl.col("Age") - pl.col("Age_accepted")).abs())
         .to_series()
         .to_list()
     )
@@ -192,9 +248,10 @@ def compare_chrono(
     age_mismatches += len(age_differences) - len(finite_age_differences)
     maximum_age_difference = max(finite_age_differences, default=0.0)
     passed = (
-        generated.height == accepted.height
-        and missing.is_empty()
-        and unexpected.is_empty()
+        generated.height
+        == accepted.height - authorized_missing_rows + authorized_additive_rows
+        and unauthorized_missing.is_empty()
+        and unauthorized_unexpected.is_empty()
         and mismatches == 0
         and age_mismatches == 0
     )
@@ -203,7 +260,12 @@ def compare_chrono(
         "generated_rows": generated.height,
         "accepted_rows": accepted.height,
         "missing_rows": missing.height,
+        "authorized_missing_rows": authorized_missing_rows,
+        "unauthorized_missing_rows": unauthorized_missing.height,
         "unexpected_rows": unexpected.height,
+        "authorized_additive_rows": authorized_additive_rows,
+        "authorized_modified_rows": authorized_modified_rows,
+        "unauthorized_unexpected_rows": unauthorized_unexpected.height,
         "rating_mismatches": mismatches,
         "maximum_absolute_rating_difference": maximum,
         "age_mismatches": age_mismatches,

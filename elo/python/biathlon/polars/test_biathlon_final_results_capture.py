@@ -124,6 +124,17 @@ class FixtureClient:
             ],
         }
 
+    def bio(self, ibu_id: str):
+        return {
+            "IBUId": ibu_id,
+            "FullName": "Fixture Athlete",
+            "FamilyName": "Athlete",
+            "GivenName": "Fixture",
+            "NAT": "FIN",
+            "Birthdate": "1990-01-01T00:00:00",
+            "GenderId": "M",
+        }
+
 
 def accepted_fixture(tmp_path: Path, *, include_final: bool = False):
     accepted = tmp_path / "accepted"

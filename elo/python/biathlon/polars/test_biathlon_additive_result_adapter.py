@@ -180,6 +180,61 @@ def test_unknown_identity_fails_closed_with_review_evidence(tmp_path: Path) -> N
     assert any(row["status"] == "unresolved" for row in identities)
 
 
+def test_official_biography_creates_deterministic_debut_identity(
+    tmp_path: Path,
+) -> None:
+    capture, individual, relay, schedule = build_bundle(tmp_path)
+    ibu_id = "BTFIN20101200401"
+    result_path = capture / "raw" / f"{RACE}-results.json"
+    results = json.loads(result_path.read_text(encoding="utf-8"))
+    results["Results"][0].update(
+        {"IBUId": ibu_id, "Name": "ROOKIE Rita", "Nat": "FIN"}
+    )
+    result_path.write_text(json.dumps(results), encoding="utf-8")
+    bio = {
+        "IBUId": ibu_id,
+        "GivenName": "Rita",
+        "FamilyName": "ROOKIE",
+        "NAT": "FIN",
+        "Birthdate": "2004-01-01T00:00:00",
+        "GenderId": "L",
+    }
+    bio_path = capture / "raw" / f"{ibu_id}-bio.json"
+    bio_path.write_text(json.dumps(bio), encoding="utf-8")
+    report_path = capture / "capture_report.json"
+    report = json.loads(report_path.read_text(encoding="utf-8"))
+    report["races"][0]["results_sha256"] = semantic_hash(results)
+    report["biographies"] = {
+        "count": 1,
+        "sha256": {ibu_id: semantic_hash(bio)},
+    }
+    report_path.write_text(json.dumps(report), encoding="utf-8")
+
+    output = tmp_path / "candidate"
+    adapted = adapter.adapt_additive_results(
+        capture_dir=capture,
+        individual_dir=individual,
+        relay_dir=relay,
+        schedule_path=schedule,
+        output_dir=output,
+        aliases_path=HERE / "ibu_identity_aliases.csv",
+    )
+
+    assert adapted["status"] == "passed"
+    assert adapted["identity"]["new_official_identities"] == 1
+    identity = next(
+        row for row in read_rows(output / "identity_map.csv")
+        if row["IBUId"] == ibu_id
+    )
+    assert identity["method"] == "new_official_ibu_identity"
+    assert identity["accepted_name"] == "Rita Rookie"
+    aliases = read_rows(output / "identity_aliases_candidate.csv")
+    assert any(
+        row["IBUId"] == ibu_id and row["ID"] == identity["local_id"]
+        for row in aliases
+    )
+
+
 def test_rejects_accepted_history_drift(tmp_path: Path) -> None:
     capture, individual, relay, schedule = build_bundle(tmp_path)
     with (individual / "men_scrape_update.csv").open("a", encoding="utf-8") as handle:

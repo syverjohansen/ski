@@ -22,6 +22,7 @@ from typing import Any
 
 from biathlon_official_adapter import (
     RESULT_FIELDS,
+    Identity,
     IdentityResolver,
     _age,
     _distance,
@@ -37,6 +38,26 @@ from ibu_source_contract import IBUContractError, competition_kind
 
 REPORT_SCHEMA = "nordicnumbers.biathlon-additive-result-adapter/v1"
 CAPTURE_SCHEMA = "nordicnumbers.biathlon-final-results-capture/v1"
+NATION_NAMES = {
+    "AND": "Andorra", "ARG": "Argentina", "AUS": "Australia",
+    "AUT": "Austria", "BEL": "Belgium", "BIH": "Bosnia&Herzegovina",
+    "BLR": "Belarus", "BUL": "Bulgaria", "CAN": "Canada",
+    "CHI": "Chile", "CHN": "China", "CRC": "Costa Rica",
+    "CRO": "Croatia", "CZE": "Czechia", "DEN": "Denmark",
+    "ESP": "Spain", "EST": "Estonia", "FIN": "Finland",
+    "FRA": "France", "GBR": "Great Britain", "GER": "Germany",
+    "GRE": "Greece", "GRL": "Greenland", "GUM": "Guam",
+    "HUN": "Hungary", "ITA": "Italy", "JPN": "Japan",
+    "KAZ": "Kazakhstan", "KGZ": "Kyrgyzstan", "KOR": "South Korea",
+    "LAT": "Latvia", "LTU": "Lithuania", "MDA": "Moldova",
+    "MKD": "North Macedonia", "MGL": "Mongolia", "NED": "Netherlands",
+    "NOR": "Norway", "NZL": "New Zealand", "POL": "Poland",
+    "PUR": "Puerto Rico", "ROU": "Romania", "RUS": "Russia",
+    "SRB": "Serbia", "SLO": "Slovenia", "SVK": "Slovakia",
+    "SWE": "Sweden", "SUI": "Switzerland", "TPE": "Taiwan",
+    "TUR": "Turkey", "UKR": "Ukraine", "USA": "USA",
+    "UZB": "Uzbekistan",
+}
 
 
 def _sha256(path: Path) -> str:
@@ -141,6 +162,31 @@ def _schedule_index(path: Path) -> dict[tuple[str, str, str], dict[str, str]]:
     return result
 
 
+def _new_identity(
+    bio: dict[str, Any], *, ibu_id: str, sex: str, local_id: str
+) -> Identity:
+    if (
+        bio.get("IBUId") != ibu_id
+        or bio.get("GenderId") != sex
+        or not bio.get("GivenName")
+        or not bio.get("FamilyName")
+        or not bio.get("Birthdate")
+        or bio.get("NAT") not in NATION_NAMES
+    ):
+        raise IBUContractError(f"official biography is incomplete: {ibu_id}")
+    try:
+        birthday = datetime.fromisoformat(str(bio["Birthdate"])).isoformat()
+    except ValueError as error:
+        raise IBUContractError(f"official biography has invalid birthdate: {ibu_id}") from error
+    return Identity(
+        local_id=local_id,
+        skier=f"{bio['GivenName']} {str(bio['FamilyName']).title()}",
+        nation=NATION_NAMES[str(bio["NAT"])],
+        birthday=birthday,
+        sex=sex,
+    )
+
+
 def adapt_additive_results(
     *,
     capture_dir: Path,
@@ -238,10 +284,20 @@ def adapt_additive_results(
             "M": _read_csv(root / "men_scrape_update.csv"),
             "L": _read_csv(root / "ladies_scrape_update.csv"),
         }
+    aliases = load_aliases(aliases_path)
     resolver = IdentityResolver(
         [*histories["individual"]["M"], *histories["individual"]["L"]],
-        load_aliases(aliases_path),
+        aliases,
     )
+    existing_alias_rows = _read_csv(aliases_path) if aliases_path is not None else []
+    next_local_id = 1 + max(
+        int(float(row["ID"]))
+        for sex in ("M", "L")
+        for row in histories["individual"][sex]
+        if row.get("ID")
+    )
+    new_identities: dict[str, Identity] = {}
+    new_alias_rows: list[dict[str, str]] = []
     schedule = _schedule_index(schedule_path)
     season = _season_year(capture["season_id"])
     existing_events = {
@@ -321,6 +377,30 @@ def adapt_additive_results(
                 official_name=str(source_row.get("Name", "")),
                 sex=sex,
             )
+            if profile is None and ibu_id in new_identities:
+                profile, method = new_identities[ibu_id], "new_official_ibu_identity"
+            if profile is None:
+                biography_receipts = capture.get("biographies", {}).get("sha256", {})
+                bio_path = capture_dir / "raw" / f"{ibu_id}-bio.json"
+                if bio_path.is_file() and ibu_id in biography_receipts:
+                    bio = _load_json(bio_path)
+                    if _json_sha256(bio) != biography_receipts[ibu_id]:
+                        raise IBUContractError(
+                            f"captured biography hash mismatch: {ibu_id}"
+                        )
+                    profile = _new_identity(
+                        bio, ibu_id=ibu_id, sex=sex, local_id=str(next_local_id)
+                    )
+                    next_local_id += 1
+                    new_identities[ibu_id] = profile
+                    new_alias_rows.append(
+                        {
+                            "IBUId": ibu_id,
+                            "ID": profile.local_id,
+                            "reason": "automatic official IBU debut identity",
+                        }
+                    )
+                    method = "new_official_ibu_identity"
             if (race_id, ibu_id) not in seen_identity:
                 mapped = {
                     "race_id": race_id,
@@ -380,6 +460,13 @@ def adapt_additive_results(
             "accepted_name", "method", "status",
         ])
         files["identity_map.csv"] = {"rows": len(all_identity_rows), "sha256": _sha256(identity_path)}
+        aliases_candidate = staging / "identity_aliases_candidate.csv"
+        alias_rows = [*existing_alias_rows, *new_alias_rows]
+        _write_csv(aliases_candidate, alias_rows, ["IBUId", "ID", "reason"])
+        files["identity_aliases_candidate.csv"] = {
+            "rows": len(alias_rows),
+            "sha256": _sha256(aliases_candidate),
+        }
         after = _accepted_fingerprints(individual_dir, relay_dir)
         mutated = before != after
         report = {
@@ -392,6 +479,13 @@ def adapt_additive_results(
                 "unresolved": len(unresolved),
                 "methods": dict(sorted(Counter(row["method"] for row in all_identity_rows).items())),
                 "unresolved_examples": unresolved[:10],
+                "new_official_identities": len(new_identities),
+            },
+            "aliases": {
+                "source_file": str(aliases_path.resolve()) if aliases_path else None,
+                "source_sha256": _sha256(aliases_path) if aliases_path else None,
+                "candidate_rows": len(alias_rows),
+                "new_rows": len(new_alias_rows),
             },
             "candidate_files": files,
             "race_number_policy": {
