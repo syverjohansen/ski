@@ -25,6 +25,7 @@ from ibu_source_contract import (
     IBUClient,
     IBUContractError,
     discover_public_api_key,
+    is_final_competition,
     validate_competitions,
     validate_events,
 )
@@ -139,14 +140,6 @@ def _safe_output(
     return output_dir
 
 
-def _is_final(competition: dict[str, Any]) -> bool:
-    return (
-        str(competition.get("status_text", "")).casefold() == "final"
-        and str(competition.get("result_status", "")).upper() == "OFFICIAL"
-        and str(competition.get("schedule_status", "")).upper() == "FINISHED"
-    )
-
-
 def audit_gaps(
     *,
     client: IBUClient,
@@ -193,7 +186,7 @@ def audit_gaps(
         result_keys = {(day, race_type, result_sex) for result_sex in result_sexes}
         individual_present = result_keys.issubset(accepted_results["individual"])
         relay_present = result_keys.issubset(accepted_results["relay"])
-        final = _is_final(competition)
+        final = is_final_competition(competition)
         results_present = individual_present and relay_present
         coverage.append(
             {

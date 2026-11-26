@@ -192,6 +192,34 @@ def test_capture_is_isolated_checksummed_and_publication_disabled(tmp_path: Path
     )
 
 
+def test_capture_refuses_nonfinal_competition_before_fetching_results(
+    tmp_path: Path,
+) -> None:
+    class LiveClient(FixtureClient):
+        def competitions(self, event_id: str):
+            payload = super().competitions(event_id)
+            target = next(row for row in payload if row["RaceId"] == SPRINT_ID)
+            target.update(
+                StatusId=2,
+                StatusText="Running",
+                ResultStatus="LIVE",
+                ScheduleStatus="RUNNING",
+            )
+            return payload
+
+        def results(self, race_id: str):
+            raise AssertionError("live results must not be fetched")
+
+    with pytest.raises(IBUContractError, match="Final/OFFICIAL/FINISHED"):
+        capture_contract(
+            client=LiveClient(),  # type: ignore[arg-type]
+            season_id="2526",
+            event_id=EVENT_ID,
+            race_ids=[SPRINT_ID],
+            output_dir=tmp_path / "evidence",
+        )
+
+
 def test_client_restricts_endpoints_and_evidence_rejects_accepted_tree(tmp_path: Path) -> None:
     client = IBUClient(api_key="fixture", fetcher=lambda *_: b"{}")
     with pytest.raises(IBUContractError, match="unsupported IBU endpoint"):
