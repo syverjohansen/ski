@@ -17,14 +17,14 @@ import json
 import os
 import tempfile
 from collections.abc import Iterable
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
 from cross_country_results_elo_replay import BASE_ELO, STREAMS
 from cross_country_weekend_inputs import STARTLIST_FIELDS
+from cross_country_world_cup_quotas import QUOTA_FIELDS
 
-OUTPUT_FIELDS = (
-    *STARTLIST_FIELDS,
+RATING_FIELDS = (
     "rating_source",
     "rating_as_of_date",
     "rating_k_factor",
@@ -47,9 +47,13 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def _csv_text(rows: list[dict[str, object]]) -> str:
+def _csv_text(rows: list[dict[str, object]], startlist_fields: list[str]) -> str:
     output = io.StringIO(newline="")
-    writer = csv.DictWriter(output, fieldnames=OUTPUT_FIELDS, lineterminator="\n")
+    writer = csv.DictWriter(
+        output,
+        fieldnames=(*startlist_fields, *RATING_FIELDS),
+        lineterminator="\n",
+    )
     writer.writeheader()
     writer.writerows(rows)
     return output.getvalue()
@@ -86,12 +90,19 @@ def _official_index(path: Path, sex: str) -> dict[str, list[dict[str, str]]]:
     result: dict[str, list[dict[str, str]]] = {}
     for line, row in enumerate(rows, start=2):
         athlete_id = row["ID"].strip()
+        raw_date = row["Date"].strip()
         try:
-            date.fromisoformat(row["Date"].strip())
+            parsed_date = date.fromisoformat(raw_date)
         except ValueError as exc:
-            raise PredictionEloShadowError(f"{path}:{line}: invalid date") from exc
+            try:
+                parsed_date = datetime.fromisoformat(raw_date).date()
+            except ValueError:
+                raise PredictionEloShadowError(
+                    f"{path}:{line}: invalid date"
+                ) from exc
         if not athlete_id:
             raise PredictionEloShadowError(f"{path}:{line}: missing athlete ID")
+        row["Date"] = parsed_date.isoformat()
         result.setdefault(f"{sex}:{athlete_id}", []).append(row)
     for history in result.values():
         history.sort(key=lambda row: (row["Date"], int(row.get("Race") or 0)))
@@ -133,6 +144,47 @@ def _prediction_index(path: Path, selected_k: float) -> dict[str, list[dict[str,
     return result
 
 
+def _latest_stream_values(
+    history: list[dict[str, str]], cutoff: str
+) -> dict[str, float]:
+    eligible = [row for row in history if row["Date"] < cutoff]
+    values: dict[str, float] = {}
+    for stream in STREAMS:
+        for row in reversed(eligible):
+            value = row[stream].strip()
+            if value:
+                values[stream] = float(value)
+                break
+    return values
+
+
+def _first_quartile(values: list[float]) -> float:
+    if not values:
+        return float(BASE_ELO)
+    ordered = sorted(values)
+    position = (len(ordered) - 1) * 0.25
+    lower = int(position)
+    upper = min(lower + 1, len(ordered) - 1)
+    fraction = position - lower
+    return ordered[lower] + (ordered[upper] - ordered[lower]) * fraction
+
+
+def _official_stream_priors(
+    official: dict[str, list[dict[str, str]]], sex: str, cutoff: str
+) -> dict[str, float]:
+    latest_by_athlete = [
+        _latest_stream_values(history, cutoff)
+        for key, history in official.items()
+        if key.startswith(f"{sex}:")
+    ]
+    return {
+        stream: _first_quartile(
+            [ratings[stream] for ratings in latest_by_athlete if stream in ratings]
+        )
+        for stream in STREAMS
+    }
+
+
 def enrich_prediction_elo_shadow(
     *,
     startlist: Path,
@@ -152,12 +204,17 @@ def enrich_prediction_elo_shadow(
         )
 
     fields, rows = _read(startlist)
-    if tuple(fields) != STARTLIST_FIELDS:
+    accepted_schemas = {
+        STARTLIST_FIELDS,
+        (*STARTLIST_FIELDS, *QUOTA_FIELDS),
+    }
+    if tuple(fields) not in accepted_schemas:
         raise PredictionEloShadowError("unexpected startlist schema")
     official = {}
     official.update(_official_index(men_chrono, "M"))
     official.update(_official_index(ladies_chrono, "L"))
     predictions = _prediction_index(prediction_ledger, selected_k)
+    official_prior_cache: dict[tuple[str, str], dict[str, float]] = {}
     enriched: list[dict[str, object]] = []
     counts = {
         "accepted_official_elo": 0,
@@ -189,7 +246,16 @@ def enrich_prediction_elo_shadow(
         ]
         if official_candidates:
             selected = official_candidates[-1]
-            ratings = {stream: float(selected[stream]) for stream in STREAMS}
+            ratings = _latest_stream_values(official_candidates, race_date)
+            prior_key = (row["sex"], race_date)
+            if prior_key not in official_prior_cache:
+                official_prior_cache[prior_key] = _official_stream_priors(
+                    official, *prior_key
+                )
+            priors = official_prior_cache[prior_key]
+            ratings = {
+                stream: ratings.get(stream, priors[stream]) for stream in STREAMS
+            }
             source = "accepted_official_elo"
             as_of = selected["Date"]
             k_factor = ""
@@ -231,7 +297,7 @@ def enrich_prediction_elo_shadow(
             }
         )
 
-    text = _csv_text(enriched)
+    text = _csv_text(enriched, fields)
     _atomic_text(output_dir / "startlist_prediction_elo_shadow.csv", text)
     report: dict[str, object] = {
         "schema_version": REPORT_SCHEMA,

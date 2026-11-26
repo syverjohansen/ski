@@ -10,6 +10,7 @@ from cross_country_prediction_elo_shadow import (
 )
 from cross_country_results_elo_replay import STREAMS
 from cross_country_weekend_inputs import STARTLIST_FIELDS
+from cross_country_world_cup_quotas import QUOTA_FIELDS
 
 
 def write_csv(path: Path, fields, rows) -> None:
@@ -63,7 +64,21 @@ class PredictionEloShadowTests(unittest.TestCase):
             men,
             history_fields,
             [
-                {"Date": "2026-03-01", "Race": "4", "ID": "11", **rating_values(1600)},
+                {
+                    "Date": "2026-03-01 00:00:00",
+                    "Race": "4",
+                    "ID": "11",
+                    **rating_values(1600),
+                },
+                {
+                    "Date": "2026-05-01 00:00:00",
+                    "Race": "0",
+                    "ID": "11",
+                    **{
+                        **rating_values(1650),
+                        "Sprint_C_Elo": "",
+                    },
+                },
                 {"Date": "2026-12-01", "Race": "5", "ID": "11", **rating_values(1900)},
             ],
         )
@@ -147,7 +162,8 @@ class PredictionEloShadowTests(unittest.TestCase):
                     "newcomer_prior",
                 ],
             )
-            self.assertEqual(float(rows[0]["Elo"]), 1600.0)
+            self.assertEqual(float(rows[0]["Elo"]), 1650.0)
+            self.assertEqual(float(rows[0]["Sprint_C_Elo"]), 1605.0)
             self.assertEqual(float(rows[1]["Elo"]), 1410.0)
             self.assertEqual(rows[1]["rating_as_of_date"], "2026-10-01")
             self.assertEqual(float(rows[2]["Elo"]), 1300.0)
@@ -220,6 +236,47 @@ class PredictionEloShadowTests(unittest.TestCase):
                 newline="", encoding="utf-8"
             ) as handle:
                 selected = next(csv.DictReader(handle))
+            self.assertEqual("accepted_official_elo", selected["rating_source"])
+
+    def test_preserves_audited_quota_extension(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            startlist, men, ladies, ledger, policy = self.make_fixture(root)
+            row = startlist_row("11", "111", "3111111", "Verified Athlete")
+            row.update(
+                {
+                    "quota_contract_version": "2027-v1",
+                    "base_nation_quota": "6",
+                    "shared_event_quota": "6",
+                    "personal_quota": "0",
+                    "personal_start_right": "false",
+                    "is_host_nation": "false",
+                    "team_event_weekend_exception": "false",
+                    "max_nation_starters": "6",
+                }
+            )
+            write_csv(startlist, (*STARTLIST_FIELDS, *QUOTA_FIELDS), [row])
+
+            enrich_prediction_elo_shadow(
+                startlist=startlist,
+                men_chrono=men,
+                ladies_chrono=ladies,
+                prediction_ledger=ledger,
+                policy_path=policy,
+                output_dir=root / "output",
+            )
+
+            with (root / "output" / "startlist_prediction_elo_shadow.csv").open(
+                newline="", encoding="utf-8"
+            ) as handle:
+                reader = csv.DictReader(handle)
+                selected = next(reader)
+                self.assertEqual(
+                    (*STARTLIST_FIELDS, *QUOTA_FIELDS),
+                    tuple(reader.fieldnames[: len(STARTLIST_FIELDS) + len(QUOTA_FIELDS)]),
+                )
+            self.assertEqual("2027-v1", selected["quota_contract_version"])
+            self.assertEqual("6", selected["max_nation_starters"])
             self.assertEqual("accepted_official_elo", selected["rating_source"])
 
     def test_rejects_non_calibrated_ledger(self):
