@@ -41,6 +41,34 @@ def acquired_rows() -> list[dict[str, str]]:
 
 
 class SkiJumpScheduleShadowTests(unittest.TestCase):
+    def test_missing_calendar_hill_sizes_use_latest_accepted_venue_history(self) -> None:
+        from race_scrape import (
+            load_historical_hill_sizes,
+            resolve_historical_hill_size,
+        )
+
+        lookup = load_historical_hill_sizes(ROOT)
+        self.assertEqual(
+            "128",
+            resolve_historical_hill_size(
+                "Lake Placid", "Mixed", "Team Large", lookup
+            ),
+        )
+        self.assertEqual(
+            "128",
+            resolve_historical_hill_size("Innsbruck", "L", "Large", lookup),
+        )
+        with self.assertRaisesRegex(RuntimeError, "no unambiguous accepted"):
+            resolve_historical_hill_size("Unknown Hill", "M", "Large", lookup)
+
+    def test_fis_tournament_grouping_names_are_not_race_venues(self) -> None:
+        from race_scrape import is_tournament_grouping
+
+        self.assertTrue(is_tournament_grouping("Four Hills Tournament"))
+        self.assertTrue(is_tournament_grouping("FIS Four Hills Tournament"))
+        self.assertTrue(is_tournament_grouping("Two Nights Tour"))
+        self.assertFalse(is_tournament_grouping("Bischofshofen"))
+
     def test_extracted_serializer_reproduces_accepted_races(self) -> None:
         with tempfile.TemporaryDirectory(prefix="skijump-serializer-") as text:
             candidate = Path(text) / "races.csv"
