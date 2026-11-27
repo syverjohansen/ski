@@ -18,7 +18,7 @@ from skijump_results_gap import (
 
 ROOT = Path(__file__).resolve().parent
 ACCEPTED = ROOT / "relay" / "excel365"
-SCHEDULE = ROOT / "excel365" / "races.csv"
+HISTORICAL_SCHEDULE = ROOT / "excel365" / "races2026.csv"
 SCHEDULE_FIELDS = [
     "Date",
     "Final_Date",
@@ -319,7 +319,7 @@ def test_cli_writes_report_and_fails_on_gaps(tmp_path: Path) -> None:
 
 def test_accepted_2026_histories_leave_only_known_policy_candidates() -> None:
     missing, completed = find_missing_races(
-        schedule=SCHEDULE,
+        schedule=HISTORICAL_SCHEDULE,
         men_chrono=ACCEPTED / "men_chrono.csv",
         ladies_chrono=ACCEPTED / "ladies_chrono.csv",
         men_team_chrono=ACCEPTED / "men_team_chrono.csv",
@@ -334,7 +334,7 @@ def test_accepted_2026_histories_leave_only_known_policy_candidates() -> None:
 
 def test_reviewed_policy_ledger_closes_2026_audit() -> None:
     missing, excluded, completed = audit_races(
-        schedule=SCHEDULE,
+        schedule=HISTORICAL_SCHEDULE,
         men_chrono=ACCEPTED / "men_chrono.csv",
         ladies_chrono=ACCEPTED / "ladies_chrono.csv",
         men_team_chrono=ACCEPTED / "men_team_chrono.csv",
