@@ -266,6 +266,65 @@ def test_replay_without_insertions_reproduces_accepted_rows() -> None:
     assert changed == 0
 
 
+def test_replay_preserves_inactive_sex_before_its_season_opener() -> None:
+    history = [
+        history_row(Season=2026, Sex="M", ID=1, Skier="Alpha One"),
+        history_row(Season=2026, Sex="M", ID=2, Skier="Beta Two"),
+    ]
+
+    candidate, k_factors, changed = replay_sex(
+        history, [], season=2027, fields=FIELDS
+    )
+
+    assert candidate == history
+    assert k_factors == {}
+    assert changed == 0
+
+
+def test_first_acquired_result_opens_a_new_sex_season() -> None:
+    history = [
+        history_row(Season=2026, Sex="L", ID=1, Skier="Alpha One"),
+        history_row(Season=2026, Sex="L", ID=2, Skier="Beta Two"),
+    ]
+    inserted = [
+        mapped_row(
+            date="2026-11-21",
+            season=2027,
+            sex="L",
+            event_kind="individual",
+            canonical_sex="L",
+            canonical_athlete_id=1,
+            canonical_name="Alpha One",
+            member_order="",
+            place=2,
+        ),
+        mapped_row(
+            date="2026-11-21",
+            season=2027,
+            sex="L",
+            event_kind="individual",
+            canonical_sex="L",
+            canonical_athlete_id=2,
+            canonical_name="Beta Two",
+            fis_competitor_id=102,
+            fis_code=1002,
+            name="TWO Beta",
+            member_order="",
+            place=1,
+        ),
+    ]
+
+    candidate, k_factors, changed = replay_sex(
+        history, inserted, season=2027, fields=FIELDS
+    )
+
+    current = [row for row in candidate if row["Season"] == "2027"]
+    assert len([row for row in current if row["Race"] == "1"]) == 2
+    assert len([row for row in current if row["Race"] == "0"]) == 2
+    assert k_factors["Overall"] > 0
+    assert changed == 0
+
+
 @pytest.mark.parametrize("sex", ["M", "L"])
 def test_individual_insertion_is_not_marked_as_team_event(sex: str) -> None:
     history = [

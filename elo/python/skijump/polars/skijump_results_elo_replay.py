@@ -424,8 +424,11 @@ def replay_sex(
         for row in history_rows
         if int(row["Season"]) == season and row["Race"] != "0"
     ]
-    if not existing:
-        raise ReplayError(f"no accepted {sex} rows for season {season}")
+    if not existing and not mapped_rows:
+        # One sex can begin its World Cup season before the other. Preserve the
+        # inactive history byte-for-byte in the candidate transaction; its
+        # first acquired result will open and replay the season later.
+        return [dict(row) for row in history_rows], {}, 0
 
     latest = _latest_metadata(previous + existing)
     stream_histories = stream_histories or {}
