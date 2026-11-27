@@ -161,7 +161,7 @@ def test_repository_2026_close_repairs_rollover_only(tmp_path: Path) -> None:
     root = Path(__file__).resolve().parent
     accepted = root / "relay" / "excel365"
     report = build_season_close(
-        schedule=root / "excel365" / "races.csv",
+        schedule=root / "excel365" / "races2026.csv",
         men_chrono=accepted / "men_chrono.csv",
         ladies_chrono=accepted / "ladies_chrono.csv",
         men_team_chrono=accepted / "men_team_chrono.csv",

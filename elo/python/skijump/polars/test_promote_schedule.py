@@ -30,10 +30,7 @@ ACCEPTED_RACES = SOURCE_ACCEPTED / "races2026.csv"
 
 def accepted_2026_rows() -> list[dict[str, str]]:
     with ACCEPTED_RACES.open(newline="", encoding="utf-8-sig") as handle:
-        return [
-            {**row, "Final_Date": row["Date"]}
-            for row in csv.DictReader(handle)
-        ]
+        return list(csv.DictReader(handle))
 
 
 def shift_season(rows: list[dict[str, str]]) -> list[dict[str, str]]:
