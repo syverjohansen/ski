@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import csv
 import json
 import re
 import tempfile
@@ -11,8 +12,10 @@ from unittest.mock import patch
 from promote_schedule import promote_schedule
 from schedule_contract import (
     RACES_COLUMNS,
+    WEEKENDS_COLUMNS,
     ScheduleContractError,
     build_shadow,
+    derive_weekends,
     file_sha256,
     infer_fis_season,
     read_csv,
@@ -22,6 +25,15 @@ from schedule_contract import (
 
 ROOT = Path(__file__).resolve().parent
 SOURCE_ACCEPTED = ROOT / "excel365"
+ACCEPTED_RACES = SOURCE_ACCEPTED / "races2026.csv"
+
+
+def accepted_2026_rows() -> list[dict[str, str]]:
+    with ACCEPTED_RACES.open(newline="", encoding="utf-8-sig") as handle:
+        return [
+            {**row, "Final_Date": row["Date"]}
+            for row in csv.DictReader(handle)
+        ]
 
 
 def shift_season(rows: list[dict[str, str]]) -> list[dict[str, str]]:
@@ -43,18 +55,22 @@ def shift_season(rows: list[dict[str, str]]) -> list[dict[str, str]]:
 
 
 class PromoteSkiJumpScheduleTests(unittest.TestCase):
-    target_season = infer_fis_season(
-        read_csv(SOURCE_ACCEPTED / "races.csv", RACES_COLUMNS)
-    ) + 1
+    source_rows = accepted_2026_rows()
+    target_season = infer_fis_season(source_rows) + 1
 
     def prepare_rollover(self, root: Path) -> tuple[Path, Path, Path]:
         accepted_dir = root / "accepted"
         accepted_dir.mkdir(parents=True)
-        (accepted_dir / "races.csv").write_bytes(
-            (SOURCE_ACCEPTED / "races.csv").read_bytes()
+        write_csv_atomic(
+            accepted_dir / "races.csv",
+            RACES_COLUMNS,
+            self.source_rows,
         )
-        (accepted_dir / "weekends.csv").write_bytes(
-            (SOURCE_ACCEPTED / "weekends.csv").read_bytes()
+        write_csv_atomic(
+            accepted_dir / "weekends.csv",
+            WEEKENDS_COLUMNS,
+            derive_weekends(self.source_rows),
+            lineterminator="\n",
         )
         candidate = root / "candidate-races.csv"
         write_csv_atomic(

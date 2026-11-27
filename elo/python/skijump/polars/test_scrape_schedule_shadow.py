@@ -11,12 +11,16 @@ from pathlib import Path
 from unittest.mock import patch
 
 from race_schedule_output import save_skijump_races
-from schedule_contract import ScheduleContractError
+from schedule_contract import ScheduleContractError, infer_fis_season, read_csv, RACES_COLUMNS
 from scrape_schedule_shadow import run_shadow_acquisition
 
 
 ROOT = Path(__file__).resolve().parent
 ACCEPTED_RACES = ROOT / "excel365/races.csv"
+
+
+def accepted_season() -> int:
+    return infer_fis_season(read_csv(ACCEPTED_RACES, RACES_COLUMNS))
 
 
 def acquired_rows() -> list[dict[str, str]]:
@@ -80,7 +84,7 @@ class SkiJumpScheduleShadowTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix="skijump-acquisition-") as text:
             output = Path(text) / "shadow"
             result = run_shadow_acquisition(
-                season=2026,
+                season=accepted_season(),
                 accepted_races=ACCEPTED_RACES,
                 output_root=output,
                 scrape_fn=lambda **_: acquired_rows(),
@@ -99,7 +103,14 @@ class SkiJumpScheduleShadowTests(unittest.TestCase):
                 (output / "reports/acquisition.json").read_text(encoding="utf-8")
             )
             self.assertEqual("passed", report["status"])
-            self.assertEqual(["World Cup", "Olympics"], [
+            expected_sources = (
+                ["World Cup", "Olympics"]
+                if accepted_season() % 4 == 2
+                else ["World Cup", "World Championships"]
+                if accepted_season() % 2 == 1
+                else ["World Cup"]
+            )
+            self.assertEqual(expected_sources, [
                 source["category"] for source in report["sources"]
             ])
 
@@ -108,7 +119,7 @@ class SkiJumpScheduleShadowTests(unittest.TestCase):
             output = Path(text) / "shadow"
             with self.assertRaisesRegex(ScheduleContractError, "returned no"):
                 run_shadow_acquisition(
-                    season=2026,
+                    season=accepted_season(),
                     accepted_races=ACCEPTED_RACES,
                     output_root=output,
                     scrape_fn=lambda **_: [],
@@ -157,12 +168,17 @@ class SkiJumpScheduleShadowTests(unittest.TestCase):
 
     def test_incomplete_candidate_is_blocked(self) -> None:
         rows = acquired_rows()
-        incomplete = rows[:20] + [
-            row for row in rows if row["championship"] == "1"
-        ] + rows[-20:]
+        selected = (
+            rows[:20]
+            + [row for row in rows if row["championship"] == "1"]
+            + rows[-20:]
+        )
+        incomplete = list(
+            {row["startlist_url"]: row for row in selected}.values()
+        )
         with tempfile.TemporaryDirectory(prefix="skijump-incomplete-") as text:
             result = run_shadow_acquisition(
-                season=2026,
+                season=accepted_season(),
                 accepted_races=ACCEPTED_RACES,
                 output_root=Path(text) / "shadow",
                 scrape_fn=lambda **_: incomplete,
@@ -177,7 +193,7 @@ class SkiJumpScheduleShadowTests(unittest.TestCase):
             with self.subTest(output=output):
                 with self.assertRaisesRegex(ScheduleContractError, "isolated"):
                     run_shadow_acquisition(
-                        season=2026,
+                        season=accepted_season(),
                         accepted_races=ACCEPTED_RACES,
                         output_root=output,
                         scrape_fn=lambda **_: acquired_rows(),
