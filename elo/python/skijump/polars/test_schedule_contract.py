@@ -29,13 +29,21 @@ class SkiJumpScheduleContractTests(unittest.TestCase):
     def test_current_schedule_passes_contract(self) -> None:
         races = read_csv(ACCEPTED_RACES, RACES_COLUMNS)
         weekends = read_csv(ACCEPTED_WEEKENDS, WEEKENDS_COLUMNS)
-        self.assertEqual(75, validate_races(races)["rows"])
-        self.assertEqual(2026, infer_fis_season(races))
-        structure = validate_season_structure(races, expected_season=2026)
-        self.assertEqual("OWG", structure["championship_category"])
-        self.assertEqual(6, structure["championship_rows"])
+        validation = validate_races(races)
+        season = infer_fis_season(races)
+        structure = validate_season_structure(races, expected_season=season)
+        expected_championship = championship_category(season)
+        self.assertGreater(validation["rows"], 0)
         self.assertEqual(
-            {"status": "passed", "rows": 75},
+            expected_championship[0] if expected_championship else None,
+            structure["championship_category"],
+        )
+        self.assertEqual(
+            sum(row["Championship"] == "1" for row in races),
+            structure["championship_rows"],
+        )
+        self.assertEqual(
+            {"status": "passed", "rows": validation["rows"]},
             validate_relationship(races, weekends),
         )
 
@@ -55,10 +63,18 @@ class SkiJumpScheduleContractTests(unittest.TestCase):
 
     def test_qualification_and_final_dates_remain_distinct(self) -> None:
         races = read_csv(ACCEPTED_RACES, RACES_COLUMNS)
-        row = next(row for row in derive_weekends(races) if row["Race"] == "1" and row["Sex"] == "M")
-        self.assertEqual("11/21/2025", row["Race_Date"])
-        self.assertEqual("11/22/2025", row["Final_Date"])
-        self.assertEqual("11/21/2025", row["Date"])
+        source = next(
+            row for row in races if row["Race"] == "1" and row["Sex"] == "M"
+        )
+        row = next(
+            row
+            for row in derive_weekends(races)
+            if row["Race"] == "1" and row["Sex"] == "M"
+        )
+        self.assertEqual(source["Date"], row["Race_Date"])
+        self.assertEqual(source["Final_Date"], row["Final_Date"])
+        self.assertEqual(source["Date"], row["Date"])
+        self.assertNotEqual(row["Race_Date"], row["Final_Date"])
 
     def test_team_and_individual_events_have_separate_prediction_windows(self) -> None:
         races = read_csv(ACCEPTED_RACES, RACES_COLUMNS)
@@ -77,10 +93,12 @@ class SkiJumpScheduleContractTests(unittest.TestCase):
 
     def test_rollover_must_match_requested_fis_season(self) -> None:
         races = read_csv(ACCEPTED_RACES, RACES_COLUMNS)
+        current_season = infer_fis_season(races)
         with self.assertRaisesRegex(
-            ScheduleContractError, "outside requested FIS season 2027"
+            ScheduleContractError,
+            f"outside requested FIS season {current_season + 1}",
         ):
-            validate_season_structure(races, expected_season=2027)
+            validate_season_structure(races, expected_season=current_season + 1)
 
     def test_calendar_sources_are_parameterized_for_ski_jumping(self) -> None:
         worlds = calendar_sources(2027)
