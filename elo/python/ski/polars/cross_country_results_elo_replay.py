@@ -180,6 +180,94 @@ def load_starting_states(
     return fields, states, rows
 
 
+def add_prediction_starting_states(
+    *,
+    states: dict[str, AthleteState],
+    candidates: list[dict[str, str]],
+    sex: str,
+    season: int,
+    prediction_ledger: Path | None,
+) -> dict[str, str]:
+    """Seed first A-tier starts from lower-tier Elo, or the newcomer prior."""
+    ledger_rows: list[dict[str, str]] = []
+    if prediction_ledger is not None:
+        fields, ledger_rows = _read_rows(prediction_ledger)
+        required = {
+            "date",
+            "season",
+            "sex",
+            "prediction_athlete_id",
+            "fis_competitor_id",
+            "fis_code",
+            *STREAMS,
+        }
+        if missing := sorted(required - set(fields)):
+            raise EloReplayError(
+                f"{prediction_ledger} is missing prediction fields: {missing}"
+            )
+
+    ledger_index: dict[tuple[str, str], list[dict[str, str]]] = defaultdict(list)
+    for line, row in enumerate(ledger_rows, start=2):
+        competitor_id = row["fis_competitor_id"].strip()
+        if row["prediction_athlete_id"].strip() != f"fis:{competitor_id}":
+            raise EloReplayError(
+                f"{prediction_ledger}:{line}: unstable prediction identity"
+            )
+        try:
+            date.fromisoformat(row["date"].strip())
+            int(row["season"])
+            for stream in STREAMS:
+                float(row[stream])
+        except ValueError as exc:
+            raise EloReplayError(
+                f"{prediction_ledger}:{line}: invalid prediction state"
+            ) from exc
+        ledger_index[(row["sex"].strip(), competitor_id)].append(row)
+    for rows in ledger_index.values():
+        rows.sort(key=lambda row: (row["date"], int(row.get("fis_race_id") or 0)))
+
+    first_candidates: dict[str, dict[str, str]] = {}
+    for row in sorted(candidates, key=lambda item: (item["date"], int(item["race"]))):
+        if row["sex"] == sex:
+            first_candidates.setdefault(row["canonical_athlete_id"], row)
+
+    sources: dict[str, str] = {}
+    for athlete_id, row in first_candidates.items():
+        if athlete_id in states:
+            continue
+        fis_code = row.get("fis_code", "").strip()
+        competitor_id = row.get("fis_competitor_id", "").strip()
+        if not fis_code.isdigit() or athlete_id != fis_code or not competitor_id:
+            raise EloReplayError(
+                f"canonical athlete {sex}/{athlete_id} has no accepted rating history"
+            )
+        eligible = [
+            item
+            for item in ledger_index.get((sex, competitor_id), [])
+            if item["date"] < row["date"] and item["fis_code"].strip() == fis_code
+        ]
+        if eligible:
+            selected = eligible[-1]
+            boundaries = max(0, season - int(selected["season"]))
+            ratings = {
+                stream: regress_rating(float(selected[stream]), boundaries)
+                for stream in STREAMS
+            }
+            source = "fixed_anchor_prediction_elo"
+        else:
+            ratings = {stream: BASE_ELO for stream in STREAMS}
+            source = "newcomer_prior"
+        states[athlete_id] = AthleteState(
+            name=row["canonical_name"],
+            nation=row["canonical_nation"],
+            birthday="",
+            experience=0,
+            ratings=ratings,
+        )
+        sources[athlete_id] = source
+    return sources
+
+
 def calculate_k_factors(
     history: list[dict[str, str]], candidates: list[dict[str, str]], season: int
 ) -> dict[str, float]:
@@ -337,12 +425,20 @@ def replay_sex(
     chrono: Path,
     season: int,
     reference_history: Path | None = None,
-) -> tuple[list[str], list[dict[str, object]], dict[str, float]]:
+    prediction_ledger: Path | None = None,
+) -> tuple[list[str], list[dict[str, object]], dict[str, float], dict[str, str]]:
     fields, states, history = load_starting_states(chrono, season)
     if reference_history is not None:
         _, reference_states, _ = load_starting_states(reference_history, season)
         for athlete_id, state in reference_states.items():
             states.setdefault(athlete_id, state)
+    prediction_sources = add_prediction_starting_states(
+        states=states,
+        candidates=candidates,
+        sex=sex,
+        season=season,
+        prediction_ledger=prediction_ledger,
+    )
     sex_candidates = [row for row in candidates if row["sex"] == sex]
     k_factors = calculate_k_factors(history, sex_candidates, season)
     existing_races = {
@@ -417,7 +513,7 @@ def replay_sex(
                 result[stream] = updated_by_stream[stream][index]
                 state.ratings[stream] = updated_by_stream[stream][index]
             output.append(result)
-    return fields, output, k_factors
+    return fields, output, k_factors, prediction_sources
 
 
 def replay_results(
@@ -428,10 +524,11 @@ def replay_results(
     output_dir: Path,
     men_reference_history: Path | None = None,
     ladies_reference_history: Path | None = None,
+    prediction_ledger: Path | None = None,
 ) -> dict[str, object]:
     references = tuple(
         path
-        for path in (men_reference_history, ladies_reference_history)
+        for path in (men_reference_history, ladies_reference_history, prediction_ledger)
         if path is not None
     )
     output_dir = _validate_output_dir(
@@ -448,25 +545,32 @@ def replay_results(
             {"ladies_reference_history": hashlib.sha256(ladies_reference_history.read_bytes()).hexdigest()}
             if ladies_reference_history is not None else {}
         ),
+        **(
+            {"prediction_ledger": hashlib.sha256(prediction_ledger.read_bytes()).hexdigest()}
+            if prediction_ledger is not None else {}
+        ),
     }
     _, candidates = _read_rows(mapped_results)
     season = _validate_candidates(candidates)
     result_counts: dict[str, int] = {}
     k_report: dict[str, dict[str, float]] = {}
+    prediction_seed_sources: Counter[str] = Counter()
     for sex, chrono, reference, filename in (
         ("M", men_chrono, men_reference_history, "men_elo_rows.csv"),
         ("L", ladies_chrono, ladies_reference_history, "ladies_elo_rows.csv"),
     ):
-        fields, rows, factors = replay_sex(
+        fields, rows, factors, seeds = replay_sex(
             sex=sex,
             candidates=candidates,
             chrono=chrono,
             season=season,
             reference_history=reference,
+            prediction_ledger=prediction_ledger,
         )
         _atomic_text(output_dir / filename, _csv_text(rows, fields))
         result_counts[sex] = len(rows)
         k_report[sex] = dict(sorted(factors.items()))
+        prediction_seed_sources.update(seeds.values())
 
     after_hashes = {
         "men_chrono": hashlib.sha256(men_chrono.read_bytes()).hexdigest(),
@@ -478,6 +582,10 @@ def replay_results(
         **(
             {"ladies_reference_history": hashlib.sha256(ladies_reference_history.read_bytes()).hexdigest()}
             if ladies_reference_history is not None else {}
+        ),
+        **(
+            {"prediction_ledger": hashlib.sha256(prediction_ledger.read_bytes()).hexdigest()}
+            if prediction_ledger is not None else {}
         ),
     }
     if after_hashes != source_hashes:
@@ -493,6 +601,7 @@ def replay_results(
         "race_count": race_count,
         "result_rows": result_counts,
         "k_factors": k_report,
+        "first_a_tier_seed_sources": dict(sorted(prediction_seed_sources.items())),
         "rollover": {"base_elo": BASE_ELO, "discount": ROLLOVER_DISCOUNT},
         "status": "replayed",
         "source_histories_modified": False,
@@ -511,6 +620,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--ladies-chrono", required=True, type=Path)
     parser.add_argument("--men-reference-history", type=Path)
     parser.add_argument("--ladies-reference-history", type=Path)
+    parser.add_argument("--prediction-ledger", type=Path)
     parser.add_argument("--output-dir", required=True, type=Path)
     return parser.parse_args()
 
@@ -524,6 +634,7 @@ def main() -> int:
         output_dir=args.output_dir,
         men_reference_history=args.men_reference_history,
         ladies_reference_history=args.ladies_reference_history,
+        prediction_ledger=args.prediction_ledger,
     )
     print(json.dumps(report, indent=2, sort_keys=True))
     return 0

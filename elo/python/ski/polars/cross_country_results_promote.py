@@ -21,6 +21,7 @@ from pathlib import Path
 
 from cross_country_results_elo_replay import (
     PREVIOUS_COLUMNS,
+    add_prediction_starting_states,
     load_starting_states,
 )
 
@@ -74,7 +75,10 @@ def _validate_first_previous_ratings(
     source: Path,
     rows: list[dict[str, str]],
     expected_season: int,
+    sex: str,
     reference_source: Path | None = None,
+    mapped_results: Path | None = None,
+    prediction_ledger: Path | None = None,
 ) -> None:
     if not rows:
         return
@@ -83,6 +87,15 @@ def _validate_first_previous_ratings(
         _, reference_states, _ = load_starting_states(reference_source, expected_season)
         for athlete_id, state in reference_states.items():
             states.setdefault(athlete_id, state)
+    if mapped_results is not None:
+        _, mapped_rows = _read_increment(mapped_results)
+        add_prediction_starting_states(
+            states=states,
+            candidates=mapped_rows,
+            sex=sex,
+            season=expected_season,
+            prediction_ledger=prediction_ledger,
+        )
     first_by_athlete: dict[str, dict[str, str]] = {}
     for row in sorted(rows, key=lambda item: (item["Date"], int(item["Race"]))):
         first_by_athlete.setdefault(row["ID"], row)
@@ -115,6 +128,8 @@ def build_candidate_history(
     sex: str,
     expected_season: int,
     reference_source: Path | None = None,
+    mapped_results: Path | None = None,
+    prediction_ledger: Path | None = None,
 ) -> dict[str, object]:
     source_bytes = source.read_bytes()
     if not source_bytes:
@@ -187,7 +202,10 @@ def build_candidate_history(
         source=source,
         rows=increment_rows,
         expected_season=expected_season,
+        sex=sex,
         reference_source=reference_source,
+        mapped_results=mapped_results,
+        prediction_ledger=prediction_ledger,
     )
     appended = "".join(
         _csv_line([row[field] for field in header]) for row in increment_rows
@@ -221,10 +239,17 @@ def promote_results(
     output_dir: Path,
     men_reference_history: Path | None = None,
     ladies_reference_history: Path | None = None,
+    mapped_results: Path | None = None,
+    prediction_ledger: Path | None = None,
 ) -> dict[str, object]:
     references = tuple(
         path
-        for path in (men_reference_history, ladies_reference_history)
+        for path in (
+            men_reference_history,
+            ladies_reference_history,
+            mapped_results,
+            prediction_ledger,
+        )
         if path is not None
     )
     output_dir = _validate_output_dir(
@@ -238,6 +263,8 @@ def promote_results(
             sex="M",
             expected_season=expected_season,
             reference_source=men_reference_history,
+            mapped_results=mapped_results,
+            prediction_ledger=prediction_ledger,
         ),
         build_candidate_history(
             source=ladies_chrono,
@@ -246,6 +273,8 @@ def promote_results(
             sex="L",
             expected_season=expected_season,
             reference_source=ladies_reference_history,
+            mapped_results=mapped_results,
+            prediction_ledger=prediction_ledger,
         ),
     ]
     if sum(int(item["appended_rows"]) for item in outputs) == 0:
@@ -270,6 +299,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--ladies-chrono", required=True, type=Path)
     parser.add_argument("--men-reference-history", type=Path)
     parser.add_argument("--ladies-reference-history", type=Path)
+    parser.add_argument("--mapped-results", type=Path)
+    parser.add_argument("--prediction-ledger", type=Path)
     parser.add_argument("--men-rows", required=True, type=Path)
     parser.add_argument("--ladies-rows", required=True, type=Path)
     parser.add_argument("--expected-season", required=True, type=int)
@@ -288,6 +319,8 @@ def main() -> int:
         output_dir=args.output_dir,
         men_reference_history=args.men_reference_history,
         ladies_reference_history=args.ladies_reference_history,
+        mapped_results=args.mapped_results,
+        prediction_ledger=args.prediction_ledger,
     )
     print(json.dumps(report, indent=2, sort_keys=True))
     return 0
