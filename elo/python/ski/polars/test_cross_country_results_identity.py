@@ -244,6 +244,7 @@ class CrossCountryResultsIdentityTests(unittest.TestCase):
             ) as handle:
                 newcomer = next(csv.DictReader(handle))
             self.assertEqual(newcomer["canonical_athlete_id"], "3999999")
+            self.assertEqual(newcomer["canonical_nation"], "Norway")
 
             write_csv(
                 sources / "results.csv",
@@ -261,6 +262,39 @@ class CrossCountryResultsIdentityTests(unittest.TestCase):
                     aliases_path=sources / "aliases.csv",
                     output_dir=root / "output-ambiguous",
                 )
+
+    def test_newcomer_nation_code_uses_accepted_history_name(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            sources = root / "sources"
+            sources.mkdir()
+            write_csv(sources / "men.csv", ["Date", "ID", "Skier", "Nation"], [])
+            write_csv(sources / "ladies.csv", ["Date", "ID", "Skier", "Nation"], [])
+            write_csv(
+                sources / "results.csv",
+                ["sex", "fis_competitor_id", "fis_code", "name", "nation"],
+                [{
+                    "sex": "M", "fis_competitor_id": 3270010,
+                    "fis_code": 3270010, "name": "Irish Newcomer", "nation": "IRL",
+                }],
+            )
+            write_csv(
+                sources / "aliases.csv",
+                ["sex", "fis_competitor_id", "fis_code", "fis_name", "canonical_id", "canonical_name"],
+                [],
+            )
+            map_identities(
+                results=sources / "results.csv",
+                men_chrono=sources / "men.csv",
+                ladies_chrono=sources / "ladies.csv",
+                aliases_path=sources / "aliases.csv",
+                output_dir=root / "output",
+            )
+            with (root / "output/mapped_results.csv").open(
+                newline="", encoding="utf-8"
+            ) as handle:
+                newcomer = next(csv.DictReader(handle))
+            self.assertEqual(newcomer["canonical_nation"], "Ireland")
 
     def test_prediction_ledger_resolves_newcomer_by_fis_id_not_name(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

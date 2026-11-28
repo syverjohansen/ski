@@ -38,6 +38,9 @@ IDENTITY_MAP_FIELDS = (
     "canonical_nation",
     "identity_match_method",
 )
+NATION_CONTRACT_PATH = Path(__file__).with_name(
+    "cross_country_world_cup_quotas_2027.json"
+)
 
 
 class IdentityError(RuntimeError):
@@ -59,6 +62,33 @@ class Alias:
     fis_name: str
     canonical_id: str
     canonical_name: str
+
+
+def load_nation_names(path: Path = NATION_CONTRACT_PATH) -> dict[str, str]:
+    """Return current FIS nation codes mapped to accepted history names."""
+    try:
+        document = json.loads(path.read_text(encoding="utf-8"))
+        nations = document["nations"]
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError, KeyError) as error:
+        raise IdentityError(f"cannot load FIS nation names from {path}") from error
+    if not isinstance(nations, list):
+        raise IdentityError(f"invalid FIS nation names in {path}")
+    output: dict[str, str] = {}
+    for item in nations:
+        if not isinstance(item, dict):
+            raise IdentityError(f"invalid FIS nation entry in {path}")
+        code = str(item.get("code", "")).strip().upper()
+        name = str(item.get("name", "")).strip()
+        if len(code) != 3 or not name or code in output:
+            raise IdentityError(f"invalid FIS nation entry in {path}")
+        output[code] = name
+    return output
+
+
+def canonical_nation(value: str, nation_names: dict[str, str]) -> str:
+    """Normalize a FIS code while preserving already-canonical history names."""
+    nation = value.strip()
+    return nation_names.get(nation.upper(), nation)
 
 
 def normalized_name(value: str) -> tuple[str, ...]:
@@ -264,6 +294,7 @@ def map_identities(
     )
     aliases = load_aliases(aliases_path, athletes, names_by_id)
     prediction_identities = load_prediction_identities(prediction_ledger)
+    nation_names = load_nation_names()
     mapped_rows: list[dict[str, str]] = []
     identity_rows: dict[tuple[str, str], dict[str, str]] = {}
     method_counts: dict[str, int] = defaultdict(int)
@@ -338,7 +369,7 @@ def map_identities(
                 )
 
         canonical = athletes.get((sex, canonical_id)) or CanonicalAthlete(
-            canonical_id, fis_name, row["nation"].strip()
+            canonical_id, fis_name, canonical_nation(row["nation"], nation_names)
         )
         mapped = {
             **row,
