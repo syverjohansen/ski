@@ -70,11 +70,19 @@ def _season_for_date(value: str) -> int:
 
 
 def _validate_first_previous_ratings(
-    *, source: Path, rows: list[dict[str, str]], expected_season: int
+    *,
+    source: Path,
+    rows: list[dict[str, str]],
+    expected_season: int,
+    reference_source: Path | None = None,
 ) -> None:
     if not rows:
         return
     _, states, _ = load_starting_states(source, expected_season)
+    if reference_source is not None:
+        _, reference_states, _ = load_starting_states(reference_source, expected_season)
+        for athlete_id, state in reference_states.items():
+            states.setdefault(athlete_id, state)
     first_by_athlete: dict[str, dict[str, str]] = {}
     for row in sorted(rows, key=lambda item: (item["Date"], int(item["Race"]))):
         first_by_athlete.setdefault(row["ID"], row)
@@ -106,6 +114,7 @@ def build_candidate_history(
     output: Path,
     sex: str,
     expected_season: int,
+    reference_source: Path | None = None,
 ) -> dict[str, object]:
     source_bytes = source.read_bytes()
     if not source_bytes:
@@ -175,7 +184,10 @@ def build_candidate_history(
         new_races.add(race)
 
     _validate_first_previous_ratings(
-        source=source, rows=increment_rows, expected_season=expected_season
+        source=source,
+        rows=increment_rows,
+        expected_season=expected_season,
+        reference_source=reference_source,
     )
     appended = "".join(
         _csv_line([row[field] for field in header]) for row in increment_rows
@@ -207,9 +219,16 @@ def promote_results(
     ladies_rows: Path,
     expected_season: int,
     output_dir: Path,
+    men_reference_history: Path | None = None,
+    ladies_reference_history: Path | None = None,
 ) -> dict[str, object]:
+    references = tuple(
+        path
+        for path in (men_reference_history, ladies_reference_history)
+        if path is not None
+    )
     output_dir = _validate_output_dir(
-        output_dir, (men_chrono, ladies_chrono, men_rows, ladies_rows)
+        output_dir, (men_chrono, ladies_chrono, men_rows, ladies_rows, *references)
     )
     outputs = [
         build_candidate_history(
@@ -218,6 +237,7 @@ def promote_results(
             output=output_dir / "men_chrono.csv",
             sex="M",
             expected_season=expected_season,
+            reference_source=men_reference_history,
         ),
         build_candidate_history(
             source=ladies_chrono,
@@ -225,6 +245,7 @@ def promote_results(
             output=output_dir / "ladies_chrono.csv",
             sex="L",
             expected_season=expected_season,
+            reference_source=ladies_reference_history,
         ),
     ]
     if sum(int(item["appended_rows"]) for item in outputs) == 0:
@@ -247,6 +268,8 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--men-chrono", required=True, type=Path)
     parser.add_argument("--ladies-chrono", required=True, type=Path)
+    parser.add_argument("--men-reference-history", type=Path)
+    parser.add_argument("--ladies-reference-history", type=Path)
     parser.add_argument("--men-rows", required=True, type=Path)
     parser.add_argument("--ladies-rows", required=True, type=Path)
     parser.add_argument("--expected-season", required=True, type=int)
@@ -263,6 +286,8 @@ def main() -> int:
         ladies_rows=args.ladies_rows,
         expected_season=args.expected_season,
         output_dir=args.output_dir,
+        men_reference_history=args.men_reference_history,
+        ladies_reference_history=args.ladies_reference_history,
     )
     print(json.dumps(report, indent=2, sort_keys=True))
     return 0

@@ -148,6 +148,54 @@ class CrossCountryResultsPromoteTests(unittest.TestCase):
             self.assertEqual(report["appended_rows"], 0)
             self.assertEqual(output.read_bytes(), source.read_bytes())
 
+    def test_reference_history_validates_first_individual_start(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "source.csv"
+            reference = root / "reference.csv"
+            increments = root / "increments.csv"
+            output = root / "candidate.csv"
+            write_csv(source, self.fields, [self.row()])
+            write_csv(
+                reference,
+                self.fields,
+                [self.row(ID=2, Skier="Reference Athlete")],
+            )
+            incoming = self.row(
+                ID=2,
+                Skier="Reference Athlete",
+                Date="2026-11-27",
+                City="Ruka",
+                Country="Finland",
+                Distance="10",
+                Technique="C",
+                Event="World Cup",
+                Place=1,
+                Season=2027,
+                Race=1,
+                Exp=11,
+            )
+            incoming.update({stream: 1385.0 for stream in STREAMS})
+            incoming.update(
+                {previous: 1385.0 for previous in PREVIOUS_COLUMNS.values()}
+            )
+            write_csv(increments, self.fields, [incoming])
+
+            report = build_candidate_history(
+                source=source,
+                increments=increments,
+                output=output,
+                sex="M",
+                expected_season=2027,
+                reference_source=reference,
+            )
+
+            self.assertEqual(report["appended_rows"], 1)
+            with output.open(newline="", encoding="utf-8") as handle:
+                rows = list(csv.DictReader(handle))
+            self.assertEqual(rows[-1]["ID"], "2")
+            self.assertEqual(rows[-1]["Pelo"], "1385.0")
+
     def test_rejects_out_of_order_candidate(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

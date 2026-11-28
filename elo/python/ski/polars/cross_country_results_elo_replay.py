@@ -336,8 +336,13 @@ def replay_sex(
     candidates: list[dict[str, str]],
     chrono: Path,
     season: int,
+    reference_history: Path | None = None,
 ) -> tuple[list[str], list[dict[str, object]], dict[str, float]]:
     fields, states, history = load_starting_states(chrono, season)
+    if reference_history is not None:
+        _, reference_states, _ = load_starting_states(reference_history, season)
+        for athlete_id, state in reference_states.items():
+            states.setdefault(athlete_id, state)
     sex_candidates = [row for row in candidates if row["sex"] == sex]
     k_factors = calculate_k_factors(history, sex_candidates, season)
     existing_races = {
@@ -421,24 +426,43 @@ def replay_results(
     men_chrono: Path,
     ladies_chrono: Path,
     output_dir: Path,
+    men_reference_history: Path | None = None,
+    ladies_reference_history: Path | None = None,
 ) -> dict[str, object]:
+    references = tuple(
+        path
+        for path in (men_reference_history, ladies_reference_history)
+        if path is not None
+    )
     output_dir = _validate_output_dir(
-        output_dir, (mapped_results, men_chrono, ladies_chrono)
+        output_dir, (mapped_results, men_chrono, ladies_chrono, *references)
     )
     source_hashes = {
         "men_chrono": hashlib.sha256(men_chrono.read_bytes()).hexdigest(),
         "ladies_chrono": hashlib.sha256(ladies_chrono.read_bytes()).hexdigest(),
+        **(
+            {"men_reference_history": hashlib.sha256(men_reference_history.read_bytes()).hexdigest()}
+            if men_reference_history is not None else {}
+        ),
+        **(
+            {"ladies_reference_history": hashlib.sha256(ladies_reference_history.read_bytes()).hexdigest()}
+            if ladies_reference_history is not None else {}
+        ),
     }
     _, candidates = _read_rows(mapped_results)
     season = _validate_candidates(candidates)
     result_counts: dict[str, int] = {}
     k_report: dict[str, dict[str, float]] = {}
-    for sex, chrono, filename in (
-        ("M", men_chrono, "men_elo_rows.csv"),
-        ("L", ladies_chrono, "ladies_elo_rows.csv"),
+    for sex, chrono, reference, filename in (
+        ("M", men_chrono, men_reference_history, "men_elo_rows.csv"),
+        ("L", ladies_chrono, ladies_reference_history, "ladies_elo_rows.csv"),
     ):
         fields, rows, factors = replay_sex(
-            sex=sex, candidates=candidates, chrono=chrono, season=season
+            sex=sex,
+            candidates=candidates,
+            chrono=chrono,
+            season=season,
+            reference_history=reference,
         )
         _atomic_text(output_dir / filename, _csv_text(rows, fields))
         result_counts[sex] = len(rows)
@@ -447,6 +471,14 @@ def replay_results(
     after_hashes = {
         "men_chrono": hashlib.sha256(men_chrono.read_bytes()).hexdigest(),
         "ladies_chrono": hashlib.sha256(ladies_chrono.read_bytes()).hexdigest(),
+        **(
+            {"men_reference_history": hashlib.sha256(men_reference_history.read_bytes()).hexdigest()}
+            if men_reference_history is not None else {}
+        ),
+        **(
+            {"ladies_reference_history": hashlib.sha256(ladies_reference_history.read_bytes()).hexdigest()}
+            if ladies_reference_history is not None else {}
+        ),
     }
     if after_hashes != source_hashes:
         raise EloReplayError("accepted chrono history changed during isolated replay")
@@ -477,6 +509,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--mapped-results", required=True, type=Path)
     parser.add_argument("--men-chrono", required=True, type=Path)
     parser.add_argument("--ladies-chrono", required=True, type=Path)
+    parser.add_argument("--men-reference-history", type=Path)
+    parser.add_argument("--ladies-reference-history", type=Path)
     parser.add_argument("--output-dir", required=True, type=Path)
     return parser.parse_args()
 
@@ -488,6 +522,8 @@ def main() -> int:
         men_chrono=args.men_chrono,
         ladies_chrono=args.ladies_chrono,
         output_dir=args.output_dir,
+        men_reference_history=args.men_reference_history,
+        ladies_reference_history=args.ladies_reference_history,
     )
     print(json.dumps(report, indent=2, sort_keys=True))
     return 0

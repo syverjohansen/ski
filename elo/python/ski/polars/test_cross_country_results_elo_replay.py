@@ -15,6 +15,8 @@ from cross_country_results_elo_replay import (
     update_ratings,
 )
 
+HERE = Path(__file__).resolve().parent
+
 
 def write_csv(path: Path, fields: list[str], rows: list[dict[str, object]]) -> None:
     with path.open("w", newline="", encoding="utf-8") as handle:
@@ -24,6 +26,48 @@ def write_csv(path: Path, fields: list[str], rows: list[dict[str, object]]) -> N
 
 
 class CrossCountryResultsEloReplayTests(unittest.TestCase):
+    def test_reference_history_seeds_first_individual_start(self) -> None:
+        data = HERE / "excel365"
+        relay = HERE / "relay/excel365"
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            sources = root / "sources"
+            sources.mkdir()
+            mapped = sources / "mapped.csv"
+            write_csv(
+                mapped,
+                [
+                    "date", "sex", "season", "race", "city", "country",
+                    "distance", "technique", "mass_start", "championship",
+                    "place", "canonical_athlete_id", "canonical_name",
+                    "canonical_nation",
+                ],
+                [{
+                    "date": "2026-11-27", "sex": "L", "season": 2027,
+                    "race": 1, "city": "Ruka", "country": "Finland",
+                    "distance": "10", "technique": "C", "mass_start": 0,
+                    "championship": 0, "place": 1,
+                    "canonical_athlete_id": 6304,
+                    "canonical_name": "Daryna Kovalova",
+                    "canonical_nation": "Ukraine",
+                }],
+            )
+            report = replay_results(
+                mapped_results=mapped,
+                men_chrono=data / "men_chrono.csv",
+                ladies_chrono=data / "ladies_chrono.csv",
+                men_reference_history=relay / "men_chrono.csv",
+                ladies_reference_history=relay / "ladies_chrono.csv",
+                output_dir=root / "output",
+            )
+            self.assertEqual(report["result_rows"], {"M": 0, "L": 1})
+            with (root / "output/ladies_elo_rows.csv").open(
+                newline="", encoding="utf-8"
+            ) as handle:
+                row = next(csv.DictReader(handle))
+            self.assertEqual(row["ID"], "6304")
+            self.assertEqual(row["Skier"], "Daryna Kovalova")
+
     def test_legacy_multi_competitor_math(self) -> None:
         self.assertEqual(actual_scores([1, 2, 3]), [2.0, 1.0, 0.0])
         self.assertEqual(expected_scores([1300.0] * 3), [1.0, 1.0, 1.0])

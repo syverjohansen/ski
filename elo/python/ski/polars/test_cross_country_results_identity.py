@@ -155,6 +155,43 @@ class CrossCountryResultsIdentityTests(unittest.TestCase):
                 [row["canonical_athlete_id"] for row in mapped], ["5164", "1470"]
             )
 
+    def test_reference_history_bridges_first_individual_start(self) -> None:
+        data = HERE / "excel365"
+        relay = HERE / "relay/excel365"
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            sources = root / "sources"
+            sources.mkdir()
+            results = sources / "results.csv"
+            write_csv(
+                results,
+                ["date", "sex", "fis_competitor_id", "fis_code", "name", "nation"],
+                [{
+                    "date": "2026-11-27",
+                    "sex": "L",
+                    "fis_competitor_id": "225533",
+                    "fis_code": "3695095",
+                    "name": "KOVALOVA Daryna",
+                    "nation": "UKR",
+                }],
+            )
+            report = map_identities(
+                results=results,
+                men_chrono=data / "men_chrono.csv",
+                ladies_chrono=data / "ladies_chrono.csv",
+                aliases_path=data / "fis_identity_aliases.csv",
+                men_reference_history=relay / "men_chrono.csv",
+                ladies_reference_history=relay / "ladies_chrono.csv",
+                output_dir=root / "output",
+            )
+            self.assertEqual(report["match_methods"], {"unique_normalized_name": 1})
+            with (root / "output/mapped_results.csv").open(
+                newline="", encoding="utf-8"
+            ) as handle:
+                mapped = next(csv.DictReader(handle))
+            self.assertEqual(mapped["canonical_athlete_id"], "6304")
+            self.assertEqual(mapped["canonical_name"], "Daryna Kovalova")
+
     def test_fails_closed_for_unknown_or_ambiguous_athlete(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
