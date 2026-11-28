@@ -50,6 +50,7 @@ class CrossCountryResultsIdentityTests(unittest.TestCase):
         self.assertEqual(aliases[("L", "3515321")].canonical_id, "6639")
         self.assertEqual(aliases[("L", "3045109")].canonical_id, "10268")
         self.assertEqual(aliases[("L", "3486010")].canonical_id, "571")
+        self.assertEqual(aliases[("L", "3105214")].canonical_id, "1676")
 
     def test_maps_unique_name_and_reviewed_alias(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

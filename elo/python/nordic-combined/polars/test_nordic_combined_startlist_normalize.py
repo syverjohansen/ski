@@ -191,6 +191,8 @@ def test_reviewed_aliases_cover_live_lahti_identity_drift() -> None:
     athletes, _, names = load_athletes(
         accepted / "men_chrono_elevation.csv",
         accepted / "ladies_chrono_elevation.csv",
+        accepted / "all_M.csv",
+        accepted / "all_L.csv",
     )
     aliases = load_aliases(
         HERE / "nordic_combined_results_identity_aliases.csv", athletes, names
@@ -206,4 +208,7 @@ def test_reviewed_aliases_cover_live_lahti_identity_drift() -> None:
         "128597": ("M", "36", "Manuel Faißt"),
         "193925": ("M", "1475", "Pascal Müller"),
         "212920": ("M", "2344", "Eidar Johan Strøm"),
+        "239830": ("M", "2318", "Benedikt Grabert"),
+        "271378": ("M", "2407", "Lubin Martin"),
+        "293187": ("M", "2516", "Markus Maaninka"),
     }

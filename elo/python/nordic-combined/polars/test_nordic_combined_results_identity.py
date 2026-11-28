@@ -102,3 +102,46 @@ def test_unresolved_identity_blocks_replay_but_preserves_evidence(tmp_path: Path
     assert report["unresolved_fis_athletes"] == 1
     assert report["replay_eligible"] is False
     assert (tmp_path / "candidate/unresolved_identities.csv").is_file()
+
+
+def test_reviewed_alias_can_resolve_first_world_cup_start_from_reference_history(
+    tmp_path: Path,
+) -> None:
+    inputs = identity_inputs(tmp_path, aliases=[{
+        "fis_competitor_id": "239830",
+        "fis_code": "101505",
+        "fis_name": "GRAEBERT Benedikt",
+        "canonical_sex": "M",
+        "canonical_id": "2318",
+        "canonical_name": "Benedikt Grabert",
+    }])
+    write_csv(inputs["results"], RESULT_FIELDS, [result(
+        sex="M",
+        fis_competitor_id="239830",
+        fis_code="101505",
+        name="GRAEBERT Benedikt",
+        nation="GER",
+        event_kind="individual",
+        race_type="Individual",
+        team_name="",
+        team_nation="",
+        member_order="",
+    )])
+    reference = write_csv(
+        tmp_path / "accepted/reference-men.csv",
+        HISTORY_FIELDS,
+        [{
+            "Date": "2026-05-01",
+            "Sex": "M",
+            "Skier": "Benedikt Grabert",
+            "Nation": "Germany",
+            "ID": "2318",
+        }],
+    )
+    report = map_identities(
+        **inputs,
+        men_reference_history=reference,
+        output_dir=tmp_path / "candidate",
+    )
+    assert report["replay_eligible"] is True
+    assert report["match_methods"] == {"reviewed_alias": 1}
