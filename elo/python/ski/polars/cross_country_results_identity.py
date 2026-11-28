@@ -18,6 +18,7 @@ import re
 import tempfile
 import unicodedata
 from collections import defaultdict
+from difflib import SequenceMatcher
 from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path
@@ -298,107 +299,133 @@ def map_identities(
     mapped_rows: list[dict[str, str]] = []
     identity_rows: dict[tuple[str, str], dict[str, str]] = {}
     method_counts: dict[str, int] = defaultdict(int)
+    review_required: dict[tuple[str, str], dict[str, object]] = {}
+    unresolved = 0
 
     for row_number, row in enumerate(raw_rows, start=2):
-        sex = (row.get("sex") or "").strip()
-        competitor_id = (row.get("fis_competitor_id") or "").strip()
-        fis_code = (row.get("fis_code") or "").strip()
-        fis_name = (row.get("name") or "").strip()
-        if sex not in {"M", "L"} or not competitor_id or not fis_code or not fis_name:
-            raise IdentityError(f"{results}:{row_number}: incomplete FIS identity")
+        try:
+            sex = (row.get("sex") or "").strip()
+            competitor_id = (row.get("fis_competitor_id") or "").strip()
+            fis_code = (row.get("fis_code") or "").strip()
+            fis_name = (row.get("name") or "").strip()
+            if sex not in {"M", "L"} or not competitor_id or not fis_code or not fis_name:
+                raise IdentityError(f"{results}:{row_number}: incomplete FIS identity")
 
-        alias = aliases.get((sex, fis_code))
-        if alias:
-            canonical_id = alias.canonical_id
-            method = "reviewed_alias"
-        elif (sex, fis_code) in athletes:
-            # Newcomers are assigned their stable numeric FIS code when they first
-            # enter accepted A-tier history. This makes later name changes harmless.
-            canonical_id = fis_code
-            method = "canonical_fis_code"
-        else:
-            candidate_ids = name_index.get((sex, normalized_name(fis_name)), set())
-            if len(candidate_ids) > 1:
-                raise IdentityError(
-                    f"{results}:{row_number}: ambiguous identity for "
-                    f"{sex}/{competitor_id} {fis_name!r}; candidates="
-                    f"{sorted(candidate_ids)}"
-                )
-            if candidate_ids:
-                canonical_id = next(iter(candidate_ids))
-                reviewed_codes = {
-                    reviewed.fis_code
-                    for reviewed in aliases.values()
-                    if reviewed.sex == sex and reviewed.canonical_id == canonical_id
-                }
-                if reviewed_codes:
-                    raise IdentityError(
-                        f"{results}:{row_number}: FIS code changed for reviewed athlete "
-                        f"{sex}/{canonical_id}; observed={fis_code}, "
-                        f"reviewed={sorted(reviewed_codes)}"
-                    )
-                method = "unique_normalized_name"
-            else:
-                if not fis_code.isdigit():
-                    raise IdentityError(
-                        f"{results}:{row_number}: newcomer has nonnumeric FIS code"
-                    )
-                collision = next(
-                    (
-                        existing
-                        for (existing_sex, existing_id), existing in athletes.items()
-                        if existing_sex == sex and existing_id == fis_code
-                    ),
-                    None,
-                )
-                if collision is not None:
-                    raise IdentityError(
-                        f"{results}:{row_number}: FIS-code identity collides with "
-                        f"accepted athlete {sex}/{fis_code}"
-                    )
-                ledger_identity = prediction_identities.get((sex, competitor_id))
-                if ledger_identity is not None and ledger_identity[0] != fis_code:
-                    raise IdentityError(
-                        f"{results}:{row_number}: prediction FIS code changed"
-                    )
+            alias = aliases.get((sex, fis_code))
+            if alias:
+                canonical_id = alias.canonical_id
+                method = "reviewed_alias"
+            elif (sex, fis_code) in athletes:
+                # Newcomers are assigned their stable numeric FIS code when they first
+                # enter accepted A-tier history. This makes later name changes harmless.
                 canonical_id = fis_code
-                method = (
-                    "prediction_ledger_fis_identity"
-                    if ledger_identity is not None
-                    else "newcomer_fis_identity"
-                )
+                method = "canonical_fis_code"
+            else:
+                candidate_ids = name_index.get((sex, normalized_name(fis_name)), set())
+                if len(candidate_ids) > 1:
+                    raise IdentityError(
+                        f"{results}:{row_number}: ambiguous identity for "
+                        f"{sex}/{competitor_id} {fis_name!r}; candidates="
+                        f"{sorted(candidate_ids)}"
+                    )
+                if candidate_ids:
+                    canonical_id = next(iter(candidate_ids))
+                    reviewed_codes = {
+                        reviewed.fis_code
+                        for reviewed in aliases.values()
+                        if reviewed.sex == sex and reviewed.canonical_id == canonical_id
+                    }
+                    if reviewed_codes:
+                        raise IdentityError(
+                            f"{results}:{row_number}: FIS code changed for reviewed athlete "
+                            f"{sex}/{canonical_id}; observed={fis_code}, "
+                            f"reviewed={sorted(reviewed_codes)}"
+                        )
+                    method = "unique_normalized_name"
+                else:
+                    if not fis_code.isdigit():
+                        raise IdentityError(
+                            f"{results}:{row_number}: newcomer has nonnumeric FIS code"
+                        )
+                    collision = next(
+                        (
+                            existing
+                            for (existing_sex, existing_id), existing in athletes.items()
+                            if existing_sex == sex and existing_id == fis_code
+                        ),
+                        None,
+                    )
+                    if collision is not None:
+                        raise IdentityError(
+                            f"{results}:{row_number}: FIS-code identity collides with "
+                            f"accepted athlete {sex}/{fis_code}"
+                        )
+                    ledger_identity = prediction_identities.get((sex, competitor_id))
+                    if ledger_identity is not None and ledger_identity[0] != fis_code:
+                        raise IdentityError(
+                            f"{results}:{row_number}: prediction FIS code changed"
+                        )
+                    canonical_id = fis_code
+                    method = (
+                        "prediction_ledger_fis_identity"
+                        if ledger_identity is not None
+                        else "newcomer_fis_identity"
+                    )
 
-        canonical = athletes.get((sex, canonical_id)) or CanonicalAthlete(
-            canonical_id, fis_name, canonical_nation(row["nation"], nation_names)
-        )
-        mapped = {
-            **row,
-            "canonical_athlete_id": canonical.athlete_id,
-            "canonical_name": canonical.name,
-            "canonical_nation": canonical.nation,
-            "identity_match_method": method,
-        }
-        mapped_rows.append(mapped)
-        method_counts[method] += 1
-        identity_key = (sex, competitor_id)
-        identity = {
-            "sex": sex,
-            "fis_competitor_id": competitor_id,
-            "fis_code": fis_code,
-            "fis_name": fis_name,
-            "canonical_athlete_id": canonical.athlete_id,
-            "canonical_name": canonical.name,
-            "canonical_nation": canonical.nation,
-            "identity_match_method": method,
-        }
-        previous = identity_rows.get(identity_key)
-        if previous and previous != identity:
-            raise IdentityError(f"conflicting identity rows for {identity_key}")
-        identity_rows[identity_key] = identity
+            canonical = athletes.get((sex, canonical_id)) or CanonicalAthlete(
+                canonical_id, fis_name, canonical_nation(row["nation"], nation_names)
+            )
+            mapped = {
+                **row,
+                "canonical_athlete_id": canonical.athlete_id,
+                "canonical_name": canonical.name,
+                "canonical_nation": canonical.nation,
+                "identity_match_method": method,
+            }
+            mapped_rows.append(mapped)
+            method_counts[method] += 1
+            identity_key = (sex, competitor_id)
+            identity = {
+                "sex": sex,
+                "fis_competitor_id": competitor_id,
+                "fis_code": fis_code,
+                "fis_name": fis_name,
+                "canonical_athlete_id": canonical.athlete_id,
+                "canonical_name": canonical.name,
+                "canonical_nation": canonical.nation,
+                "identity_match_method": method,
+            }
+            previous = identity_rows.get(identity_key)
+            if previous and previous != identity:
+                raise IdentityError(f"conflicting identity rows for {identity_key}")
+            identity_rows[identity_key] = identity
+        except IdentityError as error:
+            unresolved += 1
+            review_required[(row.get("sex", ""), row.get("fis_code", ""))] = {
+                "sex": row.get("sex", ""), "fis_code": row.get("fis_code", ""),
+                "fis_competitor_id": row.get("fis_competitor_id", ""),
+                "fis_name": row.get("name", ""), "reason": str(error),
+                "status": "unresolved", "suggestions": [],
+            }
+            continue
+        if method in {"newcomer_fis_identity", "prediction_ledger_fis_identity"}:
+            observed = " ".join(normalized_name(fis_name))
+            suggestions = sorted(
+                ({"canonical_id": athlete.athlete_id, "name": athlete.name,
+                  "score": round(SequenceMatcher(None, observed, " ".join(normalized_name(athlete.name))).ratio(), 3)}
+                 for (history_sex, _), athlete in athletes.items()
+                 if history_sex == sex and canonical_nation(athlete.nation, nation_names) == canonical_nation(row["nation"], nation_names)),
+                key=lambda item: (-item["score"], item["canonical_id"]),
+            )[:3]
+            review_required[(sex, fis_code)] = {
+                **identity, "reason": "No accepted historical identity matched; automatic newcomer needs review",
+                "status": "provisional_newcomer", "suggestions": suggestions,
+            }
 
     mapped_path = output_dir / "mapped_results.csv"
     identity_map_path = output_dir / "identity_map.csv"
-    _atomic_text(mapped_path, _csv_text(mapped_rows, raw_fields + list(MAPPED_FIELDS)))
+    if not unresolved:
+        _atomic_text(mapped_path, _csv_text(mapped_rows, raw_fields + list(MAPPED_FIELDS)))
     _atomic_text(
         identity_map_path,
         _csv_text(
@@ -411,8 +438,9 @@ def map_identities(
         "result_rows": len(mapped_rows),
         "unique_fis_athletes": len(identity_rows),
         "match_methods": dict(sorted(method_counts.items())),
-        "unresolved_rows": 0,
-        "status": "mapped",
+        "unresolved_rows": unresolved,
+        "review_required": list(review_required.values()),
+        "status": "blocked" if unresolved else "mapped",
         "outputs": {
             "mapped_results": mapped_path.name,
             "identity_map": identity_map_path.name,
@@ -422,6 +450,8 @@ def map_identities(
         output_dir / "report.json",
         json.dumps(report, indent=2, sort_keys=True) + "\n",
     )
+    if unresolved:
+        raise IdentityError(f"{unresolved} unresolved result identities; see {output_dir / 'report.json'}: " + "; ".join(str(item["reason"]) for item in review_required.values() if item["status"] == "unresolved"))
     return report
 
 

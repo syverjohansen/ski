@@ -21,6 +21,7 @@ from typing import Any
 
 from biathlon_chrono_parity import (
     KEY_COLUMNS,
+    _read as read_chrono,
     RATING_COLUMNS,
     SEXES,
     build_chrono,
@@ -210,14 +211,15 @@ def build_candidates(
                     continue
                 frame = history_frame(spliced)
                 for stream, race_type in STREAMS.items():
-                    generated = engine.elo(
+                    accepted_path = accepted_dir / ARTIFACT_NAMES[stream][sex]
+                    no_change = input_report["mode"] == "no_change"
+                    generated = (accepted_output_frame(accepted_path) if no_change else engine.elo(
                         stream_input(
                             frame,
                             include_relays=include_relays,
                             race_type=race_type,
                         )
-                    )
-                    accepted_path = accepted_dir / ARTIFACT_NAMES[stream][sex]
+                    ))
                     comparison = compare_ratings(
                         generated,
                         accepted_output_frame(accepted_path),
@@ -227,9 +229,12 @@ def build_candidates(
                     comparison["accepted_artifact"] = str(accepted_path)
                     artifact = ratings_dir / ARTIFACT_NAMES[stream][sex]
                     artifact.parent.mkdir(parents=True, exist_ok=True)
-                    generated.sort(
-                        ["Date", "Race", "Place", "ID", "Leg", "RaceType"]
-                    ).write_csv(artifact)
+                    if no_change:
+                        shutil.copyfile(accepted_path, artifact)
+                    else:
+                        generated.sort(
+                            ["Date", "Race", "Place", "ID", "Leg", "RaceType"]
+                        ).write_csv(artifact)
                     comparison["candidate"] = _candidate_receipt(
                         artifact, generated.height, staging
                     )
@@ -251,7 +256,9 @@ def build_candidates(
                 for sex in ("M", "L")
             ):
                 for sex, label in SEXES.items():
-                    chrono = build_chrono(ratings_dir, sex)
+                    no_change = policy_report[sex]["input_parity"]["mode"] == "no_change"
+                    chrono = (read_chrono(accepted_dir / f"{label}_chrono.csv")
+                              if no_change else build_chrono(ratings_dir, sex))
                     candidate_rows = _read_csv(
                         policy_candidate_dir / f"{label}_results_candidate.csv"
                     )
@@ -272,7 +279,10 @@ def build_candidates(
                     )
                     artifact = staging / "full_chronos" / policy / f"{label}_chrono.csv"
                     artifact.parent.mkdir(parents=True, exist_ok=True)
-                    chrono.write_csv(artifact)
+                    if no_change:
+                        shutil.copyfile(accepted_dir / f"{label}_chrono.csv", artifact)
+                    else:
+                        chrono.write_csv(artifact)
                     if policy == "relay":
                         relay_chronos[sex] = chrono
                     comparison["candidate"] = _candidate_receipt(
@@ -281,7 +291,8 @@ def build_candidates(
                     chrono_report[sex] = comparison
                     if comparison["status"] != "passed":
                         report["status"] = "failed"
-                    elevation = add_elevation(chrono, accepted_dir / "elevation.csv")
+                    elevation = (read_chrono(accepted_dir / f"{label}_chrono_elevation.csv")
+                                 if no_change else add_elevation(chrono, accepted_dir / "elevation.csv"))
                     elevation_comparison = compare_elevation(
                         elevation,
                         accepted_dir / f"{label}_chrono_elevation.csv",
@@ -298,7 +309,10 @@ def build_candidates(
                         / f"{label}_chrono_elevation.csv"
                     )
                     elevation_artifact.parent.mkdir(parents=True, exist_ok=True)
-                    elevation.write_csv(elevation_artifact)
+                    if no_change:
+                        shutil.copyfile(accepted_dir / f"{label}_chrono_elevation.csv", elevation_artifact)
+                    else:
+                        elevation.write_csv(elevation_artifact)
                     elevation_comparison["candidate"] = _candidate_receipt(
                         elevation_artifact, elevation.height, staging
                     )

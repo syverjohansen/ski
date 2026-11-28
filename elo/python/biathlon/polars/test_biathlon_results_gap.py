@@ -214,3 +214,14 @@ def test_output_must_be_new_and_outside_accepted_data(tmp_path: Path) -> None:
                 relay_dir=relay,
                 output_dir=output,
             )
+
+
+def test_cutoff_defers_even_final_races_after_requested_date(tmp_path: Path) -> None:
+    from datetime import date
+    schedule, individual, relay = fixture(tmp_path)
+    report = gap.audit_gaps(client=FixtureClient(), season_id=SEASON,
+        schedule_path=schedule, individual_dir=individual, relay_dir=relay,
+        output_dir=tmp_path / "cutoff", as_of=date(2026, 11, 26))
+    assert f"{EVENT}MXRL" not in report["additive_candidates"]["final_result_race_ids"]
+    mixed = next(row for row in report["coverage"] if row["race_id"] == f"{EVENT}MXRL")
+    assert mixed["result_state"] == "after_cutoff"

@@ -194,65 +194,74 @@ def map_identities(
     mapped_rows: list[dict[str, str]] = []
     identity_rows: dict[tuple[str, str], dict[str, str]] = {}
     method_counts: dict[str, int] = defaultdict(int)
+    review_required = []
 
     for row_number, row in enumerate(raw_rows, start=2):
-        sex = (row.get("sex") or "").strip()
-        competitor_id = (row.get("fis_competitor_id") or "").strip()
-        fis_code = (row.get("fis_code") or "").strip()
-        fis_name = (row.get("name") or "").strip()
-        if sex not in {"M", "L"} or not competitor_id or not fis_name:
-            raise IdentityError(f"{results}:{row_number}: incomplete FIS identity")
+        try:
+            sex = (row.get("sex") or "").strip()
+            competitor_id = (row.get("fis_competitor_id") or "").strip()
+            fis_code = (row.get("fis_code") or "").strip()
+            fis_name = (row.get("name") or "").strip()
+            if sex not in {"M", "L"} or not competitor_id or not fis_name:
+                raise IdentityError(f"{results}:{row_number}: incomplete FIS identity")
 
-        alias = aliases.get((sex, competitor_id))
-        if alias:
-            if alias.fis_code != fis_code or alias.fis_name != fis_name:
-                raise IdentityError(
-                    f"{results}:{row_number}: FIS identity changed for alias "
-                    f"{sex}/{competitor_id}"
-                )
-            canonical_id = alias.canonical_id
-            method = "reviewed_alias"
-        else:
-            candidate_ids = name_index.get((sex, normalized_name(fis_name)), set())
-            if len(candidate_ids) != 1:
-                state = "missing" if not candidate_ids else "ambiguous"
-                raise IdentityError(
-                    f"{results}:{row_number}: {state} identity for "
-                    f"{sex}/{competitor_id} {fis_name!r}; candidates="
-                    f"{sorted(candidate_ids)}"
-                )
-            canonical_id = next(iter(candidate_ids))
-            method = "unique_normalized_name"
+            alias = aliases.get((sex, competitor_id))
+            if alias:
+                if alias.fis_code != fis_code or alias.fis_name != fis_name:
+                    raise IdentityError(
+                        f"{results}:{row_number}: FIS identity changed for alias "
+                        f"{sex}/{competitor_id}"
+                    )
+                canonical_id = alias.canonical_id
+                method = "reviewed_alias"
+            else:
+                candidate_ids = name_index.get((sex, normalized_name(fis_name)), set())
+                if len(candidate_ids) != 1:
+                    state = "missing" if not candidate_ids else "ambiguous"
+                    raise IdentityError(
+                        f"{results}:{row_number}: {state} identity for "
+                        f"{sex}/{competitor_id} {fis_name!r}; candidates="
+                        f"{sorted(candidate_ids)}"
+                    )
+                canonical_id = next(iter(candidate_ids))
+                method = "unique_normalized_name"
 
-        canonical = athletes[(sex, canonical_id)]
-        mapped = {
-            **row,
-            "canonical_athlete_id": canonical.athlete_id,
-            "canonical_name": canonical.name,
-            "canonical_nation": canonical.nation,
-            "identity_match_method": method,
-        }
-        mapped_rows.append(mapped)
-        method_counts[method] += 1
-        identity_key = (sex, competitor_id)
-        identity = {
-            "sex": sex,
-            "fis_competitor_id": competitor_id,
-            "fis_code": fis_code,
-            "fis_name": fis_name,
-            "canonical_athlete_id": canonical.athlete_id,
-            "canonical_name": canonical.name,
-            "canonical_nation": canonical.nation,
-            "identity_match_method": method,
-        }
-        previous = identity_rows.get(identity_key)
-        if previous and previous != identity:
-            raise IdentityError(f"conflicting identity rows for {identity_key}")
-        identity_rows[identity_key] = identity
+            canonical = athletes[(sex, canonical_id)]
+            mapped = {
+                **row,
+                "canonical_athlete_id": canonical.athlete_id,
+                "canonical_name": canonical.name,
+                "canonical_nation": canonical.nation,
+                "identity_match_method": method,
+            }
+            mapped_rows.append(mapped)
+            method_counts[method] += 1
+            identity_key = (sex, competitor_id)
+            identity = {
+                "sex": sex,
+                "fis_competitor_id": competitor_id,
+                "fis_code": fis_code,
+                "fis_name": fis_name,
+                "canonical_athlete_id": canonical.athlete_id,
+                "canonical_name": canonical.name,
+                "canonical_nation": canonical.nation,
+                "identity_match_method": method,
+            }
+            previous = identity_rows.get(identity_key)
+            if previous and previous != identity:
+                raise IdentityError(f"conflicting identity rows for {identity_key}")
+            identity_rows[identity_key] = identity
+        except IdentityError as error:
+            review_required.append({
+                "sex": row.get("sex", ""), "fis_code": row.get("fis_code", ""),
+                "fis_competitor_id": row.get("fis_competitor_id", ""),
+                "fis_name": row.get("name", ""), "reason": str(error), "status": "unresolved",
+            })
 
     mapped_path = output_dir / "mapped_results.csv"
     identity_map_path = output_dir / "identity_map.csv"
-    _atomic_text(mapped_path, _csv_text(mapped_rows, raw_fields + list(MAPPED_FIELDS)))
+    if not review_required:
+        _atomic_text(mapped_path, _csv_text(mapped_rows, raw_fields + list(MAPPED_FIELDS)))
     _atomic_text(
         identity_map_path,
         _csv_text(
@@ -265,8 +274,9 @@ def map_identities(
         "result_rows": len(mapped_rows),
         "unique_fis_athletes": len(identity_rows),
         "match_methods": dict(sorted(method_counts.items())),
-        "unresolved_rows": 0,
-        "status": "mapped",
+        "unresolved_rows": len(review_required),
+        "review_required": review_required,
+        "status": "blocked" if review_required else "mapped",
         "outputs": {
             "mapped_results": mapped_path.name,
             "identity_map": identity_map_path.name,
@@ -276,6 +286,8 @@ def map_identities(
         output_dir / "report.json",
         json.dumps(report, indent=2, sort_keys=True) + "\n",
     )
+    if review_required:
+        raise IdentityError("; ".join(item["reason"] for item in review_required))
     return report
 
 

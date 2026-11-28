@@ -16,7 +16,7 @@ import json
 import shutil
 import tempfile
 from collections import Counter
-from datetime import datetime
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 
@@ -148,6 +148,7 @@ def audit_gaps(
     individual_dir: Path,
     relay_dir: Path,
     output_dir: Path,
+    as_of: date | None = None,
 ) -> dict[str, Any]:
     schedule_path = schedule_path.expanduser().resolve()
     individual_dir = individual_dir.expanduser().resolve()
@@ -186,6 +187,7 @@ def audit_gaps(
         result_keys = {(day, race_type, result_sex) for result_sex in result_sexes}
         individual_present = result_keys.issubset(accepted_results["individual"])
         relay_present = result_keys.issubset(accepted_results["relay"])
+        within_cutoff = as_of is None or day <= as_of.isoformat()
         final = is_final_competition(competition)
         results_present = individual_present and relay_present
         coverage.append(
@@ -195,10 +197,13 @@ def audit_gaps(
                 "race_type": race_type,
                 "schedule_present": schedule_key in accepted_schedule,
                 "official_result_final": final,
+                "within_cutoff": within_cutoff,
                 "individual_results_present": individual_present,
                 "relay_results_present": relay_present,
                 "result_state": (
-                    "not_final"
+                    "after_cutoff"
+                    if not within_cutoff
+                    else "not_final"
                     if not final
                     else "accepted"
                     if results_present
@@ -220,6 +225,7 @@ def audit_gaps(
         "schema_version": REPORT_SCHEMA,
         "status": "failed" if mutated else "passed",
         "season_id": season_id,
+        "as_of": as_of.isoformat() if as_of else None,
         "source": {
             "authority": "International Biathlon Union",
             "event_payload_sha256": _json_sha256(raw_events),

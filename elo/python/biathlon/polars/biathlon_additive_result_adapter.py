@@ -167,7 +167,7 @@ def _new_identity(
 ) -> Identity:
     if (
         bio.get("IBUId") != ibu_id
-        or bio.get("GenderId") != sex
+        or {"M": "M", "W": "L", "L": "L"}.get(str(bio.get("GenderId"))) != sex
         or not bio.get("GivenName")
         or not bio.get("FamilyName")
         or not bio.get("Birthdate")
