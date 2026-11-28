@@ -129,3 +129,14 @@ def test_adapter_rejects_output_inside_accepted_tree(tmp_path: Path) -> None:
             accepted_dir=tmp_path / "accepted",
             output_dir=tmp_path / "accepted" / "candidate",
         )
+
+
+def test_member_sex_uses_official_gender_order_for_both_mixed_formats():
+    from biathlon_official_adapter import _sex_for_member
+    for order, first, second in [("W+M", "L", "M"), ("M+W", "M", "L")]:
+        assert [_sex_for_member("Mixed", "single_mixed_relay", leg, gender_order=order)
+                for leg in (1,2,3,4)] == [first, second, first, second]
+        assert [_sex_for_member("Mixed", "mixed_relay", leg, gender_order=order)
+                for leg in (1,2,3,4)] == [first, first, second, second]
+    with pytest.raises(IBUContractError, match="GenderOrder"):
+        _sex_for_member("Mixed", "single_mixed_relay", 1)

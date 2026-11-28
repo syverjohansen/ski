@@ -266,6 +266,7 @@ def adapt_additive_results(
                 "event_id": event_id,
                 "race_id": source["RaceId"],
                 "kind": kind,
+                "gender_order": str(source.get("GenderOrder") or "").strip(),
                 "sex": sex,
                 "start": datetime.fromisoformat(source["StartTime"].replace("Z", "+00:00")),
             }
@@ -372,7 +373,7 @@ def adapt_additive_results(
                 if key in single_seen:
                     continue
                 single_seen.add(key)
-            sex = _sex_for_member(item["sex"], kind, leg)
+            sex = _sex_for_member(item["sex"], kind, leg, gender_order=item.get("gender_order", ""))
             profile, method = resolver.resolve(
                 ibu_id=ibu_id,
                 official_name=str(source_row.get("Name", "")),
@@ -389,19 +390,26 @@ def adapt_additive_results(
                         raise IBUContractError(
                             f"captured biography hash mismatch: {ibu_id}"
                         )
-                    profile = _new_identity(
-                        bio, ibu_id=ibu_id, sex=sex, local_id=str(next_local_id)
-                    )
-                    next_local_id += 1
-                    new_identities[ibu_id] = profile
-                    new_alias_rows.append(
-                        {
-                            "IBUId": ibu_id,
-                            "ID": profile.local_id,
-                            "reason": "automatic official IBU debut identity",
-                        }
-                    )
-                    method = "new_official_ibu_identity"
+                    try:
+                        profile = _new_identity(
+                            bio, ibu_id=ibu_id, sex=sex, local_id=str(next_local_id)
+                        )
+                    except IBUContractError as error:
+                        # Retain every unresolved athlete in identity_map.csv so
+                        # failed runs can email and queue the actual identities.
+                        method = f"invalid_official_biography: {error}"
+                    if profile is not None:
+                        next_local_id += 1
+                        new_identities[ibu_id] = profile
+                        new_alias_rows.append(
+                            {
+                                "IBUId": ibu_id,
+                                "ID": profile.local_id,
+                                "reason": "automatic official IBU debut identity",
+                            }
+                        )
+                        method = "new_official_ibu_identity"
+
             if (race_id, ibu_id) not in seen_identity:
                 mapped = {
                     "race_id": race_id,

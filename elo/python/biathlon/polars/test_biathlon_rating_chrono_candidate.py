@@ -298,3 +298,20 @@ def test_output_directory_must_be_new(tmp_path: Path) -> None:
             engine_path=tmp_path / "elo.py",
             output_dir=output,
         )
+
+
+def test_additive_team_aggregation_preserves_historical_values_and_member_order(tmp_path):
+    accepted = pl.DataFrame({'Date':['2025-11-28'], 'RaceType':['Mixed Relay'],
+                             'Team_Elo':[5000.0], 'MemberIDs':['4,1,3,2']})
+    path = tmp_path/'teams.csv'
+    accepted.write_csv(path)
+    generated = pl.DataFrame({'Date':['2025-11-28','2026-11-28'],
+        'RaceType':['Mixed Relay','Mixed Relay'], 'Team_Elo':[4997.0,5123.0],
+        'MemberIDs':['1,2,3,4','5,6,7,8']})
+    merged, additions = candidate.append_team_events(generated,path,{('2026-11-28','Mixed Relay')})
+    assert merged.row(0,named=True) == accepted.row(0,named=True)
+    assert additions['Team_Elo'].to_list() == [5123.0]
+    with pytest.raises(IBUContractError,match='already has accepted'):
+        candidate.append_team_events(generated,path,{('2025-11-28','Mixed Relay')})
+    with pytest.raises(IBUContractError,match='every new event'):
+        candidate.append_team_events(generated,path,{('2027-11-28','Mixed Relay')})

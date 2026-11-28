@@ -19,6 +19,8 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
+import polars as pl
+
 from biathlon_chrono_parity import (
     KEY_COLUMNS,
     _read as read_chrono,
@@ -97,6 +99,32 @@ def _policy_candidate_dir(candidate_dir: Path, policy: str) -> Path:
     return policy_dir if policy_dir.is_dir() else candidate_dir
 
 
+def append_team_events(
+    generated: pl.DataFrame, accepted_path: Path, events: set[tuple[str, str]]
+) -> tuple[pl.DataFrame, pl.DataFrame]:
+    """Keep accepted team aggregates fixed as new imputation data arrives."""
+    accepted = pl.read_csv(accepted_path, schema_overrides={"Distance": pl.String})
+    generated = csv_ready(generated)
+    if set(accepted.columns) != set(generated.columns):
+        raise IBUContractError("relay team candidate schema changed")
+    accepted_events = {
+        (str(row["Date"])[:10], row["RaceType"]) for row in accepted.to_dicts()
+    }
+    if events & accepted_events:
+        raise IBUContractError("additive relay event already has accepted team rows")
+    selected = pl.lit(False)
+    for day, kind in events:
+        selected = selected | (
+            (pl.col("Date").cast(pl.String).str.slice(0, 10) == day)
+            & (pl.col("RaceType") == kind)
+        )
+    additions = generated.filter(selected).select(accepted.columns)
+    observed = {(str(row["Date"])[:10], row["RaceType"]) for row in additions.to_dicts()}
+    if observed != events:
+        raise IBUContractError("generated relay teams do not cover every new event")
+    return pl.concat([accepted, additions], how="vertical_relaxed"), additions
+
+
 def _allowed_derived_events(
     candidate_rows: list[dict[str, str]], mode: str
 ) -> set[tuple[str, str]] | None:
@@ -162,6 +190,7 @@ def build_candidates(
         accepted_dirs = {"individual": individual_dir, "relay": relay_dir}
         relay_chronos: dict[str, Any] = {}
         relay_candidate_events: set[tuple[str, str]] = set()
+        relay_sex_events = {"M": set(), "L": set()}
         for policy, include_relays in POLICIES.items():
             accepted_dir = accepted_dirs[policy]
             policy_candidate_dir = _policy_candidate_dir(candidate_dir, policy)
@@ -197,6 +226,7 @@ def build_candidates(
                     event_candidates, input_report["mode"]
                 )
                 if policy == "relay":
+                    relay_sex_events[sex].update((row["Date"], row["RaceType"]) for row in event_candidates)
                     relay_candidate_events.update(
                         (row["Date"], row["RaceType"])
                         for row in event_candidates
@@ -349,9 +379,14 @@ def build_candidates(
                     raise IBUContractError(
                         f"relay aggregator returned no {name} artifact"
                     )
+                candidate_events = relay_candidate_events
+                if name == "men_relay":
+                    candidate_events = relay_sex_events["M"]
+                elif name == "ladies_relay":
+                    candidate_events = relay_sex_events["L"]
                 authorized = {
                     event
-                    for event in relay_candidate_events
+                    for event in candidate_events
                     if (
                         (name in {"men_relay", "ladies_relay"} and event[1] == "Relay")
                         or (name == "mixed_relay" and event[1] == "Mixed Relay")
@@ -361,6 +396,13 @@ def build_candidates(
                         )
                     )
                 }
+                append_only = all(
+                    report["policies"]["relay"][sex]["input_parity"]["mode"] in {"additive", "no_change"}
+                    for sex in ("M", "L")
+                )
+                additions = None
+                if append_only:
+                    frame, additions = append_team_events(frame, relay_dir / TEAM_ARTIFACTS[name], authorized)
                 comparison = compare_team_artifact(
                     frame,
                     relay_dir / TEAM_ARTIFACTS[name],
@@ -370,7 +412,14 @@ def build_candidates(
                 artifact = team_dir / TEAM_ARTIFACTS[name]
                 artifact.parent.mkdir(parents=True, exist_ok=True)
                 ready = csv_ready(frame)
-                ready.write_csv(artifact)
+                if append_only:
+                    archival = (relay_dir / TEAM_ARTIFACTS[name]).read_bytes()
+                    if archival and not archival.endswith(b"\n"):
+                        archival += b"\n"
+                    artifact.write_bytes(archival + additions.write_csv(include_header=False).encode("utf-8"))
+                    comparison["accepted_team_rows_preserved"] = True
+                else:
+                    ready.write_csv(artifact)
                 comparison["candidate"] = _candidate_receipt(
                     artifact, ready.height, staging
                 )
