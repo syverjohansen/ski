@@ -158,6 +158,7 @@ def build_candidate_history(
         raise PromotionError(f"increment header does not match {source}")
 
     existing_keys: set[tuple[int, int, str]] = set()
+    legacy_duplicate_rows = 0
     max_existing_race = 0
     for row_number, row in enumerate(source_rows, start=2):
         if row["Sex"] != sex:
@@ -168,7 +169,9 @@ def build_candidate_history(
             continue
         key = (int(row["Season"]), int(row["Race"]), row["ID"])
         if key in existing_keys:
-            raise PromotionError(f"duplicate accepted result: {key}")
+            # Accepted history is immutable input. Record legacy duplicate keys,
+            # preserve their bytes, and enforce uniqueness only on new rows.
+            legacy_duplicate_rows += 1
         existing_keys.add(key)
         if int(row["Season"]) == expected_season:
             max_existing_race = max(max_existing_race, int(row["Race"]))
@@ -222,6 +225,7 @@ def build_candidate_history(
         "max_accepted_race": max_existing_race,
         "race_zero_rows_modified": 0,
         "historical_bytes_preserved": True,
+        "legacy_duplicate_rows_preserved": legacy_duplicate_rows,
         "source_sha256": _digest_bytes(source_bytes),
         "increment_sha256": hashlib.sha256(increments.read_bytes()).hexdigest(),
         "output_sha256": _digest_bytes(data),

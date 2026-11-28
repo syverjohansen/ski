@@ -148,6 +148,48 @@ class CrossCountryResultsPromoteTests(unittest.TestCase):
             self.assertEqual(report["appended_rows"], 0)
             self.assertEqual(output.read_bytes(), source.read_bytes())
 
+    def test_preserves_legacy_duplicate_but_rejects_new_duplicates(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "source.csv"
+            increments = root / "increments.csv"
+            accepted = self.row(
+                Date="1960-02-01", Event="World Cup", Distance="10",
+                Technique="C", Season=1960, Race=5, ID=1096,
+            )
+            incoming = self.row(
+                Date="2026-11-27", Event="World Cup", Distance="10",
+                Technique="C", Season=2027, Race=1, ID=2,
+                Skier="New Athlete", Exp=1,
+            )
+            incoming.update({stream: 1300 for stream in STREAMS})
+            incoming.update(
+                {previous: 1385 for previous in PREVIOUS_COLUMNS.values()}
+            )
+            write_csv(source, self.fields, [accepted, accepted, self.row(ID=2, Skier="New Athlete")])
+            write_csv(increments, self.fields, [incoming])
+
+            report = build_candidate_history(
+                source=source,
+                increments=increments,
+                output=root / "candidate.csv",
+                sex="M",
+                expected_season=2027,
+            )
+
+            self.assertEqual(report["legacy_duplicate_rows_preserved"], 1)
+            self.assertTrue((root / "candidate.csv").read_bytes().startswith(source.read_bytes()))
+
+            write_csv(increments, self.fields, [incoming, incoming])
+            with self.assertRaisesRegex(PromotionError, "duplicate promoted result"):
+                build_candidate_history(
+                    source=source,
+                    increments=increments,
+                    output=root / "rejected.csv",
+                    sex="M",
+                    expected_season=2027,
+                )
+
     def test_reference_history_validates_first_individual_start(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
