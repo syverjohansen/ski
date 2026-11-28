@@ -58,6 +58,29 @@ def test_parses_individual_and_team_source_identities() -> None:
     ]
 
 
+def test_parses_pre_race_rows_with_blank_place_and_numeric_bib() -> None:
+    rows = "".join(
+        f"""
+        <a class="table-row" href="athlete-biography.html?competitorid={competitor_id}">
+          <div class="g-row justify-sb">
+            <div></div><div>{bib}</div><div>{fis_code}</div>
+            <div>{name}</div><div>2000</div><div>{nation}</div>
+          </div>
+        </a>
+        """
+        for bib, competitor_id, fis_code, name, nation in (
+            (7, 101, 100101, "Athlete One", "NOR"),
+            (12, 102, 100102, "Athlete Two", "GER"),
+            (18, 103, 100103, "Athlete Three", "AUT"),
+        )
+    )
+    entrants = parse_individual_entrants(
+        f'<div id="events-info-results">{rows}</div>'.encode()
+    )
+    assert [item["source_order"] for item in entrants] == [7, 12, 18]
+    assert [item["fis_competitor_id"] for item in entrants] == ["101", "102", "103"]
+
+
 def test_exact_date_acquisition_is_isolated_and_checksummed(tmp_path: Path) -> None:
     source = schedule(tmp_path, [row(), row(Date="11/22/2025", Race="2")])
     before = hashlib.sha256(source.read_bytes()).hexdigest()

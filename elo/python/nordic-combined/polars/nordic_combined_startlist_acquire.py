@@ -118,6 +118,15 @@ def _competitor_id(row: object) -> str:
     return values[0] if len(values) == 1 and values[0].isdigit() else ""
 
 
+def _individual_source_order(cells: list[object]) -> str:
+    """Return rank on results pages or bib/start order on pre-race pages."""
+    for cell in cells[:2]:
+        value = cell.get_text(" ", strip=True)
+        if value.isdigit():
+            return value
+    return ""
+
+
 def parse_individual_entrants(html: bytes) -> list[dict[str, object]]:
     soup = BeautifulSoup(html, "html.parser")
     container = soup.select_one("#events-info-results")
@@ -130,7 +139,7 @@ def parse_individual_entrants(html: bytes) -> list[dict[str, object]]:
         cells = _row_cells(row)
         if len(cells) < 6:
             continue
-        source_order = cells[0].get_text(" ", strip=True)
+        source_order = _individual_source_order(cells)
         competitor_id = _competitor_id(row)
         if not source_order.isdigit() or not competitor_id:
             continue
