@@ -61,6 +61,8 @@ def build_results_update(
     as_of: date,
     output_root: Path,
     fetcher: Callable[[str], bytes] | None = None,
+    men_reference_history: Path | None = None,
+    ladies_reference_history: Path | None = None,
 ) -> dict[str, object]:
     """Run the isolated results stages and return a promotion-ready report."""
     output_root = output_root.expanduser().resolve()
@@ -89,12 +91,16 @@ def build_results_update(
         ladies_chrono=ladies_chrono,
         aliases_path=aliases,
         output_dir=output_root / "identity",
+        men_reference_history=men_reference_history,
+        ladies_reference_history=ladies_reference_history,
     )
     replay = replay_results(
         mapped_results=output_root / "identity/mapped_results.csv",
         men_chrono=men_chrono,
         ladies_chrono=ladies_chrono,
         output_dir=output_root / "replay",
+        men_reference_history=men_reference_history,
+        ladies_reference_history=ladies_reference_history,
     )
     season = int(replay["season"])
     promotion = promote_results(
@@ -104,6 +110,8 @@ def build_results_update(
         ladies_rows=output_root / "replay/ladies_elo_rows.csv",
         expected_season=season,
         output_dir=output_root / "promotion",
+        men_reference_history=men_reference_history,
+        ladies_reference_history=ladies_reference_history,
     )
 
     promoted_audit = audit_results(
@@ -143,6 +151,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--schedule", required=True, type=Path)
     parser.add_argument("--men-chrono", required=True, type=Path)
     parser.add_argument("--ladies-chrono", required=True, type=Path)
+    parser.add_argument("--men-reference-history", type=Path)
+    parser.add_argument("--ladies-reference-history", type=Path)
     parser.add_argument("--aliases", required=True, type=Path)
     parser.add_argument("--as-of", required=True, type=date.fromisoformat)
     parser.add_argument("--output-root", required=True, type=Path)
@@ -169,6 +179,8 @@ def main() -> int:
             aliases=args.aliases,
             as_of=args.as_of,
             output_root=args.output_root,
+            men_reference_history=args.men_reference_history,
+            ladies_reference_history=args.ladies_reference_history,
         )
     except Exception as exc:
         _atomic_json(

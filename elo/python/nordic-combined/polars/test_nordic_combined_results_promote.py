@@ -14,6 +14,7 @@ from nordic_combined_results_replay import run_replay
 
 ROOT = Path(__file__).resolve().parent
 ACCEPTED = ROOT / "relay/excel365"
+REFERENCES = ROOT / "excel365"
 MAPPED_FIELDS = [
     "date", "city", "country", "sex", "season", "race", "event_kind",
     "distance", "race_type", "championship", "place", "team_name",
@@ -127,6 +128,8 @@ def prepared(tmp_path: Path) -> dict[str, Path]:
         "ladies_history": ACCEPTED / "ladies_chrono.csv",
         "team_history": ACCEPTED / "men_team_chrono.csv",
         "team_sprint_history": ACCEPTED / "team_sprint_chrono.csv",
+        "men_reference_history": REFERENCES / "all_M.csv",
+        "ladies_reference_history": REFERENCES / "all_L.csv",
     }
     run_replay(**inputs, season=2026, output_dir=replay)
     return {**inputs, "replay": replay}
@@ -142,6 +145,8 @@ def options(prepared: dict[str, Path], output: Path) -> dict[str, object]:
         "ladies_history": prepared["ladies_history"],
         "team_history": prepared["team_history"],
         "team_sprint_history": prepared["team_sprint_history"],
+        "men_reference_history": prepared.get("men_reference_history"),
+        "ladies_reference_history": prepared.get("ladies_reference_history"),
         "expected_season": 2026,
         "output_dir": output,
     }
@@ -167,6 +172,11 @@ def test_builds_atomic_candidate_without_modifying_accepted(
         "men_chrono.csv", "ladies_chrono.csv", "men_team_chrono.csv",
         "team_sprint_chrono.csv",
     }
+    assert set(report["accepted_before"]) == {
+        "men_chrono.csv", "ladies_chrono.csv", "men_team_chrono.csv",
+        "team_sprint_chrono.csv",
+    }
+    assert set(report["reference_inputs"]) == {"all_M.csv", "all_L.csv"}
     assert (output / "report.json").is_file()
     assert {path: digest(path) for path in sources} == before
 

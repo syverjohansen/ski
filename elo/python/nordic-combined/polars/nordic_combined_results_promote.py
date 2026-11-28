@@ -203,14 +203,17 @@ def build_promotion_candidate(
 ) -> dict[str, object]:
     replay_report = replay_report.expanduser().resolve()
     replay_dir = replay_report.parent
-    sources = [
-        mapped_results, men_history, ladies_history, team_history, team_sprint_history,
+    accepted_sources = [
+        men_history, ladies_history, team_history, team_sprint_history,
+    ]
+    reference_sources = [
         *(
             path
             for path in (men_reference_history, ladies_reference_history)
             if path is not None
         ),
     ]
+    sources = [mapped_results, *accepted_sources, *reference_sources]
     output_dir = _validate_location(output_dir, sources)
     report = _load_report(replay_report, expected_report_sha256)
     if report.get("season") != expected_season:
@@ -270,7 +273,13 @@ def build_promotion_candidate(
             "mapped_team_rows": teams,
             "accepted_before": {
                 Path(path).name: {"file": path, "sha256": digest}
-                for path, digest in before.items() if Path(path) != mapped_results.resolve()
+                for path, digest in before.items()
+                if Path(path) in {source.resolve() for source in accepted_sources}
+            },
+            "reference_inputs": {
+                Path(path).name: {"file": path, "sha256": digest}
+                for path, digest in before.items()
+                if Path(path) in {source.resolve() for source in reference_sources}
             },
             "outputs": {
                 name: {"file": name, "rows": _rows(staging / name), "sha256": _sha(staging / name)}

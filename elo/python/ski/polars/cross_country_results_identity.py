@@ -89,17 +89,28 @@ def _read_rows(path: Path) -> list[dict[str, str]]:
 
 
 def load_history(
-    men_chrono: Path, ladies_chrono: Path
+    men_chrono: Path,
+    ladies_chrono: Path,
+    men_reference_history: Path | None = None,
+    ladies_reference_history: Path | None = None,
 ) -> tuple[
     dict[tuple[str, str], CanonicalAthlete],
     dict[tuple[str, tuple[str, ...]], set[str]],
     dict[tuple[str, str], set[str]],
 ]:
     athletes: dict[tuple[str, str], CanonicalAthlete] = {}
-    latest_dates: dict[tuple[str, str], str] = {}
+    latest_order: dict[tuple[str, str], tuple[int, str]] = {}
     name_index: dict[tuple[str, tuple[str, ...]], set[str]] = defaultdict(set)
     names_by_id: dict[tuple[str, str], set[str]] = defaultdict(set)
-    for sex, path in (("M", men_chrono), ("L", ladies_chrono)):
+    sources = [
+        ("M", men_reference_history, 0),
+        ("L", ladies_reference_history, 0),
+        ("M", men_chrono, 1),
+        ("L", ladies_chrono, 1),
+    ]
+    for sex, path, priority in sources:
+        if path is None:
+            continue
         for row_number, row in enumerate(_read_rows(path), start=2):
             athlete_id = (row.get("ID") or "").strip()
             name = (row.get("Skier") or "").strip()
@@ -110,9 +121,10 @@ def load_history(
             key = (sex, athlete_id)
             names_by_id[key].add(name)
             name_index[(sex, normalized_name(name))].add(athlete_id)
-            if observed_date >= latest_dates.get(key, ""):
+            order = (priority, observed_date)
+            if order >= latest_order.get(key, (-1, "")):
                 athletes[key] = CanonicalAthlete(athlete_id, name, nation)
-                latest_dates[key] = observed_date
+                latest_order[key] = order
     return athletes, name_index, names_by_id
 
 
@@ -195,9 +207,16 @@ def map_identities(
     ladies_chrono: Path,
     aliases_path: Path,
     output_dir: Path,
+    men_reference_history: Path | None = None,
+    ladies_reference_history: Path | None = None,
 ) -> dict[str, object]:
+    references = tuple(
+        path
+        for path in (men_reference_history, ladies_reference_history)
+        if path is not None
+    )
     output_dir = _validate_output_dir(
-        output_dir, (results, men_chrono, ladies_chrono, aliases_path)
+        output_dir, (results, men_chrono, ladies_chrono, aliases_path, *references)
     )
     raw_rows = _read_rows(results)
     if not raw_rows:
@@ -208,7 +227,12 @@ def map_identities(
     if missing_fields:
         raise IdentityError(f"results candidate is missing fields: {missing_fields}")
 
-    athletes, name_index, names_by_id = load_history(men_chrono, ladies_chrono)
+    athletes, name_index, names_by_id = load_history(
+        men_chrono,
+        ladies_chrono,
+        men_reference_history,
+        ladies_reference_history,
+    )
     aliases = load_aliases(aliases_path, athletes, names_by_id)
     mapped_rows: list[dict[str, str]] = []
     identity_rows: dict[tuple[str, str], dict[str, str]] = {}
@@ -309,6 +333,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--results", required=True, type=Path)
     parser.add_argument("--men-chrono", required=True, type=Path)
     parser.add_argument("--ladies-chrono", required=True, type=Path)
+    parser.add_argument("--men-reference-history", type=Path)
+    parser.add_argument("--ladies-reference-history", type=Path)
     parser.add_argument("--aliases", required=True, type=Path)
     parser.add_argument("--output-dir", required=True, type=Path)
     return parser.parse_args()
@@ -322,6 +348,8 @@ def main() -> int:
         ladies_chrono=args.ladies_chrono,
         aliases_path=args.aliases,
         output_dir=args.output_dir,
+        men_reference_history=args.men_reference_history,
+        ladies_reference_history=args.ladies_reference_history,
     )
     print(json.dumps(report, indent=2, sort_keys=True))
     return 0
