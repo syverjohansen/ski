@@ -180,8 +180,9 @@ def test_unknown_identity_fails_closed_with_review_evidence(tmp_path: Path) -> N
     assert any(row["status"] == "unresolved" for row in identities)
 
 
+@pytest.mark.parametrize("incomplete", [False, True])
 def test_official_biography_creates_deterministic_debut_identity(
-    tmp_path: Path,
+    tmp_path: Path, incomplete: bool,
 ) -> None:
     capture, individual, relay, schedule = build_bundle(tmp_path)
     ibu_id = "BTFIN20101200401"
@@ -199,6 +200,8 @@ def test_official_biography_creates_deterministic_debut_identity(
         "Birthdate": "2004-01-01T00:00:00",
         "GenderId": "W",
     }
+    if incomplete:
+        bio.pop("Birthdate")
     bio_path = capture / "raw" / f"{ibu_id}-bio.json"
     bio_path.write_text(json.dumps(bio), encoding="utf-8")
     report_path = capture / "capture_report.json"
@@ -220,6 +223,14 @@ def test_official_biography_creates_deterministic_debut_identity(
         aliases_path=HERE / "ibu_identity_aliases.csv",
     )
 
+    if incomplete:
+        assert adapted["status"] == "failed"
+        assert adapted["identity"]["unresolved"] == 1
+        unresolved = next(row for row in read_rows(output / "identity_map.csv") if row["IBUId"] == ibu_id)
+        assert unresolved["status"] == "unresolved"
+        assert "invalid_official_biography" in unresolved["method"]
+        assert unresolved["official_name"] == "ROOKIE Rita"
+        return
     assert adapted["status"] == "passed"
     assert adapted["identity"]["new_official_identities"] == 1
     identity = next(

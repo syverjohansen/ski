@@ -213,6 +213,7 @@ def capture_final_results(
                     competition["sex"],
                     competition["event_kind"],
                     int(row.get("Leg") or 0),
+                    gender_order=competition.get("gender_order", ""),
                 )
                 if (
                     ibu_id in aliases

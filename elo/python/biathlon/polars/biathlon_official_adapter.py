@@ -180,13 +180,22 @@ def _distance(description: str, kind: str) -> str:
     return match.group(1)
 
 
-def _sex_for_member(competition_sex: str, kind: str, leg: int) -> str:
+def _sex_for_member(
+    competition_sex: str, kind: str, leg: int, *, gender_order: str = ""
+) -> str:
     if competition_sex in {"M", "L"}:
         return competition_sex
+    # IBU publishes the starting gender per race; it changes between events.
+    orders = {"M+W": ("M", "L"), "W+M": ("L", "M")}
+    if gender_order not in orders or leg not in {1, 2, 3, 4}:
+        raise IBUContractError(
+            f"cannot derive member sex for {kind} leg {leg}, GenderOrder={gender_order!r}"
+        )
+    first, second = orders[gender_order]
     if kind == "single_mixed_relay":
-        return "M" if leg % 2 else "L"
+        return first if leg % 2 else second
     if kind == "mixed_relay":
-        return "M" if leg <= 2 else "L"
+        return first if leg <= 2 else second
     raise IBUContractError(f"cannot derive member sex for {kind} leg {leg}")
 
 
@@ -342,7 +351,7 @@ def adapt_evidence(
                 if key in single_mixed_seen:
                     continue
                 single_mixed_seen.add(key)
-            sex = _sex_for_member(item["sex"], kind, leg)
+            sex = _sex_for_member(item["sex"], kind, leg, gender_order=item.get("gender_order", ""))
             identity, method = resolver.resolve(
                 ibu_id=ibu_id, official_name=str(row.get("Name", "")), sex=sex
             )

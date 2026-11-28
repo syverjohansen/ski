@@ -1,0 +1,42 @@
+name: Biathlon offline results tests
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/biathlon-offline-tests.yml"
+      - "elo/python/biathlon/polars/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: elo/python/biathlon/polars
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /elo/python/biathlon/polars/*.py
+            /elo/python/biathlon/polars/ibu_identity_aliases.csv
+            /elo/python/biathlon/polars/tests/fixtures/
+            /elo/python/biathlon/polars/excel365/men_scrape_update.csv
+            /elo/python/biathlon/polars/excel365/ladies_scrape_update.csv
+            /elo/python/biathlon/polars/excel365/races2026.csv
+      - uses: astral-sh/setup-uv@v6
+      - name: Test acquisition, identities, replay, and atomic promotion offline
+        run: >-
+          uv run --isolated --python 3.12
+          --with polars==0.20.31 --with pandas==2.2.3 --with numpy==2.1.1 --with pytest
+          python -m pytest -q
+          test_biathlon_official_adapter.py
+          test_biathlon_additive_result_adapter.py
+          test_biathlon_final_results_capture.py
+          test_biathlon_additive_promotion.py
+          test_biathlon_rating_chrono_candidate.py
+          test_biathlon_results_update.py
