@@ -198,10 +198,19 @@ def build_promotion_candidate(
     men_history: Path, ladies_history: Path, team_history: Path,
     team_sprint_history: Path,
     expected_season: int, output_dir: Path,
+    men_reference_history: Path | None = None,
+    ladies_reference_history: Path | None = None,
 ) -> dict[str, object]:
     replay_report = replay_report.expanduser().resolve()
     replay_dir = replay_report.parent
-    sources = [mapped_results, men_history, ladies_history, team_history, team_sprint_history]
+    sources = [
+        mapped_results, men_history, ladies_history, team_history, team_sprint_history,
+        *(
+            path
+            for path in (men_reference_history, ladies_reference_history)
+            if path is not None
+        ),
+    ]
     output_dir = _validate_location(output_dir, sources)
     report = _load_report(replay_report, expected_report_sha256)
     if report.get("season") != expected_season:
@@ -226,6 +235,8 @@ def build_promotion_candidate(
                 mapped_results=mapped_results, men_history=men_history,
                 ladies_history=ladies_history, team_history=team_history,
                 team_sprint_history=team_sprint_history,
+                men_reference_history=men_reference_history,
+                ladies_reference_history=ladies_reference_history,
                 season=expected_season, output_dir=fresh,
             )
         except ReplayError as exc:
@@ -282,6 +293,8 @@ def main() -> int:
     parser.add_argument("--mapped-results", required=True, type=Path)
     parser.add_argument("--men-history", required=True, type=Path)
     parser.add_argument("--ladies-history", required=True, type=Path)
+    parser.add_argument("--men-reference-history", type=Path)
+    parser.add_argument("--ladies-reference-history", type=Path)
     parser.add_argument(
         "--team-history", type=Path,
         default=Path("relay/excel365/men_team_chrono.csv"),
