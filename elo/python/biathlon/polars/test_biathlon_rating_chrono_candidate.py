@@ -235,6 +235,15 @@ def test_builds_policy_specific_additive_candidates(
     # is the only source available.
     (candidates / "men_results_candidate.csv").unlink()
     (candidates / "ladies_results_candidate.csv").unlink()
+    # An unrelated accepted chrono may retain prior archive semantics that
+    # differ from a fresh rebuild. A women's update must preserve men's bytes.
+    unchanged = {}
+    for policy, accepted in (("individual", individual), ("relay", relay)):
+        for name in ("men_chrono.csv", "men_chrono_elevation.csv"):
+            path = accepted / name
+            frame = pl.read_csv(path).with_columns(pl.lit(1456.0).alias("Elo"))
+            frame.write_csv(path)
+            unchanged[(policy, name)] = path.read_bytes()
     monkeypatch.setattr(candidate, "load_engine", lambda _: FakeEngine())
 
     report = candidate.build_candidates(
@@ -245,6 +254,9 @@ def test_builds_policy_specific_additive_candidates(
         output_dir=tmp_path / "output",
     )
 
+    for (policy, name), expected in unchanged.items():
+        family = "full_elevation_chronos" if "elevation" in name else "full_chronos"
+        assert (tmp_path / "output" / family / policy / name).read_bytes() == expected
     assert report["status"] == "passed"
     assert report["ready_for_promotion_bundle"] is True
     for policy in ("individual", "relay"):

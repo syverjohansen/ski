@@ -54,6 +54,7 @@ def run_update(
     aggregator_path: Path,
     output_root: Path,
     apply: bool,
+    as_of: date | None = None,
 ) -> dict[str, Any]:
     output_root = output_root.expanduser().resolve()
     if output_root.exists():
@@ -66,6 +67,7 @@ def run_update(
         "schema_version": REPORT_SCHEMA,
         "status": "running",
         "season_id": season_id,
+        "as_of": as_of.isoformat() if as_of else None,
         "stages": {},
         "application": {"status": "disabled", "performed": False},
         "publication": {"status": "disabled"},
@@ -78,6 +80,7 @@ def run_update(
             individual_dir=individual_dir,
             relay_dir=relay_dir,
             output_dir=staging / "gap",
+            as_of=as_of,
         )
         report["stages"]["gap_audit"] = gap["status"]
         schedule_missing = gap["summary"]["schedule_missing"]
@@ -214,6 +217,7 @@ def main() -> int:
             aggregator_path=args.aggregator_path,
             output_root=args.output_root,
             apply=args.apply,
+            as_of=day,
         )
     except (IBUContractError, ValueError) as error:
         print(json.dumps({"status": "failed", "error": str(error)}, indent=2))

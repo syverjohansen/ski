@@ -1,4 +1,5 @@
 import csv
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -51,6 +52,8 @@ class CrossCountryResultsIdentityTests(unittest.TestCase):
         self.assertEqual(aliases[("L", "3045109")].canonical_id, "10268")
         self.assertEqual(aliases[("L", "3486010")].canonical_id, "571")
         self.assertEqual(aliases[("L", "3105214")].canonical_id, "1676")
+        self.assertEqual(aliases[("M", "3270010")].canonical_id, "5553")
+        self.assertEqual(aliases[("L", "3426626")].canonical_id, "3207")
 
     def test_maps_unique_name_and_reviewed_alias(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -239,6 +242,8 @@ class CrossCountryResultsIdentityTests(unittest.TestCase):
                 output_dir=root / "output-newcomer",
             )
             self.assertEqual(report["match_methods"], {"newcomer_fis_identity": 1})
+            self.assertEqual(report["review_required"][0]["fis_code"], "3999999")
+            self.assertEqual(report["review_required"][0]["status"], "provisional_newcomer")
             with (root / "output-newcomer/mapped_results.csv").open(
                 newline="", encoding="utf-8"
             ) as handle:
@@ -262,6 +267,11 @@ class CrossCountryResultsIdentityTests(unittest.TestCase):
                     aliases_path=sources / "aliases.csv",
                     output_dir=root / "output-ambiguous",
                 )
+
+            evidence = json.loads((root / "output-ambiguous/report.json").read_text())
+            self.assertEqual(evidence["unresolved_rows"], 1)
+            self.assertEqual(evidence["review_required"][0]["fis_name"], "Same Name")
+            self.assertFalse((root / "output-ambiguous/mapped_results.csv").exists())
 
     def test_newcomer_nation_code_uses_accepted_history_name(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

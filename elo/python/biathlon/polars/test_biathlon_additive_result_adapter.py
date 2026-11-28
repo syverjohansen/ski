@@ -197,7 +197,7 @@ def test_official_biography_creates_deterministic_debut_identity(
         "FamilyName": "ROOKIE",
         "NAT": "FIN",
         "Birthdate": "2004-01-01T00:00:00",
-        "GenderId": "L",
+        "GenderId": "W",
     }
     bio_path = capture / "raw" / f"{ibu_id}-bio.json"
     bio_path.write_text(json.dumps(bio), encoding="utf-8")
