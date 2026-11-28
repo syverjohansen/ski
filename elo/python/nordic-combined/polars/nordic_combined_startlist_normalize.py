@@ -9,12 +9,18 @@ import hashlib
 import io
 import json
 import tempfile
+import unicodedata
 from collections import defaultdict
 from collections.abc import Iterable
 from datetime import date, datetime
 from pathlib import Path
 
-from nordic_combined_results_identity import load_aliases, load_athletes, normalized_name
+from nordic_combined_results_identity import (
+    Athlete,
+    load_aliases,
+    load_athletes,
+    normalized_name,
+)
 
 
 ELO_FIELDS = (
@@ -50,6 +56,14 @@ FILENAMES = {
 
 class StartlistNormalizationError(RuntimeError):
     """Raised when model-ready candidates cannot be trusted."""
+
+
+def _fis_transliteration_name(value: str) -> tuple[str, ...]:
+    value = value.casefold().replace("ß", "ss").replace("ø", "o")
+    value = value.replace("ae", "a").replace("oe", "o").replace("ue", "u")
+    value = unicodedata.normalize("NFKD", value)
+    value = "".join(character for character in value if not unicodedata.combining(character))
+    return normalized_name(value)
 
 
 def _read(path: Path) -> tuple[list[str], list[dict[str, str]]]:
@@ -147,6 +161,37 @@ def _rating_values(row: dict[str, str] | None, fallback: dict[str, float]) -> di
     }
 
 
+def _load_roster(
+    path: Path,
+    sex: str,
+    athletes: dict[tuple[str, str], Athlete],
+    index: dict[tuple[str, tuple[str, ...]], set[str]],
+    names: dict[tuple[str, str], set[str]],
+) -> dict[str, dict[str, str]]:
+    fields, rows = _read(path)
+    required = {"ID", "Skier", "Nation", *ELO_FIELDS}
+    if missing := sorted(required - set(fields)):
+        raise StartlistNormalizationError(f"{path} is missing roster fields: {missing}")
+    ratings: dict[str, dict[str, str]] = {}
+    for number, row in enumerate(rows, 2):
+        athlete_id = row["ID"].strip()
+        name = row["Skier"].strip()
+        nation = row["Nation"].strip()
+        if not athlete_id or not name:
+            raise StartlistNormalizationError(f"{path}:{number}: missing ID or Skier")
+        key = (sex, athlete_id)
+        existing = athletes.get(key)
+        if existing and (existing.name != name or existing.nation != nation):
+            names[key].add(name)
+            index[(sex, normalized_name(name))].add(athlete_id)
+        elif not existing:
+            athletes[key] = Athlete(sex, athlete_id, name, nation)
+            names[key].add(name)
+            index[(sex, normalized_name(name))].add(athlete_id)
+        ratings[athlete_id] = row
+    return ratings
+
+
 def _race_elo(values: dict[str, float], race_type: str) -> float:
     normalized = "".join(race_type.casefold().split())
     field = {
@@ -158,10 +203,20 @@ def _race_elo(values: dict[str, float], race_type: str) -> float:
 
 
 def _resolve(
-    rows: list[dict[str, str]], men_history: Path, ladies_history: Path, aliases_path: Path
-) -> tuple[list[dict[str, object]], list[dict[str, object]], dict[str, int]]:
+    rows: list[dict[str, str]], men_history: Path, ladies_history: Path,
+    men_roster: Path, ladies_roster: Path, aliases_path: Path,
+) -> tuple[
+    list[dict[str, object]], list[dict[str, object]], dict[str, int],
+    dict[str, dict[str, str]], dict[str, dict[str, str]],
+]:
     athletes, index, names = load_athletes(men_history, ladies_history)
+    men_roster_ratings = _load_roster(men_roster, "M", athletes, index, names)
+    ladies_roster_ratings = _load_roster(ladies_roster, "L", athletes, index, names)
     aliases = load_aliases(aliases_path, athletes, names)
+    transliterations: dict[tuple[str, tuple[str, ...]], set[str]] = defaultdict(set)
+    for (sex, athlete_id), athlete in athletes.items():
+        for name in names[(sex, athlete_id)] | {athlete.name}:
+            transliterations[(sex, _fis_transliteration_name(name))].add(athlete_id)
     mapped: list[dict[str, object]] = []
     unresolved: dict[str, dict[str, object]] = {}
     methods: dict[str, int] = defaultdict(int)
@@ -188,6 +243,17 @@ def _resolve(
             if len(candidates) == 1:
                 athlete = candidates[0]
                 method = "unique_normalized_name"
+            elif not candidates:
+                for sex in sexes:
+                    candidates.extend(
+                        athletes[(sex, athlete_id)]
+                        for athlete_id in transliterations.get(
+                            (sex, _fis_transliteration_name(row["name"])), set()
+                        )
+                    )
+                if len(candidates) == 1:
+                    athlete = candidates[0]
+                    method = "unique_fis_transliteration"
         if athlete is None:
             unresolved[fis_id] = {
                 "event_sex": event_sex, "fis_competitor_id": fis_id,
@@ -211,7 +277,10 @@ def _resolve(
             "canonical_name": athlete.name, "canonical_nation": athlete.nation,
             "canonical_sex": athlete.sex, "identity_match_method": method,
         })
-    return mapped, [unresolved[key] for key in sorted(unresolved)], dict(methods)
+    return (
+        mapped, [unresolved[key] for key in sorted(unresolved)], dict(methods),
+        men_roster_ratings, ladies_roster_ratings,
+    )
 
 
 def _category(row: dict[str, object]) -> str:
@@ -318,9 +387,13 @@ def _teams(
 
 def normalize_startlists(
     *, acquired_startlists: Path, acquisition_report: Path, men_history: Path,
-    ladies_history: Path, aliases_path: Path, logical_date: date, output_dir: Path,
+    ladies_history: Path, men_roster: Path, ladies_roster: Path,
+    aliases_path: Path, logical_date: date, output_dir: Path,
 ) -> dict[str, object]:
-    sources = (acquired_startlists, acquisition_report, men_history, ladies_history, aliases_path)
+    sources = (
+        acquired_startlists, acquisition_report, men_history, ladies_history,
+        men_roster, ladies_roster, aliases_path,
+    )
     output_dir = _validate_output(output_dir, sources)
     acquisition = json.loads(acquisition_report.read_text(encoding="utf-8"))
     if acquisition.get("schema_version") != "nordicnumbers.nordic-combined-startlist-acquisition/v1":
@@ -343,12 +416,18 @@ def normalize_startlists(
         raise StartlistNormalizationError(f"acquired startlists missing fields: {missing}")
     if not rows or any(row["logical_date"] != logical_date.isoformat() for row in rows):
         raise StartlistNormalizationError("acquired rows do not match logical date")
-    mapped, unresolved, methods = _resolve(rows, men_history, ladies_history, aliases_path)
+    mapped, unresolved, methods, men_roster_ratings, ladies_roster_ratings = _resolve(
+        rows, men_history, ladies_history, men_roster, ladies_roster, aliases_path
+    )
     mapped_fields = [*fields, "canonical_athlete_id", "canonical_name", "canonical_nation", "canonical_sex", "identity_match_method"]
     _atomic(output_dir / "mapped_startlists.csv", _csv(mapped, mapped_fields))
     _atomic(output_dir / "unresolved_identities.csv", _csv(unresolved, UNRESOLVED_FIELDS))
     men = _latest_ratings(men_history, logical_date)
     ladies = _latest_ratings(ladies_history, logical_date)
+    for athlete_id, rating in men_roster_ratings.items():
+        men.setdefault(athlete_id, rating)
+    for athlete_id, rating in ladies_roster_ratings.items():
+        ladies.setdefault(athlete_id, rating)
     outputs: dict[str, dict[str, object]] = {}
     if not unresolved:
         grouped: dict[str, list[dict[str, object]]] = defaultdict(list)
@@ -386,6 +465,8 @@ def main() -> int:
     parser.add_argument("--acquisition-report", required=True, type=Path)
     parser.add_argument("--men-history", required=True, type=Path)
     parser.add_argument("--ladies-history", required=True, type=Path)
+    parser.add_argument("--men-roster", required=True, type=Path)
+    parser.add_argument("--ladies-roster", required=True, type=Path)
     parser.add_argument("--aliases", required=True, type=Path)
     parser.add_argument("--logical-date", required=True, type=date.fromisoformat)
     parser.add_argument("--output-dir", required=True, type=Path)
@@ -394,6 +475,7 @@ def main() -> int:
     report = normalize_startlists(
         acquired_startlists=args.acquired_startlists, acquisition_report=args.acquisition_report,
         men_history=args.men_history, ladies_history=args.ladies_history,
+        men_roster=args.men_roster, ladies_roster=args.ladies_roster,
         aliases_path=args.aliases, logical_date=args.logical_date, output_dir=args.output_dir,
     )
     print(json.dumps(report, indent=2, sort_keys=True))
