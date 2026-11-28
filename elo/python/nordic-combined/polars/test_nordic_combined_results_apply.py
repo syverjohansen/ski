@@ -50,7 +50,9 @@ def prepare(root: Path) -> tuple[Path, Path]:
     existing = [
         {
             "Date": "2026-02-01", "Nation": "Norway", "Place": 1, "Sex": "M",
-            "TeamSize": 2, "MemberIDs": "1,2", "TeamMembers": "A,B",
+            # Accepted legacy evidence can be incomplete; it must be preserved
+            # exactly without weakening validation of newly added teams.
+            "TeamSize": 1, "MemberIDs": "1", "TeamMembers": "A",
         },
         {
             "Date": "2026-02-02", "Nation": "Austria", "Place": 1, "Sex": "Mixed",
@@ -118,7 +120,7 @@ def prepare_individual(root: Path) -> tuple[Path, Path]:
     team_rows = [
         {
             "Date": "2026-02-01", "Nation": "Norway", "Place": 1, "Sex": "M",
-            "TeamSize": 2, "MemberIDs": "1,2", "TeamMembers": "A,B",
+            "TeamSize": 1, "MemberIDs": "1", "TeamMembers": "A",
         },
         {
             "Date": "2026-02-02", "Nation": "Austria", "Place": 1, "Sex": "Mixed",

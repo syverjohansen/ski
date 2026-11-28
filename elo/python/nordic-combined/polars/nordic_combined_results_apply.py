@@ -99,10 +99,11 @@ def _validate_aggregate_candidate(
     path: Path, accepted_path: Path, expected_new_teams: int, event_sex: str
 ) -> None:
     rows = _aggregate_rows(path)
-    accepted_keys = {
-        (row["Date"], row["Nation"], row["Place"], row["Sex"])
+    accepted_by_key = {
+        (row["Date"], row["Nation"], row["Place"], row["Sex"]): row
         for row in _aggregate_rows(accepted_path)
     }
+    accepted_keys = set(accepted_by_key)
     candidate_keys = {(row["Date"], row["Nation"], row["Place"], row["Sex"]) for row in rows}
     if not accepted_keys.issubset(candidate_keys):
         raise PromotionError(f"{path.name} removes an accepted team")
@@ -118,6 +119,11 @@ def _validate_aggregate_candidate(
         names = _split(row["TeamMembers"])
         if key in seen:
             raise PromotionError(f"duplicate team {key}")
+        if key in accepted_by_key:
+            if row != accepted_by_key[key]:
+                raise PromotionError(f"{path.name} modifies accepted team {key}")
+            seen.add(key)
+            continue
         if (
             not row["TeamSize"].isdigit()
             or int(row["TeamSize"]) != len(members)
