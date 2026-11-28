@@ -250,6 +250,78 @@ def test_individual_replay_creates_race_zero_for_returning_athlete(tmp_path: Pat
     assert race_zero[0]["RaceType"] == "Offseason"
 
 
+def test_world_cup_debut_uses_prediction_history_identity_metadata_and_elo(
+    tmp_path: Path,
+) -> None:
+    mapped = tmp_path / "evidence/mapped.csv"
+    mapped.parent.mkdir()
+    write_individual(mapped)
+    mapped_fields, mapped_rows = _read(mapped)
+    debut = mapped_rows[0]
+    debut.update(
+        date="2026-11-27",
+        season="2027",
+        canonical_athlete_id="99999",
+        canonical_name="Debut Athlete",
+        canonical_nation="Germany",
+        name="ATHLETE Debut",
+        nation="GER",
+        place="1",
+    )
+    with mapped.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=mapped_fields)
+        writer.writeheader()
+        writer.writerow(debut)
+
+    history_fields, history_rows = _read(RELAY / "men_chrono.csv")
+    reference = dict(history_rows[0])
+    reference.update(
+        Date="2026-05-01",
+        Skier="Debut Athlete",
+        Nation="Germany",
+        ID="99999",
+        Season="2026",
+        Race="0",
+        Birthday="2005-02-02T00:00:00.000000",
+        Exp="8",
+        Pelo="1440.0",
+        Elo="1450.0",
+    )
+    reference_path = tmp_path / "reference/reference-men.csv"
+    reference_path.parent.mkdir()
+    with reference_path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=history_fields)
+        writer.writeheader()
+        writer.writerow(reference)
+
+    report = run_replay(
+        mapped_results=mapped,
+        men_history=RELAY / "men_chrono.csv",
+        ladies_history=RELAY / "ladies_chrono.csv",
+        team_history=RELAY / "men_team_chrono.csv",
+        team_sprint_history=RELAY / "team_sprint_chrono.csv",
+        men_reference_history=reference_path,
+        season=2027,
+        output_dir=tmp_path / "candidate",
+    )
+    assert report["inserted_member_rows"] == 1
+    _, men = _read(tmp_path / "candidate/candidate_men_chrono.csv")
+    inserted = [
+        row
+        for row in men
+        if row["Date"] == "2026-11-27" and row["ID"] == "99999"
+    ]
+    assert len(inserted) == 1
+    assert inserted[0]["Skier"] == "Debut Athlete"
+    assert float(inserted[0]["Pelo"]) == pytest.approx(1450.0)
+    race_zero = [
+        row
+        for row in men
+        if row["Season"] == "2027" and row["ID"] == "99999" and row["Race"] == "0"
+    ]
+    assert len(race_zero) == 1
+
+
 @pytest.mark.parametrize(
     ("event_kind", "aggregate_file", "team_size"),
     [

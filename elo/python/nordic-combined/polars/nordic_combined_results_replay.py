@@ -146,7 +146,8 @@ def _candidate_row(mapped: dict[str, str], metadata: dict[str, str], race: int) 
 
 
 def replay_history(
-    rows: list[dict[str, str]], mapped: list[dict[str, str]], *, season: int, fields: list[str]
+    rows: list[dict[str, str]], mapped: list[dict[str, str]], *, season: int,
+    fields: list[str], reference_rows: list[dict[str, str]] | None = None,
 ) -> tuple[list[dict[str, object]], float, int]:
     required = {"Date", "Sex", "RaceType", "Place", "ID", "Season", "Race", "Pelo", "Elo", "Exp"}
     if missing := sorted(required - set(fields)):
@@ -156,8 +157,8 @@ def replay_history(
     previous = [row for row in rows if int(row["Season"]) < season]
     current = [row for row in rows if int(row["Season"]) == season and row["Race"] != "0"]
     offseason = {row["ID"]: row for row in rows if int(row["Season"]) == season and row["Race"] == "0"}
-    if not current:
-        raise ReplayError(f"no accepted {sex} rows for season {season}")
+    if not current and not inserted:
+        return list(rows), 0.0, 0
     state: dict[str, float] = {}
     for row in previous:
         if row.get("Elo", "").strip():
@@ -174,6 +175,11 @@ def replay_history(
     k = season_k(rows, season, len(inserted))
     inserted_ids = {row["canonical_athlete_id"] for row in inserted}
     inserted_date = inserted[0]["date"] if inserted else ""
+    reference_rows = reference_rows or []
+    for athlete_id in inserted_ids - state.keys():
+        reference = _latest(reference_rows, athlete_id, inserted_date)
+        if reference is not None and reference.get("Elo", "").strip():
+            state[athlete_id] = float(reference["Elo"])
     rebuilt: list[dict[str, object]] = []
     changed = 0
     for race_number, (event_date, is_inserted, source_rows) in enumerate(event_specs, 1):
@@ -181,7 +187,7 @@ def replay_history(
         for source in source_rows:
             if is_inserted:
                 athlete_id = source["canonical_athlete_id"]
-                metadata = _latest(previous + current, athlete_id, event_date)
+                metadata = _latest(previous + current + reference_rows, athlete_id, event_date)
                 if metadata is None:
                     raise ReplayError(f"no canonical metadata for athlete {athlete_id}")
                 row = _candidate_row(source, metadata, race_number)
@@ -310,8 +316,17 @@ def _atomic_csv(path: Path, fields: list[str], rows: list[dict[str, object]]) ->
 def run_replay(
     *, mapped_results: Path, men_history: Path, ladies_history: Path,
     team_history: Path, team_sprint_history: Path, season: int, output_dir: Path,
+    men_reference_history: Path | None = None,
+    ladies_reference_history: Path | None = None,
 ) -> dict[str, object]:
-    sources = [mapped_results, men_history, ladies_history, team_history, team_sprint_history]
+    sources = [
+        mapped_results, men_history, ladies_history, team_history, team_sprint_history,
+        *(
+            path
+            for path in (men_reference_history, ladies_reference_history)
+            if path is not None
+        ),
+    ]
     before = {path: _sha(path) for path in sources}
     resolved = output_dir.resolve()
     if any(path.resolve().parent == resolved or path.resolve().parent in resolved.parents for path in sources):
@@ -321,10 +336,17 @@ def run_replay(
         raise ReplayError("mapped results are empty or unresolved")
     event = mapped_event(mapped, season)
     men_fields, men = _read(men_history); ladies_fields, ladies = _read(ladies_history)
+    men_reference = _read(men_reference_history)[1] if men_reference_history else []
+    ladies_reference = _read(ladies_reference_history)[1] if ladies_reference_history else []
     team_fields, teams = _read(team_history)
     sprint_fields, team_sprint = _read(team_sprint_history)
-    men_candidate, men_k, men_changed = replay_history(men, mapped, season=season, fields=men_fields)
-    ladies_candidate, ladies_k, ladies_changed = replay_history(ladies, mapped, season=season, fields=ladies_fields)
+    men_candidate, men_k, men_changed = replay_history(
+        men, mapped, season=season, fields=men_fields, reference_rows=men_reference
+    )
+    ladies_candidate, ladies_k, ladies_changed = replay_history(
+        ladies, mapped, season=season, fields=ladies_fields,
+        reference_rows=ladies_reference,
+    )
     team_candidate = (
         aggregate_team_event(
             teams, mapped, men_candidate, ladies_candidate,
@@ -390,6 +412,8 @@ def main() -> int:
     parser.add_argument("--mapped-results", required=True, type=Path)
     parser.add_argument("--men-history", required=True, type=Path)
     parser.add_argument("--ladies-history", required=True, type=Path)
+    parser.add_argument("--men-reference-history", type=Path)
+    parser.add_argument("--ladies-reference-history", type=Path)
     parser.add_argument(
         "--team-history", type=Path,
         default=Path("relay/excel365/men_team_chrono.csv"),

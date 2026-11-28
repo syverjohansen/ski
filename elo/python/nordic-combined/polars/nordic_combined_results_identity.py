@@ -50,13 +50,24 @@ def _read(path: Path) -> tuple[list[str], list[dict[str, str]]]:
 
 
 def load_athletes(
-    men_history: Path, ladies_history: Path
+    men_history: Path,
+    ladies_history: Path,
+    men_reference_history: Path | None = None,
+    ladies_reference_history: Path | None = None,
 ) -> tuple[dict[tuple[str, str], Athlete], dict[tuple[str, tuple[str, ...]], set[str]], dict[tuple[str, str], set[str]]]:
     athletes: dict[tuple[str, str], Athlete] = {}
     latest: dict[tuple[str, str], str] = {}
     index: dict[tuple[str, tuple[str, ...]], set[str]] = defaultdict(set)
     names: dict[tuple[str, str], set[str]] = defaultdict(set)
-    for sex, path in (("M", men_history), ("L", ladies_history)):
+    histories = [
+        ("M", men_reference_history),
+        ("L", ladies_reference_history),
+        ("M", men_history),
+        ("L", ladies_history),
+    ]
+    for sex, path in histories:
+        if path is None:
+            continue
         _, rows = _read(path)
         for number, row in enumerate(rows, 2):
             athlete_id = (row.get("ID") or "").strip()
@@ -151,8 +162,17 @@ def _csv(rows: list[dict[str, object]], fields: list[str] | tuple[str, ...]) -> 
 def map_identities(
     *, results: Path, men_history: Path, ladies_history: Path,
     aliases_path: Path, output_dir: Path,
+    men_reference_history: Path | None = None,
+    ladies_reference_history: Path | None = None,
 ) -> dict[str, object]:
-    sources = [results, men_history, ladies_history, aliases_path]
+    sources = [
+        results, men_history, ladies_history, aliases_path,
+        *(
+            path
+            for path in (men_reference_history, ladies_reference_history)
+            if path is not None
+        ),
+    ]
     resolved = output_dir.resolve()
     if any(source.resolve().parent in resolved.parents or source.resolve().parent == resolved for source in sources):
         raise IdentityError("identity output cannot be inside a source directory")
@@ -163,7 +183,12 @@ def map_identities(
     if not rows:
         raise IdentityError("results candidate is empty")
     validate_memberships(rows)
-    athletes, index, names = load_athletes(men_history, ladies_history)
+    athletes, index, names = load_athletes(
+        men_history,
+        ladies_history,
+        men_reference_history,
+        ladies_reference_history,
+    )
     aliases = load_aliases(aliases_path, athletes, names)
     mapped: list[dict[str, object]] = []
     identities: dict[str, dict[str, object]] = {}
@@ -237,10 +262,20 @@ def main() -> int:
     parser.add_argument("--results", required=True, type=Path)
     parser.add_argument("--men-history", required=True, type=Path)
     parser.add_argument("--ladies-history", required=True, type=Path)
+    parser.add_argument("--men-reference-history", type=Path)
+    parser.add_argument("--ladies-reference-history", type=Path)
     parser.add_argument("--aliases", required=True, type=Path)
     parser.add_argument("--output-dir", required=True, type=Path)
     args = parser.parse_args()
-    report = map_identities(results=args.results, men_history=args.men_history, ladies_history=args.ladies_history, aliases_path=args.aliases, output_dir=args.output_dir)
+    report = map_identities(
+        results=args.results,
+        men_history=args.men_history,
+        ladies_history=args.ladies_history,
+        men_reference_history=args.men_reference_history,
+        ladies_reference_history=args.ladies_reference_history,
+        aliases_path=args.aliases,
+        output_dir=args.output_dir,
+    )
     print(json.dumps(report, indent=2, sort_keys=True))
     return 2 if not report["replay_eligible"] else 0
 
