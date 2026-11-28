@@ -26,6 +26,82 @@ def write_csv(path: Path, fields: list[str], rows: list[dict[str, object]]) -> N
 
 
 class CrossCountryResultsEloReplayTests(unittest.TestCase):
+    def test_first_a_tier_start_uses_latest_lower_tier_prediction_elo(self) -> None:
+        data = HERE / "excel365"
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            sources = root / "sources"
+            sources.mkdir()
+            mapped = sources / "mapped.csv"
+            ledger = sources / "ledger.csv"
+            candidate = {
+                "date": "2026-11-27", "sex": "L", "season": 2027,
+                "race": 1, "city": "Ruka", "country": "Finland",
+                "distance": "10", "technique": "C", "mass_start": 0,
+                "championship": 0, "place": 1, "fis_competitor_id": 888,
+                "fis_code": 3550888, "canonical_athlete_id": 3550888,
+                "canonical_name": "New Athlete", "canonical_nation": "Sweden",
+            }
+            write_csv(mapped, list(candidate), [candidate])
+            prediction = {
+                "date": "2026-11-20", "season": 2027, "sex": "L",
+                "fis_race_id": 99, "prediction_athlete_id": "fis:888",
+                "fis_competitor_id": 888, "fis_code": 3550888,
+                **{stream: 1425 for stream in STREAMS},
+            }
+            write_csv(ledger, list(prediction), [prediction])
+
+            report = replay_results(
+                mapped_results=mapped,
+                men_chrono=data / "men_chrono.csv",
+                ladies_chrono=data / "ladies_chrono.csv",
+                prediction_ledger=ledger,
+                output_dir=root / "output",
+            )
+
+            self.assertEqual(
+                report["first_a_tier_seed_sources"],
+                {"fixed_anchor_prediction_elo": 1},
+            )
+            with (root / "output/ladies_elo_rows.csv").open(
+                newline="", encoding="utf-8"
+            ) as handle:
+                row = next(csv.DictReader(handle))
+            self.assertEqual(row["ID"], "3550888")
+            self.assertEqual(float(row["Pelo"]), 1425.0)
+            self.assertEqual(row["Exp"], "1")
+
+    def test_first_a_tier_start_without_evidence_uses_newcomer_prior(self) -> None:
+        data = HERE / "excel365"
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            sources = root / "sources"
+            sources.mkdir()
+            mapped = sources / "mapped.csv"
+            candidate = {
+                "date": "2026-11-27", "sex": "M", "season": 2027,
+                "race": 1, "city": "Ruka", "country": "Finland",
+                "distance": "10", "technique": "C", "mass_start": 0,
+                "championship": 0, "place": 1, "fis_competitor_id": 999,
+                "fis_code": 3500999, "canonical_athlete_id": 3500999,
+                "canonical_name": "True Newcomer", "canonical_nation": "Norway",
+            }
+            write_csv(mapped, list(candidate), [candidate])
+            report = replay_results(
+                mapped_results=mapped,
+                men_chrono=data / "men_chrono.csv",
+                ladies_chrono=data / "ladies_chrono.csv",
+                output_dir=root / "output",
+            )
+            self.assertEqual(
+                report["first_a_tier_seed_sources"], {"newcomer_prior": 1}
+            )
+            with (root / "output/men_elo_rows.csv").open(
+                newline="", encoding="utf-8"
+            ) as handle:
+                row = next(csv.DictReader(handle))
+            self.assertEqual(float(row["Pelo"]), 1300.0)
+
     def test_reference_history_seeds_first_individual_start(self) -> None:
         data = HERE / "excel365"
         relay = HERE / "relay/excel365"

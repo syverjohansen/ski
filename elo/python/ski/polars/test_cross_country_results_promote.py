@@ -196,6 +196,53 @@ class CrossCountryResultsPromoteTests(unittest.TestCase):
             self.assertEqual(rows[-1]["ID"], "2")
             self.assertEqual(rows[-1]["Pelo"], "1385.0")
 
+    def test_prediction_ledger_validates_first_a_tier_start(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            sources = root / "sources"
+            sources.mkdir()
+            source = sources / "source.csv"
+            increments = sources / "increments.csv"
+            mapped = sources / "mapped.csv"
+            ledger = sources / "ledger.csv"
+            write_csv(source, self.fields, [self.row()])
+            incoming = self.row(
+                ID=3550888, Skier="New Athlete", Nation="Sweden", Birthday="",
+                Date="2026-11-27", City="Ruka", Country="Finland",
+                Distance="10", Technique="C", Event="World Cup", Place=1,
+                Season=2027, Race=1, Exp=1,
+            )
+            incoming.update({stream: 1425.0 for stream in STREAMS})
+            incoming.update(
+                {previous: 1425.0 for previous in PREVIOUS_COLUMNS.values()}
+            )
+            write_csv(increments, self.fields, [incoming])
+            mapped_row = {
+                "date": "2026-11-27", "sex": "M", "season": 2027,
+                "race": 1, "canonical_athlete_id": 3550888,
+                "canonical_name": "New Athlete", "canonical_nation": "Sweden",
+                "fis_competitor_id": 888, "fis_code": 3550888,
+            }
+            write_csv(mapped, list(mapped_row), [mapped_row])
+            prediction = {
+                "date": "2026-11-20", "season": 2027, "sex": "M",
+                "fis_race_id": 99, "prediction_athlete_id": "fis:888",
+                "fis_competitor_id": 888, "fis_code": 3550888,
+                **{stream: 1425 for stream in STREAMS},
+            }
+            write_csv(ledger, list(prediction), [prediction])
+
+            report = build_candidate_history(
+                source=source,
+                increments=increments,
+                output=root / "candidate.csv",
+                sex="M",
+                expected_season=2027,
+                mapped_results=mapped,
+                prediction_ledger=ledger,
+            )
+            self.assertEqual(report["appended_rows"], 1)
+
     def test_rejects_out_of_order_candidate(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

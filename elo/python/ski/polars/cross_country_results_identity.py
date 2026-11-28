@@ -88,6 +88,34 @@ def _read_rows(path: Path) -> list[dict[str, str]]:
         return list(csv.DictReader(handle))
 
 
+def load_prediction_identities(
+    path: Path | None,
+) -> dict[tuple[str, str], tuple[str, str]]:
+    """Load stable FIS identities from the private lower-tier rating ledger."""
+    if path is None:
+        return {}
+    rows = _read_rows(path)
+    identities: dict[tuple[str, str], tuple[str, str]] = {}
+    for row_number, row in enumerate(rows, start=2):
+        sex = (row.get("sex") or "").strip()
+        competitor_id = (row.get("fis_competitor_id") or "").strip()
+        fis_code = (row.get("fis_code") or "").strip()
+        prediction_id = (row.get("prediction_athlete_id") or "").strip()
+        if (
+            sex not in {"M", "L"}
+            or not competitor_id
+            or not fis_code.isdigit()
+            or prediction_id != f"fis:{competitor_id}"
+        ):
+            raise IdentityError(f"{path}:{row_number}: invalid prediction identity")
+        key = (sex, competitor_id)
+        identity = (fis_code, prediction_id)
+        previous = identities.setdefault(key, identity)
+        if previous != identity:
+            raise IdentityError(f"{path}:{row_number}: prediction identity changed")
+    return identities
+
+
 def load_history(
     men_chrono: Path,
     ladies_chrono: Path,
@@ -209,10 +237,11 @@ def map_identities(
     output_dir: Path,
     men_reference_history: Path | None = None,
     ladies_reference_history: Path | None = None,
+    prediction_ledger: Path | None = None,
 ) -> dict[str, object]:
     references = tuple(
         path
-        for path in (men_reference_history, ladies_reference_history)
+        for path in (men_reference_history, ladies_reference_history, prediction_ledger)
         if path is not None
     )
     output_dir = _validate_output_dir(
@@ -234,6 +263,7 @@ def map_identities(
         ladies_reference_history,
     )
     aliases = load_aliases(aliases_path, athletes, names_by_id)
+    prediction_identities = load_prediction_identities(prediction_ledger)
     mapped_rows: list[dict[str, str]] = []
     identity_rows: dict[tuple[str, str], dict[str, str]] = {}
     method_counts: dict[str, int] = defaultdict(int)
@@ -250,30 +280,66 @@ def map_identities(
         if alias:
             canonical_id = alias.canonical_id
             method = "reviewed_alias"
+        elif (sex, fis_code) in athletes:
+            # Newcomers are assigned their stable numeric FIS code when they first
+            # enter accepted A-tier history. This makes later name changes harmless.
+            canonical_id = fis_code
+            method = "canonical_fis_code"
         else:
             candidate_ids = name_index.get((sex, normalized_name(fis_name)), set())
-            if len(candidate_ids) != 1:
-                state = "missing" if not candidate_ids else "ambiguous"
+            if len(candidate_ids) > 1:
                 raise IdentityError(
-                    f"{results}:{row_number}: {state} identity for "
+                    f"{results}:{row_number}: ambiguous identity for "
                     f"{sex}/{competitor_id} {fis_name!r}; candidates="
                     f"{sorted(candidate_ids)}"
                 )
-            canonical_id = next(iter(candidate_ids))
-            reviewed_codes = {
-                reviewed.fis_code
-                for reviewed in aliases.values()
-                if reviewed.sex == sex and reviewed.canonical_id == canonical_id
-            }
-            if reviewed_codes:
-                raise IdentityError(
-                    f"{results}:{row_number}: FIS code changed for reviewed athlete "
-                    f"{sex}/{canonical_id}; observed={fis_code}, "
-                    f"reviewed={sorted(reviewed_codes)}"
+            if candidate_ids:
+                canonical_id = next(iter(candidate_ids))
+                reviewed_codes = {
+                    reviewed.fis_code
+                    for reviewed in aliases.values()
+                    if reviewed.sex == sex and reviewed.canonical_id == canonical_id
+                }
+                if reviewed_codes:
+                    raise IdentityError(
+                        f"{results}:{row_number}: FIS code changed for reviewed athlete "
+                        f"{sex}/{canonical_id}; observed={fis_code}, "
+                        f"reviewed={sorted(reviewed_codes)}"
+                    )
+                method = "unique_normalized_name"
+            else:
+                if not fis_code.isdigit():
+                    raise IdentityError(
+                        f"{results}:{row_number}: newcomer has nonnumeric FIS code"
+                    )
+                collision = next(
+                    (
+                        existing
+                        for (existing_sex, existing_id), existing in athletes.items()
+                        if existing_sex == sex and existing_id == fis_code
+                    ),
+                    None,
                 )
-            method = "unique_normalized_name"
+                if collision is not None:
+                    raise IdentityError(
+                        f"{results}:{row_number}: FIS-code identity collides with "
+                        f"accepted athlete {sex}/{fis_code}"
+                    )
+                ledger_identity = prediction_identities.get((sex, competitor_id))
+                if ledger_identity is not None and ledger_identity[0] != fis_code:
+                    raise IdentityError(
+                        f"{results}:{row_number}: prediction FIS code changed"
+                    )
+                canonical_id = fis_code
+                method = (
+                    "prediction_ledger_fis_identity"
+                    if ledger_identity is not None
+                    else "newcomer_fis_identity"
+                )
 
-        canonical = athletes[(sex, canonical_id)]
+        canonical = athletes.get((sex, canonical_id)) or CanonicalAthlete(
+            canonical_id, fis_name, row["nation"].strip()
+        )
         mapped = {
             **row,
             "canonical_athlete_id": canonical.athlete_id,
@@ -335,6 +401,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--ladies-chrono", required=True, type=Path)
     parser.add_argument("--men-reference-history", type=Path)
     parser.add_argument("--ladies-reference-history", type=Path)
+    parser.add_argument("--prediction-ledger", type=Path)
     parser.add_argument("--aliases", required=True, type=Path)
     parser.add_argument("--output-dir", required=True, type=Path)
     return parser.parse_args()
@@ -350,6 +417,7 @@ def main() -> int:
         output_dir=args.output_dir,
         men_reference_history=args.men_reference_history,
         ladies_reference_history=args.ladies_reference_history,
+        prediction_ledger=args.prediction_ledger,
     )
     print(json.dumps(report, indent=2, sort_keys=True))
     return 0

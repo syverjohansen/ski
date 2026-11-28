@@ -16,7 +16,7 @@
     "unknown_vs_unknown": "ignored",
     "verified_anchor_updates": false,
     "anchor_free_event": "no_rating_update",
-    "first_a_tier_result": "Stop domestic prediction updates and use accepted official Elo for both actual and prediction Elo.",
+    "first_a_tier_result": "Seed the first accepted A-tier result from the latest strictly earlier fixed-anchor prediction state (or the 1300 newcomer prior when no evidence exists), then stop domestic prediction updates and use accepted official Elo for both actual and prediction Elo.",
     "as_of_required": true
   },
   "fis_prediction_sources": {

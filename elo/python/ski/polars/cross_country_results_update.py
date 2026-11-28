@@ -63,6 +63,7 @@ def build_results_update(
     fetcher: Callable[[str], bytes] | None = None,
     men_reference_history: Path | None = None,
     ladies_reference_history: Path | None = None,
+    prediction_ledger: Path | None = None,
 ) -> dict[str, object]:
     """Run the isolated results stages and return a promotion-ready report."""
     output_root = output_root.expanduser().resolve()
@@ -93,6 +94,7 @@ def build_results_update(
         output_dir=output_root / "identity",
         men_reference_history=men_reference_history,
         ladies_reference_history=ladies_reference_history,
+        prediction_ledger=prediction_ledger,
     )
     replay = replay_results(
         mapped_results=output_root / "identity/mapped_results.csv",
@@ -101,6 +103,7 @@ def build_results_update(
         output_dir=output_root / "replay",
         men_reference_history=men_reference_history,
         ladies_reference_history=ladies_reference_history,
+        prediction_ledger=prediction_ledger,
     )
     season = int(replay["season"])
     promotion = promote_results(
@@ -112,6 +115,8 @@ def build_results_update(
         output_dir=output_root / "promotion",
         men_reference_history=men_reference_history,
         ladies_reference_history=ladies_reference_history,
+        mapped_results=output_root / "identity/mapped_results.csv",
+        prediction_ledger=prediction_ledger,
     )
 
     promoted_audit = audit_results(
@@ -153,6 +158,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--ladies-chrono", required=True, type=Path)
     parser.add_argument("--men-reference-history", type=Path)
     parser.add_argument("--ladies-reference-history", type=Path)
+    parser.add_argument("--prediction-ledger", type=Path)
     parser.add_argument("--aliases", required=True, type=Path)
     parser.add_argument("--as-of", required=True, type=date.fromisoformat)
     parser.add_argument("--output-root", required=True, type=Path)
@@ -181,6 +187,7 @@ def main() -> int:
             output_root=args.output_root,
             men_reference_history=args.men_reference_history,
             ladies_reference_history=args.ladies_reference_history,
+            prediction_ledger=args.prediction_ledger,
         )
     except Exception as exc:
         _atomic_json(

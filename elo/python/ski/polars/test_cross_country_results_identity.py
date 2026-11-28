@@ -192,7 +192,7 @@ class CrossCountryResultsIdentityTests(unittest.TestCase):
             self.assertEqual(mapped["canonical_athlete_id"], "6304")
             self.assertEqual(mapped["canonical_name"], "Daryna Kovalova")
 
-    def test_fails_closed_for_unknown_or_ambiguous_athlete(self) -> None:
+    def test_newcomer_gets_stable_fis_identity_but_ambiguity_fails(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             sources = root / "sources"
@@ -223,31 +223,85 @@ class CrossCountryResultsIdentityTests(unittest.TestCase):
                 "canonical_name",
             ]
             write_csv(sources / "aliases.csv", alias_fields, [])
-            for athlete_name, expected in (
-                ("Unknown Athlete", "missing identity"),
-                ("Same Name", "ambiguous identity"),
-            ):
-                write_csv(
-                    sources / "results.csv",
-                    result_fields,
-                    [
-                        {
-                            "sex": "M",
-                            "fis_competitor_id": 9,
-                            "fis_code": 99,
-                            "name": athlete_name,
-                            "nation": "NOR",
-                        }
-                    ],
+            write_csv(
+                sources / "results.csv",
+                result_fields,
+                [{
+                    "sex": "M", "fis_competitor_id": 9,
+                    "fis_code": 3999999, "name": "Unknown Athlete", "nation": "NOR",
+                }],
+            )
+            report = map_identities(
+                results=sources / "results.csv",
+                men_chrono=sources / "men.csv",
+                ladies_chrono=sources / "ladies.csv",
+                aliases_path=sources / "aliases.csv",
+                output_dir=root / "output-newcomer",
+            )
+            self.assertEqual(report["match_methods"], {"newcomer_fis_identity": 1})
+            with (root / "output-newcomer/mapped_results.csv").open(
+                newline="", encoding="utf-8"
+            ) as handle:
+                newcomer = next(csv.DictReader(handle))
+            self.assertEqual(newcomer["canonical_athlete_id"], "3999999")
+
+            write_csv(
+                sources / "results.csv",
+                result_fields,
+                [{
+                    "sex": "M", "fis_competitor_id": 9,
+                    "fis_code": 3999999, "name": "Same Name", "nation": "NOR",
+                }],
+            )
+            with self.assertRaisesRegex(IdentityError, "ambiguous identity"):
+                map_identities(
+                    results=sources / "results.csv",
+                    men_chrono=sources / "men.csv",
+                    ladies_chrono=sources / "ladies.csv",
+                    aliases_path=sources / "aliases.csv",
+                    output_dir=root / "output-ambiguous",
                 )
-                with self.assertRaisesRegex(IdentityError, expected):
-                    map_identities(
-                        results=sources / "results.csv",
-                        men_chrono=sources / "men.csv",
-                        ladies_chrono=sources / "ladies.csv",
-                        aliases_path=sources / "aliases.csv",
-                        output_dir=root / f"output-{athlete_name.split()[0]}",
-                    )
+
+    def test_prediction_ledger_resolves_newcomer_by_fis_id_not_name(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            sources = root / "sources"
+            sources.mkdir()
+            fields = ["Date", "ID", "Skier", "Nation"]
+            write_csv(sources / "men.csv", fields, [])
+            write_csv(sources / "ladies.csv", fields, [])
+            write_csv(
+                sources / "results.csv",
+                ["date", "sex", "fis_competitor_id", "fis_code", "name", "nation"],
+                [{
+                    "date": "2026-11-27", "sex": "L", "fis_competitor_id": 888,
+                    "fis_code": 3550888, "name": "NEW SURNAME Athlete", "nation": "SWE",
+                }],
+            )
+            write_csv(
+                sources / "ledger.csv",
+                ["sex", "prediction_athlete_id", "fis_competitor_id", "fis_code"],
+                [{
+                    "sex": "L", "prediction_athlete_id": "fis:888",
+                    "fis_competitor_id": 888, "fis_code": 3550888,
+                }],
+            )
+            write_csv(
+                sources / "aliases.csv",
+                ["sex", "fis_competitor_id", "fis_code", "fis_name", "canonical_id", "canonical_name"],
+                [],
+            )
+            report = map_identities(
+                results=sources / "results.csv",
+                men_chrono=sources / "men.csv",
+                ladies_chrono=sources / "ladies.csv",
+                aliases_path=sources / "aliases.csv",
+                prediction_ledger=sources / "ledger.csv",
+                output_dir=root / "output",
+            )
+            self.assertEqual(
+                report["match_methods"], {"prediction_ledger_fis_identity": 1}
+            )
 
 
 if __name__ == "__main__":
