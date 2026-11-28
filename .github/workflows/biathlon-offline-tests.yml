@@ -28,6 +28,8 @@ jobs:
             /elo/python/biathlon/polars/excel365/men_scrape_update.csv
             /elo/python/biathlon/polars/excel365/ladies_scrape_update.csv
             /elo/python/biathlon/polars/excel365/races2026.csv
+            /elo/python/biathlon/polars/relay/excel365/men_scrape_update.csv
+            /elo/python/biathlon/polars/relay/excel365/ladies_scrape_update.csv
       - uses: astral-sh/setup-uv@v6
       - name: Test acquisition, identities, replay, and atomic promotion offline
         run: >-
