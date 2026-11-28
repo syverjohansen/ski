@@ -71,6 +71,8 @@ def prepared(tmp_path: Path, rows: list[dict[str, object]], *, omit_history_id: 
     ladies_rows = [history(i, f"ATHLETE {i}", "L", 1400 + i) for i in range(9, 17) if i != omit_history_id]
     men = write_csv(accepted / "men.csv", HISTORY_FIELDS, men_rows)
     ladies = write_csv(accepted / "ladies.csv", HISTORY_FIELDS, ladies_rows)
+    men_roster = write_csv(accepted / "men_roster.csv", HISTORY_FIELDS, men_rows)
+    ladies_roster = write_csv(accepted / "ladies_roster.csv", HISTORY_FIELDS, ladies_rows)
     aliases = write_csv(accepted / "aliases.csv", list(ALIAS_FIELDS), [])
     acquired = write_csv(tmp_path / "evidence/startlists.csv", STARTLIST_FIELDS, rows)
     report = {
@@ -84,6 +86,7 @@ def prepared(tmp_path: Path, rows: list[dict[str, object]], *, omit_history_id: 
     return {
         "acquired_startlists": acquired, "acquisition_report": report_path,
         "men_history": men, "ladies_history": ladies, "aliases_path": aliases,
+        "men_roster": men_roster, "ladies_roster": ladies_roster,
     }
 
 
@@ -132,6 +135,31 @@ def test_unknown_identity_blocks_without_writing_candidates(tmp_path: Path) -> N
     assert not (output / "candidates").exists()
 
 
+def test_roster_only_identity_uses_existing_id_and_ratings(tmp_path: Path) -> None:
+    inputs = prepared(tmp_path, [entrant(1, "M", "individual", 1)], omit_history_id=1)
+    roster_row = history(1, "ATHLETE 1", "M", 1450)
+    write_csv(inputs["men_roster"], HISTORY_FIELDS, [roster_row])
+    output = tmp_path / "normalized"
+    report = normalize_startlists(**inputs, logical_date=LOGICAL_DATE, output_dir=output)
+    assert report["status"] == "ready"
+    with (output / "candidates/startlist_races_men.csv").open(newline="") as handle:
+        candidates = list(csv.DictReader(handle))
+    assert candidates[0]["ID"] == "1"
+    assert candidates[0]["Elo"] == "1450.0"
+
+
+def test_roster_only_identity_accepts_unique_fis_transliteration(tmp_path: Path) -> None:
+    row = entrant(1, "M", "individual", 1)
+    row["name"] = "GRAEBERT Benedikt"
+    inputs = prepared(tmp_path, [row], omit_history_id=1)
+    roster_row = history(1, "Benedikt Grabert", "M", 1400)
+    write_csv(inputs["men_roster"], HISTORY_FIELDS, [roster_row])
+    output = tmp_path / "normalized"
+    report = normalize_startlists(**inputs, logical_date=LOGICAL_DATE, output_dir=output)
+    assert report["status"] == "ready"
+    assert report["match_methods"] == {"unique_fis_transliteration": 1}
+
+
 def test_future_ratings_are_not_used(tmp_path: Path) -> None:
     rows = [entrant(1, "M", "individual", 1), entrant(2, "M", "individual", 1)]
     inputs = prepared(tmp_path, rows)
@@ -175,4 +203,7 @@ def test_reviewed_aliases_cover_live_lahti_identity_drift() -> None:
         "182614": ("M", "1329", "Jens Lurås Oftebro"),
         "200998": ("M", "1217", "Einar Lurås Oftebro"),
         "255089": ("L", "176", "Lily Grossmann"),
+        "128597": ("M", "36", "Manuel Faißt"),
+        "193925": ("M", "1475", "Pascal Müller"),
+        "212920": ("M", "2344", "Eidar Johan Strøm"),
     }
