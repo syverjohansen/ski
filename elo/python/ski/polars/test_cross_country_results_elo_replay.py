@@ -16,6 +16,7 @@ from cross_country_results_elo_replay import (
 )
 
 HERE = Path(__file__).resolve().parent
+ISOLATED_TEST_RACE = 999_999
 
 
 def write_csv(path: Path, fields: list[str], rows: list[dict[str, object]]) -> None:
@@ -36,7 +37,7 @@ class CrossCountryResultsEloReplayTests(unittest.TestCase):
             ledger = sources / "ledger.csv"
             candidate = {
                 "date": "2026-11-27", "sex": "L", "season": 2027,
-                "race": 1, "city": "Ruka", "country": "Finland",
+                "race": ISOLATED_TEST_RACE, "city": "Ruka", "country": "Finland",
                 "distance": "10", "technique": "C", "mass_start": 0,
                 "championship": 0, "place": 1, "fis_competitor_id": 888,
                 "fis_code": 3550888, "canonical_athlete_id": 3550888,
@@ -80,7 +81,7 @@ class CrossCountryResultsEloReplayTests(unittest.TestCase):
             mapped = sources / "mapped.csv"
             candidate = {
                 "date": "2026-11-27", "sex": "M", "season": 2027,
-                "race": 1, "city": "Ruka", "country": "Finland",
+                "race": ISOLATED_TEST_RACE, "city": "Ruka", "country": "Finland",
                 "distance": "10", "technique": "C", "mass_start": 0,
                 "championship": 0, "place": 1, "fis_competitor_id": 999,
                 "fis_code": 3500999, "canonical_athlete_id": 3500999,
@@ -120,7 +121,7 @@ class CrossCountryResultsEloReplayTests(unittest.TestCase):
                 ],
                 [{
                     "date": "2026-11-27", "sex": "L", "season": 2027,
-                    "race": 1, "city": "Ruka", "country": "Finland",
+                    "race": ISOLATED_TEST_RACE, "city": "Ruka", "country": "Finland",
                     "distance": "10", "technique": "C", "mass_start": 0,
                     "championship": 0, "place": 1,
                     "canonical_athlete_id": 6304,
